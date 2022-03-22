@@ -1,4 +1,8 @@
-# enraiged
+# Enraiged Laravel
+
+- Laravel 9
+- Vue 3, Inertia.js, Inertia Laravel
+- PrimeVUE, PrimeIcons, PrimeFlex
 
 ## Install Application
 
@@ -65,6 +69,8 @@ And when that finishes:
 ```bash
 yarn dev
 ```
+
+> **Note:** I was getting npm complaints about mismatched binaries; Executed: `npm config set scripts-prepend-node-path auto`
 
 ## Serve the application
 

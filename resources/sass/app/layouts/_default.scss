@@ -1,0 +1,205 @@
+
+&.default {
+    .auth.panel {
+      min-height:       calc(100vh - $app-block-size);
+      right:            0;
+      top:              $app-block-size;
+      transition:       width $menu-transition;
+      width:            0;
+    }
+
+    &.auth-open {
+        .auth.panel {
+          max-width:        $auth-panel-size;
+          width:            $auth-panel-size;
+        }
+    }
+
+    .main.menu >.footer,
+    .main.menu >.header,
+    .main.page >.nav.top {
+      height:           $app-block-size;
+    }
+
+    .main.menu {
+      display:          flex;
+      flex-direction:   column;
+      padding-bottom:   $app-block-size;
+      transition:       all $menu-transition;
+      width:            0;
+
+        >* {
+          display:          none;
+          overflow:         hidden;
+          width:            inherit;
+        }
+
+        >.footer {
+          bottom:           0;
+          height:           $app-block-size;
+          position:         fixed;
+
+            .block, .inline {
+              align-items:      center;
+              display:          flex !important;
+              justify-content:  center;
+
+                >.pi {
+                  font-size:        1.5rem;
+                }
+            }
+
+            .block {
+              flex-grow:        1;
+            }
+
+            .inline {
+              width:            $app-block-size;
+            }
+        }
+
+        >.header {
+          align-items:      center;
+          justify-content:  center;
+
+            .branding {
+              align-items:      center;
+              display:          flex;
+
+                .icon, .text {
+                  font-size:        1.25rem;
+                  margin:           0;
+                }
+
+                .icon img {
+                  max-height:       40px;
+                }
+
+                .text {
+                  text-indent:      .5rem;
+                }
+            }
+        }
+
+        .options {
+          list-style-type:  none;
+          margin:           0;
+          padding:          0;
+
+            .each {
+              padding:          .5rem 1rem;
+
+                .option {
+                  align-items:      center;
+                  display:          flex;
+                  height:           1.5rem;
+
+                    .icon {
+                      width:            1.25rem;
+                    }
+
+                    .text {
+                      flex-grow:        1;
+                      line-height:      2rem;
+                      text-indent:      .5rem;
+                      width:            0;
+                    }
+                }
+            }
+        }
+
+        >.options {
+            >.each {
+                >.option {
+                  height:           2rem;
+
+                    .icon {
+                      text-align:       center;
+                      width:            2rem;
+                    }
+
+                    .icon .pi, .text {
+                      font-size:        1.125rem; 
+                    }
+
+                    .icon, .text {
+                      align-self:       center;
+                    }
+                }
+            }
+        }
+    }
+
+    &.menu-open {
+        .main.menu {
+          width:            $menu-size;
+          
+            >.footer,
+            >.header {
+              display:          flex;
+              width:            inherit;
+            }
+
+            .options {
+              display:          block;
+            }
+        }
+    }
+
+    .main.page {
+      margin-left:      0;
+      transition:       all $menu-transition;
+
+        .main.content {
+          min-height:       calc(100vh - $app-block-size);
+        }
+
+        @import 'nav/top';
+    }
+
+    @media screen and (min-width: $breakpoint-medium) {
+        &.menu-closed {
+            .main.menu {
+              width:            $app-block-size;
+              
+                .header {
+                    .branding .text {
+                      display:          none;
+                    }
+                }
+
+                .options .each .text {
+                  display:          none;
+                }
+            }
+
+            .main.page {
+              margin-left:      $app-block-size;
+            }
+        }
+
+        &.menu-open .main.menu, .main.menu {
+          width:            $menu-size;
+        }
+
+        &.menu-open .main.page, .main.page {
+          margin-left:      $menu-size;
+        }
+
+        .main.menu {
+            >.footer {
+              display:          none !important;
+            }
+            >.header {
+              display:          flex;
+
+                .branding .text {
+                  display:          block;
+                }
+            }
+            >.options {
+              display:          block;
+            }
+        }
+    }
+}

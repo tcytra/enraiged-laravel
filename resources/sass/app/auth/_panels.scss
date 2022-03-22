@@ -1,0 +1,25 @@
+
+.panel {
+    &.login {}
+
+    .footer {
+      display:          flex;
+      justify-content:  center;
+
+        .container {
+          margin:           1rem;
+          max-width:        calc($breakpoint-extra-small + 1px);
+          width:            100%;
+        }
+    }
+
+    .header {
+      border-top-left-radius: .375rem;
+      border-top-right-radius: .375rem;
+
+        h1 {
+          margin:           0;
+          padding:          1rem;
+        }
+    }
+}

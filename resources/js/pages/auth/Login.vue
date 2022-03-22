@@ -1,61 +1,67 @@
 <template>
     <Head title="Login" />
-    <div class="flex items-center justify-center p-6 min-h-screen bg-indigo-800">
-        <div class="w-full max-w-md">
-            <form class="mt-8 bg-white rounded-lg shadow-xl overflow-hidden" @submit.prevent="login">
-                <div class="px-10 py-12">
-                    <h1 class="text-center text-3xl font-bold">
-                        <logo class="fill-white" width="120" height="28" />
-                    </h1>
-                    <div class="mt-6 mx-auto w-24 border-b-2" />
-                    <text-input class="mt-10" label="Email" type="email" autofocus autocapitalize="off"
-                        v-bind:error="form.errors.email"
-                        v-model="form.email" />
-                    <text-input class="mt-6" label="Password" type="password"
-                        v-bind:error="form.errors.password"
-                        v-model="form.password" />
-                    <label class="flex items-center mt-6 select-none" for="remember">
-                        <input id="remember" v-model="form.remember" class="mr-1" type="checkbox" />
-                        <span class="text-sm">Remember Me</span>
-                    </label>
+    <div class="auth container bg-bluegray-800">
+        <div class="login panel bg-white">
+            <header class="header text-center bg-bluegray-100 border-bluegray-200 border-bottom-1">
+                <h1>Account Login</h1>
+            </header>
+            <form class="form" @submit.prevent="submit">
+                <div class="field control text">
+                    <InputText v-model="form.email" type="text" placeholder="Email Address" class="p-inputtext-lg" />
                 </div>
-                <div class="flex px-10 py-4 bg-gray-100 border-t border-gray-100">
-                    <loading-button class="btn-indigo ml-auto" type="submit"
-                        v-bind:loading="form.processing">
-                        Login
-                    </loading-button>
+                <div class="field control text">
+                    <Password v-model="form.password" placeholder="Account Password" class="p-inputtext-lg" toggle-mask />
+                </div>
+                <div class="field control switch">
+                    <label for="form_remember">Remember Me</label>
+                    <InputSwitch id="form_remember" v-model="form.remember" />
                 </div>
             </form>
+            <footer class="footer border-bluegray-200 border-top-1">
+                <div class="submit container text-right">
+                    <Button label="Submit" class="p-button-secondary" @click="submit" />
+                </div>
+            </footer>
         </div>
+        <!--
+        <main class="main">
+            <section class="content">
+                content
+            </section>
+        </main>
+        -->
     </div>
 </template>
 
 <script>
+import { reactive } from 'vue';
 import { Head } from '@inertiajs/inertia-vue3';
-import Logo from '@/components/ui/Logo.vue';
-import TextInput from '@/components/forms/fields/TextInput';
-import LoadingButton from '@/components/forms/buttons/LoadingButton';
+import { Inertia } from '@inertiajs/inertia';
+import Button from 'primevue/button';
+import InputSwitch from 'primevue/inputswitch';
+import InputText from 'primevue/inputtext';
+import Password from 'primevue/password';
 
 export default {
     components: {
         Head,
-        LoadingButton,
-        Logo,
-        TextInput,
+        Button,
+        InputSwitch,
+        InputText,
+        Password,
     },
-    data() {
-        return {
-            form: this.$inertia.form({
-                email: 'tyler.wood@enraiged.dev',
-                password: 'letmein!',
-                remember: false,
-            }),
+    setup () {
+        const form = reactive({
+            email: 'tyler.wood@enraiged.dev',
+            password: 'letmein!',
+            remember: false,
+        });
+
+        function submit() {
+            Inertia.post('/login', form)
         }
-    },
-    methods: {
-        login() {
-            this.form.post('/login')
-        },
+
+        return { form, submit };
     },
 };
 </script>

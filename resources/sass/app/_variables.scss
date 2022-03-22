@@ -1,0 +1,20 @@
+
+//  define the block sizing
+$app-rem-size:      16px;
+$app-block-size:    $app-rem-size * 4;
+
+//  define the breakpoints
+//  todo: it might be possible to access these sizes from primeflex? not sure..
+$breakpoint-extra-large: $app-rem-size * 74; // 1184px
+$breakpoint-extra-small: $app-rem-size * 26; // 416px
+$breakpoint-large:  $app-rem-size * 62; // 992px
+$breakpoint-medium: $app-rem-size * 48; // 768px
+$breakpoint-small:  $app-rem-size * 36; // 576px
+
+//  define the menu parameters
+$auth-panel-size:       $app-block-size * 4;
+$auth-transition:       .35s cubic-bezier(0,.875,1,.975);
+
+$menu-size:             $app-block-size * 5;
+$menu-transition:       .35s cubic-bezier(0,.875,1,.975);
+// $menu-transition:       .25s cubic-bezier(0,1.5,1,1.5); // this is fun

@@ -1,18 +1,18 @@
 <template>
     <div :class="$attrs.class">
-      <label v-if="label" class="form-label" :for="id">
-          {{ label }}:
-      </label>
-      <input class="form-input" ref="input"
-          v-bind="{ ...$attrs, class: null }"
-          :class="{ error: error }"
-          :id="id"
-          :type="type"
-          :value="modelValue"
-          @input="$emit('update:modelValue', $event.target.value)" />
-      <div class="form-error" v-if="error">
-          {{ error }}
-      </div>
+        <label v-if="label" class="form-label" :for="id">
+            {{ label }}:
+        </label>
+        <input class="form-input" ref="input"
+            v-bind="{ ...$attrs, class: null }"
+            :class="{ error: error }"
+            :id="id"
+            :type="type"
+            :value="modelValue"
+            @input="$emit('update:modelValue', $event.target.value)" />
+        <div class="form-error" v-if="error">
+            {{ error }}
+        </div>
     </div>
 </template>
 

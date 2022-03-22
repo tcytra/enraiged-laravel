@@ -1,0 +1,32 @@
+
+//  import the prime vendor resources
+@import '~primevue/resources/themes/saga-blue/theme.css';
+@import '~primevue/resources/primevue.min.css';
+@import '~primeflex/primeflex.scss';
+@import '~primeicons/primeicons.css';
+
+//  import the local app globals
+@import 'app/spacing';
+@import 'app/variables';
+
+//  import the application systems
+#app {
+    @import 'app/auth';
+    @import 'app/layouts';
+}
+
+//  set the default body styles
+body {
+  font-family:      'helvetica', sans-serif;
+  font-size:        $app-rem-size;
+  margin:           0;
+  padding:          0;
+}
+
+dl,h1,h2,h3,h4,h5,h6,ol,p,ul {
+  margin:           0;
+}
+
+p.text {
+  margin:           1rem;
+}

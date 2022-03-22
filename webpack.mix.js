@@ -1,7 +1,5 @@
 const process = require('process')
 const mix = require('laravel-mix')
-const cssImport = require('postcss-import')
-const cssNesting = require('postcss-nesting')
 const webpackConfig = require('./webpack.config')
 
 /*
@@ -16,15 +14,11 @@ const webpackConfig = require('./webpack.config')
  */
 
 mix
+    .copy('resources/images', 'public/images')
     .js('resources/js/app.js', 'public/js')
+    .sass('resources/sass/app.scss', 'public/css')
     .vue({ runtimeOnly: (process.env.NODE_ENV || 'production') === 'production' })
     .webpackConfig(webpackConfig)
-    .postCss('resources/css/app.css', 'public/css', [
-        // prettier-ignore
-        cssImport(),
-        cssNesting(),
-        require('tailwindcss'),
-    ])
     .babelConfig({
         plugins: ['@babel/plugin-syntax-dynamic-import']
     })

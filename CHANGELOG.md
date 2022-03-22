@@ -1,5 +1,18 @@
 # Release Notes
 
+2022-03-22 : 0.0.2
+Update: Replaced vendor provided postcss,tailwindcss with sass,primevue
+
+This includes updates to the package.json, yarn.lock, webpack.mix.js.
+The initial ui/ux for the Login and Dashboard page components are
+completed, including the Default layout component.
+
+References:
+https://primefaces.org/primevue/
+https://www.primefaces.org/primeflex/
+
+--
+
 2022-03-20 : 0.0.1
 Update: Manually added initial inertiajs package from pingcrm example
 

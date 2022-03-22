@@ -10,6 +10,9 @@
     @inertiaHead
 </head>
 <body>
-@inertia
+    <noscript>
+        <strong>This application requires that JavaScript be enabled in your configuration.</strong>
+    </noscript>
+    @inertia
 </body>
 </html>

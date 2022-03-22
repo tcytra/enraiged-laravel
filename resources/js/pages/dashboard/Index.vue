@@ -1,21 +1,23 @@
 <template>
-    <div>
+    <main class="main content">
         <Head title="Dashboard" />
-        <h1 class="mb-8 text-3xl font-bold">Dashboard</h1>
-        <p class="mb-8 leading-normal">
-            This document is ready for content.
-        </p>
-    </div>
+        <header>
+            <h1 class="p-3">Dashboard</h1>
+        </header>
+        <article>
+            <p class="text m-3">This document is ready for content.</p>
+        </article>
+    </main>
 </template>
 
 <script>
 import { Head } from '@inertiajs/inertia-vue3';
-import Layout from '@/layouts/Default.vue';
+import DefaultLayout from '@/layouts/Default.vue';
 
 export default {
     components: {
         Head,
     },
-    layout: Layout,
+    layout: DefaultLayout,
 };
 </script>

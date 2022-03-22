@@ -1,0 +1,58 @@
+
+.absolute { position: absolute; }
+.relative { position: relative; }
+.hidden   { display: none; }
+
+.inherit-dimensions {
+  height:           inherit;
+  width:            inherit;
+}
+.inherit-height {
+  height:           inherit;
+}
+.inherit-width {
+  width:            inherit;
+}
+
+.inherit-max-dimensions {
+  max-height:       inherit;
+  max-width:        inherit;
+}
+.inherit-max-height {
+  max-height:       inherit;
+}
+.inherit-max-width {
+  max-width:        inherit;
+}
+
+.inherit-min-dimensions {
+  min-height:       inherit;
+  min-width:        inherit;
+}
+.inherit-min-height {
+  min-height:       inherit;
+}
+.inherit-min-width {
+  min-width:        inherit;
+}
+
+.height-full {
+  height:           100%;
+}
+.width-full {
+  width:            100%;
+}
+
+.height-half {
+  height:           50%;
+}
+.width-half {
+  width:            50%;
+}
+
+.max-height-half {
+  max-height:       50%;
+}
+.max-width-half {
+  max-width:        50%;
+}

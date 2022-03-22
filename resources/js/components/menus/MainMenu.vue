@@ -1,45 +1,61 @@
 <template>
-    <div>
-        <div class="mb-4">
-            <Link class="group flex items-center py-3" href="/">
-                <icon name="dashboard" class="mr-2 w-4 h-4" :class="isUrl('') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
-                <div :class="isUrl('') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Dashboard</div>
-            </Link>
-        </div>
-        <!--
-        <div class="mb-4">
-            <Link class="group flex items-center py-3" href="/organizations">
-                <icon name="office" class="mr-2 w-4 h-4" :class="isUrl('organizations') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
-                <div :class="isUrl('organizations') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Organizations</div>
-            </Link>
-        </div>
-        <div class="mb-4">
-            <Link class="group flex items-center py-3" href="/contacts">
-                <icon name="users" class="mr-2 w-4 h-4" :class="isUrl('contacts') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
-                <div :class="isUrl('contacts') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Contacts</div>
-            </Link>
-        </div>
-        <div class="mb-4">
-            <Link class="group flex items-center py-3" href="/reports">
-                <icon name="printer" class="mr-2 w-4 h-4" :class="isUrl('reports') ? 'fill-white' : 'fill-indigo-400 group-hover:fill-white'" />
-                <div :class="isUrl('reports') ? 'text-white' : 'text-indigo-300 group-hover:text-white'">Reports</div>
-            </Link>
-        </div>
-        -->
-    </div>
+    <nav class="bg-bluegray-800 text-50" refs="nav">
+        <header class="header">
+            <dl class="branding">
+                <dt class="icon">
+                    <i class="pi pi-circle" style="color:orange;font-size:1.25rem;line-height:1.75rem;"></i>
+                </dt>
+                <dd class="text">enraiged-laravel</dd>
+            </dl>
+        </header>
+        <ul class="options">
+            <li class="each cursor-pointer" @click="get('/')"
+                :class="match('') ? 'bg-bluegray-700' : 'hover:bg-bluegray-600'">
+                <dl class="option">
+                    <dt class="icon">
+                        <i class="pi pi-home"></i>
+                    </dt>
+                    <dl class="text">
+                        Dashboard
+                    </dl>
+                </dl>
+            </li>
+            <!--
+            <li class="each cursor-pointer hover:bg-bluegray-600" @click="get('/users')">
+                <dl class="option">
+                    <dt class="icon">
+                        <i class="pi pi-users"></i>
+                    </dt>
+                    <dl class="text">
+                        Manage Users
+                    </dl>
+                </dl>
+            </li>
+            -->
+        </ul>
+        <footer class="footer">
+            <div class="block cursor-pointer hover:bg-bluegray-600" @click="$emit('toggle-menu')" refs="navToggle">
+                <i class="pi pi-bars"></i>
+            </div>
+        </footer>
+    </nav>
 </template>
 
 <script>
 import { Link } from '@inertiajs/inertia-vue3';
-import Icon from '@/components/ui/Icon';
 
 export default {
     components: {
-        Icon,
         Link,
     },
+    props: {
+        menuOpen: Boolean,
+    },
     methods: {
-        isUrl(...urls) {
+        get(url) {
+            this.$inertia.get(url);
+        },
+        match(...urls) {
             let currentUrl = this.$page.url.substr(1)
             if (urls[0] === '') {
                 return currentUrl === ''
