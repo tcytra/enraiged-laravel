@@ -1,20 +1,30 @@
 
-//  define the block sizing
+//  define the app sizing blocks
 $app-rem-size:      16px;
 $app-block-size:    $app-rem-size * 4;
 
+
 //  define the breakpoints
 //  todo: it might be possible to access these sizes from primeflex? not sure..
-$breakpoint-extra-large: $app-rem-size * 74; // 1184px
-$breakpoint-extra-small: $app-rem-size * 26; // 416px
-$breakpoint-large:  $app-rem-size * 62; // 992px
-$breakpoint-medium: $app-rem-size * 48; // 768px
-$breakpoint-small:  $app-rem-size * 36; // 576px
+$break-large:       992px;
+$break-medium:      768px;
+$break-small:       576px;
+$break-x-large:     1184px;
+$break-x-small:     416px;
 
-//  define the menu parameters
-$auth-panel-size:       $app-block-size * 4;
-$auth-transition:       .35s cubic-bezier(0,.875,1,.975);
 
-$menu-size:             $app-block-size * 5;
-$menu-transition:       .35s cubic-bezier(0,.875,1,.975);
-// $menu-transition:       .25s cubic-bezier(0,1.5,1,1.5); // this is fun
+//  define the colours
+$background-color:  var(--bg-color);
+$color:             var(--text-color);
+$color-primary:     var(--bluegray-600);
+$color-secondary:	var(--green-600);
+
+$color-success:     $color-secondary;
+$color-danger:      var(--red-600);
+$color-info:        var(--blue-600);
+$color-warning:     var(--orange-600);
+
+
+//  define the fonts
+$font-family-primary:   'Helvetica Neue', 'Helvetica', sans-serif;
+$font-family-secondary: 'Helvetica Light', $font-family-primary;

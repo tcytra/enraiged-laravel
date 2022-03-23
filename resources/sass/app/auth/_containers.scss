@@ -13,12 +13,12 @@
     >.panel {
       border-radius:    .375rem;
       flex-grow:        1;
-      max-width:        calc($breakpoint-medium + 1px);
+      max-width:        calc($break-medium + 1px);
       margin:           1rem;
       width:            100%;
     }
 }
 
-/* @media screen and (min-width: $breakpoint-medium) {
+/* @media screen and (min-width: $break-medium) {
     .auth.container .panel {}
 } */

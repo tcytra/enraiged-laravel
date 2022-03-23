@@ -1,4 +1,13 @@
 
+//  define the menu sizing parameters
+$menu-panel-size:       $app-block-size * 5;
+$menu-transition:       .35s cubic-bezier(0,.875,1,.975);
+// $menu-transition:       .25s cubic-bezier(0,1.5,1,1.5); // this is fun
+
+//  define the auth sizing parameters
+$auth-panel-size:       $app-block-size * 4;
+$auth-transition:       $menu-transition;
+
 &.default {
     .auth.panel {
       min-height:       calc(100vh - $app-block-size);
@@ -72,7 +81,7 @@
                 }
 
                 .icon img {
-                  max-height:       40px;
+                  max-height:       2.5rem;
                 }
 
                 .text {
@@ -100,6 +109,8 @@
 
                     .text {
                       flex-grow:        1;
+                      font-family:      'Open Sans', $font-family-secondary;
+                      font-weight:      100;
                       line-height:      2rem;
                       text-indent:      .5rem;
                       width:            0;
@@ -116,10 +127,14 @@
                     .icon {
                       text-align:       center;
                       width:            2rem;
+                        .pi {
+                          font-size:        1.125rem;
+                        }
                     }
 
-                    .icon .pi, .text {
-                      font-size:        1.125rem; 
+                    .text {
+                      align-self:       center;
+                      font-size:        1.175rem;
                     }
 
                     .icon, .text {
@@ -132,7 +147,7 @@
 
     &.menu-open {
         .main.menu {
-          width:            $menu-size;
+          width:            $menu-panel-size;
           
             >.footer,
             >.header {
@@ -157,7 +172,7 @@
         @import 'nav/top';
     }
 
-    @media screen and (min-width: $breakpoint-medium) {
+    @media screen and (min-width: $break-medium) {
         &.menu-closed {
             .main.menu {
               width:            $app-block-size;
@@ -179,11 +194,11 @@
         }
 
         &.menu-open .main.menu, .main.menu {
-          width:            $menu-size;
+          width:            $menu-panel-size;
         }
 
         &.menu-open .main.page, .main.page {
-          margin-left:      $menu-size;
+          margin-left:      $menu-panel-size;
         }
 
         .main.menu {

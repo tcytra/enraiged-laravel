@@ -23102,11 +23102,155 @@
   max-width: 50%;
 }
 
+@font-face {
+  font-family: "AuraNext";
+  src: url("/fonts/aura-next/Aura-Next-Regular.ttf") format("truetype");
+  font-weight: 300;
+}
+@font-face {
+  font-family: "AuraNext";
+  src: url("/fonts/aura-next/Aura-Next-Regular.ttf") format("truetype");
+  font-weight: 500;
+}
+/* load the HelveticaNeue font collection */
+@font-face {
+  font-family: "Helvetica Light";
+  src: url("/fonts/Helvetica-Light.ttf") format("truetype");
+  font-weight: 100;
+}
+/* load the HelveticaNeue font collection */
+@font-face {
+  font-family: "Helvetica Neue";
+  src: url("/fonts/helvetica-neue/HelveticaNeueLTStd-Lt.otf") format("opentype");
+  font-weight: 100;
+}
+@font-face {
+  font-family: "Helvetica Neue";
+  src: url("/fonts/helvetica-neue/HelveticaNeueLTStd-It.otf") format("opentype");
+  font-weight: 100;
+  font-style: italic;
+}
+@font-face {
+  font-family: "Helvetica Neue";
+  src: url("/fonts/helvetica-neue/HelveticaNeueLTStd-Cn.otf") format("opentype");
+  font-weight: 400;
+}
+@font-face {
+  font-family: "Helvetica Neue";
+  src: url("/fonts/helvetica-neue/HelveticaNeueLTStd-BdCn.otf") format("opentype");
+  font-weight: 600;
+}
+@font-face {
+  font-family: "Helvetica Neue";
+  src: url("/fonts/helvetica-neue/HelveticaNeueLTStd-LtCn.otf") format("opentype");
+  font-weight: 100;
+  font-weight: 600;
+}
+/* load the opensans font collection */
+@font-face {
+  font-family: "Open Sans";
+  src: url("/fonts/open-sans/OpenSans-Regular.ttf") format("truetype");
+  font-weight: 300;
+}
+@font-face {
+  font-family: "Open Sans";
+  src: url("/fonts/open-sans/OpenSans-Light.ttf") format("truetype");
+  font-weight: 100;
+}
+@font-face {
+  font-family: "Open Sans";
+  src: url("/fonts/open-sans/OpenSans-LightItalic.ttf") format("truetype");
+  font-weight: 100;
+  font-style: italic;
+}
+@font-face {
+  font-family: "Open Sans";
+  src: url("/fonts/open-sans/OpenSans-SemiBold.ttf") format("truetype");
+  font-weight: 500;
+}
+@font-face {
+  font-family: "Open Sans";
+  src: url("/fonts/open-sans/OpenSans-SemiBoldItalic.ttf") format("truetype");
+  font-weight: 500;
+  font-style: italic;
+}
+@font-face {
+  font-family: "Open Sans";
+  src: url("/fonts/open-sans/OpenSans-Bold.ttf") format("truetype");
+  font-weight: 700;
+}
+@font-face {
+  font-family: "Open Sans";
+  src: url("/fonts/open-sans/OpenSans-BoldItalic.ttf") format("truetype");
+  font-weight: 700;
+  font-style: italic;
+}
+@font-face {
+  font-family: "Open Sans";
+  src: url("/fonts/open-sans/OpenSans-ExtraBold.ttf") format("truetype");
+  font-weight: 900;
+}
+@font-face {
+  font-family: "Open Sans";
+  src: url("/fonts/open-sans/OpenSans-ExtraBoldItalic.ttf") format("truetype");
+  font-weight: 900;
+  font-style: italic;
+}
+/* load the roboto font collection */
+@font-face {
+  font-family: "Roboto";
+  src: url("/fonts/roboto/Roboto-Regular.ttf") format("truetype");
+  font-weight: 300;
+}
+@font-face {
+  font-family: "Roboto";
+  src: url("/fonts/roboto/Roboto-Light.ttf") format("truetype");
+  font-weight: 100;
+}
+@font-face {
+  font-family: "Roboto";
+  src: url("/fonts/roboto/Roboto-LightItalic.ttf") format("truetype");
+  font-weight: 100;
+  font-style: italic;
+}
+@font-face {
+  font-family: "Roboto";
+  src: url("/fonts/roboto/Roboto-Medium.ttf") format("truetype");
+  font-weight: 500;
+}
+@font-face {
+  font-family: "Roboto";
+  src: url("/fonts/roboto/Roboto-MediumItalic.ttf") format("truetype");
+  font-weight: 500;
+  font-style: italic;
+}
+@font-face {
+  font-family: "Roboto";
+  src: url("/fonts/roboto/Roboto-Bold.ttf") format("truetype");
+  font-weight: 700;
+}
+@font-face {
+  font-family: "Roboto";
+  src: url("/fonts/roboto/Roboto-BoldItalic.ttf") format("truetype");
+  font-weight: 700;
+  font-style: italic;
+}
+@font-face {
+  font-family: "Roboto";
+  src: url("/fonts/roboto/Roboto-Black.ttf") format("truetype");
+  font-weight: 900;
+}
+@font-face {
+  font-family: "Roboto";
+  src: url("/fonts/roboto/Roboto-BlackItalic.ttf") format("truetype");
+  font-weight: 900;
+  font-style: italic;
+}
 #app .auth {
-  /* @media screen and (min-width: $breakpoint-medium) {
+  /* @media screen and (min-width: $break-medium) {
       .auth.container .panel {}
   } */
-  /* @media screen and (min-width: $breakpoint-large) {
+  /* @media screen and (min-width: $break-large) {
       .login .form .field {}
   } */
 }
@@ -23154,7 +23298,11 @@
   display: flex;
   justify-content: center;
 }
-#app .auth .panel .footer .container {
+#app .auth .panel .footer > .container {
+  align-items: center;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
   margin: 1rem;
   max-width: 417px;
   width: 100%;
@@ -23248,7 +23396,7 @@
   margin: 0;
 }
 #app .layout.default .main.menu > .header .branding .icon img {
-  max-height: 40px;
+  max-height: 2.5rem;
 }
 #app .layout.default .main.menu > .header .branding .text {
   text-indent: 0.5rem;
@@ -23271,6 +23419,8 @@
 }
 #app .layout.default .main.menu .options .each .option .text {
   flex-grow: 1;
+  font-family: "Open Sans", "Helvetica Light", "Helvetica Neue", "Helvetica", sans-serif;
+  font-weight: 100;
   line-height: 2rem;
   text-indent: 0.5rem;
   width: 0;
@@ -23282,8 +23432,12 @@
   text-align: center;
   width: 2rem;
 }
-#app .layout.default .main.menu > .options > .each > .option .icon .pi, #app .layout.default .main.menu > .options > .each > .option .text {
+#app .layout.default .main.menu > .options > .each > .option .icon .pi {
   font-size: 1.125rem;
+}
+#app .layout.default .main.menu > .options > .each > .option .text {
+  align-self: center;
+  font-size: 1.175rem;
 }
 #app .layout.default .main.menu > .options > .each > .option .icon, #app .layout.default .main.menu > .options > .each > .option .text {
   align-self: center;
@@ -23370,14 +23524,38 @@
 }
 
 body {
-  font-family: "helvetica", sans-serif;
+  color: var(--surface-800);
+  font-family: "Helvetica Neue", "Helvetica", sans-serif;
   font-size: 16px;
+  font-weight: 200;
   margin: 0;
   padding: 0;
 }
 
 dl, h1, h2, h3, h4, h5, h6, ol, p, ul {
   margin: 0;
+}
+
+h1, h2, h3, h4 {
+  font-family: "Helvetica Light", "Helvetica Neue", "Helvetica", sans-serif;
+}
+
+h1, h2 {
+  font-weight: 200;
+}
+
+h3, h4 {
+  font-weight: 400;
+}
+
+a, a:visited {
+  color: var(--text-color);
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+a:active, a:hover {
+  color: var(--surface-700);
 }
 
 p.text {

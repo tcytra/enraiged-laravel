@@ -6,7 +6,7 @@
   padding:          1rem;
 
     .field {
-      max-width:        calc($breakpoint-extra-small + 1px);
+      max-width:        calc($break-x-small + 1px);
     }
     .field, .field:not(.switch) .p-component {
       width:            100%;
@@ -25,6 +25,6 @@
     }
 }
 
-/* @media screen and (min-width: $breakpoint-large) {
+/* @media screen and (min-width: $break-large) {
     .login .form .field {}
 } */

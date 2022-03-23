@@ -9,22 +9,50 @@
 @import 'app/spacing';
 @import 'app/variables';
 
+//  import the system fonts
+@import "fonts/auranext";       // 'AuraNext',
+@import "fonts/helveticalight"; // 'Helvetica Light',
+@import "fonts/helveticaneue";  // 'Helvetica Neue',
+@import "fonts/opensans";       // 'Open Sans',
+@import "fonts/roboto";         // 'Roboto','
+
 //  import the application systems
 #app {
     @import 'app/auth';
     @import 'app/layouts';
 }
 
-//  set the default body styles
+//  set the default html styles
 body {
-  font-family:      'helvetica', sans-serif;
+  color:            var(--surface-800);
+  font-family:      $font-family-primary;
   font-size:        $app-rem-size;
+  font-weight:      200;
   margin:           0;
   padding:          0;
 }
 
 dl,h1,h2,h3,h4,h5,h6,ol,p,ul {
   margin:           0;
+}
+
+h1,h2,h3,h4 {
+  font-family:      $font-family-secondary;
+}
+h1,h2 {
+  font-weight:        200;
+}
+h3,h4 {
+  font-weight:        400;
+}
+
+a, a:visited {
+  color:            $color;
+  text-decoration:  none;
+  transition:       color .25s ease;
+}
+a:active, a:hover {
+  color:            var(--surface-700);
 }
 
 p.text {

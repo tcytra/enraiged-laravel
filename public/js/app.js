@@ -708,6 +708,14 @@ var map = {
 		"./resources/js/pages/auth/Login.vue",
 		"resources_js_pages_auth_Login_vue"
 	],
+	"./auth/Register": [
+		"./resources/js/pages/auth/Register.vue",
+		"resources_js_pages_auth_Register_vue"
+	],
+	"./auth/Register.vue": [
+		"./resources/js/pages/auth/Register.vue",
+		"resources_js_pages_auth_Register_vue"
+	],
 	"./dashboard/Index": [
 		"./resources/js/pages/dashboard/Index.vue",
 		"resources_js_pages_dashboard_Index_vue"
@@ -853,7 +861,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames based on template
-/******/ 			return "js/" + chunkId + ".js?id=" + {"resources_js_pages_auth_Login_vue":"aa5b6f6ea7c64614","resources_js_pages_dashboard_Index_vue":"bf372cfb08d55add"}[chunkId] + "";
+/******/ 			return "js/" + chunkId + ".js?id=" + {"resources_js_pages_auth_Login_vue":"5c78909fa124ccd0","resources_js_pages_auth_Register_vue":"9081e6e1424ee5af","resources_js_pages_dashboard_Index_vue":"272b025e5f7a43b1"}[chunkId] + "";
 /******/ 		};
 /******/ 	})();
 /******/ 	

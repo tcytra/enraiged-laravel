@@ -1,6 +1,22 @@
 # Release Notes
 
-2022-03-22 : 0.0.2
+0000-00-00 : 0.0.4
+Update:
+
+- auth registration
+
+--
+
+0000-00-00 : 0.0.3
+Update:
+
+- Added custom fonts; expanded scss variables
+- Reorganized the controllers,routes,requests
+- translations
+
+--
+
+**2022-03-22 : 0.0.2**
 Update: Replaced vendor provided postcss,tailwindcss with sass,primevue
 
 This includes updates to the package.json, yarn.lock, webpack.mix.js.
@@ -8,8 +24,9 @@ The initial ui/ux for the Login and Dashboard page components are
 completed, including the Default layout component.
 
 References:
-https://primefaces.org/primevue/
-https://www.primefaces.org/primeflex/
+
+- [https://primefaces.org/primevue/]
+- [https://www.primefaces.org/primeflex/]
 
 --
 
@@ -21,5 +38,6 @@ It will allow a log in and present a dashboard. There are tables,models
 for users and persons.
 
 References:
-https://inertiajs.com/
-https://github.com/inertiajs/pingcrm
+
+- [https://inertiajs.com/]
+- [https://github.com/inertiajs/pingcrm]

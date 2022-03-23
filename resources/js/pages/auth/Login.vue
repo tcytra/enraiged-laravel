@@ -20,6 +20,9 @@
             <footer class="footer border-bluegray-200 border-top-1">
                 <div class="submit container text-right">
                     <Button label="Submit" class="p-button-secondary" @click="submit" />
+                    <Link href="/register" class="">
+                        Register Account
+                    </Link>
                 </div>
             </footer>
         </div>
@@ -37,6 +40,7 @@
 import { reactive } from 'vue';
 import { Head } from '@inertiajs/inertia-vue3';
 import { Inertia } from '@inertiajs/inertia';
+import { Link } from '@inertiajs/inertia-vue3';
 import Button from 'primevue/button';
 import InputSwitch from 'primevue/inputswitch';
 import InputText from 'primevue/inputtext';
@@ -45,6 +49,7 @@ import Password from 'primevue/password';
 export default {
     components: {
         Head,
+        Link,
         Button,
         InputSwitch,
         InputText,

@@ -6,9 +6,13 @@
       display:          flex;
       justify-content:  center;
 
-        .container {
+        >.container {
+          align-items:      center;
+          display:          flex;
+          flex-direction:   row-reverse;
+          justify-content:  space-between;
           margin:           1rem;
-          max-width:        calc($breakpoint-extra-small + 1px);
+          max-width:        calc($break-x-small + 1px);
           width:            100%;
         }
     }
