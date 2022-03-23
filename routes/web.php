@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,17 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('login', [AuthenticatedSessionController::class, 'create'])
-    ->name('login')
-    ->middleware('guest');
+//  \App\Http\Controllers\Auth
+Route::namespace('Auth')
+    ->name('auth')->as('auth.')
+    ->group(base_path('routes/web/auth.php'));
 
-Route::post('login', [AuthenticatedSessionController::class, 'store'])
-    ->name('login.store')
-    ->middleware('guest');
-
-Route::delete('logout', [AuthenticatedSessionController::class, 'destroy'])
-    ->name('logout');
-
-Route::get('/', [DashboardController::class, 'index'])
-    ->name('dashboard')
-    ->middleware('auth');
+//  \App\Http\Controllers\Dashboard
+Route::middleware('auth')
+    ->get('/', 'Dashboard\Index')
+    ->name('dashboard');
