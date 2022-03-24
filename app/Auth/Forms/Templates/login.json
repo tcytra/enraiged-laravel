@@ -1,0 +1,18 @@
+{
+    "method": "post",
+    "url": "/login",
+    "fields": {
+        "email": {
+            "type": "text",
+            "value": null
+        },
+        "password": {
+            "type": "password",
+            "value": null
+        },
+        "remember": {
+            "type": "checkbox",
+            "value": null
+        }
+    }
+}

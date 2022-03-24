@@ -1,51 +1,63 @@
 <template>
     <div :class="$attrs.class">
         <label v-if="label" class="form-label" :for="id">
-            {{ label }}:
+            {{ label }}
         </label>
-        <input class="form-input" ref="input"
-            v-bind="{ ...$attrs, class: null }"
-            :class="{ error: error }"
+        <InputText class="p-inputtext" type="text" ref="field"
+            v-model="model"
+            :class="{ 'p-inputtext-lg': isLarge, 'p-inputtext-sm': isSmall, 'p-invalid': errors[id] }"
             :id="id"
+            :placeholder="placeholder"
             :type="type"
-            :value="modelValue"
-            @input="$emit('update:modelValue', $event.target.value)" />
-        <div class="form-error" v-if="error">
-            {{ error }}
+            @update:modelValue="update"/>
+        <div class="form-error" v-if="errors[id]">
+            {{ errors[id] }}
         </div>
     </div>
 </template>
 
 <script>
 import { v4 as uuid } from 'uuid';
+import InputText from 'primevue/inputtext';
 
 export default {
     inheritAttrs: false,
+
+    components: {
+        InputText,
+    },
+
     props: {
         id: {
             type: String,
-            default() {
-                return `text-input-${uuid()}`
-            },
+            required: true,
         },
+        isLarge: {
+            type: Boolean,
+            default: false,
+        },
+        isSmall: {
+            type: Boolean,
+            default: false,
+        },
+        errors: {
+            type: Object,
+            default: {},
+        },
+        label: String,
+        model: String,
+        placeholder: String,
         type: {
             type: String,
             default: 'text',
         },
-        error: String,
-        label: String,
-        modelValue: String,
     },
-    emits: ['update:modelValue'],
+
+    emits: ['update:value'],
+
     methods: {
-        focus() {
-            this.$refs.input.focus()
-        },
-        select() {
-            this.$refs.input.select()
-        },
-        setSelectionRange(start, end) {
-            this.$refs.input.setSelectionRange(start, end)
+        update(value) {
+            this.$emit('update:value', { id: this.id, value });
         },
     },
 };

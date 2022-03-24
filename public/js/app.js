@@ -861,7 +861,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames based on template
-/******/ 			return "js/" + chunkId + ".js?id=" + {"resources_js_pages_auth_Login_vue":"5c78909fa124ccd0","resources_js_pages_auth_Register_vue":"9081e6e1424ee5af","resources_js_pages_dashboard_Index_vue":"272b025e5f7a43b1"}[chunkId] + "";
+/******/ 			return "js/" + chunkId + ".js?id=" + {"resources_js_pages_auth_Login_vue":"43065404078ddc43","resources_js_pages_auth_Register_vue":"11fa9062c63e722b","resources_js_pages_dashboard_Index_vue":"350948d87de0cf58"}[chunkId] + "";
 /******/ 		};
 /******/ 	})();
 /******/ 	

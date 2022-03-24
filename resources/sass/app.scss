@@ -47,12 +47,12 @@ h3,h4 {
 }
 
 a, a:visited {
-  color:            $color;
+  color:            var(--bluegray-700);
   text-decoration:  none;
   transition:       color .25s ease;
 }
 a:active, a:hover {
-  color:            var(--surface-700);
+  color:            var(--bluegray-800);
 }
 
 p.text {

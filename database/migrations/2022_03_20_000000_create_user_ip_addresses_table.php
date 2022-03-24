@@ -13,7 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user_ip_addresses', function (Blueprint $table) {
+        Schema::create('ip_addresses', function (Blueprint $table) {
+            $table->id();
             $table->bigInteger('user_id')->unsigned()->index();
             $table->ipAddress('ip_address'); // todo: should be INT UNSIGNED 4(BYTE) (?)
             $table->timestamp('created_at')->nullable();
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_ip_addresses');
+        Schema::dropIfExists('ip_addresses');
     }
 };

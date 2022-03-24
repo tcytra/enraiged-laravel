@@ -2,6 +2,8 @@
 
 namespace App\Auth;
 
+use App\Auth\Models\InternetAddress;
+use App\Auth\Models\PasswordHistory;
 use App\System\Persons\Models\Person;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -48,17 +50,36 @@ class User extends Authenticatable
     /**
      *  @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function ip_addresses()
+    public function ipAddresses()
     {
-        return $this->hasMany(IP::class, 'user_id');
+        return $this->hasMany(InternetAddress::class, 'user_id');
     }
 
     /**
-     *  @return \App\System\Persons\Models\Person
+     *  @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function passwordHistory()
+    {
+        return $this->hasMany(PasswordHistory::class);
+    }
+
+    /**
+     *  @return \Illuminate\Database\Eloquent\Relations\BelongsTo,\App\System\Persons\Models\Person
      */
     public function person()
     {
         return $this->belongsTo(Person::class, 'person_id', 'id');
+    }
+
+    /**
+     *  Compare the current password with a provided value.
+     *
+     *  @param  string  $password
+     *  @return bool
+     */
+    public function currentPasswordIs(string $password)
+    {
+        return Hash::check($password, $this->password);
     }
 
     /**

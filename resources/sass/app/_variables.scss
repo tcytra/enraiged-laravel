@@ -17,9 +17,9 @@ $break-x-small:     416px;
 $background-color:  var(--bg-color);
 $color:             var(--text-color);
 $color-primary:     var(--bluegray-600);
-$color-secondary:	var(--green-600);
+$color-secondary:	var(--orange-600);
 
-$color-success:     $color-secondary;
+$color-success:     var(--green-600);
 $color-danger:      var(--red-600);
 $color-info:        var(--blue-600);
 $color-warning:     var(--orange-600);

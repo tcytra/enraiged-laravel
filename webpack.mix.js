@@ -14,6 +14,7 @@ const webpackConfig = require('./webpack.config')
  */
 
 mix
+    .copy('resources/fonts', 'public/fonts')
     .copy('resources/images', 'public/images')
     .js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')

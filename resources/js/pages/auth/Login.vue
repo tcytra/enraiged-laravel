@@ -6,33 +6,32 @@
                 <h1>Account Login</h1>
             </header>
             <form class="form" @submit.prevent="submit">
-                <div class="field control text">
-                    <InputText v-model="form.email" type="text" placeholder="Email Address" class="p-inputtext-lg" />
-                </div>
-                <div class="field control text">
-                    <Password v-model="form.password" placeholder="Account Password" class="p-inputtext-lg" toggle-mask />
-                </div>
-                <div class="field control switch">
-                    <label for="form_remember">Remember Me</label>
-                    <InputSwitch id="form_remember" v-model="form.remember" />
-                </div>
+                <text-field is-large class="field control text email" id="email"
+                    placeholder="Email"
+                    :errors="form.errors"
+                    :model="form.email"
+                    @update:value="update"/>
+                <password-field is-large class="field control text password" id="password" toggle-mask
+                    placeholder="Password"
+                    :errors="form.errors"
+                    :model="form.password"
+                    @update:value="update"/>
+                <switch-field class="field control switch" id="remember"
+                    label="Remember Me"
+                    :errors="form.errors"
+                    :model="form.remember"
+                    @update:value="update"/>
             </form>
             <footer class="footer border-bluegray-200 border-top-1">
                 <div class="submit container text-right">
-                    <Button label="Submit" class="p-button-secondary" @click="submit" />
-                    <Link href="/register" class="">
-                        Register Account
+                    <Button label="Login" class="p-button-secondary" @click="submit" />
+                    <Link class="flex align-items-center" href="/register">
+                        <i class="pi pi-angle-right"></i>
+                        <span>Register Account</span>
                     </Link>
                 </div>
             </footer>
         </div>
-        <!--
-        <main class="main">
-            <section class="content">
-                content
-            </section>
-        </main>
-        -->
     </div>
 </template>
 
@@ -42,22 +41,22 @@ import { Head } from '@inertiajs/inertia-vue3';
 import { Inertia } from '@inertiajs/inertia';
 import { Link } from '@inertiajs/inertia-vue3';
 import Button from 'primevue/button';
-import InputSwitch from 'primevue/inputswitch';
-import InputText from 'primevue/inputtext';
-import Password from 'primevue/password';
+import PasswordField from '@/components/forms/fields/PasswordField.vue';
+import SwitchField from '@/components/forms/fields/SwitchField.vue';
+import TextField from '@/components/forms/fields/TextField.vue';
 
 export default {
     components: {
         Head,
         Link,
         Button,
-        InputSwitch,
-        InputText,
-        Password,
+        PasswordField,
+        SwitchField,
+        TextField,
     },
     setup () {
         const form = reactive({
-            email: 'tyler.wood@enraiged.dev',
+            email: 'administrator@enraiged.dev',
             password: 'letmein!',
             remember: false,
         });
@@ -66,7 +65,12 @@ export default {
             Inertia.post('/login', form)
         }
 
-        return { form, submit };
+        function update(field) {
+            form.clearErrors(field.id);
+            form[field.id] = field.value;
+        }
+
+        return { form, submit, update };
     },
 };
 </script>

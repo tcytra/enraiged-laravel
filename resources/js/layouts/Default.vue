@@ -4,18 +4,15 @@
             'menu-open': menuOpen === true,
             'menu-closed': menuOpen === false
         }">
-        <main-menu ref="mainMenu" class="main menu"
-            :menu-open="menuOpen"
+        <main-menu ref="mainMenu" class="main menu" :menu-open="menuOpen"
             @toggle-menu="toggleMenu" />
         <div class="main page" ref="mainPage">
-            <top-nav ref="topNav"
-                :auth-open="authOpen"
+            <top-nav ref="topNav" :auth-open="authOpen"
                 @toggle-auth="toggleAuth"
                 @toggle-menu="toggleMenu" />
             <slot />
         </div>
-        <auth-panel class="auth panel"
-            :auth-open="authOpen"
+        <auth-panel class="auth panel" :auth-open="authOpen"
             @toggle-auth="toggleAuth"/>
     </div>
 </template>

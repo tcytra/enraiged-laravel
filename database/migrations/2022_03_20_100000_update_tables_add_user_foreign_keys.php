@@ -21,7 +21,7 @@ return new class extends Migration
             });
         }
 
-        Schema::table('user_ip_addresses', function (Blueprint $table) {
+        Schema::table('ip_addresses', function (Blueprint $table) {
             $table->foreign('deleted_by')->references('id')->on('users');
         });
     }

@@ -13,6 +13,8 @@ class Store extends \App\Http\Controllers\Auth\Controller
      */
     public function __invoke(RegisterRequest $request)
     {
-        
+        $user = $request->handle();
+
+        return redirect()->route('auth.login');
     }
 }

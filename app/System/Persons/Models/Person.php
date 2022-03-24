@@ -20,10 +20,10 @@ class Person extends Model
     ];
 
     /**
-     *  @return \Illuminate\Database\Eloquent\Relations\HasMany
+     *  @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function users()
+    public function user(): HasOne
     {
-        return $this->hasMany(User::class);
+        return $this->hasOne(User::class, 'person_id', 'id')->withTrashed();
     }
 }

@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->tinyInteger('gender')->unsigned()->nullable();
             $table->string('email')->nullable();
-            $table->string('first_name');
-            $table->string('last_name');
+            $table->string('first_name')->nullable();
+            $table->string('last_name')->nullable();
             $table->string('salut', 16)->nullable();
             $table->string('title', 16)->nullable();
             $table->string('phone', 50)->nullable();

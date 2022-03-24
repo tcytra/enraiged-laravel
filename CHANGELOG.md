@@ -1,22 +1,19 @@
 # Release Notes
 
-0000-00-00 : 0.0.4
-Update:
-
-- auth registration
-
---
-
-0000-00-00 : 0.0.3
-Update:
+2022-03-24 : 0.0.3 
+Update: Added a basic registration form; Reorganizing,rebuilding
 
 - Added custom fonts; expanded scss variables
-- Reorganized the controllers,routes,requests
-- translations
+- Added full-stack simple registration form
+- Added password complexity configuration
+- Added password_history table, user relationship
+- Rebuilt,reorganized the controllers,routes,requests
+- Rebuilt,reorganized the login form components
+- Updated (corrected) the Open Sans font css
 
 --
 
-**2022-03-22 : 0.0.2**
+2022-03-22 : 0.0.2 
 Update: Replaced vendor provided postcss,tailwindcss with sass,primevue
 
 This includes updates to the package.json, yarn.lock, webpack.mix.js.
@@ -30,7 +27,7 @@ References:
 
 --
 
-2022-03-20 : 0.0.1
+2022-03-20 : 0.0.1 
 Update: Manually added initial inertiajs package from pingcrm example
 
 This is a minimal variant of the example code from inertiajs/pingcrm.
