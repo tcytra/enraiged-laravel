@@ -1,10 +1,16 @@
 <template>
     <Head title="Register" />
-    <div class="login panel bg-white">
-        <header class="header text-center bg-bluegray-100 border-bluegray-200 border-bottom-1">
+    <div class="login panel">
+        <header class="header text-center">
             <h1>Register</h1>
         </header>
-        <div class="body">
+        <div class="body" v-if="success">
+            <div class="container flex-column">
+                <p class="text text-center text-xl">Your email address must be verified.</p>
+                <p class="text text-center text-xl">Please check your inbox for an email.</p>
+            </div>
+        </div>
+        <div class="body" v-else>
             <form class="form relative" @submit.prevent="submit">
                 <text-field is-large class="field control text name" id="first_name"
                     placeholder="Name"
@@ -33,9 +39,11 @@
                     @update:value="update"/>
             </form>
         </div>
-        <footer class="footer border-bluegray-200 border-top-1">
-            <div class="submit container flex-row-reverse">
-                <Button label="Register" class="p-button-secondary" @click="submit" />
+        <footer class="footer">
+            <div class="submit container"
+                :class="{ 'flex-row-reverse': !success }">
+                <primevue-button label="Register" class="p-button-secondary" v-if="!success"
+                @click="submit" />
                 <Link class="flex align-items-center" href="/login">
                     <!--<i class="pi pi-angle-right"></i>-->
                     <span>Login</span>
@@ -50,7 +58,7 @@ import AppLayout from '@/layouts/App.vue';
 import { useForm } from '@inertiajs/inertia-vue3'
 import { Head } from '@inertiajs/inertia-vue3';
 import { Link } from '@inertiajs/inertia-vue3';
-import Button from 'primevue/button';
+import PrimevueButton from 'primevue/button';
 import PasswordField from '@/components/forms/fields/PasswordField.vue';
 import SwitchField from '@/components/forms/fields/SwitchField.vue';
 import TextField from '@/components/forms/fields/TextField.vue';
@@ -60,14 +68,19 @@ export default {
     components: {
         Head,
         Link,
-        Button,
+        PrimevueButton,
         PasswordField,
         SwitchField,
         TextField,
     },
     props: {
-        data: Object,
+        flash: Object,
         form: Object,
+    },
+    computed: {
+        success() {
+            return this.flash && this.flash.status === 201;
+        },
     },
     setup (props) {
         const form = useForm(props.form.fields);

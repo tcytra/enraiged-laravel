@@ -118,7 +118,7 @@ return [
     |
     */
 
-    'allow_registration' => env('ALLOW_REGISTER', false),
+    'allow_registration' => (bool) env('ALLOW_REGISTER', true),
 
     /*
     |--------------------------------------------------------------------------
@@ -130,6 +130,6 @@ return [
     |
     */
 
-    'automated_logins' => env('AUTO_LOGINS', false),
+    'automated_login' => (bool) env('AUTO_LOGIN', true),
 
 ];

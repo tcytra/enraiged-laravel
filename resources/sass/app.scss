@@ -11,8 +11,6 @@
 
 
 //  import the system fonts
-@import "fonts/auranext";       // 'AuraNext',
-@import "fonts/helveticalight"; // 'Helvetica Light',
 @import "fonts/helveticaneue";  // 'Helvetica Neue',
 @import "fonts/opensans";       // 'Open Sans',
 @import "fonts/roboto";         // 'Roboto','
@@ -20,8 +18,11 @@
 
 //  import the app style definitions
 #app {
+    @import 'app/effects';
     @import 'app/layouts';
     @import 'app/notifications';
+    @import 'app/positioning';
+    @import 'app/sizing';
 }
 
 

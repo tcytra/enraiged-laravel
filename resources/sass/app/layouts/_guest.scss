@@ -11,14 +11,27 @@
     }
 
     >.panel {
-      border-radius:    .375rem;
+      border-radius:    3px;
       flex-grow:        1;
       max-width:        calc($break-medium + 1px);
       margin:           1rem;
+      overflow:         hidden;
       width:            100%;
-    }
 
-    
+        .body {
+          background-color: $surface-ground;
+        }
+
+        .footer {
+          background-color: $surface-ground;
+          border-top:       1px solid $surface-border;
+        }
+
+        .header {
+          background-color: $surface-section;
+          border-bottom:    1px solid $surface-border;
+        }
+    }
 }
 
 .form {

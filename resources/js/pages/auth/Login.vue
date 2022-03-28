@@ -1,7 +1,7 @@
 <template>
     <Head title="Login" />
-    <div class="login panel bg-white">
-        <header class="header text-center bg-bluegray-100 border-bluegray-200 border-bottom-1">
+    <div class="login panel">
+        <header class="header text-center">
             <h1>Login</h1>
         </header>
         <div class="body">
@@ -23,17 +23,21 @@
                     @update:value="update"/>
             </form>
         </div>
-        <footer class="footer border-bluegray-200 border-top-1">
+        <footer class="footer">
             <div class="submit container flex-row-reverse">
                 <Button label="Login" class="p-button-secondary" @click="submit" />
                 <div class="flex">
-                    <Link href="/register">
-                        <span>Register</span>
-                    </Link>
-                    &nbsp; &bull; &nbsp;
-                    <Link href="/forgot-password">
-                        <span>Forgot Password</span>
-                    </Link>
+                    <span v-if="$page.props.meta.allow_registration">
+                        <Link href="/register">
+                            <span>Register</span>
+                        </Link>
+                        &nbsp; &bull; &nbsp;
+                    </span>
+                    <span>
+                        <Link href="/forgot-password">
+                            <span>Forgot Password</span>
+                        </Link>
+                    </span>
                 </div>
             </div>
         </footer>

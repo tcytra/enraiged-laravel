@@ -20,7 +20,7 @@ class Store extends Controller
         $request->handle();
 
         if ($request->success) {
-            $request->session()->put('success', 'Email successful');
+            $request->session()->put('success', 'Email sent');
 
             return redirect()
                 ->back()

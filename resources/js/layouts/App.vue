@@ -22,7 +22,8 @@ export default {
         FlashMessages,
     },
     props: {
-        auth: [Object, null],
+        auth: Object,
+        meta: Object,
     },
 };
 </script>

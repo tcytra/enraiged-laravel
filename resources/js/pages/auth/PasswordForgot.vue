@@ -1,11 +1,10 @@
 <template>
     <Head title="Forgot Password" />
-    <div class="forgot panel bg-white">
-        <header class="header text-center bg-bluegray-100 border-bluegray-200 border-bottom-1">
+    <div class="forgot panel">
+        <header class="header text-center">
             <h1>Forgot Password</h1>
         </header>
-        <div class="body" v-if="success"
-            :class="{ 'fade-in': success }">
+        <div class="body" v-if="success">
             <div class="container flex-column">
                 <p class="text text-center text-xl">An email has been sent to your address.</p>
                 <p class="text text-center text-xl">Follow the instructions to reset your password.</p>
@@ -20,10 +19,10 @@
                     @update:value="update"/>
             </form>
         </div>
-        <footer class="footer border-bluegray-200 border-top-1">
-            <div class="submit container flex-row-reverse">
-                <primevue-button label="Submit" class="p-button-secondary"
-                    :disabled="success"
+        <footer class="footer">
+            <div class="submit container"
+                :class="{ 'flex-row-reverse': !success }">
+                <primevue-button label="Submit" class="p-button-secondary" v-if="!success"
                     @click="submit" />
                 <Link class="flex align-items-center" href="/login">
                     <span>Login</span>

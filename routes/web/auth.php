@@ -55,3 +55,8 @@ Route::middleware('auth')
 
         Route::delete('logout', 'Login\Destroy')->name('logout');
     });
+
+//  the 'auth' middleware is conditionally assigned in the controller
+/*Route::get('verify-email/{id}/{hash}', 'Verify\Email')
+    ->middleware(['signed', 'throttle:6,1'])
+    ->name('verification.verify');*/

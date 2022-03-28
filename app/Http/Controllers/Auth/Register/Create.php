@@ -13,13 +13,17 @@ class Create extends Controller
      */
     public function __invoke()
     {
+        if (!config('auth.allow_registration')) {
+            return redirect()->back();
+        }
+
         $form = [
             'fields' => [
-                'agree' => false,
-                'email' => null, // 'strawberry@fields.com',
-                'first_name' => null, // 'Strawberry Fields',
-                'password' => null, // 'changeme',
-                'password_confirmation' => null, // 'changeme',
+                'agree' => true,
+                'email' => 'strawberry@fields.com',
+                'first_name' => 'Strawberry Fields',
+                'password' => 'changeme',
+                'password_confirmation' => 'changeme',
             ],
             'uri' => '/register',
         ];

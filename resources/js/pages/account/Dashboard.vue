@@ -4,7 +4,7 @@
         <header class="header">
             <h1>Account Control</h1>
         </header>
-        <section class="container">
+        <section class="auto-margin container max-width-xl">
             <primevue-card class="mb-3">
                 <template #content>
                     This is your account control panel.

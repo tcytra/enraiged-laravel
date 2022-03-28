@@ -1,6 +1,6 @@
 # Release Notes
 
-2022-00-00 : 0.0.4  
+2022-03-28 : 0.0.4  
 Update: Completed porting the Laravel Breeze auth scaffolding
 
 Provides the ability to reset a password, confirm password, and verify

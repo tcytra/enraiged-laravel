@@ -36,6 +36,16 @@ class RegisterRequest extends FormRequest
     public $user;
 
     /**
+     *  Determine if the user is authorized to make this request.
+     *
+     *  @return bool
+     */
+    public function authorize()
+    {
+        return config('auth.allow_registration') === true;
+    }
+
+    /**
      *  Handle the request to create a new User.
      *
      *  @return void
