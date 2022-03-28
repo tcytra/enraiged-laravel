@@ -1,11 +1,11 @@
 <template>
     <Head title="Register" />
-    <div class="auth container bg-bluegray-800">
-        <div class="login panel bg-white">
-            <header class="header text-center bg-bluegray-100 border-bluegray-200 border-bottom-1">
-                <h1>Account Registration</h1>
-            </header>
-            <form class="form" @submit.prevent="submit">
+    <div class="login panel bg-white">
+        <header class="header text-center bg-bluegray-100 border-bluegray-200 border-bottom-1">
+            <h1>Register</h1>
+        </header>
+        <div class="body">
+            <form class="form relative" @submit.prevent="submit">
                 <text-field is-large class="field control text name" id="first_name"
                     placeholder="Name"
                     :errors="form.errors"
@@ -21,10 +21,10 @@
                     :errors="form.errors"
                     :model="form.password"
                     @update:value="update"/>
-                <password-field is-large class="field control text password" id="password_confirm"
+                <password-field is-large class="field control text password" id="password_confirmation"
                     placeholder="Confirm Password"
                     :errors="form.errors"
-                    :model="form.password_confirm"
+                    :model="form.password_confirmation"
                     @update:value="update"/>
                 <switch-field class="field control switch" id="agree"
                     label="I agree to check the box"
@@ -32,20 +32,21 @@
                     :model="form.agree"
                     @update:value="update"/>
             </form>
-            <footer class="footer border-bluegray-200 border-top-1">
-                <div class="submit container text-right">
-                    <Button label="Register" class="p-button-secondary" @click="submit" />
-                    <Link class="flex align-items-center" href="/login">
-                        <i class="pi pi-angle-right"></i>
-                        <span>Account Login</span>
-                    </Link>
-                </div>
-            </footer>
         </div>
+        <footer class="footer border-bluegray-200 border-top-1">
+            <div class="submit container flex-row-reverse">
+                <Button label="Register" class="p-button-secondary" @click="submit" />
+                <Link class="flex align-items-center" href="/login">
+                    <!--<i class="pi pi-angle-right"></i>-->
+                    <span>Login</span>
+                </Link>
+            </div>
+        </footer>
     </div>
 </template>
 
 <script>
+import AppLayout from '@/layouts/App.vue';
 import { useForm } from '@inertiajs/inertia-vue3'
 import { Head } from '@inertiajs/inertia-vue3';
 import { Link } from '@inertiajs/inertia-vue3';
@@ -55,6 +56,7 @@ import SwitchField from '@/components/forms/fields/SwitchField.vue';
 import TextField from '@/components/forms/fields/TextField.vue';
 
 export default {
+    layout: AppLayout,
     components: {
         Head,
         Link,
@@ -63,17 +65,15 @@ export default {
         SwitchField,
         TextField,
     },
-    setup () {
-        const form = useForm({
-            agree: true,
-            email: 'owner@enraiged.dev',
-            first_name: 'Enraiged Owner',
-            password: 'changeme',
-            password_confirm: 'changeme',
-        });
+    props: {
+        data: Object,
+        form: Object,
+    },
+    setup (props) {
+        const form = useForm(props.form.fields);
 
         function submit() {
-            form.post('/register');
+            form.post(props.form.uri);
         }
 
         function update(field) {

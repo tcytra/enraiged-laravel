@@ -1,11 +1,11 @@
 <template>
     <Head title="Login" />
-    <div class="auth container bg-bluegray-800">
-        <div class="login panel bg-white">
-            <header class="header text-center bg-bluegray-100 border-bluegray-200 border-bottom-1">
-                <h1>Account Login</h1>
-            </header>
-            <form class="form" @submit.prevent="submit">
+    <div class="login panel bg-white">
+        <header class="header text-center bg-bluegray-100 border-bluegray-200 border-bottom-1">
+            <h1>Login</h1>
+        </header>
+        <div class="body">
+            <form class="form relative" @submit.prevent="submit">
                 <text-field is-large class="field control text email" id="email"
                     placeholder="Email"
                     :errors="form.errors"
@@ -22,23 +22,28 @@
                     :model="form.remember"
                     @update:value="update"/>
             </form>
-            <footer class="footer border-bluegray-200 border-top-1">
-                <div class="submit container text-right">
-                    <Button label="Login" class="p-button-secondary" @click="submit" />
-                    <Link class="flex align-items-center" href="/register">
-                        <i class="pi pi-angle-right"></i>
-                        <span>Register Account</span>
+        </div>
+        <footer class="footer border-bluegray-200 border-top-1">
+            <div class="submit container flex-row-reverse">
+                <Button label="Login" class="p-button-secondary" @click="submit" />
+                <div class="flex">
+                    <Link href="/register">
+                        <span>Register</span>
+                    </Link>
+                    &nbsp; &bull; &nbsp;
+                    <Link href="/forgot-password">
+                        <span>Forgot Password</span>
                     </Link>
                 </div>
-            </footer>
-        </div>
+            </div>
+        </footer>
     </div>
 </template>
 
 <script>
-import { reactive } from 'vue';
+import AppLayout from '@/layouts/App.vue';
+import { useForm } from '@inertiajs/inertia-vue3'
 import { Head } from '@inertiajs/inertia-vue3';
-import { Inertia } from '@inertiajs/inertia';
 import { Link } from '@inertiajs/inertia-vue3';
 import Button from 'primevue/button';
 import PasswordField from '@/components/forms/fields/PasswordField.vue';
@@ -46,6 +51,7 @@ import SwitchField from '@/components/forms/fields/SwitchField.vue';
 import TextField from '@/components/forms/fields/TextField.vue';
 
 export default {
+    layout: AppLayout,
     components: {
         Head,
         Link,
@@ -54,15 +60,14 @@ export default {
         SwitchField,
         TextField,
     },
-    setup () {
-        const form = reactive({
-            email: 'administrator@enraiged.dev',
-            password: 'letmein!',
-            remember: false,
-        });
+    props: {
+        form: Object,
+    },
+    setup (props) {
+        const form = useForm(props.form.fields);
 
         function submit() {
-            Inertia.post('/login', form)
+            form.post(props.form.uri);
         }
 
         function update(field) {

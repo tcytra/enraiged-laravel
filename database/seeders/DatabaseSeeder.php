@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Auth\User;
-use App\System\Persons\Models\Person;
+use App\Account\Profile;
 //use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -16,13 +16,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $person = Person::factory()->create([
+        $profile = Profile::factory()->create([
             'first_name' => 'Enraiged',
             'last_name' => 'Administrator',
         ]);
 
         $user = User::factory()->create([
-            'person_id' => $person->id,
+            'profile_id' => $profile->id,
             'email' => 'administrator@enraiged.dev',
             'password' => 'letmein!',
             'username' => 'admin@enraiged.dev',

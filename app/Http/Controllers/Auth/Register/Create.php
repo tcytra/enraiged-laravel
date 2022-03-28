@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Auth\Register;
 
-use Inertia\Inertia;
+use App\Http\Controllers\Auth\Controller;
 
-class Create extends \App\Http\Controllers\Auth\Controller
+class Create extends Controller
 {
     /**
      *  Display the login view.
@@ -13,6 +13,17 @@ class Create extends \App\Http\Controllers\Auth\Controller
      */
     public function __invoke()
     {
-        return Inertia::render('auth/Register');
+        $form = [
+            'fields' => [
+                'agree' => false,
+                'email' => null, // 'strawberry@fields.com',
+                'first_name' => null, // 'Strawberry Fields',
+                'password' => null, // 'changeme',
+                'password_confirmation' => null, // 'changeme',
+            ],
+            'uri' => '/register',
+        ];
+
+        return inertia('auth/Register', ['form' => $form]);
     }
 }

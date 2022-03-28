@@ -24,7 +24,13 @@ $color-danger:      var(--red-600);
 $color-info:        var(--blue-600);
 $color-warning:     var(--orange-600);
 
+$surface-ground:    var(--bluegray-50);
+$surface-section:   var(--bluegray-100);
+$surface-card:      var(--bluegray-200); // bbc7cd
+$surface-border:    #bbc7cd;
+$surface-overlay:   var(--bluegray-800);
+
 
 //  define the fonts
 $font-family-primary:   'Helvetica Neue', 'Helvetica', sans-serif;
-$font-family-secondary: 'Helvetica Light', $font-family-primary;
+$font-family-secondary: 'Roboto', $font-family-primary;

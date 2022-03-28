@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Auth\Login;
 
+use App\Http\Controllers\Auth\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 
-class Store extends \App\Http\Controllers\Auth\Controller
+class Store extends Controller
 {
     /**
      *  Handle an incoming authentication request.
@@ -18,7 +19,8 @@ class Store extends \App\Http\Controllers\Auth\Controller
 
         $request->session()->regenerate();
 
+        $request->session()->put('success', 'Login Successful.');
+
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 }
-

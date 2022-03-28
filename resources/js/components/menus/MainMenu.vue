@@ -1,5 +1,5 @@
 <template>
-    <nav class="bg-bluegray-800 text-50" refs="nav">
+    <nav class="text-50" refs="nav">
         <header class="header">
             <dl class="branding">
                 <dt class="icon">
@@ -20,18 +20,17 @@
                     </dl>
                 </dl>
             </li>
-            <!--
-            <li class="each cursor-pointer hover:bg-bluegray-600" @click="get('/users')">
+            <li class="each cursor-pointer hover:bg-bluegray-600" @click="get('/account')"
+                :class="match('account') ? 'bg-bluegray-700' : 'hover:bg-bluegray-600'">
                 <dl class="option">
                     <dt class="icon">
-                        <i class="pi pi-users"></i>
+                        <i class="pi pi-user"></i>
                     </dt>
                     <dl class="text">
-                        Manage Users
+                        Account
                     </dl>
                 </dl>
             </li>
-            -->
         </ul>
         <footer class="footer">
             <div class="block cursor-pointer hover:bg-bluegray-600" @click="$emit('toggle-menu')" refs="navToggle">

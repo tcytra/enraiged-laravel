@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('person_id')->unsigned()->nullable()->index();
+            $table->bigInteger('profile_id')->unsigned()->nullable()->index();
             $table->string('email')->unique();
             $table->string('username')->nullable()->unique();
             $table->string('password');
@@ -33,8 +33,16 @@ return new class extends Migration
             $table->boolean('is_active')->default(false);
             $table->boolean('is_hidden')->default(false);
             $table->boolean('is_protected')->default(false);
-            $table->foreign('person_id')->references('id')->on('users');
+            $table->foreign('profile_id')->references('id')->on('users');
         });
+
+        foreach (['profiles', 'users'] as $each) {
+            Schema::table($each, function (Blueprint $table) {
+                $table->foreign('created_by')->references('id')->on('users');
+                $table->foreign('deleted_by')->references('id')->on('users');
+                $table->foreign('updated_by')->references('id')->on('users');
+            });
+        }
     }
 
     /**

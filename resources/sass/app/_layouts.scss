@@ -1,28 +1,36 @@
 
 .layout {
-  background-color: inherit;
   position:         relative;
 
-    .main.menu,
-    .main.page {
-      min-height:       100vh;
+    &.default {
+        .main.menu,
+        .main.page {
+          min-height:       100vh;
+        }
+
+        .main.menu {
+          position:         fixed;
+          z-index:          2;
+        }
+
+        .main.page {
+          position:         relative;
+          z-index:          1;
+        }
+
+        @import 'layouts/default';
     }
 
-    .auth.panel,
-    .main.menu {
-      position:         fixed;
-      z-index:          2;
+    &.guest {
+        @import 'layouts/guest';
     }
 
-    .auth.panel {
-      right:            0;
-    }
+    @import 'primevue/cards';
+    @import 'primevue/forms';
+    @import 'primevue/panels';
+    @import 'primevue/tables';
 
-    .main.page {
-      background-color: var(--bluegray-50);
-      position:         relative;
-      z-index:          1;
+    .p-component {
+      font-family:      $font-family-primary;
     }
-
-    @import 'layouts/default';
 }

@@ -2,10 +2,10 @@
 
 namespace App\Auth;
 
+use App\Account\Profile;
 use App\Auth\Models\InternetAddress;
 use App\Auth\Models\PasswordHistory;
-use App\System\Persons\Models\Person;
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -13,9 +13,10 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
-    use Traits\Scopes,
+    use Traits\Contracts\MustVerifyEmail,
+        Traits\Scopes,
         HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     /** @var  string  The database table name. */
@@ -64,11 +65,11 @@ class User extends Authenticatable
     }
 
     /**
-     *  @return \Illuminate\Database\Eloquent\Relations\BelongsTo,\App\System\Persons\Models\Person
+     *  @return \Illuminate\Database\Eloquent\Relations\BelongsTo,\App\Account\Profile
      */
-    public function person()
+    public function profile()
     {
-        return $this->belongsTo(Person::class, 'person_id', 'id');
+        return $this->belongsTo(Profile::class, 'profile_id', 'id');
     }
 
     /**

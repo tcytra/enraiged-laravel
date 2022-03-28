@@ -1,7 +1,29 @@
 # Release Notes
 
-2022-03-24 : 0.0.3 
+2022-00-00 : 0.0.4  
+Update: Completed porting the Laravel Breeze auth scaffolding
+
+Provides the ability to reset a password, confirm password, and verify
+a registered email address.
+
+- Added 'allow_registration','automated_logins' to the auth config
+- Added 'data','message','status','success' to the flashed session
+- Added layout-level flash session messaging system
+- Added remaining Laravel Breeze auth scaffolding controllers,views
+- Added resources for returning User,Profile
+- Added vue pages,components for the remaining auth scaffolding
+- Modified HandleInertiaRequests share() method output
+- Renamed Default layout to App using state/{AuthState,GuestState}
+- Renamed System\Persons model to Account\Profile throughout the system
+- Reorganized,improved the existing Auth Login.Register systems
+- Reorganized the layouts sass; Added breakpoint classes to #app.layout
+
+--
+
+2022-03-24 : 0.0.3  
 Update: Added a basic registration form; Reorganizing,rebuilding
+
+This update provides the ability to register an account in the system.
 
 - Added custom fonts; expanded scss variables
 - Added full-stack simple registration form
@@ -13,7 +35,7 @@ Update: Added a basic registration form; Reorganizing,rebuilding
 
 --
 
-2022-03-22 : 0.0.2 
+2022-03-22 : 0.0.2  
 Update: Replaced vendor provided postcss,tailwindcss with sass,primevue
 
 This includes updates to the package.json, yarn.lock, webpack.mix.js.
@@ -27,7 +49,7 @@ References:
 
 --
 
-2022-03-20 : 0.0.1 
+2022-03-20 : 0.0.1  
 Update: Manually added initial inertiajs package from pingcrm example
 
 This is a minimal variant of the example code from inertiajs/pingcrm.

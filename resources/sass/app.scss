@@ -5,9 +5,10 @@
 @import '~primeflex/primeflex.scss';
 @import '~primeicons/primeicons.css';
 
+
 //  import the local app globals
-@import 'app/spacing';
 @import 'app/variables';
+
 
 //  import the system fonts
 @import "fonts/auranext";       // 'AuraNext',
@@ -16,15 +17,18 @@
 @import "fonts/opensans";       // 'Open Sans',
 @import "fonts/roboto";         // 'Roboto','
 
-//  import the application systems
+
+//  import the app style definitions
 #app {
-    @import 'app/auth';
     @import 'app/layouts';
+    @import 'app/notifications';
 }
+
 
 //  set the default html styles
 body {
-  color:            var(--surface-800);
+  background:       $surface-section;
+  color:            $surface-overlay;
   font-family:      $font-family-primary;
   font-size:        $app-rem-size;
   font-weight:      200;
@@ -40,10 +44,13 @@ h1,h2,h3,h4 {
   font-family:      $font-family-secondary;
 }
 h1,h2 {
-  font-weight:        200;
+  font-weight:      200;
 }
 h3,h4 {
-  font-weight:        400;
+  font-weight:      400;
+}
+strong {
+  font-weight:      600;
 }
 
 a, a:visited {

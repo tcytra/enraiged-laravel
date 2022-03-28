@@ -2,6 +2,14 @@
 
 return [
 
+    'email' => [
+        'sent' => 'An email has been sent to your address.',
+    ],
+
+    'password' => [
+        'instructions' => 'Follow the instructions to reset your password.',
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Authentication Language Lines

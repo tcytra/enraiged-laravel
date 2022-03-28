@@ -2,7 +2,7 @@
 
 namespace App\Auth\Forms\Builders;
 
-class RegsiterForm
+class RegisterForm
 {
     
 }

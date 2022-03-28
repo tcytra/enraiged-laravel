@@ -1,0 +1,10 @@
+
+.p-card {
+  background-color: $surface-ground;
+  border:           1px solid $surface-border;
+  box-shadow:       none;
+
+    .p-card-content {
+      padding:          0;
+    }
+}

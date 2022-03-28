@@ -3,6 +3,18 @@
 use Illuminate\Support\Facades\Route;
 
 /*
+use App\Http\Resources\Auth\UserResource;
+Route::get('auth/check', function(){
+    return [
+        'auth' => Auth::check(),
+        'user' => Auth::check()
+            ? UserResource::from(Auth::user())
+        : null,
+    ];
+});
+*/
+
+/*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
@@ -13,12 +25,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//  \App\Http\Controllers\Account
+Route::middleware(['auth', 'verified'])
+    ->group(base_path('routes/web/account.php'));
+
 //  \App\Http\Controllers\Auth
 Route::namespace('Auth')
-    ->name('auth')->as('auth.')
     ->group(base_path('routes/web/auth.php'));
 
 //  \App\Http\Controllers\Dashboard
 Route::middleware('auth')
-    ->get('/', 'Dashboard\Index')
+    ->get('/', 'Dashboard\Show')
     ->name('dashboard');

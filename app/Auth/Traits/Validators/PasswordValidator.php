@@ -100,4 +100,66 @@ trait PasswordValidator
 
         return true;
     }
+
+    /**
+     *  Configure the validator instance.
+     *
+     *  @param  \Illuminate\Validation\Validator  $validator
+     *  @return void
+     */
+	public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            if (true !== $this->get('agree')) {
+                $validator->errors()
+                    ->add('agree', $this->messages['agree.required']);
+            }
+
+            if (Auth::check()) {
+                if ($this->user()->currentPasswordIs($this->get('password'))) {
+                    $validator->errors()->add('password', $this->messages['password.current']);
+                }
+
+                if ($this->passwordHistory()) {
+                    $validator->errors()->add('password', $this->messages['password.history']);
+                }
+            }
+
+            if (!$this->passwordUppercase()) {
+                $error = __($this->messages['password.uppercase'], [
+                    'number' => config('password.uppercase'),
+                    'plural' => config('password.uppercase') > 1 ? 'letters' : 'letter',
+                ]);
+
+                $validator->errors()->add('password', $error);
+            }
+
+            if (!$this->passwordLowercase()) {
+                $error = __($this->messages['password.lowercase'], [
+                    'number' => config('password.lowercase'),
+                    'plural' => config('password.lowercase') > 1 ? 'letters' : 'letter',
+                ]);
+
+                $validator->errors()->add('password', $error);
+            }
+
+            if (!$this->passwordNumeric()) {
+                $error = __($this->messages['password.numeric'], [
+                    'number' => config('password.numeric'),
+                    'plural' => config('password.numeric') > 1 ? 'numbers' : 'number',
+                ]);
+
+                $validator->errors()->add('password', $error);
+            }
+
+            if (!$this->passwordSpecial()) {
+                $error = __($this->messages['password.special'], [
+                    'number' => config('password.special'),
+                    'plural' => config('password.special') > 1 ? 'characters' : 'character',
+                ]);
+
+                $validator->errors()->add('password', $error);
+            }
+        });
+    }
 }

@@ -108,4 +108,28 @@ return [
 
     'password_timeout' => 10800,
 
+    /*
+    |--------------------------------------------------------------------------
+    | Allow Account Registration
+    |--------------------------------------------------------------------------
+    | 
+    | You may allow or disallow account registration by providing a boolean
+    | true or false for 'automated_logins'.
+    |
+    */
+
+    'allow_registration' => env('ALLOW_REGISTER', false),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Automatic Post-Registration Login
+    |--------------------------------------------------------------------------
+    | 
+    | You may allow or disallow automatic post-registration login by providing
+    | a boolean true or false for 'automated_logins'.
+    |
+    */
+
+    'automated_logins' => env('AUTO_LOGINS', false),
+
 ];

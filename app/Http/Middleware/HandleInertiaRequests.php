@@ -2,7 +2,10 @@
 
 namespace App\Http\Middleware;
 
+use App\Auth\Services\AuthResources;
+use App\System\Notifications\Services\FlashMessages;
 use Illuminate\Http\Request;
+
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -36,26 +39,13 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request)
     {
-        return array_merge(parent::share($request), [
-            'auth' => function () use ($request) {
-                return [
-                    'user' => $request->user() ? [
-                        'id' => $request->user()->id,
-                        'email' => $request->user()->email,
-                        'person' => [
-                            'id' => $request->user()->person->id,
-                            'first_name' => $request->user()->person->first_name,
-                            'last_name' => $request->user()->person->last_name,
-                        ],
-                    ] : null,
-                ];
-            },
-            'flash' => function () use ($request) {
-                return [
-                    'success' => $request->session()->get('success'),
-                    'error' => $request->session()->get('error'),
-                ];
-            },
-        ]);
+        $response = [
+            'auth' => (new AuthResources)->handle($request),
+            'flash' => (new FlashMessages)->handle($request),
+        ];
+
+        return array_merge(
+            parent::share($request), $response
+        );
     }
 }

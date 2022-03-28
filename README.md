@@ -1,8 +1,15 @@
 # Enraiged Laravel
 
-- Laravel 9
-- Vue 3, Inertia.js, Inertia Laravel
-- PrimeVUE, PrimeIcons, PrimeFlex
+**Laravel Vue Inertia**
+
+## Technology Stack
+
++ [Laravel 9](https://laravel.com/docs/9.x/releases)
++ [Vue 3](https://vuejs.org/guide/introduction.html)
++ [Inertia.js](https://inertiajs.com/)
++ [PrimeVUE 3](https://www.primefaces.org/primevue/#/setup)
++ [PrimeFlex 3](https://www.primefaces.org/primeflex/)
++ [PrimeIcons v5](https://www.primefaces.org/primevue/#/icons)
 
 ## Install Application
 
@@ -41,10 +48,12 @@ connection will need to be created in the .env config file. Change the appropria
 
 > **Note:** The following **sed** results could also be applied by simply editing the **env** file directly.
 
+```bash
 sed -i 's|DB_HOST=.*|DB_HOST=127.0.0.1|' .env
 sed -i 's|DB_DATABASE=.*|DB_DATABASE=enraiged|' .env
 sed -i 's|DB_USERNAME=.*|DB_USERNAME=enraiged|' .env
 sed -i 's|DB_PASSWORD=.*|DB_PASSWORD=changeme|' .env
+```
 
 > **Note:** The current configuration in the .env.example will route emails into the laravel.log.
 
@@ -80,4 +89,4 @@ The simplest way to launch and preview this application is with `artisan serve`:
 php artisan serve
 ```
 
-Now, navigate to http://127.0.0.1:8000/.
+Now, navigate to (http://127.0.0.1:8000/).

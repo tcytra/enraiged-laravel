@@ -4,217 +4,298 @@ $menu-panel-size:       $app-block-size * 5;
 $menu-transition:       .35s cubic-bezier(0,.875,1,.975);
 // $menu-transition:       .25s cubic-bezier(0,1.5,1,1.5); // this is fun
 
-//  define the auth sizing parameters
+//  the auth panel is the right side slide-in panel
 $auth-panel-size:       $app-block-size * 4;
 $auth-transition:       $menu-transition;
 
-&.default {
-    .auth.panel {
-      min-height:       calc(100vh - $app-block-size);
-      right:            0;
-      top:              $app-block-size;
-      transition:       width $menu-transition;
-      width:            0;
+//  the page header is the h1 wrapper header
+$page-header-size:      $app-block-size;
+
+.auth.menu {
+  right:            0;
+  top:              $app-block-size;
+  transition:       width $menu-transition;
+  width:            0;
+}
+
+&.auth-open {
+    .auth.menu {
+      max-width:        $auth-panel-size;
+      width:            $auth-panel-size;
+    }
+}
+
+.main.menu >.footer,
+.main.menu >.header,
+.main.page >.nav.top {
+  height:           $app-block-size;
+}
+
+.main.menu {
+  background-color: $surface-overlay;
+  display:          flex;
+  flex-direction:   column;
+  padding-bottom:   $app-block-size;
+  transition:       all $menu-transition;
+  width:            0;
+
+    >* {
+      display:          none;
+      overflow:         hidden;
+      width:            inherit;
     }
 
-    &.auth-open {
-        .auth.panel {
-          max-width:        $auth-panel-size;
-          width:            $auth-panel-size;
+    >.footer {
+      bottom:           0;
+      height:           $app-block-size;
+      position:         fixed;
+
+        .block, .inline {
+          align-items:      center;
+          display:          flex !important;
+          justify-content:  center;
+
+            >.pi {
+              font-size:        1.5rem;
+            }
+        }
+
+        .block {
+          flex-grow:        1;
+        }
+
+        .inline {
+          width:            $app-block-size;
         }
     }
 
-    .main.menu >.footer,
-    .main.menu >.header,
-    .main.page >.nav.top {
-      height:           $app-block-size;
+    >.header {
+      align-items:      center;
+      justify-content:  center;
+
+        .branding {
+          align-items:      center;
+          display:          flex;
+
+            .icon, .text {
+              font-size:        1.25rem;
+              margin:           0;
+            }
+
+            .icon img {
+              max-height:       2.5rem;
+            }
+
+            .text {
+              text-indent:      .5rem;
+            }
+        }
     }
 
-    .main.menu {
-      display:          flex;
-      flex-direction:   column;
-      padding-bottom:   $app-block-size;
-      transition:       all $menu-transition;
-      width:            0;
+    .options {
+      list-style-type:  none;
+      margin:           0;
+      padding:          0;
 
-        >* {
-          display:          none;
-          overflow:         hidden;
+        .each {
+          padding:          .25rem 1rem;
+
+            .option {
+              align-items:      center;
+              display:          flex;
+              height:           1.5rem;
+
+                .icon {
+                  width:            1.25rem;
+                }
+
+                .text {
+                  flex-grow:        1;
+                  font-family:      'Open Sans', $font-family-secondary;
+                  font-weight:      100;
+                  // line-height:      2rem;
+                  text-indent:      .5rem;
+                  width:            0;
+                }
+            }
+        }
+    }
+
+    >.options {
+        >.each {
+            >.option {
+              height:           2rem;
+
+                .icon {
+                  text-align:       center;
+                  width:            2rem;
+                    .pi {
+                      // font-size:        1.125rem;
+                    }
+                }
+
+                .text {
+                  align-self:       center;
+                  // font-size:        1.175rem;
+                }
+
+                .icon, .text {
+                  align-self:       center;
+                }
+            }
+        }
+    }
+}
+
+&.menu-open {
+    .main.menu {
+      width:            $menu-panel-size;
+
+        >.footer,
+        >.header {
+          display:          flex;
           width:            inherit;
         }
 
-        >.footer {
-          bottom:           0;
-          height:           $app-block-size;
-          position:         fixed;
+        .options {
+          display:          block;
+        }
+    }
+}
 
-            .block, .inline {
-              align-items:      center;
-              display:          flex !important;
-              justify-content:  center;
+.main.page {
+  margin-left:      0;
+  overflow:         hidden;
+  transition:       all $menu-transition;
 
-                >.pi {
-                  font-size:        1.5rem;
-                }
-            }
+    .main.content {
+      min-height:       calc(100vh - $app-block-size);
+      width:            100vw;
 
-            .block {
-              flex-grow:        1;
-            }
-
-            .inline {
-              width:            $app-block-size;
-            }
+        >.container {
+          min-height:       calc(100vh - $app-block-size);
+          padding:          1rem;
         }
 
         >.header {
           align-items:      center;
-          justify-content:  center;
+          background-color: $surface-ground;
+          border-bottom:    1px solid $surface-border;
+          display:          flex;
+          height:           $page-header-size;
+          position:         relative;
+          text-indent:       2rem;
 
-            .branding {
-              align-items:      center;
-              display:          flex;
-
-                .icon, .text {
-                  font-size:        1.25rem;
-                  margin:           0;
-                }
-
-                .icon img {
-                  max-height:       2.5rem;
-                }
-
-                .text {
-                  text-indent:      .5rem;
-                }
+            h1 {
+              font-size:        1.5rem;
             }
         }
 
-        .options {
-          list-style-type:  none;
-          margin:           0;
-          padding:          0;
-
-            .each {
-              padding:          .5rem 1rem;
-
-                .option {
-                  align-items:      center;
-                  display:          flex;
-                  height:           1.5rem;
-
-                    .icon {
-                      width:            1.25rem;
-                    }
-
-                    .text {
-                      flex-grow:        1;
-                      font-family:      'Open Sans', $font-family-secondary;
-                      font-weight:      100;
-                      line-height:      2rem;
-                      text-indent:      .5rem;
-                      width:            0;
-                    }
-                }
-            }
-        }
-
-        >.options {
-            >.each {
-                >.option {
-                  height:           2rem;
-
-                    .icon {
-                      text-align:       center;
-                      width:            2rem;
-                        .pi {
-                          font-size:        1.125rem;
-                        }
-                    }
-
-                    .text {
-                      align-self:       center;
-                      font-size:        1.175rem;
-                    }
-
-                    .icon, .text {
-                      align-self:       center;
-                    }
-                }
-            }
+        >.header +.container {
+          min-height:       calc(100vh - ($app-block-size + $page-header-size));
         }
     }
 
-    &.menu-open {
-        .main.menu {
-          width:            $menu-panel-size;
+    .nav.top {
+      background-color: $surface-card;
+      display:          flex;
+      flex-direction:   row;
+
+        .block, .inline {
+          align-items:      center;
+          border-bottom:    1px solid darken($surface-border, 9%);
+          border-right:     1px solid darken($surface-border, 9%);
+          display:          flex !important;
+          height:           $app-block-size;
+          transition:       background-color .35s linear;
           
-            >.footer,
-            >.header {
-              display:          flex;
-              width:            inherit;
-            }
-
-            .options {
-              display:          block;
-            }
-        }
-    }
-
-    .main.page {
-      margin-left:      0;
-      transition:       all $menu-transition;
-
-        .main.content {
-          min-height:       calc(100vh - $app-block-size);
-        }
-
-        @import 'nav/top';
-    }
-
-    @media screen and (min-width: $break-medium) {
-        &.menu-closed {
-            .main.menu {
-              width:            $app-block-size;
-              
-                .header {
-                    .branding .text {
-                      display:          none;
-                    }
+            &.action {
+              cursor:           pointer;
+                &:hover {
+                  background-color: var(--bluegray-300);
                 }
+            }
 
-                .options .each .text {
+            &:last-child {
+              border-right:     0;
+            }
+
+            >.p-button {
+              background-color: transparent;
+              border-color:     transparent;
+              border-radius:    0;
+              height:           $app-block-size;
+              width:            $app-block-size;
+            }
+
+            >.p-button >.pi,
+            >.pi {
+              font-size:        1.5rem;
+            }
+        }
+
+        .block {
+          flex-grow:        1;
+          justify-content:  flex-start;
+        }
+
+        .inline {
+          justify-content:  center;
+          width:            $app-block-size;
+        }
+    }
+}
+
+@media screen and (min-width: $break-medium) {
+    &.menu-closed {
+        .main.menu {
+          width:            $app-block-size;
+
+            .header {
+                .branding .text {
                   display:          none;
                 }
             }
 
-            .main.page {
-              margin-left:      $app-block-size;
+            .options .each .text {
+              display:          none;
             }
         }
 
-        &.menu-open .main.menu, .main.menu {
-          width:            $menu-panel-size;
-        }
+        .main.page {
+          margin-left:      $app-block-size;
 
-        &.menu-open .main.page, .main.page {
-          margin-left:      $menu-panel-size;
-        }
-
-        .main.menu {
-            >.footer {
-              display:          none !important;
+            .main.content {
+              width:            calc(100vw - $app-block-size);
             }
-            >.header {
-              display:          flex;
+        }
+    }
 
-                .branding .text {
-                  display:          block;
-                }
-            }
-            >.options {
+    &.menu-open .main.menu, .main.menu {
+      width:            $menu-panel-size;
+    }
+
+    &.menu-open .main.page, .main.page {
+      margin-left:      $menu-panel-size;
+    }
+
+    &:not(.menu-closed) .main.page .main.content {
+      width:            calc(100vw - $menu-panel-size);
+    }
+
+    .main.menu {
+        >.footer {
+          display:          none !important;
+        }
+        >.header {
+          display:          flex;
+
+            .branding .text {
               display:          block;
             }
+        }
+        >.options {
+          display:          block;
         }
     }
 }
