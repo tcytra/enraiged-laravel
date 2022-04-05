@@ -16,11 +16,11 @@ class Create extends Controller
     {
         $form = [
             'fields' => [
-                'email' => 'administrator@enraiged.dev',
+                'email' => 'administrator@demo.dev',
                 'password' => 'letmein!',
                 'remember' => false,
             ],
-            'uri' => '/login',
+            'uri' => route('login.store'),
         ];
 
         return inertia('auth/Login', ['form' => $form]);

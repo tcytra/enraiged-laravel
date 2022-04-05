@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Auth;
 
-use App\Account\Profile;
+use App\Account\Models\Profile;
 use App\Auth\Traits\Validators\PasswordValidator;
 use App\Auth\User;
 use App\Http\Requests\FormRequest;
@@ -18,6 +18,7 @@ class RegisterRequest extends FormRequest
         'email.unique' => 'This email already exists in the system.',
         'password.current' => 'You cannot use the current password.',
         'password.history' => 'You cannot use a recent previous password.',
+        'password.length' => 'The password must be at least :number characters.',
         'password.lowercase' => 'There must be at least :number lowercase :plural.',
         'password.numeric' => 'There must be at least :number :plural.',
         'password.special' => 'There must be at least :number special :plural.',
@@ -28,7 +29,7 @@ class RegisterRequest extends FormRequest
     protected $rules = [
         'agree' => 'required|boolean',
         'email' => 'required|email|unique:users|unique:users,username',
-        'first_name' => 'required',
+        'full_name' => 'required',
         'password' => 'required|confirmed',
     ];
 
@@ -52,7 +53,7 @@ class RegisterRequest extends FormRequest
      */
     public function handle(): void
     {
-        $names = explode(' ', $this->get('first_name'));
+        $names = explode(' ', $this->get('full_name'));
 
         $profile = Profile::create([
             'first_name' => array_shift($names),

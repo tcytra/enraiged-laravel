@@ -15,10 +15,10 @@ return new class extends Migration
     {
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
-            $table->tinyInteger('gender')->unsigned()->nullable();
             $table->string('email')->nullable();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
+            $table->string('gender', 16)->nullable();
             $table->string('salut', 16)->nullable();
             $table->string('title', 16)->nullable();
             $table->string('phone', 50)->nullable();

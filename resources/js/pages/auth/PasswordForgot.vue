@@ -12,11 +12,10 @@
         </div>
         <div class="body" v-else>
             <form class="form relative" @submit.prevent="submit">
-                <text-field is-large class="field control text email" id="email"
+                <vue-text-field focus is-large class="email" id="email"
                     placeholder="Email"
-                    :errors="form.errors"
-                    :model="form.email"
-                    @update:value="update"/>
+                    :form="form"
+                    :model="form.email"/>
             </form>
         </div>
         <footer class="footer">
@@ -33,31 +32,33 @@
 </template>
 
 <script>
+import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
 import AppLayout from '@/layouts/App.vue';
-import { useForm } from '@inertiajs/inertia-vue3'
-import { Head } from '@inertiajs/inertia-vue3';
-import { Link } from '@inertiajs/inertia-vue3';
 import PrimevueButton from 'primevue/button';
-import TextField from '@/components/forms/fields/TextField.vue';
+import VueTextField from '@/components/forms/fields/TextField.vue';
 
 export default {
     layout: AppLayout,
+
     components: {
         AppLayout,
         Head,
         Link,
         PrimevueButton,
-        TextField,
+        VueTextField,
     },
+
     props: {
         flash: Object,
         form: Object,
     },
+
     computed: {
         success() {
             return this.flash && this.flash.status === 200;
         },
     },
+
     setup (props) {
         const form = useForm(props.form.fields);
 

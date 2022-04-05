@@ -1,0 +1,26 @@
+
+.branding {
+  align-items:      center;
+  display:          flex;
+  flex-grow:        1;
+  margin-left:      1rem;
+  margin-right:     1rem;
+
+    .icon, .text {
+      font-size:        1.25rem;
+      margin:           0;
+    }
+
+    .icon {
+      text-align:       center;
+      width:            2rem;
+
+        img {
+          max-height:       2.5rem;
+        }
+    }
+
+    .text {
+      text-indent:      .5rem;
+    }
+}

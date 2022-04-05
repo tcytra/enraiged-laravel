@@ -12,31 +12,26 @@
         </div>
         <div class="body" v-else>
             <form class="form relative" @submit.prevent="submit">
-                <text-field is-large class="field control text name" id="first_name"
+                <vue-text-field is-large class="name" id="full_name"
                     placeholder="Name"
-                    :errors="form.errors"
-                    :model="form.first_name"
-                    @update:value="update"/>
-                <text-field is-large class="field control text email" id="email"
+                    :form="form"
+                    :model="form.full_name"/>
+                <vue-text-field is-large class="email" id="email"
                     placeholder="Email"
-                    :errors="form.errors"
-                    :model="form.email"
-                    @update:value="update"/>
-                <password-field is-large class="field control text password" id="password" feedback
+                    :form="form"
+                    :model="form.email"/>
+                <vue-password-field is-large feedback id="password"
                     placeholder="Password"
-                    :errors="form.errors"
-                    :model="form.password"
-                    @update:value="update"/>
-                <password-field is-large class="field control text password" id="password_confirmation"
+                    :form="form"
+                    :model="form.password"/>
+                <vue-password-field is-large id="password_confirmation"
                     placeholder="Confirm Password"
-                    :errors="form.errors"
-                    :model="form.password_confirmation"
-                    @update:value="update"/>
-                <switch-field class="field control switch" id="agree"
+                    :form="form"
+                    :model="form.password_confirmation"/>
+                <vue-switch-field id="agree"
                     label="I agree to check the box"
-                    :errors="form.errors"
-                    :model="form.agree"
-                    @update:value="update"/>
+                    :form="form"
+                    :model="form.agree"/>
             </form>
         </div>
         <footer class="footer">
@@ -54,34 +49,36 @@
 </template>
 
 <script>
+import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
 import AppLayout from '@/layouts/App.vue';
-import { useForm } from '@inertiajs/inertia-vue3'
-import { Head } from '@inertiajs/inertia-vue3';
-import { Link } from '@inertiajs/inertia-vue3';
 import PrimevueButton from 'primevue/button';
-import PasswordField from '@/components/forms/fields/PasswordField.vue';
-import SwitchField from '@/components/forms/fields/SwitchField.vue';
-import TextField from '@/components/forms/fields/TextField.vue';
+import VuePasswordField from '@/components/forms/fields/PasswordField.vue';
+import VueSwitchField from '@/components/forms/fields/SwitchField.vue';
+import VueTextField from '@/components/forms/fields/TextField.vue';
 
 export default {
     layout: AppLayout,
+
     components: {
         Head,
         Link,
         PrimevueButton,
-        PasswordField,
-        SwitchField,
-        TextField,
+        VuePasswordField,
+        VueSwitchField,
+        VueTextField,
     },
+
     props: {
         flash: Object,
         form: Object,
     },
+
     computed: {
         success() {
             return this.flash && this.flash.status === 201;
         },
     },
+
     setup (props) {
         const form = useForm(props.form.fields);
 

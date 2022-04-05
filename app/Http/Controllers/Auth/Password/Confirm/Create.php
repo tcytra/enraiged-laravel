@@ -19,7 +19,7 @@ class Create extends Controller
                 'email' => $request->user()->email,
                 'password' => null,
             ],
-            'uri' => '/confirm-password',
+            'uri' => route('password.confirm.store'),
         ];
 
         return inertia('auth/PasswordConfirm', ['form' => $form]);

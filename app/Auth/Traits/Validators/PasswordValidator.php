@@ -42,7 +42,7 @@ trait PasswordValidator
      */
     protected function passwordLowercase(): bool
     {
-        $config = config('password.uppercase');
+        $config = config('password.lowercase');
 
         if ($config) {
             preg_match_all('/[a-z]+/', $this->get('password'), $matches);
@@ -72,12 +72,26 @@ trait PasswordValidator
     /**
      *  @return bool
      */
+    protected function passwordMinLength(): bool
+    {
+        $config = config('password.length');
+
+        if ($config) {
+            return strlen($this->get('password')) >= $config;
+        }
+
+        return true;
+    }
+
+    /**
+     *  @return bool
+     */
     protected function passwordSpecial(): bool
     {
         $config = config('password.special');
 
         if ($config) {
-            preg_match_all('/[^\da-zA-Z0-9]+/', $this->get('password'), $matches);
+            preg_match_all('/[^a-zA-Z0-9]+/', $this->get('password'), $matches);
 
             return $this->checkLength($matches) >= $config;
         }
@@ -109,57 +123,71 @@ trait PasswordValidator
      */
 	public function withValidator($validator)
     {
-        $validator->after(function ($validator) {
-            if (true !== $this->get('agree')) {
-                $validator->errors()
-                    ->add('agree', $this->messages['agree.required']);
-            }
+        if ($this->filled('password')) {
+            $validator->after(function ($validator) {
+                if (Auth::check()) {
+                    if ($this->user()->currentPasswordIs($this->get('password'))) {
+                        $validator->errors()->add('password', $this->messages['password.current']);
+                    }
 
-            if (Auth::check()) {
-                if ($this->user()->currentPasswordIs($this->get('password'))) {
-                    $validator->errors()->add('password', $this->messages['password.current']);
+                    if ($this->passwordHistory()) {
+                        $validator->errors()->add('password', $this->messages['password.history']);
+                    }
                 }
 
-                if ($this->passwordHistory()) {
-                    $validator->errors()->add('password', $this->messages['password.history']);
+                if (!$this->passwordMinLength()) {
+                    $error = __($this->messages['password.length'], [
+                        'number' => config('password.length'),
+                    ]);
+
+                    $validator->errors()->add('password', $error);
                 }
-            }
 
-            if (!$this->passwordUppercase()) {
-                $error = __($this->messages['password.uppercase'], [
-                    'number' => config('password.uppercase'),
-                    'plural' => config('password.uppercase') > 1 ? 'letters' : 'letter',
-                ]);
+                if (!$this->passwordUppercase()) {
+                    $error = __($this->messages['password.uppercase'], [
+                        'number' => config('password.uppercase'),
+                        'plural' => config('password.uppercase') > 1 ? 'letters' : 'letter',
+                    ]);
 
-                $validator->errors()->add('password', $error);
-            }
+                    $validator->errors()->add('password', $error);
+                }
 
-            if (!$this->passwordLowercase()) {
-                $error = __($this->messages['password.lowercase'], [
-                    'number' => config('password.lowercase'),
-                    'plural' => config('password.lowercase') > 1 ? 'letters' : 'letter',
-                ]);
+                if (!$this->passwordUppercase()) {
+                    $error = __($this->messages['password.uppercase'], [
+                        'number' => config('password.uppercase'),
+                        'plural' => config('password.uppercase') > 1 ? 'letters' : 'letter',
+                    ]);
 
-                $validator->errors()->add('password', $error);
-            }
+                    $validator->errors()->add('password', $error);
+                }
 
-            if (!$this->passwordNumeric()) {
-                $error = __($this->messages['password.numeric'], [
-                    'number' => config('password.numeric'),
-                    'plural' => config('password.numeric') > 1 ? 'numbers' : 'number',
-                ]);
+                if (!$this->passwordLowercase()) {
+                    $error = __($this->messages['password.lowercase'], [
+                        'number' => config('password.lowercase'),
+                        'plural' => config('password.lowercase') > 1 ? 'letters' : 'letter',
+                    ]);
 
-                $validator->errors()->add('password', $error);
-            }
+                    $validator->errors()->add('password', $error);
+                }
 
-            if (!$this->passwordSpecial()) {
-                $error = __($this->messages['password.special'], [
-                    'number' => config('password.special'),
-                    'plural' => config('password.special') > 1 ? 'characters' : 'character',
-                ]);
+                if (!$this->passwordNumeric()) {
+                    $error = __($this->messages['password.numeric'], [
+                        'number' => config('password.numeric'),
+                        'plural' => config('password.numeric') > 1 ? 'numbers' : 'number',
+                    ]);
 
-                $validator->errors()->add('password', $error);
-            }
-        });
+                    $validator->errors()->add('password', $error);
+                }
+
+                if (!$this->passwordSpecial()) {
+                    $error = __($this->messages['password.special'], [
+                        'number' => config('password.special'),
+                        'plural' => config('password.special') > 1 ? 'characters' : 'character',
+                    ]);
+
+                    $validator->errors()->add('password', $error);
+                }
+            });
+        }
     }
 }

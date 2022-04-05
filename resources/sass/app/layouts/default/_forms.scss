@@ -1,0 +1,85 @@
+
+.form {
+    .control {
+      display:          flex;
+      flex-direction:   column;
+      margin-bottom:    1rem;
+
+        &:first-child {
+          margin-top:       1rem;
+        }
+
+        .error {
+          color:            $color-danger;
+          font-size:        .75rem;
+          line-height:      1rem;
+        }
+
+        .field {
+        }
+
+        .label {
+        }
+    }
+
+    .h2, .h3, .h4, .actions, .section {
+      margin-bottom:    1rem;
+      margin-top:       1rem;
+    }
+}
+
+.adjacent-labels {
+    .form {
+        .control {
+          flex-direction:   row;
+          flex-wrap:        wrap;
+
+            &.actions {
+              flex-direction:   row-reverse;
+
+                .p-button {
+                  margin:           0 .25rem;
+
+                    &:first-child {
+                      margin-right:     0;
+                    }
+
+                    &:last-child {
+                      margin-left:      0;
+                    }
+                }
+            }
+
+            .error {
+              flex-basis:       100%;
+              flex-grow:        1;
+              height:           0;
+              margin-top:       -3px;
+              text-align:       right;
+              width:            0;
+            }
+
+            .field, .label {
+              display:          flex;
+            }
+
+            .field {
+              flex-grow:        1;
+              margin:           0;
+
+                .p-component {
+                  flex-grow:        1;
+                }
+
+                .p-inputwrapper {
+                  display:          flex;
+                }
+            }
+
+            .label {
+              align-items:      center;
+              width:            10rem;
+            }
+        }
+    }
+}

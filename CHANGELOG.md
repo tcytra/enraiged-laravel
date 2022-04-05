@@ -1,4 +1,28 @@
-# Release Notes
+# Project History
+
+Todo:
+- Addresses, Avatars, Organizations, Roles, Tables
+- Enraiged namespace in packages/enraiged; isolate custom system
+- Parent FormBuilder
+- Secondary email login
+- VueX
+
+--
+
+2022-03-30 : 0.0.5  
+Update: Completed Auth; Reorganized client-side; Added Account Edit
+
+- Added auth.panel on the ui right had side
+- Added initial account control panel page with basic account form
+- Added initial account,user policies
+- Added placeholder class for account updated event
+- Added scss sizing classes, layout for .adjacent-labels .form
+- Added VueDropdownField, VueForm, and VueFormField components
+- Corrected final issues with auth scaffolding
+- Reorganized the client layouts components and sass systems
+- Seeding 10 random accounts on fresh migration (for table testing)
+
+--
 
 2022-03-28 : 0.0.4  
 Update: Completed porting the Laravel Breeze auth scaffolding

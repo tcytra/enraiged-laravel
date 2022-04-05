@@ -3,18 +3,6 @@
 use Illuminate\Support\Facades\Route;
 
 /*
-use App\Http\Resources\Auth\UserResource;
-Route::get('auth/check', function(){
-    return [
-        'auth' => Auth::check(),
-        'user' => Auth::check()
-            ? UserResource::from(Auth::user())
-        : null,
-    ];
-});
-*/
-
-/*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
@@ -27,7 +15,7 @@ Route::get('auth/check', function(){
 
 //  \App\Http\Controllers\Account
 Route::middleware(['auth', 'verified'])
-    ->group(base_path('routes/web/account.php'));
+    ->group(base_path('routes/web/accounts.php'));
 
 //  \App\Http\Controllers\Auth
 Route::namespace('Auth')

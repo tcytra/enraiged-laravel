@@ -1,32 +1,45 @@
 
-//  import the prime vendor resources
+//  the base vendor resources
 @import '~primevue/resources/themes/saga-blue/theme.css';
 @import '~primevue/resources/primevue.min.css';
 @import '~primeflex/primeflex.scss';
 @import '~primeicons/primeicons.css';
 
 
-//  import the local app globals
+//  the local app resources
 @import 'app/variables';
-
-
-//  import the system fonts
 @import "fonts/helveticaneue";  // 'Helvetica Neue',
 @import "fonts/opensans";       // 'Open Sans',
 @import "fonts/roboto";         // 'Roboto','
 
 
-//  import the app style definitions
+//  the default layout
 #app {
-    @import 'app/effects';
-    @import 'app/layouts';
-    @import 'app/notifications';
-    @import 'app/positioning';
-    @import 'app/sizing';
+@import 'app/layouts/default';
+@import 'app/layouts/guest';
 }
 
 
-//  set the default html styles
+//  the app style definitions
+#app {
+@import 'app/accounts';
+@import 'app/branding';
+@import 'app/effects';
+@import 'app/notifications';
+@import 'app/positioning';
+@import 'app/sizing';
+}
+
+//  the app primevue adjustments
+#app {
+@import 'app/primevue/cards';
+@import 'app/primevue/forms';
+@import 'app/primevue/panels';
+@import 'app/primevue/tables';
+}
+
+
+//  the core html elements
 body {
   background:       $surface-section;
   color:            $surface-overlay;
@@ -65,4 +78,10 @@ a:active, a:hover {
 
 p.text {
   margin:           1rem;
+}
+
+#app {
+    .p-component {
+      font-family:      $font-family-primary;
+    }
 }

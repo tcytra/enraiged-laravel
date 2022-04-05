@@ -1,33 +1,44 @@
 <template>
-    <div :class="$attrs.class">
-        <label v-if="label" class="form-label" :for="id">
-            {{ label }}
-        </label>
-        <InputText class="p-inputtext" type="text" ref="field"
-            v-model="model"
-            :class="{ 'p-inputtext-lg': isLarge, 'p-inputtext-sm': isSmall, 'p-invalid': errors[id] }"
-            :id="id"
-            :placeholder="placeholder"
-            :type="type"
-            @update:modelValue="update"/>
-        <div class="form-error" v-if="errors[id]">
-            {{ errors[id] }}
+    <vue-form-field :form="form" :id="id" v-slot:default="{ error, update }">
+        <div class="control text" :class="$attrs.class">
+            <label v-if="label" class="label" :for="id">
+                {{ label }}
+            </label>
+            <div class="field text">
+                <primevue-input focus class="p-inputtext" type="text" ref="field"
+                    v-model="model"
+                    :class="{ 'p-inputtext-lg': isLarge, 'p-inputtext-sm': isSmall, 'p-invalid': error }"
+                    :id="id"
+                    :placeholder="placeholder"
+                    :type="text"
+                    @update:modelValue="update"/>
+            </div>
+            <div class="error" v-if="error">
+                {{ error }}
+            </div>
         </div>
-    </div>
+    </vue-form-field>
 </template>
 
 <script>
 import { v4 as uuid } from 'uuid';
-import InputText from 'primevue/inputtext';
+import PrimevueInput from 'primevue/inputtext';
+import VueFormField from '@/components/forms/VueFormField';
 
 export default {
     inheritAttrs: false,
 
     components: {
-        InputText,
+        PrimevueInput,
+        VueFormField,
     },
 
     props: {
+        focus: Boolean,
+        form: {
+            type: Object,
+            required: true,
+        },
         id: {
             type: String,
             required: true,
@@ -40,25 +51,9 @@ export default {
             type: Boolean,
             default: false,
         },
-        errors: {
-            type: Object,
-            default: {},
-        },
         label: String,
         model: String,
         placeholder: String,
-        type: {
-            type: String,
-            default: 'text',
-        },
-    },
-
-    emits: ['update:value'],
-
-    methods: {
-        update(value) {
-            this.$emit('update:value', { id: this.id, value });
-        },
     },
 };
 </script>

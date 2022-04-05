@@ -2,10 +2,10 @@
 
 namespace App\Auth;
 
-use App\Account\Profile;
+use App\Account\Models\Profile;
 use App\Auth\Models\InternetAddress;
 use App\Auth\Models\PasswordHistory;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -13,9 +13,9 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable // implements MustVerifyEmail
 {
-    use Traits\Contracts\MustVerifyEmail,
+    use // Traits\Contracts\MustVerifyEmail,
         Traits\Scopes,
         HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 

@@ -22,7 +22,7 @@ class Create extends Controller
                 'password_confirmation' => null,
                 'token' => $token,
             ],
-            'uri' => '/reset-password',
+            'uri' => route('password.update'),
         ];
 
         return inertia('auth/PasswordReset', ['form' => $form]);

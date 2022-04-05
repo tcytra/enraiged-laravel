@@ -39,12 +39,13 @@
 </template>
 
 <script>
-import AppLayout from '@/layouts/App.vue';
 import { Head } from '@inertiajs/inertia-vue3';
+import AppLayout from '@/layouts/App.vue';
 import PrimevueCard from 'primevue/card';
 
 export default {
     layout: AppLayout,
+
     components: {
         Head,
         PrimevueCard,

@@ -1,19 +1,25 @@
 <template>
     <Transition>
-        <app-state v-if="auth">
+        <guest-state ref="guest" v-if="isGuest"
+            :meta="meta">
+            <slot  />
+        </guest-state>
+        <app-state ref="app" v-else
+            :auth="auth"
+            :meta="meta"
+            @close:all="closeAll"
+            @close:auth="closeAuth"
+            @close:menu="closeMenu">
             <slot />
         </app-state>
-        <guest-state v-else>
-            <slot />
-        </guest-state>
     </Transition>
     <flash-messages />
 </template>
 
 <script>
-import AppState from '@/layouts/state/AppState';
-import GuestState from '@/layouts/state/GuestState';
-import FlashMessages from '@/layouts/support/FlashMessages';
+import AppState from './state/AppState';
+import GuestState from './state/GuestState';
+import FlashMessages from './notifications/FlashMessages';
 
 export default {
     components: {
@@ -21,9 +27,28 @@ export default {
         GuestState,
         FlashMessages,
     },
+
     props: {
         auth: Object,
         meta: Object,
+    },
+
+    computed: {
+        isGuest() {
+            return !this.auth;
+        },
+    },
+
+    methods: {
+        closeAll() {
+            this.$refs.app.closeAll();
+        },
+        closeAuth() {
+            this.$refs.app.closeAuth();
+        },
+        closeMenu() {
+            this.$refs.app.closeMenu();
+        },
     },
 };
 </script>

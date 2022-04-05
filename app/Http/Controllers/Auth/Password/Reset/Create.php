@@ -17,7 +17,7 @@ class Create extends Controller
             'fields' => [
                 'email' => null,
             ],
-            'uri' => '/forgot-password',
+            'uri' => route('password.email'),
         ];
 
         return inertia('auth/PasswordForgot', ['form' => $form]);

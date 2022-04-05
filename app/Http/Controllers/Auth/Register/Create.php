@@ -19,13 +19,13 @@ class Create extends Controller
 
         $form = [
             'fields' => [
-                'agree' => true,
-                'email' => 'strawberry@fields.com',
-                'first_name' => 'Strawberry Fields',
-                'password' => 'changeme',
-                'password_confirmation' => 'changeme',
+                'agree' => false,
+                'email' => null,
+                'full_name' => null,
+                'password' => null,
+                'password_confirmation' => null,
             ],
-            'uri' => '/register',
+            'uri' => route('register.store'),
         ];
 
         return inertia('auth/Register', ['form' => $form]);

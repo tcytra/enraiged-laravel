@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Auth;
 
-use App\Auth\Traits\Validators\EmailExistsValidator;
 use App\Http\Requests\FormRequest;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Hash;
@@ -11,8 +10,6 @@ use Illuminate\Support\Str;
 
 class PasswordResetRequest extends FormRequest
 {
-    use EmailExistsValidator;
-
     /** @var  array  The custom error messages for the validations. */
     protected $messages = [
         'email.exists' => 'This email address cannot be identified in the system.',
@@ -21,7 +18,7 @@ class PasswordResetRequest extends FormRequest
     /** @var  array  the validation rules that apply to the request. */
     protected $rules = [
         'token' => 'required',
-        'email' => 'required|email',
+        'email' => 'required|email|exists:users',
         'password' => 'required|confirmed',
     ];
 

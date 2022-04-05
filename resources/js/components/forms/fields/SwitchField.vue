@@ -1,48 +1,46 @@
 <template>
-    <div :class="$attrs.class">
-        <label v-if="label" class="form-label" :for="id">
-            {{ label }}
-        </label>
-        <InputSwitch  v-model="model" :id="id"
-            @update:modelValue="update"/>
-        <div class="form-error" v-if="errors[id]">
-            {{ errors[id] }}
+    <vue-form-field :form="form" :id="id" v-slot:default="{ error, update }">
+        <div class="control switch" :class="$attrs.class">
+            <label v-if="label" class="label" :for="id">
+                {{ label }}
+            </label>
+            <div class="field switch mb-0">
+                <primevue-switch v-model="model" :id="id"
+                    @update:modelValue="update"/>
+            </div>
+            <div class="error" v-if="error">
+                {{ error }}
+            </div>
         </div>
-    </div>
+    </vue-form-field>
 </template>
 
 <script>
 import { v4 as uuid } from 'uuid';
-import InputSwitch from 'primevue/inputswitch';
+import PrimevueSwitch from 'primevue/inputswitch';
+import VueFormField from '@/components/forms/VueFormField';
 
 export default {
     inheritAttrs: false,
 
     components: {
-        InputSwitch,
+        PrimevueSwitch,
+        VueFormField,
     },
 
     props: {
+        form: {
+            type: Object,
+            required: true,
+        },
         id: {
             type: String,
             required: true,
-        },
-        errors: {
-            type: Object,
-            default: {},
         },
         label: String,
         model: {
             type: Boolean,
             default: false,
-        },
-    },
-
-    emits: ['update:value'],
-
-    methods: {
-        update(value) {
-            this.$emit('update:value', { id: this.id, value });
         },
     },
 };

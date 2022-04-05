@@ -7,15 +7,15 @@
                     <aside class="aside mb-5 text">
                         <strong>This action is secure.<br>Please confirm your account password to proceed.</strong>
                     </aside>
-                    <div class="center-x-small column container fields my-3">
-                        <password-field class="field control text password" id="password"
+                    <div class="center-x-small column container fields">
+                        <vue-password-field class="m-0" id="password"
+                            focus
                             toggle-mask
                             placeholder="Password"
-                            :errors="form.errors"
-                            :model="form.password"
-                            @update:value="update"/>
+                            :form="form"
+                            :model="form.password"/>
                     </div>
-                    <div class="button center-x-small container reverse row mb-3">
+                    <div class="button center-x-small column container mb-3">
                         <div class="button control">
                             <primevue-button label="Confirm" class="p-button-secondary" @click="submit" />
                         </div>
@@ -28,23 +28,25 @@
 
 <script>
 import AppLayout from '@/layouts/App.vue';
-import { useForm } from '@inertiajs/inertia-vue3'
-import { Head } from '@inertiajs/inertia-vue3';
-import PasswordField from '@/components/forms/fields/PasswordField.vue';
+import { Head, useForm } from '@inertiajs/inertia-vue3'
 import PrimevueButton from 'primevue/button';
 import PrimevuePanel from 'primevue/panel';
+import VuePasswordField from '@/components/forms/fields/PasswordField.vue';
 
 export default {
     layout: AppLayout,
+
     components: {
         Head,
-        PasswordField,
         PrimevueButton,
         PrimevuePanel,
+        VuePasswordField,
     },
+
     props: {
         form: Object,
     },
+
     setup (props) {
         const form = useForm(props.form.fields);
 
@@ -64,6 +66,8 @@ export default {
 
 <style>
     .confirm.password.p-panel {
+        margin-bottom: 10rem;
+        margin-top: -10rem;
         max-width: 40rem;
         min-width: 32rem;
     }

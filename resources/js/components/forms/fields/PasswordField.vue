@@ -1,39 +1,48 @@
 <template>
-    <div :class="$attrs.class">
-        <label v-if="label" class="form-label" :for="id">
-            {{ label }}
-        </label>
-        <Password ref="field"
-            v-model="model"
-            :class="{ 'p-inputtext-lg': isLarge, 'p-inputtext-sm': isSmall, 'p-invalid': errors[id] }"
-            :feedback="feedback"
-            :id="id"
-            :placeholder="placeholder"
-            :toggle-mask="toggleMask"
-            @update:modelValue="update"/>
-        <div class="form-error" v-if="errors[id]">
-            {{ errors[id] }}
+    <vue-form-field :form="form" :id="id" v-slot:default="{ error, update }">
+        <div class="control password" :class="$attrs.class">
+            <label v-if="label" class="label" :for="id">
+                {{ label }}
+            </label>
+            <div class="field"
+                :class="{ confirm }">
+                <primevue-password focus ref="field"
+                    v-model="model"
+                    :class="{ 'p-inputtext-lg': isLarge, 'p-inputtext-sm': isSmall, 'p-invalid': error }"
+                    :feedback="feedback"
+                    :id="id"
+                    :placeholder="placeholder"
+                    :toggle-mask="toggleMask"
+                    @update:modelValue="update"/>
+            </div>
+            <div class="error" v-if="error">
+                {{ error }}
+            </div>
         </div>
-    </div>
+    </vue-form-field>
 </template>
 
 <script>
 import { v4 as uuid } from 'uuid';
-import Password from 'primevue/password';
+import PrimevuePassword from 'primevue/password';
+import VueFormField from '@/components/forms/VueFormField';
 
 export default {
     inheritAttrs: false,
 
     components: {
-        Password,
+        PrimevuePassword,
+        VueFormField,
     },
 
     props: {
-        errors: {
-            type: Object,
-            default: {},
-        },
+        confirm: Boolean,
         feedback: Boolean,
+        focus: Boolean,
+        form: {
+            type: Object,
+            required: true,
+        },
         id: {
             type: String,
             required: true,
@@ -44,14 +53,6 @@ export default {
         model: String,
         placeholder: String,
         toggleMask: Boolean,
-    },
-
-    emits: ['update:value'],
-
-    methods: {
-        update(value) {
-            this.$emit('update:value', { id: this.id, value });
-        },
     },
 };
 </script>

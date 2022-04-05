@@ -6,26 +6,23 @@
         </header>
         <div class="body">
             <form class="form relative" @submit.prevent="submit">
-                <text-field is-large class="field control text email" id="email"
+                <vue-text-field is-large class="email" id="email"
                     placeholder="Email"
-                    :errors="form.errors"
-                    :model="form.email"
-                    @update:value="update"/>
-                <password-field is-large class="field control text password" id="password" toggle-mask
+                    :form="form"
+                    :model="form.email"/>
+                <vue-password-field is-large toggle-mask id="password"
                     placeholder="Password"
-                    :errors="form.errors"
-                    :model="form.password"
-                    @update:value="update"/>
-                <switch-field class="field control switch" id="remember"
+                    :form="form"
+                    :model="form.password"/>
+                <vue-switch-field id="remember"
                     label="Remember Me"
-                    :errors="form.errors"
-                    :model="form.remember"
-                    @update:value="update"/>
+                    :form="form"
+                    :model="form.remember"/>
             </form>
         </div>
         <footer class="footer">
             <div class="submit container flex-row-reverse">
-                <Button label="Login" class="p-button-secondary" @click="submit" />
+                <primevue-button label="Login" class="p-button-secondary" @click="submit" />
                 <div class="flex">
                     <span v-if="$page.props.meta.allow_registration">
                         <Link href="/register">
@@ -45,28 +42,32 @@
 </template>
 
 <script>
+import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
 import AppLayout from '@/layouts/App.vue';
-import { useForm } from '@inertiajs/inertia-vue3'
-import { Head } from '@inertiajs/inertia-vue3';
-import { Link } from '@inertiajs/inertia-vue3';
-import Button from 'primevue/button';
-import PasswordField from '@/components/forms/fields/PasswordField.vue';
-import SwitchField from '@/components/forms/fields/SwitchField.vue';
-import TextField from '@/components/forms/fields/TextField.vue';
+import PrimevueButton from 'primevue/button';
+import VuePasswordField from '@/components/forms/fields/PasswordField.vue';
+import VueSwitchField from '@/components/forms/fields/SwitchField.vue';
+import VueTextField from '@/components/forms/fields/TextField.vue';
 
 export default {
     layout: AppLayout,
+
     components: {
         Head,
         Link,
-        Button,
-        PasswordField,
-        SwitchField,
-        TextField,
+        PrimevueButton,
+        VuePasswordField,
+        VueSwitchField,
+        VueTextField,
     },
+
     props: {
-        form: Object,
+        form: {
+            type: Object,
+            required: true,
+        },
     },
+
     setup (props) {
         const form = useForm(props.form.fields);
 
@@ -74,12 +75,7 @@ export default {
             form.post(props.form.uri);
         }
 
-        function update(field) {
-            form.clearErrors(field.id);
-            form[field.id] = field.value;
-        }
-
-        return { form, submit, update };
+        return { form, submit };
     },
 };
 </script>

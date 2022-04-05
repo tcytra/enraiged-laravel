@@ -2,14 +2,11 @@
 
 namespace App\Http\Requests\Auth;
 
-use App\Auth\Traits\Validators\EmailExistsValidator;
 use App\Http\Requests\FormRequest;
 use Illuminate\Support\Facades\Password;
 
 class PasswordForgotRequest extends FormRequest
 {
-    use EmailExistsValidator;
-
     /** @var  array  The custom error messages for the validations. */
     protected $messages = [
         'email.exists' => 'This email address cannot be identified in the system.',
@@ -17,7 +14,7 @@ class PasswordForgotRequest extends FormRequest
 
     /** @var  array  the validation rules that apply to the request. */
     protected $rules = [
-        'email' => 'required|email',
+        'email' => 'required|email|exists:users',
     ];
 
     /**
@@ -35,20 +32,5 @@ class PasswordForgotRequest extends FormRequest
         );
 
         $this->success($this->status == Password::RESET_LINK_SENT);
-    }
-
-    /**
-     *  Configure the validator instance.
-     *
-     *  @param  \Illuminate\Validation\Validator  $validator
-     *  @return void
-     */
-	public function withValidator($validator)
-    {
-        $validator->after(function ($validator) {
-            if (!$this->emailExists($this->get('email'))) {
-                $validator->errors()->add('email', __($this->messages['email.exists']));
-            }
-        });
     }
 }

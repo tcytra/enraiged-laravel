@@ -16,21 +16,18 @@
         </div>
         <div class="body" v-else>
             <form class="form relative" @submit.prevent="submit">
-                <text-field is-large class="field control text email" id="email"
+                <vue-text-field is-large class="email" id="email"
                     placeholder="Email"
-                    :errors="form.errors"
-                    :model="form.email"
-                    @update:value="update"/>
-                <password-field is-large class="field control text password" id="password" feedback
+                    :form="form"
+                    :model="form.email"/>
+                <vue-password-field is-large feedback id="password"
                     placeholder="Password"
-                    :errors="form.errors"
-                    :model="form.password"
-                    @update:value="update"/>
-                <password-field is-large class="field control text password" id="password_confirmation"
+                    :form="form"
+                    :model="form.password"/>
+                <vue-password-field is-large id="password_confirmation"
                     placeholder="Confirm Password"
-                    :errors="form.errors"
-                    :model="form.password_confirmation"
-                    @update:value="update"/>
+                    :form="form"
+                    :model="form.password_confirmation"/>
             </form>
         </div>
         <footer class="footer">
@@ -47,34 +44,39 @@
 </template>
 
 <script>
-import AppLayout from '@/layouts/App.vue';
 import { toRefs } from 'vue';
-import { useForm } from '@inertiajs/inertia-vue3'
-import { Head } from '@inertiajs/inertia-vue3';
-import { Link } from '@inertiajs/inertia-vue3';
-import PasswordField from '@/components/forms/fields/PasswordField.vue';
-import TextField from '@/components/forms/fields/TextField.vue';
+import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
+import AppLayout from '@/layouts/App.vue';
 import PrimevueButton from 'primevue/button';
+import VuePasswordField from '@/components/forms/fields/PasswordField.vue';
+import VueTextField from '@/components/forms/fields/TextField.vue';
 
 export default {
     layout: AppLayout,
+
     components: {
         AppLayout,
         Head,
         Link,
-        PasswordField,
         PrimevueButton,
-        TextField,
+        VuePasswordField,
+        VueTextField,
     },
+
     props: {
         flash: Object,
-        form: Object,
+        form: {
+            type: Object,
+            required: true,
+        },
     },
+
     computed: {
         success() {
             return this.flash && this.flash.status === 200;
         },
     },
+
     setup (props) {
         const form = useForm(props.form.fields);
 
@@ -82,12 +84,7 @@ export default {
             form.post(props.form.uri);
         }
 
-        function update(field) {
-            form.clearErrors(field.id);
-            form[field.id] = field.value;
-        }
-
-        return { form, submit, update };
+        return { form, submit };
     },
 };
 </script>
