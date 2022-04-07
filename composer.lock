@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f25b6885936e111c8fbc2c7fc1f348ca",
+    "content-hash": "2e7323918348cbd5ab481d45aff84eb5",
     "packages": [
         {
             "name": "brick/math",
@@ -436,6 +436,40 @@
                 }
             ],
             "time": "2021-10-11T09:18:27+00:00"
+        },
+        {
+            "name": "enraiged/laravel",
+            "version": "dev-development",
+            "dist": {
+                "type": "path",
+                "url": "./packages/enraiged",
+                "reference": "010ed790a9779b4c8b92392d8cddfd6210b0c681"
+            },
+            "require": {
+                "laravel/framework": "^9.2",
+                "php": "^8.0.2"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "LaravelEnso\\Enums\\AppServiceProvider",
+                        "LaravelEnso\\Enums\\EnumServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Enraiged\\Database\\Seeders\\": "database/seeders",
+                    "Enraiged\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "transport-options": {
+                "relative": true
+            }
         },
         {
             "name": "fruitcake/php-cors",
@@ -8571,6 +8605,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "enraiged/laravel": 20,
         "roave/security-advisories": 20
     },
     "prefer-stable": true,

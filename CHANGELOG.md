@@ -8,6 +8,13 @@ Todo:
 
 ---
 
+2022-00-00 : 0.0.7  
+Update: 
+
+- Added composer.json to packages/enraiged; Further isolate as package
+
+---
+
 2022-04-07 : 0.0.6  
 Update: Reorganized custom system into Enraiged namespace
 

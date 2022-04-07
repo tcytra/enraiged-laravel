@@ -1,0 +1,23 @@
+{
+    "name": "enraiged/core",
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "laravel/framework": "^9.2",
+        "php": "^8.0.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Enraiged\\Database\\Seeders\\": "database/seeders",
+            "Enraiged\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Enraiged\\AppServiceProvider",
+                "Enraiged\\AuthServiceProvider"
+            ]
+        }
+    }
+}
