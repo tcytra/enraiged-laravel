@@ -9,7 +9,7 @@ class Create extends Controller
     /**
      *  Display the login view.
      *
-     *  @return \Inertia\Response
+     *  @return \Illuminate\Http\RedirectResponse|\Inertia\Response
      */
     public function __invoke()
     {
@@ -21,7 +21,7 @@ class Create extends Controller
             'fields' => [
                 'agree' => false,
                 'email' => null,
-                'full_name' => null,
+                'name' => null,
                 'password' => null,
                 'password_confirmation' => null,
             ],

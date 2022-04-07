@@ -2,10 +2,8 @@
 
 namespace App\Auth;
 
-use App\Account\Models\Profile;
 use App\Auth\Models\InternetAddress;
 use App\Auth\Models\PasswordHistory;
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -13,9 +11,9 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable // implements MustVerifyEmail
+class User extends Authenticatable
 {
-    use // Traits\Contracts\MustVerifyEmail,
+    use Traits\BelongsTo\Account,
         Traits\Scopes,
         HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
@@ -62,14 +60,6 @@ class User extends Authenticatable // implements MustVerifyEmail
     public function passwordHistory()
     {
         return $this->hasMany(PasswordHistory::class);
-    }
-
-    /**
-     *  @return \Illuminate\Database\Eloquent\Relations\BelongsTo,\App\Account\Profile
-     */
-    public function profile()
-    {
-        return $this->belongsTo(Profile::class, 'profile_id', 'id');
     }
 
     /**

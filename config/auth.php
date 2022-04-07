@@ -62,7 +62,9 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Auth\User::class,
+            'model' => true // todo?
+                ? App\Auth\User::class
+                : App\Auth\VerifiedUser::class,
         ],
 
         // 'users' => [
@@ -114,7 +116,7 @@ return [
     |--------------------------------------------------------------------------
     | 
     | You may allow or disallow account registration by providing a boolean
-    | true or false for 'automated_logins'.
+    | true or false for 'allow_registration'.
     |
     */
 

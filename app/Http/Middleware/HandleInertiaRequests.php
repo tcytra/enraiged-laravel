@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Auth\Services\AuthResources;
-use App\System\Notifications\Services\FlashMessages;
+use App\Auth\Services\FlashMessages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Middleware;

@@ -16,12 +16,12 @@ class UserPolicy
 
     public function delete(User $user, User $account)
     {
-        return $user->id === $account->id;
+        return false;
     }
 
     public function edit(User $user, User $account)
     {
-        return $user->id === $account->id;
+        return false;
     }
 
     public function export(User $user)
@@ -41,6 +41,6 @@ class UserPolicy
 
     public function update(User $user, User $account)
     {
-        return $user->id === $account->id;
+        return false;
     }
 }

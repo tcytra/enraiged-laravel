@@ -30,7 +30,8 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
-            "Enraiged\\": "packages/enraiged/"
+            "Enraiged\\Database\\Seeders\\": "packages/enraiged/database/seeders",
+            "Enraiged\\": "packages/enraiged/src/"
         }
     },
     "autoload-dev": {

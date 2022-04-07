@@ -2,39 +2,30 @@
 
 namespace App\Http\Requests\Auth;
 
-use App\Account\Models\Profile;
 use App\Auth\Traits\Validators\PasswordValidator;
-use App\Auth\User;
 use App\Http\Requests\FormRequest;
-use Illuminate\Auth\Events\Registered;
+use Enraiged\Accounts\Events\AccountCreated;
+use Enraiged\Accounts\Models\Account;
+use Enraiged\Accounts\Requests\Traits\ValidationMessages;
+use Enraiged\Accounts\Requests\Traits\ValidationRules;
+use Enraiged\Accounts\Services\CreateAccount;
 
 class RegisterRequest extends FormRequest
 {
-    use PasswordValidator;
+    use PasswordValidator, ValidationMessages, ValidationRules;
 
-    /** @var  array  The custom error messages for the validations. */
-    protected $messages = [
-        'agree.required' => 'You must agree to check the little box.',
-        'email.unique' => 'This email already exists in the system.',
-        'password.current' => 'You cannot use the current password.',
-        'password.history' => 'You cannot use a recent previous password.',
-        'password.length' => 'The password must be at least :number characters.',
-        'password.lowercase' => 'There must be at least :number lowercase :plural.',
-        'password.numeric' => 'There must be at least :number :plural.',
-        'password.special' => 'There must be at least :number special :plural.',
-        'password.uppercase' => 'There must be at least :number uppercase :plural.',
-    ];
+    /** @var  object  The created Account. */
+    protected $account;
 
-    /** @var  array  the validation rules that apply to the request. */
-    protected $rules = [
-        'agree' => 'required|boolean',
-        'email' => 'required|email|unique:users|unique:users,username',
-        'full_name' => 'required',
-        'password' => 'required|confirmed',
-    ];
-
-    /** @var  object  The created account User. */
-    public $user;
+    /**
+     *  Return the created Account.
+     *
+     *  @return \Enraiged\Accounts\Models\Account
+     */
+    public function account(): Account
+    {
+        return $this->account;
+    }
 
     /**
      *  Determine if the user is authorized to make this request.
@@ -53,21 +44,9 @@ class RegisterRequest extends FormRequest
      */
     public function handle(): void
     {
-        $names = explode(' ', $this->get('full_name'));
+        $this->account = CreateAccount::from($this->validated());
 
-        $profile = Profile::create([
-            'first_name' => array_shift($names),
-            'last_name' => count($names) ? implode($names) : null,
-        ]);
-
-        $this->user = User::create(
-            collect($this->validated())
-                ->except(['first_name', 'last_name', 'password_confirmation'])
-                ->merge(['profile_id' => $profile->id])
-                ->toArray()
-        );
-
-        event(new Registered($this->user));
+        event(new AccountCreated($this->account));
     }
 
     /**
@@ -77,13 +56,28 @@ class RegisterRequest extends FormRequest
      */
     public function rules()
     {
+        $rules = [
+            'agree' => 'required|boolean',
+            'name' => 'required',
+            'password' => 'required|confirmed',
+        ];
+
         return collect($this->rules)
-            ->merge([
-                    'password' => 'required|confirmed'
-                        .config('password.length')
-                            ? '|min:'.config('password.length')
-                            : ''
-                ])
+            ->except(['birthday', 'first_name', 'gender', 'last_name', 'salut', 'timezone', 'title'])
+            ->merge($rules)
             ->toArray();
+    }
+
+    /**
+     *  Get the user making the request.
+     *
+     *  @param  string|null  $guard
+     *  @return mixed
+     */
+    public function user($guard = null)
+    {
+        return $guard || !$this->account
+            ? parent::user()
+            : $this->account->user;
     }
 }

@@ -177,6 +177,11 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /*
+         * Enraiged Service Providers...
+         */
+        Enraiged\AppServiceProvider::class,
+        //Enraiged\AuthServiceProvider::class,
     ],
 
     /*

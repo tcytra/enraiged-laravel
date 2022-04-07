@@ -13,13 +13,14 @@ class Store extends Controller
     /**
      *  Handle an incoming authentication request.
      *
+     *  @param  \App\Http\Requests\Auth\RegisterRequest  $request
      *  @return \Illuminate\Http\RedirectResponse
      */
     public function __invoke(RegisterRequest $request)
     {
         $request->handle();
 
-        if ($request->user instanceof MustVerifyEmail) {
+        if ($request->account()->user instanceof MustVerifyEmail) {
             $request->session()->put('success', 'Email sent');
 
             return redirect()
@@ -29,8 +30,8 @@ class Store extends Controller
 
         $request->session()->put('success', 'Registration successful');
 
-        if (config('auth.automated_logins') === true) {
-            Auth::login($request->user);
+        if (config('auth.automated_login') === true) {
+            Auth::login($request->account()->user);
         }
 
         return redirect(RouteServiceProvider::HOME);

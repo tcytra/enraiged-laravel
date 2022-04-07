@@ -7,9 +7,9 @@ use App\Http\Controllers\Controller;
 class Create extends Controller
 {
     /**
-     * Display the password reset link request view.
+     *  Display the password reset link request view.
      *
-     * @return \Illuminate\View\View
+     *  @return \Illuminate\View\View
      */
     public function __invoke()
     {

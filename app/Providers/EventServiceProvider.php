@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+//use Enraiged\Accounts\Events\AccountCreated;
+//use Enraiged\Accounts\Events\AccountUpdated;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -27,7 +29,23 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        /*
+        Event::listen(AccountCreated::class, function (AccountCreated $event) {
+            //  todo: do something!
+        });
+
+        Event::listen(AccountUpdated::class, function (AccountUpdated $event) {
+            $changed = collect($event->changes);
+
+            if ($changed->keys()->contains('email')) {
+            }
+
+            if ($changed->keys()->contains('password')) {
+            }
+
+            //  todo: do something!
+        });
+        */
     }
 
     /**

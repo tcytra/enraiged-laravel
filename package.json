@@ -1,8 +1,9 @@
 {
     "private": true,
     "scripts": {
+        "clean": "rm -rf ./public/css && rm -rf ./public/fonts && rm -rf ./public/images && rm -rf ./public/js",
         "dev": "npm run development",
-        "development": "npm run purge:public && mix && npm run ssr:build",
+        "development": "npm run clean && mix && npm run ssr:build",
         "fix:eslint": "eslint --ext .js,.vue resources/js/ --fix",
         "fix:prettier": "prettier --write --loglevel warn 'resources/js/**/*.vue'",
         "fix-code-style": "npm run fix:prettier && npm run fix:eslint",
@@ -10,8 +11,7 @@
         "watch-poll": "mix watch -- --watch-options-poll=1000",
         "hot": "mix watch --hot",
         "prod": "npm run production",
-        "production": "npm run purge:public && mix --production && npm run ssr:build",
-        "purge:public": "rm -rf ./public/css && rm -rf ./public/fonts && rm -rf ./public/images && rm -rf ./public/js",
+        "production": "npm run clean && mix --production && npm run ssr:build",
         "ssr:build": "mix --production --mix-config=webpack.ssr.mix.js",
         "ssr:serve": "node public/js/ssr.js"
     },

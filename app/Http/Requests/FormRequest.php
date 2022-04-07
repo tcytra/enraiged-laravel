@@ -2,10 +2,12 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Foundation\Http\FormRequest as IlluminateFormRequest;
+
 /**
  *  @todo: perhaps a mock response collection with http codes
  */
-class FormRequest extends \Illuminate\Foundation\Http\FormRequest
+class FormRequest extends IlluminateFormRequest
 {
     /** @var  string  The status returned from the auth processing. */
     public $status;

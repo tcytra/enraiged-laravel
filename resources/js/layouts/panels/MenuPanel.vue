@@ -9,9 +9,9 @@
             </dl>
         </header>
         <main-menu @menu:navigate="$emit('menu:navigate')" />
-        <div class="block flex-grow-1" @click="$emit('menu.toggle')"/>
+        <div class="block flex-grow-1" @click="$emit('menu:toggle')"/>
         <footer class="footer">
-            <div class="action" @click="$emit('menu.toggle')" refs="navToggle">
+            <div class="action" @click="$emit('menu:toggle')" refs="navToggle">
                 <i class="pi pi-bars"></i>
             </div>
         </footer>
@@ -26,7 +26,7 @@ export default {
         MainMenu,
     },
 
-    emits: ['menu:navigate', 'toggle:menu'],
+    emits: ['menu:navigate', 'menu:toggle'],
 
     props: {
         meta: {

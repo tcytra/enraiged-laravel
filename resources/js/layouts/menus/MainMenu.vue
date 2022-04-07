@@ -11,19 +11,17 @@
                 </dl>
             </dl>
         </li>
-        <!--
-        <li class="each cursor-pointer hover:bg-bluegray-600" @click="get('/account')"
-            :class="match('account') ? 'bg-bluegray-700' : 'hover:bg-bluegray-600'">
+        <li class="each cursor-pointer" @click="get('/accounts')"
+            :class="match('accounts') ? 'bg-bluegray-700' : 'hover:bg-bluegray-600'">
             <dl class="option">
                 <dt class="icon">
                     <i class="pi pi-user"></i>
                 </dt>
                 <dl class="text">
-                    Account
+                    Accounts
                 </dl>
             </dl>
         </li>
-        -->
     </ul>
 </template>
 

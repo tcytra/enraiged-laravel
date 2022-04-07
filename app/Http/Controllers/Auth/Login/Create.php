@@ -10,14 +10,15 @@ class Create extends Controller
     /**
      *  Display the login component.
      *
+     *  @param  \Illuminate\Http\Request  $request
      *  @return \Inertia\Response
      */
     public function __invoke(Request $request)
     {
         $form = [
             'fields' => [
-                'email' => 'administrator@demo.dev',
-                'password' => 'letmein!',
+                'email' => app()->environment('local') ? env('ADMIN_EMAIL') : null,
+                'password' => app()->environment('local') ? env('ADMIN_PASSWORD') : null,
                 'remember' => false,
             ],
             'uri' => route('login.store'),

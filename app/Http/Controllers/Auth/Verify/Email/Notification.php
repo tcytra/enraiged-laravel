@@ -9,10 +9,10 @@ use Illuminate\Http\Request;
 class Notification extends Controller
 {
     /**
-     * Send a new email verification notification.
+     *  Send a new email verification notification.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
+     *  @param  \Illuminate\Http\Request  $request
+     *  @return \Illuminate\Http\RedirectResponse
      */
     public function __invoke(Request $request)
     {

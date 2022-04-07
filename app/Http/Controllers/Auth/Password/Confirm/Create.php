@@ -10,7 +10,8 @@ class Create extends Controller
     /**
      *  Show the confirm password view.
      *
-     *  @return \Illuminate\View\View
+     *  @param  \Illuminate\Http\Request  $request
+     *  @return \Inertia\Response
      */
     public function __invoke(Request $request)
     {

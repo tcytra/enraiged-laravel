@@ -2,8 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::namespace('Account')
+Route::namespace('Accounts')
     ->group(function(){
+
+        Route::get('accounts', 'Index')->name('accounts.index');
 
         Route::prefix('account')->as('account.')
             ->group(function(){

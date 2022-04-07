@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Auth\Password;
 
 use App\Http\Controllers\Auth\Controller;
 use App\Http\Requests\Auth\PasswordResetRequest;
-use Illuminate\Support\Facades\Password;
 
 class Store extends Controller
 {
@@ -12,7 +11,7 @@ class Store extends Controller
      *  Handle an incoming new password request.
      *
      *  @param  \Illuminate\Http\Request  $request
-     *  @return \Illuminate\Http\RedirectResponse
+     *  @return \Illuminate\Http\RedirectResponse|\Inertia\Response
      *
      *  @throws \Illuminate\Validation\ValidationException
      */

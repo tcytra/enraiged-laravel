@@ -2,7 +2,7 @@
 
 namespace App\Auth\Services;
 
-use App\Http\Resources\Auth\UserResource;
+use Enraiged\Accounts\Resources\AccountResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,10 +17,11 @@ class AuthResources
     public function handle(Request $request)
     {
         if (Auth::check()) {
-            $request->user()->load('profile');
+            $account = $request->user()->account;
+            $account->load('profile');
 
             return [
-                'user' => UserResource::from($request->user()),
+                'user' => AccountResource::from($account),
             ];
         }
 

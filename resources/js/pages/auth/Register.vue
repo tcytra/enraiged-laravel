@@ -12,10 +12,10 @@
         </div>
         <div class="body" v-else>
             <form class="form relative" @submit.prevent="submit">
-                <vue-text-field is-large class="name" id="full_name"
+                <vue-text-field is-large class="name" id="name"
                     placeholder="Name"
                     :form="form"
-                    :model="form.full_name"/>
+                    :model="form.name"/>
                 <vue-text-field is-large class="email" id="email"
                     placeholder="Email"
                     :form="form"

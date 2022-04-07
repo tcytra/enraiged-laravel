@@ -45,11 +45,11 @@ import { useForm } from '@inertiajs/inertia-vue3'
 import AccountAvatar from '@/components/accounts/Avatar.vue';
 
 export default {
-    emits: ['auth:toggle'],
-
     components: {
         AccountAvatar,
     },
+
+    emits: ['auth:toggle'],
 
     props: {
         auth: {

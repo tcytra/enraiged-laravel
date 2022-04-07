@@ -2,14 +2,28 @@
 
 Todo:
 - Addresses, Avatars, Organizations, Roles, Tables
-- Enraiged namespace in packages/enraiged; isolate custom system
-- Parent FormBuilder
+- Add parent FormBuilder, Tablebuilder functionality
 - Secondary email login
 - VueX
 
---
+---
 
-2022-03-30 : 0.0.5  
+2022-04-07 : 0.0.6  
+Update: Reorganized custom system into Enraiged namespace
+
+This update begins the process of isolating the custom code into the
+Enraiged namespace, to eventually split into a vendor package.
+
+- Added CreateAccount db transaction service to create User + Profile 
+- Added Enraiged\{App,Auth,Events}ServiceProviders
+- Added storage:clean filesystem command to purge storage directory
+- Added config/storage.php with array of clearable directories
+- Added ADMIN_{EMAIL,PASSWORD} variables to the .env.example
+- Added initial route, placeholder page for the Accounts\Index
+
+---
+
+2022-04-04 : 0.0.5  
 Update: Completed Auth; Reorganized client-side; Added Account Edit
 
 - Added auth.panel on the ui right had side
@@ -22,7 +36,7 @@ Update: Completed Auth; Reorganized client-side; Added Account Edit
 - Reorganized the client layouts components and sass systems
 - Seeding 10 random accounts on fresh migration (for table testing)
 
---
+---
 
 2022-03-28 : 0.0.4  
 Update: Completed porting the Laravel Breeze auth scaffolding
@@ -42,7 +56,7 @@ a registered email address.
 - Reorganized,improved the existing Auth Login.Register systems
 - Reorganized the layouts sass; Added breakpoint classes to #app.layout
 
---
+---
 
 2022-03-24 : 0.0.3  
 Update: Added a basic registration form; Reorganizing,rebuilding
@@ -57,7 +71,7 @@ This update provides the ability to register an account in the system.
 - Rebuilt,reorganized the login form components
 - Updated (corrected) the Open Sans font css
 
---
+---
 
 2022-03-22 : 0.0.2  
 Update: Replaced vendor provided postcss,tailwindcss with sass,primevue
@@ -71,7 +85,7 @@ References:
 - [https://primefaces.org/primevue/]
 - [https://www.primefaces.org/primeflex/]
 
---
+---
 
 2022-03-20 : 0.0.1  
 Update: Manually added initial inertiajs package from pingcrm example
