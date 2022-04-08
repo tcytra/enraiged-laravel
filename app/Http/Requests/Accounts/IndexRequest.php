@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Accounts;
 
-use Enraiged\Accounts\Models\Account;
+use Enraiged\Accounts\Models\Table as AccountTable;
 use Enraiged\Accounts\Resources\Tables\IndexData;
 use Enraiged\Accounts\Traits\Tables\Actions as TableActions;
 use Enraiged\Accounts\Traits\Tables\Columns as TableColumns;
@@ -22,7 +22,7 @@ class IndexRequest extends TableRequest
      */
     public function data()
     {
-        $builder = Account::query()
+        $builder = AccountTable::query()
             ->join('profiles', 'profiles.id', '=', 'users.profile_id')
             ->orderBy('profiles.first_name', 'asc')
             ->orderBy('profiles.last_name', 'asc');
