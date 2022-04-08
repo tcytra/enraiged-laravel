@@ -84,7 +84,7 @@
               margin-left:      $app-block-size;
             }
             .main.page .main.content, .main.page .nav.top {
-              width:            calc(100vw - $app-block-size);
+              max-width:        calc(100vw - $app-block-size);
             }
             .menu.panel {
               width:            $app-block-size;
@@ -96,7 +96,7 @@
               margin-left:      $menu-panel-size;
             }
             .main.page .main.content, .main.page .nav.top {
-              width:            calc(100vw - $menu-panel-size);
+              max-width:        calc(100vw - $menu-panel-size);
             }
             .menu.panel  {
               width:            $menu-panel-size;
