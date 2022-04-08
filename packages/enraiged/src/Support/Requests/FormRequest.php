@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Requests;
+namespace Enraiged\Support\Requests;
 
-use Illuminate\Foundation\Http\FormRequest as IlluminateFormRequest;
+use Illuminate\Foundation\Http\FormRequest as Request;
 
 /**
  *  @todo: perhaps a mock response collection with http codes
  */
-class FormRequest extends IlluminateFormRequest
+class FormRequest extends Request
 {
     /** @var  string  The status returned from the auth processing. */
     public $status;

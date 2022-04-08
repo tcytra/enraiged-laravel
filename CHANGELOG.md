@@ -8,10 +8,16 @@ Todo:
 
 ---
 
-2022-00-00 : 0.0.7  
-Update: 
+2022-04-08 : 0.0.7  
+Update: Added basic table + data for Accounts
+
+This update provides a very basic Accounts table through the request
+object. There are no row actions or data pagination yet.
 
 - Added composer.json to packages/enraiged; Further isolate as package
+- Added basic table + data for Accounts
+- Moved the accounts controllers,requests,reoutes back to App namespace
+- Moved the parent form,table requests into the Enraiged namespace
 
 ---
 

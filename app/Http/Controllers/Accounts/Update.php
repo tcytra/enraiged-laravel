@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Accounts;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Accounts\UpdateRequest;
 use Enraiged\Accounts\Models\Account;
-use Enraiged\Accounts\Requests\AccountUpdate;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Update extends Controller
@@ -17,7 +17,7 @@ class Update extends Controller
      *  @param  \Illuminate\Http\Request  $request
      *  @return \Inertia\Response
      */
-    public function __invoke(AccountUpdate $request, Account $account)
+    public function __invoke(UpdateRequest $request, Account $account)
     {
         $this->authorize('update', $account);
 

@@ -1,26 +1,26 @@
 <?php
 
-namespace App\Http\Controllers\Accounts;
+namespace App\Http\Controllers\Accounts\Index;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Accounts\IndexRequest;
 use Enraiged\Accounts\Models\Account;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
-class Index extends Controller
+class Data extends Controller
 {
     use AuthorizesRequests;
 
     /**
-     *  Display the account control panel component.
+     *  Serve the account table data.
      *
      *  @param  \App\Http\Requests\Accounts\IndexRequest  $request
-     *  @return \Inertia\Response
+     *  @return 
      */
     public function __invoke(IndexRequest $request)
     {
         $this->authorize('index', Account::class);
 
-        return inertia('accounts/Index', ['accountsIndex' => $request->table()]);
+        return response()->json(['data' => $request->data()]);
     }
 }

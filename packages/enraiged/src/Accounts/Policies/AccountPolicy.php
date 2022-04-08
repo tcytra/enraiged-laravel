@@ -10,14 +10,29 @@ class AccountPolicy
 {
     use HandlesAuthorization;
 
+    public function destroy(User $user, Account $account)
+    {
+        return $user->exists && $account->exists;
+    }
+
     public function edit(User $user, Account $account)
     {
         return $user->id === $account->id;
     }
 
+    public function export(User $user)
+    {
+        return $user->exists;
+    }
+
     public function index(User $user)
     {
         return $user->exists;
+    }
+
+    public function show(User $user, Account $account)
+    {
+        return $user->exists && $account->exists;
     }
 
     public function update(User $user, Account $account)

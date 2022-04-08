@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 Route::namespace('Accounts')
     ->group(function(){
 
+        Route::get('api/accounts/index/data', 'Index\Data')->name('accounts.index.data');
         Route::get('accounts', 'Index')->name('accounts.index');
 
         Route::prefix('account')->as('account.')

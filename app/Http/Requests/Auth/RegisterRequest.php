@@ -3,12 +3,12 @@
 namespace App\Http\Requests\Auth;
 
 use App\Auth\Traits\Validators\PasswordValidator;
-use App\Http\Requests\FormRequest;
 use Enraiged\Accounts\Events\AccountCreated;
 use Enraiged\Accounts\Models\Account;
-use Enraiged\Accounts\Requests\Traits\ValidationMessages;
-use Enraiged\Accounts\Requests\Traits\ValidationRules;
+use Enraiged\Accounts\Traits\Validation\Messages as ValidationMessages;
+use Enraiged\Accounts\Traits\Validation\Rules as ValidationRules;
 use Enraiged\Accounts\Services\CreateAccount;
+use Enraiged\Support\Requests\FormRequest;
 
 class RegisterRequest extends FormRequest
 {

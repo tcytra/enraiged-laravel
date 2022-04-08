@@ -1,8 +1,8 @@
 <?php
 
-namespace Enraiged\Accounts\Requests\Traits;
+namespace Enraiged\Accounts\Traits\Validation;
 
-trait ValidationRules
+trait Rules
 {
     /** @var  array  the validation rules that apply to the request. */
     protected $rules = [

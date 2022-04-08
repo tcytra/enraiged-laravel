@@ -1,13 +1,13 @@
 <?php
 
-namespace Enraiged\Accounts\Requests;
+namespace App\Http\Requests\Accounts;
 
 use App\Auth\Traits\Validators\PasswordValidator;
-use App\Http\Requests\FormRequest;
-use Enraiged\Accounts\Requests\Traits\ValidationMessages;
-use Enraiged\Accounts\Requests\Traits\ValidationRules;
+use Enraiged\Accounts\Traits\Validation\Messages as ValidationMessages;
+use Enraiged\Accounts\Traits\Validation\Rules as ValidationRules;
+use Enraiged\Support\Requests\FormRequest;
 
-class AccountUpdate extends FormRequest
+class UpdateRequest extends FormRequest
 {
     use PasswordValidator, ValidationMessages, ValidationRules;
 

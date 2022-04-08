@@ -1,4 +1,15 @@
 
-.p-table {
-    
+.p-datatable-table {
+    th.text-center .p-column-header-content {
+      display:          initial;
+      text-align:       center;
+    }
+    th.text-left .p-column-header-content {
+      display:          initial;
+      text-align:       left;
+    }
+    th.text-right .p-column-header-content {
+      display:          initial;
+      text-align:       right;
+    }
 }

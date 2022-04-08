@@ -1,8 +1,8 @@
 <?php
 
-namespace Enraiged\Accounts\Requests\Traits;
+namespace Enraiged\Accounts\Traits\Validation;
 
-trait ValidationMessages
+trait Messages
 {
     /** @var  array  The custom error messages for the validations. */
     protected $messages = [
