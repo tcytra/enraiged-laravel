@@ -1,14 +1,13 @@
 {
-    "name": "enraiged/laravel",
+    "name": "laravel/laravel",
     "type": "project",
-    "description": "Enraiged Laravel",
+    "description": "The Laravel Framework.",
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
         "ext-exif": "*",
         "ext-gd": "*",
-        "enraiged/core": "@dev",
         "guzzlehttp/guzzle": "^7.2",
         "inertiajs/inertia-laravel": "^0.5.4",
         "laravel-enso/enums": "^2.2",
@@ -30,7 +29,9 @@
         "psr-4": {
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/"
+            "Database\\Seeders\\": "database/seeders/",
+            "Enraiged\\Database\\Seeders\\": "packages/enraiged/database/seeders",
+            "Enraiged\\": "packages/enraiged/src/"
         }
     },
     "autoload-dev": {
@@ -38,12 +39,6 @@
             "Tests\\": "tests/"
         }
     },
-    "repositories": [
-        {
-            "type": "path",
-            "url": "./packages/enraiged"
-        }
-    ],
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
