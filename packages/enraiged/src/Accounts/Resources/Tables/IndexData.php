@@ -12,9 +12,6 @@ class IndexData extends TableResource
      *
      *  @param  \Illuminate\Http\Request  $request
      *  @return array
-     *
-     *  @todo:  The $request provided here is \Illuminate\Http\Request, not IndexRequest
-     *  @see:   https://stackoverflow.com/questions/54768010/how-to-pass-custom-request-to-api-resource
      */
     public function toArray($request): array
     {
@@ -22,11 +19,15 @@ class IndexData extends TableResource
 
         return [
             'id' => $this->id,
-            'name' => $this->profile->name,
             'email' => $this->email,
+            'first_name' => $this->profile->first_name,
+            'last_name' => $this->profile->last_name,
+            'name' => $this->profile->name,
             'username' => $this->username,
+            'birthday' => $this->profile->birthdate ? date('M j', strtotime($this->profile->birthdate)) : null,
             'created' => date('Y-m-d', strtotime($this->created_at)),
             'deleted' => $this->deleted_at ? date('Y-m-d', strtotime($this->deleted_at)) : null,
+            'actions' => $request->actions($this->resource),
         ];
     }
 }

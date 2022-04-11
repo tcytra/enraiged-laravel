@@ -1,10 +1,26 @@
 # Project History
 
 Todo:
-- Addresses, Avatars, Organizations, Roles, Tables
-- Add parent FormBuilder, Tablebuilder functionality
+- Addresses, Avatars, Organizations, Roles
+- Middleware to inject $request->user() for my account controllers.
 - Secondary email login
-- VueX
+- Table controls (refresh,search,export,etc)
+- [kirschbaum-development/eloquent-power-joins](https://github.com/kirschbaum-development/eloquent-power-joins) maybe?
+
+---
+
+2022-04-11 : 0.0.8  
+Update: Added row actions to the Accounts table; Rudimentary templating
+
+This update provides the ability to define row actions for a table via
+a templating mechanism. Accounts table can now show, edit, and delete.
+
+- Added Accounts\Models\Table with AccountVisibility scope
+- Added Pinia store management library package
+- Added CreatePinia,ConfirmationService to the app.js
+- Corrected scss issue with .content.main width (with scrollbars)
+- Leverage store state to handle flash messages
+- Reverted adding composer.json to packages/enraiged; ide misbehaving
 
 ---
 
@@ -38,6 +54,10 @@ Enraiged namespace, to eventually split into a vendor package.
 
 2022-04-04 : 0.0.5  
 Update: Completed Auth; Reorganized client-side; Added Account Edit
+
+The Auth scaffolding is now completed, with the ability to log{in,out},
+register (if option is true), reset forgotten password, apply password
+requirements, and confirm password via middleware interrupt.
 
 - Added auth.panel on the ui right had side
 - Added initial account control panel page with basic account form
@@ -95,8 +115,8 @@ completed, including the Default layout component.
 
 References:
 
-- [https://primefaces.org/primevue/]
-- [https://www.primefaces.org/primeflex/]
+- [primefaces.org/primevue](https://primefaces.org/primevue/)
+- [primefaces.org/primeflex](https://www.primefaces.org/primeflex/)
 
 ---
 
@@ -109,5 +129,5 @@ for users and persons.
 
 References:
 
-- [https://inertiajs.com/]
-- [https://github.com/inertiajs/pingcrm]
+- [inertiajs.com](https://inertiajs.com/)
+- [github.com/inertiajs/pingcrm](https://github.com/inertiajs/pingcrm)

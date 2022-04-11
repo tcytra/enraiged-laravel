@@ -12,7 +12,7 @@
 + [PrimeFlex 3](https://www.primefaces.org/primeflex/)
 + [PrimeIcons v5](https://www.primefaces.org/primevue/#/icons)
 
---
+---
 
 ## Install Application
 
@@ -37,7 +37,7 @@ Install the vendor packages:
 composer install
 ```
 
---
+---
 
 ## Configure Application
 
@@ -76,7 +76,7 @@ from your .env if you wish to control these parameters from the auth config arra
 
 > **Note:** AUTO_LOGIN will not take effect if the User model is configured to verify registered email addresses.
 
---
+---
 
 ## Build Database
 
@@ -86,7 +86,7 @@ We can now execute the data migration and seeder scripts:
 php artisan migrate --seed
 ```
 
---
+---
 
 ## Build Client
 
@@ -104,7 +104,7 @@ yarn dev
 
 > **Note:** I was getting npm complaints about mismatched binaries; Executed: `npm config set scripts-prepend-node-path auto`
 
---
+---
 
 ## Serve the application
 

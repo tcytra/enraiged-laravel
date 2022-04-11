@@ -13,17 +13,20 @@
             <slot />
         </app-state>
     </Transition>
+    <confirm-dialog />
     <flash-messages />
 </template>
 
 <script>
 import AppState from './state/AppState';
+import ConfirmDialog from 'primevue/confirmdialog';
 import GuestState from './state/GuestState';
 import FlashMessages from './notifications/FlashMessages';
 
 export default {
     components: {
         AppState,
+        ConfirmDialog,
         GuestState,
         FlashMessages,
     },

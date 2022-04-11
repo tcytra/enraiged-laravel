@@ -3,6 +3,7 @@
 namespace Enraiged\Accounts\Services;
 
 use App\Auth\User;
+use Enraiged\Accounts\Events\AccountCreated;
 use Enraiged\Profiles\Models\Profile;
 use Illuminate\Support\Facades\DB;
 
@@ -60,6 +61,8 @@ class CreateAccount
 
         $this->account = $user->account;
         $this->account->load('profile');
+
+        event(new AccountCreated($model));
 
         return $this;
     }

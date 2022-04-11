@@ -2,15 +2,15 @@
 
 namespace Enraiged\Accounts\Models;
 
-//use App\Auth\User;
+use App\Auth\Traits\IsProtected;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Account extends Model // User
+class Account extends Model
 {
     use BelongsTo\User,
         HasOne\Profile,
-        SoftDeletes;
+        IsProtected, SoftDeletes;
 
     /** @var  string  The database table name. */
     protected $table = 'users';
@@ -19,22 +19,4 @@ class Account extends Model // User
     protected $guarded = [
         'id', 'email', 'password', 'username', 'is_active', 'is_hidden', 'is_protected',
     ];
-
-    /**
-     *  Bootstrap the model and its traits.
-     *
-     *  @return void
-     */
-    public static function boot()
-    {
-        parent::boot();
-
-        static::created(function ($model) {
-            event(new \Enraiged\Accounts\Events\AccountCreated($model));
-        });
-
-        static::updated(function ($model) {
-            event(new \Enraiged\Accounts\Events\AccountUpdated($model));
-        });
-    }
 }

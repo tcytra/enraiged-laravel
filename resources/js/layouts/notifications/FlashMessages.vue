@@ -3,11 +3,13 @@
         <flash-message v-for="(message, index) in messages"
             :index="index"
             :message="message"
-            @destroy="destroyMessage(index)"/>
+            @destroy="unflash(index)"/>
     </div>
 </template>
 
 <script>
+import { mapActions, mapState } from 'pinia'
+import { FlashMessages } from '@/stores/flashmessages.js';
 import FlashMessage from './flash/Message';
 
 export default {
@@ -15,14 +17,12 @@ export default {
         FlashMessage,
     },
 
-    data: () => ({
-        messages: [],
-    }),
+    computed: {
+        ...mapState(FlashMessages, ['messages']),
+    },
 
     methods: {
-        destroyMessage(index) {
-            this.messages.splice(index, 1);
-        },
+        ...mapActions(FlashMessages, ['flash', 'unflash']),
     },
 
     watch: {
@@ -30,10 +30,10 @@ export default {
             handler() {
                 const flash = this.$page.props.flash;
                 if (flash.message) {
-                    this.messages.push(flash.message);
+                    this.flash(flash.message);
                 }
                 if (flash.success) {
-                    this.messages.push({ severity: 'success', content: flash.success, expiry: 3000 });
+                    this.flash(flash.success);
                 }
             },
             deep: true,

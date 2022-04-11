@@ -24,7 +24,7 @@ class AccountUpdated
     public function __construct(Account $account)
     {
         $this->account = $account;
-        $this->changes = $model->getChanges();
+        $this->changes = $account->getChanges();
     }
 
     /**

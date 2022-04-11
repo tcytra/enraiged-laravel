@@ -1,30 +1,27 @@
 <template>
-    <Head title="Accounts" />
-    <main class="accounts index content main">
+    <Head title="Account" />
+    <main class="account edit content main">
         <header class="header">
-            <h1>Accounts</h1>
+            <h1 v-if="account.id === 1">My Account</h1>
+            <h1 v-else>Account</h1>
         </header>
-        <section class="container">
-            <account-index :template="accountsIndex" />
-        </section>
+        ...
     </main>
 </template>
 
 <script>
 import { Head } from '@inertiajs/inertia-vue3';
 import AppLayout from '@/layouts/App.vue';
-import AccountIndex from '@/components/accounts/tables/AccountIndex';
 
 export default {
     layout: AppLayout,
 
     components: {
         Head,
-        AccountIndex,
     },
 
     props: {
-        accountsIndex: {
+        account: {
             type: Object,
             required: true,
         },

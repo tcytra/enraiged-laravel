@@ -1,9 +1,13 @@
-import { createApp, h } from 'vue'
-import { InertiaProgress } from '@inertiajs/progress'
-import { createInertiaApp } from '@inertiajs/inertia-vue3'
+import { createApp, h } from 'vue';
+import { InertiaProgress } from '@inertiajs/progress';
+import { createInertiaApp } from '@inertiajs/inertia-vue3';
+import { createPinia } from 'pinia';
+import ConfirmationService from 'primevue/confirmationservice';
 import PrimeVue from 'primevue/config';
 
-InertiaProgress.init()
+InertiaProgress.init();
+
+const store = createPinia();
 
 createInertiaApp({
     resolve: name => import(`./pages/${name}`),
@@ -12,6 +16,8 @@ createInertiaApp({
         createApp({ render: () => h(App, props) })
             .use(plugin)
             .use(PrimeVue, {inputStyle: 'filled', ripple: true})
+            .use(ConfirmationService)
+            .use(store)
             .mount(el)
     },
 });

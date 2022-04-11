@@ -19,6 +19,14 @@
 .width-lg { width:  $break-large; }
 .width-xl { width:  $break-x-large; }
 
+.max-width-16 { max-width:  1rem; }
+.max-width-24 { max-width:  1.5rem; }
+.max-width-32 { max-width:  2rem; }
+.max-width-48 { max-width:  3rem; }
+.max-width-64 { max-width:  4rem; }
+.max-width-128 { max-width: 8rem; }
+.max-width-160 { max-width: 10rem; }
+
 .min-width-16 { min-width:  1rem; }
 .min-width-24 { min-width:  1.5rem; }
 .min-width-32 { min-width:  2rem; }

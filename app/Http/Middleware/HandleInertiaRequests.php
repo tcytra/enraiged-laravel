@@ -58,7 +58,10 @@ class HandleInertiaRequests extends Middleware
      */
     protected function meta(Request $request)
     {
-        $meta = ['app_name' => config('app.name')];
+        $meta = [
+            'app_name' => config('app.name'),
+            'csrf_token' => csrf_token(),
+        ];
 
         if (Auth::check()) {
         } else {

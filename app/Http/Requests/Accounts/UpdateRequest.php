@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Accounts;
 
 use App\Auth\Traits\Validators\PasswordValidator;
+use Enraiged\Accounts\Events\AccountUpdated;
 use Enraiged\Accounts\Traits\Validation\Messages as ValidationMessages;
 use Enraiged\Accounts\Traits\Validation\Rules as ValidationRules;
 use Enraiged\Support\Requests\FormRequest;
@@ -30,6 +31,8 @@ class UpdateRequest extends FormRequest
      */
     protected function updateAccount()
     {
+        $account = $this->route('account');
+
         $parameters = collect($this->validated())
             ->only(['email', 'username']);
 
@@ -37,9 +40,11 @@ class UpdateRequest extends FormRequest
             $parameters->merge(['password' => $this->get('password')]);
         }
 
-        $this->route('account')
+        $account
             ->fill($parameters->toArray())
             ->save();
+
+        event(new AccountUpdated($account));
 
         return $this;
     }

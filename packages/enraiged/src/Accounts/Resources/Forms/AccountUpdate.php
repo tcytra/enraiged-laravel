@@ -37,7 +37,7 @@ class AccountUpdate extends FormResource
             'resource' => [
                 'id' => $this->id,
                 'method' => 'patch',
-                'uri' => route('account.update', ['account' => $this->id], false),
+                'uri' => route('accounts.update', ['account' => $this->id], false),
             ],
         ];
     }

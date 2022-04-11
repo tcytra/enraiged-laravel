@@ -12,7 +12,7 @@ class Update extends Controller
     use AuthorizesRequests;
 
     /**
-     *  Display the account control panel component.
+     *  Process the request to update the account.
      *
      *  @param  \Illuminate\Http\Request  $request
      *  @return \Inertia\Response

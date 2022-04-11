@@ -1,5 +1,30 @@
 
 .p-datatable-table {
+
+    th.actions .p-column-header-content, td.actions {
+      justify-content:  center;
+      text-align:       center;
+    }
+
+    td.actions {
+        .p-button {
+            &.p-button-sm,
+            &.p-button-sm .pi.p-button-icon {
+              font-size:        .825rem;
+            }
+
+            &.p-button-sm {
+              height:           2rem;
+              width:            2rem;
+            }
+        }
+
+        .p-column-title {
+          flex-grow:        1;
+          text-align:       left;
+        }
+    }
+
     th.text-center .p-column-header-content {
       display:          initial;
       text-align:       center;
@@ -11,5 +36,16 @@
     th.text-right .p-column-header-content {
       display:          initial;
       text-align:       right;
+    }
+
+    tr.p-datatable-emptymessage {
+      background-color:     transparent;
+
+        >td {
+          border-bottom:    0;
+          color:            var(--bluegray-400);
+          padding:          1rem;
+          text-align:       center;
+        }
     }
 }

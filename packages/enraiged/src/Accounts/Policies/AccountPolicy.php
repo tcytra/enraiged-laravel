@@ -17,7 +17,7 @@ class AccountPolicy
 
     public function edit(User $user, Account $account)
     {
-        return $user->id === $account->id;
+        return $user->exists && $account->exists;
     }
 
     public function export(User $user)
@@ -37,6 +37,7 @@ class AccountPolicy
 
     public function update(User $user, Account $account)
     {
-        return $user->id === $account->id;
+        return $user->id === 1
+            || $user->id === $account->id;
     }
 }
