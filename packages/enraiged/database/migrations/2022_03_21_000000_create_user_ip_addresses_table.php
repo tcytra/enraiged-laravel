@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
+use Enraiged\Support\Database\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
@@ -18,9 +18,7 @@ return new class extends Migration
             $table->bigInteger('user_id')->unsigned()->index();
             $table->ipAddress('ip_address'); // todo: should be INT UNSIGNED 4(BYTE) (?)
             $table->timestamp('created_at')->nullable();
-            $table->timestamp('deleted_at')->nullable();
-            $table->bigInteger('deleted_by')->unsigned()->nullable();
-            $table->foreign('deleted_by')->references('id')->on('users');
+            $this->track_deleted($table);
         });
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
+use Enraiged\Support\Database\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
@@ -21,12 +21,18 @@ return new class extends Migration
             $table->string('salut', 16)->nullable();
             $table->string('title', 16)->nullable();
             $table->date('birthdate')->nullable();
+            $this->tracking($table);
+            /*
             $table->timestamp('created_at')->nullable();
             $table->timestamp('deleted_at')->nullable();
             $table->timestamp('updated_at')->nullable();
             $table->bigInteger('created_by')->unsigned()->nullable();
             $table->bigInteger('deleted_by')->unsigned()->nullable();
             $table->bigInteger('updated_by')->unsigned()->nullable();
+            $table->foreign('created_by')->references('id')->on('users');
+            $table->foreign('deleted_by')->references('id')->on('users');
+            $table->foreign('updated_by')->references('id')->on('users');
+            */
         });
     }
 

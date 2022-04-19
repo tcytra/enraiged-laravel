@@ -2,6 +2,14 @@
 
 use Illuminate\Support\Facades\Route;
 
+//  \App\Http\Controllers\Account
+Route::middleware(['auth', 'verified'])
+    ->group(base_path('routes/web/accounts.php'));
+
+//  \App\Http\Controllers\Files
+Route::middleware(['auth', 'verified'])
+    ->group(base_path('routes/web/files.php'));
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,10 +20,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-//  \App\Http\Controllers\Account
-Route::middleware(['auth', 'verified'])
-    ->group(base_path('routes/web/accounts.php'));
 
 //  \App\Http\Controllers\Auth
 Route::namespace('Auth')

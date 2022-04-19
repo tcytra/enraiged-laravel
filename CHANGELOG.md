@@ -2,10 +2,35 @@
 
 Todo:
 - Addresses, Avatars, Organizations, Roles
-- Middleware to inject $request->user() for my account controllers.
 - Secondary email login
-- Table controls (refresh,search,export,etc)
 - [kirschbaum-development/eloquent-power-joins](https://github.com/kirschbaum-development/eloquent-power-joins) maybe?
+
+---
+
+2022-04-19 : 0.0.9  
+Update: Added full-featured builder,template functionality to the table
+
+- Added accounts.{create,store} controllers, routes, pages
+- Added axios to the package.json
+- Added enraiged.tables.template to the config as the base table
+- Added Export,File models,migrations; Ability to export csv,xlsx
+- Added laravel-excel composer package for table exports
+- Added placeholder My Files route,page,controller for files index
+- Added TableBuilders to handle the request()->table() processing
+- Added optional ability to preserve table state in localStorage
+- Added table create action, refresh, pagination, search, sort
+- Added various auth,date,utility helpers to the enraiged package
+- Cleaned up the ui in the table sass; (header componenents)
+- Move Requests\Accounts\IndexRequest to Requests\Accounts\TableRequest
+- Move custom config files into the /config/enraiged directory
+
+```
+composer require psr/simple-cache:^1.0 maatwebsite/excel
+```
+
+References:
+
+- [laravel-excel.com](https://docs.laravel-excel.com/3.1/exports/)
 
 ---
 
@@ -16,7 +41,7 @@ This update provides the ability to define row actions for a table via
 a templating mechanism. Accounts table can now show, edit, and delete.
 
 - Added Accounts\Models\Table with AccountVisibility scope
-- Added Pinia store management library package
+- Added Pinia store management library package via yarn
 - Added CreatePinia,ConfirmationService to the app.js
 - Corrected scss issue with .content.main width (with scrollbars)
 - Leverage store state to handle flash messages

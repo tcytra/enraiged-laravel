@@ -48,4 +48,27 @@
           text-align:       center;
         }
     }
+
+    .p-datatable-thead > tr > th {
+      font-family:      $font-family-secondary;
+      font-weight:      400;
+
+        &.p-sortable-column {
+            .p-column-header-content .p-column-title {
+              flex-grow:        1;
+            }
+
+            .p-sortable-column-icon {
+              font-size:        .875rem;
+            }
+        }
+    }
+}
+
+.p-datatable-header {
+  margin-bottom:    1rem;
+}
+
+.p-paginator {
+  margin-top:       1rem;
 }

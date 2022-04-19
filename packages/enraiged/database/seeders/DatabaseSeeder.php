@@ -9,6 +9,8 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
+    protected $create_accounts = 123;
+
     /**
      *  Seed the application's database.
      *
@@ -17,7 +19,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         if (app()->environment(['dev', 'development', 'local'])) {
-            for ($i = 0; $i < 10; $i++) {
+            for ($i = 0; $i < $this->create_accounts; $i++) {
                 $password = 'changeme';
                 $account = $this->createFactoryAccount(['password' => $password]);
                 $this->command->getOutput()->writeln("<comment>Login:</comment> <info>{$account->email}:{$password}</info>");

@@ -10,9 +10,14 @@ class AccountPolicy
 {
     use HandlesAuthorization;
 
-    public function destroy(User $user, Account $account)
+    public function create(User $user)
     {
-        return $user->exists && $account->exists;
+        return $user->id === 1;
+    }
+
+    public function delete(User $user, Account $account)
+    {
+        return $user->exists && $account->exists && !$account->is_protected;
     }
 
     public function edit(User $user, Account $account)

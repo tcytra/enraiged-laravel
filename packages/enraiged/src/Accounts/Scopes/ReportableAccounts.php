@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
 
-class AccountVisibility implements Scope
+class ReportableAccounts implements Scope
 {
     /**
      *  @param  \Illuminate\Database\Eloquent\Builder  $builder
@@ -15,6 +15,8 @@ class AccountVisibility implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        $builder->where('is_hidden', false);
+        $builder
+            ->join('profiles', 'profiles.id', '=', 'users.profile_id')
+            ->where('is_hidden', false);
     }
 }

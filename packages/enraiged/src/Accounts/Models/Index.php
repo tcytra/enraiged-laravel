@@ -2,9 +2,9 @@
 
 namespace Enraiged\Accounts\Models;
 
-use Enraiged\Accounts\Scopes\AccountVisibility;
+use Enraiged\Accounts\Scopes\ReportableAccounts;
 
-class Table extends Account
+class Index extends Account
 {
     /**
      *  Perform actions required after the Account boots.
@@ -13,6 +13,6 @@ class Table extends Account
      */
     protected static function booted()
     {
-        static::addGlobalScope(new AccountVisibility);
+        static::addGlobalScope(new ReportableAccounts);
     }
 }

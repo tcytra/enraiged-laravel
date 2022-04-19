@@ -1,0 +1,86 @@
+{
+    "id": "accounts.index",
+    "empty": "There are no Accounts to display",
+    "prefix": "accounts.",
+    "table": "users",
+    "uri": "accounts.index.data",
+    "actions": {
+        "create": {
+            "class": "p-button-success",
+            "icon": "pi pi-plus",
+            "tooltip": "Create account"
+        },
+        "show": {
+            "class": "p-button-primary",
+            "icon": "pi pi-eye",
+            "method": "emit",
+            "tooltip": "Show account",
+            "type": "row"
+        },
+        "edit": {
+            "class": "p-button-warning",
+            "icon": "pi pi-pencil",
+            "tooltip": "Edit account",
+            "type": "row"
+        },
+        "delete": {
+            "class": "p-button-danger",
+            "confirm": "Are you certain you wish to delete this account?",
+            "icon": "pi pi-trash",
+            "method": "delete",
+            "tooltip": "Delete account",
+            "type": "row"
+        }
+    },
+    "columns": {
+        "id": {
+            "custom": true,
+            "label": "ID"
+        },
+        "active": {
+            "custom": true,
+            "label": "Active"
+        },
+        "first_name": {
+            "label": "First Name",
+            "source": "profiles.first_name",
+            "searchable": true,
+            "sortable": true
+        },
+        "last_name": {
+            "label": "Last Name",
+            "source": "profiles.last_name",
+            "searchable": true,
+            "sortable": true
+        },
+        "email": {
+            "label": "Email",
+            "searchable": true,
+            "sortable": true
+        },
+        "birthday": {
+            "class": "text-right",
+            "label": "Birthday",
+            "source": "profiles.birthdate",
+            "sortable": true
+        },
+        "created": {
+            "class": "text-right",
+            "label": "Created",
+            "source": "users.created_at",
+            "sortable": true
+        }
+    },
+    "exportable": {
+        "chunk": 100,
+        "default": "XLSX",
+        "options": ["CSV", "XLSX"],
+        "uri": "/api/accounts/index/export"
+    },
+    "pagination": {
+        "options": [5, 10, 20, 50, 100, 200, 500],
+        "page": 1,
+        "rows": 10
+    },
+    "state": true
+}

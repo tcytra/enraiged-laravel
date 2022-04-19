@@ -14,7 +14,9 @@
         "laravel/framework": "^9.2",
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
-        "league/glide-laravel": "^1.0"
+        "league/glide-laravel": "^1.0",
+        "maatwebsite/excel": "^3.1",
+        "psr/simple-cache": "^1.0"
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",
@@ -32,7 +34,12 @@
             "Database\\Seeders\\": "database/seeders/",
             "Enraiged\\Database\\Seeders\\": "packages/enraiged/database/seeders",
             "Enraiged\\": "packages/enraiged/src/"
-        }
+        },
+        "files": [
+            "packages/enraiged/helpers/auth.php",
+            "packages/enraiged/helpers/dates.php",
+            "packages/enraiged/helpers/utility.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

@@ -4,8 +4,8 @@
         <header class="header">
             <h1>Accounts</h1>
         </header>
-        <section class="container">
-            <account-index :template="accountsIndex" />
+        <section class="container table">
+            <account-index :template="template" />
         </section>
     </main>
 </template>
@@ -24,7 +24,7 @@ export default {
     },
 
     props: {
-        accountsIndex: {
+        template: {
             type: Object,
             required: true,
         },

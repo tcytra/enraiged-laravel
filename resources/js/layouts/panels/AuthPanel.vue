@@ -15,6 +15,16 @@
                     </dl>
                 </dl>
             </li>
+            <li class="action each" @click="get('/my/files')">
+                <dl class="option">
+                    <dt class="icon">
+                        <i class="pi pi-file"></i>
+                    </dt>
+                    <dl class="text">
+                        Files
+                    </dl>
+                </dl>
+            </li>
             <li class="action each" @click="logout">
                 <dl class="option">
                     <dt class="icon">
@@ -60,12 +70,10 @@ export default {
 
     methods: {
         close() {
-            this.$emit('auth:toggle');
+            this.$emit('auth:close');
         },
-        get(url, close) {
-            if (close === true) {
-                this.close();
-            }
+        get(url) {
+            this.close();
             this.$inertia.get(url);
         },
         logout() {

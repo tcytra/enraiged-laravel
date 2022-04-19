@@ -2,6 +2,7 @@
 
 namespace Enraiged\Profiles\Models;
 
+use Enraiged\Support\Traits\CreatedBy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -11,7 +12,7 @@ class Profile extends Model
         Attributes\Name,
         HasOne\Account,
         Traits\HasFactory,
-        SoftDeletes;
+        CreatedBy, SoftDeletes;
 
     /** @var  string  The database table name. */
     protected $table = 'profiles';

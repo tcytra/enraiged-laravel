@@ -24,6 +24,7 @@
         </div>
         <auth-panel class="auth panel" ref="authPanel"
             :auth="auth"
+            @auth:close="closeAuth"
             @auth:toggle="toggleAuth"/>
     </div>
 </template>

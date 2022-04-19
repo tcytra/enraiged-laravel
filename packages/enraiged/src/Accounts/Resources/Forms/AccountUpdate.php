@@ -2,10 +2,10 @@
 
 namespace Enraiged\Accounts\Resources\Forms;
 
+use App\Http\Resources\JsonResource;
 use Enraiged\Profiles\Enums\Saluts;
-use Enraiged\Resources\Forms\FormResource;
 
-class AccountUpdate extends FormResource
+class AccountUpdate extends JsonResource
 {
     /**
      *  Transform the resource collection into an array.

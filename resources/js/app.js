@@ -4,6 +4,8 @@ import { createInertiaApp } from '@inertiajs/inertia-vue3';
 import { createPinia } from 'pinia';
 import ConfirmationService from 'primevue/confirmationservice';
 import PrimeVue from 'primevue/config';
+import axios from 'axios';
+import VueAxios from 'vue-axios';
 
 InertiaProgress.init();
 
@@ -15,9 +17,10 @@ createInertiaApp({
     setup({ el, App, props, plugin }) {
         createApp({ render: () => h(App, props) })
             .use(plugin)
-            .use(PrimeVue, {inputStyle: 'filled', ripple: true})
-            .use(ConfirmationService)
             .use(store)
-            .mount(el)
+            .use(PrimeVue, { inputStyle: 'filled', ripple: true })
+            .use(ConfirmationService)
+            .use(VueAxios, axios)
+            .mount(el);
     },
 });

@@ -30,9 +30,5 @@ export default {
             required: true,
         },
     },
-
-    mounted() {
-        this.$parent.$emit('close:auth');
-    },
 };
 </script>

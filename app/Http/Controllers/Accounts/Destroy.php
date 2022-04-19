@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Accounts;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Accounts\IndexRequest;
+use App\Http\Requests\Accounts\TableRequest;
 use Enraiged\Accounts\Models\Account;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
@@ -14,17 +14,17 @@ class Destroy extends Controller
     /**
      *  Process the request to destroy the account
      *
-     *  @param  \Illuminate\Http\Request  $request
+     *  @param  \App\Http\Requests\Accounts\TableRequest  $request
      *  @param  \Enraiged\Accounts\Models\Account  $account
      *  @return \Inertia\Response
      */
-    public function __invoke(IndexRequest $request, Account $account)
+    public function __invoke(TableRequest $request, Account $account)
     {
-        $this->authorize('destroy', $account);
+        $this->authorize('delete', $account);
 
         $account->delete();
 
-        if (preg_match('/\/api/', $request->uri())) {
+        if (preg_match('/\/api/', $request->table()->uri())) {
             return response()->json(['success' => __('Account deleted')]);
         }
 

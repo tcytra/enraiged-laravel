@@ -6,21 +6,24 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Accounts\IndexRequest;
 use Enraiged\Accounts\Models\Account;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\Request;
 
 class Data extends Controller
 {
     use AuthorizesRequests;
 
     /**
-     *  Serve the account table data.
+     *  Provide the account table data.
      *
-     *  @param  \App\Http\Requests\Accounts\IndexRequest  $request
-     *  @return 
+     *  @param  \Illuminate\Http\Request  $request
+     *  @return \Illuminate\Http\Response
      */
-    public function __invoke(IndexRequest $request)
+    public function __invoke(Request $request)
     {
         $this->authorize('index', Account::class);
 
-        return response()->json(['data' => $request->data()]);
+        $request = IndexRequest::createFrom($request);
+
+        return response()->json($request->table()->data());
     }
 }

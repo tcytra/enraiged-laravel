@@ -32,6 +32,8 @@
 
 //  the app primevue adjustments
 #app {
+@import 'app/primevue';
+@import 'app/primevue/dataviews';
 @import 'app/primevue/cards';
 @import 'app/primevue/forms';
 @import 'app/primevue/panels';
@@ -74,14 +76,4 @@ a, a:visited {
 }
 a:active, a:hover {
   color:            var(--bluegray-800);
-}
-
-p.text {
-  margin:           1rem;
-}
-
-#app {
-    .p-component {
-      font-family:      $font-family-primary;
-    }
 }

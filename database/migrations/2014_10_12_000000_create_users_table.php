@@ -29,7 +29,7 @@ return new class extends Migration
             $table->bigInteger('created_by')->unsigned()->nullable();
             $table->bigInteger('deleted_by')->unsigned()->nullable();
             $table->bigInteger('updated_by')->unsigned()->nullable();
-            $table->boolean('is_active')->default(false);
+            $table->boolean('is_active')->default(true);
             $table->boolean('is_hidden')->default(false);
             $table->boolean('is_protected')->default(false);
         });

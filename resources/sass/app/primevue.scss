@@ -1,0 +1,25 @@
+
+.p-component {
+  font-family:      $font-family-primary;
+}
+
+.p-component-overlay {
+  background-color: rgba(255, 255, 255, 0.4)
+}
+
+.p-paginator {
+    .p-paginator-current {
+      flex-basis:       100%;
+      flex-grow:        1;
+      justify-content:  center;
+    }
+}
+
+@media screen and (min-width: $break-large) {
+    .p-paginator {
+        .p-paginator-current {
+          flex-basis:       initial;
+          justify-content:  flex-start;
+        }
+    }
+}

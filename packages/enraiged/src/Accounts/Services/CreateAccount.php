@@ -62,7 +62,7 @@ class CreateAccount
         $this->account = $user->account;
         $this->account->load('profile');
 
-        event(new AccountCreated($model));
+        event(new AccountCreated($this->account));
 
         return $this;
     }

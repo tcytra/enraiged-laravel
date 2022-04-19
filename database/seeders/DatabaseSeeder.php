@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use Enraiged\Accounts\Services\CreateAccount;
-use Enraiged\Database\Seeders\DatabaseSeeder as EnraigedDatabaseSeeder;
 //use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Artisan;
@@ -24,8 +23,10 @@ class DatabaseSeeder extends Seeder
         $password = env('ADMIN_PASSWORD', 'changeme');
 
         $administrator = CreateAccount::from([
-            'name' => 'Application Administrator',
             'email' => $email,
+            'is_hidden' => true,
+            'is_protected' => true,
+            'name' => 'Application Administrator',
             'password' => $password,
             'username' => env('ADMIN_USERNAME'),
         ]);
@@ -34,10 +35,8 @@ class DatabaseSeeder extends Seeder
 
         $this->command->getOutput()->writeln($output);
 
-        //\App\Models\User::factory(10)->create();
-
         $this->call([
-            EnraigedDatabaseSeeder::class,
+            \Enraiged\Database\Seeders\DatabaseSeeder::class,
         ]);
     }
 }

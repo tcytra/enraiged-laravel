@@ -39,7 +39,7 @@ class StorageClear extends Command
             return 1;
         }
 
-        foreach (config('storage.clean') as $each) {
+        foreach (config('enraiged.storage.clear') as $each) {
             $storage_path = storage_path("{$this->storage_path}/{$each}");
 
             !is_dir($storage_path)

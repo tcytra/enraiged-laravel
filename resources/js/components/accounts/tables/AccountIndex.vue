@@ -1,6 +1,8 @@
 <template>
     <div class="account-table">
-        <vue-table :template="template"
+        <vue-table
+            :page-report-template="'Showing {first} to {last} of {totalRecords} Accounts'"
+            :template="template"
             @show="show" />
     </div>
 </template>

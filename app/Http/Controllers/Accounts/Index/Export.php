@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Accounts\IndexRequest;
 use Enraiged\Accounts\Models\Account;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\Request;
 
 class Export extends Controller
 {
@@ -14,13 +15,19 @@ class Export extends Controller
     /**
      *  Display the account control panel component.
      *
-     *  @param  \App\Http\Requests\Accounts\IndexRequest  $request
-     *  @return \Inertia\Response
+     *  @param  \Illuminate\Http\Request  $request
+     *  @return \Illuminate\Http\Response
      */
-    public function __invoke(IndexRequest $request)
+    public function __invoke(Request $request)
     {
-        $this->authorize('index', Account::class);
+        $this->authorize('export', Account::class);
 
-        
+        $request = IndexRequest::createFrom($request);
+
+        $request->table()
+            ->exporter()
+            ->process();
+
+        return response()->json(['success' => 'Export started.']);
     }
 }

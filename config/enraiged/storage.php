@@ -13,6 +13,6 @@ return [
     |
     */
 
-    'clean' => ['public'],
+    'clear' => ['exports', 'imports', 'public'],
 
 ];
