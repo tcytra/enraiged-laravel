@@ -15,8 +15,10 @@ class ReportableAccounts implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        $builder
+        (object) $builder
+            ->select('users.*')
             ->join('profiles', 'profiles.id', '=', 'users.profile_id')
+            ->join('roles', 'roles.id', '=', 'users.role_id')
             ->where('is_hidden', false);
     }
 }
