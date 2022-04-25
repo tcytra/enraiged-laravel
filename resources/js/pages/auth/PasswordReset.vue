@@ -17,17 +17,14 @@
         <div class="body" v-else>
             <form class="form relative" @submit.prevent="submit">
                 <vue-text-field is-large class="email" id="email"
-                    placeholder="Email"
-                    :form="form"
-                    :model="form.email"/>
+                    :field="{ placeholder: 'Email', required: true }"
+                    :form="form"/>
                 <vue-password-field is-large feedback id="password"
-                    placeholder="Password"
-                    :form="form"
-                    :model="form.password"/>
+                    :field="{ placeholder: 'Password', required: true }"
+                    :form="form"/>
                 <vue-password-field is-large id="password_confirmation"
-                    placeholder="Confirm Password"
-                    :form="form"
-                    :model="form.password_confirmation"/>
+                    :field="{ placeholder: 'Confirm Password', required: true }"
+                    :form="form"/>
             </form>
         </div>
         <footer class="footer">

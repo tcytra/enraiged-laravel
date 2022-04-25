@@ -27,11 +27,13 @@ class IndexResource extends JsonResource
 
         return [
             'id' => $this->id,
+            'alias' => $this->profile->alias,
             'active' => $this->is_active ? true : false,
             'email' => $this->email,
             'first_name' => $this->profile->first_name,
             'last_name' => $this->profile->last_name,
             'name' => $this->profile->name,
+            'role' => $this->role(),
             'username' => $this->username,
             'birthday' => $this->profile->birthdate ? $this->birthday() : null,
             'created' => date('Y-m-d', strtotime($this->created_at)),
@@ -42,8 +44,16 @@ class IndexResource extends JsonResource
 
     private function birthday()
     {
-        return true // show full birthdate
+        return true // show full birthdate, use options for formatting
             ? date('M j Y', strtotime($this->profile->birthdate))
             : date('M j', strtotime($this->profile->birthdate));
+    }
+
+    /**
+     *  @return string|null
+     */
+    private function role()
+    {
+        return $this->user->role ? $this->user->role->name : null;
     }
 }

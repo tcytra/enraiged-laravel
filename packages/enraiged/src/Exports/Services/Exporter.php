@@ -91,9 +91,7 @@ class Exporter implements FromQuery
 
         return collect($this->table->exportableColumns())
             ->keys()
-            ->transform(function ($key) use ($data) {
-                return [$key => $data->{$key}];
-            })
+            ->transform(fn ($key) => [$key => $data->{$key}])
             ->flatten()
             ->toArray();
     }

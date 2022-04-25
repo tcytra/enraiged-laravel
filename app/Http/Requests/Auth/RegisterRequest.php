@@ -5,10 +5,10 @@ namespace App\Http\Requests\Auth;
 use App\Auth\Traits\Validators\PasswordValidator;
 use Enraiged\Accounts\Events\AccountCreated;
 use Enraiged\Accounts\Models\Account;
-use Enraiged\Accounts\Traits\Validation\Messages as ValidationMessages;
-use Enraiged\Accounts\Traits\Validation\Rules as ValidationRules;
+use Enraiged\Accounts\Forms\Validation\Messages as ValidationMessages;
+use Enraiged\Accounts\Forms\Validation\Rules as ValidationRules;
 use Enraiged\Accounts\Services\CreateAccount;
-use Enraiged\Support\Requests\FormRequest;
+use Enraiged\Forms\Requests\FormRequest;
 
 class RegisterRequest extends FormRequest
 {

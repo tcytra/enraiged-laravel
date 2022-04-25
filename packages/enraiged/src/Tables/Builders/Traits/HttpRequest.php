@@ -30,7 +30,7 @@ trait HttpRequest
         $uri = $this->uri;
 
         if (preg_match('/\./', $uri)) {
-            $uri = route($uri, [], config('enraiged.tables.full_urls'));
+            $uri = route($uri, [], config('enraiged.tables.absolute_uris'));
         }
 
         return '/'.trim($uri, '/');

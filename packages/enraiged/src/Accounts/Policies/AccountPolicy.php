@@ -4,6 +4,7 @@ namespace Enraiged\Accounts\Policies;
 
 use App\Auth\User;
 use Enraiged\Accounts\Models\Account;
+use Enraiged\Roles\Enums\Roles;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class AccountPolicy
@@ -12,22 +13,23 @@ class AccountPolicy
 
     public function create(User $user)
     {
-        return $user->id === 1;
+        return $user->role->atLeast(Roles::Administrator);
     }
 
     public function delete(User $user, Account $account)
     {
-        return $user->exists && $account->exists && !$account->is_protected;
+        return $user->role->atLeast(Roles::Administrator)
+            && !$account->is_protected;
     }
 
     public function edit(User $user, Account $account)
     {
-        return $user->exists && $account->exists;
+        return $this->update($user, $account);
     }
 
     public function export(User $user)
     {
-        return $user->exists;
+        return $this->index($user);
     }
 
     public function index(User $user)
@@ -42,7 +44,7 @@ class AccountPolicy
 
     public function update(User $user, Account $account)
     {
-        return $user->id === 1
+        return $user->role->atLeast(Roles::Administrator)
             || $user->id === $account->id;
     }
 }

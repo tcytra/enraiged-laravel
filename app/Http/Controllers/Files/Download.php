@@ -20,10 +20,11 @@ class Download extends Controller
      */
     public function __invoke(Request $request, File $file)
     {
-        $this->authorize('show', $file);
+        $this->authorize('download', $file);
 
+        $headers = ['Content-Type' => $file->mime];
         $location = storage_path("app/{$file->path}");
 
-        return response()->download($location); // $file->inline();
+        return response()->download($location, $file->name, $headers); // $file->inline();
     }
 }

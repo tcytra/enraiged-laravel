@@ -18,7 +18,5 @@ class Profile extends Model
     protected $table = 'profiles';
 
     /** @var  array  The attributes that aren't mass assignable. */
-    protected $guarded = [
-        'id',
-    ];
+    protected $guarded = ['id'];
 }

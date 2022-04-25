@@ -40,7 +40,7 @@ trait BuilderConstructor
 
         $this->load(config('enraiged.tables.template'));
 
-        if ($this->template && File::exists($this->template)) {
+        if ($this->template && File::exists($this->template)) { // todo: option to ignore config template
             $this->load(json_decode(file_get_contents($this->template), true));
         }
 
@@ -67,10 +67,10 @@ trait BuilderConstructor
     }
 
     /**
-     *  Load a provided array of parameters.
+     *  Load a provided array of builder parameters.
      *
      *  @param  array   $parameters
-     *  @return $this
+     *  @return self
      */
     public function load(array $parameters)
     {

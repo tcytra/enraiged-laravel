@@ -2,21 +2,34 @@
 
 namespace Enraiged\Support\Collections;
 
+use Illuminate\Support\Collection;
+
 trait Fillable
 {
-    public static function Collection()
+    /**
+     *  @return \Illuminate\Support\Collection
+     */
+    public static function Collection(): Collection
     {
         return collect(self::$fillable);
     }
 
-    public static function Except($argument)
+    /**
+     *  @param  array|string  $argument
+     *  @return array
+     */
+    public static function Except($argument): array
     {
         return self::collection()
             ->except($argument)
             ->toArray();
     }
 
-    public static function Only($argument)
+    /**
+     *  @param  array|string  $argument
+     *  @return array
+     */
+    public static function Only($argument): array
     {
         return self::collection()
             ->only($argument)

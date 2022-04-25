@@ -39,4 +39,19 @@ class TableBuilder
     {
         return TableTemplate::from($this);
     }
+
+    /**
+     *  Create and return a builder from the request and optional parameters.
+     *
+     *  @param  \Illuminate\Http\Request  $request
+     *  @param  array  $parameters = []
+     *  @return \Enraiged\Tables\Builders\TableBuilder
+     *  @static
+     */
+    public static function From($request, $parameters = [])
+    {
+        $called = get_called_class();
+
+        return new $called($request, $parameters);
+    }
 }

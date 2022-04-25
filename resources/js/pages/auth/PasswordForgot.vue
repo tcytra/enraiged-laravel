@@ -12,10 +12,9 @@
         </div>
         <div class="body" v-else>
             <form class="form relative" @submit.prevent="submit">
-                <vue-text-field focus is-large class="email" id="email"
-                    placeholder="Email"
-                    :form="form"
-                    :model="form.email"/>
+                <vue-text-field class="email" id="email" focus is-large
+                    :field="{ placeholder: 'Email', required: true }"
+                    :form="form"/>
             </form>
         </div>
         <footer class="footer">

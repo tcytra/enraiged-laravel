@@ -1,5 +1,8 @@
 <template>
-    <vue-form-field :form="form" :id="id" v-slot:default="{ error, update }">
+    <vue-form-field v-slot:default="{ error, label, placeholder, update }"
+        :field="field"
+        :form="form"
+        :id="id">
         <div class="control password" :class="$attrs.class">
             <label v-if="label" class="label" :for="id">
                 {{ label }}
@@ -36,9 +39,22 @@ export default {
     },
 
     props: {
-        confirm: Boolean,
-        feedback: Boolean,
-        focus: Boolean,
+        field: {
+            type: Object,
+            required: true,
+        },
+        confirm: {
+            type: Boolean,
+            default: false,
+        },
+        feedback: {
+            type: Boolean,
+            default: false,
+        },
+        focus: {
+            type: Boolean,
+            default: false,
+        },
         form: {
             type: Object,
             required: true,
@@ -47,12 +63,24 @@ export default {
             type: String,
             required: true,
         },
-        isLarge: Boolean,
-        isSmall: Boolean,
-        label: String,
-        model: String,
-        placeholder: String,
-        toggleMask: Boolean,
+        isLarge: {
+            type: Boolean,
+            default: false,
+        },
+        isSmall: {
+            type: Boolean,
+            default: false,
+        },
+        toggleMask: {
+            type: Boolean,
+            default: false,
+        },
+    },
+
+    computed: {
+        model() {
+            return this.form ? this.form[this.id] : null;
+        },
     },
 };
 </script>

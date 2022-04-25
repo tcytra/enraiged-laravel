@@ -15,7 +15,7 @@ class FilePolicy
         return $user->id === $file->created_by;
     }
 
-    public function show(User $user, File $file)
+    public function download(User $user, File $file)
     {
         return $user->id === $file->created_by;
     }

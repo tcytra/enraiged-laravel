@@ -8,12 +8,9 @@
                         <strong>This action is secure.<br>Please confirm your account password to proceed.</strong>
                     </aside>
                     <div class="center-x-small column container fields">
-                        <vue-password-field class="m-0" id="password"
-                            focus
-                            toggle-mask
-                            placeholder="Password"
-                            :form="form"
-                            :model="form.password"/>
+                        <vue-password-field class="m-0" id="password" focus toggle-mask
+                            :field="{ placeholder: 'Password', required: true }"
+                            :form="form"/>
                     </div>
                     <div class="button center-x-small column container mb-3">
                         <div class="button control">

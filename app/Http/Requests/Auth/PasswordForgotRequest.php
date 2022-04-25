@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Auth;
 
-use Enraiged\Support\Requests\FormRequest;
+use Enraiged\Forms\Requests\FormRequest;
 use Illuminate\Support\Facades\Password;
 
 class PasswordForgotRequest extends FormRequest

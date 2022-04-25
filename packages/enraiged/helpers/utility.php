@@ -1,6 +1,6 @@
 <?php
 
-use Symfony\Component\Debug\Exception\FatalThrowableError; // deprecated?
+use Symfony\Component\Debug\Exception\FatalThrowableError; // todo: deprecated?
 
 if (!function_exists('blade')) {
     /**

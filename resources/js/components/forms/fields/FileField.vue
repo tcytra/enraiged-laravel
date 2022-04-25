@@ -26,6 +26,10 @@
 <script>
 export default {
     props: {
+        field: {
+            type: Object,
+            required: true,
+        },
         modelValue: File,
         label: String,
         accept: String,

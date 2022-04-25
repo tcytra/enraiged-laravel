@@ -9,7 +9,10 @@ use Illuminate\Support\Facades\DB;
 
 class CreateAccount
 {
-    /** @var  object  The created Account. */
+    use Traits\LoadParameters,
+        Traits\ModelAttributes;
+
+    /** @var  object  The Account model. */
     protected $account;
 
     /** @var  array  The provided parameters. */
@@ -23,35 +26,26 @@ class CreateAccount
      */
     public function __construct(array $parameters)
     {
-        if (key_exists('name', $parameters)) {
-            $names = explode(' ', $parameters['name']);
-
-            $parameters['first_name'] = array_shift($names);
-            $parameters['last_name'] = count($names) ? implode($names) : null;
-
-            unset($parameters['name']);
-        }
-
-        $this->parameters = $parameters;
+        $this->load($parameters);
     }
 
     /**
-     *  Create a User + Profile and return the associated Account.
+     *  Create User,Profile records and return the associated Account.
      *
-     *  @return $this
+     *  @return self
      */
     public function handle()
     {
         $user = DB::transaction(function () {
             $profile = Profile::create(
                 collect($this->parameters)
-                    ->only(\Enraiged\Profiles\Collections\Attributes::$fillable)
+                    ->only($this->getProfileAttributes())
                     ->toArray()
             );
 
             $user = User::create(
                 collect($this->parameters)
-                    ->only(\Enraiged\Accounts\Collections\Attributes::$fillable)
+                    ->only($this->getAccountAttributes())
                     ->merge(['profile_id' => $profile->id])
                     ->toArray()
             );

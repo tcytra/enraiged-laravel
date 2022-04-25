@@ -39,6 +39,7 @@
         },
         "active": {
             "custom": true,
+            "exportable": false,
             "label": "Active"
         },
         "first_name": {
@@ -49,26 +50,37 @@
         },
         "last_name": {
             "label": "Last Name",
-            "source": "profiles.last_name",
             "searchable": true,
-            "sortable": true
+            "sortable": true,
+            "source": "profiles.last_name"
         },
         "email": {
             "label": "Email",
             "searchable": true,
             "sortable": true
         },
+        "alias": {
+            "label": "Alias",
+            "searchable": true,
+            "sortable": true,
+            "source": "profiles.alias"
+        },
+        "role": {
+            "label": "Role",
+            "searchable": true,
+            "source": "roles.name"
+        },
         "birthday": {
             "class": "text-right",
             "label": "Birthday",
-            "source": "profiles.birthdate",
-            "sortable": true
+            "sortable": true,
+            "source": "profiles.birthdate"
         },
         "created": {
             "class": "text-right",
             "label": "Created",
-            "source": "users.created_at",
-            "sortable": true
+            "sortable": true,
+            "source": "users.created_at"
         }
     },
     "exportable": {

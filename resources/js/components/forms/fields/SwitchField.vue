@@ -1,10 +1,13 @@
 <template>
-    <vue-form-field :form="form" :id="id" v-slot:default="{ error, update }">
+    <vue-form-field v-slot:default="{ error, label, update }"
+        :field="field"
+        :form="form"
+        :id="id">
         <div class="control switch" :class="$attrs.class">
             <label v-if="label" class="label" :for="id">
                 {{ label }}
             </label>
-            <div class="field switch mb-0">
+            <div class="field switch mb-0 flex-grow-0">
                 <primevue-switch v-model="model" :id="id"
                     @update:modelValue="update"/>
             </div>
@@ -29,6 +32,10 @@ export default {
     },
 
     props: {
+        field: {
+            type: Object,
+            required: true,
+        },
         form: {
             type: Object,
             required: true,
@@ -37,10 +44,11 @@ export default {
             type: String,
             required: true,
         },
-        label: String,
-        model: {
-            type: Boolean,
-            default: false,
+    },
+
+    computed: {
+        model() {
+            return this.form ? this.form[this.id] : null;
         },
     },
 };

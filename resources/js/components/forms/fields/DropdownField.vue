@@ -1,15 +1,18 @@
-<template>
-    <vue-form-field :form="form" :id="id" v-slot:default="{ error, update }">
+<template>  
+    <vue-form-field v-slot:default="{ error, label, placeholder, update }"
+        :field="field"
+        :form="form"
+        :id="id">
         <div class="control text" :class="$attrs.class">
             <label v-if="label" class="label" :for="id">
                 {{ label }}
             </label>
             <div class="field dropdown">
-                <primevue-dropdown optionLabel="name" optionValue="code"
+                <primevue-dropdown optionLabel="name" optionValue="id"
                     v-model="model"
                     :class="{ 'p-inputtext-lg': isLarge, 'p-inputtext-sm': isSmall, 'p-invalid': error }"
                     :id="id"
-                    :options="options"
+                    :options="field.options.values"
                     :placeholder="placeholder"
                     :show-clear="showClear"
                     @update:modelValue="update"/>
@@ -34,7 +37,14 @@ export default {
     },
 
     props: {
-        focus: Boolean,
+        field: {
+            type: Object,
+            required: true,
+        },
+        focus: {
+            type: Boolean,
+            default: false,
+        },
         form: {
             type: Object,
             required: true,
@@ -51,14 +61,16 @@ export default {
             type: Boolean,
             default: false,
         },
-        label: String,
-        model: String,
-        options: {
-            type: Array,
-            required: true,
+        showClear: {
+            type: Boolean,
+            default: false,
         },
-        placeholder: String,
-        showClear: Boolean,
+    },
+
+    computed: {
+        model() {
+            return this.form ? this.form[this.id] : null;
+        },
     },
 };
 </script>

@@ -8,7 +8,14 @@ class Attributes
 {
     use Fillable;
 
+    /** @var  array  The fillable attributes. */
     public static $fillable = [
-        'birthday', 'first_name', 'gender', 'last_name', 'salut', 'title',
+        'alias',
+        'birthdate',
+        'first_name',
+        'last_name',
+        'gender',
+        'salut',
+        'title',
     ];
 }

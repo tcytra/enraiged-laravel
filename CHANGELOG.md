@@ -1,9 +1,32 @@
 # Project History
 
 Todo:
-- Addresses, Avatars, Organizations, Roles
+- Addresses, Avatars, Contacts, Organizations (Networks?)
+- Back buttons
+- Complex table searching
+- Custom form filters
+- Menu
 - Secondary email login
-- [kirschbaum-development/eloquent-power-joins](https://github.com/kirschbaum-development/eloquent-power-joins) maybe?
+- There is code common to the {Form,Table}Builder(s)
+  - Implement parent RequestBuilder class?
+- Bug: When ordering by column:
+  - Navigate away, come back, column still ordered but not highlighted
+  - Also, click reset form, column not ordered but still highlighted
+- Validation and rules for table requests (?)
+
+---
+
+2022-04-26 : 0.0.10  
+Update: Added: roles; forms builder,templating; create account form
+
+- Added FormBuilder with json form template (similar to TableBuilder)
+  - Ability to organize form fields into logical sections
+  - Ability to prevent section visibility based on security assertions
+- Added provision for ABSOLUTE_URIS in the env config
+- Added Role model and basic support systems to the enraiged namespace
+- Corrected issue with accounts index model; returning role_id as id
+- Corrected issue with file download; Set filename,content-type
+- Updated AccountForm, VueForm, and Vue{..}Field components
 
 ---
 

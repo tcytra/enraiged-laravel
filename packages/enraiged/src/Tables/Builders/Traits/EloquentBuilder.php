@@ -84,6 +84,7 @@ trait EloquentBuilder
      *  Apply the search to the query builder, if provided.
      *
      *  @return self
+     *  @todo   Complex searching
      */
     public function search()
     {

@@ -31,12 +31,24 @@ class ProfileFactory extends Factory
                 : Genders::keys()->random());
 
         return [
+            'alias' => $this->alias(),
             'first_name' => $this->faker->firstName(lcfirst(Genders::get($gender))),
             'last_name' => $this->faker->lastName(),
             'birthdate' => (mt_rand(0, 2) === 0) ? $this->birthdate() : null, // 50% chance
             'gender' => (mt_rand(0, 10) === 0) ? $gender : null, // 10% chance
             'salut' => (mt_rand(0, 5) === 0) ? $salut : null, // 20% chance
         ];
+    }
+
+    protected function alias()
+    {
+        $base = (mt_rand(0, 2) === 0)
+            ? ucwords($this->faker->word)
+            : $this->faker->word;
+
+        return (mt_rand(0, 2) === 0)
+            ? $base.(mt_rand(0, 2) === 0 ? mt_rand(1, 255) : ucwords($this->faker->word))
+            : null;
     }
 
     protected function birthdate()

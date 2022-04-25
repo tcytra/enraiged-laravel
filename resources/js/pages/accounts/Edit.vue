@@ -5,8 +5,8 @@
             <h1 v-if="$page.url === '/my/account'">My Account</h1>
             <h1 v-else>Edit Account</h1>
         </header>
-        <section class="auto-margin container max-width-xl">
-            <account-form :builder="accountForm" />
+        <section class="container">
+            <account-form :builder="builder" />
         </section>
     </main>
 </template>
@@ -25,7 +25,7 @@ export default {
     },
 
     props: {
-        accountForm: {
+        builder: {
             type: Object,
             required: true,
         },

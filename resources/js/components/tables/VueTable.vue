@@ -35,7 +35,7 @@
                         @click="download()"/>
                 </div>
                 <primevue-button class="create-button ml-2"
-                    v-if="template.actions.create"
+                    v-if="template.actions.create && template.actions.create.permission"
                     v-tooltip.top="template.actions.create.tooltip"
                     :class="template.actions.create.class"
                     :disabled="!template.actions.create.permission"
@@ -175,7 +175,7 @@ export default {
 
         async fetch() {
             this.loading = true;
-            return this.axios.get('api/accounts/index/data', { params: this.params() })
+            return this.axios.get(this.template.uri, { params: this.params() })
                 .then(response => this.fetched(response))
                 .catch(error => this.trap(error));
         },
@@ -203,59 +203,34 @@ export default {
 
         api(uri, method) {
             const { meta } = this.$page.props;
-            const params = {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest',
-                    'X-CSRF-Token': meta.csrf_token,
-                },
-                method: method.toUpperCase(),
-            };
-            return fetch(uri, params)
+            this.axios.request({ method, url: uri })
                 .then((response) => {
-                    const { status } = response;
-                    return this.success(status) ? response.json() : false;
-                })
-                .then((data) => {
-                    const { success } = data;
-                    this.flashSuccess(success);
-                    this.fetch();
+                    const { data, status } = response;
+                    if (this.success(status)) {
+                        const { success } = data;
+                        this.flashSuccess(success);
+                        this.fetch();
+                    } else {
+                        this.trap(error);
+                    }
                 })
                 .catch(error => this.trap(error));
         },
 
         download() {
             if (this.exportable) {
-                // this.loading = true;
+                this.loading = true;
                 const headers = { responseType: 'blob' };
                 const params = this.params();
                 params.export = { name: 'accounts', type: this.exportable };
                 this.axios.post(this.template.exportable.uri, params, { headers: headers })
-                    .then(response => this.downloaded(response))
+                    .then((response) => {
+                        const { status, data } = response;
+                        if (this.success(status) && data.success) {
+                            this.flashSuccess(data.success);
+                        }
+                    })
                     .catch(error => this.trap(error));
-            }
-        },
-
-        downloaded(response) {
-            this.loading = false;
-            const { status, data } = response;
-            if (this.success(status)) {
-                if (data.success) {
-                    this.flashSuccess(data.success);
-                } else {
-                    const url = window.URL.createObjectURL(new Blob([data]));
-                    const link = document.createElement('a');
-                    link.href = url;
-                    link.setAttribute('download', 'file.xlsx'); //or any other extension
-                    document.body.appendChild(link);
-                    link.click();
-                    /*filesystem.writeFile('accounts.xlsx', JSON.stringify(response.data), function (err) {
-                        console.log(err);
-                    });
-                    console.log(response);*/
-                }
-            } else {
-                this.trap(response);
             }
         },
 

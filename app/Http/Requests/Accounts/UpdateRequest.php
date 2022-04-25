@@ -2,67 +2,27 @@
 
 namespace App\Http\Requests\Accounts;
 
-use App\Auth\Traits\Validators\PasswordValidator;
-use Enraiged\Accounts\Events\AccountUpdated;
-use Enraiged\Accounts\Traits\Validation\Messages as ValidationMessages;
-use Enraiged\Accounts\Traits\Validation\Rules as ValidationRules;
-use Enraiged\Support\Requests\FormRequest;
+use Enraiged\Accounts\Forms\Builders\UpdateForm;
+use Enraiged\Accounts\Forms\Validation\Messages;
+use Enraiged\Accounts\Forms\Validation\Rules;
+use Enraiged\Forms\Requests\FormRequest;
 
 class UpdateRequest extends FormRequest
 {
-    use PasswordValidator, ValidationMessages, ValidationRules;
+    use Messages, Rules;
 
     /**
-     *  Handle the request to create a new User.
+     *  Create and return a FormBuilder from the current Request.
      *
-     *  @return void
+     *  @return \Enraiged\Forms\Builders\FormBuilder
      */
-    public function handle(): void
+    public function form()
     {
-        $this->updateAccount()
-            ->updateProfile();
-
-        $this->session()
-            ->put('success', 'Update successful');
-    }
-
-    /**
-     *  @return $this
-     */
-    protected function updateAccount()
-    {
-        $account = $this->route('account');
-
-        $parameters = collect($this->validated())
-            ->only(['email', 'username']);
-
-        if ($this->filled('password')) {
-            $parameters->merge(['password' => $this->get('password')]);
+        if (!$this->form) {
+            $this->form = UpdateForm::from($this);
         }
 
-        $account
-            ->fill($parameters->toArray())
-            ->save();
-
-        event(new AccountUpdated($account));
-
-        return $this;
-    }
-
-    /**
-     *  @return $this
-     */
-    protected function updateProfile()
-    {
-        $parameters = collect($this->validated())
-            ->only(['first_name', 'last_name', 'phone', 'salut'])
-            ->toArray();
-
-        $this->route('account')->profile
-            ->fill($parameters)
-            ->save();
-
-        return $this;
+        return $this->form;
     }
 
     /**

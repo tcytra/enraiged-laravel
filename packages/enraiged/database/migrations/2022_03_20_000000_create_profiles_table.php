@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
+            $table->string('alias')->nullable();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
             $table->string('gender', 16)->nullable();
@@ -22,17 +23,6 @@ return new class extends Migration
             $table->string('title', 16)->nullable();
             $table->date('birthdate')->nullable();
             $this->tracking($table);
-            /*
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('deleted_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
-            $table->bigInteger('created_by')->unsigned()->nullable();
-            $table->bigInteger('deleted_by')->unsigned()->nullable();
-            $table->bigInteger('updated_by')->unsigned()->nullable();
-            $table->foreign('created_by')->references('id')->on('users');
-            $table->foreign('deleted_by')->references('id')->on('users');
-            $table->foreign('updated_by')->references('id')->on('users');
-            */
         });
     }
 

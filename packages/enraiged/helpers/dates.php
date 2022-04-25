@@ -26,8 +26,8 @@ function avoid_holiday($stamp, $format = null)
  *  datetime()
  *  Return a formatted date/time from a provided datetime value.
  *  
- *  @param  mixed   $stamp
- *  @param  string  $format
+ *  @param  mixed   $stamp = null
+ *  @param  string  $format = 'Y-m-d H:i:s'
  *  @return int
  */
 function datetime($stamp = null, $format = 'Y-m-d H:i:s')
@@ -259,7 +259,7 @@ function timezone()
 {
     return Auth::check() && Auth::user()->timezone && Auth::user()->timezone !== ''
         ? Auth::user()->timezone
-        : config('teamo.setup.timezone');
+        : config('app.timezone');
 }
 
 /**

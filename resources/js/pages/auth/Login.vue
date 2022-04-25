@@ -6,18 +6,15 @@
         </header>
         <div class="body">
             <form class="form relative" @submit.prevent="submit">
-                <vue-text-field is-large class="email" id="email"
-                    placeholder="Email"
-                    :form="form"
-                    :model="form.email"/>
-                <vue-password-field is-large toggle-mask id="password"
-                    placeholder="Password"
-                    :form="form"
-                    :model="form.password"/>
+                <vue-text-field class="email" id="email" is-large
+                    :field="{ placeholder: 'Email', required: true }"
+                    :form="form"/>
+                <vue-password-field id="password" feedback is-large toggle-mask
+                    :field="{ placeholder: 'Password', required: true }"
+                    :form="form"/>
                 <vue-switch-field id="remember"
-                    label="Remember Me"
-                    :form="form"
-                    :model="form.remember"/>
+                    :field="{ label: 'Remember Me' }"
+                    :form="form"/>
             </form>
         </div>
         <footer class="footer">

@@ -42,7 +42,7 @@ trait TableActions
                         $parameters['uri'] = route(
                             $resource_action,
                             $resource->{$this->key},
-                            config('enraiged.tables.full_urls')
+                            config('enraiged.tables.absolute_uris')
                         );
                     }
                 }
@@ -76,7 +76,7 @@ trait TableActions
                         $parameters['uri'] = route(
                             $resource_action,
                             [],
-                            config('enraiged.tables.full_urls')
+                            config('enraiged.tables.absolute_uris')
                         );
                     }
                 }

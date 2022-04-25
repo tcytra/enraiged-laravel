@@ -2,6 +2,7 @@
 
 **Laravel Vue Inertia**
 
+> **Please Note:** This is not intended for production use.
 
 ## Technology Stack
 

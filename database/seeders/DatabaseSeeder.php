@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Enraiged\Accounts\Services\CreateAccount;
+use Enraiged\Database\Seeders\RoleSeeder;
 //use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Artisan;
@@ -18,6 +19,10 @@ class DatabaseSeeder extends Seeder
     {
         Artisan::call('storage:clear');
 
+        $this->call([
+            RoleSeeder::class,
+        ]);
+
         //  please be sure to set these environment variables
         $email = env('ADMIN_EMAIL', 'admin');
         $password = env('ADMIN_PASSWORD', 'changeme');
@@ -28,6 +33,7 @@ class DatabaseSeeder extends Seeder
             'is_protected' => true,
             'name' => 'Application Administrator',
             'password' => $password,
+            'role' => 'Administrator',
             'username' => env('ADMIN_USERNAME'),
         ]);
 

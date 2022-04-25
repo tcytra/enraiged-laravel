@@ -1,6 +1,6 @@
 <?php
 
-namespace Enraiged\Accounts\Traits\Validation;
+namespace Enraiged\Accounts\Forms\Validation;
 
 trait Messages
 {
@@ -16,4 +16,14 @@ trait Messages
         'password.special' => 'There must be at least :number special :plural.',
         'password.uppercase' => 'There must be at least :number uppercase :plural.',
     ];
+
+    /**
+     *  Get the validation messages that apply to the request.
+     *
+     *  @return array
+     */
+    public function messages()
+    {
+        return $this->messages;
+    }
 }

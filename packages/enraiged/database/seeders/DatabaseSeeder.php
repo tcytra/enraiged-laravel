@@ -9,10 +9,14 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    protected $create_accounts = 123;
+    /** @var  int  Create a predetermined number of factory accounts to seed. */
+    protected $create_accounts = 25;
+
+    /** @var  bool  Whether or not to output the factory account login credentials while seeding. */
+    protected $output_logins = false;
 
     /**
-     *  Seed the application's database.
+     *  Seed the enraiged database.
      *
      *  @return void
      */
@@ -22,7 +26,12 @@ class DatabaseSeeder extends Seeder
             for ($i = 0; $i < $this->create_accounts; $i++) {
                 $password = 'changeme';
                 $account = $this->createFactoryAccount(['password' => $password]);
-                $this->command->getOutput()->writeln("<comment>Login:</comment> <info>{$account->email}:{$password}</info>");
+
+                if ($this->output_logins) {
+                    $this->command
+                        ->getOutput()
+                        ->writeln("<comment>Login:</comment> <info>{$account->email}:{$password}</info>");
+                }
             }
         }
     }

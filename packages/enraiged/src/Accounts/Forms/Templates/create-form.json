@@ -1,0 +1,54 @@
+{
+    "actions": {
+        "back": {
+            "label": "Back"
+        },
+        "clear": {
+            "label": "Clear"
+        },
+        "reset": {
+            "label": "Reset"
+        },
+        "submit": {
+            "label": "Submit",
+            "method": "emit"
+        }
+    },
+    "fields": {
+        "role_id": {
+            "label": "Role",
+            "options": {
+                "source": "Enraiged\\Roles\\Models\\Role",
+                "type": "model"
+            },
+            "placeholder": "Optional",
+            "secure": {
+                "method": "roleIs",
+                "role": "Administrator"
+            },
+            "type": "select"
+        },
+        "name": {
+            "label": "Name",
+            "placeholder": "Required",
+            "required": true
+        },
+        "email": {
+            "label": "Email",
+            "placeholder": "Required",
+            "required": true,
+            "value": null
+        },
+        "password": {
+            "label": "Password",
+            "placeholder": "Required",
+            "type": "password",
+            "value": false
+        },
+        "password_confirmation": {
+            "label": "Confirm Password",
+            "type": "password",
+            "value": false
+        }
+    }
+}

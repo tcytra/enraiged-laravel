@@ -43,7 +43,7 @@ class TableTemplate
     /**
      *  Create a TableTemplate instance and return a processed array.
      *
-     *  @param  object  $builder
+     *  @param  \Enraiged\Tables\Builders\TableBuilder  $builder
      *  @return array
      */
     public static function From($builder): array

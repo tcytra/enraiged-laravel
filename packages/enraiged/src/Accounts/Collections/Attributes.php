@@ -8,7 +8,15 @@ class Attributes
 {
     use Fillable;
 
+    /** @var  array  The fillable attributes. */
     static $fillable = [
-        'email', 'password', 'timezone', 'username',
+        'email',
+        'is_active',
+        'is_hidden',
+        'is_protected',
+        'password',
+        'role_id',
+        'timezone',
+        'username',
     ];
 }

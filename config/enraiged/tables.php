@@ -2,7 +2,7 @@
 
 return [
 
-    'full_urls' => true,
+    'absolute_uris' => env('ABSOLUTE_URIS', false),
 
     'storage' => 'exports',
 

@@ -12,26 +12,21 @@
         </div>
         <div class="body" v-else>
             <form class="form relative" @submit.prevent="submit">
-                <vue-text-field is-large class="name" id="name"
-                    placeholder="Name"
-                    :form="form"
-                    :model="form.name"/>
-                <vue-text-field is-large class="email" id="email"
-                    placeholder="Email"
-                    :form="form"
-                    :model="form.email"/>
-                <vue-password-field is-large feedback id="password"
-                    placeholder="Password"
-                    :form="form"
-                    :model="form.password"/>
-                <vue-password-field is-large id="password_confirmation"
-                    placeholder="Confirm Password"
-                    :form="form"
-                    :model="form.password_confirmation"/>
+                <vue-text-field class="name" id="name" is-large
+                    :field="{ placeholder: 'Name', required: true }"
+                    :form="form"/>
+                <vue-text-field class="email" id="email" is-large
+                    :field="{ placeholder: 'Email', required: true }"
+                    :form="form"/>
+                <vue-password-field id="password" feedback is-large
+                    :field="{ placeholder: 'Password', required: true }"
+                    :form="form"/>
+                <vue-password-field id="password_confirmation" is-large
+                    :field="{ placeholder: 'Confirm Password', required: true }"
+                    :form="form"/>
                 <vue-switch-field id="agree"
-                    label="I agree to check the box"
-                    :form="form"
-                    :model="form.agree"/>
+                    :field="{ label: 'I agree to check the box', required: true }"
+                    :form="form"/>
             </form>
         </div>
         <footer class="footer">

@@ -16,6 +16,9 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->bigInteger('profile_id')->unsigned()->nullable()->index()->after('id');
             $table->foreign('profile_id')->references('id')->on('users');
+
+            $table->bigInteger('role_id')->unsigned()->nullable()->index()->after('profile_id');
+            $table->foreign('role_id')->references('id')->on('roles');
         });
     }
 
