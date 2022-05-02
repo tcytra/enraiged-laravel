@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::namespace('Avatars')
+Route::namespace('\Enraiged\Http\Controllers\Avatars')
     ->prefix('avatars')->as('avatars.')
     ->group(function(){
 

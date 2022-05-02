@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::namespace('Files')
+Route::namespace('\Enraiged\Http\Controllers\Files')
     ->prefix('files')
     ->as('files.')
     ->group(function(){

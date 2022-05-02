@@ -2,7 +2,7 @@
 
 namespace Enraiged\Avatars\Resources;
 
-use App\Http\Resources\JsonResource;
+use Enraiged\Http\Resources\JsonResource;
 
 class AvatarResource extends JsonResource
 {

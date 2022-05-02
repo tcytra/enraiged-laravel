@@ -2,9 +2,9 @@
 
 namespace Enraiged\Accounts\Tables\Resources;
 
-use App\Http\Requests\Accounts\IndexRequest;
-use App\Http\Resources\JsonResource;
 use Enraiged\Avatars\Resources\AvatarResource;
+use Enraiged\Http\Requests\Accounts\IndexRequest;
+use Enraiged\Http\Resources\JsonResource;
 
 class IndexResource extends JsonResource
 {

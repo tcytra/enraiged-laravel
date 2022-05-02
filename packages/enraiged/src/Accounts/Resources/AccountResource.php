@@ -2,8 +2,8 @@
 
 namespace Enraiged\Accounts\Resources;
 
-use App\Http\Resources\JsonResource;
-use Enraiged\Support\Resources\DatetimeAttributeResource;
+use Enraiged\Http\Resources\DatetimeAttributeResource;
+use Enraiged\Http\Resources\JsonResource;
 
 class AccountResource extends JsonResource
 {

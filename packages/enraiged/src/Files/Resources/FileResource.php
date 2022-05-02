@@ -2,8 +2,8 @@
 
 namespace Enraiged\Files\Resources;
 
-use App\Http\Resources\JsonResource;
-use Enraiged\Support\Resources\DatetimeAttributeResource;
+use Enraiged\Http\Resources\DatetimeAttributeResource;
+use Enraiged\Http\Resources\JsonResource;
 
 class FileResource extends JsonResource
 {

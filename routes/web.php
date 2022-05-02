@@ -13,23 +13,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//  \App\Http\Controllers\Accounts
+//  \Enraiged\Http\Controllers\Accounts
 Route::middleware(['auth', 'verified'])
     ->group(base_path('packages/enraiged/routes/accounts.php'));
 
-//  \App\Http\Controllers\Avatars
+//  \Enraiged\Http\Controllers\Avatars
 Route::middleware(['auth', 'verified'])
     ->group(base_path('packages/enraiged/routes/avatars.php'));
 
-//  \App\Http\Controllers\Files
+//  \Enraiged\Http\Controllers\Files
 Route::middleware(['auth', 'verified'])
     ->group(base_path('packages/enraiged/routes/files.php'));
 
-//  \App\Http\Controllers\Auth
-Route::namespace('Auth')
+//  \Enraiged\Http\Controllers\Auth
+Route::namespace('\Enraiged\Http\Controllers\Auth')
     ->group(base_path('packages/enraiged/routes/auth.php'));
 
-//  \App\Http\Controllers\Dashboard
+//  \Enraiged\Http\Controllers\Dashboard
 Route::middleware('auth')
-    ->get('/', 'Dashboard\Show')
+    ->get('/', '\Enraiged\Http\Controllers\Dashboard\Show')
     ->name('dashboard');

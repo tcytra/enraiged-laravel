@@ -2,7 +2,7 @@
 
 namespace Enraiged\Accounts\Resources;
 
-use App\Http\Resources\JsonResource;
+use Enraiged\Http\Resources\JsonResource;
 
 class AccountLoginResource extends JsonResource
 {

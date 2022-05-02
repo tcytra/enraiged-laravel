@@ -2,7 +2,7 @@
 
 namespace Enraiged\Profiles\Resources;
 
-use App\Http\Resources\JsonResource;
+use Enraiged\Http\Resources\JsonResource;
 
 class ProfileResource extends JsonResource
 {
