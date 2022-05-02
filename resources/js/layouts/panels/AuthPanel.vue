@@ -1,7 +1,7 @@
 <template>
     <nav class="text-50" refs="nav">
         <header class="header profile">
-            <account-avatar :initials="auth.user.profile.initials" />
+            <avatar size="xx" :avatar="auth.user.avatar" @click="get('/my/account/avatar')"/>
             <h4 class="name">{{ auth.user.profile.name }}</h4>
         </header>
         <ul class="options">
@@ -52,11 +52,11 @@
 
 <script>
 import { useForm } from '@inertiajs/inertia-vue3'
-import AccountAvatar from '@/components/accounts/Avatar.vue';
+import Avatar from '@/components/ui/avatars/Avatar.vue';
 
 export default {
     components: {
-        AccountAvatar,
+        Avatar,
     },
 
     emits: ['auth:toggle'],

@@ -1,0 +1,36 @@
+{
+    "actions": {
+        "back": {
+            "label": "Back"
+        },
+        "clear": {
+            "label": "Clear"
+        },
+        "reset": {
+            "label": "Reset"
+        },
+        "submit": {
+            "label": "Submit"
+        }
+    },
+    "fields": {
+        "email": {
+            "label": "Primary Email",
+            "placeholder": "Required",
+            "required": true
+        },
+        "username": {
+            "label": "Secondary Email",
+            "placeholder": "Optional"
+        },
+        "password": {
+            "label": "Password",
+            "placeholder": "Leave blank to keep password",
+            "type": "password"
+        },
+        "password_confirmation": {
+            "label": "Confirm Password",
+            "type": "password"
+        }
+    }
+}

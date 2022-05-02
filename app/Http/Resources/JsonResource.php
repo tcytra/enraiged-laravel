@@ -14,6 +14,12 @@ class JsonResource extends IlluminateResource
     /** @var  string  An optional, specific attribute to evaluate. */
     protected $attribute;
 
+    /** @var  bool  Whether or not to include a created_at resource. */
+    protected $created = false;
+
+    /** @var  bool  Whether or not to include a updated_at resource. */
+    protected $updated = false;
+
     /**
      *  Get or set a specific resource attribute.
      *

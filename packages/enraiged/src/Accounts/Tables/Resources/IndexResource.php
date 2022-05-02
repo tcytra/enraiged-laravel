@@ -4,6 +4,7 @@ namespace Enraiged\Accounts\Tables\Resources;
 
 use App\Http\Requests\Accounts\IndexRequest;
 use App\Http\Resources\JsonResource;
+use Enraiged\Avatars\Resources\AvatarResource;
 
 class IndexResource extends JsonResource
 {
@@ -27,6 +28,7 @@ class IndexResource extends JsonResource
 
         return [
             'id' => $this->id,
+            'avatar' => $this->avatar(),
             'alias' => $this->profile->alias,
             'active' => $this->is_active ? true : false,
             'email' => $this->email,
@@ -42,6 +44,19 @@ class IndexResource extends JsonResource
         ];
     }
 
+    /**
+     *  @return array
+     */
+    private function avatar()
+    {
+        $this->profile->load('avatar');
+
+        return AvatarResource::from($this->profile->avatar);
+    }
+
+    /**
+     *  @return string
+     */
     private function birthday()
     {
         return true // show full birthdate, use options for formatting
@@ -54,6 +69,8 @@ class IndexResource extends JsonResource
      */
     private function role()
     {
-        return $this->user->role ? $this->user->role->name : null;
+        return $this->user->role
+            ? $this->user->role->name
+            : null;
     }
 }

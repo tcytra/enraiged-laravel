@@ -25,6 +25,7 @@
 @import 'app/accounts';
 @import 'app/branding';
 @import 'app/effects';
+@import 'app/indicators';
 @import 'app/notifications';
 @import 'app/positioning';
 @import 'app/sizing';
@@ -33,6 +34,7 @@
 //  the app primevue adjustments
 #app {
 @import 'app/primevue';
+@import 'app/primevue/avatars';
 @import 'app/primevue/dataviews';
 @import 'app/primevue/cards';
 @import 'app/primevue/forms';

@@ -1,6 +1,6 @@
 # Enraiged Laravel
 
-**Laravel Vue Inertia**
+### Laravel Vue Inertia
 
 > **Please Note:** This is not intended for production use.
 
@@ -21,7 +21,7 @@ Retrieve the repository contents:
 
 ```bash
 cd /path/to/your/repos/ # ensure you are in the correct directory
-git clone tcytra/enraiged
+git clone https://github.com/tcytra/enraiged-laravel
 cd enraiged/
 ```
 

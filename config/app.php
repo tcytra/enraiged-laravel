@@ -181,7 +181,7 @@ return [
          * Enraiged Service Providers...
          */
         Enraiged\AppServiceProvider::class,
-        //Enraiged\AuthServiceProvider::class,
+        Enraiged\AuthServiceProvider::class,
     ],
 
     /*

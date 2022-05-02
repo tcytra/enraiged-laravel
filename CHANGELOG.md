@@ -1,18 +1,44 @@
 # Project History
 
 Todo:
-- Addresses, Avatars, Contacts, Organizations (Networks?)
+- Addresses, Contacts, Impersonation, Organizations (Networks?)
+- Auth options to prevent changing account primary login,profile name (req permission, issue token)
 - Back buttons
 - Complex table searching
 - Custom form filters
+- Data Import
+- Form,Table Actions (various improvements)
+- Geo, Geo Social
+- I18n
 - Menu
+- Move JsonResource to the Enraiged\Support\Resources namespace
+- New account creates registered list of site 'helps'; dismissable as viewed
 - Secondary email login
+- Split VueTable component into reusable parts
 - There is code common to the {Form,Table}Builder(s)
   - Implement parent RequestBuilder class?
-- Bug: When ordering by column:
-  - Navigate away, come back, column still ordered but not highlighted
-  - Also, click reset form, column not ordered but still highlighted
+- User timezone
 - Validation and rules for table requests (?)
+
+---
+
+2022-00-00 : 0.0.11  
+Update: Added Avatar system; Added basic content to My Account
+
+- Added Active indicator component; implemented in the accounts table
+- Added Avatar model, basic support systems to the enraiged namespace
+  - Ability to select avatar css color
+  - Ability to upload,remove image
+- Added Avatar,Status ui components; implemented in the accounts table
+- Added AvatarEditor component to manage an avatar
+- Added Auth store for AppState auth.user
+- Added basic content to the My Account (Show) dashboard
+- Added forms,pages,routes,etc for updating My {Avatar,Login,Profile}
+- Added list view to the My Files display
+- Corrected UpdateAccount service issue when password is null
+- Corrected issue with table exporting symbol not falsified
+- Corrected menu toggle transition (not applied) bug
+- Corrected table issues preserving,restoring column sort
 
 ---
 

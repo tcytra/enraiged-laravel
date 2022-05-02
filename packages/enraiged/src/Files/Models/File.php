@@ -5,6 +5,8 @@ namespace Enraiged\Files\Models;
 use Enraiged\Support\Traits\CreatedBy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\File as IlluminateFile;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 //use Symfony\Component\HttpFoundation\File\File as SymfonyFile;
@@ -58,9 +60,11 @@ class File extends Model
      */
     public function delete()
     {
-        Storage::delete($this->path);
+        if ($this->path) {
+            Storage::delete($this->path);
 
-        return parent::delete();
+            return parent::delete();
+        }
     }
 
     /**
@@ -83,5 +87,41 @@ class File extends Model
     public function inline(): StreamedResponse
     {
         return Storage::response($this->path);
+    }
+
+    /**
+     *  
+     *  @param  UploadedFile $file
+     *  @return self
+     *  @throws type
+     */
+    public function upload(UploadedFile $file): self
+    {
+        DB::transaction(function () use ($file) {
+            $folder = $this->attachable->folder;
+
+            if (!Storage::has($folder)) {
+                Storage::makeDirectory($folder);
+            }
+
+            $extension = $file->guessExtension();
+            $hashname = uhash();
+            $filename = "{$hashname}.{$extension}";
+
+            $parameters = [
+                'name' => $file->getClientOriginalName(),
+                'path' => "{$folder}/{$filename}",
+                'size' => $file->getSize(),
+                'mime' => $file->getMimeType(),
+            ];
+
+            (object) $this
+                ->fill($parameters)
+                ->save();
+
+            $file->storeAs($folder, $filename);
+        });
+
+        return $this;
     }
 }

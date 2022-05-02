@@ -2,6 +2,7 @@
 
 namespace Enraiged\Profiles\Models;
 
+use Enraiged\Profiles\Traits\HasAvatar;
 use Enraiged\Support\Traits\CreatedBy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -12,11 +13,11 @@ class Profile extends Model
         Attributes\Name,
         HasOne\Account,
         Traits\HasFactory,
-        CreatedBy, SoftDeletes;
+        CreatedBy, HasAvatar, SoftDeletes;
 
     /** @var  string  The database table name. */
     protected $table = 'profiles';
 
-    /** @var  array  The attributes that aren't mass assignable. */
-    protected $guarded = ['id'];
+    /** @var  array  The attributes that are mass assignable. */
+    protected $fillable = ['alias', 'birthdate', 'first_name', 'last_name', 'salut'];
 }

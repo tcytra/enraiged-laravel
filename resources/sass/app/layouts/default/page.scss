@@ -1,0 +1,110 @@
+
+.main.page {
+  overflow:         hidden;
+  position:         relative;
+  transition:       all $menu-transition;
+  z-index:          1;
+
+    .main.content {
+      min-height:       calc(100vh - $app-block-size);
+      width:            100%;
+
+        >.container {
+          min-height:       calc(100vh - $app-block-size);
+          padding:          1rem;
+        }
+
+        >.header {
+          align-items:      center;
+          background-color: $surface-ground;
+          border-bottom:    1px solid $surface-border;
+          display:          flex;
+          height:           $page-header-size;
+          position:         relative;
+
+            h1 {
+              font-size:        1.5rem;
+              margin-left:      1rem;
+              margin-right:     1rem;
+            }
+
+            .actions {
+              display:          flex;
+              flex-direction:   row;
+
+                .action {
+                    .p-button {
+                      flex-direction:   column;
+                      height:           4rem;
+                      padding:          0;
+                      width:            4rem;
+
+                        .p-button-label {
+                          font-size:        .875rem;
+                        }
+
+                        .pi {
+                          font-size:        1.25rem;
+                          padding:          .75rem .5rem .25rem;
+                          margin-right:     0;
+                        }
+                    }
+                }
+            }
+        }
+
+        >.header +.container {
+          min-height:       calc(100vh - ($app-block-size + $page-header-size));
+        }
+    }
+
+    .nav.top {
+      background-color: $surface-card;
+      display:          flex;
+      flex-direction:   row;
+      height:           $app-block-size;
+
+        .block, .inline {
+          align-items:      center;
+          border-bottom:    1px solid darken($surface-border, 9%);
+          border-right:     1px solid darken($surface-border, 9%);
+          display:          flex !important;
+          height:           $app-block-size;
+          transition:       background-color .35s linear;
+          
+            &.action {
+              cursor:           pointer;
+                &:hover {
+                  background-color: var(--bluegray-300);
+                }
+            }
+
+            &:last-child {
+              border-right:     0;
+            }
+
+            >.p-button {
+              background-color: transparent;
+              border-color:     transparent;
+              border-radius:    0;
+              height:           $app-block-size;
+              width:            $app-block-size;
+            }
+
+            >.p-button >.pi,
+            >.pi {
+              font-size:        1.5rem;
+            }
+        }
+
+        .block {
+          flex-grow:        1;
+          justify-content:  flex-start;
+        }
+
+        .inline {
+          justify-content:  center;
+          width:            $app-block-size;
+        }
+    }
+}

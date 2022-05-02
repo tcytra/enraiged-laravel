@@ -2,6 +2,9 @@
 
 use Symfony\Component\Debug\Exception\FatalThrowableError; // todo: deprecated?
 
+/**
+ *  todo: remove this? laravel documents the ability to do this now
+ */
 if (!function_exists('blade')) {
     /**
      *  Render a string into a blade template with parameters.
@@ -43,6 +46,27 @@ if (!function_exists('dollar')) {
     function dollar($amount, $comma = true)
     {
         return number_format($amount, 2, '.', ($comma ? ',' : ''));
+    }
+}
+
+if (!function_exists('get_class_name')) {
+    /**
+     *  Return only the class name portion of the get_class() function.
+     *
+     *  @param  object  $class
+     *  @return string
+     */
+    function get_class_name($class)
+    {
+        $get_class = gettype($class) === 'object'
+            ? get_class($class)
+            : $class;
+
+        if (gettype($get_class) === 'string') {
+            return strtolower( substr($get_class, strrpos($get_class, '\\') +1) );
+        }
+
+        return null;
     }
 }
 

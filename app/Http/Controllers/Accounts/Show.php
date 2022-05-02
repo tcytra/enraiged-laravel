@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Accounts;
 
 use App\Http\Controllers\Controller;
 use Enraiged\Accounts\Models\Account;
+use Enraiged\Accounts\Resources\AccountManagementResource;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 
@@ -26,6 +27,8 @@ class Show extends Controller
 
         $this->authorize('show', $this->account);
 
-        return inertia('accounts/Show', ['account' => $this->account]);
+        return inertia('accounts/Show', [
+            'account' => AccountManagementResource::from($this->account),
+        ]);
     }
 }

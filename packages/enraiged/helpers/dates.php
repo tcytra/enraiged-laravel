@@ -274,12 +274,8 @@ function timezone_offset($timezone = null)
     $timezone = new \DateTimeZone(!empty($timezone) ? $timezone : timezone());
     $datetime = new \DateTime("now", $timezone);
 
-    return sprintf("%+d", ($datetime->getOffset() /60 /60) *-1); // @todo: this is backwards, I need to fix this
+    return sprintf("%+d", ($datetime->getOffset() /60 /60));
 }
-
-//  the above and below functions are working but their output is backwards
-//  + they need to be switched with each other in the rest of the code,
-//  + then their output lines switched (ie: the sprintf( ... *-1)
 
 /**
  *  timezone_offset_inverted()
@@ -293,5 +289,5 @@ function timezone_offset_inverted($timezone = null)
     $timezone = new \DateTimeZone(!empty($timezone) ? $timezone : timezone());
     $datetime = new \DateTime("now", $timezone);
 
-    return sprintf("%+d", ($datetime->getOffset() /60 /60)); // @todo: same as above
+    return sprintf("%+d", ($datetime->getOffset() /60 /60) *-1);
 }

@@ -17,9 +17,9 @@ class Account extends Model
     /** @var  string  The database table name. */
     protected $table = 'users';
 
-    /** @var  array  The attributes that aren't mass assignable. */
-    protected $guarded = [
-        'id', 'email', 'password', 'username', 'is_active', 'is_hidden', 'is_protected',
+    /** @var  array  The attributes that are mass assignable. */
+    protected $fillable = [
+        'agreement_version', 'email', 'is_active', 'is_hidden', 'is_protected', 'password', 'timezone', 'username',
     ];
 
     /** @var  array  The attributes that should be hidden for serialization. */

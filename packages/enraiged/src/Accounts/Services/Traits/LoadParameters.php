@@ -32,6 +32,11 @@ trait LoadParameters
         }
 
         //  determine the id of a role identified by its name
+        if (key_exists('password', $parameters) && is_null($parameters['password'])) {
+            unset($parameters['password']);
+        }
+
+        //  determine the id of a role identified by its name
         if (key_exists('role', $parameters)) {
             $parameters['role_id'] = Role::where('name', $parameters['role'])
                 ->first()

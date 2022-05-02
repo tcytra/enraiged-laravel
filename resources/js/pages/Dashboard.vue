@@ -1,39 +1,15 @@
 <template>
-    <Head title="Dashboard" />
-    <main class="content dashboard main">
+    <main class="content flex-column main flex">
         <header class="header">
+            <Head title="Dashboard"/>
             <h1>Dashboard</h1>
         </header>
-        <section class="auto-margin container max-width-xl">
+        <section class="align-self-center container max-width-xl w-full">
             <primevue-card class="mb-3">
                 <template #content>
                     This is your dashboard.
                 </template>
             </primevue-card>
-            <!--
-            <div class="flex flex-row">
-                <div class="cta">
-                    <primevue-card>
-                        <template #content>Laravel 9</template>
-                    </primevue-card>
-                </div>
-                <div class="cta">
-                    <primevue-card>
-                        <template #content>Vue 3</template>
-                    </primevue-card>
-                </div>
-                <div class="cta">
-                    <primevue-card>
-                        <template #content>Inertia.js</template>
-                    </primevue-card>
-                </div>
-                <div class="cta">
-                    <primevue-card>
-                        <template #content>PrimeVUE</template>
-                    </primevue-card>
-                </div>
-            </div>
-            -->
         </section>
     </main>
 </template>

@@ -1,5 +1,5 @@
 <template>
-    <primevue-datatable class="p-datatable-sm" v-model:filters="search"
+    <primevue-datatable class="p-datatable-sm" v-model:filters="search" ref="datatable"
         filterDisplay="menu"
         paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink"
         :current-page-report-template="pageReportTemplate"
@@ -7,6 +7,7 @@
         :lazy="true"
         :loading="loading"
         :paginator="true"
+        :row-class="rowClass"
         :rows="pagination.rows"
         :rows-per-page-options="template.pagination.options"
         :total-records="pagination.total"
@@ -48,6 +49,7 @@
                 </span>
                 <primevue-inputtext v-model="search" placeholder="Keyword Search"/>
                 <primevue-button icon="pi pi-times" class="p-button-secondary"
+                    v-tooltip.top="'Clear the search'"
                     :disabled="!search || !search.length"
                     @click="fresh()"/>
             </div>
@@ -59,7 +61,11 @@
             :class="column.class"
             :field="name"
             :header="column.label"
-            :sortable="column.sortable"/>
+            :sortable="column.sortable">
+            <template #body="column" v-if="column.custom">
+                <slot :name="name" :data="column.data"/>
+            </template>
+        </primevue-column>
         <primevue-column v-if="template.actions" key="actions"
             class="actions"
             field="actions"
@@ -126,6 +132,7 @@ export default {
             sort: null,
             total: 0,
         },
+        ready: false,
         records: null,
         search: null,
         timer: null,
@@ -143,15 +150,23 @@ export default {
                 ? (this.pagination.page * this.pagination.rows) - this.pagination.rows
                 : 0;
         },
+        table() {
+            return this.ready
+                ? this.$refs.datatable
+                : null;
+        },
     },
 
     async mounted() {
+        this.ready = true;
         this.exportable = this.template.exportable.default;
         if (this.template.state && this.template.id && localStorage[this.template.id]) {
             const state = JSON.parse(localStorage[this.template.id]);
             this.filters = state.filters;
             this.pagination = state.pagination;
             this.search = state.search;
+            this.table.d_sortField = state.pagination.sort;
+            this.table.d_sortOrder = state.pagination.dir;
             localStorage.removeItem(this.template.id);
             this.fetch();
         } else {
@@ -225,6 +240,7 @@ export default {
                 params.export = { name: 'accounts', type: this.exportable };
                 this.axios.post(this.template.exportable.uri, params, { headers: headers })
                     .then((response) => {
+                        this.loading = false;
                         const { status, data } = response;
                         if (this.success(status) && data.success) {
                             this.flashSuccess(data.success);
@@ -254,6 +270,8 @@ export default {
             this.pagination.rows = this.template.pagination.rows;
             this.pagination.sort = null;
             this.search = null;
+            this.table.d_sortField = null;
+            this.table.d_sortOrder = null;
             this.fetch();
         },
 
@@ -269,6 +287,13 @@ export default {
                 ...this.pagination,
                 search: this.search,
             };
+        },
+
+        rowClass(data) {
+            return {
+                'inactive-data': typeof data.active !== undefined && !data.active,
+            };
+            // console.log(data);
         },
 
         rows(event) {

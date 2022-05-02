@@ -7,13 +7,19 @@
         <div class="block" />
         <div class="inline action"
             @click="$emit('auth:toggle')">
-            <i class="pi pi-user"></i>
+            <avatar :avatar="$page.props.auth.user.avatar" hover size="md"/>
         </div>
     </nav>
 </template>
 
 <script>
+import Avatar from '@/components/ui/avatars/Avatar.vue';
+
 export default {
     emits: ['auth:toggle', 'menu:toggle'],
+
+    components: {
+        Avatar,
+    },
 };
 </script>

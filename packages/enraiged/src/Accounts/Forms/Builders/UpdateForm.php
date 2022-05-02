@@ -18,16 +18,17 @@ class UpdateForm extends FormBuilder
      *  @return object
      */
     public function edit(Account $account)
-    {// 'params' => ['account' => $account->id], // params or id
-
+    {
         $resource = [
             'id' => $account->id,
             'method' => 'patch',
             'route' => 'accounts.update',
+            // 'params' => ['account' => $account->id], // params or id
         ];
 
         return $this
             ->populate($account)
-            ->resource($resource);
+            ->resource($resource)
+            ->template();
     }
 }

@@ -14,13 +14,13 @@
         <menu-panel class="menu panel" ref="menuPanel"
             :meta="meta"
             @menu:navigate="menuNavigation"
-            @menu:toggle="toggleMenu" />
+            @menu:toggle="toggleMenu"/>
         <div class="main page" ref="mainPage"
             v-on:auth:close="closeAuth">
             <top-nav
                 @auth:toggle="toggleAuth"
-                @menu:toggle="toggleMenu" />
-            <slot />
+                @menu:toggle="toggleMenu"/>
+            <slot/>
         </div>
         <auth-panel class="auth panel" ref="authPanel"
             :auth="auth"
@@ -30,6 +30,8 @@
 </template>
 
 <script>
+import { Auth } from '@/stores/auth.js';
+import { mapActions } from 'pinia'
 import AuthPanel from '../panels/AuthPanel';
 import MenuPanel from '../panels/MenuPanel';
 import TopNav from '../menus/TopNav';
@@ -80,6 +82,7 @@ export default {
     },
 
     mounted() {
+        this.setUser(this.auth.user);
         this.attachEvents();
     },
 
@@ -88,6 +91,7 @@ export default {
     },
 
     methods: {
+        ...mapActions(Auth, ['setUser', 'unsetUser']),
         attachEvents() {
             window.addEventListener('resize', this.resizeDocument);
         },
@@ -104,6 +108,9 @@ export default {
             window.removeEventListener('resize', this.resizeDocument);
         },
         menuNavigation() {
+            if (this.authOpen) {
+                this.closeAuth();
+            }
             if (this.clientExtraSmall || this.clientSmall) {
                 this.closeMenu();
             }

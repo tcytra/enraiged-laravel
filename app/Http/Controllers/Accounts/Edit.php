@@ -12,9 +12,6 @@ class Edit extends Controller
 {
     use AuthorizesRequests;
 
-    /** @var  object  The Account to prepare for update. */
-    protected $account;
-
     /**
      *  Display the edit account form component.
      *
@@ -23,17 +20,15 @@ class Edit extends Controller
      */
     public function __invoke(Request $request, Account $account = null)
     {
-        $this->account = preg_match('/^my\.account/', $request->route()->getName())
+        $account = preg_match('/^my\.account/', $request->route()->getName())
             ? $request->user()->account
             : $account;
 
-        $this->authorize('edit', $this->account);
+        $this->authorize('edit', $account);
 
         $request = UpdateRequest::createFrom($request);
 
-        $template = $request->form()
-            ->edit($this->account)
-            ->template();
+        $template = $request->form()->edit($account);
 
         return inertia('accounts/Edit', ['builder' => $template]);
     }

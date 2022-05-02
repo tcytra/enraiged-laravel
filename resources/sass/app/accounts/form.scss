@@ -1,0 +1,21 @@
+
+.account-form .form {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+    .actions, .section {
+      flex-grow: 1;
+    }
+
+    .actions {
+      flex-basis: 100%;
+    }
+
+    @media screen and (min-width: $break-medium) {
+        .actions, .section {
+          margin-left:      1rem;
+          margin-right:     1rem;
+        }
+    }
+}

@@ -2,14 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-//  \App\Http\Controllers\Account
-Route::middleware(['auth', 'verified'])
-    ->group(base_path('routes/web/accounts.php'));
-
-//  \App\Http\Controllers\Files
-Route::middleware(['auth', 'verified'])
-    ->group(base_path('routes/web/files.php'));
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,9 +13,21 @@ Route::middleware(['auth', 'verified'])
 |
 */
 
+//  \App\Http\Controllers\Accounts
+Route::middleware(['auth', 'verified'])
+    ->group(base_path('packages/enraiged/routes/accounts.php'));
+
+//  \App\Http\Controllers\Avatars
+Route::middleware(['auth', 'verified'])
+    ->group(base_path('packages/enraiged/routes/avatars.php'));
+
+//  \App\Http\Controllers\Files
+Route::middleware(['auth', 'verified'])
+    ->group(base_path('packages/enraiged/routes/files.php'));
+
 //  \App\Http\Controllers\Auth
 Route::namespace('Auth')
-    ->group(base_path('routes/web/auth.php'));
+    ->group(base_path('packages/enraiged/routes/auth.php'));
 
 //  \App\Http\Controllers\Dashboard
 Route::middleware('auth')

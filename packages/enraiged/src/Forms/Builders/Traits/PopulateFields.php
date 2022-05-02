@@ -85,6 +85,10 @@ trait PopulateFields
             $value = false;
         }
 
+        if ($this->fieldType($name) === 'password') {
+            $value = null;
+        }
+
         $this->field($name, ['value' => $value]);
     }
 

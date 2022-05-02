@@ -16,8 +16,19 @@ class Index extends Controller
      */
     public function __invoke(Request $request)
     {
-        $files = $request->user()->account->files;
+        $attachable_types = [
+            'Enraiged\\Exports\\Models\\Export',
+        ];
 
-        return inertia('accounts/files/Index', ['files' => FileResource::from($files)->toArray($request)]);
+        $collection = $request->user()->account
+            ->files()
+            ->whereIn('attachable_type', $attachable_types)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $files = FileResource::from($collection)
+            ->toArray($request);
+
+        return inertia('accounts/files/Index', ['files' => $files]);
     }
 }

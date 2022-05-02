@@ -33,14 +33,10 @@
         }
     },
     "columns": {
-        "id": {
+        "avatar": {
+            "class": "text-center",
             "custom": true,
-            "label": "ID"
-        },
-        "active": {
-            "custom": true,
-            "exportable": false,
-            "label": "Active"
+            "exportable": false
         },
         "first_name": {
             "label": "First Name",
