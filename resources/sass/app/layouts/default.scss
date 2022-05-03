@@ -31,11 +31,11 @@
       margin-left:      0;
       margin-right:     0;
       transition:       all $menu-transition;
-    }
-    .main.page .main.content,
-    .main.page .nav.top {
-      max-width:        100vw;
-      width:            100vw;
+      width:            calc(100vw - (100vw - 100%)); // this! handy little trick to account for scrollbar width
+        .main.content {}
+        .nav.top {
+          width:            inherit;
+        }
     }
 
     .auth.panel,
@@ -91,9 +91,11 @@
         &.menu-closed {
             .main.page {
               margin-left:      $app-block-size;
-            }
-            .main.page .main.content, .main.page .nav.top {
-              max-width:        calc(100vw - $app-block-size);
+              width:            calc((100vw - (100vw - 100%)) - $app-block-size);
+                .main.content {}
+                .nav.top {
+                  width:            inherit; // calc(100% - $app-block-size);
+                }
             }
             .menu.panel {
               width:            $app-block-size;
@@ -103,9 +105,11 @@
         &.menu-open, &:not(.menu-closed) {
             .main.page {
               margin-left:      $menu-panel-size;
-            }
-            .main.page .main.content, .main.page .nav.top {
-              max-width:        calc(100vw - $menu-panel-size);
+              width:            calc((100vw - (100vw - 100%)) - $menu-panel-size);
+                .main.content {}
+                .nav.top {
+                  width:            inherit; // calc(100% - $menu-panel-size);
+                }
             }
             .menu.panel  {
               width:            $menu-panel-size;
@@ -118,9 +122,11 @@
             .main.page {
               margin-left:      $app-block-size;
               margin-right:     $auth-panel-size;
-            }
-            .main.page .main.content, .main.page .nav.top {
-              width:            calc(100vw - ($app-block-size + $auth-panel-size));
+              width:            calc((100vw - (100vw - 100%)) - ($app-block-size + $auth-panel-size));
+                .main.content {}
+                .nav.top {
+                  width:            calc(100% - ($app-block-size + $auth-panel-size));
+                }
             }
             .menu.panel {
               width:            $app-block-size;

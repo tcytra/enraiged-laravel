@@ -44,6 +44,10 @@
 
 
 //  the core html elements
+html {
+  scrollbar-width:  thin;
+}
+
 body {
   background:       $surface-section;
   color:            $surface-overlay;
