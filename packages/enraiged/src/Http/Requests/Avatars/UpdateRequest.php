@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Avatars;
+namespace Enraiged\Http\Requests\Avatars;
 
 use Enraiged\Avatars\Traits\Validators\AvatarColorValidator;
 use Enraiged\Forms\Requests\FormRequest;
