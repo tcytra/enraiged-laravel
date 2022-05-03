@@ -1,30 +1,34 @@
 <template>
     <main class="account content dashboard flex-column main flex">
-        <header class="flex header justify-content-between">
+        <header class="header">
             <Head :title="pageTitle"/>
-            <h1 v-if="account.id === 1">My Account</h1>
-            <h1 v-else>Account</h1>
+            <h1>{{ pageTitle }}</h1>
             <div class="actions">
-                <div class="action edit-avatar" @click="edit('/my/account/avatar')">
+                <div class="action edit-avatar" v-if="isMyAccount" @click="edit('/my/account/avatar')">
                     <primevue-button class="button p-button-info p-button-text"
                         icon="pi pi-circle"
                         label="Avatar"/>
                 </div>
-                <div class="action edit-login" @click="edit('/my/account/login')">
+                <div class="action edit-login" v-if="isMyAccount" @click="edit('/my/account/login')">
                     <primevue-button class="button p-button-info p-button-text"
                         icon="pi pi-sign-in"
                         label="Login"/>
                 </div>
-                <div class="action edit-profile" @click="edit('/my/account/profile')">
+                <div class="action edit-profile" v-if="isMyAccount" @click="edit('/my/account/profile')">
                     <primevue-button class="button p-button-info p-button-text"
                         icon="pi pi-user"
                         label="Profile"/>
+                </div>
+                <div class="action go-back" v-if="hasHistory" @click="back()">
+                    <primevue-button class="button p-button-info p-button-text"
+                        icon="pi pi-sync"
+                        label="Back"/>
                 </div>
             </div>
         </header>
         <section class="align-self-center container max-width-xl w-full">
             <div class="grid">
-                <div class="col-12" v-if="help">
+                <div class="col-12" v-if="help && isMyAccount">
                     <primevue-message class="m-0" @close="help = false">
                         These are your private account details.
                     </primevue-message>
@@ -59,8 +63,6 @@
 </template>
 
 <script>
-import { mapState } from 'pinia';
-import { Auth } from '@/stores/auth.js';
 import { Head } from '@inertiajs/inertia-vue3';
 import AccountSummary from '@/components/accounts/cards/AccountSummary.vue';
 import AppLayout from '@/layouts/App.vue';
@@ -84,21 +86,22 @@ export default {
             type: Object,
             required: true,
         },
+        actions: {
+            type: Object,
+            required: true,
+        },
     },
 
     data: () => ({
-        actions: {
-            avatar: '',
-            login: '',
-            profile: '',
-        },
         help: true,
     }),
 
     computed: {
-        ...mapState(Auth, ['user']),
+        hasHistory() {
+            return window.history.length > 0;
+        },
         isMyAccount() {
-            return this.user ? this.user.id === this.account.id : false;
+            return this.$attrs.auth.user.id === this.account.id;
         },
         pageTitle() {
             return this.isMyAccount ? 'My Account' : 'Account';

@@ -3,6 +3,13 @@
         <header class="header">
             <Head :title="pageTitle"/>
             <h1>{{ pageTitle }}</h1>
+            <div class="actions">
+                <div class="action go-back" @click="back()">
+                    <primevue-button class="button p-button-info p-button-text"
+                        icon="pi pi-sync"
+                        label="Back"/>
+                </div>
+            </div>
         </header>
         <section class="auto-margin max-width-sm my-5">
             <profile-form :builder="builder"/>
@@ -11,16 +18,17 @@
 </template>
 
 <script>
-import { mapState } from 'pinia';
-import { Auth } from '@/stores/auth.js';
 import { Head } from '@inertiajs/inertia-vue3';
 import AppLayout from '@/layouts/App.vue';
+import PrimevueButton from 'primevue/button';
 import ProfileForm from '@/components/accounts/forms/ProfileForm.vue';
 
 export default {
     layout: AppLayout,
 
     components: {
+        Head,
+        PrimevueButton,
         ProfileForm,
     },
 
@@ -32,12 +40,17 @@ export default {
     },
 
     computed: {
-        ...mapState(Auth, ['user']),
         isMyLogin() {
-            return this.user ? this.user.id === this.builder.resource.id : false;
+            return this.$attrs.auth.user.id === this.builder.resource.id;
         },
         pageTitle() {
             return this.isMyLogin ? 'Update My Profile' : 'Update Profile';
+        },
+    },
+
+    methods: {
+        back() {
+            window.history.go(-1);
         },
     },
 };

@@ -12,6 +12,9 @@ class Show extends Controller
 {
     use AuthorizesRequests;
 
+    /** @var  Account  The account model. */
+    protected $account;
+
     /**
      *  Provide the account show component.
      *
@@ -29,6 +32,32 @@ class Show extends Controller
 
         return inertia('accounts/Show', [
             'account' => AccountManagementResource::from($this->account),
+            'actions' => $this->actions(),
         ]);
+    }
+
+    /**
+     *  Assemble and return the available page actions.
+     *
+     *  @return array
+     */
+    private function actions()
+    {
+        $full_url = false;
+        $parameters = ['account' => $this->account->id];
+
+        return [
+            'avatar' => $this->account->is_mine
+                ? route('my.avatar', [], $full_url)
+                : route('accounts.avatar.edit', $parameters, $full_url),
+
+            'login' => $this->account->is_mine
+                ? route('my.login', [], $full_url)
+                : route('accounts.login.edit', $parameters, $full_url),
+
+            'profile' => $this->account->is_mine
+                ? route('my.profile', [], $full_url)
+                : route('accounts.profile.edit', $parameters, $full_url),
+        ];
     }
 }

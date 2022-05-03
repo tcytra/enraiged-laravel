@@ -4,17 +4,18 @@
             <template #content>
                 <vue-form class="max-width-sm auto-margin" ref="accountForm"
                     :builder="builder"
-                    @form:ready="ready = true"
-                    @form:submit="submit">
-                    <administrative-options v-if="administrativeOptions"
-                        :form="accountForm"
-                        :section="administrativeOptions"/>
-                    <personal-information
-                        :form="accountForm"
-                        :section="personalInformation"/>
-                    <authentication-details
-                        :form="accountForm"
-                        :section="authenticationDetails"/>
+                    @form:ready="ready = true">
+                    <div v-if="ready">
+                        <administrative-options v-if="administrativeOptions"
+                            :form="accountForm"
+                            :section="administrativeOptions"/>
+                        <personal-information
+                            :form="accountForm"
+                            :section="personalInformation"/>
+                        <authentication-details
+                            :form="accountForm"
+                            :section="authenticationDetails"/>
+                    </div>
                 </vue-form>
             </template>
         </primevue-card>

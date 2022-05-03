@@ -15,11 +15,18 @@ Route::namespace('\Enraiged\Http\Controllers\Accounts')
                 Route::patch('{account}/update', 'Update')->name('update');
                 Route::post('', 'Store')->name('store');
 
-                Route::get('{account}/login', 'Login\Edit')->name('login.edit');
-                Route::patch('{account}/login', 'Login\Update')->name('login.update');
+                Route::get('{account}/avatar/edit', 'Avatars\Edit')->name('avatar.edit');
 
-                Route::get('{account}/login', 'Profile\Edit')->name('profile.edit');
-                Route::patch('{account}/profile', 'Profile\Update')->name('profile.update');
+                Route::get('{account}/login/edit', 'Login\Edit')->name('login.edit');
+                Route::patch('{account}/login/update', 'Login\Update')->name('login.update');
+
+                Route::get('{account}/profile', 'Profiles\Show')->name('profile.show');
+                Route::get('{account}/profile/edit', 'Profiles\Edit')->name('profile.edit');
+                Route::patch('{account}/profile/update', 'Profiles\Update')->name('profile.update');
+
+                /* Route::prefix('profiles')->as('profiles.')->group(function () {
+                    //  not quite yet
+                }); */
             });
 
         Route::prefix('api/accounts')
@@ -43,7 +50,7 @@ Route::namespace('\Enraiged\Http\Controllers\Accounts')
 
                 Route::get('account/avatar', 'Avatars\Edit')->name('avatar');
                 Route::get('account/login', 'Login\Edit')->name('login');
-                Route::get('account/profile', 'Profile\Edit')->name('profile');
+                Route::get('account/profile', 'Profiles\Edit')->name('profile');
 
                 Route::namespace('Files')
                     ->prefix('files')

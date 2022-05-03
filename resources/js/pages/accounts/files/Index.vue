@@ -3,6 +3,13 @@
     <main class="accounts index content main">
         <header class="header">
             <h1>My Files</h1>
+            <div class="actions">
+                <div class="action go-back" @click="back()">
+                    <primevue-button class="button p-button-info p-button-text"
+                        icon="pi pi-sync"
+                        label="Back"/>
+                </div>
+            </div>
         </header>
         <section class="container files">
             <primevue-dataview :layout="layout" :value="files" v-if="files.length">
@@ -121,12 +128,14 @@ export default {
     }),
 
     methods: {
+        back() {
+            window.history.go(-1);
+        },
         destroy(file) {
             this.$inertia.visit(`/files/${file.id}`, { method: 'delete' });
         },
         download(file) {
             window.location.href = `/files/${file.id}`;
-            //this.$inertia.visit(`/files/${file.id}`, { method: 'get' });
         },
     },
 };

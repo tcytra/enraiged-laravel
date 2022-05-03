@@ -21,7 +21,7 @@ if (!function_exists('uhash')) {
 
 /**
  *  user()
- *  Return the correct instance of the Auth\User object
+ *  Return the current Auth\User object
  *  
  *  @return object
  */

@@ -15,8 +15,7 @@
             :meta="meta"
             @menu:navigate="menuNavigation"
             @menu:toggle="toggleMenu"/>
-        <div class="main page" ref="mainPage"
-            v-on:auth:close="closeAuth">
+        <div class="main page" ref="mainPage">
             <top-nav
                 @auth:toggle="toggleAuth"
                 @menu:toggle="toggleMenu"/>
@@ -94,6 +93,9 @@ export default {
         ...mapActions(Auth, ['setUser', 'unsetUser']),
         attachEvents() {
             window.addEventListener('resize', this.resizeDocument);
+        },
+        back() {
+            window.history.go(-1);
         },
         closeAll() {
             this.authOpen = false;

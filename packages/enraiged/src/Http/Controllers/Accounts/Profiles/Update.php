@@ -1,6 +1,6 @@
 <?php
 
-namespace Enraiged\Http\Controllers\Accounts\Profile;
+namespace Enraiged\Http\Controllers\Accounts\Profiles;
 
 use App\Http\Controllers\Controller;
 use Enraiged\Accounts\Models\Account;

@@ -59,7 +59,7 @@ export default {
         Avatar,
     },
 
-    emits: ['auth:toggle'],
+    emits: ['auth:close', 'auth:toggle'],
 
     props: {
         auth: {

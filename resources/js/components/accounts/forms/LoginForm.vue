@@ -4,20 +4,21 @@
             <template #content>
                 <vue-form class="max-width-sm auto-margin" ref="loginForm"
                     :builder="builder"
-                    @form:ready="ready = true"
-                    @form:submit="submit">
-                    <vue-text-field class="email" id="email"
-                        :field="builder.fields.email"
-                        :form="loginForm"/>
-                    <vue-text-field id="username"
-                        :field="builder.fields.username"
-                        :form="loginForm"/>
-                    <vue-password-field id="password" feedback toggle-mask
-                        :field="builder.fields.password"
-                        :form="loginForm"/>
-                    <vue-password-field id="password_confirmation"
-                        :field="builder.fields.password_confirmation"
-                        :form="loginForm"/>
+                    @form:ready="ready = true">
+                    <div v-if="ready">
+                        <vue-text-field class="email" id="email"
+                            :field="builder.fields.email"
+                            :form="loginForm"/>
+                        <vue-text-field id="username"
+                            :field="builder.fields.username"
+                            :form="loginForm"/>
+                        <vue-password-field id="password" feedback toggle-mask
+                            :field="builder.fields.password"
+                            :form="loginForm"/>
+                        <vue-password-field id="password_confirmation"
+                            :field="builder.fields.password_confirmation"
+                            :form="loginForm"/>
+                    </div>
                 </vue-form>
             </template>
         </primevue-card>
