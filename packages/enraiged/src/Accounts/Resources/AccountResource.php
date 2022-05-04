@@ -7,7 +7,8 @@ use Enraiged\Http\Resources\JsonResource;
 
 class AccountResource extends JsonResource
 {
-    use Traits\Avatar,
+    use Traits\Actions,
+        Traits\Avatar,
         Traits\Profile;
 
     /**
@@ -23,10 +24,15 @@ class AccountResource extends JsonResource
             'email' => $this->email,
             'username' => $this->username,
             'is_active' => $this->is_active,
+            'is_myself' => $this->is_myself,
             'timezone' => $this->timezone,
             'avatar' => $this->avatar(),
             'profile' => $this->profile(),
         ];
+
+        if (count($this->actions) && $this->is_myself) {
+            $resource['actions'] = $this->actions();
+        }
 
         if ($this->created) {
             $resource['created'] = DatetimeAttributeResource::from($this)

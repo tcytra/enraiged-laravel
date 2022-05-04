@@ -1,31 +1,29 @@
 <template>
-    <div class="login-form adjacent-labels">
-        <primevue-card class="mb-3 max-width-md auto-margin">
-            <template #content>
-                <vue-form class="max-width-sm auto-margin" ref="profileForm"
-                    :builder="builder"
-                    @form:ready="ready = true">
-                    <div v-if="ready">
-                        <vue-dropdown-field id="salut" show-clear
-                            :field="builder.fields.salut"
-                            :form="profileForm"/>
-                        <vue-text-field id="first_name"
-                            :field="builder.fields.first_name"
-                            :form="profileForm"/>
-                        <vue-text-field id="last_name"
-                            :field="builder.fields.last_name"
-                            :form="profileForm"/>
-                        <vue-text-field id="alias"
-                            :field="builder.fields.alias"
-                            :form="profileForm"/>
-                        <vue-calendar-field id="birthdate"
-                            :field="builder.fields.birthdate"
-                            :form="profileForm"/>
-                    </div>
-                </vue-form>
-            </template>
-        </primevue-card>
-    </div>
+    <primevue-card>
+        <template #content>
+            <vue-form class="adjacent-labels auto-margin max-width-sm" ref="profileForm"
+                :builder="builder"
+                @form:ready="ready = true">
+                <section class="section" v-if="ready">
+                    <vue-dropdown-field id="salut" show-clear
+                        :field="builder.fields.salut"
+                        :form="profileForm"/>
+                    <vue-text-field id="first_name"
+                        :field="builder.fields.first_name"
+                        :form="profileForm"/>
+                    <vue-text-field id="last_name"
+                        :field="builder.fields.last_name"
+                        :form="profileForm"/>
+                    <vue-text-field id="alias"
+                        :field="builder.fields.alias"
+                        :form="profileForm"/>
+                    <vue-calendar-field id="birthdate"
+                        :field="builder.fields.birthdate"
+                        :form="profileForm"/>
+                </section>
+            </vue-form>
+        </template>
+    </primevue-card>
 </template>
 
 <script>

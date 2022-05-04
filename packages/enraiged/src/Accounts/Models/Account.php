@@ -9,7 +9,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Account extends Model
 {
-    use BelongsTo\User,
+    use Attributes\IsMyself,
+        BelongsTo\User,
         HasMany\Files,
         HasOne\Profile,
         CreatedBy, IsProtected, SoftDeletes;

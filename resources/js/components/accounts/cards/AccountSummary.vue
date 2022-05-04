@@ -4,7 +4,7 @@
             <div class="account-summary">
                 <avatar action="/my/account/avatar" class="width-96" size="xl"
                     :avatar="account.avatar"
-                    :editable="isMyAccount"/>
+                    :editable="account.is_myself"/>
                 <div class="descriptions flex-grow-1">
                     <div class="description-lists">
                         <dl>
@@ -55,10 +55,6 @@ export default {
         account: {
             type: Object,
             required: true,
-        },
-        isMyAccount: {
-            type: Boolean,
-            default: false,
         },
     },
 };

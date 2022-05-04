@@ -1,9 +1,6 @@
 <template>
     <main class="content flex-column main flex">
-        <header class="header">
-            <Head title="Dashboard"/>
-            <h1>Dashboard</h1>
-        </header>
+        <page-header back-button title="Dashboard"/>
         <section class="align-self-center container max-width-xl w-full">
             <primevue-card class="mb-3">
                 <template #content>
@@ -15,15 +12,15 @@
 </template>
 
 <script>
-import { Head } from '@inertiajs/inertia-vue3';
 import AppLayout from '@/layouts/App.vue';
+import PageHeader from '@/components/ui/pages/PageHeader.vue';
 import PrimevueCard from 'primevue/card';
 
 export default {
     layout: AppLayout,
 
     components: {
-        Head,
+        PageHeader,
         PrimevueCard,
     },
 };

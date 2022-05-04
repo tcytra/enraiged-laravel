@@ -2,20 +2,20 @@
 
 namespace Enraiged\Accounts\Models\Attributes;
 
-trait IsMine
+trait IsMyself
 {
     /**
      *  @return void
      */
-    public function initializeIsMine()
+    public function initializeIsMyself()
     {
-        $this->append('is_mine');
+        $this->append('is_myself');
     }
 
     /**
      *  @return bool
      */
-    public function getIsMineAttribute(): bool
+    public function getIsMyselfAttribute(): bool
     {
         return $this->user->id === user()->id;
     }

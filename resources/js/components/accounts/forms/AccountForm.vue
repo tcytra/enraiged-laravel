@@ -1,25 +1,23 @@
 <template>
-    <div class="account-form adjacent-labels">
-        <primevue-card class="mb-3 max-width-md auto-margin">
-            <template #content>
-                <vue-form class="max-width-sm auto-margin" ref="accountForm"
-                    :builder="builder"
-                    @form:ready="ready = true">
-                    <div v-if="ready">
-                        <administrative-options v-if="administrativeOptions"
-                            :form="accountForm"
-                            :section="administrativeOptions"/>
-                        <personal-information
-                            :form="accountForm"
-                            :section="personalInformation"/>
-                        <authentication-details
-                            :form="accountForm"
-                            :section="authenticationDetails"/>
-                    </div>
-                </vue-form>
-            </template>
-        </primevue-card>
-    </div>
+    <primevue-card>
+        <template #content>
+            <vue-form class="adjacent-labels auto-margin max-width-sm" ref="accountForm"
+                :builder="builder"
+                @form:ready="ready = true">
+                <div v-if="ready">
+                    <administrative-options v-if="administrativeOptions"
+                        :form="accountForm"
+                        :section="administrativeOptions"/>
+                    <personal-information
+                        :form="accountForm"
+                        :section="personalInformation"/>
+                    <authentication-details
+                        :form="accountForm"
+                        :section="authenticationDetails"/>
+                </div>
+            </vue-form>
+        </template>
+    </primevue-card>
 </template>
 
 <script>

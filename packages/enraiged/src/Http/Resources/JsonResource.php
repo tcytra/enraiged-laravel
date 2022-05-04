@@ -11,6 +11,9 @@ class JsonResource extends IlluminateResource
     /** @var  string  The key with which to wrap the data array. */
     public static $wrap = null;
 
+    /** @var  array  The array of actions available for this resource. */
+    protected $actions = [];
+
     /** @var  string  An optional, specific attribute to evaluate. */
     protected $attribute;
 

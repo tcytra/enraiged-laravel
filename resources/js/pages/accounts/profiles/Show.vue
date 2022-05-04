@@ -1,13 +1,10 @@
 <template>
-    <main class="account content dashboard flex-column main flex">
-        <header class="flex header justify-content-between">
-            <Head :title="pageTitle"/>
-            <h1>{{ pageTitle }}</h1>
-        </header>
-        <section class="align-self-center container max-width-xl w-full">
+    <main class="content main">
+        <page-header back-button :title="title"/>
+        <section class="auto-margin container max-width-xl w-full">
             <div class="grid">
                 <div class="col-12">
-                    
+                    Member Profile Page
                 </div>
             </div>
         </section>
@@ -15,15 +12,15 @@
 </template>
 
 <script>
-import { Head } from '@inertiajs/inertia-vue3';
 import AppLayout from '@/layouts/App.vue';
+import PageHeader from '@/components/ui/pages/PageHeader.vue';
 import PrimevueButton from 'primevue/button';
 
 export default {
     layout: AppLayout,
 
     components: {
-        Head,
+        PageHeader,
         PrimevueButton,
     },
 
@@ -32,18 +29,11 @@ export default {
             type: Object,
             required: true,
         },
-        actions: {
-            type: Object,
-            required: true,
-        },
     },
 
     computed: {
-        isMyAccount() {
-            return this.$attrs.auth.user.id === this.account.id;
-        },
-        pageTitle() {
-            return this.isMyAccount ? 'My Profile' : this.account.profile.name;
+        title() {
+            return this.account.is_myself ? 'My Profile' : this.account.profile.name;
         },
     },
 };

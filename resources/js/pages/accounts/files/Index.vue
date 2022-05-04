@@ -1,17 +1,7 @@
 <template>
-    <Head title="Accounts" />
-    <main class="accounts index content main">
-        <header class="header">
-            <h1>My Files</h1>
-            <div class="actions">
-                <div class="action go-back" @click="back()">
-                    <primevue-button class="button p-button-info p-button-text"
-                        icon="pi pi-sync"
-                        label="Back"/>
-                </div>
-            </div>
-        </header>
-        <section class="container files">
+    <main class="content main">
+        <page-header title="My Files"/>
+        <section class="container">
             <primevue-dataview :layout="layout" :value="files" v-if="files.length">
                 <template #header>
                     <primevue-dataview-layout-options v-model="layout"/>
@@ -93,8 +83,8 @@
 </template>
 
 <script>
-import { Head } from '@inertiajs/inertia-vue3';
 import AppLayout from '@/layouts/App.vue';
+import PageHeader from '@/components/ui/pages/PageHeader.vue';
 import PrimevueButton from 'primevue/button';
 import PrimevueCard from 'primevue/card';
 import PrimevueDataview from 'primevue/dataview';
@@ -105,7 +95,7 @@ export default {
     layout: AppLayout,
 
     components: {
-        Head,
+        PageHeader,
         PrimevueButton,
         PrimevueCard,
         PrimevueDataview,
