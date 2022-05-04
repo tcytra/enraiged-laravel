@@ -1,0 +1,27 @@
+{
+    "actions": {
+        "back": {
+            "label": "Back"
+        },
+        "clear": {
+            "label": "Clear"
+        },
+        "reset": {
+            "label": "Reset"
+        },
+        "submit": {
+            "label": "Submit"
+        }
+    },
+    "fields": {
+        "timezone": {
+            "label": "Timezone",
+            "options": {
+                "source": "Enraiged\\Support\\Enums\\Timezones",
+                "type": "enum"
+            },
+            "placeholder": "Optional",
+            "type": "select"
+        }
+    }
+}

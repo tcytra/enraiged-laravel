@@ -24,6 +24,9 @@ Route::namespace('\Enraiged\Http\Controllers\Accounts')
                 Route::get('{account}/profile/edit', 'Profiles\Edit')->name('profile.edit');
                 Route::patch('{account}/profile/update', 'Profiles\Update')->name('profile.update');
 
+                Route::get('{account}/settings/edit', 'Settings\Edit')->name('settings.edit');
+                Route::patch('{account}/settings/update', 'Settings\Update')->name('settings.update');
+
                 /* Route::prefix('profiles')->as('profiles.')->group(function () {
                     //  not quite yet
                 }); */
@@ -51,6 +54,7 @@ Route::namespace('\Enraiged\Http\Controllers\Accounts')
                 Route::get('account/avatar', 'Avatars\Edit')->name('avatar');
                 Route::get('account/login', 'Login\Edit')->name('login');
                 Route::get('account/profile', 'Profiles\Edit')->name('profile');
+                Route::get('account/settings', 'Settings\Edit')->name('settings');
 
                 Route::namespace('Files')
                     ->prefix('files')

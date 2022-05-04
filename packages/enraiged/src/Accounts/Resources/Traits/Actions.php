@@ -72,4 +72,19 @@ trait Actions
                 : route('accounts.profile.edit', $parameters, $full_url),
         ];
     }
+
+    /**
+     *  @return array
+     */
+    private function actionSettingsEdit($full_url, $parameters)
+    {
+        return [
+            'class' => 'p-button-info p-button-text',
+            'icon' => 'pi pi-cog',
+            'label' => 'Settings',
+            'uri' => $this->is_myself
+                ? route('my.settings', [], $full_url)
+                : route('accounts.settings.edit', $parameters, $full_url),
+        ];
+    }
 }
