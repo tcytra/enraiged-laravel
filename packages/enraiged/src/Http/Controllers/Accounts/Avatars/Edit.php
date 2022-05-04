@@ -4,6 +4,7 @@ namespace Enraiged\Http\Controllers\Accounts\Avatars;
 
 use App\Http\Controllers\Controller;
 use Enraiged\Avatars\Resources\AvatarEditResource;
+use Enraiged\Accounts\Resources\AccountResource;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 
@@ -19,11 +20,13 @@ class Edit extends Controller
      */
     public function __invoke(Request $request)
     {
-        $avatar = $request->user()->account->profile->avatar;
+        $account = $request->user()->account;
+        $avatar = $account->profile->avatar;
 
         $this->authorize('edit', $avatar);
 
-        return inertia('avatars/Edit', [
+        return inertia('accounts/avatar/Edit', [
+            'account' => AccountResource::from($account),
             'avatar' => AvatarEditResource::from($avatar),
         ]);
     }

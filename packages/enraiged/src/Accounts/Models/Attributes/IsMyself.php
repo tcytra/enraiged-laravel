@@ -19,4 +19,12 @@ trait IsMyself
     {
         return $this->user->id === user()->id;
     }
+
+    /**
+     *  @return bool
+     */
+    public function isMyself(): bool
+    {
+        return $this->is_myself === true;
+    }
 }

@@ -70,6 +70,24 @@ if (!function_exists('get_class_name')) {
     }
 }
 
+if (!function_exists('message')) {
+    /**
+     *  Construct and return a message object from the provided parameters.
+     *
+     *  @param  string  $body
+     *  @param  string  $severity = 'info'  Can be 'danger', 'info', or 'warn'.
+     *  @param  bool    $closable
+     */
+    function message(string $body, string $severity = 'info', bool $closable = true)
+    {
+        return (object) [
+            'body' => $body,
+            'closable' => $closable,
+            'severity' => $severity,
+        ];
+    }
+}
+
 if (!function_exists('number')) {
     /**
      *  Render a provided value into a short-form number format.

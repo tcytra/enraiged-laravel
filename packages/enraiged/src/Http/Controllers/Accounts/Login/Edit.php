@@ -3,6 +3,7 @@
 namespace Enraiged\Http\Controllers\Accounts\Login;
 
 use App\Http\Controllers\Controller;
+use Enraiged\Accounts\Resources\AccountResource;
 use Enraiged\Http\Requests\Accounts\Login\EditRequest;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
@@ -25,8 +26,9 @@ class Edit extends Controller
 
         $request = EditRequest::createFrom($request); // todo: why can't I inject this request as a dependency?
 
-        $template = $request->form()->edit($account);
-
-        return inertia('accounts/login/Edit', ['builder' => $template]);
+        return inertia('accounts/login/Edit', [
+            'account' => AccountResource::from($account),
+            'builder' => $request->form()->edit($account),
+        ]);
     }
 }

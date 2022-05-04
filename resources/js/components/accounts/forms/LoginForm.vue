@@ -1,28 +1,33 @@
 <template>
-    <div class="login-form adjacent-labels">
-        <primevue-card class="mb-3 max-width-md auto-margin">
-            <template #content>
-                <vue-form class="max-width-sm auto-margin" ref="loginForm"
-                    :builder="builder"
-                    @form:ready="ready = true">
-                    <div v-if="ready">
-                        <vue-text-field class="email" id="email"
-                            :field="builder.fields.email"
-                            :form="loginForm"/>
-                        <vue-text-field id="username"
-                            :field="builder.fields.username"
-                            :form="loginForm"/>
-                        <vue-password-field id="password" feedback toggle-mask
-                            :field="builder.fields.password"
-                            :form="loginForm"/>
-                        <vue-password-field id="password_confirmation"
-                            :field="builder.fields.password_confirmation"
-                            :form="loginForm"/>
-                    </div>
-                </vue-form>
-            </template>
-        </primevue-card>
-    </div>
+    <primevue-card class="mb-3 max-width-md auto-margin">
+        <template #header>
+            <header class="border-bluegray-100 border-bottom-1 p-3 surface-200">
+                <h3 class="auto-margin max-width-sm">
+                    This form will allow you to manage account login credentials.
+                </h3>
+            </header>
+        </template>
+        <template #content>
+            <vue-form class="adjacent-labels auto-margin max-width-sm" ref="loginForm"
+                :builder="builder"
+                @form:ready="ready = true">
+                <div v-if="ready">
+                    <vue-text-field class="email" id="email"
+                        :field="builder.fields.email"
+                        :form="loginForm"/>
+                    <vue-text-field id="username"
+                        :field="builder.fields.username"
+                        :form="loginForm"/>
+                    <vue-password-field id="password" feedback toggle-mask
+                        :field="builder.fields.password"
+                        :form="loginForm"/>
+                    <vue-password-field id="password_confirmation"
+                        :field="builder.fields.password_confirmation"
+                        :form="loginForm"/>
+                </div>
+            </vue-form>
+        </template>
+    </primevue-card>
 </template>
 
 <script>

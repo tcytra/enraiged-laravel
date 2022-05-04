@@ -1,13 +1,9 @@
 <template>
     <main class="content main">
-        <page-header back-button :actions="actions" :title="title"/>
+        <page-header back-button :actions="actions" :header="header" :title="title"/>
         <section class="auto-margin container max-width-xl w-full">
             <div class="grid">
-                <div class="col-12" v-if="help && myself">
-                    <primevue-message class="m-0" @close="help = false">
-                        These are your private account details.
-                    </primevue-message>
-                </div>
+                <page-messages class="col-12" :messages="messages" @dismiss="messages.splice($event, 1)"/>
                 <div class="col-12">
                     <account-summary :account="account"/>
                 </div>
@@ -41,8 +37,8 @@
 import AccountSummary from '@/components/accounts/cards/AccountSummary.vue';
 import AppLayout from '@/layouts/App.vue';
 import PageHeader from '@/components/ui/pages/PageHeader.vue';
+import PageMessages from '@/components/ui/pages/PageMessages.vue';
 import PrimevueCard from 'primevue/card';
-import PrimevueMessage from 'primevue/message';
 
 export default {
     layout: AppLayout,
@@ -50,8 +46,8 @@ export default {
     components: {
         AccountSummary,
         PageHeader,
+        PageMessages,
         PrimevueCard,
-        PrimevueMessage,
     },
 
     props: {
@@ -59,21 +55,24 @@ export default {
             type: Object,
             required: true,
         },
+        messages: {
+            type: Array,
+            default: [],
+        },
     },
-
-    data: () => ({
-        help: true,
-    }),
 
     computed: {
         actions() {
             return this.account.actions;
         },
+        header() {
+            return this.myself ? 'My Account Dashboard' : `Account Dashboard: ${this.account.profile.name}`;
+        },
         myself() {
             return this.$attrs.auth.user.id === this.account.id;
         },
         title() {
-            return this.myself ? 'My Account' : 'Account';
+            return this.myself ? this.header : 'Account Dashboard';
         },
     },
 };

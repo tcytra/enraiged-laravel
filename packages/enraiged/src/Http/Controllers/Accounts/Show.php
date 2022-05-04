@@ -15,6 +15,9 @@ class Show extends Controller
     /** @var  Account  The account model. */
     protected $account;
 
+    /** @var  User  The request user. */
+    protected $user;
+
     /**
      *  Provide the account show component.
      *
@@ -27,11 +30,33 @@ class Show extends Controller
         $this->account = preg_match('/^my\.account/', $request->route()->getName())
             ? $request->user()->account
             : $account;
+        $this->user = $request->user();
 
         $this->authorize('show', $this->account);
 
         return inertia('accounts/Show', [
             'account' => AccountManagementResource::from($this->account),
+            'messages' => $this->messages(),
         ]);
+    }
+
+    /**
+     *  Construct and return an array of the available page messages.
+     *
+     *  @return array
+     */
+    private function messages()
+    {
+        $messages = [];
+
+        if ($this->account->isMyself()) {
+            array_push($messages, message('These are your private account details.'));
+        } else
+
+        if ($this->user->account->isAdministrator()) {
+            array_push($messages, message('You are viewing this account dashboard as an administrator.', 'warn'));
+        }
+
+        return $messages;
     }
 }

@@ -1,6 +1,6 @@
 <template>
     <main class="content flex-column main flex">
-        <page-header back-button title="Dashboard"/>
+        <page-header title="Dashboard"/>
         <section class="align-self-center container max-width-xl w-full">
             <primevue-card class="mb-3">
                 <template #content>

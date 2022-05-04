@@ -21,6 +21,10 @@ export default {
     },
 
     props: {
+        account: {
+            type: Object,
+            required: true,
+        },
         builder: {
             type: Object,
             required: true,
@@ -28,11 +32,8 @@ export default {
     },
 
     computed: {
-        myself() {
-            return this.$attrs.auth.user.id === this.builder.resource.id;
-        },
         title() {
-            return this.myself ? 'Update My Login' : 'Update Login';
+            return this.account.is_myself ? 'Update My Login' : 'Update Login';
         },
     },
 };

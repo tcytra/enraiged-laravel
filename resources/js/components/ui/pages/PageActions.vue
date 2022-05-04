@@ -7,7 +7,7 @@
                 :icon="action.icon"
                 :label="action.label"/>
         </div>
-        <div class="action go-back" v-if="history" @click="back()">
+        <div class="action go-back" v-if="backButton && history" @click="back()">
             <primevue-button class="button p-button-info p-button-text"
                 icon="pi pi-sync"
                 label="Back"/>
@@ -27,6 +27,10 @@ export default {
         actions: {
             type: Object,
             default: {},
+        },
+        backButton: {
+            type: Boolean,
+            default: false,
         },
     },
 

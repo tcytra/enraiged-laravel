@@ -2,6 +2,7 @@
     <main class="content main">
         <page-header back-button :title="title"/>
         <section class="auto-margin container max-width-lg">
+            <page-messages class="mb-3" :messages="messages" @dismiss="messages.splice($event, 1)"/>
             <profile-form :builder="builder"/>
         </section>
     </main>
@@ -10,7 +11,7 @@
 <script>
 import AppLayout from '@/layouts/App.vue';
 import PageHeader from '@/components/ui/pages/PageHeader.vue';
-import PrimevueButton from 'primevue/button';
+import PageMessages from '@/components/ui/pages/PageMessages.vue';
 import ProfileForm from '@/components/accounts/forms/ProfileForm.vue';
 
 export default {
@@ -18,23 +19,34 @@ export default {
 
     components: {
         PageHeader,
-        PrimevueButton,
+        PageMessages,
         ProfileForm,
     },
 
     props: {
+        account: {
+            type: Object,
+            required: true,
+        },
         builder: {
             type: Object,
             required: true,
         },
+        messages: {
+            type: Array,
+            default: [],
+        },
     },
 
     computed: {
-        myself() {
-            return this.$attrs.auth.user.id === this.builder.resource.id;
-        },
         title() {
-            return this.myself ? 'Update My Profile' : 'Update Profile';
+            return this.account.is_myself ? 'Update My Profile' : 'Update Profile';
+        },
+    },
+
+    methods: {
+        dismiss(index) {
+            this.messages.splice(index, 1);
         },
     },
 };

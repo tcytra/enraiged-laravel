@@ -8,7 +8,7 @@
         &:first-child {
           margin-top:       1rem;
         }
-
+        
         .error {
           color:            $color-danger;
           font-size:        .75rem;
@@ -22,8 +22,13 @@
         }
     }
 
-    .h2, .h3, .h4, .actions, .section {
+    .actions .h2, .h3, .h4, .section {
       margin-bottom:    1rem;
+    }
+    .actions {
+      margin-top:       2rem;
+    }
+    .h2, .h3, .h4, .section {
       margin-top:       1rem;
     }
 }

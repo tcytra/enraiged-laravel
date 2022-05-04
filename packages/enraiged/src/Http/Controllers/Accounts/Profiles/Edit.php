@@ -3,6 +3,7 @@
 namespace Enraiged\Http\Controllers\Accounts\Profiles;
 
 use App\Http\Controllers\Controller;
+use Enraiged\Accounts\Resources\AccountResource;
 use Enraiged\Http\Requests\Accounts\Profile\EditRequest;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
@@ -21,12 +22,18 @@ class Edit extends Controller
     {
         $account = $request->user()->account;
 
-        $this->authorize('edit', $account);
+        $this->authorize('edit', $account); // todo: authorize profile, not account
 
         $request = EditRequest::createFrom($request);
 
         $template = $request->form()->edit($account);
 
-        return inertia('accounts/profiles/Edit', ['builder' => $template]);
+        return inertia('accounts/profiles/Edit', [
+            'account' => AccountResource::from($account),
+            'builder' => $template,
+            'messages' => [
+                message('These are your default profile details. This information is visible only to you and the application administrators.')
+            ],
+        ]);
     }
 }

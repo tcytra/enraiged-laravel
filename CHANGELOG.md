@@ -2,27 +2,41 @@
 
 Todo:
 - Addresses, Contacts, Impersonation, Organizations (Networks?)
-- Auth options to prevent changing account primary login,profile name (req permission, issue token)
-- Back buttons
+- Auth options to prevent changing account primary login,profile name
+  - (req permission, issue token)
 - Complex table searching
-- Custom form filters
+- Custom table filters
 - Data Import
-- Form,Table Actions (various improvements)
 - Geo, Geo Social
 - I18n
 - Menu
-- Move JsonResource to the Enraiged\Support\Resources namespace
-- New account creates registered list of site 'helps'; dismissable as viewed
+- Move Enraiged model resources into Enraiged\Http\Resources namespace
+- New account creates registered list of site 'helps' (dismissable)
 - Secondary email login
 - Split VueTable component into reusable parts
 - There is code common to the {Form,Table}Builder(s)
   - Implement parent RequestBuilder class?
 - User timezone
 - Validation and rules for table requests (?)
+! Upgrade the node client packages
 
 ---
 
-2022-00-00 : 0.0.11  
+2022-05-04 : 0.0.12  
+Update: Various fixes and improvements to page actions,header,messages
+
+- Added back buttons to various pages; Access auth.user via $attrs
+- Added is_administrator attribute to the Account model
+- Added Page{Actions,Header,Messages} components to available pages
+- Corrected css width issue with browser scrollbar present
+- Corrected namespace issue in the enraiged avatar requests
+- Corrected various vuejs warnings
+- Moved all custom App\Http logic to the Enraiged\Http namespace
+- Updated the composer vendor packages
+
+---
+
+2022-05-01 : 0.0.11  
 Update: Added Avatar system; Added basic content to My Account
 
 - Added Active indicator component; implemented in the accounts table

@@ -2,7 +2,7 @@
     <header class="header">
         <Head :title="title"/>
         <h1>{{ header || title }}</h1>
-        <page-actions :actions="actions"/>
+        <page-actions :actions="actions" :back-button="backButton"/>
     </header>
 </template>
 

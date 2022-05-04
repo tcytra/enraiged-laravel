@@ -72,8 +72,8 @@
 
         .block, .inline {
           align-items:      center;
-          border-bottom:    1px solid darken($surface-border, 9%);
-          border-right:     1px solid darken($surface-border, 9%);
+          border-bottom:    1px solid #a1b1ba;
+          border-right:     1px solid #a1b1ba;
           display:          flex !important;
           height:           $app-block-size;
           transition:       background-color .35s linear;

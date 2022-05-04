@@ -1,18 +1,18 @@
 <template>
     <div class="vue-form">
         <form class="form" @submit.prevent="submit">
-            <slot />
+            <slot v-if="ready"/>
             <div class="actions control">
                 <primevue-button class="p-button-primary submit-button" v-if="actions.submit"
                     :disabled="!form.isDirty"
                     :label="actions.submit.label"
-                    @click="submit" />
+                    @click="submit"/>
                 <primevue-button class="p-button-secondary reset-button" v-if="actions.reset && form.isDirty"
                     :label="actions.reset.label"
-                    @click="reset" />
+                    @click="reset"/>
                 <primevue-button class="p-button-danger error-button" v-if="actions.clear && form.hasErrors"
                     :label="actions.clear.label"
-                    @click="clear" />
+                    @click="clear"/>
             </div>
         </form>
     </div>
@@ -34,6 +34,10 @@ export default {
         },
     },
 
+    data: () => ({
+        ready: false,
+    }),
+
     computed: {
         actions() {
             return this.builder.actions;
@@ -41,6 +45,7 @@ export default {
     },
 
     mounted() {
+        this.ready = true;
         this.$emit('form:ready');
     },
 

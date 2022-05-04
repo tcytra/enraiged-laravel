@@ -1,5 +1,12 @@
 <template>
     <primevue-card>
+        <template #header>
+            <header class="border-bluegray-100 border-bottom-1 p-3 surface-200">
+                <h3 class="auto-margin max-width-sm">
+                    This form will allow you to manage profile details.
+                </h3>
+            </header>
+        </template>
         <template #content>
             <vue-form class="adjacent-labels auto-margin max-width-sm" ref="profileForm"
                 :builder="builder"
