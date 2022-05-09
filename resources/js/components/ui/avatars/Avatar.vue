@@ -5,7 +5,7 @@
             icon="pi pi-pencil"
             style="top:0;right:0;"
             v-if="editable"
-            v-tooltip.top="'Update this avatar'"
+            v-tooltip.top="i18n('Update this avatar')"
             @click="clicked"/>
         <primevue-avatar shape="circle" v-if="avatar.file"
             :class="backgroundClass"
@@ -37,6 +37,8 @@ export default {
     directives: {
         tooltip: PrimevueTooltip,
     },
+
+    inject: ['i18n'],
 
     props: {
         action: {

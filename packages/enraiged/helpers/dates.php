@@ -1,10 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
-
 /**
  *  avoid_holiday()
- *  Return a date that does not fall on a holiday or weekend
+ *  Return a date that does not fall on a holiday or weekend.
  *  
  *  @param  mixed $stamp
  *  @param  mixed $format
@@ -23,21 +21,60 @@ function avoid_holiday($stamp, $format = null)
 }
 
 /**
+ *  datei18n()
+ *  Return a simple preg_replace formatted date string.
+ *
+ *  @param  string  $datetime
+ *  @return string
+ */
+function datei18n($datetime)
+{
+    $locale = app()->getlocale();
+    $language = config("enraiged.languages.{$locale}");
+    $defaults = config('enraiged.languages.en');
+
+    $patterns = collect(array_merge($defaults['month_abbrs'], $defaults['months']))
+        ->transform(fn ($each) => "/{$each}/")
+        ->toArray();
+    $replacements = array_merge($language['month_abbrs'], $language['months']);
+
+    return preg_replace($patterns, $replacements, $datetime);
+}
+
+/**
  *  datetime()
- *  Return a formatted date/time from a provided datetime value.
+ *  Return a formatted date/time, optionally from a provided datetime value.
  *  
  *  @param  mixed   $stamp = null
  *  @param  string  $format = 'Y-m-d H:i:s'
- *  @return int
+ *  @param  bool    $translate = false
+ *  @return string
  */
-function datetime($stamp = null, $format = 'Y-m-d H:i:s')
+function datetime($stamp = null, $format = 'Y-m-d H:i:s', $translate = false)
 {
-    return date($format, timestamp($stamp ?? time()));
+    $formatted = date($format, timestamp($stamp ?? time()));
+
+    return $translate
+        ? datei18n($formatted)
+        : $formatted;
+}
+
+/**
+ *  datetimezone()
+ *  Return a timezoned date/time, optionally from a provided datetime value.
+ *
+ *  @param  mixed   $stamp
+ *  @param  string  $format
+ *  @return string
+ */
+function datetimezone($stamp = null, $format = 'Y-m-d H:i:s')
+{
+    return date($format, timezonestamp($stamp));
 }
 
 /**
  *  elapsed()
- *  Return a human readable string representing an elapsed period of time
+ *  Return a human readable string representing an elapsed period of time.
  *  
  *  @param	mixed	$since
  *  @param	mixed	$stamp = 0
@@ -90,7 +127,7 @@ function elapsed($since, $stamp = 0, $strict = true)
 
 /**
  *  holidays()
- *  Return an array of holiday dates for a country for a number of years
+ *  Return an array of holiday dates for a country for a number of years.
  *  + $country is required as an iso alpha-2 country code; default: CA
  *  + $region is optional, not implemented at this time
  *  + $years will accept an array of years or a single year; default: current year plus one year
@@ -131,7 +168,7 @@ function holidays($country = 'CA', $region = null, $years = [])
 
 /**
  *  meridiem()
- *  Return a human readable string representing the general time of day
+ *  Return a human readable string representing the general time of day.
  *  
  *  @param	string	$stamp
  *  @return	string
@@ -167,12 +204,10 @@ function meridiem($stamp)
 
 /**
  *  next_business_day()
- *  Return the next consecutive business day after the provided date
- *  + Stamp is required and will accept unix timestamp or php strtotime() argument
- *  + Format is optional and will accept a php strtotime() argument
+ *  Return the next consecutive business day after the provided date.
  *  
- *  @param  string  $stamp
- *  @param  string  $format = null
+ *  @param  string  $stamp  Will accept a unix timestamp or php strtotime() argument
+ *  @param  string  $format = null  Will accept a php strtotime() argument
  *  @return string
  */
 function next_business_day($stamp, $format = null)
@@ -203,10 +238,12 @@ function next_interval($interval, $stamp = null)
 
 /**
  *  quarter_first_date()
- *  Return the first day of the current quarterly period
+ *  Return the first day of the current quarterly period.
  *  
  *  @param  string  $format = null
  *  @return string
+ *
+ *  @todo   Apply an offset for non-standard quarters
  */
 function quarter_first_date($format = null)
 {
@@ -236,8 +273,7 @@ function quarter_final_date($format = null)
 
 /**
  *  timestamp()
- *  Return a unix timestamp equivalent of a provided php date
- *  + Stamp is required and will accept unix timestamp or php strtotime() argument
+ *  Return a unix timestamp equivalent of a provided php date.
  *  
  *  @param  string  $stamp
  *  @return int
@@ -251,20 +287,35 @@ function timestamp($stamp = null)
 
 /**
  *  timezone()
- *  Return the most user applicable timezone if possible, or default to alternate
+ *  Return the most user applicable timezone if possible, or default to alternate.
  *
  *  @return string
  */
 function timezone()
 {
-    return Auth::check() && Auth::user()->timezone && Auth::user()->timezone !== ''
-        ? Auth::user()->timezone
-        : config('app.timezone');
+    return user()->exists && !empty(user()->timezone)
+        ? user()->timezone
+        : config('enraiged.setup.timezone');
+}
+
+/**
+ *  timezonestamp()
+ *  Return a timezone converted unix timestamp from the provided datetime/timestamp.
+ *
+ *  @param  mixed   $stamp
+ *  @param  string  $timezone
+ *  @return mixed
+ */
+function timezonestamp($stamp = null, $timezone = null)
+{
+    $offset = timezone_offset_inverse();
+
+    return strtotime("{$offset} hrs", timestamp($stamp));
 }
 
 /**
  *  timezone_offset()
- *  Return the +/- UTC offset integer of the provided (or default) timezone
+ *  Return the +/- UTC offset integer of the provided (or default) timezone.
  *
  *  @param  string  $timezone = null
  *  @return string
@@ -278,13 +329,13 @@ function timezone_offset($timezone = null)
 }
 
 /**
- *  timezone_offset_inverted()
- *  Return the +/- UTC offset integer of the provided (or default) timezone
+ *  timezone_offset_inverse()
+ *  Return the +/- UTC offset inverse of the provided (or default) timezone.
  *
  *  @param  string  $timezone = null
  *  @return string
  */
-function timezone_offset_inverted($timezone = null)
+function timezone_offset_inverse($timezone = null)
 {
     $timezone = new \DateTimeZone(!empty($timezone) ? $timezone : timezone());
     $datetime = new \DateTime("now", $timezone);

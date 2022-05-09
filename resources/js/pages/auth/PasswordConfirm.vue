@@ -2,10 +2,15 @@
     <Head title="Confirm Password" />
     <main class="main content">
         <div class="container p-3 flex align-items-center justify-content-center">
-            <primevue-panel header="Confirm Password" class="col-12 md:col-10 lg:col-8 confirm password">
+            <primevue-panel class="col-12 md:col-10 lg:col-8 confirm password"
+                :header="i18n('Confirm Password')">
                 <form class="form relative" @submit.prevent="submit">
                     <aside class="aside mb-5 text">
-                        <strong>This action is secure.<br>Please confirm your account password to proceed.</strong>
+                        <strong>
+                            {{ i18n('This action is secure.') }}
+                            <br>
+                            {{ i18n('Please confirm your account password to proceed.') }}
+                        </strong>
                     </aside>
                     <div class="center-x-small column container fields">
                         <vue-password-field class="m-0" id="password" focus toggle-mask
@@ -14,7 +19,9 @@
                     </div>
                     <div class="button center-x-small column container mb-3">
                         <div class="button control">
-                            <primevue-button label="Confirm" class="p-button-secondary" @click="submit" />
+                            <primevue-button class="p-button-secondary"
+                                :label="i18n('Please confirm')"
+                                @click="submit"/>
                         </div>
                     </div>
                 </form>
@@ -39,6 +46,8 @@ export default {
         PrimevuePanel,
         VuePasswordField,
     },
+
+    inject: ['i18n'],
 
     props: {
         form: Object,

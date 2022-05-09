@@ -73,6 +73,15 @@
     }
 }
 
+.default.overlay {
+  align-items:      center;
+  background-color: $surface-overlay;
+  display:          flex;
+  height:           100vh;
+  justify-content:  center;
+  width:            100vw;
+}
+
 
 //  the default.layout medium screen mechanics
 @media screen and (max-width: calc($break-medium - 1px)) {

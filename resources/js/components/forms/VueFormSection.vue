@@ -1,5 +1,7 @@
 <script>
 export default {
+    inject: ['i18n'],
+
     props: {
         form: {
             type: Object,
@@ -24,7 +26,7 @@ export default {
         return this.$slots.default({
             fields: this.fields,
             form: this.form,
-            heading: this.heading,
+            heading: this.i18n(this.heading),
         });
     },
 };    

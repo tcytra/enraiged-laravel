@@ -16,6 +16,7 @@ trait TableColumns
     {
         return collect($this->columns)
             ->transform(function ($row, $index) {
+                $row['label'] = $this->columnLabel($index);
                 if (!key_exists('source', $row)) {
                     $row['source'] = "{$this->table}.{$index}";
                 }
@@ -45,9 +46,10 @@ trait TableColumns
         $columns = collect($this->columns);
 
         if ($columns->has($key)) {
-            return key_exists('label', $columns->get($key))
+            $label = key_exists('label', $columns->get($key))
                 ? $columns->get($key)['label']
                 : ucwords(str_replace('_', ' ', $key));
+            return __($label);
         }
 
         return null;

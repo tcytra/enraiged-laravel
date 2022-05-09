@@ -3,12 +3,10 @@
 namespace App\Auth;
 
 use App\Auth\Models\InternetAddress;
-use App\Auth\Models\PasswordHistory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -16,6 +14,7 @@ class User extends Authenticatable
     use Traits\BelongsTo\Account,
         Traits\BelongsTo\Role,
         Traits\Scopes,
+        Traits\ManagesPassword,
         HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     /** @var  string  The database table name. */
@@ -41,6 +40,7 @@ class User extends Authenticatable
         'is_active' => 'boolean',
         'is_hidden' => 'boolean',
         'is_protected' => 'boolean',
+        'military_time' => 'boolean',
     ];
 
     /**
@@ -49,34 +49,5 @@ class User extends Authenticatable
     public function ipAddresses()
     {
         return $this->hasMany(InternetAddress::class, 'user_id');
-    }
-
-    /**
-     *  @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function passwordHistory()
-    {
-        return $this->hasMany(PasswordHistory::class);
-    }
-
-    /**
-     *  Compare the current password with a provided value.
-     *
-     *  @param  string  $password
-     *  @return bool
-     */
-    public function currentPasswordIs(string $password)
-    {
-        return Hash::check($password, $this->password);
-    }
-
-    /**
-     *  Set the password attribute.
-     *
-     *  @param  string  $password
-     */
-    public function setPasswordAttribute($password)
-    {
-        $this->attributes['password'] = Hash::needsRehash($password) ? Hash::make($password) : $password;
     }
 }

@@ -1,6 +1,6 @@
 <template>
     <main class="content main">
-        <page-header back-button :actions="actions" :header="header" :title="title"/>
+        <page-header back-button :actions="account.actions" :header="header" :title="title"/>
         <section class="auto-margin container max-width-xl w-full">
             <div class="grid">
                 <page-messages class="col-12" :messages="messages" @dismiss="messages.splice($event, 1)"/>
@@ -50,6 +50,8 @@ export default {
         PrimevueCard,
     },
 
+    inject: ['i18n'],
+
     props: {
         account: {
             type: Object,
@@ -62,17 +64,15 @@ export default {
     },
 
     computed: {
-        actions() {
-            return this.account.actions;
-        },
         header() {
-            return this.myself ? 'My Account Dashboard' : `Account Dashboard: ${this.account.profile.name}`;
-        },
-        myself() {
-            return this.$attrs.auth.user.id === this.account.id;
+            return this.account.is_myself
+                ? 'My Account'
+                : `${this.i18n('Account')}: ${this.account.profile.name}`;
         },
         title() {
-            return this.myself ? this.header : 'Account Dashboard';
+            return this.account.is_myself
+                ? this.header
+                : 'Account Dashboard';
         },
     },
 };

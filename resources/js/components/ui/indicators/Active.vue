@@ -4,14 +4,14 @@
             :class="{ 'is-rounded': rounded }">
             <i class="pi pi-check" v-if="icons"></i>
             <span class="text" v-else>
-                {{ textActive }}
+                {{ i18n(textActive) }}
             </span>
         </span>
         <span class="status-danger" v-else
             :class="{ 'is-rounded': rounded }">
             <i class="pi pi-times" v-if="icons"></i>
             <span class="text" v-else>
-                {{ textInactive }}
+                {{ i18n(textInactive) }}
             </span>
         </span>
     </div>
@@ -20,6 +20,8 @@
 <script>
 // intended for boolean status
 export default {
+    inject: ['i18n'],
+
     props: {
         active: {
             type: Boolean,

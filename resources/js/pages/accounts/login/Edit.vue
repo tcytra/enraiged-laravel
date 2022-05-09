@@ -20,6 +20,8 @@ export default {
         LoginForm,
     },
 
+    inject: ['i18n'],
+
     props: {
         account: {
             type: Object,
@@ -33,7 +35,7 @@ export default {
 
     computed: {
         title() {
-            return this.account.is_myself ? 'Update My Login' : 'Update Login';
+            return this.account.is_myself ? 'My Login' : 'Update Login';
         },
     },
 };

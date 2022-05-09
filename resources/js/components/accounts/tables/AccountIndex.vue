@@ -1,7 +1,7 @@
 <template>
     <div class="account-table">
         <vue-table
-            :page-report-template="'Showing {first} to {last} of {totalRecords} Accounts'"
+            :page-report-template="'Showing {first} to {last} of {totalRecords} accounts'"
             :template="template"
             @show="show">
             <template v-slot:avatar="props">

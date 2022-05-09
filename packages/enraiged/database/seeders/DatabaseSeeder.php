@@ -2,7 +2,6 @@
 
 namespace Enraiged\Database\Seeders;
 
-use App\Auth\User;
 use Enraiged\Accounts\Models\Account;
 use Enraiged\Profiles\Models\Profile;
 use Illuminate\Database\Seeder;
@@ -10,7 +9,7 @@ use Illuminate\Database\Seeder;
 class DatabaseSeeder extends Seeder
 {
     /** @var  int  Create a predetermined number of factory accounts to seed. */
-    protected $create_accounts = 25;
+    protected $create_accounts = 5;
 
     /** @var  bool  Whether or not to output the factory account login credentials while seeding. */
     protected $output_logins = false;
@@ -46,7 +45,7 @@ class DatabaseSeeder extends Seeder
     {
         $profile = Profile::factory()->create();
 
-        $user = User::factory()->create(
+        $user = Account::factory()->create(
             collect($parameters)
                 ->merge(['profile_id' => $profile->id])
                 ->toArray()

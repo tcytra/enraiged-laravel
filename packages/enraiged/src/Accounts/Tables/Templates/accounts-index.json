@@ -1,6 +1,6 @@
 {
     "id": "accounts.index",
-    "empty": "There are no Accounts to display",
+    "empty": "There are no accounts to display",
     "prefix": "accounts.",
     "table": "users",
     "uri": "accounts.index.data",

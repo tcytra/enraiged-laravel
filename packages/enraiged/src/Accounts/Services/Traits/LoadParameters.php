@@ -14,6 +14,9 @@ trait LoadParameters
      */
     public function load(array $parameters)
     {
+        $creating = preg_match('/CreateAccount$/', get_called_class());
+        $updating = preg_match('/UpdateAccount$/', get_called_class());
+
         //  ensure the provided birthdate is formatted for storage
         if (key_exists('birthdate', $parameters) && $parameters['birthdate']) {
             $parameters['birthdate'] = datetime($parameters['birthdate'], 'Y-m-d');
@@ -46,7 +49,7 @@ trait LoadParameters
         }
 
         //  ensure a role is provided, if required
-        if (!key_exists('role_id', $parameters) && config('auth.force_lowest_role')) {
+        if ($creating && !key_exists('role_id', $parameters) && config('auth.force_lowest_role')) {
             $parameters['role_id'] = Role::lowest()->id;
         }
 

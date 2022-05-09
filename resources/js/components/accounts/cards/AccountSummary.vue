@@ -8,26 +8,26 @@
                 <div class="descriptions flex-grow-1">
                     <div class="description-lists">
                         <dl>
-                            <dt>Account Name:</dt>
+                            <dt>{{ i18n('Account Name') }}:</dt>
                             <dd>{{ account.profile.name }}</dd>
                         </dl>
                         <dl>
-                            <dt>Email Address:</dt>
+                            <dt>{{ i18n('Email Address') }}:</dt>
                             <dd>{{ account.email }}</dd>
                         </dl>
                     </div>
                     <div class="description-lists">
                         <dl>
-                            <dt>Account Created:</dt>
+                            <dt>{{ i18n('Account Created') }}:</dt>
                             <dd>
                                 {{ account.created.date }}
                                 {{ account.created.time }}
                             </dd>
                         </dl>
                         <dl>
-                            <dt>Last Updated:</dt>
+                            <dt>{{ i18n('Last Updated') }}:</dt>
                             <dd v-if="account.created.timestamp === account.updated.timestamp">
-                                <em class="empty">na</em>
+                                <em class="empty">-</em>
                             </dd>
                             <dd v-else>
                                 {{ account.updated.date }}
@@ -50,6 +50,8 @@ export default {
         Avatar,
         PrimevueCard,
     },
+
+    inject: ['i18n'],
 
     props: {
         account: {

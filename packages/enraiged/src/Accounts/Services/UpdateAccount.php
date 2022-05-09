@@ -4,11 +4,11 @@ namespace Enraiged\Accounts\Services;
 
 use Enraiged\Accounts\Events\AccountUpdated;
 use Enraiged\Accounts\Models\Account;
+use Illuminate\Support\Facades\DB;
 
 class UpdateAccount
 {
-    use Traits\LoadParameters,
-        Traits\ModelAttributes;
+    use Traits\LoadParameters;
 
     /** @var  object  The Account model. */
     protected $account;
@@ -31,23 +31,27 @@ class UpdateAccount
     }
 
     /**
-     *  Update the User,Profile records and return the associated Account.
+     *  Update the users,profiles records and return the associated account.
      *
      *  @return self
      */
     public function handle()
     {
-        $this->account->profile->update(
-            collect($this->parameters)
-                ->only($this->getProfileAttributes())
-                ->toArray()
-        );
+        DB::transaction(function () {
+            $account_parameters = collect($this->parameters)
+                ->only($this->account->getFillable())
+                ->toArray();
 
-        $this->account->user->update(
-            collect($this->parameters)
-                ->only($this->getAccountAttributes())
-                ->toArray()
-        );
+            $this->account->update($account_parameters);
+
+            $profile_parameters = collect($this->parameters)
+                ->only($this->account->profile->getFillable())
+                ->toArray();
+
+            $this->account->profile->update($profile_parameters);
+
+            $this->account->user->touch();
+        });
 
         event(new AccountUpdated($this->account));
 

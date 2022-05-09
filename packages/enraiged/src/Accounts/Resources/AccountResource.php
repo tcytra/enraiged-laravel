@@ -2,7 +2,7 @@
 
 namespace Enraiged\Accounts\Resources;
 
-use Enraiged\Http\Resources\DatetimeAttributeResource;
+use Enraiged\Http\Resources\Attributes\ReadableDatetimeAttributeResource as Datetime;
 use Enraiged\Http\Resources\JsonResource;
 
 class AccountResource extends JsonResource
@@ -25,6 +25,7 @@ class AccountResource extends JsonResource
             'username' => $this->username,
             'is_active' => $this->is_active,
             'is_myself' => $this->is_myself,
+            'language' => $this->language,
             'timezone' => $this->timezone,
             'avatar' => $this->avatar(),
             'profile' => $this->profile(),
@@ -35,13 +36,11 @@ class AccountResource extends JsonResource
         }
 
         if ($this->created) {
-            $resource['created'] = DatetimeAttributeResource::from($this)
-                ->attribute('created_at');
+            $resource['created'] = Datetime::from($this)->attribute('created_at');
         }
 
         if ($this->updated) {
-            $resource['updated'] = DatetimeAttributeResource::from($this)
-                ->attribute('updated_at');
+            $resource['updated'] = Datetime::from($this)->attribute('updated_at');
         }
 
         return $resource;

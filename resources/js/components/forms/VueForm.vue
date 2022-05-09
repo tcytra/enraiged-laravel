@@ -1,17 +1,17 @@
 <template>
     <div class="vue-form">
         <form class="form" @submit.prevent="submit">
-            <slot v-if="ready"/>
+            <slot v-bind:form="form" v-if="ready"/>
             <div class="actions control">
                 <primevue-button class="p-button-primary submit-button" v-if="actions.submit"
                     :disabled="!form.isDirty"
-                    :label="actions.submit.label"
+                    :label="i18n(actions.submit.label)"
                     @click="submit"/>
                 <primevue-button class="p-button-secondary reset-button" v-if="actions.reset && form.isDirty"
-                    :label="actions.reset.label"
+                    :label="i18n(actions.reset.label)"
                     @click="reset"/>
                 <primevue-button class="p-button-danger error-button" v-if="actions.clear && form.hasErrors"
-                    :label="actions.clear.label"
+                    :label="i18n(actions.clear.label)"
                     @click="clear"/>
             </div>
         </form>
@@ -26,6 +26,8 @@ export default {
     components: {
         PrimevueButton,
     },
+
+    inject: ['i18n'],
 
     props: {
         builder: {
@@ -49,7 +51,7 @@ export default {
         this.$emit('form:ready');
     },
 
-    setup (props) {
+    setup (props, { emit }) {
         let fields = {};
 
         flatten(props.builder.fields);
@@ -82,6 +84,7 @@ export default {
             form[props.builder.resource.method](props.builder.uri, {
                 onSuccess: () => {
                     form.reset('password', 'password_confirmation');
+                    emit('form:success', form);
                 }
             });
         }

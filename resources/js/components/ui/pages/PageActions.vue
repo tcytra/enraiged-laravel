@@ -5,12 +5,12 @@
             <primevue-button class="button"
                 :class="action.class"
                 :icon="action.icon"
-                :label="action.label"/>
+                :label="i18n(action.label)"/>
         </div>
         <div class="action go-back" v-if="backButton && history" @click="back()">
             <primevue-button class="button p-button-info p-button-text"
                 icon="pi pi-sync"
-                label="Back"/>
+                :label="i18n('Back')"/>
         </div>
     </div>
 </template>
@@ -22,6 +22,8 @@ export default {
     components: {
         PrimevueButton,
     },
+
+    inject: ['i18n'],
 
     props: {
         actions: {

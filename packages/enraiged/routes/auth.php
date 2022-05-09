@@ -30,7 +30,7 @@ Route::middleware('guest')
             });
     });
 
-Route::middleware('auth')
+Route::middleware(['auth', 'enraiged'])
     ->group(function(){
         Route::namespace('Password\Confirm')
             ->group(function(){

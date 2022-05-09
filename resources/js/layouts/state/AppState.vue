@@ -1,45 +1,47 @@
 <template>
-    <div class="default layout"
-        :class="{
-            'auth-open': authOpen,
-            'menu-open': menuOpen === true,
-            'menu-closed': menuOpen === false,
-            'lg': clientLarge,
-            'md': clientMedium,
-            'sm': clientSmall,
-            'xl': clientExtraLarge,
-            'xs': clientExtraSmall,
-            'xxl': clientExtra,
-        }">
-        <menu-panel class="menu panel" ref="menuPanel"
-            :meta="meta"
-            @menu:navigate="menuNavigation"
-            @menu:toggle="toggleMenu"/>
-        <div class="main page" ref="mainPage">
-            <top-nav
-                @auth:toggle="toggleAuth"
-                @menu:toggle="toggleMenu"/>
-            <slot/>
-        </div>
-        <auth-panel class="auth panel" ref="authPanel"
-            :auth="auth"
-            @auth:close="closeAuth"
-            @auth:toggle="toggleAuth"/>
-    </div>
+    <app-state-core :auth="auth">
+        <template v-slot:default="{
+                appReady, clientState, closeAuth, closeMenu, menuState, toggleAuth, toggleMenu,
+            }">
+            <transition>
+                <div class="default layout" key="layout" v-if="appReady"
+                    :class="[clientState, menuState]">
+                    <menu-panel class="menu panel" ref="menuPanel"
+                        :meta="meta"
+                        @menu:toggle="toggleMenu"/>
+                    <div class="main page" ref="mainPage">
+                        <top-nav
+                            @auth:toggle="toggleAuth"
+                            @menu:toggle="toggleMenu"/>
+                        <slot/>
+                    </div>
+                    <auth-panel class="auth panel" ref="authPanel"
+                        :auth="auth"
+                        @auth:close="closeAuth"
+                        @auth:toggle="toggleAuth"/>
+                </div>
+                <div class="default overlay" key="overlay" v-else>
+                    <vue-progress-spinner/>
+                </div>
+            </transition>
+        </template>
+    </app-state-core>
 </template>
 
 <script>
-import { Auth } from '@/stores/auth.js';
-import { mapActions } from 'pinia'
+import AppStateCore from './core/AppStateCore';
 import AuthPanel from '../panels/AuthPanel';
 import MenuPanel from '../panels/MenuPanel';
 import TopNav from '../menus/TopNav';
+import VueProgressSpinner from 'primevue/progressspinner';
 
 export default {
     components: {
+        AppStateCore,
         AuthPanel,
         MenuPanel,
         TopNav,
+        VueProgressSpinner,
     },
 
     props: {
@@ -50,91 +52,6 @@ export default {
         meta: {
             type: Object,
             required: true,
-        },
-    },
-
-    data: () => ({
-        authOpen: false,
-        clientWidth: document.documentElement.clientWidth,
-        menuOpen: null,
-    }),
-
-    computed: {
-        clientExtra() {
-            return this.clientWidth > 1536;
-        },
-        clientExtraLarge() {
-            return this.clientWidth > 1184 && this.clientWidth < 1535;
-        },
-        clientExtraSmall() {
-            return this.clientWidth < 417;
-        },
-        clientLarge() {
-            return this.clientWidth > 992 && this.clientWidth < 1185;
-        },
-        clientMedium() {
-            return this.clientWidth > 576 && this.clientWidth < 993;
-        },
-        clientSmall() {
-            return this.clientWidth > 416 && this.clientWidth < 577;
-        },
-    },
-
-    mounted() {
-        this.setUser(this.auth.user);
-        this.attachEvents();
-    },
-
-    unmounted() {
-        this.detachEvents();
-    },
-
-    methods: {
-        ...mapActions(Auth, ['setUser', 'unsetUser']),
-        attachEvents() {
-            window.addEventListener('resize', this.resizeDocument);
-        },
-        back() {
-            window.history.go(-1);
-        },
-        closeAll() {
-            this.authOpen = false;
-        },
-        closeAuth() {
-            this.authOpen = false;
-        },
-        closeMenu() {
-            this.menuOpen = false;
-        },
-        detachEvents() {
-            window.removeEventListener('resize', this.resizeDocument);
-        },
-        menuNavigation() {
-            if (this.authOpen) {
-                this.closeAuth();
-            }
-            if (this.clientExtraSmall || this.clientSmall) {
-                this.closeMenu();
-            }
-        },
-        resizeDocument() {
-            this.clientWidth = document.documentElement.clientWidth;
-        },
-        toggleAuth() {
-            this.authOpen = !this.authOpen;
-            if ([].includes()) {
-                
-            }
-        },
-        toggleMenu() {
-            if (this.authOpen) {
-                this.authOpen = false;
-                this.menuOpen = true;
-            } else {
-                this.menuOpen = this.menuOpen === null
-                    ? this.$refs.menuPanel.$el.clientWidth === 0
-                    : !this.menuOpen;
-            }
         },
     },
 };

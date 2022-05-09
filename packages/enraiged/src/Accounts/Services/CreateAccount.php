@@ -2,15 +2,14 @@
 
 namespace Enraiged\Accounts\Services;
 
-use App\Auth\User;
 use Enraiged\Accounts\Events\AccountCreated;
+use Enraiged\Accounts\Models\Account;
 use Enraiged\Profiles\Models\Profile;
 use Illuminate\Support\Facades\DB;
 
 class CreateAccount
 {
-    use Traits\LoadParameters,
-        Traits\ModelAttributes;
+    use Traits\LoadParameters;
 
     /** @var  object  The Account model. */
     protected $account;
@@ -30,31 +29,35 @@ class CreateAccount
     }
 
     /**
-     *  Create User,Profile records and return the associated Account.
+     *  Create users,profiles records and return the associated account.
      *
      *  @return self
      */
     public function handle()
     {
-        $user = DB::transaction(function () {
-            $profile = Profile::create(
-                collect($this->parameters)
-                    ->only($this->getProfileAttributes())
-                    ->toArray()
-            );
+        $this->account = new Account;
 
-            $user = User::create(
-                collect($this->parameters)
-                    ->only($this->getAccountAttributes())
-                    ->merge(['profile_id' => $profile->id])
-                    ->toArray()
-            );
+        DB::transaction(function () {
+            $account_parameters = collect($this->parameters)
+                ->only($this->account->getFillable())
+                ->toArray();
 
-            return $user;
+            $this->account
+                ->fill($account_parameters)
+                ->save();
+
+            $profile_parameters = collect($this->parameters)
+                ->only((new Profile)->getFillable())
+                ->toArray();
+
+            $profile = $this->account
+                ->profile()
+                ->create($profile_parameters);
+
+            $this->account
+                ->fill(['profile_id' => $profile->id])
+                ->save(); // shouldn't this be automagical through ->account->profile()->create()
         });
-
-        $this->account = $user->account;
-        $this->account->load('profile');
 
         event(new AccountCreated($this->account));
 

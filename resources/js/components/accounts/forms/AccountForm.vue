@@ -3,23 +3,23 @@
         <template #header>
             <header class="border-bluegray-100 border-bottom-1 p-3 surface-200">
                 <h3 class="auto-margin max-width-sm">
-                    This form will allow you to manage account and profile details.
+                    {{ i18n('This form will allow you to manage account details.') }}
                 </h3>
             </header>
         </template>
         <template #content>
-            <vue-form class="adjacent-labels auto-margin max-width-sm" ref="accountForm"
-                :builder="builder"
-                @form:ready="ready = true">
-                <administrative-options v-if="administrativeOptions"
-                    :form="accountForm"
-                    :section="administrativeOptions"/>
-                <personal-information
-                    :form="accountForm"
-                    :section="personalInformation"/>
-                <authentication-details
-                    :form="accountForm"
-                    :section="authenticationDetails"/>
+            <vue-form class="adjacent-labels auto-margin max-width-sm" :builder="builder">
+                <template v-slot:default="{ form }">
+                    <administrative-options v-if="builder.fields.administration"
+                        :form="form"
+                        :section="builder.fields.administration"/>
+                    <personal-information
+                        :form="form"
+                        :section="builder.fields.personal"/>
+                    <authentication-details
+                        :form="form"
+                        :section="builder.fields.authentication"/>
+                </template>
             </vue-form>
         </template>
     </primevue-card>
@@ -41,29 +41,12 @@ export default {
         VueForm,
     },
 
+    inject: ['i18n'],
+
     props: {
         builder: {
             type: Object,
             required: true,
-        },
-    },
-
-    data: () => ({
-        ready: false,
-    }),
-
-    computed: {
-        accountForm() {
-            return this.ready ? this.$refs.accountForm.form : null;
-        },
-        administrativeOptions() {
-            return this.builder.fields.administration;
-        },
-        authenticationDetails() {
-            return this.builder.fields.authentication;
-        },
-        personalInformation() {
-            return this.builder.fields.personal;
         },
     },
 };

@@ -23,6 +23,8 @@ export default {
         ProfileForm,
     },
 
+    inject: ['i18n'],
+
     props: {
         account: {
             type: Object,
@@ -40,7 +42,7 @@ export default {
 
     computed: {
         title() {
-            return this.account.is_myself ? 'Update My Profile' : 'Update Profile';
+            return this.account.is_myself ? 'My Profile' : 'Update Profile';
         },
     },
 

@@ -37,6 +37,7 @@
         "uuid": "^8.3.2",
         "vue": "^3.2.27",
         "vue-axios": "^3.4.1",
+        "vue-i18n": "9",
         "vue-loader": "^16.2.0",
         "webpack-node-externals": "^3.0.0"
     },

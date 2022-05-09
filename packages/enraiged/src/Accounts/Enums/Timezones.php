@@ -1,6 +1,6 @@
 <?php
 
-namespace Enraiged\Support\Enums;
+namespace Enraiged\Accounts\Enums;
 
 use DateTime;
 use DateTimeZone;

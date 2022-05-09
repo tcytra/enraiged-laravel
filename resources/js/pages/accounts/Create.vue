@@ -1,33 +1,34 @@
 <template>
     <main class="content main">
         <page-header back-button title="Create Account"/>
-        <section class="auto-margin container max-width-md">
+        <section class="auto-margin container max-width-lg">
             <primevue-card>
+                <template #header>
+                    <header class="border-bluegray-100 border-bottom-1 p-3 surface-200">
+                        <h3 class="auto-margin max-width-sm">
+                            {{ i18n('Please provide the following information to create a new account.') }}
+                        </h3>
+                    </header>
+                </template>
                 <template #content>
-                    <vue-form class="adjacent-labels auto-margin max-width-sm" ref="accountForm"
-                        :builder="builder"
-                        @form:ready="ready = true"
-                        @form:submit="submit">
-                        <section class="section">
-                            <h3 class="h3 text-center mb-5">
-                                Please provide the following information to create an account.
-                            </h3>
+                    <vue-form class="adjacent-labels auto-margin max-width-sm" :builder="builder">
+                        <template v-slot:default="{ form }">
                             <vue-dropdown-field id="role_id" show-clear
-                                :field="fields.role_id"
+                                :field="builder.fields.role_id"
                                 :form="form"/>
                             <vue-text-field id="name"
-                                :field="fields.name"
+                                :field="builder.fields.name"
                                 :form="form"/>
                             <vue-text-field class="email" id="email"
-                                :field="fields.email"
+                                :field="builder.fields.email"
                                 :form="form"/>
                             <vue-password-field id="password" feedback toggle-mask
-                                :field="fields.password"
+                                :field="builder.fields.password"
                                 :form="form"/>
                             <vue-password-field id="password_confirmation"
-                                :field="fields.password_confirmation"
+                                :field="builder.fields.password_confirmation"
                                 :form="form"/>
-                        </section>
+                        </template>
                     </vue-form>
                 </template>
             </primevue-card>
@@ -56,23 +57,12 @@ export default {
         VueTextField,
     },
 
+    inject: ['i18n'],
+
     props: {
         builder: {
             type: Object,
             required: true,
-        },
-    },
-
-    data: () => ({
-        ready: false,
-    }),
-
-    computed: {
-        fields() {
-            return this.builder.fields;
-        },
-        form() {
-            return this.ready ? this.$refs.accountForm.form : null;
         },
     },
 };

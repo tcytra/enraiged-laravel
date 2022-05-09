@@ -4,6 +4,6 @@ return [
 
     'country_code' => 'CA',
 
-    'timezone' => 'America\Vancouver',
+    'timezone' => 'America/Vancouver',
 
 ];

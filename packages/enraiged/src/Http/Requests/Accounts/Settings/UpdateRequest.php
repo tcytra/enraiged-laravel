@@ -16,7 +16,7 @@ class UpdateRequest extends EditRequest
     public function rules()
     {
         return collect($this->rules)
-            ->only(['timezone'])
+            ->only(['dateformat', 'language', 'military_time', 'timezone'])
             ->toArray();
     }
 }

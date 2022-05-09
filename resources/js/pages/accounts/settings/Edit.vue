@@ -33,7 +33,7 @@ export default {
 
     computed: {
         title() {
-            return this.account.is_myself ? 'Update My Settings' : 'Update Settings';
+            return this.account.is_myself ? 'My Settings' : 'Account Settings';
         },
     },
 };

@@ -1,10 +1,10 @@
 <template>
     <main class="content flex-column main flex">
-        <page-header title="Dashboard"/>
+        <page-header :title="i18n('Dashboard')"/>
         <section class="align-self-center container max-width-xl w-full">
             <primevue-card class="mb-3">
                 <template #content>
-                    This is your dashboard.
+                    {{ i18n('This is your dashboard.') }}
                 </template>
             </primevue-card>
         </section>
@@ -23,6 +23,8 @@ export default {
         PageHeader,
         PrimevueCard,
     },
+
+    inject: ['i18n'],
 };
 </script>
 

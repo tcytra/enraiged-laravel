@@ -21,7 +21,6 @@ return new class extends Migration
             $table->string('gender', 16)->nullable();
             $table->string('salut', 16)->nullable();
             $table->string('title', 16)->nullable();
-            $table->date('birthdate')->nullable();
             $this->tracking($table);
         });
     }

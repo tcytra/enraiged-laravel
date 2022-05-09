@@ -20,7 +20,7 @@ class Store extends Controller
 
         $request->session()->regenerate();
 
-        $request->session()->put('success', 'Login Successful.');
+        $request->session()->flash('success', 'Login Successful.');
 
         return redirect()->intended(RouteServiceProvider::HOME);
     }

@@ -18,8 +18,13 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('username')->nullable()->unique();
             $table->string('password');
-            $table->string('timezone')->nullable();
             $table->rememberToken();
+            $table->date('birthdate')->nullable();
+            $table->string('dateformat')->nullable();
+            $table->boolean('hide_birthyear')->default(false);
+            $table->char('language', 2)->default('en');
+            $table->boolean('military_time')->default(false);
+            $table->string('timezone')->nullable();
             $table->string('agreement_version', 16)->nullable();
             $table->timestamp('agreed_at')->nullable();
             $table->timestamp('created_at')->nullable();

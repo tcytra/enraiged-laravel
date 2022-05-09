@@ -6,7 +6,7 @@
                 <template #header>
                     <header class="border-bluegray-100 border-bottom-1 p-3 surface-200">
                         <h3 class="auto-margin max-width-sm">
-                            Select a color or upload an image for this avatar.
+                            {{ i18n('Select a color or upload an image for this avatar.') }}
                         </h3>
                     </header>
                 </template>
@@ -33,6 +33,8 @@ export default {
         PrimevueCard,
     },
 
+    inject: ['i18n'],
+
     props: {
         account: {
             type: Object,
@@ -46,7 +48,7 @@ export default {
 
     computed: {
         title() {
-            return this.account.is_myself ? 'Update My Avatar' : 'Update Profile Avatar';
+            return this.account.is_myself ? 'My Avatar' : 'Update Avatar';
         },
     },
 };

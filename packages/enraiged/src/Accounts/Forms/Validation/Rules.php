@@ -8,16 +8,19 @@ trait Rules
     protected $rules = [
         'alias' => 'nullable|sometimes',
         'birthdate' => 'nullable|date',
+        'dateformat' => 'nullable|string',
         'email' => 'required|email|unique:users,email|unique:users,username',
         'first_name' => 'required',
         'gender' => 'nullable',
-        'is_active' => 'sometimes|boolean',
+        'is_active' => 'boolean',
+        'language' => 'nullable|string',
         'last_name' => 'required',
+        'military_time' => 'boolean',
         'password' => 'required|confirmed',
         'role_id' => 'nullable|exists:roles,id',
-        'salut' => 'nullable|sometimes',
+        'salut' => 'nullable',
         'timezone' => 'nullable',
-        'title' => 'nullable|sometimes',
+        'title' => 'nullable',
         'username' => 'nullable|email|unique:users,username|unique:users,email',
     ];
 

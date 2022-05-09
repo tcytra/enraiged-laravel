@@ -3,28 +3,26 @@
         <template #header>
             <header class="border-bluegray-100 border-bottom-1 p-3 surface-200">
                 <h3 class="auto-margin max-width-sm">
-                    This form will allow you to manage account login credentials.
+                    {{ i18n('This form will allow you to manage account login.') }}
                 </h3>
             </header>
         </template>
         <template #content>
-            <vue-form class="adjacent-labels auto-margin max-width-sm" ref="loginForm"
-                :builder="builder"
-                @form:ready="ready = true">
-                <div v-if="ready">
+            <vue-form class="adjacent-labels auto-margin max-width-sm" :builder="builder">
+                <template v-slot:default="{ form }">
                     <vue-text-field class="email" id="email"
                         :field="builder.fields.email"
-                        :form="loginForm"/>
+                        :form="form"/>
                     <vue-text-field id="username"
                         :field="builder.fields.username"
-                        :form="loginForm"/>
+                        :form="form"/>
                     <vue-password-field id="password" feedback toggle-mask
                         :field="builder.fields.password"
-                        :form="loginForm"/>
+                        :form="form"/>
                     <vue-password-field id="password_confirmation"
                         :field="builder.fields.password_confirmation"
-                        :form="loginForm"/>
-                </div>
+                        :form="form"/>
+                </template>
             </vue-form>
         </template>
     </primevue-card>
@@ -46,20 +44,12 @@ export default {
         VueTextField,
     },
 
+    inject: ['i18n'],
+
     props: {
         builder: {
             type: Object,
             required: true,
-        },
-    },
-
-    data: () => ({
-        ready: false,
-    }),
-
-    computed: {
-        loginForm() {
-            return this.ready ? this.$refs.loginForm.form : null;
         },
     },
 };

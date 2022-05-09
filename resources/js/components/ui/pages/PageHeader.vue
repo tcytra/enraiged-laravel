@@ -1,7 +1,7 @@
 <template>
     <header class="header">
-        <Head :title="title"/>
-        <h1>{{ header || title }}</h1>
+        <Head :title="i18n(title)"/>
+        <h1>{{ i18n(header || title) }}</h1>
         <page-actions :actions="actions" :back-button="backButton"/>
     </header>
 </template>
@@ -15,6 +15,8 @@ export default {
         Head,
         PageActions,
     },
+
+    inject: ['i18n'],
 
     props: {
         actions: {

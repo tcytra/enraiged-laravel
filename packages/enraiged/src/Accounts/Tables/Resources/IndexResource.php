@@ -4,6 +4,7 @@ namespace Enraiged\Accounts\Tables\Resources;
 
 use Enraiged\Avatars\Resources\AvatarResource;
 use Enraiged\Http\Requests\Accounts\IndexRequest;
+use Enraiged\Http\Resources\Attributes\DatetimeAttributeResource as Datetime;
 use Enraiged\Http\Resources\JsonResource;
 
 class IndexResource extends JsonResource
@@ -37,9 +38,9 @@ class IndexResource extends JsonResource
             'name' => $this->profile->name,
             'role' => $this->role(),
             'username' => $this->username,
-            'birthday' => $this->profile->birthdate ? $this->birthday() : null,
-            'created' => date('Y-m-d', strtotime($this->created_at)),
-            'deleted' => $this->deleted_at ? date('Y-m-d', strtotime($this->deleted_at)) : null,
+            'birthday' => $this->date('birthdate'),
+            'created' => $this->date('created_at'),
+            'deleted' => $this->date('deleted_at'),
             'actions' => $request->table()->actionsForRow($this->resource),
         ];
     }
@@ -55,13 +56,17 @@ class IndexResource extends JsonResource
     }
 
     /**
-     *  @return string
+     *  @return string|null
      */
-    private function birthday()
+    private function date($attribute)
     {
-        return true // show full birthdate, use options for formatting
-            ? date('M j Y', strtotime($this->profile->birthdate))
-            : date('M j', strtotime($this->profile->birthdate));
+        if ($this->{$attribute}) {
+            $resource = (object) Datetime::fromAttribute($this, $attribute, $this->request);
+
+            return $resource->date;
+        }
+
+        return null;
     }
 
     /**

@@ -13,11 +13,11 @@
                         </div>
                         <ul class="flex flex-column flex-grow-1 list-none">
                             <li class="mb-1">
-                                Name:
+                                {{ i18n('Name') }}:
                                 <strong>{{props.data.name}}</strong>
                             </li>
                             <li class="mb-1">
-                                Created:
+                                {{ i18n('Created') }}:
                                 <strong>{{ `${props.data.created.date} ${props.data.created.time}` }}</strong>
                             </li>
                         </ul>
@@ -25,13 +25,13 @@
                             <li>
                                 <primevue-button class="p-button-rounded p-button-text p-button-success"
                                     icon="pi pi-download"
-                                    v-tooltip.top="'Download'"
+                                    v-tooltip.top="i18n('Download')"
                                     @click="download(props.data)"/>
                             </li>
                             <li>
                                 <primevue-button class="p-button-rounded p-button-text p-button-danger"
                                     icon="pi pi-times"
-                                    v-tooltip.top="'Delete'"
+                                    v-tooltip.top="i18n('Delete')"
                                     @click="destroy(props.data)"/>
                             </li>
                         </ul>
@@ -63,11 +63,11 @@
                                 <div class="flex justify-content-between">
                                     <primevue-button class="p-button-rounded p-button-text p-button-success"
                                         icon="pi pi-download"
-                                        v-tooltip.top="'Download'"
+                                        v-tooltip.top="i18n('Download')"
                                         @click="download(props.data)"/>
                                     <primevue-button class="p-button-rounded p-button-text p-button-danger"
                                         icon="pi pi-times"
-                                        v-tooltip.top="'Delete'"
+                                        v-tooltip.top="i18n('Delete')"
                                         @click="destroy(props.data)"/>
                                 </div>
                             </template>
@@ -76,7 +76,7 @@
                 </template>
             </primevue-dataview>
             <div class="p-dataview-emptymessage" v-else>
-                <span>You do not have any files.</span>
+                <span>{{ i18n('You do not have any files.') }}</span>
             </div>
         </section>
     </main>
@@ -105,6 +105,8 @@ export default {
     directives: {
         tooltip: PrimevueTooltip,
     },
+
+    inject: ['i18n'],
 
     props: {
         files: {

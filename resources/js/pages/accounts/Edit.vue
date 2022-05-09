@@ -25,6 +25,8 @@ export default {
         PrimevueButton,
     },
 
+    inject: ['i18n'],
+
     props: {
         account: {
             type: Object,
@@ -42,10 +44,14 @@ export default {
 
     computed: {
         header() {
-            return this.account.is_myself ? 'Update My Account' : `Update Account: ${this.account.profile.name}`;
+            return this.account.is_myself
+                ? 'My Account'
+                : `${this.i18n('Update Account')}: ${this.account.profile.name}`;
         },
         title() {
-            return this.account.is_myself ? this.header : 'Update Account';
+            return this.account.is_myself
+                ? this.header
+                : 'Update Account';
         },
     },
 };

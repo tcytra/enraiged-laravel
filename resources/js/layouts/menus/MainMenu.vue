@@ -7,7 +7,7 @@
                     <i class="pi pi-home"></i>
                 </dt>
                 <dl class="text">
-                    Dashboard
+                    {{ i18n('Dashboard') }}
                 </dl>
             </dl>
         </li>
@@ -18,7 +18,7 @@
                     <i class="pi pi-user"></i>
                 </dt>
                 <dl class="text">
-                    Accounts
+                    {{ i18n('Accounts') }}
                 </dl>
             </dl>
         </li>
@@ -27,6 +27,8 @@
 
 <script>
 export default {
+    inject: ['i18n'],
+
     methods: {
         get(url) {
             this.$emit('menu:navigate');

@@ -3,6 +3,7 @@
 namespace Enraiged\Accounts\Models;
 
 use App\Auth\Traits\IsProtected;
+use App\Auth\Traits\ManagesPassword;
 use Enraiged\Support\Traits\CreatedBy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -14,14 +15,16 @@ class Account extends Model
         BelongsTo\User,
         HasMany\Files,
         HasOne\Profile,
-        CreatedBy, IsProtected, SoftDeletes;
+        Traits\HasFactory,
+        CreatedBy, IsProtected, ManagesPassword, SoftDeletes;
 
     /** @var  string  The database table name. */
     protected $table = 'users';
 
     /** @var  array  The attributes that are mass assignable. */
     protected $fillable = [
-        'agreement_version', 'email', 'is_active', 'is_hidden', 'is_protected', 'password', 'timezone', 'username',
+        'agreement_version', 'birthdate', 'dateformat', 'email', 'language', 'password', 'timezone', 'username',
+        'is_active', 'is_hidden', 'is_protected', 'military_time', 'profile_id', 'role_id',
     ];
 
     /** @var  array  The attributes that should be hidden for serialization. */
@@ -39,5 +42,6 @@ class Account extends Model
         'is_active' => 'boolean',
         'is_hidden' => 'boolean',
         'is_protected' => 'boolean',
+        'military_time' => 'boolean',
     ];
 }

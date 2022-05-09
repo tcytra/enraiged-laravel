@@ -11,7 +11,7 @@
                         <i class="pi pi-user"></i>
                     </dt>
                     <dl class="text">
-                        Account
+                        {{ i18n('Account') }}
                     </dl>
                 </dl>
             </li>
@@ -21,7 +21,7 @@
                         <i class="pi pi-file"></i>
                     </dt>
                     <dl class="text">
-                        Files
+                        {{ i18n('Files') }}
                     </dl>
                 </dl>
             </li>
@@ -31,7 +31,7 @@
                         <i class="pi pi-sign-out"></i>
                     </dt>
                     <dl class="text">
-                        Logout
+                        {{ i18n('Logout') }}
                     </dl>
                 </dl>
             </li>
@@ -60,6 +60,8 @@ export default {
     },
 
     emits: ['auth:close', 'auth:toggle'],
+
+    inject: ['i18n'],
 
     props: {
         auth: {

@@ -17,10 +17,10 @@
         <template #header>
             <div class="col controls-bar flex-order-1 lg:flex-order-1">
                 <primevue-button icon="pi pi-sync" class="table-fetch p-button-secondary mr-1"
-                    v-tooltip.top="'Refresh this data'"
+                    v-tooltip.top="i18n('Refresh this data')"
                     @click="fetch()"/>
                 <primevue-button icon="pi pi-refresh" class="table-fresh p-button-secondary mr-1"
-                    v-tooltip.top="'Reset the table'"
+                    v-tooltip.top="i18n('Reset the table')"
                     @click="fresh()"/>
                 <primevue-dropdown class="pagination-rows width-64 ml-1" v-model="pagination.rows"
                     :options="template.pagination.options"
@@ -31,13 +31,13 @@
                     <primevue-dropdown v-model="exportable"
                         :options="template.exportable.options"/>
                     <primevue-button class="p-button-secondary" icon="pi pi-cloud-download"
-                        v-tooltip.top="'Export this data'"
+                        v-tooltip.top="i18n('Export this data')"
                         :disabled="!records || !records.length"
                         @click="download()"/>
                 </div>
                 <primevue-button class="create-button ml-2"
                     v-if="template.actions.create && template.actions.create.permission"
-                    v-tooltip.top="template.actions.create.tooltip"
+                    v-tooltip.top="i18n(template.actions.create.tooltip)"
                     :class="template.actions.create.class"
                     :disabled="!template.actions.create.permission"
                     :icon="template.actions.create.icon"
@@ -47,7 +47,7 @@
                 <span class="p-inputgroup-addon">
                     <i class="pi pi-search"></i>
                 </span>
-                <primevue-inputtext v-model="search" placeholder="Keyword Search"/>
+                <primevue-inputtext v-model="search" :placeholder="i18n('Search for')"/>
                 <primevue-button icon="pi pi-times" class="p-button-secondary"
                     v-tooltip.top="'Clear the search'"
                     :disabled="!search || !search.length"
@@ -55,7 +55,7 @@
             </div>
         </template>
         <template #empty>
-            {{ template.empty || 'No records found' }}
+            {{ i18n(template.empty || 'No records found') }}
         </template>
         <primevue-column v-for="(column, name, index) in template.columns" :key="name"
             :class="column.class"
@@ -69,7 +69,7 @@
         <primevue-column v-if="template.actions" key="actions"
             class="actions"
             field="actions"
-            header="Actions"
+            :header="i18n('Actions')"
             v-bind="$props">
             <template #body="props">
                 <primevue-button class="p-button-rounded p-button-sm p-button-text"
@@ -78,7 +78,7 @@
                     :icon="button.icon"
                     :key="name"
                     v-for="(button, name) in props.data.actions"
-                    v-tooltip.top="button.tooltip || name"
+                    v-tooltip.top="i18n(button.tooltip || name)"
                     @click="action(name, button, props)"/>
             </template>
         </primevue-column>
@@ -110,10 +110,12 @@ export default {
         tooltip: PrimevueTooltip,
     },
 
+    inject: ['i18n', 'success'],
+
     props: {
         pageReportTemplate: {
             type: String,
-            default: null,
+            default: '{first} - {last} / {totalRecords}',
         },
         template: {
             type: Object,
@@ -198,10 +200,14 @@ export default {
         action(name, button, props, confirmed) {
             if (button.confirm && confirmed !== true) {
                 this.$confirm.require({
-                    message: typeof button.confirm === 'string' ? button.confirm : 'Are you sure you want to proceed?',
-                    header: 'Confirmation',
+                    message: typeof button.confirm === 'string'
+                        ? this.i18n(button.confirm)
+                        : this.i18n('Are you sure you want to proceed?'),
+                    header: this.i18n('Please confirm'),
                     icon: 'pi pi-exclamation-triangle',
                     acceptClass: 'p-button-danger',
+                    acceptLabel: this.i18n('Yes'),
+                    rejectLabel: this.i18n('No'),
                     accept: () => this.action(name, button, props, true),
                 });
             } else {
@@ -305,10 +311,6 @@ export default {
             this.pagination.dir = event.sortOrder;
             this.pagination.sort = event.sortField;
             this.fetch();
-        },
-
-        success(status) {
-            return status >= 200 && status < 300;
         },
 
         trap(error) {

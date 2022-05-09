@@ -7,7 +7,7 @@
             <h3 class="h3" v-if="heading">
                 {{ heading }}
             </h3>
-            <vue-text-field class="email" id="email"
+            <vue-text-field id="email"
                 :field="fields.email"
                 :form="form"/>
             <vue-text-field id="username"

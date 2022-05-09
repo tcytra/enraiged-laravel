@@ -3,7 +3,7 @@
         <avatar :avatar="model" size="xl"/>
         <div class="flex align-items-center mx-3" v-if="avatar.file">
             <primevue-button class="p-button-xs p-button-danger mr-2" icon="pi pi-times"
-                v-tooltip.top="'Remove this avatar'"
+                v-tooltip.top="i18n('Remove this avatar')"
                 @click="destroy"/>
             {{ avatar.file.name }}
         </div>
@@ -13,16 +13,16 @@
                 <primevue-inputtext class="p-inputtext-sm" v-model="color"/>
                 <primevue-button class="p-button-sm ml-2" icon="pi pi-eye"
                     v-if="!changed"
-                    v-tooltip.top="'Preview this color'"
+                    v-tooltip.top="i18n('Preview this color')"
                     :disabled="`#${color}` === model.color"
                     @click="preview"/>
                 <primevue-button class="p-button-sm p-button-danger ml-1" icon="pi pi-times"
                     v-if="changed"
-                    v-tooltip.top="'I don\'t like it!'"
+                    v-tooltip.top="i18n('I don\'t like it!')"
                     @click="reset"/>
                 <primevue-button class="p-button-sm p-button-success ml-1" icon="pi pi-check"
                     v-if="changed"
-                    v-tooltip.top="'I like it!'"
+                    v-tooltip.top="i18n('I like it!')"
                     @click="update"/>
             </div>
             <div class="flex align-items-center my-2">
@@ -34,7 +34,7 @@
                     :custom-upload="true"
                     @select="upload"/>
                 <label class="text-sm mx-2">
-                    Upload an avatar image
+                    {{ i18n('Upload an avatar image') }}
                     <br>
                     (max: 256x256 pixels)
                 </label>
@@ -64,6 +64,8 @@ export default {
     directives: {
         tooltip: PrimevueTooltip,
     },
+
+    inject: ['i18n'],
 
     props: {
         avatar: {

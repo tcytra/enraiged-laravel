@@ -12,6 +12,16 @@ trait Account
      */
     public function account(): HasOne
     {
-        return $this->hasOne(AccountModel::class, 'profile_id', 'id')->withTrashed();
+        return $this->hasOne(AccountModel::class, 'profile_id', 'id')
+            ->withTrashed();
+    }
+
+    public static function bootAccount()
+    {
+        static::updated(function ($profile) {
+            if ($profile->account) {
+                $profile->account->touch();
+            }
+        });
     }
 }

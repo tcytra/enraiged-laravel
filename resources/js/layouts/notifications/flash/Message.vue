@@ -5,7 +5,7 @@
         :severity="message.severity"
         :sticky="true"
         @mouseenter="fadeOut = false; expiryTimer = null">
-        {{ message.content }}
+        {{ i18n(message.content) }}
     </primevue-message>
 </template>
 
@@ -18,6 +18,8 @@ export default {
     components: {
         PrimevueMessage,
     },
+
+    inject: ['i18n'],
 
     props: {
         index: {

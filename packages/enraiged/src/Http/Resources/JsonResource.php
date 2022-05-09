@@ -43,30 +43,40 @@ class JsonResource extends IlluminateResource
     /**
      *  Return a new JsonResource.
      *
-     *  @param  mixed   $resource
-     *  @return \Illuminate\Http\Resources\Json\JsonResource
+     *  @param  mixed   $collection
+     *  @param  \Illuminate\Http\Request  $request = null
+     *  @return \Illuminate\Http\Resources\Json\JsonResource|array
      */
-    public static function From($resource)
+    public static function From($collection, $request = null)
     {
         $called = get_called_class();
-        $class = get_class($resource);
+        $class = get_class($collection);
 
-        return ($class === Collection::class || $class === EloquentCollection::class)
-            ? $called::collection($resource)
-            : new $called($resource);
+        $resource = ($class === Collection::class || $class === EloquentCollection::class)
+            ? $called::collection($collection)
+            : new $called($collection);
+
+        return $request
+            ? $resource->toArray($request)
+            : $resource;
     }
 
     /**
      *  Return a new JsonResource.
      *
-     *  @param  mixed   $resource
+     *  @param  mixed   $collection
      *  @param  string  $attribute
+     *  @param  \Illuminate\Http\Request  $request = null
      *  @return \Illuminate\Http\Resources\Json\JsonResource
      */
-    public static function FromAttribute($resource, $attribute)
+    public static function FromAttribute($collection, $attribute, $request = null)
     {
         $called = get_called_class();
 
-        return (new $called($resource))->attribute($attribute);
+        $resource = (new $called($collection))->attribute($attribute);
+
+        return $request
+            ? $resource->toArray($request)
+            : $resource;
     }
 }

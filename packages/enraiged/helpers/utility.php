@@ -81,7 +81,7 @@ if (!function_exists('message')) {
     function message(string $body, string $severity = 'info', bool $closable = true)
     {
         return (object) [
-            'body' => $body,
+            'body' => __($body),
             'closable' => $closable,
             'severity' => $severity,
         ];

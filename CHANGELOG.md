@@ -1,14 +1,15 @@
 # Project History
 
+- [Introducing InertiaJS](https://reinink.ca/articles/introducing-inertia-js)
+
 Todo:
-- Addresses, Contacts, Impersonation, Organizations (Networks?)
+- Addresses, Contacts, Impersonation, Networks
 - Auth options to prevent changing account primary login,profile name
   - (req permission, issue token)
 - Complex table searching
 - Custom table filters
 - Data Import
 - Geo, Geo Social
-- I18n
 - Menu
 - Move Enraiged model resources into Enraiged\Http\Resources namespace
 - New account creates registered list of site 'helps' (dismissable)
@@ -16,9 +17,23 @@ Todo:
 - Split VueTable component into reusable parts
 - There is code common to the {Form,Table}Builder(s)
   - Implement parent RequestBuilder class?
-- User timezone
-- Validation and rules for table requests (?)
-! Upgrade the node client packages
+
+---
+
+2022-05-09 : 0.0.13  
+Update: Implemented dateformat,languages,timezones as user settings
+
+- Added account settings form,page,controller with new users columns
+- Added core components for App{,State}
+- Added crude ability to translate date strings (months, need weeks)
+- Added dateformat,language,military_time columns to the users table
+- Added enraiged.setup. config namespace
+- Added timezone helpers
+- Added translations for en,es,fr
+- Added vue-i18n to the node packages
+- Corrected issue: administrator role changed when updating account
+- Revised AppState component to fetch api data before showing app
+- Upgraded the node client packages
 
 ---
 
@@ -28,6 +43,7 @@ Update: Various fixes and improvements to page actions,header,messages
 - Added back buttons to various pages; Access auth.user via $attrs
 - Added is_administrator attribute to the Account model
 - Added Page{Actions,Header,Messages} components to available pages
+- Added {Birthdate,{,Readable}Datetime}AttributeResource classes
 - Corrected css width issue with browser scrollbar present
 - Corrected namespace issue in the enraiged avatar requests
 - Corrected various vuejs warnings

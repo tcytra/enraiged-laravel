@@ -2,7 +2,7 @@
 
 namespace Enraiged\Accounts\Resources;
 
-use Enraiged\Http\Resources\DatetimeAttributeResource;
+use Enraiged\Http\Resources\Attributes\DatetimeAttributeResource as Datetime;
 
 class AccountProfileResource extends AccountResource
 {
@@ -25,7 +25,7 @@ class AccountProfileResource extends AccountResource
             'timezone' => $this->timezone,
             'avatar' => $this->avatar(),
             'profile' => $this->profile(),
-            'created' => DatetimeAttributeResource::from($this)->attribute('created_at'),
+            'created' => Datetime::from($this)->attribute('created_at'),
         ];
     }
 }

@@ -4,7 +4,7 @@
         <section class="auto-margin container max-width-xl w-full">
             <div class="grid">
                 <div class="col-12">
-                    Member Profile Page
+                    {{ i18n('Member Profile Page') }}
                 </div>
             </div>
         </section>
@@ -23,6 +23,8 @@ export default {
         PageHeader,
         PrimevueButton,
     },
+
+    inject: ['i18n'],
 
     props: {
         account: {

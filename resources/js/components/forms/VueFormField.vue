@@ -1,5 +1,7 @@
 <script>
 export default {
+    inject: ['i18n'],
+
     props: {
         field: {
             type: Object,
@@ -45,8 +47,8 @@ export default {
         return this.$slots.default({
             error: this.error,
             form: this.form,
-            label: this.label,
-            placeholder: this.placeholder,
+            label: this.label ? this.i18n(this.label) : null,
+            placeholder: this.placeholder ? this.i18n(this.placeholder) : null,
             update: this.update,
         });
     },

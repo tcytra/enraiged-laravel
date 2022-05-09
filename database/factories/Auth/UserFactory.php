@@ -5,6 +5,7 @@ namespace Database\Factories\Auth;
 use App\Auth\User;
 use Enraiged\Roles\Models\Role;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
 /**
@@ -23,15 +24,26 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
-            'role_id' => Role::lowest()->id,
+            'birthdate' => (mt_rand(0, 1) === 0) ? $this->birthdate() : null, // 50% chance
             'email' => $this->faker->unique()->safeEmail(),
-            'verified_at' => now(),
-            'password' => bcrypt(Str::random(10)),
-            'remember_token' => Str::random(10),
             'is_active' => true,
             'is_hidden' => false,
             'is_protected' => false,
+            'password' => bcrypt(Str::random(10)),
+            'remember_token' => Str::random(10),
+            'role_id' => Role::lowest()->id,
+            'verified_at' => now(),
         ];
+    }
+
+    /**
+     * @return string
+     */
+    protected function birthdate()
+    {
+        return $this->faker
+            ->dateTimeBetween(Carbon::now()->subYears(75), Carbon::now()->subYears(16))
+            ->format('Y-m-d');
     }
 
     /**
