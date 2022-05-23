@@ -2,18 +2,17 @@
 
 namespace Database\Seeders;
 
-use Enraiged\Accounts\Services\CreateAccount;
+use Enraiged\Database\Seeders\AdministratorSeeder;
 use Enraiged\Database\Seeders\RoleSeeder;
-//use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Artisan;
 
 class DatabaseSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     *  Seed the application database.
      *
-     * @return void
+     *  @return void
      */
     public function run()
     {
@@ -21,25 +20,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             RoleSeeder::class,
+            AdministratorSeeder::class,
         ]);
-
-        //  please be sure to set these environment variables
-        $email = env('ADMIN_EMAIL', 'admin');
-        $password = env('ADMIN_PASSWORD', 'changeme');
-
-        $administrator = CreateAccount::from([
-            'email' => $email,
-            'is_hidden' => true,
-            'is_protected' => true,
-            'name' => 'Application Administrator',
-            'password' => $password,
-            'role' => 'Administrator',
-            'username' => env('ADMIN_USERNAME'),
-        ]);
-
-        $output = "<comment>Administrator Login:</comment> <info>{$administrator->email}:{$password}</info>";
-
-        $this->command->getOutput()->writeln($output);
 
         $this->call([
             \Enraiged\Database\Seeders\DatabaseSeeder::class,

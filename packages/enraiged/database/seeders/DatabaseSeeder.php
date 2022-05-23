@@ -4,10 +4,13 @@ namespace Enraiged\Database\Seeders;
 
 use Enraiged\Accounts\Models\Account;
 use Enraiged\Profiles\Models\Profile;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
+    use WithoutModelEvents;
+
     /** @var  int  Create a predetermined number of factory accounts to seed. */
     protected $create_accounts = 5;
 
@@ -44,6 +47,7 @@ class DatabaseSeeder extends Seeder
     protected function createFactoryAccount(array $parameters): Account
     {
         $profile = Profile::factory()->create();
+        $profile->generateAvatar();
 
         $user = Account::factory()->create(
             collect($parameters)
