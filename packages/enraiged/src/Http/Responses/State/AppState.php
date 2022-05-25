@@ -2,6 +2,7 @@
 
 namespace Enraiged\Http\Responses\State;
 
+use Enraiged\Support\Services\MenuBuilder;
 use Illuminate\Contracts\Support\Responsable;
 
 class AppState implements Responsable
@@ -16,28 +17,34 @@ class AppState implements Responsable
     {
         return [
             'i18n' => $this->translations($request),
-            'menu' => [],
+            'menu' => $this->menu($request),
+            'meta' => [],
         ];
     }
 
     /**
-     * Retrieve and return the user preferred language translations.
+     *  Build and return the application menu.
      *
-     * @param   Request  $request
-     * @return  array
-     * @todo    Provide this (and other) information only once (per session?).
+     *  @param  \Illuminate\Http\Request  $request
+     *  @return array
+     */
+    private function menu($request)
+    {
+        $menu = config('enraiged.menu');
+
+        return (new MenuBuilder($menu))
+            ->handle($request);
+    }
+
+    /**
+     *  Retrieve and return the user preferred language translations.
+     *
+     *  @param  \Illuminate\Http\Request  $request
+     *  @return array
      */
     private function translations($request)
     {
         $translations = [];
-
-        /*foreach (config('enraiged.languages') as $language) {
-            $lang = $language['id'];
-            $json = base_path("lang/{$lang}.json");
-            $translations[$lang] = json_decode(file_get_contents($json), true);
-        }
-
-        return $translations;*/
 
         $lang = $request->user()->language ?? config('app.locale');
         $json = base_path("lang/{$lang}.json");

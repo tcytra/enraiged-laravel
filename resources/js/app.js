@@ -25,7 +25,8 @@ createInertiaApp({
             silentFallbackWarn: true,
             silentTranslationWarn: true,
         });
-        createApp({ render: () => h(App, props) })
+        const app = createApp({ render: () => h(App, props) });
+        const root = app
             .use(i18n)
             .use(plugin)
             .use(store)
@@ -33,5 +34,8 @@ createInertiaApp({
             .use(ConfirmationService)
             .use(VueAxios, axios)
             .mount(el);
+        // Temporary Config Required
+        // re: https://vuejs.org/guide/components/provide-inject.html#working-with-reactivity
+        app.config.unwrapInjectedRef = true;
     },
 });

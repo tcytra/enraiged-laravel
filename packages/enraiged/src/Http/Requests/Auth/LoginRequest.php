@@ -29,13 +29,31 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => ['required', 'string', 'email'],
-            'password' => ['required', 'string'],
+            'email' => allow_username_login() ? 'required|string' : 'required|string|email',
+            'password' => 'required|string',
         ];
     }
 
     /**
-     *  Attempt to authenticate the request's credentials.
+     *  Execute the attempt to authenticate the request's credentials.
+     *
+     *  @return boolean
+     */
+    private function attempt()
+    {
+        $primary_credentials = $this->only('email', 'password');
+        $secondary_credentials = collect($primary_credentials)
+            ->merge(['username' => $this->get('email')])
+            ->except('email')
+            ->toArray();
+
+        return Auth::attempt($primary_credentials, $this->boolean('remember'))
+            || (config('enraiged.auth.allow_secondary_credential') === true
+                && Auth::attempt($secondary_credentials, $this->boolean('remember')));
+    }
+
+    /**
+     *  Prepare for and handle the attempt to authenticate the request's credentials.
      *
      *  @return void
      *
@@ -45,12 +63,16 @@ class LoginRequest extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        if (!Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+        if (!$this->attempt()) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
                 'email' => trans('auth.failed'),
             ]);
+        }
+
+        if (config('enraiged.auth.track_ip_addresses')) {
+            $this->user()->trackIp($this->ip());
         }
 
         RateLimiter::clear($this->throttleKey());

@@ -14,8 +14,9 @@ trait LoadParameters
      */
     public function load(array $parameters)
     {
-        $creating = preg_match('/CreateAccount$/', get_called_class());
-        $updating = preg_match('/UpdateAccount$/', get_called_class());
+        $called_class = get_called_class();
+        $creating = preg_match('/CreateAccount$/', $called_class);
+        $updating = preg_match('/UpdateAccount$/', $called_class);
 
         //  ensure the provided birthdate is formatted for storage
         if (key_exists('birthdate', $parameters) && $parameters['birthdate']) {
@@ -49,8 +50,13 @@ trait LoadParameters
         }
 
         //  ensure a role is provided, if required
-        if ($creating && !key_exists('role_id', $parameters) && config('auth.force_lowest_role')) {
+        if ($creating && !key_exists('role_id', $parameters) && config('enraiged.auth.force_lowest_role')) {
             $parameters['role_id'] = Role::lowest()->id;
+        }
+
+        //  ensure a role is not self-elevating
+        if ($updating && key_exists('role_id', $parameters) && $this->account->is_myself) {
+            //  todo?
         }
 
         $this->parameters = $parameters;

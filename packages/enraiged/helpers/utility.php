@@ -70,6 +70,53 @@ if (!function_exists('get_class_name')) {
     }
 }
 
+if (!function_exists('ip_from_binary')) {
+    /**
+     *  Convert a binary format to a readable internet protocol address.
+     *
+     *  @param  string  $address
+     *  @return int
+     */
+    function ip_from_binary($address)
+    {
+        return inet_ntop($address);
+    }
+}
+
+if (!function_exists('ip_to_binary')) {
+    /**
+     *  Convert a binary format to a readable internet protocol address.
+     *
+     *  @param  string  $address
+     *  @return int
+     */
+    function ip_to_binary($address)
+    {
+        return inet_pton($address);
+    }
+}
+
+if (!function_exists('ip_version')) {
+    /**
+     *  Detect and return the ip version of a provided address.
+     *
+     *  @param  string  $address
+     *  @return int
+     */
+    function ip_version($address)
+    {
+        if (filter_var($address, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+            return 4;
+        }
+
+        if (filter_var($address, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+            return 6;
+        }
+
+        return 0; // this should never happen
+    }
+}
+
 if (!function_exists('message')) {
     /**
      *  Construct and return a message object from the provided parameters.

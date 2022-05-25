@@ -1,0 +1,87 @@
+
+.main.panel {
+    .options {
+        .item {
+          padding:          0;
+
+            .option {
+              align-items:      center;
+              display:          flex;
+              padding-left:     1rem;
+              padding-right:    1rem;
+
+                &.is-active {
+                  background-color: var(--bluegray-900);
+                }
+
+                &:hover:not(.is-active):not(.has-children) {
+                  background-color: var(--orange-600);
+                }
+
+                .icon {
+                  width:            1.25rem;
+
+                    &.open-indicator {
+                        &.is-open {
+                          transform:    rotate(180deg);
+                        }
+                    }
+                }
+
+                .text {
+                  flex-grow:        1;
+                  font-family:      'Open Sans', $font-family-secondary;
+                  font-weight:      100;
+                  text-indent:      .5rem;
+                  width:            0;
+                }
+            }
+
+            .sub-menu {
+              max-height:       0;
+              transition:       max-height $menu-transition;
+
+                &.is-open {
+                  max-height:       1234px;
+                }
+            }
+        }
+    }
+
+    >.options {
+        >.item {
+            .option {
+              height:           2rem;
+
+                .icon {
+                  text-align:       center;
+                  width:            2rem;
+                }
+
+                .text {
+                  align-self:       center;
+                }
+
+                .icon, .text {
+                  align-self:       center;
+                }
+            }
+
+            >.sub-menu {
+              background-color: $surface-overlay-dark;
+            }
+        }
+    }
+}
+
+&.menu-open,
+&:not(.menu-closed) {
+    .main.panel {
+        .top-menu .item .sub-menu {
+            .option {
+              padding-left:     1.5rem;
+              padding-right:    1.5rem;
+            }
+        }
+    }
+}

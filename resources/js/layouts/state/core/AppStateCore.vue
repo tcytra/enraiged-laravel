@@ -1,4 +1,6 @@
 <script>
+import { computed } from 'vue';
+
 export default {
     emits: ['close:all', 'close:auth', 'close:menu'],
 
@@ -10,14 +12,15 @@ export default {
     },
 
     data: () => ({
+        appMenu: null,
         appReady: false,
-        authOpen: false,
-        menuOpen: null,
+        authMenuOpen: false,
+        mainMenuOpen: null,
     }),
 
     computed: {
-        clientState() {
-            const state = {
+        clientClass() {
+            const clientClass = {
                 'lg': this.client.lg,
                 'md': this.client.md,
                 'sm': this.client.sm,
@@ -26,8 +29,8 @@ export default {
                 'xxl': this.client.xxl,
             };
 
-            return Object.keys(state)
-                .filter(key => state[key])
+            return Object.keys(clientClass)
+                .filter(key => clientClass[key])
                 .join('');
         },
 
@@ -39,22 +42,22 @@ export default {
             return ['lg', 'md'].includes(this.clientState);
         },
 
-        menuState() {
-            const state = {
-                'auth-open': this.authOpen,
-                'menu-open': this.menuOpen === true,
-                'menu-closed': this.menuOpen === false,
+        menuClass() {
+            const menuClass = {
+                'auth-open': this.authMenuOpen,
+                'menu-open': this.mainMenuOpen === true,
+                'menu-closed': this.mainMenuOpen === false,
             };
 
-            return Object.keys(state)
-                .filter(key => state[key])
+            return Object.keys(menuClass)
+                .filter(key => menuClass[key])
                 .join(' ');
         },
 
         panelState() {
             return {
-                auth: this.authOpen,
-                menu: this.menuOpen,
+                auth: this.authMenuOpen,
+                menu: this.mainMenuOpen,
             };
         },
     },
@@ -67,25 +70,39 @@ export default {
 
     methods: {
         closeAll() {
-            this.authOpen = false;
-            this.menuOpen = false;
+            this.authMenuOpen = false;
+            this.mainMenuOpen = false;
         },
 
         closeAuth() {
-            this.authOpen = false;
+            this.authMenuOpen = false;
         },
 
         closeMenu() {
-            this.menuOpen = false;
+            this.mainMenuOpen = false;
         },
 
         fetched(response) {
-            this.appReady = true;
             const { status, data } = response;
             if (this.success(status)) {
+                const { i18n, menu, meta } = data;
                 const lang = this.auth.user.language;
                 this.$root.$i18n.locale = lang;
-                this.$root.$i18n.setLocaleMessage(lang, data.i18n[lang]);
+                this.$root.$i18n.setLocaleMessage(lang, i18n[lang]);
+                Object.keys(menu).forEach(key => {
+                    if (menu[key].menu) {
+                        let state = false;
+                        Object.values(menu[key].menu).every(item => {
+                            if (item.route === this.$page.url) {
+                                state = true;
+                            }
+                        });
+                        menu[key].open = state;
+                    }
+                });
+                this.appMenu = menu;
+                this.appMeta = meta;
+                this.appReady = true;
             }
         },
 
@@ -95,42 +112,42 @@ export default {
         },
 
         toggleAuth() {
-            this.authOpen = !this.authOpen;
+            this.authMenuOpen = !this.authMenuOpen;
         },
 
         toggleMenu() {
-            if (this.authOpen) {
-                this.authOpen = false;
-                this.menuOpen = true;
+            if (this.authMenuOpen) {
+                this.authMenuOpen = false;
+                this.mainMenuOpen = true;
             } else {
-                this.menuOpen = this.menuOpen === null
+                this.mainMenuOpen = this.mainMenuOpen === null
                     ? ['sm', 'xs'].includes(this.clientState)
-                    : !this.menuOpen;
+                    : !this.mainMenuOpen;
             }
         },
     },
 
     provide() {
         return {
+            appMenu: computed(() => this.appMenu),
             isMobile: this.isMobile,
             loadAppState: this.loadAppState,
-            panels: {
+            /* panels: { // not being used...
                 closeAll: this.closeAll,
                 closeAuth: this.closeAuth,
                 closeMenu: this.closeMenu,
                 toggleAuth: this.toggleAuth,
                 toggleMenu: this.toggleMenu,
-            },
+            }, */
         };
     },
 
     render() {
         return this.$slots.default({
+            appClasses: [this.clientClass, this.menuClass],
             appReady: this.appReady,
-            clientState: this.clientState,
             closeAuth: this.closeAuth,
             closeMenu: this.closeMenu,
-            menuState: this.menuState,
             panelState: this.panelState,
             toggleAuth: this.toggleAuth,
             toggleMenu: this.toggleMenu,

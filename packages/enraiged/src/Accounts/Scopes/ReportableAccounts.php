@@ -45,7 +45,7 @@ class ReportableAccounts implements Scope
      */
     private function joinRoles(): self
     {
-        if (config('auth.force_lowest_role')) {
+        if (config('enraiged.auth.force_lowest_role')) {
             $this->builder->join('roles', 'roles.id', '=', 'users.role_id');
         } else {
             $this->builder->leftJoin('roles', 'roles.id', '=', 'users.role_id');

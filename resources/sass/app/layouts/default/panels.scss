@@ -8,13 +8,13 @@
   z-index:          2;
 
     &.auth,
-    &.menu {
+    &.main {
       background-color: $surface-overlay;
     }
 
     &.auth >.footer,
-    &.menu >.footer,
-    &.menu >.header {
+    &.main >.footer,
+    &.main >.header {
       height:           $app-block-size;
     }
 
@@ -51,14 +51,14 @@
   right:            0;
 }
 
-.menu.panel {
+.main.panel {
   left:             0;
 }
 
 
 @media screen and (min-width: $break-medium) {
     .auth.panel,
-    .menu.panel {
+    .main.panel {
         >.footer {
           display:          none !important;
         }
@@ -71,7 +71,7 @@
       display:          flex;
     }
 
-    .menu.panel >.options {
+    .main.panel >.options {
       display:          block;
     }
 }

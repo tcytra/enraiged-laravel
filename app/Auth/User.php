@@ -2,7 +2,6 @@
 
 namespace App\Auth;
 
-use App\Auth\Models\InternetAddress;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -13,6 +12,7 @@ class User extends Authenticatable
 {
     use Traits\BelongsTo\Account,
         Traits\BelongsTo\Role,
+        Traits\HasMany\IpAddresses,
         Traits\Scopes,
         Traits\ManagesPassword,
         HasApiTokens, HasFactory, Notifiable, SoftDeletes;
@@ -44,10 +44,8 @@ class User extends Authenticatable
     ];
 
     /**
-     *  @return \Illuminate\Database\Eloquent\Relations\HasMany
+     *  @todo: This is a temporary attribute, still pondering this one.
+     *  User needs ability to select notification channels (global and/or per notification type or hybrid?).
      */
-    public function ipAddresses()
-    {
-        return $this->hasMany(InternetAddress::class, 'user_id');
-    }
+    public $notification_channels = ['mail'];
 }

@@ -2,7 +2,6 @@
 
 namespace Enraiged\Accounts\Services;
 
-use Enraiged\Accounts\Events\AccountUpdated;
 use Enraiged\Accounts\Models\Account;
 use Illuminate\Support\Facades\DB;
 
@@ -52,8 +51,6 @@ class UpdateAccount
 
             $this->account->user->touch();
         });
-
-        event(new AccountUpdated($this->account));
 
         return $this;
     }

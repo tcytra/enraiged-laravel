@@ -3,7 +3,6 @@
 namespace Enraiged\Http\Requests\Auth;
 
 use App\Auth\Traits\Validators\PasswordValidator;
-use Enraiged\Accounts\Events\AccountCreated;
 use Enraiged\Accounts\Models\Account;
 use Enraiged\Accounts\Forms\Validation\Messages as ValidationMessages;
 use Enraiged\Accounts\Forms\Validation\Rules as ValidationRules;
@@ -34,7 +33,7 @@ class RegisterRequest extends FormRequest
      */
     public function authorize()
     {
-        return config('auth.allow_registration') === true;
+        return config('enraiged.auth.allow_registration') === true;
     }
 
     /**
@@ -45,8 +44,6 @@ class RegisterRequest extends FormRequest
     public function handle(): void
     {
         $this->account = CreateAccount::from($this->validated());
-
-        event(new AccountCreated($this->account));
     }
 
     /**

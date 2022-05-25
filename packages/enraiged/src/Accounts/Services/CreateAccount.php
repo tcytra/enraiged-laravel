@@ -2,7 +2,6 @@
 
 namespace Enraiged\Accounts\Services;
 
-use Enraiged\Accounts\Events\AccountCreated;
 use Enraiged\Accounts\Models\Account;
 use Enraiged\Profiles\Models\Profile;
 use Illuminate\Support\Facades\DB;
@@ -38,28 +37,21 @@ class CreateAccount
         $this->account = new Account;
 
         DB::transaction(function () {
+            $profile_parameters = collect($this->parameters)
+                ->only((new Profile)->getFillable())
+                ->toArray();
+
+            $profile = Profile::create($profile_parameters);
+
             $account_parameters = collect($this->parameters)
                 ->only($this->account->getFillable())
+                ->merge(['profile_id' => $profile->id])
                 ->toArray();
 
             $this->account
                 ->fill($account_parameters)
                 ->save();
-
-            $profile_parameters = collect($this->parameters)
-                ->only((new Profile)->getFillable())
-                ->toArray();
-
-            $profile = $this->account
-                ->profile()
-                ->create($profile_parameters);
-
-            $this->account
-                ->fill(['profile_id' => $profile->id])
-                ->save(); // shouldn't this be automagical through ->account->profile()->create()
         });
-
-        event(new AccountCreated($this->account));
 
         return $this;
     }

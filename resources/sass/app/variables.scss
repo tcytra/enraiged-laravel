@@ -32,7 +32,8 @@ $surface-ground:    var(--bluegray-50);
 $surface-section:   var(--bluegray-100);
 $surface-card:      var(--bluegray-200); // bbc7cd
 $surface-border:    var(--bluegray-100);
-$surface-overlay:   var(--bluegray-800);
+$surface-overlay:   var(--bluegray-800); // 35454c
+$surface-overlay-dark: darken(#35454c, 3%);
 
 
 //  define the fonts

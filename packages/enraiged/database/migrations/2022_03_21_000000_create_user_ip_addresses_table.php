@@ -16,9 +16,11 @@ return new class extends Migration
         Schema::create('ip_addresses', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->unsigned()->index();
-            $table->ipAddress('ip_address'); // todo: should be INT UNSIGNED 4(BYTE) (?)
+            $table->binary('ip_address');
             $table->timestamp('created_at')->nullable();
-            $this->track_deleted($table);
+            $table->timestamp('updated_at')->nullable();
+            $table->timestamp('deleted_at')->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

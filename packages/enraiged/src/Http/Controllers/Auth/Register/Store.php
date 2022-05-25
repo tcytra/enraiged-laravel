@@ -30,7 +30,7 @@ class Store extends Controller
 
         $request->session()->put('success', 'Registration successful');
 
-        if (config('auth.automated_login') === true) {
+        if (config('enraiged.auth.automated_login') === true) {
             Auth::login($request->account()->user);
         }
 

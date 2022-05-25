@@ -8,7 +8,7 @@
                 <dd class="text">{{ meta.app_name }}</dd>
             </dl>
         </header>
-        <main-menu @menu:navigate="$emit('menu:navigate')" />
+        <main-menu/>
         <div class="block flex-grow-1" @click="$emit('menu:toggle')"/>
         <footer class="footer">
             <div class="action" @click="$emit('menu:toggle')" refs="navToggle">
@@ -26,7 +26,7 @@ export default {
         MainMenu,
     },
 
-    emits: ['menu:navigate', 'menu:toggle'],
+    emits: ['menu:toggle'],
 
     props: {
         meta: {

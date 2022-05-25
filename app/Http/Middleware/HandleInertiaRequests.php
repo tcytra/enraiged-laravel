@@ -65,7 +65,7 @@ class HandleInertiaRequests extends Middleware
 
         if (Auth::check()) {
         } else {
-            $meta['allow_registration'] = config('auth.allow_registration');
+            $meta['allow_registration'] = config('enraiged.auth.allow_registration');
         }
 
         return $meta;

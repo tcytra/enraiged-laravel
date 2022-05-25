@@ -182,6 +182,7 @@ return [
          */
         Enraiged\AppServiceProvider::class,
         Enraiged\AuthServiceProvider::class,
+        Enraiged\EventServiceProvider::class,
     ],
 
     /*

@@ -19,7 +19,6 @@ class Store extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
-
         $request->session()->flash('success', 'Login Successful.');
 
         return redirect()->intended(RouteServiceProvider::HOME);

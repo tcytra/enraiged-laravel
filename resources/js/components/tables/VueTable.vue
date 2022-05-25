@@ -299,7 +299,6 @@ export default {
             return {
                 'inactive-data': typeof data.active !== undefined && !data.active,
             };
-            // console.log(data);
         },
 
         rows(event) {
@@ -314,7 +313,7 @@ export default {
         },
 
         trap(error) {
-            // console.log(error);
+            // console.log(error); // todo: error handler
         },
     },
 

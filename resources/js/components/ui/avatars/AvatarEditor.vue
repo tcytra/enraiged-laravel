@@ -87,7 +87,6 @@ export default {
 
     methods: {
         destroy() {
-            console.log(this.avatar.actions.delete);
             const method = this.avatar.actions.delete.method;
             const uri = this.avatar.actions.delete.uri;
             this.$inertia[method](uri, { onSuccess: () => this.reset()});

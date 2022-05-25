@@ -295,7 +295,7 @@ function timezone()
 {
     return user()->exists && !empty(user()->timezone)
         ? user()->timezone
-        : config('enraiged.setup.timezone');
+        : config('enraiged.app.timezone');
 }
 
 /**

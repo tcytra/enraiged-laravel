@@ -1,12 +1,12 @@
 <template>
     <app-state-core :auth="auth">
         <template v-slot:default="{
-                appReady, clientState, closeAuth, closeMenu, menuState, toggleAuth, toggleMenu,
+                appClasses, appReady, closeAuth, closeMenu, toggleAuth, toggleMenu,
             }">
             <transition>
                 <div class="default layout" key="layout" v-if="appReady"
-                    :class="[clientState, menuState]">
-                    <menu-panel class="menu panel" ref="menuPanel"
+                    :class="appClasses">
+                    <main-panel class="main panel" ref="mainPanel"
                         :meta="meta"
                         @menu:toggle="toggleMenu"/>
                     <div class="main page" ref="mainPage">
@@ -31,7 +31,7 @@
 <script>
 import AppStateCore from './core/AppStateCore';
 import AuthPanel from '../panels/AuthPanel';
-import MenuPanel from '../panels/MenuPanel';
+import MainPanel from '../panels/MainPanel';
 import TopNav from '../menus/TopNav';
 import VueProgressSpinner from 'primevue/progressspinner';
 
@@ -39,7 +39,7 @@ export default {
     components: {
         AppStateCore,
         AuthPanel,
-        MenuPanel,
+        MainPanel,
         TopNav,
         VueProgressSpinner,
     },

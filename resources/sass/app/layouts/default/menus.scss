@@ -1,6 +1,6 @@
 
-.panel.auth,
-.panel.menu {
+.auth.panel,
+.main.panel {
     .options {
       list-style-type:  none;
       margin:           0;
@@ -12,107 +12,15 @@
     }
 }
 
-.panel.auth {
-    .options {
-      flex-direction:   row;
-      flex-wrap:        nowrap;
-
-        .each.action:hover .option .icon {
-          background-color: aliceblue;
-        }
-
-        .each {
-            .option {
-              align-items:      center;
-              display:          flex;
-              flex-direction:   column;
-              margin-left:      .5rem;
-              margin-right:     .5rem;
-
-                .icon {
-                  align-items:      center;
-                  background-color: var(--bluegray-100);
-                  border-radius:    12345px;
-                  display:          flex;
-                  height:           2.5rem;
-                  justify-content:  center;
-                  transition:       background .35s ease;
-                  width:            2.5rem;
-
-                    .pi {
-                      color:            var(--bluegray-800);
-                      font-size:        1.25rem;
-                    }
-                }
-
-                .text {
-                  display:          inline-block;
-                  font-size:        .875rem;
-                  margin:           .25rem 0;
-                }
-            }
-        }
-    }
-}
-
-.panel.menu {
-    .options {
-        .each {
-          padding:          .25rem 1rem;
-
-            .option {
-              align-items:      center;
-              display:          flex;
-              height:           1.5rem;
-
-                .icon {
-                  width:            1.25rem;
-                }
-
-                .text {
-                  flex-grow:        1;
-                  font-family:      'Open Sans', $font-family-secondary;
-                  font-weight:      100;
-                  text-indent:      .5rem;
-                  width:            0;
-                }
-            }
-        }
-    }
-
-    >.options {
-        >.each {
-            >.option {
-              height:           2rem;
-
-                .icon {
-                  text-align:       center;
-                  width:            2rem;
-                }
-
-                .text {
-                  align-self:       center;
-                }
-
-                .icon, .text {
-                  align-self:       center;
-                }
-            }
-        }
-    }
-
-    /*>.header {
-      align-items:      center;
-      justify-content:  center;
-    }*/
-}
+@import 'menus/auth';
+@import 'menus/main';
 
 @media screen and (min-width: $break-medium) {
     &.auth-open.menu-open,
     &.auth-open:not(.menu-closed),
     &.menu-closed {
         .branding .text,
-        .panel.menu .options .each .text {
+        .main.panel .options .item .text {
           display:          none;
         }
     }
@@ -122,7 +30,7 @@
     &.auth-open.menu-open,
     &.auth-open:not(.menu-closed) {
         .branding .text,
-        .panel.menu .options .each .text {
+        .main.panel .options .item .text {
           display:          initial;
         }
     }

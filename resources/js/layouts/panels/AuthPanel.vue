@@ -5,7 +5,7 @@
             <h4 class="name">{{ auth.user.profile.name }}</h4>
         </header>
         <ul class="options">
-            <li class="action each" @click="get('/my/account')">
+            <li class="action item" @click="get('/my/account')">
                 <dl class="option">
                     <dt class="icon">
                         <i class="pi pi-user"></i>
@@ -15,7 +15,7 @@
                     </dl>
                 </dl>
             </li>
-            <li class="action each" @click="get('/my/files')">
+            <li class="action item" @click="get('/my/files')">
                 <dl class="option">
                     <dt class="icon">
                         <i class="pi pi-file"></i>
@@ -25,7 +25,7 @@
                     </dl>
                 </dl>
             </li>
-            <li class="action each" @click="logout">
+            <li class="action item" @click="logout">
                 <dl class="option">
                     <dt class="icon">
                         <i class="pi pi-sign-out"></i>

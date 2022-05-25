@@ -3,25 +3,33 @@
 use App\Auth\User;
 use Illuminate\Support\Facades\Auth;
 
-if (!function_exists('uhash')) {
-    /**
-     *  Return a formatted alphanumeric hash, optionally based on a provided key.
-     *
-     *  @param  string  $key = null
-     *  @return string
-     */
-    function uhash($key = null)
-    {
-        $base = $key ?? substr(time(), -7);
-        $post = substr(md5(user()->id), -3);
-
-        return sha1("{$base}-{$post}");
-    }
+/**
+ *  Determine whether or not username logins are permitted.
+ *
+ *  @return bool
+ */
+function allow_username_login()
+{
+    return config('enraiged.auth.allow_username_login') === true
+        && config('enraiged.auth.allow_secondary_credential') === true;
 }
 
 /**
- *  user()
- *  Return the current Auth\User object
+ *  Format an alphanumeric hash, optionally based on a provided key.
+ *
+ *  @param  string  $key = null
+ *  @return string
+ */
+function uhash($key = null)
+{
+    $base = $key ?? substr(time(), -7);
+    $post = substr(md5(user()->id), -3);
+
+    return sha1("{$base}-{$post}");
+}
+
+/**
+ *  Return the current authenticated user model, if possible.
  *  
  *  @return object
  */

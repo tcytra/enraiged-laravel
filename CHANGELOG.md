@@ -1,27 +1,67 @@
 # Project History
 
-- [Introducing InertiaJS](https://reinink.ca/articles/introducing-inertia-js)
-
 Todo:
-- Addresses, Contacts, Impersonation, Networks
+- Addresses, Agreements, Contacts, Impersonation, Networks
 - Auth options to prevent changing account primary login,profile name
   - (req permission, issue token)
 - Complex table searching
 - Custom table filters
-- Data Import
+- Data Import (from model index page)
+- Page exporter (ie. account details) (pdf, xls?, txt?)
 - Geo, Geo Social
-- Menu
-- Move Enraiged model resources into Enraiged\Http\Resources namespace
+- Model Activity History
 - New account creates registered list of site 'helps' (dismissable)
-- Secondary email login
 - Split VueTable component into reusable parts
+- Test cases and documentation
 - There is code common to the {Form,Table}Builder(s)
   - Implement parent RequestBuilder class?
+
+! Correct javascript error when click avatar in accounts table
+
+---
+
+2022-05-25 : 0.0.14  
+Update: Added ip tracking, secondary login, menu builder, email notices
+
+This update expands the configurability of the authentication system in
+various ways, including allowing a second login credential, ip address
+tracking, and some account policy enforcement systems. Included in this
+update are some basic account observer driven email notifications.
+
+Also, this update provided an initial configuration file based menu
+builder system with security assessments, similar to the solution used
+for the form builder system.
+
+Finally, this update furthers the separation between the laravel
+package and the enraiged system, as the intent is to eventually split
+the Enraiged namespace into a distinct composer package.
+
+- Added agreements table
+- Added auth configuration helper functions:
+  - allow_username_login() to simplify reading a pair of config options
+- Added auth configuration options:
+  - allow_secondary_credential to allow a second email (or username)
+  - allow_username_login to expressly allow a username login
+- Added configurable ability to track ip addresses
+- Added configurable notifications for account events:
+  - account_introduction, account_login_change, internet_address_login
+- Added ip helpers: ip_from_binary(), ip_to_binary(), ip_version()
+- Added initial (config file driven) secure menu builder system
+- Renamed enraiged.setup config to enraiged.app
+- Renamed 'menu panel' tp 'main panel' in various places
+  - Split menus.scss into {auth,main}.scss
+- Restored original laravel auth config file
+  - Added custom auth config to enraiged.auth
+- Restored original laravel create_users_table migration
+  - Modify users table in the enraiged namespace
 
 ---
 
 2022-05-09 : 0.0.13  
 Update: Implemented dateformat,languages,timezones as user settings
+
+This update provides the ability for an authorized user to select
+preferred dateformat, language, and timezone in their account settings.
 
 - Added account settings form,page,controller with new users columns
 - Added core components for App{,State}
@@ -40,6 +80,8 @@ Update: Implemented dateformat,languages,timezones as user settings
 2022-05-04 : 0.0.12  
 Update: Various fixes and improvements to page actions,header,messages
 
+This update is a code cleanup,reorganization.
+
 - Added back buttons to various pages; Access auth.user via $attrs
 - Added is_administrator attribute to the Account model
 - Added Page{Actions,Header,Messages} components to available pages
@@ -54,6 +96,9 @@ Update: Various fixes and improvements to page actions,header,messages
 
 2022-05-01 : 0.0.11  
 Update: Added Avatar system; Added basic content to My Account
+
+This update provides a morphable avatar system and the beginning of
+an account management system.
 
 - Added Active indicator component; implemented in the accounts table
 - Added Avatar model, basic support systems to the enraiged namespace
@@ -75,6 +120,8 @@ Update: Added Avatar system; Added basic content to My Account
 2022-04-26 : 0.0.10  
 Update: Added: roles; forms builder,templating; create account form
 
+This update provides ranked roles for authorized users.
+
 - Added FormBuilder with json form template (similar to TableBuilder)
   - Ability to organize form fields into logical sections
   - Ability to prevent section visibility based on security assertions
@@ -88,6 +135,8 @@ Update: Added: roles; forms builder,templating; create account form
 
 2022-04-19 : 0.0.9  
 Update: Added full-featured builder,template functionality to the table
+
+This update provides a form builder, templater system.
 
 - Added accounts.{create,store} controllers, routes, pages
 - Added axios to the package.json

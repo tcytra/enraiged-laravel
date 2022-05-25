@@ -13,7 +13,7 @@ class Create extends Controller
      */
     public function __invoke()
     {
-        if (!config('auth.allow_registration')) {
+        if (!config('enraiged.auth.allow_registration')) {
             return redirect()->back();
         }
 

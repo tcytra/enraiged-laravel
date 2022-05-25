@@ -31,7 +31,7 @@ class Avatar extends Model
     /**
      *  Get the parent avatarable model.
      *
-     *  @return object \Illuminate\Database\Eloquent\Model
+     *  @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
     public function avatarable()
     {

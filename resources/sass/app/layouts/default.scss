@@ -16,13 +16,13 @@
   position:         relative;
 
     .auth.panel,
-    .menu.panel,
+    .main.panel,
     .main.page {
       min-height:       100vh;
     }
 
     .auth.panel,
-    .menu.panel,
+    .main.panel,
     .main.page >.content,
     .main.page >.top {
       transition:       all $menu-transition;
@@ -39,12 +39,12 @@
     }
 
     .auth.panel,
-    .menu.panel {
+    .main.panel {
       transition:       all $menu-transition;
       width:            0;
     }
 
-    &.menu-open .menu.panel {
+    &.menu-open .main.panel {
         width:            $menu-panel-size;
     }
 
@@ -68,7 +68,7 @@
       display:          flex;
     }
 
-    &.menu-open .menu.panel >.options {
+    &.menu-open .main.panel >.options {
       display:          block;
     }
 }
@@ -88,7 +88,7 @@
     .default.layout {
         &.auth-open:not(menu-closed),
         &.auth-open.menu-open {
-            .menu.panel {
+            .main.panel {
               width:            0;
             }
         }
@@ -106,7 +106,7 @@
                   width:            inherit; // calc(100% - $app-block-size);
                 }
             }
-            .menu.panel {
+            .main.panel {
               width:            $app-block-size;
             }
         }
@@ -120,7 +120,7 @@
                   width:            inherit; // calc(100% - $menu-panel-size);
                 }
             }
-            .menu.panel  {
+            .main.panel  {
               width:            $menu-panel-size;
             }
         }
@@ -137,7 +137,7 @@
                   width:            calc(100% - ($app-block-size + $auth-panel-size));
                 }
             }
-            .menu.panel {
+            .main.panel {
               width:            $app-block-size;
             }
         }
@@ -157,7 +157,7 @@
             .main.page .main.content, .main.page .nav.top {
               width:            calc(100vw - ($menu-panel-size + $auth-panel-size));
             }
-            .menu.panel {
+            .main.panel {
               width:            $menu-panel-size;
             }
         }
