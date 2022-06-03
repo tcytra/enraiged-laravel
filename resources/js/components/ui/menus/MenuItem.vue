@@ -1,7 +1,7 @@
 <template>
     <li class="item">
         <dl class="option cursor-pointer"
-            :class="{ 'has-children': item.menu, 'is-active': current }"
+            :class="{ 'has-children': item.menu, 'is-active': current, 'is-open': item.open }"
             @click="handle">
             <dt class="icon">
                 <i :class="item.icon"></i>
@@ -10,8 +10,8 @@
                 {{ i18n(name) }}
             </dl>
             <dt class="icon open-indicator" v-if="item.menu">
-                <i class="pi pi-angle-up"
-                   :class="{ 'is-open': item.open }"></i>
+                <i class="pi pi-angle-down" v-if="item.open"></i>
+                <i class="pi pi-angle-up" v-else></i>
             </dt>
         </dl>
         <menu-group v-if="item.menu"
