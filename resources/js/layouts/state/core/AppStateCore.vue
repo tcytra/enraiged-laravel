@@ -4,6 +4,8 @@ import { computed } from 'vue';
 export default {
     emits: ['close:all', 'close:auth', 'close:menu'],
 
+    inject: ['clientSize', 'isSuccess'],
+
     props: {
         auth: {
             type: Object,
@@ -21,12 +23,12 @@ export default {
     computed: {
         clientClass() {
             const clientClass = {
-                'lg': this.client.lg,
-                'md': this.client.md,
-                'sm': this.client.sm,
-                'xl': this.client.xl,
-                'xs': this.client.xs,
-                'xxl': this.client.xxl,
+                'lg': this.clientSize.lg,
+                'md': this.clientSize.md,
+                'sm': this.clientSize.sm,
+                'xl': this.clientSize.xl,
+                'xs': this.clientSize.xs,
+                'xxl': this.clientSize.xxl,
             };
 
             return Object.keys(clientClass)
@@ -35,11 +37,11 @@ export default {
         },
 
         isMobile() {
-            return ['sm', 'xs'].includes(this.clientState);
+            return ['sm', 'xs'].includes(this.clientClass);
         },
 
         isTablet() {
-            return ['lg', 'md'].includes(this.clientState);
+            return ['lg', 'md'].includes(this.clientClass);
         },
 
         menuClass() {
@@ -53,16 +55,7 @@ export default {
                 .filter(key => menuClass[key])
                 .join(' ');
         },
-
-        panelState() {
-            return {
-                auth: this.authMenuOpen,
-                menu: this.mainMenuOpen,
-            };
-        },
     },
-
-    inject: ['client', 'success'],
 
     created() {
         this.loadAppState();
@@ -84,7 +77,7 @@ export default {
 
         fetched(response) {
             const { status, data } = response;
-            if (this.success(status)) {
+            if (this.isSuccess(status)) {
                 const { i18n, menu, meta } = data;
                 const lang = this.auth.user.language;
                 this.$root.$i18n.locale = lang;
@@ -121,7 +114,7 @@ export default {
                 this.mainMenuOpen = true;
             } else {
                 this.mainMenuOpen = this.mainMenuOpen === null
-                    ? ['sm', 'xs'].includes(this.clientState)
+                    ? this.isMobile
                     : !this.mainMenuOpen;
             }
         },
@@ -130,15 +123,14 @@ export default {
     provide() {
         return {
             appMenu: computed(() => this.appMenu),
-            isMobile: this.isMobile,
+            closeAllPanels: this.closeAll,
+            closeAuthPanel: this.closeAuth,
+            closeMainPanel: this.closeMenu,
+            isMobile: computed(() => this.isMobile),
+            isTablet: computed(() => this.isTablet),
             loadAppState: this.loadAppState,
-            /* panels: { // not being used...
-                closeAll: this.closeAll,
-                closeAuth: this.closeAuth,
-                closeMenu: this.closeMenu,
-                toggleAuth: this.toggleAuth,
-                toggleMenu: this.toggleMenu,
-            }, */
+            toggleAuthPanel: this.toggleAuth,
+            toggleMainPanel: this.toggleMenu,
         };
     },
 
@@ -148,7 +140,6 @@ export default {
             appReady: this.appReady,
             closeAuth: this.closeAuth,
             closeMenu: this.closeMenu,
-            panelState: this.panelState,
             toggleAuth: this.toggleAuth,
             toggleMenu: this.toggleMenu,
         });

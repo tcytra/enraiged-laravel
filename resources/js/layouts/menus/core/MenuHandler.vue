@@ -1,6 +1,6 @@
 <script>
 export default {
-    inject: ['appMenu'],
+    inject: ['appMenu', 'closeMainPanel', 'isMobile'],
 
     methods: {
         navigate(item) {
@@ -8,6 +8,9 @@ export default {
                 if (this.appMenu[key].menu && key !== item) {
                     this.appMenu[key].open = false;
                 }
+            }
+            if (this.isMobile) {
+                this.closeMainPanel();
             }
         },
     },

@@ -110,7 +110,7 @@ export default {
         tooltip: PrimevueTooltip,
     },
 
-    inject: ['i18n', 'success'],
+    inject: ['i18n', 'isSuccess'],
 
     props: {
         pageReportTemplate: {
@@ -227,7 +227,7 @@ export default {
             this.axios.request({ method, url: uri })
                 .then((response) => {
                     const { data, status } = response;
-                    if (this.success(status)) {
+                    if (this.isSuccess(status)) {
                         const { success } = data;
                         this.flashSuccess(success);
                         this.fetch();
@@ -248,7 +248,7 @@ export default {
                     .then((response) => {
                         this.loading = false;
                         const { status, data } = response;
-                        if (this.success(status) && data.success) {
+                        if (this.isSuccess(status) && data.success) {
                             this.flashSuccess(data.success);
                         }
                     })
@@ -259,7 +259,7 @@ export default {
         fetched(response) {
             this.loading = false;
             const { status, data } = response;
-            if (this.success(status)) {
+            if (this.isSuccess(status)) {
                 const {filters, records, search, pagination} = data;
                 this.filters = filters;
                 this.records = records;

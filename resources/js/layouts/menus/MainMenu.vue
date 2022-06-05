@@ -5,7 +5,7 @@
                 <menu-item v-for="(item, name, index) in menu" :key="index"
                     :item="item"
                     :name="name"
-                    @menu:navigate="navigate(name)"/>
+                    @menu:navigate="navigate(name);"/>
             </ul>
         </template>
     </menu-handler>

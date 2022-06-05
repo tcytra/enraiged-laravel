@@ -1,12 +1,12 @@
 <template>
     <app-core>
-        <template v-slot:default="{ auth, guest, meta }">
-            <app-state key="app" :auth="auth" :meta="meta" v-if="auth">
-                <slot/>
-            </app-state>
-            <guest-state key="guest" :meta="meta" v-else>
+        <template v-slot:default="{ isGuest }">
+            <guest-state key="guest" :meta="meta" v-if="isGuest">
                 <slot/>
             </guest-state>
+            <app-state key="app" :auth="auth" :meta="meta" v-else>
+                <slot/>
+            </app-state>
             <confirm-dialog/>
             <flash-messages/>
         </template>
@@ -27,6 +27,11 @@ export default {
         ConfirmDialog,
         GuestState,
         FlashMessages,
+    },
+
+    props: {
+        auth: Object,
+        meta: Object,
     },
 };
 </script>

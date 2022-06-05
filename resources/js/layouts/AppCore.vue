@@ -1,31 +1,23 @@
 <script>
 export default {
     data: () => ({
-        width: document.documentElement.clientWidth,
+        clientWidth: document.documentElement.clientWidth,
     }),
 
     computed: {
-        auth() {
-            return this.$page.props.auth;
-        },
-
-        client() {
+        clientSize() {
             return {
-                lg: this.width > 992 && this.width < 1185,
-                md: this.width > 576 && this.width < 993,
-                sm: this.width > 416 && this.width < 577,
-                xs: this.width < 417,
-                xl: this.width > 1184 && this.width < 1535,
-                xxl: this.width > 1536,
+                lg: this.clientWidth > 992 && this.clientWidth < 1185,
+                md: this.clientWidth > 576 && this.clientWidth < 993,
+                sm: this.clientWidth > 416 && this.clientWidth < 577,
+                xs: this.clientWidth < 417,
+                xl: this.clientWidth > 1184 && this.clientWidth < 1535,
+                xxl: this.clientWidth > 1536,
             };
         },
 
-        guest() {
-            return !this.auth;
-        },
-
-        meta() {
-            return this.$page.props.meta;
+        isGuest() {
+            return !this.$page.props.auth;
         },
     },
 
@@ -47,27 +39,25 @@ export default {
         },
 
         resizeDocument() {
-            this.width = document.documentElement.clientWidth;
+            this.clientWidth = document.documentElement.clientWidth;
         },
 
-        success(status) {
+        isSuccess(status) {
             return status >= 200 && status < 300;
         },
     },
 
     provide() {
         return {
-            client: this.client,
+            clientSize: this.clientSize,
             i18n: this.$t,
-            success: this.success,
+            isSuccess: this.isSuccess,
         };
     },
 
     render() {
         return this.$slots.default({
-            auth: this.auth,
-            guest: this.guest,
-            meta: this.meta,
+            isGuest: this.isGuest,
         });
     },
 };
