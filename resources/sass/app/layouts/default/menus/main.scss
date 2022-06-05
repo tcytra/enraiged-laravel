@@ -20,12 +20,6 @@
 
                 .icon {
                   width:            1.25rem;
-
-                    &.open-indicator {
-                        &.is-open {
-                          transform:    rotate(180deg);
-                        }
-                    }
                 }
 
                 .text {
@@ -83,5 +77,12 @@
               padding-right:    1.5rem;
             }
         }
+    }
+}
+
+&.menu-closed .main.panel > .options >.item .option .icon {
+    &.open-indicator {
+      margin-left:      -.5rem;
+      width:            0;
     }
 }
