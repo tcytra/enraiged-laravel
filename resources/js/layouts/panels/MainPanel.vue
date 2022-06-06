@@ -5,7 +5,7 @@
                 <dt class="icon">
                     <i class="pi pi-circle" style="color:orange;font-size:1.25rem;line-height:1.75rem;"></i>
                 </dt>
-                <dd class="text">{{ meta.app_name }}</dd>
+                <dd class="text">{{ appMeta.app_name }}</dd>
             </dl>
         </header>
         <main-menu/>
@@ -28,11 +28,6 @@ export default {
 
     emits: ['menu:toggle'],
 
-    props: {
-        meta: {
-            type: Object,
-            required: true,
-        },
-    },
+    inject: ['appMeta'],
 };
 </script>

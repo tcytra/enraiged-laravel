@@ -19,7 +19,6 @@ Route::namespace('\Enraiged\Http\Controllers\Auth')
 */
 
 Route::namespace('\Enraiged\Http\Controllers\State')
-    ->middleware(['auth', 'enraiged', 'verified'])
     ->group(function () {
         Route::get('api/app/state', 'AppState')->name('app.state');
     });

@@ -1,12 +1,12 @@
 <template>
     <app-core>
         <template v-slot:default="{ isGuest }">
-            <guest-state key="guest" :meta="meta" v-if="isGuest">
+            <guest-state v-if="isGuest">
                 <slot/>
             </guest-state>
-            <app-state key="app" :auth="auth" :meta="meta" v-else>
+            <auth-state v-else>
                 <slot/>
-            </app-state>
+            </auth-state>
             <confirm-dialog/>
             <flash-messages/>
         </template>
@@ -15,7 +15,7 @@
 
 <script>
 import AppCore from './AppCore';
-import AppState from './state/AppState';
+import AuthState from './state/AuthState';
 import ConfirmDialog from 'primevue/confirmdialog';
 import GuestState from './state/GuestState';
 import FlashMessages from './notifications/FlashMessages';
@@ -23,15 +23,10 @@ import FlashMessages from './notifications/FlashMessages';
 export default {
     components: {
         AppCore,
-        AppState,
+        AuthState,
         ConfirmDialog,
         GuestState,
         FlashMessages,
-    },
-
-    props: {
-        auth: Object,
-        meta: Object,
     },
 };
 </script>

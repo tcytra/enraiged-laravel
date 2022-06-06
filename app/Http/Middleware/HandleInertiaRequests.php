@@ -5,7 +5,6 @@ namespace App\Http\Middleware;
 use App\Auth\Services\AuthResources;
 use App\Auth\Services\FlashMessages;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -42,32 +41,10 @@ class HandleInertiaRequests extends Middleware
         $response = [
             'auth' => (new AuthResources)->handle($request),
             'flash' => (new FlashMessages)->handle($request),
-            'meta' => $this->meta($request),
         ];
 
         return array_merge(
             parent::share($request), $response
         );
-    }
-
-    /**
-     *  Defines and returns the request metadata.
-     *
-     *  @param  \Illuminate\Http\Request  $request
-     *  @return array
-     */
-    protected function meta(Request $request)
-    {
-        $meta = [
-            'app_name' => config('app.name'),
-            'csrf_token' => csrf_token(),
-        ];
-
-        if (Auth::check()) {
-        } else {
-            $meta['allow_registration'] = config('enraiged.auth.allow_registration');
-        }
-
-        return $meta;
     }
 }

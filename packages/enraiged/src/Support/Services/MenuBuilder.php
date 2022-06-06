@@ -20,7 +20,7 @@ class MenuBuilder
     /**
      *  Create an instance of the MenuBuilder object.
      *
-     *  @param array $menu
+     *  @param  array   $menu
      *  @return void
      */
     public function __construct(array $menu)

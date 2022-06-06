@@ -6,15 +6,9 @@ export default {
 
     inject: ['clientSize', 'isSuccess'],
 
-    props: {
-        auth: {
-            type: Object,
-            required: true,
-        },
-    },
-
     data: () => ({
         appMenu: null,
+        appMeta: null,
         appReady: false,
         authMenuOpen: false,
         mainMenuOpen: null,
@@ -58,7 +52,7 @@ export default {
     },
 
     created() {
-        this.loadAppState();
+        this.initState();
     },
 
     methods: {
@@ -75,11 +69,17 @@ export default {
             this.mainMenuOpen = false;
         },
 
+        initState() {
+            this.axios.get('/api/app/state')
+                .then(response => this.fetched(response));
+        },
+
         fetched(response) {
             const { status, data } = response;
             if (this.isSuccess(status)) {
                 const { i18n, menu, meta } = data;
-                const lang = this.auth.user.language;
+                const auth = this.$page.props.auth;
+                const lang = auth ? auth.user.language : meta.language;
                 this.$root.$i18n.locale = lang;
                 this.$root.$i18n.setLocaleMessage(lang, i18n[lang]);
                 Object.keys(menu).forEach(key => {
@@ -97,11 +97,6 @@ export default {
                 this.appMeta = meta;
                 this.appReady = true;
             }
-        },
-
-        loadAppState() {
-            this.axios.get('/api/app/state')
-                .then(response => this.fetched(response));
         },
 
         toggleAuth() {
@@ -123,6 +118,8 @@ export default {
     provide() {
         return {
             appMenu: computed(() => this.appMenu),
+            appMeta: computed(() => this.appMeta),
+            authUser: this.$page.props.auth ? this.$page.props.auth.user : null,
             closeAllPanels: this.closeAll,
             closeAuthPanel: this.closeAuth,
             closeMainPanel: this.closeMenu,

@@ -3,7 +3,9 @@
 namespace Enraiged\Http\Responses\State;
 
 use Enraiged\Support\Services\MenuBuilder;
+use Enraiged\Support\Services\MetaBuilder;
 use Illuminate\Contracts\Support\Responsable;
+use Illuminate\Support\Facades\Auth;
 
 class AppState implements Responsable
 {
@@ -18,7 +20,7 @@ class AppState implements Responsable
         return [
             'i18n' => $this->translations($request),
             'menu' => $this->menu($request),
-            'meta' => [],
+            'meta' => $this->meta($request),
         ];
     }
 
@@ -30,9 +32,23 @@ class AppState implements Responsable
      */
     private function menu($request)
     {
-        $menu = config('enraiged.menu');
+        $menu = Auth::check()
+            ? config('enraiged.menu.auth')
+            : config('enraiged.menu.guest');
 
         return (new MenuBuilder($menu))
+            ->handle($request);
+    }
+
+    /**
+     *  Build and return the application metadata.
+     *
+     *  @param  \Illuminate\Http\Request  $request
+     *  @return array
+     */
+    private function meta($request)
+    {
+        return (new MetaBuilder())
             ->handle($request);
     }
 

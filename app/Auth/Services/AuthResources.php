@@ -25,6 +25,6 @@ class AuthResources
             ];
         }
 
-        return null;
+        return false;
     }
 }
