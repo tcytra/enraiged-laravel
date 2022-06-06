@@ -13,7 +13,6 @@
         "show": {
             "class": "p-button-primary",
             "icon": "pi pi-eye",
-            "method": "emit",
             "tooltip": "Show account",
             "type": "row"
         },

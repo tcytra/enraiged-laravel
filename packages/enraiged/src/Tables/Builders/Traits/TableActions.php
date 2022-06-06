@@ -33,17 +33,22 @@ trait TableActions
 
         foreach ($this->actions as $action => $parameters) {
             if (key_exists('type', $parameters) && $parameters['type'] === 'row') {
-                $resource_route = "{$prefix}.{$action}";
+                if (key_exists('method', $parameters) && $parameters['method'] === 'emit') {
+                    $parameters['permission'] = true;
 
-                if (Route::has($resource_route)) {
-                    $parameters['permission'] = $this->user->can($action, $resource);
+                } else {
+                    $resource_route = "{$prefix}.{$action}";
 
-                    if (!key_exists('uri', $parameters) && $parameters['permission']) {
-                        $parameters['uri'] = route(
-                            $resource_route,
-                            $resource->{$this->key},
-                            config('enraiged.tables.absolute_uris')
-                        );
+                    if (Route::has($resource_route)) {
+                        $parameters['permission'] = $this->user->can($action, $resource);
+
+                        if (!key_exists('uri', $parameters) && $parameters['permission']) {
+                            $parameters['uri'] = route(
+                                $resource_route,
+                                $resource->{$this->key},
+                                config('enraiged.tables.absolute_uris')
+                            );
+                        }
                     }
                 }
 

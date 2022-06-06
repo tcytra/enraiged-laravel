@@ -110,7 +110,7 @@ export default {
         tooltip: PrimevueTooltip,
     },
 
-    inject: ['i18n', 'isSuccess'],
+    inject: ['actionHandler', 'errorHandler', 'i18n', 'isSuccess'],
 
     props: {
         pageReportTemplate: {
@@ -194,7 +194,7 @@ export default {
             this.loading = true;
             return this.axios.get(this.template.uri, { params: this.params() })
                 .then(response => this.fetched(response))
-                .catch(error => this.trap(error));
+                .catch(error => this.errorHandler(error));
         },
 
         action(name, button, props, confirmed) {
@@ -211,13 +211,11 @@ export default {
                     accept: () => this.action(name, button, props, true),
                 });
             } else {
-                const method = button.method || 'get';
-                if (!button.uri || method === 'emit') {
-                    this.$emit(name, { action: button, row: props });
-                } else if (button.uri.match(/\/api/)) {
+                if (button.uri && button.uri.match(/\/api/)) {
+                    const method = button.method || 'get';
                     this.api(button.uri, method);
                 } else {
-                    this.$inertia.visit(button.uri, { method, body: props });
+                    this.actionHandler(button, 'button:clicked');
                 }
             }
         },
@@ -232,10 +230,10 @@ export default {
                         this.flashSuccess(success);
                         this.fetch();
                     } else {
-                        this.trap(error);
+                        this.errorHandler(error);
                     }
                 })
-                .catch(error => this.trap(error));
+                .catch(error => this.errorHandler(error));
         },
 
         download() {
@@ -252,7 +250,7 @@ export default {
                             this.flashSuccess(data.success);
                         }
                     })
-                    .catch(error => this.trap(error));
+                    .catch(error => this.errorHandler(error));
             }
         },
 
@@ -266,7 +264,7 @@ export default {
                 this.search = search;
                 this.pagination = pagination;
             } else {
-                this.trap(response);
+                this.errorHandler(response);
             }
         },
 
@@ -310,10 +308,6 @@ export default {
             this.pagination.dir = event.sortOrder;
             this.pagination.sort = event.sortField;
             this.fetch();
-        },
-
-        trap(error) {
-            // console.log(error); // todo: error handler
         },
     },
 

@@ -30,6 +30,22 @@ export default {
     },
 
     methods: {
+        actionHandler(action, name) {
+            if (typeof action === 'string') {
+                this.$inertia.get(action);
+            } else if (typeof action.uri !== 'undefined') {
+                const method = action.method || 'get';
+                this.$inertia[method](action.uri);
+            } else {
+                const actionName = name || 'action';
+                this.$emit(actionName);
+            }
+        },
+
+        errorHandler(error) {
+            console.log(error);
+        },
+
         eventsAttach() {
             window.addEventListener('resize', this.resizeDocument);
         },
@@ -38,18 +54,20 @@ export default {
             window.removeEventListener('resize', this.resizeDocument);
         },
 
-        resizeDocument() {
-            this.clientWidth = document.documentElement.clientWidth;
-        },
-
         isSuccess(status) {
             return status >= 200 && status < 300;
+        },
+
+        resizeDocument() {
+            this.clientWidth = document.documentElement.clientWidth;
         },
     },
 
     provide() {
         return {
+            actionHandler: this.actionHandler,
             clientSize: this.clientSize,
+            errorHandler: this.errorHandler,
             i18n: this.$t,
             isSuccess: this.isSuccess,
         };

@@ -38,7 +38,7 @@ export default {
         tooltip: PrimevueTooltip,
     },
 
-    inject: ['i18n'],
+    inject: ['actionHandler', 'i18n'],
 
     props: {
         action: {
@@ -104,16 +104,12 @@ export default {
 
     methods: {
         clicked() {
+            const event = 'avatar:clicked';
             if (this.action) {
-                if (typeof this.action === 'object') {
-                    const method = this.action.method || 'get';
-                    const uri = this.action.uri;
-                    this.$inertia[method](this.action.uri);
-                } else if (typeof this.action === 'string') {
-                    this.$inertia.get(this.action);
-                }
+                this.actionHandler(this.action, event);
+            } else {
+                this.$emit(event);
             }
-            this.$emit('avatar:clicked');
         },
     }
 };    
