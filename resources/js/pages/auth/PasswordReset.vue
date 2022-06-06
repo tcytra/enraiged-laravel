@@ -1,9 +1,6 @@
 <template>
-    <Head title="Register" />
     <div class="login panel">
-        <header class="header text-center">
-            <h1>Reset Password</h1>
-        </header>
+        <page-header title="Reset Password"/>
         <div class="body" v-if="success">
             <div class="container flex-column">
                 <p class="text text-center text-xl">Your password has been reset.</p>
@@ -41,9 +38,10 @@
 </template>
 
 <script>
-import { toRefs } from 'vue';
-import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
+// import { toRefs } from 'vue';
+import { Link, useForm } from '@inertiajs/inertia-vue3';
 import AppLayout from '@/layouts/App.vue';
+import PageHeader from '@/components/ui/pages/PageHeader.vue';
 import PrimevueButton from 'primevue/button';
 import VuePasswordField from '@/components/forms/fields/PasswordField.vue';
 import VueTextField from '@/components/forms/fields/TextField.vue';
@@ -53,8 +51,8 @@ export default {
 
     components: {
         AppLayout,
-        Head,
         Link,
+        PageHeader,
         PrimevueButton,
         VuePasswordField,
         VueTextField,

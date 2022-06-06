@@ -1,9 +1,6 @@
 <template>
-    <Head title="Forgot Password" />
     <div class="forgot panel">
-        <header class="header text-center">
-            <h1>Forgot Password</h1>
-        </header>
+        <page-header title="Forgot Password"/>
         <div class="body" v-if="success">
             <div class="container flex-column">
                 <p class="text text-center text-xl">An email has been sent to your address.</p>
@@ -31,8 +28,9 @@
 </template>
 
 <script>
-import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
+import { Link, useForm } from '@inertiajs/inertia-vue3';
 import AppLayout from '@/layouts/App.vue';
+import PageHeader from '@/components/ui/pages/PageHeader.vue';
 import PrimevueButton from 'primevue/button';
 import VueTextField from '@/components/forms/fields/TextField.vue';
 
@@ -41,8 +39,8 @@ export default {
 
     components: {
         AppLayout,
-        Head,
         Link,
+        PageHeader,
         PrimevueButton,
         VueTextField,
     },

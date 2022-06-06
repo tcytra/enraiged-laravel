@@ -1,6 +1,6 @@
 <template>
-    <Head title="Confirm Password" />
     <main class="main content">
+        <page-header title="Confirm Password"/>
         <div class="container p-3 flex align-items-center justify-content-center">
             <primevue-panel class="col-12 md:col-10 lg:col-8 confirm password"
                 :header="i18n('Confirm Password')">
@@ -31,8 +31,9 @@
 </template>
 
 <script>
+import { useForm } from '@inertiajs/inertia-vue3'
 import AppLayout from '@/layouts/App.vue';
-import { Head, useForm } from '@inertiajs/inertia-vue3'
+import PageHeader from '@/components/ui/pages/PageHeader.vue';
 import PrimevueButton from 'primevue/button';
 import PrimevuePanel from 'primevue/panel';
 import VuePasswordField from '@/components/forms/fields/PasswordField.vue';
@@ -41,7 +42,7 @@ export default {
     layout: AppLayout,
 
     components: {
-        Head,
+        PageHeader,
         PrimevueButton,
         PrimevuePanel,
         VuePasswordField,

@@ -1,9 +1,6 @@
 <template>
-    <Head title="Register" />
     <div class="login panel">
-        <header class="header text-center">
-            <h1>Register</h1>
-        </header>
+        <page-header title="Register Account"/>
         <div class="body" v-if="success">
             <div class="container flex-column">
                 <p class="text text-center text-xl">Your email address must be verified.</p>
@@ -44,8 +41,9 @@
 </template>
 
 <script>
-import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
+import { Link, useForm } from '@inertiajs/inertia-vue3';
 import AppLayout from '@/layouts/App.vue';
+import PageHeader from '@/components/ui/pages/PageHeader.vue';
 import PrimevueButton from 'primevue/button';
 import VuePasswordField from '@/components/forms/fields/PasswordField.vue';
 import VueSwitchField from '@/components/forms/fields/SwitchField.vue';
@@ -55,8 +53,8 @@ export default {
     layout: AppLayout,
 
     components: {
-        Head,
         Link,
+        PageHeader,
         PrimevueButton,
         VuePasswordField,
         VueSwitchField,

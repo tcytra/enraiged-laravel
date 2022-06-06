@@ -1,9 +1,6 @@
 <template>
-    <Head title="Login" />
     <div class="login panel">
-        <header class="header text-center">
-            <h1>Login</h1>
-        </header>
+        <page-header title="Account Login"/>
         <div class="body">
             <form class="form relative" @submit.prevent="submit">
                 <vue-text-field class="email" id="email" is-large
@@ -21,7 +18,7 @@
             <div class="submit container flex-row-reverse">
                 <primevue-button label="Login" class="p-button-secondary" @click="submit" />
                 <div class="flex">
-                    <span v-if="$page.props.meta.allow_registration">
+                    <span v-if="appMeta.allow_registration">
                         <Link href="/register">
                             <span>Register</span>
                         </Link>
@@ -39,8 +36,9 @@
 </template>
 
 <script>
-import { Head, Link, useForm } from '@inertiajs/inertia-vue3';
+import { Link, useForm } from '@inertiajs/inertia-vue3';
 import AppLayout from '@/layouts/App.vue';
+import PageHeader from '@/components/ui/pages/PageHeader.vue';
 import PrimevueButton from 'primevue/button';
 import VuePasswordField from '@/components/forms/fields/PasswordField.vue';
 import VueSwitchField from '@/components/forms/fields/SwitchField.vue';
@@ -50,13 +48,15 @@ export default {
     layout: AppLayout,
 
     components: {
-        Head,
         Link,
+        PageHeader,
         PrimevueButton,
         VuePasswordField,
         VueSwitchField,
         VueTextField,
     },
+
+    inject: ['appMeta'],
 
     props: {
         form: {
