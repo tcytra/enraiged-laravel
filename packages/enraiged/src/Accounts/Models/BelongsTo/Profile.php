@@ -1,6 +1,6 @@
 <?php
 
-namespace Enraiged\Accounts\Models\HasOne;
+namespace Enraiged\Accounts\Models\BelongsTo;
 
 use Enraiged\Profiles\Models\Profile as ProfileModel;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

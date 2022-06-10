@@ -1,6 +1,6 @@
 <?php
 
-namespace Enraiged\Accounts\Models\BelongsTo;
+namespace Enraiged\Accounts\Models\HasOne;
 
 use App\Auth\User as UserModel;
 use Illuminate\Database\Eloquent\Relations\HasOne;

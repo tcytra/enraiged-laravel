@@ -12,9 +12,9 @@ class Account extends Model
 {
     use Attributes\IsAdministrator,
         Attributes\IsMyself,
-        BelongsTo\User,
+        BelongsTo\Profile,
         HasMany\Files,
-        HasOne\Profile,
+        HasOne\User,
         Traits\HasFactory,
         CreatedBy, IsProtected, ManagesPassword, SoftDeletes;
 
