@@ -30,6 +30,7 @@ trait TableActions
     {
         $actions = [];
         $prefix = trim($this->prefix, '.');
+        $routes = Route::getRoutes();
 
         foreach ($this->actions as $action => $parameters) {
             if (key_exists('type', $parameters) && $parameters['type'] === 'row') {
@@ -39,7 +40,7 @@ trait TableActions
                 } else {
                     $resource_route = "{$prefix}.{$action}";
 
-                    if (Route::has($resource_route)) {
+                    if ($routes->hasNamedRoute($resource_route)) {
                         $parameters['permission'] = $this->user->can($action, $resource);
 
                         if (!key_exists('uri', $parameters) && $parameters['permission']) {
@@ -48,6 +49,16 @@ trait TableActions
                                 $resource->{$this->key},
                                 config('enraiged.tables.absolute_uris')
                             );
+
+                            if (!key_exists('method', $parameters)) {
+                                $resource_method = $routes
+                                    ->getByName($resource_route)
+                                    ->methods[0];
+
+                                if ($resource_method !== 'GET') {
+                                    $parameters['method'] = strtolower($resource_method);
+                                }
+                            }
                         }
                     }
                 }

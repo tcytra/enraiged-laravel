@@ -110,7 +110,7 @@ export default {
         tooltip: PrimevueTooltip,
     },
 
-    inject: ['actionHandler', 'errorHandler', 'i18n', 'isSuccess'],
+    inject: ['actionHandler', 'appMeta', 'errorHandler', 'i18n', 'isSuccess'],
 
     props: {
         pageReportTemplate: {
@@ -213,7 +213,7 @@ export default {
             } else {
                 if (button.uri && button.uri.match(/\/api/)) {
                     const method = button.method || 'get';
-                    this.api(button.uri, method);
+                    this.api(button.uri, method.toLowerCase());
                 } else {
                     this.actionHandler(button, 'button:clicked');
                 }
@@ -221,7 +221,6 @@ export default {
         },
 
         api(uri, method) {
-            const { meta } = this.$page.props;
             this.axios.request({ method, url: uri })
                 .then((response) => {
                     const { data, status } = response;

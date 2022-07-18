@@ -16,8 +16,7 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn(['email_verified_at', 'name']);
 
-            $table->bigInteger('agreement_id')->unsigned()->nullable()->index()->after('id');
-            $table->bigInteger('profile_id')->unsigned()->nullable()->index()->after('agreement_id');
+            $table->bigInteger('profile_id')->unsigned()->nullable()->index()->after('id');
             $table->bigInteger('role_id')->unsigned()->nullable()->index()->after('profile_id');
             $table->string('username')->nullable()->unique()->after('email');
             $table->string('dateformat', 16)->nullable()->after('remember_token');
@@ -26,7 +25,6 @@ return new class extends Migration
             $table->date('birthdate')->nullable()->after('language');
             $table->boolean('hide_birthyear')->default(false)->after('birthdate');
             $table->boolean('military_time')->default(false)->after('hide_birthyear');
-            $table->timestamp('agreed_at')->nullable()->after('military_time');
             $table->timestamp('deleted_at')->nullable()->after('created_at');
             $table->timestamp('verified_at')->nullable()->after('updated_at');
             $table->bigInteger('created_by')->unsigned()->nullable();
@@ -36,7 +34,6 @@ return new class extends Migration
             $table->boolean('is_hidden')->default(false);
             $table->boolean('is_protected')->default(false);
 
-            $table->foreign('agreement_id')->references('id')->on('agreements');
             $table->foreign('profile_id')->references('id')->on('users');
             $table->foreign('role_id')->references('id')->on('roles');
             $table->foreign('created_by')->references('id')->on('users');
@@ -55,8 +52,8 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn([
                 'profile_id', 'role_id', 'username', 'dateformat', 'timezone', 'language', 'birthdate',
-                'hide_birthyear', 'military_time', 'agreement_version', 'agreed_at', 'deleted_at', 'verified_at',
-                'created_by', 'deleted_by', 'updated_by', 'is_active', 'is_hidden', 'is_protected',
+                'hide_birthyear', 'military_time', 'deleted_at', 'verified_at', 'created_by', 'deleted_by',
+                'updated_by', 'is_active', 'is_hidden', 'is_protected',
             ]);
             $table->timestamp('email_verified_at')->nullable()->after('email');
         });

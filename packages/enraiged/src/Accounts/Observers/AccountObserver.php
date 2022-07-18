@@ -20,6 +20,21 @@ class AccountObserver
         if (config('enraiged.notifications.account_introduction')) {
             $account->user->notify(new AccountIntroduction());
         }
+
+        $require_agreement = $account->user->must_agree_to_terms === true
+            && $account->user->has_agreed_to_terms === false;
+
+        if ($require_agreement) {
+            $config = config('enraiged.auth.must_agree_to_terms');
+
+            $automatic_agreements = gettype($config) === 'array'
+                && key_exists('automatic_agreements', $config)
+                && $config['automatic_agreements'] === true;
+
+            if ($automatic_agreements) {
+                $account->user->acceptAgreements();
+            }
+        }
     }
 
     /**
@@ -35,9 +50,11 @@ class AccountObserver
 
         $updater = request()->user();
 
-        if ($changed->count()
+        $login_change_notification = $changed->count()
             && (!$updater || $updater->role->isNot(Roles::Administrator))
-            && config('enraiged.notifications.account_login_change')) {
+            && config('enraiged.notifications.account_login_change');
+
+        if ($login_change_notification) {
             $account->user->notify(new AccountLoginChange());
         }
     }

@@ -21,7 +21,11 @@ class TableBuilder
      */
     public function data(): array
     {
-        $this->build($this->model::query())
+        $query = method_exists($this, 'query')
+            ? $this->query()
+            : $this->model::query();
+
+        $this->build($query)
             ->sort()
             ->filter()
             ->search()

@@ -63,6 +63,16 @@ class AccountPolicy
 
     /**
      *  @param  \App\Auth\User  $user
+     *  @param  \Enraiged\Accounts\Models\Account  $account
+     *  @return bool
+     */
+    public function impersonate(User $user, Account $account)
+    {
+        return $user->canImpersonate($account->user);
+    }
+
+    /**
+     *  @param  \App\Auth\User  $user
      *  @return bool
      */
     public function index(User $user)

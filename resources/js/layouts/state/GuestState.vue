@@ -1,5 +1,5 @@
 <template>
-    <core-state>
+    <core-state :api="uri">
         <template v-slot:default="{ appReady }">
             <div class="guest layout" v-if="appReady">
                 <div class="container bg-bluegray-800">
@@ -17,5 +17,9 @@ export default {
     components: {
         CoreState,
     },
+
+    data: () => ({
+        uri: '/api/guest/state',
+    }),
 };
 </script>

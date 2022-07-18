@@ -21,8 +21,7 @@
                 <vue-password-field id="password_confirmation" is-large
                     :field="{ placeholder: 'Confirm Password', required: true }"
                     :form="form"/>
-                <vue-switch-field id="agree"
-                    :field="{ label: 'I agree to check the box', required: true }"
+                <agreement-switch-field id="agree"
                     :form="form"/>
             </form>
         </div>
@@ -46,8 +45,8 @@ import AppLayout from '@/layouts/App.vue';
 import PageHeader from '@/components/ui/pages/PageHeader.vue';
 import PrimevueButton from 'primevue/button';
 import VuePasswordField from '@/components/forms/fields/PasswordField.vue';
-import VueSwitchField from '@/components/forms/fields/SwitchField.vue';
 import VueTextField from '@/components/forms/fields/TextField.vue';
+import AgreementSwitchField from '@/components/accounts/forms/fields/AgreementSwitchField.vue';
 
 export default {
     layout: AppLayout,
@@ -57,8 +56,8 @@ export default {
         PageHeader,
         PrimevueButton,
         VuePasswordField,
-        VueSwitchField,
         VueTextField,
+        AgreementSwitchField,
     },
 
     props: {

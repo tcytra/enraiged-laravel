@@ -18,6 +18,9 @@ export default {
     },
 
     computed: {
+        disabled() {
+            return this.field.disabled || false;
+        },
         error() {
             return this.form ? this.form.errors[this.id] : null;
         },
@@ -45,6 +48,7 @@ export default {
 
     render() {
         return this.$slots.default({
+            disabled: this.disabled,
             error: this.error,
             form: this.form,
             label: this.label ? this.i18n(this.label) : null,

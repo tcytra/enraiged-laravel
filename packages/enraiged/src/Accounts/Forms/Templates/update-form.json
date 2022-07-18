@@ -55,12 +55,18 @@
                 },
                 "first_name": {
                     "data": "profile.first_name",
+                    "disabled": {
+                        "attribute": "user.disable_name_change"
+                    },
                     "label": "First Name",
                     "placeholder": "Required",
                     "required": true
                 },
                 "last_name": {
                     "data": "profile.last_name",
+                    "disabled": {
+                        "attribute": "user.disable_name_change"
+                    },
                     "label": "Last Name",
                     "placeholder": "Required",
                     "required": true

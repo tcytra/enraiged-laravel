@@ -1,5 +1,5 @@
 <template>
-    <vue-form-field v-slot:default="{ error, label, placeholder, update }"
+    <vue-form-field v-slot:default="{ disabled, error, label, placeholder, update }"
         :field="field"
         :form="form"
         :id="id">
@@ -11,6 +11,7 @@
                 <primevue-input focus class="p-inputtext" type="text" ref="field"
                     v-model="model"
                     :class="{ 'p-inputtext-lg': isLarge, 'p-inputtext-sm': isSmall, 'p-invalid': error }"
+                    :disabled="disabled"
                     :id="id"
                     :placeholder="placeholder"
                     :type="text"

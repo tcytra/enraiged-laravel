@@ -3,7 +3,7 @@
 namespace Enraiged\Profiles\Models;
 
 use Enraiged\Profiles\Traits\HasAvatar;
-use Enraiged\Support\Traits\CreatedBy;
+use Enraiged\Support\Traits\UserTracking;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -13,7 +13,7 @@ class Profile extends Model
         Attributes\Name,
         HasOne\Account,
         Traits\HasFactory,
-        CreatedBy, HasAvatar, SoftDeletes;
+        HasAvatar, SoftDeletes, UserTracking;
 
     /** @var  string  The database table name. */
     protected $table = 'profiles';
@@ -23,4 +23,11 @@ class Profile extends Model
 
     /** @var  array  The attributes that should be hidden for serialization. */
     protected $hidden = [];
+
+    /** @var  array  The attributes that should be cast. */
+    protected $casts = [
+        'created_at' => 'datetime',
+        'deleted_at' => 'datetime',
+        'updated_at' => 'datetime',
+    ];
 }

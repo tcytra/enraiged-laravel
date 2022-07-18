@@ -25,10 +25,11 @@ class Edit extends Controller
         $this->authorize('edit', $account);
 
         $request = EditRequest::createFrom($request);
+        $builder = $request->form()->edit($account, 'accounts.settings.update');
 
         return inertia('accounts/settings/Edit', [
             'account' => AccountResource::from($account),
-            'builder' => $request->form()->edit($account),
+            'builder' => $builder->template(),
         ]);
     }
 }

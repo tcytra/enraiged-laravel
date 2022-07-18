@@ -10,8 +10,12 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use Traits\BelongsTo\Account,
+    use Traits\Attributes\AllowImpersonation,
+        Traits\Attributes\AllowNameChange,
+        Traits\Attributes\MustAgreeToTerms,
+        Traits\BelongsTo\Account,
         Traits\BelongsTo\Role,
+        Traits\BelongsToMany\Agreements,
         Traits\HasMany\IpAddresses,
         Traits\Scopes,
         Traits\ManagesPassword,
@@ -22,7 +26,7 @@ class User extends Authenticatable
 
     /** @var  array  The attributes that aren't mass assignable. */
     protected $guarded = [
-        'agreed_at', 'id', 'remember_token', 'verified_at',
+        'id', 'remember_token', 'verified_at',
     ];
 
     /** @var  array  The attributes that should be hidden for serialization. */
@@ -32,10 +36,6 @@ class User extends Authenticatable
 
     /** @var  array  The attributes that should be cast. */
     protected $casts = [
-        'agreed_at' => 'datetime',
-        'created_at' => 'datetime',
-        'deleted_at' => 'datetime',
-        'updated_at' => 'datetime',
         'verified_at' => 'datetime',
         'is_active' => 'boolean',
         'is_hidden' => 'boolean',

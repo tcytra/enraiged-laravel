@@ -49,11 +49,11 @@ class Show extends Controller
     {
         $messages = [];
 
-        if ($this->account->isMyself()) {
+        if ($this->account->is_myself) {
             array_push($messages, message('These are your private account details.'));
         } else
 
-        if ($this->user->account->isAdministrator()) {
+        if ($this->user->account->is_administrator) {
             array_push($messages, message('You are viewing this account dashboard as an administrator.', 'warn'));
         }
 

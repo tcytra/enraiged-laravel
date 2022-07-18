@@ -25,12 +25,11 @@ class Edit extends Controller
         $this->authorize('edit', $account); // todo: authorize profile, not account
 
         $request = EditRequest::createFrom($request);
-
-        $template = $request->form()->edit($account);
+        $builder = $request->form()->edit($account, 'accounts.profile.update');
 
         return inertia('accounts/profiles/Edit', [
             'account' => AccountResource::from($account),
-            'builder' => $template,
+            'builder' => $builder->template(),
             'messages' => [
                 message('These are your default profile details. This information is visible only to you and the application administrators.')
             ],

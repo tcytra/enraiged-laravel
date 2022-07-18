@@ -62,9 +62,9 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => true // todo?
-                ? App\Auth\User::class
-                : App\Auth\VerifiedUser::class,
+            'model' => env('MUST_VERIFY_EMAIL')
+                ? App\Auth\VerifiedUser::class
+                : App\Auth\User::class,
         ],
 
         // 'users' => [

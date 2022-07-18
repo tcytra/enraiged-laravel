@@ -6,10 +6,18 @@ export default {
 
     inject: ['clientSize', 'isSuccess'],
 
+    props: {
+        api: {
+            type: String,
+            required: true,
+        },
+    },
+
     data: () => ({
         appMenu: null,
         appMeta: null,
         appReady: false,
+        appUser: null,
         authMenuOpen: false,
         mainMenuOpen: null,
     }),
@@ -70,16 +78,19 @@ export default {
         },
 
         initState() {
-            this.axios.get('/api/app/state')
+            this.axios.get(this.api)
                 .then(response => this.fetched(response));
         },
 
         fetched(response) {
             const { status, data } = response;
             if (this.isSuccess(status)) {
-                const { i18n, menu, meta } = data;
-                const auth = this.$page.props.auth;
-                const lang = auth ? auth.user.language : meta.language;
+                const { auth, i18n, menu, meta } = data;
+                let lang = meta.language;
+                if (auth) {
+                    lang = auth.user.language;
+                    this.setUser(auth.user);
+                }
                 this.$root.$i18n.locale = lang;
                 this.$root.$i18n.setLocaleMessage(lang, i18n[lang]);
                 Object.keys(menu).forEach(key => {
@@ -97,6 +108,16 @@ export default {
                 this.appMeta = meta;
                 this.appReady = true;
             }
+        },
+
+        setUser(user) {
+            this.appUser = user;
+        },
+
+        stopImpersonating() {
+            this.$inertia.get('/accounts/impersonate/stop');
+            // this.axios.request({ method: 'get', url: '/accounts/impersonate/stop' })
+            // .then(() => this.initState());
         },
 
         toggleAuth() {
@@ -119,15 +140,16 @@ export default {
         return {
             appMenu: computed(() => this.appMenu),
             appMeta: computed(() => this.appMeta),
-            authUser: this.$page.props.auth ? this.$page.props.auth.user : null,
             closeAllPanels: this.closeAll,
             closeAuthPanel: this.closeAuth,
             closeMainPanel: this.closeMenu,
             isMobile: computed(() => this.isMobile),
             isTablet: computed(() => this.isTablet),
             loadAppState: this.loadAppState,
+            stopImpersonating: this.stopImpersonating,
             toggleAuthPanel: this.toggleAuth,
             toggleMainPanel: this.toggleMenu,
+            user: computed(() => this.appUser),
         };
     },
 
@@ -135,11 +157,26 @@ export default {
         return this.$slots.default({
             appClasses: [this.clientClass, this.menuClass],
             appReady: this.appReady,
+            appUser: this.appUser,
             closeAuth: this.closeAuth,
             closeMenu: this.closeMenu,
             toggleAuth: this.toggleAuth,
             toggleMenu: this.toggleMenu,
         });
+    },
+
+    watch: {
+        '$page.props.flash': {
+            handler() {
+                const flash = this.$page.props.flash;
+                switch (flash.status) {
+                    case 205:
+                        this.initState();
+                        break;
+                }
+            },
+            deep: true,
+        },
     },
 };
 </script>

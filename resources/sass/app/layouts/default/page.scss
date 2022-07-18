@@ -83,6 +83,12 @@
                 &:hover {
                   background-color: var(--bluegray-300);
                 }
+                &.impersonating {
+                  background-color: $color-warning;
+                    &:hover {
+                      background-color: darken($color-warning, 10%);
+                    }
+                }
             }
 
             &:last-child {

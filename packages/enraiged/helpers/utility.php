@@ -149,6 +149,34 @@ if (!function_exists('number')) {
     }
 }
 
+if (!function_exists('resolve_object_path')) {
+    /**
+     *  Evaluate a dot.notation string against an object to return a callable child object configuration.
+     *
+     *  @param  string  $value
+     *  @param  object  $object
+     *  @param  bool    $camel
+     *  @return array
+     */
+    function resolve_object_path($value, $object, $camel = true)
+    {
+        $pieces = array_reverse(explode('.', $value));
+        $call = array_shift($pieces);
+
+        foreach ($pieces as $each) {
+            $path = $camel ? Str::camel($each) : $each;
+
+            if ($object->{$path}) {
+                $object = $object->{$path};
+            }
+        }
+
+        return $camel
+            ? [Str::camel($call), $object]
+            : [$call, $object];
+    }
+}
+
 if (!function_exists('rgbfromcolorindex')) {
     /**
      *  Return an array containg the RGB values from the provided color index.

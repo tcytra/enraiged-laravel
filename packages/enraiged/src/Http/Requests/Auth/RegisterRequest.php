@@ -3,6 +3,7 @@
 namespace Enraiged\Http\Requests\Auth;
 
 use App\Auth\Traits\Validators\PasswordValidator;
+use App\Auth\User;
 use Enraiged\Accounts\Models\Account;
 use Enraiged\Accounts\Forms\Validation\Messages as ValidationMessages;
 use Enraiged\Accounts\Forms\Validation\Rules as ValidationRules;
@@ -27,6 +28,16 @@ class RegisterRequest extends FormRequest
     }
 
     /**
+     *  Return boolean true if the user has agreed.
+     *
+     *  @return bool
+     */
+    public function agreed(): bool
+    {
+        return $this->get('agree') === true;
+    }
+
+    /**
      *  Determine if the user is authorized to make this request.
      *
      *  @return bool
@@ -44,6 +55,11 @@ class RegisterRequest extends FormRequest
     public function handle(): void
     {
         $this->account = CreateAccount::from($this->validated());
+        $user = $this->account->user;
+
+        if ($user->mustAgreeToTerms && !$user->hasAgreedToTerms) {
+            $user->acceptAgreements();
+        }
     }
 
     /**
@@ -53,16 +69,14 @@ class RegisterRequest extends FormRequest
      */
     public function rules()
     {
-        $rules = [
-            'agree' => 'required|boolean',
-            'name' => 'required',
-            'password' => 'required|confirmed',
-        ];
-
-        return collect($this->rules)
+        $rules = collect($this->rules)
             ->except(['birthday', 'first_name', 'gender', 'last_name', 'salut', 'timezone', 'title'])
-            ->merge($rules)
-            ->toArray();
+            ->merge(['name' => 'required'])
+            ->merge(['password' => 'required|confirmed']);
+
+        return (new User)->mustAgreeToTerms
+            ? $rules->merge(['agree' => 'required|boolean'])->toArray()
+            : $rules->toArray();
     }
 
     /**
@@ -77,4 +91,21 @@ class RegisterRequest extends FormRequest
             ? parent::user()
             : $this->account->user;
     }
+
+    /**
+     *  Validate that the user has agreed to required terms.
+     *
+     *  @param  \Illuminate\Support\Facades\Validator  $validator
+     *  @return void
+     */
+    public function withValidator($validator)
+	{
+        if ((new User)->mustAgreeToTerms) {
+            $validator->after(function ($validator) {
+                if (!$this->agreed()) {
+                    $validator->errors()->add('agree', $this->messages['agree.required']);
+                }
+            });
+        }
+	}
 }

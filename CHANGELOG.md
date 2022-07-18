@@ -1,22 +1,53 @@
 # Project History
 
 Todo:
-- Addresses, Agreements, Contacts, Impersonation, Networks
-- Auth options to prevent changing account primary login,profile name
-  - (req permission, issue token)
+- Add remaining form fields (port from primevue)
+- Addresses, Contacts, Impersonation, Networks
 - Complex table searching
 - Custom table filters
 - Data Import (from model index page)
 - Page exporter (ie. account details) (pdf, xls?, txt?)
 - Geo, Geo Social
+- Minimize menu preference?
 - Model Activity History
+- Move Auth Services into the Enraiged namespace
 - New account creates registered list of site 'helps' (dismissable)
 - Split VueTable component into reusable parts
 - Test cases and documentation
 - There is code common to the {Form,Table}Builder(s)
   - Implement parent RequestBuilder class?
+- User configurable notifications system
+- Username availability check
+- Vendor role
 
-! Correct javascript error when click avatar in accounts table
+! Correct avatar character centering in mobile browser
+! Correct vue warning when selecting dropdown value (unknown cause, works anyway)
+
+---
+
+2022-07-18 : 0.0.15  
+Update: Added auth config options; various corrections,improvements
+
+This update provides additional auth configuration options, and
+improvements to the form and menu handling. This update also corrects
+some nagging issues and reorganizes the App,State components for
+improved hierachy and begins the removal of vue state handling.
+
+- Added 'allow_impersonation' configuration option and intitial system
+- Added 'allow_name_change' configuration option and intitial system
+- Added 'must_agree_to_terms' configuration option and intitial system
+- Added 503 (artisan down) blade template
+- Added ability to define 'auth' and 'guest' menus, or default for all
+- Added ability to detect route method from name in the table actions
+- Added ability to disable form fields from the configuration template
+- Added injectable {action,error}Handler methods to the AppCore
+- Adjustments to the App,State components:
+  - Renamed AppState to AuthState
+  - GuestState now also leverages CoreState; retrieve state from api
+  - Removed use,meta objects from InertiaRequest, provide with state
+- Corrected issue when clicking Accounts Index avatar
+- Corrected various minor ui/ux issues with the main panel menu
+- Simplfied call to form builder create,edit methods from controllers
 
 ---
 

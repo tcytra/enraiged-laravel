@@ -18,6 +18,6 @@ class Prompt extends Controller
     {
         return $request->user()->hasVerifiedEmail()
             ? redirect()->intended(RouteServiceProvider::HOME)
-            : intertia('auth/VerifyEmail');
+            : inertia('auth/VerifyEmail');
     }
 }

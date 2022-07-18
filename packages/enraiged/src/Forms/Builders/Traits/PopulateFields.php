@@ -3,7 +3,6 @@
 namespace Enraiged\Forms\Builders\Traits;
 
 use Illuminate\Database\Eloquent\Model;
-use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 
 trait PopulateFields
 {
@@ -16,43 +15,78 @@ trait PopulateFields
     /**
      *  Populate the form fields with the model data.
      *
-     *  @param  \Illuminate\Database\Eloquent\Model  $model = null
+     *  @param  \Illuminate\Database\Eloquent\Model  $model
+     *  @param  array   $resource
      *  @return self
-     *
-     *  @throws \Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException
      */
-    public function populate($model = null)
+    protected function populate($model, $resource)
     {
-        if ($model instanceof Model) {
-            $this->model = $model;
-        }
-
-        if (!$this->model instanceof Model) {
-            throw new UnprocessableEntityHttpException(
-                __('A model was not provided to populate the form with')
-            );
-        }
-
-        $this->populateFieldGroup($this->fields);
+        (object) $this
+            ->model($model)
+            ->resource($resource)
+            ->populateFieldGroup($this->fields);
 
         return $this;
+    }
+
+    /**
+     *  Determine the disabled state of a provided field.
+     *
+     *  @param  string  $name
+     *  @param  object  $object = null
+     *  @return void
+     */
+    protected function populateDisabledAttribute($name, $object = null)
+    {
+        $disabled = false;
+
+        $field = (object) ($object ?? $this->field($name));
+        $config = (object) $field->disabled;
+        $model = $this->model;
+
+        //  read the disabled state from the model attribute
+        if (property_exists($config, 'attribute')) {
+            [$attribute, $model] = resolve_object_path($config->attribute, $model);
+            $disabled = $model->{$attribute} === true;
+        } else
+
+        //  read the disabled state from the app config
+        if (property_exists($config, 'config')) {
+            $path = $config->config;
+            $disabled = config($path) === true;
+        } else
+
+        //  read the disabled state from the model method
+        if (property_exists($config, 'method')) {
+            [$method, $model] = resolve_object_path($config->method, $model);
+            $disabled = $model->{$method}() === true;
+        }
+
+        $this->field($name, ['disabled' => $disabled]);
     }
 
     /**
      *  Populate a specified field.
      *
      *  @param  string  $name
-     *  @param  object  $params = null
+     *  @param  object  $object = null
      *  @return void
      */
-    protected function populateField($name, $params = null)
+    protected function populateField($name, $object = null)
     {
-        $field = (object) ($params ?? $this->field($name));
+        $field = (object) ($object ?? $this->field($name));
 
+        //  handle the field disabled state, if necessary
+        if (property_exists($field, 'disabled') && gettype($field->disabled) !== 'bool') {
+            $this->populateDisabledAttribute($name, $field);
+        }
+
+        //  populate the select field options, if necessary
         if ($this->fieldType($name) === 'select') {
             $this->populateFieldOptions($name, $field);
         }
 
+        //  populate the model data
         if ($this->hasRelativeData($field)) {
             $attribute = substr($field->data, strrpos($field->data, '.') +1);
             $relationship = substr($field->data, 0, strrpos($field->data, '.'));
@@ -77,14 +111,13 @@ trait PopulateFields
             $value = $this->model->getAttribute($name);
         }
 
+        //  set default values for various field types
         if (is_null($value) && property_exists($field, 'default')) {
             $value = $field->default;
         }
-
         if (is_null($value) && $this->fieldType($name) === 'switch') {
             $value = false;
         }
-
         if ($this->fieldType($name) === 'password') {
             $value = null;
         }
@@ -121,12 +154,12 @@ trait PopulateFields
      *  Populate the options for a specified field.
      *
      *  @param  string  $name
-     *  @param  object  $params = null
+     *  @param  object  $object = null
      *  @return void
      */
-    protected function populateFieldOptions($name, $params = null)
+    protected function populateFieldOptions($name, $object = null)
     {
-        $field = (object) ($params ?? $this->field($name));
+        $field = (object) ($object ?? $this->field($name));
 
         $has_options = property_exists($field, 'options');
 

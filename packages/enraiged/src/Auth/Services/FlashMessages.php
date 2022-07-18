@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Auth\Services;
+namespace Enraiged\Auth\Services;
 
 use Illuminate\Http\Request;
 

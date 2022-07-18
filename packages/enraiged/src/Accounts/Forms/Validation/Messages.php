@@ -6,7 +6,7 @@ trait Messages
 {
     /** @var  array  The custom error messages for the validations. */
     protected $messages = [
-        'agree.required' => 'You must agree to check the little box.',
+        'agree.required' => 'Agreement is required for an active account.',
         'email.unique' => 'This email already exists in the system.',
         'password.current' => 'You cannot use the current password.',
         'password.history' => 'You cannot use a recent previous password.',

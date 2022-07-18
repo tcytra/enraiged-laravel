@@ -31,6 +31,10 @@ class AccountResource extends JsonResource
             'profile' => $this->profile(),
         ];
 
+        if ($request->session()->has('impersonate')) {
+            $resource['is_impersonating'] = true;
+        }
+
         if (count($this->actions) && $this->is_myself) {
             $resource['actions'] = $this->actions();
         }

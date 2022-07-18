@@ -19,6 +19,17 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
+        if (key_exists('administrator_role', config('enraiged.auth'))) {
+            $this->roles = collect($this->roles)
+                ->transform(function ($role) {
+                    if ($role['rank'] === 1) {
+                        $role['name'] = config('enraiged.auth.administrator_role');
+                    }
+                    return $role;
+                })
+                ->toArray();
+        }
+
         foreach ($this->roles as $each) {
             Role::create($each);
         }

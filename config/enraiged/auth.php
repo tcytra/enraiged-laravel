@@ -4,9 +4,100 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Allow Impersonation
+    |--------------------------------------------------------------------------
+    |
+    | You may define the name of the Administrator role by providing a string
+    | value for 'administrator_role'.
+    |
+    | The default value is 'Administrator'.
+    |
+    */
+
+    'administrator_role' => 'Administrator',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Allow Impersonation
+    |--------------------------------------------------------------------------
+    |
+    | You may allow or disallow the ability for certain roles to impersonate 
+    | accounts by providing a boolean true or false for 'allow_impersonation'.
+    |
+    | The default value is true and will default to allow the Administrator
+    | role as defined in 'administrator_role' above to impersonate anyone but
+    | another Administrator.
+    |
+    | More sophisticated application of this feature can be achieved by using
+    | the 'except_roles' or 'only_roles' definitions to select which roles are
+    | permitted to impersonate other users.
+    |
+    | Example:
+    |
+    | 'allow_impersonation' => [
+    |     'only_roles' => ['Administrator', 'Vendor'],
+    | ],
+    |
+    | You may allow or disallow the ability to impersonate an Administrator by
+    | providing a boolean value for 'impersonate_administrator'.
+    |
+    | The default value for 'impersonate_administrator' is false, this must be
+    | explicitly enabled in the configuration.
+    |
+    | You may allow or disallow the ability to impersonate a higher ranking
+    | role by providing a boolean value for 'elevated_roles'.
+    |
+    | The default value for 'elevated_roles' is false, this must be explicitly
+    | enabled in the configuration.
+    |
+    */
+
+    'allow_impersonation' => true,
+
+    /*
+    |--------------------------------------------------------------------------
     | Allow Account Registration
     |--------------------------------------------------------------------------
-    | 
+    |
+    | You may allow or disallow the ability for an account holder to change
+    | their name by providing a boolean true or false for 'allow_name_change'.
+    |
+    | The default value is true.
+    |
+    | More sophisticated application of this feature can be achieved by using
+    | the 'except_roles' or 'only_roles' definitions to select which roles are
+    | permitted to update their name. Single-item strings or multi-item arrays
+    | of role names can be provided as values.
+    |
+    | Example:
+    |
+    | 'allow_name_change' => [
+    |     'except_roles' => 'Member',
+    | ],
+    |
+    | Alternatively, specify roles in the 'ignore_roles' definition to ignore
+    | those roles and apply the next rule to the rest of the users.
+    |
+    | Provide a value for the 'until_expire' definition to apply a time limit
+    | from the creation of an account to allow a name change. This value can
+    | be any string accepted by php strtotime().
+    |
+    | Example:
+    |
+    | 'allow_name_change' => [
+    |     'ignore_roles' => 'Administrator',
+    |     'until_expire' => '-30 days',
+    | ],
+    |
+    */
+
+    // 'allow_name_change' => true,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Allow Account Registration
+    |--------------------------------------------------------------------------
+    |
     | You may allow or disallow account registration by providing a boolean
     | true or false for 'allow_registration'.
     |
@@ -20,7 +111,7 @@ return [
     |--------------------------------------------------------------------------
     | Allow Secondary Credential
     |--------------------------------------------------------------------------
-    | 
+    |
     | You may allow or disallow a secondary login credential by providing a
     | boolean true or false for 'allow_secondary_credential'. By default, the
     | second credential must be an email address unless 'allow_username_login'
@@ -57,7 +148,7 @@ return [
     | You may allow or disallow automatic post-registration login by providing
     | a boolean true or false for 'automated_logins'. Please note that if other
     | options such as 'must_agree_to_terms' or 'must_complete_account' are
-    | enabled, the login will complete, but the user will be directed to the
+    | enabled, the login will complete, but the user may be redirected to the
     | systems that enforce these policies.
     |
     | The default value is false.
@@ -70,7 +161,7 @@ return [
     |--------------------------------------------------------------------------
     | Force Lowest Role
     |--------------------------------------------------------------------------
-    | 
+    |
     | You may choose to enforce a policy that all accounts must have a role. If
     | you switch a production host from false to true, be aware that you will
     | need to assign a role to accounts to make them visible in the indexing.
@@ -83,6 +174,57 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Must Agree To Terms
+    |--------------------------------------------------------------------------
+    |
+    | You may force application users to agree to terms by providing a boolean
+    | true or false for 'must_agree_to_terms'.
+    |
+    | Setting this option true or false will enable or disable the ability to
+    | require agreement to any required terms.
+    |
+    | If true, all agreement types will be considered required by default.
+    |
+    | The default value is false.
+    |
+    | More sophisticated application of this feature can be achieved by using
+    | the 'except_roles' or 'only_roles' definitions to select which roles are
+    | required to agree. Single-item strings or multi-item arrays of role names
+    | can be provided as values.
+    |
+    | By default, all published agreement types are required for the matching
+    | roles, but the required agreements could also be defined by type using
+    | the 'required_terms' definition. Single-item strings or multi-item arrays
+    | of agreement types can be provided as values.
+    |
+    | Finally, the project may implement an 'eager-' or 'lazy-agreement'
+    | strategy of enforcing agreement requirement. If a definition exists for
+    | 'automatic_agreements', and if this definition is set true, an agreement
+    | history will be automatically created when a user is created. If this
+    | definition does not exist, or if it is set false, no automated agreements
+    | will occur.
+    |
+    | A working example could look like this:
+    |
+    | 'must_agree_to_terms' => [
+    |
+    |   //  implement automated 'lazy-agreement' strategy
+    |   'automatic_agreements' => true,
+    |
+    |   //  exempt higher roles from this requirement
+    |   'except_roles' => ['Administrator', 'Vendor'],
+    |
+    |   //  these agreement types will be required, if published
+    |   'required_terms' => ['EULA', 'TOS'],
+    |
+    | ],
+    |
+    */
+
+    // 'must_agree_to_terms' => false,
+
+    /*
+    |--------------------------------------------------------------------------
     | Must Verify Email
     |--------------------------------------------------------------------------
     |
@@ -91,6 +233,10 @@ return [
     | their account.
     |
     | The default value is false.
+    |
+    | Set this value in the .env file to force the auth.providers.users.model
+    | config to identify the \App\Auth\VerifiedUser class as the default User
+    | model, which implements the MustVerifyEmail contract.
     |
     */
 

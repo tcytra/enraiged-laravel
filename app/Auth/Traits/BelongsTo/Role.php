@@ -14,4 +14,17 @@ trait Role
     {
         return $this->belongsTo(RoleModel::class, 'role_id', 'id');
     }
+
+    /**
+     *  Determine whether this user outranks another user in role.
+     *
+     *  @param  \Illuminate\Foundation\Auth\User  $user
+     *  @return bool
+     */
+    public function outranks($user)
+    {
+        authenticable_check($user);
+
+        return $this->role->rank < $user->role->rank;
+    }
 }

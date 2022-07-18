@@ -2,6 +2,7 @@
 
 namespace Enraiged\Support\Services;
 
+use Enraiged\Agreements\Models\Agreement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -68,7 +69,7 @@ class MetaBuilder
                 'allow_registration' => config('enraiged.auth.allow_registration'),
                 'allow_secondary_credential' => config('enraiged.auth.allow_secondary_credential'),
                 'allow_username_login' => config('enraiged.auth.allow_username_login'),
-                'must_agree_to_terms' => null,
+                'must_agree_to_terms' => require_agreement() ? Agreement::required()->pluck('type') : null,
                 'must_complete_account' => null,
                 'must_verify_email' => config('enraiged.auth.must_verify_email'),
             ]);

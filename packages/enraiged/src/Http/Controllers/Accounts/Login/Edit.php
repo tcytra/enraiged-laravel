@@ -25,10 +25,11 @@ class Edit extends Controller
         $this->authorize('edit', $account);
 
         $request = EditRequest::createFrom($request); // todo: why can't I inject this request as a dependency?
+        $builder = $request->form()->edit($account, 'accounts.login.update');
 
         return inertia('accounts/login/Edit', [
             'account' => AccountResource::from($account),
-            'builder' => $request->form()->edit($account),
+            'builder' => $builder->template(),
         ]);
     }
 }

@@ -57,7 +57,10 @@ class DatetimeAttributeResource extends JsonResource
      */
     protected function date()
     {
-        $format = $this->user->dateformat ?? 'Y-m-d';
+        $default = 'Y-m-d';
+        $format = $this->user
+            ? ($this->user->dateformat ?? $default)
+            : $default;
 
         return date($format, $this->timestamp);
     }
@@ -69,7 +72,10 @@ class DatetimeAttributeResource extends JsonResource
      */
     protected function time()
     {
-        $format = $this->user->military_time == true ? 'G\hi' : 'g:i a';
+        $default = 'g:i a';
+        $format = $this->user
+            ? ($this->user->military_time == true ? 'G\hi' : 'g:i a')
+            : $default;
 
         return date($format, $this->timestamp);
     }

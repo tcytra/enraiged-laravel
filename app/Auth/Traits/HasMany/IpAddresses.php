@@ -3,13 +3,14 @@
 namespace App\Auth\Traits\HasMany;
 
 use App\Auth\Models\InternetAddress;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 trait IpAddresses
 {
     /**
      *  @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function ipAddresses()
+    public function ipAddresses(): HasMany
     {
         return $this->hasMany(InternetAddress::class, 'user_id');
     }

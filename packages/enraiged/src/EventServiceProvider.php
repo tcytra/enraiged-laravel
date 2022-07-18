@@ -4,6 +4,8 @@ namespace Enraiged;
 
 use Enraiged\Accounts\Models\Account;
 use Enraiged\Accounts\Observers\AccountObserver;
+use Enraiged\Agreements\Models\Agreement;
+use Enraiged\Agreements\Observers\AgreementObserver;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -20,5 +22,6 @@ class EventServiceProvider extends ServiceProvider
     public function boot()
     {
         Account::observe(AccountObserver::class);
+        Agreement::observe(AgreementObserver::class);
     }
 }

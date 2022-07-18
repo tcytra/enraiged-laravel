@@ -35,12 +35,11 @@ class Edit extends Controller
         $this->authorize('edit', $this->account);
 
         $request = UpdateRequest::createFrom($request);
-
-        $template = $request->form()->edit($this->account);
+        $builder = $request->form()->edit($this->account, 'accounts.update');
 
         return inertia('accounts/Edit', [
             'account' => AccountResource::from($this->account),
-            'builder' => $template,
+            'builder' => $builder->template(),
             'messages' => $this->messages(),
         ]);
     }
@@ -52,7 +51,7 @@ class Edit extends Controller
      */
     private function messages()
     {
-        if (!$this->account->isMyself() && $this->user->account->isAdministrator()) {
+        if (!$this->account->is_myself && $this->user->account->is_administrator) {
             return [message('You are updating these account details as an administrator.', 'warn')];
         }
 

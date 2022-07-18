@@ -10,6 +10,12 @@
             "icon": "pi pi-plus",
             "tooltip": "Create account"
         },
+        "impersonate": {
+            "class": "p-button-secondary",
+            "icon": "pi pi-user",
+            "tooltip": "Impersonate",
+            "type": "row"
+        },
         "show": {
             "class": "p-button-primary",
             "icon": "pi pi-eye",

@@ -6,7 +6,7 @@
 ## This document is NOT a legitimate EULA
 
 **This document is placeholder text only, for the purposes of development and demonstration. Please consult with a legal
-representative of your interests if your application requires an EULA.**
+representative if your application requires an EULA.**
 
 An end-user license agreement (E.U.L.A.) is a legal contract entered into between a software developer or vendor and the
 user of the software, often where the software has been purchased by the user from an intermediary such as a retailer. A
@@ -24,5 +24,5 @@ where a buyer implied agrees to license terms by first removing the software pac
 the software itself. In both types of analysis, focus is on the actions of end user and asks whether there is an
 explicit or implicit acceptance of the additional licensing terms.
 
-__The preceding text was taken from the wikipedia entry regarding End User License Agreements. Replace the above with
-content that will suit the needs of your application.__
+_The preceding text was taken from the wikipedia entry regarding End User License Agreements. Replace the above with
+content that will suit the needs of your application._

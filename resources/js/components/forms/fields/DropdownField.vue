@@ -1,5 +1,5 @@
 <template>  
-    <vue-form-field v-slot:default="{ error, label, placeholder, update }"
+    <vue-form-field v-slot:default="{ disabled, error, label, placeholder, update }"
         :field="field"
         :form="form"
         :id="id">
@@ -11,6 +11,7 @@
                 <primevue-dropdown optionLabel="name" optionValue="id"
                     v-model="model"
                     :class="{ 'p-inputtext-lg': isLarge, 'p-inputtext-sm': isSmall, 'p-invalid': error }"
+                    :disabled="disabled"
                     :id="id"
                     :options="field.options.values"
                     :placeholder="placeholder"

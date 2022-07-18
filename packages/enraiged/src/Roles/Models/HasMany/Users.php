@@ -11,6 +11,6 @@ trait Users
      */
     public function users(): HasMany
     {
-        return $this->hasMany(config('auth.providers.users.model'));
+        return $this->hasMany(auth_model());
     }
 }

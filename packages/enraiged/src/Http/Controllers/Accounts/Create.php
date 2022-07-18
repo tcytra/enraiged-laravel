@@ -27,7 +27,7 @@ class Create extends Controller
 
         $builder = $request
             ->form()
-            ->create()
+            ->create(Account::class, 'accounts.store')
             ->value('role_id', Role::lowest()->id);
 
         return inertia('accounts/Create', ['builder' => $builder->template()]);

@@ -6,7 +6,7 @@
 ## This document is NOT a legitimate Terms Of Service
 
 **This document is placeholder text only, for the purposes of development and demonstration. Please consult with a legal
-representative of your interests if your application requires a TOS.**
+representative if your application requires a TOS.**
 
 Terms of service (also known as terms of use and terms and conditions, commonly abbreviated as TOS or ToS, ToU or T&C)
 are the legal agreements between a service provider and a person who wants to use that service. The person must agree to
@@ -22,5 +22,5 @@ by refusing service. Customers can enforce by filing a lawsuit or arbitration ca
 harmed by a breach of the terms. There is a heightened risk of data going astray during corporate changes, including
 mergers, divestitures, buyouts, downsizing, etc., when data can be transferred improperly.
 
-__The preceding text was taken from the wikipedia entry regarding Terms Of Service. Replace the above with content that
-will suit the needs of your application.__
+_The preceding text was taken from the wikipedia entry regarding Terms Of Service. Replace the above with content that
+will suit the needs of your application._

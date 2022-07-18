@@ -19,7 +19,6 @@ class Create extends Controller
 
         $form = [
             'fields' => [
-                'agree' => false,
                 'email' => null,
                 'name' => null,
                 'password' => null,
@@ -27,6 +26,10 @@ class Create extends Controller
             ],
             'uri' => route('register.store'),
         ];
+
+        if (require_agreement()) {
+            $form['fields']['agree'] = false;
+        }
 
         return inertia('auth/Register', ['form' => $form]);
     }

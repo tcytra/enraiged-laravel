@@ -106,22 +106,6 @@ trait FormFields
     }
 
     /**
-     *  Explicity set the value for a specified field.
-     *
-     *  @param  string  $name
-     *  @param  mixed   $data
-     *  @return self
-     */
-    public function value($name, $data)
-    {
-        $populate = ['value' => $data];
-
-        $this->field($name, $populate);
-
-        return $this;
-    }
-
-    /**
      *  Retrieve and return a set of select options.
      *
      *  @param  array|object  $options
@@ -143,5 +127,21 @@ trait FormFields
         }
 
         return ['values' => $values];
+    }
+
+    /**
+     *  Explicity set the value for a specified field.
+     *
+     *  @param  string  $name
+     *  @param  mixed   $data
+     *  @return self
+     */
+    public function value($name, $data)
+    {
+        $populate = ['value' => $data];
+
+        $this->field($name, $populate);
+
+        return $this;
     }
 }

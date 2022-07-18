@@ -3,6 +3,7 @@
 namespace Enraiged\Database\Seeders;
 
 use Enraiged\Accounts\Models\Account;
+use Enraiged\Agreements\Models\Agreement;
 use Enraiged\Profiles\Models\Profile;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -14,8 +15,8 @@ class DatabaseSeeder extends Seeder
     /** @var  int  Create a predetermined number of factory accounts to seed. */
     protected $create_accounts = 5;
 
-    /** @var  bool  Whether or not to output the factory account login credentials while seeding. */
-    protected $output_logins = false;
+    /** @var  string  Set this login password for the created accounts. */
+    protected $insecure_password = 'changeme';
 
     /**
      *  Seed the enraiged database.
@@ -24,18 +25,61 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        if (app()->environment(['dev', 'development', 'local'])) {
-            for ($i = 0; $i < $this->create_accounts; $i++) {
-                $password = 'changeme';
-                $account = $this->createFactoryAccount(['password' => $password]);
+        $this->createAgreements();
 
-                if ($this->output_logins) {
-                    $this->command
-                        ->getOutput()
-                        ->writeln("<comment>Login:</comment> <info>{$account->email}:{$password}</info>");
-                }
+        if (app()->environment(['dev', 'development', 'local'])) {
+            $this->createAccounts();
+        }
+    }
+
+    /**
+     *  Create a predetermined number of accounts for testing.
+     *
+     *  @return self
+     */
+    protected function createAccounts()
+    {
+        for ($i = 0; $i < $this->create_accounts; $i++) {
+            $password = $this->insecure_password;
+            $account = $this->createFactoryAccount(['password' => $password]);
+
+            if (false) {
+                $this->command
+                    ->getOutput()
+                    ->writeln("<comment>Login:</comment> <info>{$account->email}:{$password}</info>");
             }
         }
+
+        return $this;
+    }
+
+    /**
+     *  Create the placeholder agreements for testing.
+     *
+     *  @return self
+     */
+    protected function createAgreements()
+    {
+        $config = config('enraiged.auth.must_agree_to_terms');
+
+        if ($config && $config !== false) {
+            foreach (['EULA', 'TOS'] as $type) {
+                $resource = resource_path("seeds/agreements/{$type}.md");
+                $content = file_exists($resource)
+                    ? file_get_contents($resource)
+                    : 'No content';
+
+                $parameters = [
+                    'content' => $content,
+                    'type' => $type,
+                    'version' => '1.0.0',
+                ];
+
+                Agreement::create($parameters)->publish();
+            }
+        }
+
+        return $this;
     }
 
     /**

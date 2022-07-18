@@ -1,8 +1,8 @@
 # Enraiged Laravel
 
-### Laravel Vue Inertia
+### Laravel + Vue + Inertia + PrimeVue
 
-> **Please Note:** This is not intended for production use.
+> **Please Note:** This is not yet intended for production use.
 
 **This package is in an experimental state of development and therefore volatile and subject to dramatic changes.**
 
@@ -21,10 +21,13 @@ will continue to) invest my personal time into furthering this, my little experi
 
 ## Features
 
-- Laravel authentication scaffolding with extra configurable options
-- Forms, menus, tables templating and builders with security assertions
-- User timezone, language, and date-format options
-- Hybrid css or uploaded image model-morphable avatars
+- Hybrid css/uploaded image model-morphable avatars for accounts, organizations, etc.
+- Simple forms, menus, and tables templating and builders with security assertions
+- Standard Laravel authentication scaffolding with extra configurable options
+  - Ability to enable/disable account registration
+  - Ability to enable/disable login ip addresses tracking, notify account holders
+  - Ability to enable/disable secondary login credential, email or username
+- User selected timezone, language, and date-format options
 
 
 ## Technology Stack
@@ -35,6 +38,8 @@ will continue to) invest my personal time into furthering this, my little experi
 + [PrimeVUE 3](https://www.primefaces.org/primevue/#/setup)
 + [PrimeFlex 3](https://www.primefaces.org/primeflex/)
 + [PrimeIcons v5](https://www.primefaces.org/primevue/#/icons)
+
+**Further reading**
 
 [Introducing InertiaJS](https://reinink.ca/articles/introducing-inertia-js)
 

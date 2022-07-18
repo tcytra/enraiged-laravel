@@ -2,6 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 
+Route::namespace('Agreements')
+    ->group(function(){
+        Route::get('eula', 'Eula')->name('eula');
+        Route::get('tos', 'Tos')->name('tos');
+    });
+
 Route::middleware('guest')
     ->group(function(){
         Route::namespace('Login')

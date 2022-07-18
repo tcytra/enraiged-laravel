@@ -16,12 +16,16 @@ return new class extends Migration
         Schema::create('agreements', function (Blueprint $table) {
             $table->id();
 			$table->longText('content');
-			$table->string('version', 8);
-			$table->timestamp('created_at')->nullable();
-            $table->timestamp('deleted_at')->nullable();
+            $table->enum('status', ['A', 'D', 'P', 'R'])->index();
+            $table->enum('type', ['EULA', 'TOS'])->index();
+			$table->string('version', 16);
+            $this->track_created($table);
+            $this->track_deleted($table);
+            $this->track_updated($table);
             $table->timestamp('published_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
-			$table->boolean('is_required')->default(false);
+            $table->bigInteger('published_by')->unsigned()->nullable();
+
+            $table->foreign('published_by')->references('id')->on('users');
         });
     }
 

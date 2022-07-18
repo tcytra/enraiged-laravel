@@ -2,7 +2,7 @@
 
 namespace Enraiged\Accounts\Models\HasOne;
 
-use App\Auth\User as UserModel;
+// use App\Auth\User as UserModel;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 trait User
@@ -12,6 +12,6 @@ trait User
      */
     public function user(): HasOne
     {
-        return $this->hasOne(UserModel::class, 'id', 'id')->withTrashed();
+        return $this->hasOne(auth_model(), 'id', 'id')->withTrashed();
     }
 }

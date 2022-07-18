@@ -2,9 +2,9 @@
 
 namespace App\Http\Middleware;
 
-use App\Auth\Services\AuthResources;
-use App\Auth\Services\FlashMessages;
+use Enraiged\Auth\Services\FlashMessages;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -39,9 +39,14 @@ class HandleInertiaRequests extends Middleware
     public function share(Request $request)
     {
         $response = [
-            'auth' => (new AuthResources)->handle($request),
+            'auth' => Auth::check(),
             'flash' => (new FlashMessages)->handle($request),
+            'language' => Auth::check() ? Auth::user()->language : config('app.locale'),
         ];
+
+        /*if ($request->session()->has('impersonate')) {
+            $response['impersonating'] = true;
+        }*/
 
         return array_merge(
             parent::share($request), $response

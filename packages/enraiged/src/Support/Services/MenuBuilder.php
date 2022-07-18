@@ -5,6 +5,7 @@ namespace Enraiged\Support\Services;
 use Enraiged\Support\Security\Traits\AssertSecure;
 use Enraiged\Support\Security\Traits\RoleAssertions;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MenuBuilder
 {
@@ -84,9 +85,11 @@ class MenuBuilder
                     return false;
                 }
 
-                return key_exists('secure', $item)
-                    ? $this->assertSecure($item)
-                    : true;
+                if (key_exists('secure', $item)) {
+                    return Auth::check() ? $this->assertSecure($item) : false;
+                }
+
+                return true;
             });
 
         if ($menu) {
