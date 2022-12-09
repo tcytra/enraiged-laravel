@@ -1,6 +1,6 @@
 import { createApp, h } from 'vue';
 import { InertiaProgress } from '@inertiajs/progress';
-import { createI18n } from 'vue-i18n/index';
+import { createI18n } from 'vue-i18n';
 import { createInertiaApp } from '@inertiajs/inertia-vue3';
 import { createPinia } from 'pinia';
 import ConfirmationService from 'primevue/confirmationservice';

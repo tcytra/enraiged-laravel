@@ -58,7 +58,7 @@ Once complete you may publish the assets to the project:
 **Publish the full enraiged toolset**
 
 ```bash
-php artisan vendor:publish --tag=enraiged-full--force
+php artisan vendor:publish --tag=enraiged-full --force
 ```
 
 **Publish the minimal enraiged toolset**
