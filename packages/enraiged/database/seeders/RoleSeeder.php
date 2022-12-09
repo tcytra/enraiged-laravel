@@ -1,6 +1,6 @@
 <?php
 
-namespace Enraiged\Database\Seeders;
+namespace Database\Seeders;
 
 use Enraiged\Roles\Models\Role;
 use Illuminate\Database\Seeder;

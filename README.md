@@ -53,6 +53,32 @@ Install the vendor packages:
 composer install
 ```
 
+Once complete you may publish the assets to the project:
+
+**Publish the full enraiged toolset**
+
+```bash
+php artisan vendor:publish --tag=enraiged-full--force
+```
+
+**Publish the minimal enraiged toolset**
+
+```bash
+php artisan vendor:publish --tag=enraiged-minimal --force
+```
+
+**Or you can selectively publish any of the following:**
+
+- enraiged-config
+- enraiged-migrations
+- enraiged-seeders
+- enraiged-seeds
+- enraiged-views
+- enraiged-routes
+- enraiged-ui
+
+> **Important:** Unless you know why you don't want to, you'll want to --force the publish to overwrite existing files.
+
 ---
 
 ## Configure Application

@@ -1,0 +1,116 @@
+{
+    "id": "accounts.index",
+    "class": "accounts-index",
+    "empty": "There are no accounts to display",
+    "prefix": "accounts.",
+    "table": "users",
+    "uri": "accounts.index.data",
+    "actions": {
+        "create": {
+            "class": "p-button-success",
+            "icon": "pi pi-plus",
+            "tooltip": "Create account"
+        },
+        "impersonate": {
+            "class": "p-button-secondary",
+            "icon": "pi pi-user",
+            "tooltip": "Impersonate",
+            "type": "row"
+        },
+        "show": {
+            "class": "p-button-primary",
+            "icon": "pi pi-eye",
+            "tooltip": "Show account",
+            "type": "row"
+        },
+        "edit": {
+            "class": "p-button-warning",
+            "icon": "pi pi-pencil",
+            "tooltip": "Edit account",
+            "type": "row"
+        },
+        "delete": {
+            "class": "p-button-danger",
+            "confirm": "Are you certain you wish to delete this account?",
+            "icon": "pi pi-trash",
+            "method": "delete",
+            "tooltip": "Delete account",
+            "type": "row"
+        }
+    },
+    "columns": {
+        "avatar": {
+            "class": "text-center",
+            "custom": true,
+            "exportable": false
+        },
+        "first_name": {
+            "label": "First Name",
+            "source": "profiles.first_name",
+            "searchable": true,
+            "sortable": true
+        },
+        "last_name": {
+            "label": "Last Name",
+            "searchable": true,
+            "sortable": true,
+            "source": "profiles.last_name"
+        },
+        "email": {
+            "label": "Email",
+            "searchable": true,
+            "sortable": true
+        },
+        "alias": {
+            "label": "Alias",
+            "searchable": true,
+            "sortable": true,
+            "source": "profiles.alias"
+        },
+        "role": {
+            "label": "Role",
+            "searchable": true,
+            "source": "roles.name"
+        },
+        "birthday": {
+            "class": "text-right",
+            "label": "Birthday",
+            "sortable": true,
+            "source": "profiles.birthdate"
+        },
+        "created": {
+            "class": "text-right",
+            "label": "Created",
+            "sortable": true,
+            "source": "users.created_at"
+        }
+    },
+    "exportable": {
+        "chunk": 100,
+        "default": "XLSX",
+        "options": ["CSV", "XLSX"],
+        "uri": "/api/accounts/index/export"
+    },
+    "filters": {
+        "role_id": {
+            "default": null,
+            "options": {
+                "scope": "strictVisibility",
+                "source": "Enraiged\\Roles\\Models\\Role",
+                "type": "model"
+            },
+            "placeholder": "All Roles",
+            "secure": {
+                "method": "roleIs",
+                "role": "Administrator"
+            },
+            "type": "select"
+        }
+    },
+    "pagination": {
+        "options": [5, 10, 20, 50, 100, 200, 500],
+        "page": 1,
+        "rows": 10
+    },
+    "state": true
+}

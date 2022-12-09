@@ -32,7 +32,6 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
-            "Enraiged\\Database\\Seeders\\": "packages/enraiged/database/seeders",
             "Enraiged\\": "packages/enraiged/src/"
         },
         "files": [

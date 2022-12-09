@@ -1,12 +1,13 @@
 <?php
 
-namespace Enraiged\Database\Seeders;
+namespace Database\Seeders;
 
 use Enraiged\Accounts\Models\Account;
 use Enraiged\Agreements\Models\Agreement;
 use Enraiged\Profiles\Models\Profile;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Artisan;
 
 class DatabaseSeeder extends Seeder
 {
@@ -25,6 +26,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        Artisan::call('storage:clear');
+
+        $this->call([
+            RoleSeeder::class,
+            UserSeeder::class,
+        ]);
+
         $this->createAgreements();
 
         if (app()->environment(['dev', 'development', 'local'])) {

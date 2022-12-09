@@ -1,6 +1,6 @@
 <?php
 
-namespace Enraiged\Database\Seeders;
+namespace Database\Seeders;
 
 use Enraiged\Accounts\Services\CreateAccount;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;

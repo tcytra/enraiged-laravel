@@ -1,0 +1,50 @@
+{
+    "actions": {
+        "back": {
+            "label": "Back"
+        },
+        "clear": {
+            "label": "Clear"
+        },
+        "reset": {
+            "label": "Reset"
+        },
+        "submit": {
+            "label": "Submit"
+        }
+    },
+    "fields": {
+        "dateformat": {
+            "label": "Date Format",
+            "options": {
+                "source": "Enraiged\\Accounts\\Enums\\DateFormats",
+                "type": "enum"
+            },
+            "placeholder": "Optional",
+            "type": "select"
+        },
+        "language": {
+            "label": "Language",
+            "options": {
+                "source": "Enraiged\\Accounts\\Enums\\Languages",
+                "type": "enum"
+            },
+            "placeholder": "Optional",
+            "type": "select"
+        },
+        "timezone": {
+            "label": "Timezone",
+            "options": {
+                "source": "Enraiged\\Accounts\\Enums\\Timezones",
+                "type": "enum"
+            },
+            "placeholder": "Optional",
+            "type": "select"
+        },
+        "military_time": {
+            "label": "24 Hour Time",
+            "type": "switch",
+            "default": false
+        }
+    }
+}

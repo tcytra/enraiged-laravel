@@ -27,9 +27,10 @@ Todo:
 
 ---
 
-2022-11-27 : 0.0.16  
-Update: Minor modifications preparing for test use
+2022-12-09 : 0.0.16  
+Update: Added enraiged asset publishing, table filters, other improvements
 
+- Added ability to optionally publish enraiged assets during the install
 - Added table filters via json configuration
   - Apply a model scope to select options filters
   - Performs security assertions
