@@ -6,6 +6,8 @@ Todo:
 - Complex table searching
 - Custom table filters
 - Data Import (from model index page)
+- Implement theme preference
+- Import menus to database from json files
 - Page exporter (ie. account details) (pdf, xls?, txt?)
 - Geo, Geo Social
 - Minimize menu preference?
@@ -22,6 +24,19 @@ Todo:
 
 ! Correct avatar character centering in mobile browser
 ! Correct vue warning when selecting dropdown value (unknown cause, works anyway)
+
+---
+
+2022-11-27 : 0.0.16  
+Update: Minor modifications preparing for test use
+
+- Added table filters via json configuration
+  - Apply a model scope to select options filters
+  - Performs security assertions
+- Added strictVisibility scope to Role model
+- Ensure body, card theming is accessible from the variables.css
+- Removed embedded card header classes
+- Updated initial roles and users seeding from json resource files
 
 ---
 

@@ -3,18 +3,18 @@
 namespace Enraiged\Accounts\Tables\Builders;
 
 use Enraiged\Accounts\Services\IndexExporter;
-use Enraiged\Accounts\Models\Account as Index;
+use Enraiged\Accounts\Models\Account;
 use Enraiged\Accounts\Tables\Resources\IndexResource;
 use Enraiged\Tables\Builders\TableBuilder;
 use Enraiged\Tables\Contracts\ProvidesTableServices;
 
-class IndexBuilder extends TableBuilder implements ProvidesTableServices
+class AccountsIndex extends TableBuilder implements ProvidesTableServices
 {
     /** @var  string  The exporter service. */
     protected $exporter = IndexExporter::class;
 
     /** @var  string  The data model. */
-    protected $model = Index::class;
+    protected $model = Account::class;
 
     /** @var  string  The model resource. */
     protected $resource = IndexResource::class;
@@ -29,6 +29,6 @@ class IndexBuilder extends TableBuilder implements ProvidesTableServices
      */
     public function query()
     {
-        return Index::reportable();
+        return Account::reportable();
     }
 }

@@ -25,7 +25,7 @@ trait HttpRequest
      *
      *  @return string
      */
-    public function uri(): string
+    public function assembleTemplateUri(): string
     {
         $uri = $this->uri;
 

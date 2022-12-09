@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
-use Enraiged\Database\Seeders\AdministratorSeeder;
 use Enraiged\Database\Seeders\RoleSeeder;
+use Enraiged\Database\Seeders\UserSeeder;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Artisan;
 
@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             RoleSeeder::class,
-            AdministratorSeeder::class,
+            UserSeeder::class,
         ]);
 
         $this->call([

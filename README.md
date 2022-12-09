@@ -2,22 +2,7 @@
 
 ### Laravel + Vue + Inertia + PrimeVue
 
-> **Please Note:** This is not yet intended for production use.
-
-**This package is in an experimental state of development and therefore volatile and subject to dramatic changes.**
-
-
-## Preamble
-
-I began this as a personal project to introduce myself to the Inertia.js system. I had worked with and preferred Laravel
-as a solution for many years, initially with blade templating and later with Vue as a pure SPA, but I was dissatisfied
-with the limitations and confinement of either of these and was interested in something new and unique.
-
-This led me to discover Inertia.js and the demo software (PingCRM) they provide as an example, and enraiged-laravel was
-born as an experiment to familiarize myself with this as my permanent go-to solution. Once I began working with it I
-didn't want to stop, and so here we are. Inertia and Laravel really is a 'best-of-both-worlds' option and I have (and 
-will continue to) invest my personal time into furthering this, my little experiment.
-
+**This package is experimental and not intended for production use.**
 
 ## Features
 

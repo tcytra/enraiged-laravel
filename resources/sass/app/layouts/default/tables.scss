@@ -1,5 +1,9 @@
 
 .table.container {
+    .filter-controls {
+      padding:          .5rem 1rem;
+    }
+
     .p-datatable-tbody {
         tr.inactive-data {
           background-color: lighten($color-danger, 45%);

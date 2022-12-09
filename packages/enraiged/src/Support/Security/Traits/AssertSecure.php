@@ -2,6 +2,7 @@
 
 namespace Enraiged\Support\Security\Traits;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 trait AssertSecure
@@ -18,6 +19,10 @@ trait AssertSecure
 
         if (!property_exists($object, 'secure')) {
             return true;
+        }
+
+        if (!Auth::check()) {
+            return false;
         }
 
         $security = (object) $object->secure;

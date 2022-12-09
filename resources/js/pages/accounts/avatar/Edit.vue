@@ -4,7 +4,7 @@
         <section class="auto-margin container max-width-lg">
              <primevue-card class="mb-3">
                 <template #header>
-                    <header class="border-bluegray-100 border-bottom-1 p-3 surface-200">
+                    <header class="header">
                         <h3 class="auto-margin max-width-sm">
                             {{ i18n('Select a color or upload an image for this avatar.') }}
                         </h3>

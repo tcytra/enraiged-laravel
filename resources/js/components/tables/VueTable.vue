@@ -1,88 +1,101 @@
 <template>
-    <primevue-datatable class="p-datatable-sm" v-model:filters="search" ref="datatable"
-        filterDisplay="menu"
-        paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink"
-        :current-page-report-template="pageReportTemplate"
-        :first="first"
-        :lazy="true"
-        :loading="loading"
-        :paginator="true"
-        :row-class="rowClass"
-        :rows="pagination.rows"
-        :rows-per-page-options="template.pagination.options"
-        :total-records="pagination.total"
-        :value="records"
-        @page="page($event)"
-        @sort="sort($event)">
-        <template #header>
-            <div class="col controls-bar flex-order-1 lg:flex-order-1">
-                <primevue-button icon="pi pi-sync" class="table-fetch p-button-secondary mr-1"
-                    v-tooltip.top="i18n('Refresh this data')"
-                    @click="fetch()"/>
-                <primevue-button icon="pi pi-refresh" class="table-fresh p-button-secondary mr-1"
-                    v-tooltip.top="i18n('Reset the table')"
-                    @click="fresh()"/>
-                <primevue-dropdown class="pagination-rows width-64 ml-1" v-model="pagination.rows"
-                    :options="template.pagination.options"
-                    @change="rows($event)"/>
+    <div :class="template.class">
+        <div class="filter-controls p-card p-component vue-form" v-if="template.filters">
+            <div v-for="(filter, name) in template.filters">
+                <primevue-dropdown optionLabel="name" optionValue="id" show-clear
+                    class="col col-6 md:col-4 lg:col-3 xl:col-2 p-0"
+                    v-model="filters[name]"
+                    :id="name"
+                    :options="filter.options.values"
+                    :placeholder="filter.placeholder"
+                    @update:modelValue="fetch"/>
             </div>
-            <div class="col controls-bar flex-order-2 lg:flex-order-3 justify-content-end">
-                <div class="table-export p-inputgroup width-112 ml-2" v-if="template.exportable">
-                    <primevue-dropdown v-model="exportable"
-                        :options="template.exportable.options"/>
-                    <primevue-button class="p-button-secondary" icon="pi pi-cloud-download"
-                        v-tooltip.top="i18n('Export this data')"
-                        :disabled="!records || !records.length"
-                        @click="download()"/>
+        </div>
+        <primevue-datatable class="p-datatable-sm" ref="datatable"
+            filterDisplay="menu"
+            paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink"
+            :current-page-report-template="pageReportTemplate"
+            :first="first"
+            :lazy="true"
+            :loading="loading"
+            :paginator="true"
+            :row-class="rowClass"
+            :rows="pagination.rows"
+            :rows-per-page-options="template.pagination.options"
+            :total-records="pagination.total"
+            :value="records"
+            @page="page($event)"
+            @sort="sort($event)">
+            <template #header>
+                <div class="col controls-bar flex-order-1 lg:flex-order-1">
+                    <primevue-button icon="pi pi-sync" class="table-fetch p-button-secondary mr-1"
+                        v-tooltip.top="i18n('Refresh this data')"
+                        @click="fetch()"/>
+                    <primevue-button icon="pi pi-refresh" class="table-fresh p-button-secondary mr-1"
+                        v-tooltip.top="i18n('Reset the table')"
+                        @click="fresh()"/>
+                    <primevue-dropdown class="pagination-rows width-64 ml-1" v-model="pagination.rows"
+                        :options="template.pagination.options"
+                        @change="rows($event)"/>
                 </div>
-                <primevue-button class="create-button ml-2"
-                    v-if="template.actions.create && template.actions.create.permission"
-                    v-tooltip.top="i18n(template.actions.create.tooltip)"
-                    :class="template.actions.create.class"
-                    :disabled="!template.actions.create.permission"
-                    :icon="template.actions.create.icon"
-                    @click="action('create', template.actions.create)"/>
-            </div>
-            <div class="search-bar p-inputgroup col-12 flex-order-3 lg:col-4 lg:flex-order-2">
-                <span class="p-inputgroup-addon">
-                    <i class="pi pi-search"></i>
-                </span>
-                <primevue-inputtext v-model="search" :placeholder="i18n('Search for')"/>
-                <primevue-button icon="pi pi-times" class="p-button-secondary"
-                    v-tooltip.top="'Clear the search'"
-                    :disabled="!search || !search.length"
-                    @click="fresh()"/>
-            </div>
-        </template>
-        <template #empty>
-            {{ i18n(template.empty || 'No records found') }}
-        </template>
-        <primevue-column v-for="(column, name, index) in template.columns" :key="name"
-            :class="column.class"
-            :field="name"
-            :header="column.label"
-            :sortable="column.sortable">
-            <template #body="column" v-if="column.custom">
-                <slot :name="name" :data="column.data"/>
+                <div class="col controls-bar flex-order-2 lg:flex-order-3 justify-content-end">
+                    <div class="table-export p-inputgroup width-112 ml-2" v-if="template.exportable">
+                        <primevue-dropdown v-model="exportable"
+                            :options="template.exportable.options"/>
+                        <primevue-button class="p-button-secondary" icon="pi pi-cloud-download"
+                            v-tooltip.top="i18n('Export this data')"
+                            :disabled="!records || !records.length"
+                            @click="download()"/>
+                    </div>
+                    <primevue-button class="create-button ml-2"
+                        v-if="template.actions.create && template.actions.create.permission"
+                        v-tooltip.top="i18n(template.actions.create.tooltip)"
+                        :class="template.actions.create.class"
+                        :disabled="!template.actions.create.permission"
+                        :icon="template.actions.create.icon"
+                        @click="action('create', template.actions.create)"/>
+                </div>
+                <div class="search-bar p-inputgroup col-12 flex-order-3 lg:col-4 lg:flex-order-2">
+                    <span class="p-inputgroup-addon">
+                        <i class="pi pi-search"></i>
+                    </span>
+                    <primevue-inputtext v-model="search" :placeholder="i18n('Search for')"/>
+                    <primevue-button icon="pi pi-times" class="p-button-secondary"
+                        v-tooltip.top="'Clear the search'"
+                        :disabled="!search || !search.length"
+                        @click="fresh()"/>
+                </div>
             </template>
-        </primevue-column>
-        <primevue-column v-if="template.actions" key="actions"
-            class="actions"
-            field="actions"
-            :header="i18n('Actions')"
-            v-bind="$props">
-            <template #body="props">
-                <primevue-button class="p-button-rounded p-button-sm p-button-text"
-                    :class="button.class"
-                    :disabled="!button.permission"
-                    :icon="button.icon"
-                    :key="name"
-                    v-for="(button, name) in props.data.actions"
-                    v-tooltip.top="i18n(button.tooltip || name)"
-                    @click="action(name, button, props)"/>
+            <template #empty>
+                {{ i18n(template.empty || 'No records found') }}
             </template>
-        </primevue-column>
-    </primevue-datatable>
+            <primevue-column v-for="(column, name, index) in template.columns" :key="name"
+                :class="column.class"
+                :field="name"
+                :header="column.label"
+                :sortable="column.sortable">
+                <template #body="column" v-if="column.custom">
+                    <slot :name="name" :data="column.data"/>
+                </template>
+            </primevue-column>
+            <primevue-column v-if="template.actions" key="actions"
+                class="actions"
+                field="actions"
+                :header="i18n('Actions')"
+                v-bind="$props">
+                <template #body="props">
+                    <primevue-button class="p-button-rounded p-button-sm p-button-text"
+                        :class="button.class"
+                        :disabled="!button.permission"
+                        :icon="button.icon"
+                        :key="name"
+                        v-for="(button, name) in props.data.actions"
+                        v-tooltip.top="i18n(button.tooltip || name)"
+                        @click="action(name, button, props)"/>
+                </template>
+            </primevue-column>
+        </primevue-datatable>
+    </div>
 </template>
 
 <script>
@@ -125,7 +138,7 @@ export default {
 
     data: () => ({
         exportable: null,
-        filters: null,
+        filters: {},
         loading: false,
         pagination: {
             dir: null,
@@ -145,7 +158,7 @@ export default {
             return (this.pagination.page != this.template.pagination.page)
                 || (this.pagination.sort != this.template.pagination.sort)
                 || (this.pagination.rows != this.template.pagination.rows)
-                || (this.filters || this.search);
+                || (Object.keys(this.filters).length || this.search);
         },
         first() {
             return this.pagination.page && this.pagination.rows
@@ -162,6 +175,7 @@ export default {
     async mounted() {
         this.ready = true;
         this.exportable = this.template.exportable.default;
+        this.defaultFilters();
         if (this.template.state && this.template.id && localStorage[this.template.id]) {
             const state = JSON.parse(localStorage[this.template.id]);
             this.filters = state.filters;
@@ -235,6 +249,12 @@ export default {
                 .catch(error => this.errorHandler(error));
         },
 
+        defaultFilters() {
+            Object.keys(this.template.filters).forEach((filter) => {
+                this.filters[filter] = this.template.filters[filter].default || null;
+            });
+        },
+
         download() {
             if (this.exportable) {
                 this.loading = true;
@@ -268,6 +288,7 @@ export default {
         },
 
         fresh() {
+            this.defaultFilters();
             this.pagination.dir = null;
             this.pagination.page = 1;
             this.pagination.rows = this.template.pagination.rows;

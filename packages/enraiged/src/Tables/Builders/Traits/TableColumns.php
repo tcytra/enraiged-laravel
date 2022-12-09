@@ -12,7 +12,7 @@ trait TableColumns
      *
      *  @return array
      */
-    public function columns(): array
+    public function assembleTemplateColumns(): array
     {
         return collect($this->columns)
             ->transform(function ($row, $index) {

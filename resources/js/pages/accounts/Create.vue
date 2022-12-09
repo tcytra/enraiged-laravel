@@ -4,7 +4,7 @@
         <section class="auto-margin container max-width-lg">
             <primevue-card>
                 <template #header>
-                    <header class="border-bluegray-100 border-bottom-1 p-3 surface-200">
+                    <header class="header">
                         <h3 class="auto-margin max-width-sm">
                             {{ i18n('Please provide the following information to create a new account.') }}
                         </h3>

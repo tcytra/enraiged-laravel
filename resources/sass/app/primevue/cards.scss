@@ -1,8 +1,18 @@
 
 .p-card {
-  background-color: $surface-ground;
-  border:           1px solid $surface-border;
+  background-color: $card-background;
+  border-color:     $card-border;
   box-shadow:       none;
+  color:            $card-color;
+
+    header {
+      background-color: $card-header-background;
+      border-bottom-width: 1px;
+      border-bottom-style: solid;
+      border-color:     $card-border;
+      color:            $card-color;
+      padding:          1rem;
+    }
 
     .p-card-content {
       padding:          0;

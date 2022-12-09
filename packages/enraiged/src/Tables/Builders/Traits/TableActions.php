@@ -76,7 +76,7 @@ trait TableActions
      *  @param  \Illuminate\Database\Eloquent\Model  $resource
      *  @return array
      */
-    public function actionsForTable($resource = null)
+    public function assembleTemplateActions($resource = null)
     {
         $actions = [];
         $prefix = trim($this->prefix, '.');

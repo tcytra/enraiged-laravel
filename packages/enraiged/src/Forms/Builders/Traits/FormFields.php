@@ -2,8 +2,12 @@
 
 namespace Enraiged\Forms\Builders\Traits;
 
+use Enraiged\Forms\Traits\SelectOptions;
+
 trait FormFields
 {
+    use SelectOptions;
+
     /**
      *  Get or set a form field.
      *
@@ -103,30 +107,6 @@ trait FormFields
         }
 
         return null;
-    }
-
-    /**
-     *  Retrieve and return a set of select options.
-     *
-     *  @param  array|object  $options
-     *  @return array
-     */
-    protected function selectOptions($options)
-    {
-        $source = $options->source;
-        $values = [];
-
-        if ($options->type === 'enum') {
-            $values = $source::select();
-        }
-
-        if ($options->type === 'model') {
-            $values = $source::select('id', 'name')
-                ->orderBy('name')
-                ->get();
-        }
-
-        return ['values' => $values];
     }
 
     /**

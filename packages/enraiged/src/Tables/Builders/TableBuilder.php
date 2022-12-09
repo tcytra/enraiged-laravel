@@ -2,17 +2,16 @@
 
 namespace Enraiged\Tables\Builders;
 
-use Enraiged\Tables\Services\TableData;
-use Enraiged\Tables\Services\TableTemplate;
-
 class TableBuilder
 {
     use Traits\BuilderConstructor,
         Traits\EloquentBuilder,
         Traits\Exportable,
         Traits\HttpRequest,
+        Traits\SecurityAssertions,
         Traits\TableActions,
-        Traits\TableColumns;
+        Traits\TableColumns,
+        Traits\TableFilters;
 
     /**
      *  Return the data for the table request.
@@ -31,7 +30,20 @@ class TableBuilder
             ->search()
             ->paginate(); // paginate last!
 
-        return TableData::from($this);
+        $pagination = (object) $this->pagination();
+
+        return [
+            'filters' => json_decode($this->request->get('filters')),
+            'records' => $this->records(),
+            'pagination' => [
+                'dir' => $this->request->get('dir'),
+                'page' => $pagination->current_page,
+                'rows' => $pagination->per_page,
+                'sort' => $this->request->get('sort'),
+                'total' => $pagination->total,
+            ],
+            'search' => $this->request->get('search'),
+        ];
     }
 
     /**
@@ -41,7 +53,30 @@ class TableBuilder
      */
     public function template(): array
     {
-        return TableTemplate::from($this);
+        $identity = $this->get('id') ?? $this->prefix().'index';
+
+        $template = [
+            'actions' => $this->assembleTemplateActions(),
+            'class' => $this->get('class') ?? str_replace('.', '-', $identity),
+            'columns' => $this->assembleTemplateColumns(),
+            'empty' => $this->get('empty'),
+            'id' => $identity,
+            'exportable' => $this->get('exportable'),
+            'key' => $this->get('key'),
+            'pagination' => $this->get('pagination'),
+            'state' => $this->get('state'),
+            'uri' => $this->assembleTemplateUri(),
+        ];
+
+        if ($this->filters) {
+            $filters = $this->assembleTemplateFilters();
+
+            if (count($filters)) {
+                $template['filters'] = $filters;
+            }
+        }
+
+        return $template;
     }
 
     /**

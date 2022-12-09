@@ -63,7 +63,7 @@
     }
 
     .nav.top {
-      background-color: $surface-card;
+      background-color: $top-background;
       display:          flex;
       flex-direction:   row;
       height:           $app-block-size;
@@ -72,8 +72,8 @@
 
         .block, .inline {
           align-items:      center;
-          border-bottom:    1px solid #a1b1ba;
-          border-right:     1px solid #a1b1ba;
+          border-bottom:    1px solid $top-border;
+          border-right:     1px solid $top-border;
           display:          flex !important;
           height:           $app-block-size;
           transition:       background-color .35s linear;
@@ -81,7 +81,7 @@
             &.action {
               cursor:           pointer;
                 &:hover {
-                  background-color: var(--bluegray-300);
+                  background-color: $top-hover;
                 }
                 &.impersonating {
                   background-color: $color-warning;

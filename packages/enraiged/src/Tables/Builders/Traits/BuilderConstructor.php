@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\File;
 
 trait BuilderConstructor
 {
+    /** @var  string  The css class(es) to apply to the table. */
+    protected $class;
+
     /** @var  string  The message to display when there are no records. */
     protected $empty;
 

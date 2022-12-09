@@ -1,14 +1,12 @@
 <template>
-    <div class="account-table">
-        <vue-table
-            :page-report-template="'Showing {first} to {last} of {totalRecords} accounts'"
-            :template="template"
-            @show="show">
-            <template v-slot:avatar="props">
-                <avatar :action="props.data.actions.show" :avatar="props.data.avatar"/>
-            </template>
-        </vue-table>
-    </div>
+    <vue-table ref="datatable"
+        :page-report-template="'Showing {first} to {last} of {totalRecords} accounts'"
+        :template="template"
+        @show="show">
+        <template v-slot:avatar="props">
+            <avatar :action="props.data.actions.show" :avatar="props.data.avatar"/>
+        </template>
+    </vue-table>
 </template>
 
 <script>

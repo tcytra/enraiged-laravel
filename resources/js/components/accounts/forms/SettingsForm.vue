@@ -1,7 +1,7 @@
 <template>
     <primevue-card class="mb-3 max-width-md auto-margin">
         <template #header>
-            <header class="border-bluegray-100 border-bottom-1 p-3 surface-200">
+            <header class="header">
                 <h3 class="auto-margin max-width-sm">
                     {{ i18n('This form will allow you to manage account settings.') }}
                 </h3>

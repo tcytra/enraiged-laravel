@@ -2,6 +2,8 @@
 
 namespace Enraiged\Support\Security\Traits;
 
+use Illuminate\Support\Facades\Auth;
+
 trait RoleAssertions
 {
     /**
@@ -14,7 +16,9 @@ trait RoleAssertions
     {
         $security = (object) $secure;
 
-        return $this->request()->user()->role->atLeast($security->role);
+        return Auth::check()
+            ? Auth::user()->role->atLeast($security->role)
+            : false;
     }
 
     /**
@@ -27,7 +31,9 @@ trait RoleAssertions
     {
         $security = (object) $secure;
 
-        return $this->request()->user()->role->is($security->role);
+        return Auth::check()
+            ? Auth::user()->role->is($security->role)
+            : false;
     }
 
     /**
@@ -40,6 +46,8 @@ trait RoleAssertions
     {
         $security = (object) $secure;
 
-        return $this->request()->user()->role->isNot($security->role);
+        return Auth::check()
+            ? Auth::user()->role->isNot($security->role)
+            : false;
     }
 }
