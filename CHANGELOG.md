@@ -36,6 +36,7 @@ Update: Added enraiged asset publishing, table filters, other improvements
   - Performs security assertions
 - Added strictVisibility scope to Role model
 - Ensure body, card theming is accessible from the variables.css
+- Exploded enraiged package into separate package namespaces
 - Removed embedded card header classes
 - Updated initial roles and users seeding from json resource files
 

@@ -32,7 +32,15 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
-            "Enraiged\\": "packages/enraiged/src/"
+            "Enraiged\\": "packages/enraiged/src/",
+            "Enraiged\\Accounts\\": "packages/enraiged-accounts/src/",
+            "Enraiged\\Agreements\\": "packages/enraiged-agreements/src/",
+            "Enraiged\\Avatars\\": "packages/enraiged-avatars/src/",
+            "Enraiged\\Exports\\": "packages/enraiged-exports/src/",
+            "Enraiged\\Files\\": "packages/enraiged-files/src/",
+            "Enraiged\\Forms\\": "packages/enraiged-forms/src/",
+            "Enraiged\\Profiles\\": "packages/enraiged-profiles/src/",
+            "Enraiged\\Tables\\": "packages/enraiged-tables/src/"
         },
         "files": [
             "packages/enraiged/helpers/auth.php",

@@ -183,6 +183,15 @@ return [
         Enraiged\AppServiceProvider::class,
         Enraiged\AuthServiceProvider::class,
         Enraiged\EventServiceProvider::class,
+
+        Enraiged\Accounts\AuthServiceProvider::class,
+        Enraiged\Accounts\EventServiceProvider::class,
+
+        Enraiged\Agreements\EventServiceProvider::class,
+
+        Enraiged\Avatars\AuthServiceProvider::class,
+
+        Enraiged\Profiles\AuthServiceProvider::class,
     ],
 
     /*
