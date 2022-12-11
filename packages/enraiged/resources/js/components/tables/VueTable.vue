@@ -202,7 +202,7 @@ export default {
     },
 
     methods: {
-        ...mapActions(FlashMessages, ['flashSuccess']),
+        ...mapActions(FlashMessages, ['flashSuccess', 'flash']),
 
         async fetch() {
             this.loading = true;
@@ -239,11 +239,13 @@ export default {
                 .then((response) => {
                     const { data, status } = response;
                     if (this.isSuccess(status)) {
-                        const { success } = data;
-                        this.flashSuccess(success);
-                        this.fetch();
-                    } else {
-                        this.errorHandler(error);
+                        if (data.success) {
+                            this.flashSuccess(data.success);
+                            this.fetch();
+                        } else {
+                            const severity = Object.keys(data)[0];
+                            this.flash({ severity, content: data.warn, expiry: 5000 });
+                        }
                     }
                 })
                 .catch(error => this.errorHandler(error));

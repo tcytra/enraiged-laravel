@@ -21,8 +21,17 @@ export const FlashMessages = defineStore('flash-messages', {
                 this.flashSuccess(message);
             }
         },
+        flashError(message) {
+            this.messages.push({ severity: 'error', content: message, expiry: 3000 });
+        },
+        flashInfo(message) {
+            this.messages.push({ severity: 'info', content: message, expiry: 3000 });
+        },
         flashSuccess(message) {
             this.messages.push({ severity: 'success', content: message, expiry: 3000 });
+        },
+        flashWarning(message) {
+            this.messages.push({ severity: 'warn', content: message, expiry: 3000 });
         },
         unflash(index) {
             this.messages.splice(index, 1);

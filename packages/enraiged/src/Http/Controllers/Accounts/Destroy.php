@@ -22,13 +22,22 @@ class Destroy extends Controller
     {
         $this->authorize('delete', $account);
 
-        $account->delete();
+        if ($account->is_protected) {
+            if ($request->is('api/*')) {
+                return response()->json(['warn' => __('This account is protected and cannot be deleted')]);
+            }
 
-        if ($request->is('api/*')) {
-            return response()->json(['success' => __('Account deleted')]);
+            $request->session()->put('warn', __('This account is protected and cannot be deleted'));
+
+        } else {
+            $account->delete();
+
+            if ($request->is('api/*')) {
+                return response()->json(['success' => __('Account deleted')]);
+            }
+
+            $request->session()->put('success', __('Account deleted'));
         }
-
-        $request->session()->put('success', __('Account deleted'));
 
         return redirect()->back();
     }
