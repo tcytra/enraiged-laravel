@@ -174,7 +174,7 @@ export default {
 
     async mounted() {
         this.ready = true;
-        this.exportable = this.template.exportable.default;
+        this.exportable = this.template.exportable ? this.template.exportable.default : null;
         this.defaultFilters();
         if (this.template.state && this.template.id && localStorage[this.template.id]) {
             const state = JSON.parse(localStorage[this.template.id]);
