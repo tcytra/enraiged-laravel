@@ -6,7 +6,7 @@
                 <vue-text-field class="email" id="email" is-large
                     :field="{ placeholder: 'Email', required: true }"
                     :form="form"/>
-                <vue-password-field id="password" feedback is-large toggle-mask
+                <vue-password-field id="password" is-large
                     :field="{ placeholder: 'Password', required: true }"
                     :form="form"/>
                 <vue-switch-field id="remember"
