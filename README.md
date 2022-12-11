@@ -109,8 +109,8 @@ ALLOW_REGISTER=true
 AUTO_LOGIN=true
 ```
 
-These values will override their counterpart definitions in the config/auth.php config file. Completely remove these 
-from your .env if you wish to control these parameters from the auth config array.
+These values will override their counterpart definitions in the config/enraiged/auth.php config file. Completely remove
+these from your .env if you wish to control these parameters from the enraiged auth config array.
 
 **ALLOW_REGISTER** will turn on or off the ability to register an account as a guest.
 
