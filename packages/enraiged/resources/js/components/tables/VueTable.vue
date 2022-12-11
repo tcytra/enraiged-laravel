@@ -50,9 +50,13 @@
                     <primevue-button class="create-button ml-2"
                         v-if="template.actions.create && template.actions.create.permission"
                         v-tooltip.top="i18n(template.actions.create.tooltip)"
-                        :class="template.actions.create.class"
+                        :class="[
+                            template.actions.create.class,
+                            {'p-button-icon-only': !template.actions.create.label},
+                        ]"
                         :disabled="!template.actions.create.permission"
                         :icon="template.actions.create.icon"
+                        :label="template.actions.create.label"
                         @click="action('create', template.actions.create)"/>
                 </div>
                 <div class="search-bar p-inputgroup col-12 flex-order-3 lg:col-4 lg:flex-order-2">
