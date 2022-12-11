@@ -25,6 +25,8 @@ class UserSeeder extends Seeder
 
         foreach ($users as $parameters) {
             if ($is_administrator) {
+                $parameters['role'] = "Administrator";
+
                 $email = key_exists('email', $parameters) ? $parameters['email'] : 'administrator@enraiged.dev';
                 $parameters['email'] = env('ADMIN_EMAIL', $email);
 
@@ -41,7 +43,7 @@ class UserSeeder extends Seeder
 
                 $this->command
                     ->getOutput()
-                    ->writeln("<comment>Administrator Login:</comment> <info>{$user->email}:{$password}</info>");
+                    ->writeln("<comment>Administrator Login:</comment> <info>{$user->email}:{$parameters['password']}</info>");
             }
 
             $is_administrator = false;
