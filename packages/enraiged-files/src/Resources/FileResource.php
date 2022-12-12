@@ -2,7 +2,6 @@
 
 namespace Enraiged\Files\Resources;
 
-use Enraiged\Http\Resources\Attributes\DatetimeAttributeResource as Datetime;
 use Enraiged\Http\Resources\JsonResource;
 
 class FileResource extends JsonResource
@@ -17,20 +16,12 @@ class FileResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'created' => $this->created(),
+            'created' => $this->datetime('created_at'),
             'icon' => $this->icon(),
             'name' => $this->name,
             'size' => $this->size,
             'type' => $this->type,
         ];
-    }
-
-    /**
-     *  @return array
-     */
-    private function created()
-    {
-        return Datetime::from($this->resource)->attribute('created_at');
     }
 
     /**

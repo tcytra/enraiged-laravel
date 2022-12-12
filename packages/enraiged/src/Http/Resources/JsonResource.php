@@ -2,6 +2,7 @@
 
 namespace Enraiged\Http\Resources;
 
+use Enraiged\Http\Resources\Attributes\DatetimeAttributeResource as Datetime;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Http\Resources\Json\JsonResource as IlluminateResource;
 use Illuminate\Support\Collection;
@@ -38,6 +39,20 @@ class JsonResource extends IlluminateResource
         }
 
         return $this->attribute();
+    }
+
+    /**
+     *  @return string|null
+     */
+    protected function datetime($attribute)
+    {
+        if ($this->{$attribute}) {
+            $resource = (object) Datetime::fromAttribute($this, $attribute, $this->request);
+
+            return $resource->date;
+        }
+
+        return null;
     }
 
     /**
