@@ -323,7 +323,7 @@ export default {
 
         rowClass(data) {
             return {
-                'inactive-data': typeof data.active !== undefined && !data.active,
+                'inactive-data': typeof data.active !== 'undefined' && !data.active,
             };
         },
 
