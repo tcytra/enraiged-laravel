@@ -102,7 +102,12 @@ trait EloquentBuilder
      */
     public function records()
     {
-        return $this->resource::from( collect($this->pagination->items()) );
+        $collection = collect($this->pagination->items())
+            ->each(function ($item) {
+                $item->actions = $this->actionsForRow($item);
+            });
+
+        return $this->resource::from($collection);
     }
 
     /**

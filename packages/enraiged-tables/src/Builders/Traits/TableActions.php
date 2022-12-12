@@ -2,7 +2,6 @@
 
 namespace Enraiged\Tables\Builders\Traits;
 
-use Enraiged\Accounts\Models\Account;
 use Illuminate\Support\Facades\Route;
 
 trait TableActions
@@ -86,7 +85,7 @@ trait TableActions
                 $resource_action = "{$prefix}.{$action}";
 
                 if (Route::has($resource_action)) {
-                    $parameters['permission'] = $this->user->can($action, $resource ?? Account::class);
+                    $parameters['permission'] = $this->user->can($action, $resource ?? $this->model);
 
                     if (!key_exists('uri', $parameters)) {
                         $parameters['uri'] = route(
@@ -102,5 +101,21 @@ trait TableActions
         }
 
         return $actions;
+    }
+
+    /**
+     *  Determine if this table has actions for rows.
+     *
+     *  @return bool
+     */
+    public function hasRowActions(): bool
+    {
+        return gettype($this->actions) === 'array'
+            && collect($this->actions)
+                ->filter(function ($action) {
+                    return key_exists('type', $action)
+                        && strtolower($action['type']) === 'row';
+                })
+                ->count() > 0;
     }
 }

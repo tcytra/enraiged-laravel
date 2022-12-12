@@ -3,8 +3,8 @@
 namespace Enraiged\Http\Controllers\Accounts;
 
 use App\Http\Controllers\Controller;
+use Enraiged\Accounts\Forms\Builders\CreateForm;
 use Enraiged\Accounts\Models\Account;
-use Enraiged\Http\Requests\Accounts\CreateRequest;
 use Enraiged\Roles\Models\Role;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
@@ -23,13 +23,10 @@ class Create extends Controller
     {
         $this->authorize('create', Account::class);
 
-        $request = CreateRequest::createFrom($request);
-
-        $builder = $request
-            ->form()
+        $form = CreateForm::from($request)
             ->create(Account::class, 'accounts.store')
             ->value('role_id', Role::lowest()->id);
 
-        return inertia('accounts/Create', ['builder' => $builder->template()]);
+        return inertia('accounts/Create', ['builder' => $form->template()]);
     }
 }

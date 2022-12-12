@@ -3,7 +3,6 @@
 namespace Enraiged\Accounts\Tables\Resources;
 
 use Enraiged\Avatars\Resources\AvatarResource;
-use Enraiged\Http\Requests\Accounts\IndexRequest;
 use Enraiged\Http\Resources\Attributes\DatetimeAttributeResource as Datetime;
 use Enraiged\Http\Resources\JsonResource;
 
@@ -20,13 +19,6 @@ class IndexResource extends JsonResource
      */
     public function toArray($request): array
     {
-        if ($request instanceof IndexRequest) {}
-        else {
-            $request = IndexRequest::createFrom($request);
-        }
-
-        $this->request = $request;
-
         return [
             'id' => $this->id,
             'avatar' => $this->avatar(),
@@ -41,7 +33,7 @@ class IndexResource extends JsonResource
             'birthday' => $this->date('birthdate'),
             'created' => $this->date('created_at'),
             'deleted' => $this->date('deleted_at'),
-            'actions' => $request->table()->actionsForRow($this->resource),
+            'actions' => $this->resource->actions,
         ];
     }
 

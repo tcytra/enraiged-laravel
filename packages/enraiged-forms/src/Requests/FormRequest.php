@@ -12,9 +12,6 @@ class FormRequest extends Request
     /** @var  bool|null  The boolean status of this request. */
     public $success;
 
-    /** @var  object  The form builder. */
-    protected $form;
-
     /**
      *  Determine if the user is authorized to make this request.
      *

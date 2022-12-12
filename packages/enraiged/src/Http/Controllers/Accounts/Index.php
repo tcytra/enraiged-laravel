@@ -4,7 +4,7 @@ namespace Enraiged\Http\Controllers\Accounts;
 
 use App\Http\Controllers\Controller;
 use Enraiged\Accounts\Models\Account;
-use Enraiged\Http\Requests\Accounts\IndexRequest;
+use Enraiged\Accounts\Tables\Builders\AccountsIndex;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 
@@ -22,8 +22,8 @@ class Index extends Controller
     {
         $this->authorize('index', Account::class);
 
-        $request = IndexRequest::createFrom($request);
+        $table = AccountsIndex::from($request);
 
-        return inertia('accounts/Index', ['template' => $request->table()->template()]);
+        return inertia('accounts/Index', ['template' => $table->template()]);
     }
 }

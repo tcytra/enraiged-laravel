@@ -3,9 +3,9 @@
 namespace Enraiged\Http\Controllers\Accounts;
 
 use App\Http\Controllers\Controller;
+use Enraiged\Accounts\Forms\Builders\UpdateForm;
 use Enraiged\Accounts\Models\Account;
 use Enraiged\Accounts\Resources\AccountResource;
-use Enraiged\Http\Requests\Accounts\UpdateRequest;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 
@@ -34,12 +34,12 @@ class Edit extends Controller
 
         $this->authorize('edit', $this->account);
 
-        $request = UpdateRequest::createFrom($request);
-        $builder = $request->form()->edit($this->account, 'accounts.update');
+        $form = UpdateForm::from($request)
+            ->edit($this->account, 'accounts.update');
 
         return inertia('accounts/Edit', [
             'account' => AccountResource::from($this->account),
-            'builder' => $builder->template(),
+            'builder' => $form->template(),
             'messages' => $this->messages(),
         ]);
     }
