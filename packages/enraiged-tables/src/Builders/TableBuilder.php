@@ -32,8 +32,12 @@ class TableBuilder
 
         $pagination = (object) $this->pagination();
 
+        $filters = $this->request()->has('filters')
+            ? (array) json_decode($this->request->get('filters'))
+            : [];
+
         return [
-            'filters' => json_decode($this->request->get('filters')),
+            'filters' => $filters,
             'records' => $this->records(),
             'pagination' => [
                 'dir' => $this->request->get('dir'),

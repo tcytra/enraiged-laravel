@@ -256,9 +256,11 @@ export default {
         },
 
         defaultFilters() {
-            Object.keys(this.template.filters).forEach((filter) => {
-                this.filters[filter] = this.template.filters[filter].default || null;
-            });
+            if (this.template.filters) {
+                Object.keys(this.template.filters).forEach((filter) => {
+                    this.filters[filter] = this.template.filters[filter].default || null;
+                });
+            }
         },
 
         download() {
