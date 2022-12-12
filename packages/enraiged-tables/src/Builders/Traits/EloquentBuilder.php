@@ -44,23 +44,25 @@ trait EloquentBuilder
     public function filter()
     {
         if ($this->request()->has('filters')) {
-            $filters = json_decode($this->request()->get('filters'));
+            $filters = (array) json_decode($this->request()->get('filters'));
 
-            foreach ($this->filters as $index => $filter) {
-                if (!$this->assertSecure($filter)) {
-                    continue;
-                }
+            if (count($filters)) {
+                foreach ($this->filters as $index => $filter) {
+                    if (!$this->assertSecure($filter)) {
+                        continue;
+                    }
 
-                if (property_exists($filters, $index) && $filters->{$index}) {
-                    $value = $filters->{$index};
-                    $source = key_exists('source', $filter)
-                        ? $filter['source']
-                        : "{$this->table}.{$index}";
+                    if (key_exists($index, $filters) && $filters[$index]) {
+                        $value = $filters[$index];
+                        $source = key_exists('source', $filter)
+                            ? $filter['source']
+                            : "{$this->table}.{$index}";
 
-                    if (gettype($value) === 'array') {
-                        $this->builder->whereIn($source, $value);
-                    } else {
-                        $this->builder->where($source, $value);
+                        if (gettype($value) === 'array') {
+                            $this->builder->whereIn($source, $value);
+                        } else {
+                            $this->builder->where($source, $value);
+                        }
                     }
                 }
             }
