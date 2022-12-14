@@ -34,6 +34,12 @@ export default {
 
     methods: {
         update(value) {
+            if (this.form.errors[this.id]) {
+                 delete this.form.errors[this.id];
+            }
+            if (!Object.keys(this.form.errors).length) {
+                this.form.hasErrors = false;
+            }
             /*if (value && typeof value === 'object') {
                 //  todo: must be a better way to handle this
                 if (typeof value.code !== 'undefined') {
