@@ -26,6 +26,15 @@ class AccountPolicy
      *  @param  \App\Auth\User  $user
      *  @return bool
      */
+    public function available(User $user)
+    {
+        return $user->role->atLeast(Roles::Administrator);
+    }
+
+    /**
+     *  @param  \App\Auth\User  $user
+     *  @return bool
+     */
     public function create(User $user)
     {
         return $user->role->atLeast(Roles::Administrator);

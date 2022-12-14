@@ -49,6 +49,7 @@ Route::namespace('\Enraiged\Http\Controllers\Accounts')
                         Route::match(['GET', 'POST'], 'data', 'Data')->name('data');
                         Route::match(['GET', 'POST'], 'export', 'Export')->name('export');
                     });
+                Route::match(['GET', 'POST'], 'available', 'Available')->name('available');
                 Route::delete('{account}', 'Destroy')->name('delete');
             });
 
