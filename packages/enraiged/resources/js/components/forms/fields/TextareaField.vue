@@ -13,7 +13,8 @@
                 :disabled="disabled"
                 :id="id"
                 :placeholder="placeholder"
-                :rows="field.rows || rows"/>
+                :rows="field.rows || rows"
+                @update:modelValue="update"/>
             <div class="error p-error" v-if="error">
                 <i class="pi pi-exclamation-circle" v-tooltip.top="error"></i>
                 <span class="message">{{ error }}</span>
