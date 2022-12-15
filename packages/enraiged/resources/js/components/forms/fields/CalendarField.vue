@@ -3,22 +3,22 @@
         :field="field"
         :form="form"
         :id="id">
-        <div class="control text" :class="$attrs.class">
+        <div class="control field calendar" v-show="show"
+            :class="[$attrs.class, field.class, labels]">
             <label v-if="label" class="label" :for="id">
                 {{ label }}
             </label>
-            <div class="field text">
-                <primevue-calendar
-                    v-model="model"
-                    :class="{ 'p-inputtext-lg': isLarge, 'p-inputtext-sm': isSmall, 'p-invalid': error }"
-                    :date-format="field.date_format || 'yy-mm-dd'"
-                    :disabled="disabled"
-                    :id="id"
-                    :placeholder="placeholder"
-                    @update:modelValue="update"/>
-            </div>
-            <div class="error" v-if="error">
-                {{ error }}
+            <primevue-calendar
+                v-model="model"
+                :class="{ 'p-inputtext-lg': isLarge, 'p-inputtext-sm': isSmall, 'p-invalid': error }"
+                :date-format="field.date_format || 'yy-mm-dd'"
+                :disabled="disabled"
+                :id="id"
+                :placeholder="placeholder"
+                @update:modelValue="update"/>
+            <div class="error p-error" v-if="error">
+                <i class="pi pi-exclamation-circle" v-tooltip.top="error"></i>
+                <span class="message">{{ error }}</span>
             </div>
         </div>
     </vue-form-field>
@@ -27,6 +27,7 @@
 <script>
 import { v4 as uuid } from 'uuid';
 import PrimevueCalendar from 'primevue/calendar';
+import PrimevueTooltip from 'primevue/tooltip';
 import VueFormField from '@/components/forms/VueFormField';
 
 export default {
@@ -35,6 +36,10 @@ export default {
     components: {
         PrimevueCalendar,
         VueFormField,
+    },
+
+    directives: {
+        tooltip: PrimevueTooltip,
     },
 
     props: {
@@ -61,6 +66,10 @@ export default {
         isSmall: {
             type: Boolean,
             default: false,
+        },
+        show: {
+            type: Boolean,
+            default: true,
         },
     },
 

@@ -3,23 +3,26 @@
         :field="field"
         :form="form"
         :id="id">
-        <div class="control text" :class="$attrs.class">
+        <div class="control field dropdown" v-show="show"
+            :class="[$attrs.class, field.class, labels]">
             <label v-if="label" class="label" :for="id">
                 {{ label }}
             </label>
-            <div class="field dropdown">
-                <primevue-dropdown optionLabel="name" optionValue="id"
-                    v-model="model"
-                    :class="{ 'p-inputtext-lg': isLarge, 'p-inputtext-sm': isSmall, 'p-invalid': error }"
-                    :disabled="disabled"
-                    :id="id"
-                    :options="field.options.values"
-                    :placeholder="placeholder"
-                    :show-clear="showClear"
-                    @update:modelValue="update"/>
-            </div>
-            <div class="error" v-if="error">
-                {{ error }}
+            <primevue-dropdown class="w-full" optionLabel="name" optionValue="id"
+                v-model="model"
+                :class="{ 'p-inputtext-lg': isLarge, 'p-inputtext-sm': isSmall, 'p-invalid': error }"
+                :disabled="loading || disabled"
+                :filter="field.searchable || searchable"
+                :id="id"
+                :loading=loading
+                :options="field.options.values"
+                :placeholder="placeholder"
+                :show-clear="field.clearable || clearable"
+                @filter="filter"
+                @update:modelValue="update"/>
+            <div class="error p-error" v-if="error">
+                <i class="pi pi-exclamation-circle" v-tooltip.top="error"></i>
+                <span class="message">{{ error }}</span>
             </div>
         </div>
     </vue-form-field>
@@ -27,6 +30,7 @@
 
 <script>
 import PrimevueDropdown from 'primevue/dropdown';
+import PrimevueTooltip from 'primevue/tooltip';
 import VueFormField from '@/components/forms/VueFormField';
 
 export default {
@@ -37,10 +41,24 @@ export default {
         VueFormField,
     },
 
+    directives: {
+        tooltip: PrimevueTooltip,
+    },
+
+    inject: ['errorHandler'],
+
     props: {
+        clearable: {
+            type: Boolean,
+            default: false,
+        },
         field: {
             type: Object,
             required: true,
+        },
+        filterable: {
+            type: Boolean,
+            default: false,
         },
         focus: {
             type: Boolean,
@@ -62,15 +80,71 @@ export default {
             type: Boolean,
             default: false,
         },
-        showClear: {
+        labels: {
+            type: String,
+            default: null,
+        },
+        searchable: {
             type: Boolean,
             default: false,
         },
+        show: {
+            type: Boolean,
+            default: true,
+        },
     },
+
+    data: () => ({
+        limit: null,
+        loading: false,
+        search: null,
+        timer: null,
+    }),
 
     computed: {
         model() {
             return this.form ? this.form[this.id] : null;
+        },
+    },
+
+    mounted() {
+        if (this.field.options.source === 'api') {
+            if (this.field.options.limit) {
+                this.limit = this.field.options.limit;
+            }
+            this.fetch();
+        }
+    },
+
+    methods: {
+        fetch() {
+            this.loading = true;
+            return this.axios.get(this.field.options.uri, { params: this.params() })
+                .then(({ data }) => {
+                    this.field.options.values = data;
+                    this.loading = false;
+                })
+                .catch(error => this.errorHandler(error));
+        },
+        filter(payload) {
+            this.field.options.values = [];
+            this.search = payload.value;
+        },
+        params() {
+            return {
+                limit: this.limit,
+                search: this.search,
+            };
+        },
+    },
+
+    watch: {
+        search: {
+            handler(value) {
+                console.log(value);
+                clearTimeout(this.timer);
+                this.timer = setTimeout(this.fetch, 500);
+            }
         },
     },
 };

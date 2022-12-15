@@ -168,7 +168,7 @@ trait PopulateFields
 
             if (!property_exists($options, 'values')) {
                 $this->field($name, [
-                    'options' => $this->selectOptions($options),
+                    'options' => [...$field->options, ...$this->selectOptions($options)],
                 ]);
             }
         }

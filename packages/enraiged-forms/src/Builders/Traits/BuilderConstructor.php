@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\File;
 
 trait BuilderConstructor
 {
+    /** @var  object  The templated form labels direction. */
+    protected $labels;
+
     /**
      *  Create an instance of the FormBuilder.
      *

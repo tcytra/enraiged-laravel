@@ -3,24 +3,22 @@
         :field="field"
         :form="form"
         :id="id">
-        <div class="control password" :class="$attrs.class">
+        <div class="control field text" :class="[$attrs.class, field.class, { confirm }, labels]">
             <label v-if="label" class="label" :for="id">
                 {{ label }}
             </label>
-            <div class="field"
-                :class="{ confirm }">
-                <primevue-password focus ref="field"
-                    v-model="model"
-                    :class="{ 'p-inputtext-lg': isLarge, 'p-inputtext-sm': isSmall, 'p-invalid': error }"
-                    :disabled="disabled"
-                    :feedback="feedback"
-                    :id="id"
-                    :placeholder="placeholder"
-                    :toggle-mask="toggleMask"
-                    @update:modelValue="update"/>
-            </div>
-            <div class="error" v-if="error">
-                {{ error }}
+            <primevue-password class="w-full" ref="field" focus
+                v-model="model"
+                :class="{ 'p-inputtext-lg': isLarge, 'p-inputtext-sm': isSmall, 'p-invalid': error }"
+                :disabled="disabled"
+                :feedback="feedback"
+                :id="id"
+                :placeholder="placeholder"
+                :toggle-mask="toggleMask"
+                @update:modelValue="update"/>
+            <div class="error p-error" v-if="error">
+                <i class="pi pi-exclamation-circle" v-tooltip.top="error"></i>
+                <span class="message">{{ error }}</span>
             </div>
         </div>
     </vue-form-field>
@@ -29,6 +27,7 @@
 <script>
 import { v4 as uuid } from 'uuid';
 import PrimevuePassword from 'primevue/password';
+import PrimevueTooltip from 'primevue/tooltip';
 import VueFormField from '@/components/forms/VueFormField';
 
 export default {
@@ -37,6 +36,10 @@ export default {
     components: {
         PrimevuePassword,
         VueFormField,
+    },
+
+    directives: {
+        tooltip: PrimevueTooltip,
     },
 
     props: {
@@ -71,6 +74,10 @@ export default {
         isSmall: {
             type: Boolean,
             default: false,
+        },
+        labels: {
+            type: String,
+            default: null,
         },
         toggleMask: {
             type: Boolean,

@@ -2,8 +2,6 @@
 
 namespace Enraiged\Forms\Builders;
 
-use Enraiged\Forms\Services\FormTemplate;
-
 class FormBuilder
 {
     use Traits\BuilderConstructor,
@@ -77,7 +75,13 @@ class FormBuilder
      */
     public function template(): array
     {
-        return FormTemplate::from($this);
+        return [
+            'actions' => $this->actions(),
+            'fields' => $this->fields(),
+            'labels' => $this->labels,
+            'resource' => $this->resource(),
+            'uri' => $this->uri(),
+        ];
     }
 
     /**

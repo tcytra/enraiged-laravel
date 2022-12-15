@@ -17,6 +17,13 @@ trait SelectOptions
         $source = $options->source;
         $values = [];
 
+        if ($source === 'api') {
+            return [
+                'uri' => $this->route($options->uri),
+                'values' => $values,
+            ];
+        }
+
         if ($options->type === 'enum') {
             $values = $source::select();
         }

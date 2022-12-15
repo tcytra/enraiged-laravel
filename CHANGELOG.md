@@ -27,6 +27,22 @@ Todo:
 
 ---
 
+2022-12-12 : 0.0.17  
+Update: 
+
+- Access resource timestamp object via JsonResource::datetime
+- Better error handling when trying to delete a protected account
+- Corrected incorrect config file path in the README
+- Corrected issue in the table builder filter method
+- Corrected issue with the table filters when none present
+- Corrected issue with the VueTable inactive-data rowClass
+- Improvements to the VueForm,VueTable ui/ux
+- Removed extra features from login page password field
+- Simplifed handling the forms,tables from the controllers
+- Updated various items in the package.json
+
+---
+
 2022-12-09 : 0.0.16  
 Update: Added enraiged asset publishing, table filters, other improvements
 

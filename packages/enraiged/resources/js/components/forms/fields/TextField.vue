@@ -3,22 +3,22 @@
         :field="field"
         :form="form"
         :id="id">
-        <div class="control text" :class="$attrs.class">
+        <div class="control field text" v-show="show"
+            :class="[$attrs.class, field.class, labels]">
             <label v-if="label" class="label" :for="id">
                 {{ label }}
             </label>
-            <div class="field text">
-                <primevue-input focus class="p-inputtext" type="text" ref="field"
-                    v-model="model"
-                    :class="{ 'p-inputtext-lg': isLarge, 'p-inputtext-sm': isSmall, 'p-invalid': error }"
-                    :disabled="disabled"
-                    :id="id"
-                    :placeholder="placeholder"
-                    :type="text"
-                    @update:modelValue="update"/>
-            </div>
-            <div class="error" v-if="error">
-                {{ error }}
+            <primevue-input-text class="w-full" type="text" ref="field" focus
+                v-model="model"
+                :class="{ 'p-inputtext-lg': isLarge, 'p-inputtext-sm': isSmall, 'p-invalid': error }"
+                :disabled="disabled"
+                :id="id"
+                :placeholder="placeholder"
+                :type="text"
+                @update:modelValue="update"/>
+            <div class="error p-error" v-if="error">
+                <i class="pi pi-exclamation-circle" v-tooltip.top="error"></i>
+                <span class="message">{{ error }}</span>
             </div>
         </div>
     </vue-form-field>
@@ -26,15 +26,20 @@
 
 <script>
 import { v4 as uuid } from 'uuid';
-import PrimevueInput from 'primevue/inputtext';
+import PrimevueInputText from 'primevue/inputtext';
+import PrimevueTooltip from 'primevue/tooltip';
 import VueFormField from '@/components/forms/VueFormField';
 
 export default {
     inheritAttrs: false,
 
     components: {
-        PrimevueInput,
+        PrimevueInputText,
         VueFormField,
+    },
+
+    directives: {
+        tooltip: PrimevueTooltip,
     },
 
     props: {
@@ -61,6 +66,14 @@ export default {
         isSmall: {
             type: Boolean,
             default: false,
+        },
+        labels: {
+            type: String,
+            default: null,
+        },
+        show: {
+            type: Boolean,
+            default: true,
         },
     },
 

@@ -4,6 +4,8 @@ return [
 
     'absolute_uris' => env('ABSOLUTE_URIS', false),
 
+    'labels' => 'vertical',
+
     'template' => [
 
         'actions' => [

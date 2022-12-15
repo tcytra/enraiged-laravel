@@ -3,16 +3,22 @@
         :field="field"
         :form="form"
         :id="id">
-        <div class="control switch" :class="$attrs.class">
+        <div class="control field switch" v-show="show"
+            :class="[
+                $attrs.class,
+                field.class,
+                labels,
+                { 'switch-first': switchFirst },
+            ]">
             <label v-if="label" class="label" :for="id">
                 {{ label }}
             </label>
-            <div class="field switch mb-0 flex-grow-0">
-                <primevue-switch v-model="model" :id="id"
-                    @update:modelValue="update"/>
-            </div>
-            <div class="error" v-if="error">
-                {{ error }}
+            <primevue-switch v-model="model" :id="id"
+                @change="$emit('change')"
+                @update:modelValue="update"/>
+            <div class="error p-error" v-if="error">
+                <i class="pi pi-exclamation-circle" v-tooltip.top="error"></i>
+                <span class="message">{{ error }}</span>
             </div>
         </div>
     </vue-form-field>
@@ -21,6 +27,7 @@
 <script>
 import { v4 as uuid } from 'uuid';
 import PrimevueSwitch from 'primevue/inputswitch';
+import PrimevueTooltip from 'primevue/tooltip';
 import VueFormField from '@/components/forms/VueFormField';
 
 export default {
@@ -29,6 +36,10 @@ export default {
     components: {
         PrimevueSwitch,
         VueFormField,
+    },
+
+    directives: {
+        tooltip: PrimevueTooltip,
     },
 
     props: {
@@ -43,6 +54,18 @@ export default {
         id: {
             type: String,
             required: true,
+        },
+        labels: {
+            type: String,
+            default: null,
+        },
+        show: {
+            type: Boolean,
+            default: true,
+        },
+        switchFirst: {
+            type: Boolean,
+            default: false,
         },
     },
 
