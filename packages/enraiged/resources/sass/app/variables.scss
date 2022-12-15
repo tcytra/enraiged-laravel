@@ -23,9 +23,13 @@ $color:             var(--text-color);
 // $color-secondary:	var(--orange-600);
 $color-grey:        var(--bluegray-400);
 
-$color-success:     #689f38;
+$background-danger: #ffcdd2;
+$background-info:   #b3e5fc;
+$background-success:#c8e6c9;
+$background-warning:#ffecb3;
 $color-danger:      #f44336;
 $color-info:        #0288d1;
+$color-success:     #689f38;
 $color-warning:     #fbc02d;
 
 $surface-border:    var(--bluegray-100);

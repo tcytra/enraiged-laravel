@@ -10,7 +10,7 @@
             </label>
             <primevue-dropdown class="w-full" optionLabel="name" optionValue="id"
                 v-model="model"
-                :class="{ 'p-inputtext-lg': isLarge, 'p-inputtext-sm': isSmall, 'p-invalid': error }"
+                :class="{ 'p-inputtext-lg': isLarge, 'p-inputtext-sm': isSmall, 'p-invalid': form.errors[id] }"
                 :disabled="loading || disabled"
                 :filter="field.searchable || searchable"
                 :id="id"

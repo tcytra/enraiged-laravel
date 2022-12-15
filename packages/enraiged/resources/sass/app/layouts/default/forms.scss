@@ -60,6 +60,12 @@
             }
         }
 
+        .p-invalid {
+            .p-dropdown-trigger {
+              display:          none;
+            }
+        }
+
         .error {
             .pi {
               align-items:      center;
@@ -68,7 +74,9 @@
               height:           2rem;
               justify-content:  center;
               margin-left:      -2rem;
+              position:         relative;
               width:            2rem;
+              z-index:          999;
             }
             .message {
               display:          none;
