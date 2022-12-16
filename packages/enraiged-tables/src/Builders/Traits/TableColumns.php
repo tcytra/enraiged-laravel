@@ -103,7 +103,15 @@ trait TableColumns
 
         foreach ($this->columns as $key => $parameters) {
             if (key_exists('searchable', $parameters) && $parameters['searchable'] === true) {
-                $columns[$key] = $this->columnSource($key);
+                $source = $this->columnSource($key);
+
+                if (gettype($source) === 'array') {
+                    foreach ($source as $each) {
+                        $columns[] = $each;
+                    }
+                } else {
+                    $columns[] = $this->columnSource($key);
+                }
             }
         }
 
