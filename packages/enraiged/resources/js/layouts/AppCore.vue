@@ -43,7 +43,7 @@ export default {
         },
 
         errorHandler(error) {
-            console.log(error);
+            // console.log(error);
         },
 
         eventsAttach() {
