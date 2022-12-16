@@ -145,7 +145,7 @@ trait EloquentBuilder
 
         return $this;
     }
-    
+
     /**
      *  Apply the sorting to the query builder, if possible.
      *
@@ -153,13 +153,19 @@ trait EloquentBuilder
      */
     public function sort()
     {
+        $dir = $this->request()->get('dir') < 0 ? 'desc' : 'asc';
         $sort = $this->request()->get('sort');
 
         if ($sort && $this->columnKeys()->contains($sort)) {
-            $this->builder->orderBy(
-                $this->columnSource($sort),
-                $this->request()->get('dir') < 0 ? 'desc' : 'asc'
-            );
+            $source = $this->columnSource($sort);
+
+            if (gettype($source) === 'array') {
+                foreach ($source as $each) {
+                    $this->builder->orderBy($each, $dir);
+                }
+            } else {
+                $this->builder->orderBy($source, $dir);
+            }
         }
 
         return $this;
