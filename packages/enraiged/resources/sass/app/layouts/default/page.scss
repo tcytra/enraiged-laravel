@@ -18,13 +18,20 @@
         }
 
         >.footer {
-          background-color: var(--bluegray-100);
           bottom:           0;
           display:          flex;
           height:           $page-footer-size;
           position:         fixed;
           width:            100%;
           z-index:          2;
+
+            &::before {
+              background-color: var(--bluegray-100);
+              content:          "";
+              height:           $page-footer-size;
+              opacity:          .8;
+              width:            100%;
+            }
         }
 
         >.header {
