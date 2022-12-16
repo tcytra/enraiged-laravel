@@ -1,52 +1,48 @@
 <template>
-    <primevue-card>
-        <template #header>
-            <header class="header">
-                <h3 class="auto-margin max-width-sm">
-                    {{ i18n('This form will allow you to manage account details.') }}
-                </h3>
-            </header>
+    <vue-form ref="form"
+        :builder="builder">
+        <template v-slot:default="{ form }">
+            <administrative-options v-if="builder.fields.administration"
+                :form="form"
+                :section="builder.fields.administration"/>
+            <account-details
+                :form="form"
+                :section="builder.fields.personal"/>
+            <account-password
+                :form="form"
+                :section="builder.fields.authentication"/>
         </template>
-        <template #content>
-            <vue-form class="adjacent-labels auto-margin max-width-sm" :builder="builder">
-                <template v-slot:default="{ form }">
-                    <administrative-options v-if="builder.fields.administration"
-                        :form="form"
-                        :section="builder.fields.administration"/>
-                    <personal-information
-                        :form="form"
-                        :section="builder.fields.personal"/>
-                    <authentication-details
-                        :form="form"
-                        :section="builder.fields.authentication"/>
-                </template>
-            </vue-form>
-        </template>
-    </primevue-card>
+    </vue-form>
 </template>
 
 <script>
 import AdministrativeOptions from './sections/AdministrativeOptions.vue';
-import AuthenticationDetails from './sections/AuthenticationDetails.vue';
-import PersonalInformation from './sections/PersonalInformation.vue';
-import PrimevueCard from 'primevue/card';
+import AccountDetails from './sections/AccountDetails.vue';
+import AccountPassword from './sections/AccountPassword.vue';
 import VueForm from '@/components/forms/VueForm';
 
 export default {
     components: {
         AdministrativeOptions,
-        AuthenticationDetails,
-        PersonalInformation,
-        PrimevueCard,
+        AccountDetails,
+        AccountPassword,
         VueForm,
     },
 
     inject: ['i18n'],
 
     props: {
+        creating: {
+            type: Boolean,
+            default: false,
+        },
         builder: {
             type: Object,
             required: true,
+        },
+        updating: {
+            type: Boolean,
+            default: false,
         },
     },
 };

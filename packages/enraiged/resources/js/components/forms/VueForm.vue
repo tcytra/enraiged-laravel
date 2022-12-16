@@ -6,31 +6,27 @@
             </div>
         </div>
         <form @submit.prevent="submit"
-            :class="['form', labels]">
+            :class="['form', labels, {'custom-actions': customActions}]">
             <slot v-bind:form="form" v-if="ready"/>
-            <div class="actions control" v-if="actions">
-                <primevue-button class="p-button-primary submit-button" v-if="actions.submit"
-                    :disabled="!form.isDirty"
-                    :label="i18n(actions.submit.label)"
-                    @click="submit"/>
-                <primevue-button class="p-button-secondary reset-button" v-if="actions.reset && form.isDirty"
-                    :label="i18n(actions.reset.label)"
-                    @click="reset"/>
-                <primevue-button class="p-button-danger error-button" v-if="actions.clear && form.hasErrors"
-                    :label="i18n(actions.clear.label)"
-                    @click="clear"/>
-            </div>
+            <form-actions v-if="!customActions"
+                :actions="builder.actions"
+                :form="form"
+                @clear="clear"
+                @reset="reset"
+                @submit="submit"/>
         </form>
     </div>
 </template>
 
 <script>
 import { useForm } from '@inertiajs/inertia-vue3';
+import FormActions from './controls/FormActions.vue';
 import PrimevueButton from 'primevue/button';
 import PrimevueSwitch from 'primevue/inputswitch';
 
 export default {
     components: {
+        FormActions,
         PrimevueButton,
         PrimevueSwitch,
     },
@@ -41,6 +37,10 @@ export default {
         builder: {
             type: Object,
             required: true,
+        },
+        customActions: {
+            type: Boolean,
+            default: false,
         },
     },
 
@@ -78,6 +78,7 @@ export default {
 
         function clear() {
             form.clearErrors();
+            emit('clear');
         }
 
         function flatten(group) {
@@ -96,6 +97,7 @@ export default {
         function reset() {
             clear();
             form.reset();
+            emit('reset');
         }
 
         function submit() {
@@ -105,6 +107,7 @@ export default {
                     emit('form:success', form);
                 }
             });
+            emit('submit');
         }
 
         return { clear, flatten, form, reset, submit };

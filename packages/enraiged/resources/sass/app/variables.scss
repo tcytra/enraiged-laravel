@@ -65,5 +65,6 @@ $menu-transition:       .35s ease;
 $auth-panel-size:       $app-block-size * 4;
 $auth-transition:       $menu-transition;
 
-//  the page header is the h1 wrapper header
+//  the top and bottom page bars
+$page-footer-size:      $app-block-size;
 $page-header-size:      $app-block-size;

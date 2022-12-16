@@ -1,9 +1,9 @@
 <template>
     <main class="content main">
         <page-header back-button :header="header" :title="title"/>
-        <section class="auto-margin container max-width-lg">
+        <section class="auto-margin container max-width-md">
             <page-messages class="mb-3" :messages="messages" @dismiss="messages.splice($event, 1)"/>
-            <account-form :builder="builder"/>
+            <account-form :builder="builder" updating/>
         </section>
     </main>
 </template>
@@ -13,7 +13,6 @@ import AppLayout from '@/layouts/App.vue';
 import AccountForm from '@/components/accounts/forms/AccountForm';
 import PageHeader from '@/components/ui/pages/PageHeader.vue';
 import PageMessages from '@/components/ui/pages/PageMessages.vue';
-import PrimevueButton from 'primevue/button';
 
 export default {
     layout: AppLayout,
@@ -22,7 +21,6 @@ export default {
         AccountForm,
         PageHeader,
         PageMessages,
-        PrimevueButton,
     },
 
     inject: ['i18n'],

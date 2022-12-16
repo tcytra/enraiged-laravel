@@ -10,12 +10,18 @@
                 </header>
             </template>
             <template #content>
-                <section class="flex justify-content-between">
-                    <vue-switch-field class="col-4" id="is_active"
-                        :field="fields.is_active"
+                <section class="formgrid grid">
+                    <vue-text-field class="col-6" id="first_name"
+                        :field="fields.first_name"
                         :form="form"/>
-                    <vue-dropdown-field class="col-4" id="role_id" show-clear
-                        :field="fields.role_id"
+                    <vue-text-field class="col-6" id="last_name"
+                        :field="fields.last_name"
+                        :form="form"/>
+                    <vue-text-field class="col-12 md:col-10 lg:col-8 xl:col-6" id="email"
+                        :field="fields.email"
+                        :form="form"/>
+                    <vue-dropdown-field class="col-6" id="timezone" show-clear
+                        :field="fields.timezone"
                         :form="form"/>
                 </section>
             </template>
@@ -25,18 +31,20 @@
 
 <script>
 import PrimevueCard from 'primevue/card';
+import VueCalendarField from '@/components/forms/fields/CalendarField.vue';
 import VueDropdownField from '@/components/forms/fields/DropdownField.vue';
 import VueFormSection from '@/components/forms/VueFormSection.vue';
-import VueSwitchField from '@/components/forms/fields/SwitchField.vue';
+import VueTextField from '@/components/forms/fields/TextField.vue';
 
 export default {
     inheritAttrs: false,
 
     components: {
         PrimevueCard,
+        VueCalendarField,
         VueDropdownField,
         VueFormSection,
-        VueSwitchField,
+        VueTextField,
     },
 
     props: {

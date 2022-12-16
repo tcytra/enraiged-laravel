@@ -40,7 +40,7 @@
             }
         },
         "personal": {
-            "heading": "Personal Information",
+            "heading": "Account Details",
             "type": "section",
             "fields": {
                 "salut": {
@@ -71,6 +71,12 @@
                     "placeholder": "Required",
                     "required": true
                 },
+                "email": {
+                    "label": "Email",
+                    "placeholder": "Required",
+                    "required": true,
+                    "value": null
+                },
                 "alias": {
                     "data": "profile.alias",
                     "label": "Alias",
@@ -84,15 +90,9 @@
             }
         },
         "authentication": {
-            "heading": "Login Details",
+            "heading": "Account Password",
             "type": "section",
             "fields": {
-                "email": {
-                    "label": "Email",
-                    "placeholder": "Required",
-                    "required": true,
-                    "value": null
-                },
                 "password": {
                     "label": "Password",
                     "placeholder": "Leave blank to keep password",

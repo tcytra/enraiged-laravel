@@ -10,12 +10,12 @@
                 </header>
             </template>
             <template #content>
-                <section class="flex justify-content-between">
-                    <vue-switch-field class="col-4" id="is_active"
-                        :field="fields.is_active"
+                <section class="formgrid grid">
+                    <vue-password-field class="col-6" id="password" feedback toggle-mask
+                        :field="fields.password"
                         :form="form"/>
-                    <vue-dropdown-field class="col-4" id="role_id" show-clear
-                        :field="fields.role_id"
+                    <vue-password-field class="col-6" id="password_confirmation"
+                        :field="fields.password_confirmation"
                         :form="form"/>
                 </section>
             </template>
@@ -25,18 +25,18 @@
 
 <script>
 import PrimevueCard from 'primevue/card';
-import VueDropdownField from '@/components/forms/fields/DropdownField.vue';
 import VueFormSection from '@/components/forms/VueFormSection.vue';
-import VueSwitchField from '@/components/forms/fields/SwitchField.vue';
+import VuePasswordField from '@/components/forms/fields/PasswordField.vue';
+import VueTextField from '@/components/forms/fields/TextField.vue';
 
 export default {
     inheritAttrs: false,
 
     components: {
         PrimevueCard,
-        VueDropdownField,
         VueFormSection,
-        VueSwitchField,
+        VuePasswordField,
+        VueTextField,
     },
 
     props: {

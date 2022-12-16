@@ -141,7 +141,6 @@ export default {
     watch: {
         search: {
             handler(value) {
-                console.log(value);
                 clearTimeout(this.timer);
                 this.timer = setTimeout(this.fetch, 500);
             }

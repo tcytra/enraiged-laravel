@@ -1,25 +1,12 @@
 
 .form {
 
-    >.p-card {
+    >.p-card:not(:last-child) {
       margin-bottom:    1rem;
     }
 
-    .actions {
-      display:          flex;
-      flex-direction:   row-reverse;
-
-        .p-button {
-          margin:           0 .25rem;
-
-            &:first-child {
-              margin-right:     0;
-            }
-
-            &:last-child {
-              margin-left:      0;
-            }
-        }
+    &.custom-actions {
+      margin-bottom:    $page-footer-size;
     }
 
     .error {
@@ -29,6 +16,11 @@
 
     .field.control {
       display:          flex;
+      min-height:       2.5rem;
+    }
+
+    .h2, .h3, .h4, .section {
+      margin-top:       1rem;
     }
 
     &.horizontal .field.control, .horizontal .field.control, .field.control.horizontal {
@@ -119,15 +111,5 @@
               display:          none;
             }
         }
-    }
-
-    .actions .h2, .h3, .h4, .section {
-      margin-bottom:    1rem;
-    }
-    .actions {
-      margin-top:       2rem;
-    }
-    .h2, .h3, .h4, .section {
-      margin-top:       1rem;
     }
 }
