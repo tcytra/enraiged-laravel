@@ -15,7 +15,7 @@
                 :filter="field.searchable || searchable"
                 :id="id"
                 :loading=loading
-                :options="field.options.values"
+                :options="options"
                 :placeholder="placeholder"
                 :show-clear="field.clearable || clearable"
                 @filter="filter"
@@ -95,6 +95,7 @@ export default {
     },
 
     data: () => ({
+        options: [],
         limit: null,
         loading: false,
         search: null,
@@ -113,6 +114,8 @@ export default {
                 this.limit = this.field.options.limit;
             }
             this.fetch();
+        } else {
+            this.options = this.field.options.values;
         }
     },
 
@@ -121,7 +124,7 @@ export default {
             this.loading = true;
             return this.axios.get(this.field.options.uri, { params: this.params() })
                 .then(({ data }) => {
-                    this.field.options.values = data;
+                    this.options = data;
                     this.loading = false;
                 })
                 .catch(error => this.errorHandler(error));
