@@ -61,9 +61,11 @@ $font-family-avatar:    'Helvetica Neue Condensed', $font-family-primary;
 $menu-panel-size:       $app-block-size * 5;
 $menu-transition:       .35s ease;
 
+
 //  the auth panel is the right side slide-in panel
 $auth-panel-size:       $app-block-size * 4;
 $auth-transition:       $menu-transition;
+
 
 //  the top and bottom page bars
 $page-footer-size:      $app-block-size;
