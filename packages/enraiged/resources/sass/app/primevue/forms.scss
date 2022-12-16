@@ -19,16 +19,16 @@
   min-width:        3rem;
 }
 
-.p-inputtextarea,
+/*.p-inputtextarea,
 .p-inputtext {
     &::placeholder {
       font-size:        .925rem;
-      // font-style:       italic;
+      font-style:       italic;
     }
-    /* &.p-invalid::placeholder {
+    &.p-invalid::placeholder {
       color:            red;
-    } */
-}
+    }
+}*/
 
 .p-password.p-inputwrapper.w-full .p-password-input {
   width:            100%;
