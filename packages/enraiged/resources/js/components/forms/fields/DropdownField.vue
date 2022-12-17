@@ -1,16 +1,20 @@
-<template>  
-    <vue-form-field v-slot:default="{ disabled, error, label, placeholder, update }"
-        :field="field"
-        :form="form"
-        :id="id">
+<template>
+    <vue-form-field v-slot:default="{ dirty, disabled, error, label, placeholder, update }"
+        v-bind="{...$props, ...$attrs}">
         <div class="control field dropdown" v-show="show"
             :class="[$attrs.class, field.class, labels]">
             <label v-if="label" class="label" :for="id">
                 {{ label }}
             </label>
             <primevue-dropdown class="w-full" optionLabel="name" optionValue="id"
-                v-model="model"
-                :class="{ 'p-inputtext-lg': isLarge, 'p-inputtext-sm': isSmall, 'p-invalid': form.errors[id] }"
+                v-model="form[id]"
+                :class="{
+                    'is-creating': dirty && creating,
+                    'is-updating': dirty && updating,
+                    'p-inputtext-lg': isLarge,
+                    'p-inputtext-sm': isSmall,
+                    'p-invalid': form.errors[id],
+                }"
                 :disabled="loading || disabled"
                 :filter="field.searchable || searchable"
                 :id="id"
@@ -49,6 +53,10 @@ export default {
 
     props: {
         clearable: {
+            type: Boolean,
+            default: false,
+        },
+        creating: {
             type: Boolean,
             default: false,
         },
@@ -92,6 +100,10 @@ export default {
             type: Boolean,
             default: true,
         },
+        updating: {
+            type: Boolean,
+            default: false,
+        },
     },
 
     data: () => ({
@@ -101,12 +113,6 @@ export default {
         search: null,
         timer: null,
     }),
-
-    computed: {
-        model() {
-            return this.form ? this.form[this.id] : null;
-        },
-    },
 
     mounted() {
         if (this.field.options.source === 'api') {

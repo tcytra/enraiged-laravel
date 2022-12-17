@@ -7,10 +7,12 @@
                 :disabled="!form.isDirty"
                 :label="i18n(actions.submit.label)"
                 @click="$emit('submit')"/>
-            <primevue-button class="p-button-secondary reset-button" v-if="actions.reset && form.isDirty"
+            <primevue-button class="p-button-warning reset-button" v-if="actions.reset && form.isDirty"
+                :class="{'fadein': form.isDirty}"
                 :label="i18n(actions.reset.label)"
                 @click="$emit('reset')"/>
             <primevue-button class="p-button-danger error-button" v-if="actions.clear && form.hasErrors"
+                :class="{'fadein': form.hasErrors}"
                 :label="i18n(actions.clear.label)"
                 @click="$emit('clear')"/>
         </div>

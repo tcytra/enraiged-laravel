@@ -1,16 +1,20 @@
 <template>
-    <vue-form-field v-slot:default="{ disabled, error, label, placeholder, update }"
-        :field="field"
-        :form="form"
-        :id="id">
+    <vue-form-field v-slot:default="{ dirty, disabled, error, label, placeholder, update }"
+        v-bind="{...$props, ...$attrs}">
         <div class="control field text" v-show="show"
             :class="[$attrs.class, field.class, labels]">
             <label v-if="label" class="label" :for="id">
                 {{ label }}
             </label>
             <primevue-input-text class="w-full" type="text" ref="field" focus
-                v-model="model"
-                :class="{ 'p-inputtext-lg': isLarge, 'p-inputtext-sm': isSmall, 'p-invalid': error }"
+                v-model="form[id]"
+                :class="{
+                    'is-creating': dirty && creating,
+                    'is-updating': dirty && updating,
+                    'p-inputtext-lg': isLarge,
+                    'p-inputtext-sm': isSmall,
+                    'p-invalid': error,
+                }"
                 :disabled="disabled"
                 :id="id"
                 :placeholder="placeholder"
@@ -43,6 +47,10 @@ export default {
     },
 
     props: {
+        creating: {
+            type: Boolean,
+            default: false,
+        },
         field: {
             type: Object,
             required: true,
@@ -75,11 +83,9 @@ export default {
             type: Boolean,
             default: true,
         },
-    },
-
-    computed: {
-        model() {
-            return this.form ? this.form[this.id] : null;
+        updating: {
+            type: Boolean,
+            default: false,
         },
     },
 };

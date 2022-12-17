@@ -113,3 +113,30 @@
         }
     }
 }
+
+.p-inputswitch.is-creating:not(.p-invalid) .p-inputswitch-slider::before {
+  background-color: $background-info;
+}
+.p-inputswitch.p-inputswitch-checked.is-creating:not(.p-invalid) .p-inputswitch-slider::before {
+  background-color: darken($background-info, 12%);
+}
+.p-inputtext.is-creating:not(.p-invalid), .p-inputwrapper.is-creating:not(.p-invalid) {
+  background-color: lighten($background-info, 12%);
+  border-color:     $color-info;
+}
+
+.p-inputswitch.is-updating:not(.p-invalid) .p-inputswitch-slider::before {
+  background-color: $background-warning;
+}
+.p-inputswitch.p-inputswitch-checked.is-updating:not(.p-invalid) .p-inputswitch-slider::before {
+  background-color: darken($background-warning, 12%);
+}
+.p-inputtext.is-updating:not(.p-invalid), .p-inputwrapper.is-updating:not(.p-invalid) {
+  background-color: lighten($background-warning, 12%);
+  border-color:     $color-warning;
+}
+
+.p-inputtext.p-invalid, .p-inputwrapper.p-invalid {
+  background-color: lighten($background-danger, 9%);
+  border-color:     $color-danger;
+}

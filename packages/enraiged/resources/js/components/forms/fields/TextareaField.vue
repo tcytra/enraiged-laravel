@@ -1,15 +1,18 @@
 <template>
-    <vue-form-field v-slot:default="{ disabled, error, label, placeholder, update }"
-        :field="field"
-        :form="form"
-        :id="id">
+    <vue-form-field v-slot:default="{ dirty, disabled, error, label, placeholder, update }"
+        v-bind="{...$props, ...$attrs}">
         <div class="control field textarea" v-show="show"
             :class="[$attrs.class, field.class, labels]">
             <label v-if="label" class="label" :for="id">
                 {{ label }}
             </label>
             <primevue-textarea class="w-full" auto-resize
-                v-model="model"
+                v-model="form[id]"
+                :class="{
+                    'is-creating': dirty && creating,
+                    'is-updating': dirty && updating,
+                    'p-invalid': error,
+                }"
                 :disabled="disabled"
                 :id="id"
                 :placeholder="placeholder"
@@ -43,6 +46,10 @@ export default {
 
     props: {
         autoResize: {
+            type: Boolean,
+            default: false,
+        },
+        creating: {
             type: Boolean,
             default: false,
         },
@@ -82,11 +89,9 @@ export default {
             type: Boolean,
             default: true,
         },
-    },
-
-    computed: {
-        model() {
-            return this.form ? this.form[this.id] : null;
+        updating: {
+            type: Boolean,
+            default: false,
         },
     },
 };

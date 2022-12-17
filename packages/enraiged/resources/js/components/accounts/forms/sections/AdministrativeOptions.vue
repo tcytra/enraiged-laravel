@@ -12,11 +12,9 @@
             <template #content>
                 <section class="flex justify-content-between">
                     <vue-switch-field class="col-4" id="is_active"
-                        :field="fields.is_active"
-                        :form="form"/>
+                        v-bind="$props" :field="fields.is_active"/>
                     <vue-dropdown-field class="col-4" id="role_id" show-clear
-                        :field="fields.role_id"
-                        :form="form"/>
+                        v-bind="$props" :field="fields.role_id"/>
                 </section>
             </template>
         </primevue-card>
@@ -40,6 +38,10 @@ export default {
     },
 
     props: {
+        creating: {
+            type: Boolean,
+            default: false,
+        },
         form: {
             type: Object,
             required: true,
@@ -47,6 +49,10 @@ export default {
         section: {
             type: Object,
             required: true,
+        },
+        updating: {
+            type: Boolean,
+            default: false,
         },
     },
 };

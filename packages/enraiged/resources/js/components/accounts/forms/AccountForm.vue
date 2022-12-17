@@ -1,14 +1,16 @@
 <template>
-    <vue-form ref="form"
-        :builder="builder">
+    <vue-form ref="form" v-bind="$props">
         <template v-slot:default="{ form }">
             <administrative-options v-if="builder.fields.administration"
+                v-bind="$props"
                 :form="form"
                 :section="builder.fields.administration"/>
             <account-details
+                v-bind="$props"
                 :form="form"
                 :section="builder.fields.personal"/>
             <account-password
+                v-bind="$props"
                 :form="form"
                 :section="builder.fields.authentication"/>
         </template>
@@ -39,6 +41,10 @@ export default {
         builder: {
             type: Object,
             required: true,
+        },
+        customActions: {
+            type: Boolean,
+            default: false,
         },
         updating: {
             type: Boolean,

@@ -11,18 +11,19 @@
             </template>
             <template #content>
                 <section class="formgrid grid">
+                    <vue-dropdown-field class="col-6" id="salut" show-clear
+                        v-bind="$props" :field="fields.salut"/>
+                    <div class="col-6"/>
                     <vue-text-field class="col-6" id="first_name"
-                        :field="fields.first_name"
-                        :form="form"/>
+                        v-bind="$props" :field="fields.first_name"/>
                     <vue-text-field class="col-6" id="last_name"
-                        :field="fields.last_name"
-                        :form="form"/>
-                    <vue-text-field class="col-12 md:col-10 lg:col-8 xl:col-6" id="email"
-                        :field="fields.email"
-                        :form="form"/>
-                    <vue-dropdown-field class="col-6" id="timezone" show-clear
-                        :field="fields.timezone"
-                        :form="form"/>
+                        v-bind="$props" :field="fields.last_name"/>
+                    <vue-text-field class="col-6" id="email"
+                        v-bind="$props" :field="fields.email"/>
+                    <vue-text-field class="col-6" id="alias"
+                        v-bind="$props" :field="fields.alias"/>
+                    <vue-calendar-field class="col-6" id="birthdate"
+                        v-bind="$props" :field="fields.birthdate"/>
                 </section>
             </template>
         </primevue-card>
@@ -48,6 +49,10 @@ export default {
     },
 
     props: {
+        creating: {
+            type: Boolean,
+            default: false,
+        },
         form: {
             type: Object,
             required: true,
@@ -55,6 +60,10 @@ export default {
         section: {
             type: Object,
             required: true,
+        },
+        updating: {
+            type: Boolean,
+            default: false,
         },
     },
 };

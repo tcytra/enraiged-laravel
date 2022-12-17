@@ -38,7 +38,15 @@ export default {
             type: Object,
             required: true,
         },
+        creating: {
+            type: Boolean,
+            default: false,
+        },
         customActions: {
+            type: Boolean,
+            default: false,
+        },
+        updating: {
             type: Boolean,
             default: false,
         },
@@ -110,7 +118,7 @@ export default {
             emit('submit');
         }
 
-        return { clear, flatten, form, reset, submit };
+        return { clear, form, reset, submit };
     },
 };
 </script>

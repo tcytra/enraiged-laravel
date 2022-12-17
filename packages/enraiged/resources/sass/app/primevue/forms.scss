@@ -33,8 +33,3 @@
 .p-password.p-inputwrapper.w-full .p-password-input {
   width:            100%;
 }
-
-.p-inputtext.p-invalid,
-.p-inputwrapper.p-invalid {
-  background-color: lighten($background-danger, 7%);
-}

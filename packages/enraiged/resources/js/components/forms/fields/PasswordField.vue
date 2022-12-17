@@ -1,15 +1,17 @@
 <template>
     <vue-form-field v-slot:default="{ disabled, error, label, placeholder, update }"
-        :field="field"
-        :form="form"
-        :id="id">
+        v-bind="{...$props, ...$attrs}">
         <div class="control field text" :class="[$attrs.class, field.class, { confirm }, labels]">
             <label v-if="label" class="label" :for="id">
                 {{ label }}
             </label>
             <primevue-password class="w-full" ref="field" focus
-                v-model="model"
-                :class="{ 'p-inputtext-lg': isLarge, 'p-inputtext-sm': isSmall, 'p-invalid': error }"
+                v-model="form[id]"
+                :class="{
+                    'p-inputtext-lg': isLarge,
+                    'p-inputtext-sm': isSmall,
+                    'p-invalid': error,
+                }"
                 :disabled="disabled"
                 :feedback="feedback"
                 :id="id"
@@ -82,12 +84,6 @@ export default {
         toggleMask: {
             type: Boolean,
             default: false,
-        },
-    },
-
-    computed: {
-        model() {
-            return this.form ? this.form[this.id] : null;
         },
     },
 };

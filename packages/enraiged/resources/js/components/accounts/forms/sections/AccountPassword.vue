@@ -12,11 +12,9 @@
             <template #content>
                 <section class="formgrid grid">
                     <vue-password-field class="col-6" id="password" feedback toggle-mask
-                        :field="fields.password"
-                        :form="form"/>
+                        v-bind="$props" :field="fields.password"/>
                     <vue-password-field class="col-6" id="password_confirmation"
-                        :field="fields.password_confirmation"
-                        :form="form"/>
+                        v-bind="$props" :field="fields.password_confirmation"/>
                 </section>
             </template>
         </primevue-card>
@@ -40,6 +38,10 @@ export default {
     },
 
     props: {
+        creating: {
+            type: Boolean,
+            default: false,
+        },
         form: {
             type: Object,
             required: true,
@@ -47,6 +49,10 @@ export default {
         section: {
             type: Object,
             required: true,
+        },
+        updating: {
+            type: Boolean,
+            default: false,
         },
     },
 };

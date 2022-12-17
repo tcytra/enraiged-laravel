@@ -18,6 +18,9 @@ export default {
     },
 
     computed: {
+        dirty() {
+            return this.form[this.id] !== this.field.value;
+        },
         disabled() {
             return this.field.disabled || false;
         },
@@ -33,27 +36,22 @@ export default {
     },
 
     methods: {
-        update(value) {
+        update() {
+            if (this.form[this.id] === '' && this.field.value === null) {
+                this.form[this.id] = null;
+            }
             if (this.form.errors[this.id]) {
-                 delete this.form.errors[this.id];
+                delete this.form.errors[this.id];
             }
             if (!Object.keys(this.form.errors).length) {
                 this.form.hasErrors = false;
             }
-            /*if (value && typeof value === 'object') {
-                //  todo: must be a better way to handle this
-                if (typeof value.code !== 'undefined') {
-                    this.form[this.id] = value.code;
-                }
-            } else {
-                this.form[this.id] = value;
-            }*/
-            this.form[this.id] = value;
         }
     },
 
     render() {
         return this.$slots.default({
+            dirty: this.dirty,
             disabled: this.disabled,
             error: this.error,
             form: this.form,

@@ -1,8 +1,6 @@
 <template>
-    <vue-form-field v-slot:default="{ error, label, update }"
-        :field="field"
-        :form="form"
-        :id="id">
+    <vue-form-field v-slot:default="{ dirty, error, label, update }"
+        v-bind="{...$props, ...$attrs}">
         <div class="control field switch" v-show="show"
             :class="[
                 $attrs.class,
@@ -13,7 +11,14 @@
             <label v-if="label" class="label" :for="id">
                 {{ label }}
             </label>
-            <primevue-switch v-model="model" :id="id"
+            <primevue-switch
+                v-model="form[id]"
+                :class="{
+                    'is-creating': dirty && creating,
+                    'is-updating': dirty && updating,
+                    'p-invalid': error,
+                }"
+                :id="id"
                 @change="$emit('change')"
                 @update:modelValue="update"/>
             <div class="error p-error" v-if="error">
@@ -43,6 +48,10 @@ export default {
     },
 
     props: {
+        creating: {
+            type: Boolean,
+            default: false,
+        },
         field: {
             type: Object,
             required: true,
@@ -67,11 +76,9 @@ export default {
             type: Boolean,
             default: false,
         },
-    },
-
-    computed: {
-        model() {
-            return this.form ? this.form[this.id] : null;
+        updating: {
+            type: Boolean,
+            default: false,
         },
     },
 };

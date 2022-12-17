@@ -23,14 +23,12 @@ Todo:
 - Vendor role
 
 ! Correct avatar character centering in mobile browser
-! Correct vue warning when selecting dropdown value (unknown cause, works anyway)
 
 ---
 
 2022-12-12 : 0.0.17  
-Update: 
+Update: Improved the UI/UX and handling of forms and tables
 
-- Access resource timestamp object via JsonResource::datetime
 - Better error handling when trying to delete a protected account
 - Corrected incorrect config file path in the README
 - Corrected issue in the table builder filter method
