@@ -32,7 +32,6 @@
 </template>
 
 <script>
-import AuthenticationDetails from './sections/AuthenticationDetails.vue';
 import PrimevueCard from 'primevue/card';
 import VueCalendarField from '@/components/forms/fields/CalendarField.vue';
 import VueDropdownField from '@/components/forms/fields/DropdownField.vue';
@@ -41,7 +40,6 @@ import VueTextField from '@/components/forms/fields/TextField.vue';
 
 export default {
     components: {
-        AuthenticationDetails,
         PrimevueCard,
         VueCalendarField,
         VueDropdownField,

@@ -29,7 +29,6 @@
 </template>
 
 <script>
-import AuthenticationDetails from './sections/AuthenticationDetails.vue';
 import PrimevueCard from 'primevue/card';
 import VueForm from '@/components/forms/VueForm';
 import VueDropdownField from '@/components/forms/fields/DropdownField.vue';
@@ -37,7 +36,6 @@ import VueSwitchField from '@/components/forms/fields/SwitchField.vue';
 
 export default {
     components: {
-        AuthenticationDetails,
         PrimevueCard,
         VueForm,
         VueDropdownField,

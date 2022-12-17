@@ -29,7 +29,6 @@
 </template>
 
 <script>
-import AuthenticationDetails from './sections/AuthenticationDetails.vue';
 import PrimevueCard from 'primevue/card';
 import VueForm from '@/components/forms/VueForm';
 import VuePasswordField from '@/components/forms/fields/PasswordField.vue';
@@ -37,7 +36,6 @@ import VueTextField from '@/components/forms/fields/TextField.vue';
 
 export default {
     components: {
-        AuthenticationDetails,
         PrimevueCard,
         VueForm,
         VuePasswordField,
