@@ -19,10 +19,6 @@
             "placeholder": "Required",
             "required": true
         },
-        "username": {
-            "label": "Secondary Email",
-            "placeholder": "Optional"
-        },
         "password": {
             "label": "Password",
             "placeholder": "Leave blank to keep password",
@@ -32,5 +28,6 @@
             "label": "Confirm Password",
             "type": "password"
         }
-    }
+    },
+    "labels": "vertical"
 }

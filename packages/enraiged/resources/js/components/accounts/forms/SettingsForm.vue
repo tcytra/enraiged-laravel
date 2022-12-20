@@ -8,20 +8,22 @@
             </header>
         </template>
         <template #content>
-            <vue-form class="adjacent-labels auto-margin max-width-sm" :builder="builder" @form:success="success">
+            <vue-form class="auto-margin max-width-sm" :template="template" @form:success="success">
                 <template v-slot:default="{ form }">
-                    <vue-dropdown-field id="language" show-clear
-                        :field="builder.fields.language"
-                        :form="form"/>
-                    <vue-dropdown-field id="timezone" show-clear
-                        :field="builder.fields.timezone"
-                        :form="form"/>
-                    <vue-dropdown-field id="dateformat" show-clear
-                        :field="builder.fields.dateformat"
-                        :form="form"/>
-                    <vue-switch-field id="military_time"
-                        :field="builder.fields.military_time"
-                        :form="form"/>
+                    <div class="formgrid grid">
+                        <dropdown-field class="col-6" id="language" show-clear
+                            :field="template.fields.language"
+                            :form="form"/>
+                        <dropdown-field class="col-6" id="timezone" show-clear
+                            :field="template.fields.timezone"
+                            :form="form"/>
+                        <dropdown-field class="col-6" id="dateformat" show-clear
+                            :field="template.fields.dateformat"
+                            :form="form"/>
+                        <switch-field class="col-6" id="military_time"
+                            :field="template.fields.military_time"
+                            :form="form"/>
+                    </div>
                 </template>
             </vue-form>
         </template>
@@ -30,22 +32,22 @@
 
 <script>
 import PrimevueCard from 'primevue/card';
+import DropdownField from '@/components/forms/fields/DropdownField.vue';
+import SwitchField from '@/components/forms/fields/SwitchField.vue';
 import VueForm from '@/components/forms/VueForm';
-import VueDropdownField from '@/components/forms/fields/DropdownField.vue';
-import VueSwitchField from '@/components/forms/fields/SwitchField.vue';
 
 export default {
     components: {
         PrimevueCard,
+        DropdownField,
+        SwitchField,
         VueForm,
-        VueDropdownField,
-        VueSwitchField,
     },
 
     inject: ['i18n', 'loadAppState'],
 
     props: {
-        builder: {
+        template: {
             type: Object,
             required: true,
         },

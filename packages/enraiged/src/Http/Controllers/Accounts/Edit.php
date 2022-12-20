@@ -39,8 +39,8 @@ class Edit extends Controller
 
         return inertia('accounts/Edit', [
             'account' => AccountResource::from($this->account),
-            'builder' => $form->template(),
             'messages' => $this->messages(),
+            'template' => $form->template(),
         ]);
     }
 

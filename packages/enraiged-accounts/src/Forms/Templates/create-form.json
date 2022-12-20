@@ -16,6 +16,9 @@
     },
     "fields": {
         "role_id": {
+            "after": "col-6",
+            "class": "col-6",
+            "clearable": true,
             "label": "Role",
             "options": {
                 "source": "Enraiged\\Roles\\Models\\Role",
@@ -29,26 +32,33 @@
             "type": "select"
         },
         "name": {
+            "class": "col-6",
             "label": "Name",
             "placeholder": "Required",
             "required": true
         },
         "email": {
+            "class": "col-6",
             "label": "Email",
             "placeholder": "Required",
             "required": true,
             "value": null
         },
         "password": {
+            "class": "col-6",
+            "feedback": true,
             "label": "Password",
             "placeholder": "Required",
             "type": "password",
-            "value": false
+            "value": null,
+            "unmask": true
         },
         "password_confirmation": {
+            "class": "col-6",
             "label": "Confirm Password",
             "type": "password",
             "value": false
         }
-    }
+    },
+    "labels": "horizontal"
 }

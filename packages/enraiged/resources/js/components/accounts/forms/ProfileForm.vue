@@ -8,23 +8,20 @@
             </header>
         </template>
         <template #content>
-            <vue-form class="adjacent-labels auto-margin max-width-sm" :builder="builder">
+            <vue-form class="auto-margin max-width-sm" :template="template">
                 <template v-slot:default="{ form }">
-                    <vue-dropdown-field id="salut" show-clear
-                        :field="builder.fields.salut"
-                        :form="form"/>
-                    <vue-text-field id="first_name"
-                        :field="builder.fields.first_name"
-                        :form="form"/>
-                    <vue-text-field id="last_name"
-                        :field="builder.fields.last_name"
-                        :form="form"/>
-                    <vue-text-field id="alias"
-                        :field="builder.fields.alias"
-                        :form="form"/>
-                    <vue-calendar-field id="birthdate"
-                        :field="builder.fields.birthdate"
-                        :form="form"/>
+                    <div class="formgrid grid">
+                        <dropdown-field class="col-6" id="salut" show-clear
+                            :field="template.fields.salut"
+                            :form="form"/>
+                        <div class="col-9"/>
+                        <text-field class="col-6" id="first_name"
+                            :field="template.fields.first_name"
+                            :form="form"/>
+                        <text-field class="col-6" id="last_name"
+                            :field="template.fields.last_name"
+                            :form="form"/>
+                    </div>
                 </template>
             </vue-form>
         </template>
@@ -33,24 +30,22 @@
 
 <script>
 import PrimevueCard from 'primevue/card';
-import VueCalendarField from '@/components/forms/fields/CalendarField.vue';
-import VueDropdownField from '@/components/forms/fields/DropdownField.vue';
+import DropdownField from '@/components/forms/fields/DropdownField.vue';
+import TextField from '@/components/forms/fields/TextField.vue';
 import VueForm from '@/components/forms/VueForm';
-import VueTextField from '@/components/forms/fields/TextField.vue';
 
 export default {
     components: {
         PrimevueCard,
-        VueCalendarField,
-        VueDropdownField,
+        DropdownField,
+        TextField,
         VueForm,
-        VueTextField,
     },
 
     inject: ['i18n'],
 
     props: {
-        builder: {
+        template: {
             type: Object,
             required: true,
         },

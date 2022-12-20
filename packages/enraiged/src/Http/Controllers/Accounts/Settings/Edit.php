@@ -29,7 +29,7 @@ class Edit extends Controller
 
         return inertia('accounts/settings/Edit', [
             'account' => AccountResource::from($account),
-            'builder' => $builder->template(),
+            'template' => $builder->template(),
         ]);
     }
 }

@@ -1,5 +1,5 @@
 <template>
-    <vue-form-field v-slot:default="{ error, label, update }"
+    <headless-form-field v-slot:default="{ error, label, update }"
         v-if="appMeta.must_agree_to_terms"
         :field="field"
         :form="form"
@@ -31,22 +31,22 @@
                 {{ error }}
             </div>
         </div>
-    </vue-form-field>
+    </headless-form-field>
 </template>
 
 <script>
 import { Link } from '@inertiajs/inertia-vue3';
 import { v4 as uuid } from 'uuid';
+import HeadlessFormField from '@/components/forms/headless/FormField.vue';
 import PrimevueSwitch from 'primevue/inputswitch';
-import VueFormField from '@/components/forms/VueFormField';
 
 export default {
     inheritAttrs: false,
 
     components: {
         Link,
+        HeadlessFormField,
         PrimevueSwitch,
-        VueFormField,
     },
 
     inject: ['appMeta', 'i18n'],

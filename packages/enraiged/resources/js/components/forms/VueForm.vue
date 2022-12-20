@@ -1,15 +1,31 @@
 <template>
     <div class="vue-form">
-        <div class="controls flex flex-row-reverse" v-if="builder.labels === 'toggle'">
-            <div class="align-items-center control flex switch mb-1">
-                <primevue-switch v-model="labelsToggle" id="toggle_labels"/>
-            </div>
-        </div>
         <form @submit.prevent="submit"
             :class="['form', labels, {'custom-actions': customActions}]">
-            <slot v-bind:form="form" v-if="ready"/>
-            <form-actions v-if="!customActions"
-                :actions="builder.actions"
+            <slot v-bind="{ form }">
+                <vue-form-section v-if="sections" v-for="(section, key) in sections"
+                    :creating="creating"
+                    :form="form"
+                    :id="key"
+                    :key="key"
+                    :section="section"
+                    :updating="updating">
+                    <template v-if="section.custom" v-slot:[key]="props">
+                        <slot :name="key" v-bind="{ creating, labels, section, form, key, updating }"/>
+                    </template>
+                </vue-form-section>
+                <vue-form-fields v-if="fields"
+                    :creating="creating"
+                    :fields="fields"
+                    :form="form"
+                    :updating="updating">
+                    <template v-for="(field, key) in custom.fields" v-slot:[key]="props">
+                        <slot :name="key" v-bind="{ creating, field, form, key, updating }"/>
+                    </template>
+                </vue-form-fields>
+            </slot>
+            <vue-form-actions v-if="!customActions"
+                :actions="template.actions"
                 :form="form"
                 @clear="clear"
                 @reset="reset"
@@ -20,24 +36,18 @@
 
 <script>
 import { useForm } from '@inertiajs/inertia-vue3';
-import FormActions from './controls/FormActions.vue';
-import PrimevueButton from 'primevue/button';
-import PrimevueSwitch from 'primevue/inputswitch';
+import VueFormActions from './VueFormActions.vue';
+import VueFormFields from './VueFormFields.vue';
+import VueFormSection from './VueFormSection.vue';
 
 export default {
     components: {
-        FormActions,
-        PrimevueButton,
-        PrimevueSwitch,
+        VueFormActions,
+        VueFormFields,
+        VueFormSection,
     },
 
-    inject: ['i18n'],
-
     props: {
-        builder: {
-            type: Object,
-            required: true,
-        },
         creating: {
             type: Boolean,
             default: false,
@@ -46,79 +56,91 @@ export default {
             type: Boolean,
             default: false,
         },
+        template: {
+            type: Object,
+            required: true,
+        },
         updating: {
             type: Boolean,
             default: false,
         },
     },
 
-    data: () => ({
-        labelsToggle: true,
-        ready: false,
-    }),
-
     computed: {
-        actions() {
-            return this.builder.actions;
-        },
         labels() {
-            if (this.builder.labels === false) {
-                return null;
-            }
-            if (this.builder.labels === 'toggle') {
-                return this.labelsToggle ? 'horizontal' : 'vertical';
-            }
-            return this.builder.labels || 'vertical';
+            return this.template.labels === false
+                ? null
+                : this.template.labels || 'vertical';
         },
-    },
-
-    mounted() {
-        this.ready = true;
-        this.$emit('form:ready');
     },
 
     setup (props, { emit }) {
         let fields = {};
 
-        flatten(props.builder.fields);
-
-        const form = useForm(fields);
-
         function clear() {
             form.clearErrors();
-            emit('clear');
+            emit('form:clear');
         }
 
-        function flatten(group) {
-            Object.keys(group).forEach((field) => {
-                const type = group[field].type || 'input';
-                if (['group', 'section'].includes(type) && group[field].fields) {
-                    flatten(group[field].fields);
-                } else {
-                    fields[field] = group[field].type === 'switch'
-                        ? group[field].value && group[field].value === true
-                        : group[field].value || null;
+        function filter(template, type, custom) {
+            let items = {};
+            Object.keys(template).forEach((item) => {
+                const itemType = template[item].type || 'text';
+                const matchCustom = typeof custom === 'undefined' || template[item].custom;
+                const matchType = ((/^not:/.test(type) && template[item].type !== type.replace('not:', '')) 
+                    || (!/^not:/.test(type) && template[item].type === type));
+                if (matchType && matchCustom) {
+                    items[item] = template[item];
                 }
             });
+            return items;
+        }
+
+        function flatten(template) {
+            Object.keys(template).forEach((item) => {
+                const type = template[item].type || 'text';
+                if (type === 'section') {
+                    flatten(template[item].fields);
+                } else {
+                    fields[item] = template[item].type === 'switch'
+                        ? template[item].value && template[item].value === true
+                        : template[item].value || null;
+                }
+            });
+            return fields;
         }
 
         function reset() {
-            clear();
+            form.clearErrors();
             form.reset();
-            emit('reset');
+            emit('form:reset');
         }
 
         function submit() {
-            form[props.builder.resource.method](props.builder.uri, {
-                onSuccess: () => {
-                    form.reset('password', 'password_confirmation');
-                    emit('form:success', form);
-                }
+            form[props.template.resource.method](props.template.uri, {
+                onSuccess: () => emit('form:success', form),
             });
-            emit('submit');
+            emit('form:submit');
         }
 
-        return { clear, form, reset, submit };
+        flatten(props.template.fields);
+
+        const form = useForm(fields);
+
+        emit('form:ready');
+
+        return {
+            clear,
+            custom: {
+                fields: filter(props.template.fields, 'not:section', true),
+                sections: filter(props.template.fields, 'section', true),
+            },
+            fields: filter(props.template.fields, 'not:section'),
+            form,
+            reset,
+            sections: filter(props.template.fields, 'section'),
+            submit,
+        };
     },
 };
 </script>

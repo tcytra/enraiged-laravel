@@ -2,7 +2,7 @@
     <main class="content main">
         <page-header back-button :title="title"/>
         <section class="auto-margin container max-width-lg">
-            <settings-form :builder="builder"/>
+            <settings-form :template="template"/>
         </section>
     </main>
 </template>
@@ -25,7 +25,7 @@ export default {
             type: Object,
             required: true,
         },
-        builder: {
+        template: {
             type: Object,
             required: true,
         },

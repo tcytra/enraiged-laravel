@@ -27,6 +27,6 @@ class Create extends Controller
             ->create(Account::class, 'accounts.store')
             ->value('role_id', Role::lowest()->id);
 
-        return inertia('accounts/Create', ['builder' => $form->template()]);
+        return inertia('accounts/Create', ['template' => $form->template()]);
     }
 }

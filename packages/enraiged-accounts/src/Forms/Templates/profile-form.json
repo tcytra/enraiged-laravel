@@ -41,16 +41,7 @@
             "label": "Last Name",
             "placeholder": "Required",
             "required": true
-        },
-        "alias": {
-            "data": "profile.alias",
-            "label": "Alias",
-            "placeholder": "Optional"
-        },
-        "birthdate": {
-            "data": "profile.birthdate",
-            "label": "Birthday",
-            "placeholder": "Optional"
         }
-    }
+    },
+    "labels": "vertical"
 }

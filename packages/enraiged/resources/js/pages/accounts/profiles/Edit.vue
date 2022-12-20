@@ -3,7 +3,7 @@
         <page-header back-button :title="title"/>
         <section class="auto-margin container max-width-lg">
             <page-messages class="mb-3" :messages="messages" @dismiss="messages.splice($event, 1)"/>
-            <profile-form :builder="builder"/>
+            <profile-form :template="template"/>
         </section>
     </main>
 </template>
@@ -30,7 +30,7 @@ export default {
             type: Object,
             required: true,
         },
-        builder: {
+        template: {
             type: Object,
             required: true,
         },

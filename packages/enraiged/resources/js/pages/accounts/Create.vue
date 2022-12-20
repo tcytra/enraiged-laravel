@@ -5,31 +5,15 @@
             <primevue-card>
                 <template #header>
                     <header class="header">
-                        <h3 class="auto-margin max-width-sm">
+                        <h3 class="auto-margin max-width-md">
                             {{ i18n('Please provide the following information to create a new account.') }}
                         </h3>
                     </header>
                 </template>
                 <template #content>
-                    <vue-form class="adjacent-labels auto-margin max-width-sm" :builder="builder">
-                        <template v-slot:default="{ form }">
-                            <vue-dropdown-field id="role_id" show-clear
-                                :field="builder.fields.role_id"
-                                :form="form"/>
-                            <vue-text-field id="name"
-                                :field="builder.fields.name"
-                                :form="form"/>
-                            <vue-text-field class="email" id="email"
-                                :field="builder.fields.email"
-                                :form="form"/>
-                            <vue-password-field id="password" feedback toggle-mask
-                                :field="builder.fields.password"
-                                :form="form"/>
-                            <vue-password-field id="password_confirmation"
-                                :field="builder.fields.password_confirmation"
-                                :form="form"/>
-                        </template>
-                    </vue-form>
+                    <div class="auto-margin container max-width-md">
+                        <vue-form :template="template" creating/>
+                    </div>
                 </template>
             </primevue-card>
         </section>
@@ -40,10 +24,7 @@
 import AppLayout from '@/layouts/App.vue';
 import PageHeader from '@/components/ui/pages/PageHeader.vue';
 import PrimevueCard from 'primevue/card';
-import VueDropdownField from '@/components/forms/fields/DropdownField.vue';
-import VueForm from '@/components/forms/VueForm';
-import VuePasswordField from '@/components/forms/fields/PasswordField.vue';
-import VueTextField from '@/components/forms/fields/TextField.vue';
+import VueForm from '@/components/forms/VueForm.vue';
 
 export default {
     layout: AppLayout,
@@ -51,16 +32,13 @@ export default {
     components: {
         PageHeader,
         PrimevueCard,
-        VueDropdownField,
         VueForm,
-        VuePasswordField,
-        VueTextField,
     },
 
     inject: ['i18n'],
 
     props: {
-        builder: {
+        template: {
             type: Object,
             required: true,
         },

@@ -58,6 +58,6 @@ trait SanityChecks
         $object = (object) $section;
 
         return property_exists($object, 'type')
-            && in_array(strtolower($object->type), ['group', 'section']);
+            && $object->type === 'section';
     }
 }

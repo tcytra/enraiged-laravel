@@ -19,8 +19,11 @@
       min-height:       2.5rem;
     }
 
-    .h2, .h3, .h4, .section {
-      margin-top:       1rem;
+    .h2, .h3, .h4 {
+    }
+
+    .section {
+      margin-bottom:    1rem;
     }
 
     &.horizontal .field.control, .horizontal .field.control, .field.control.horizontal {

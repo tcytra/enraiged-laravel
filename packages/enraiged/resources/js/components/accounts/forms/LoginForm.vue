@@ -8,20 +8,20 @@
             </header>
         </template>
         <template #content>
-            <vue-form class="adjacent-labels auto-margin max-width-sm" :builder="builder">
+            <vue-form class="auto-margin max-width-sm" :template="template">
                 <template v-slot:default="{ form }">
-                    <vue-text-field class="email" id="email"
-                        :field="builder.fields.email"
-                        :form="form"/>
-                    <vue-text-field id="username"
-                        :field="builder.fields.username"
-                        :form="form"/>
-                    <vue-password-field id="password" feedback toggle-mask
-                        :field="builder.fields.password"
-                        :form="form"/>
-                    <vue-password-field id="password_confirmation"
-                        :field="builder.fields.password_confirmation"
-                        :form="form"/>
+                    <div class="formgrid grid">
+                        <text-field class="col-6" id="email"
+                            :field="template.fields.email"
+                            :form="form"/>
+                        <div class="col-6"/>
+                        <password-field class="col-6" id="password" feedback toggle-mask
+                            :field="template.fields.password"
+                            :form="form"/>
+                        <password-field class="col-6" id="password_confirmation"
+                            :field="template.fields.password_confirmation"
+                            :form="form"/>
+                    </div>
                 </template>
             </vue-form>
         </template>
@@ -30,22 +30,22 @@
 
 <script>
 import PrimevueCard from 'primevue/card';
+import PasswordField from '@/components/forms/fields/PasswordField.vue';
+import TextField from '@/components/forms/fields/TextField.vue';
 import VueForm from '@/components/forms/VueForm';
-import VuePasswordField from '@/components/forms/fields/PasswordField.vue';
-import VueTextField from '@/components/forms/fields/TextField.vue';
 
 export default {
     components: {
         PrimevueCard,
+        PasswordField,
+        TextField,
         VueForm,
-        VuePasswordField,
-        VueTextField,
     },
 
     inject: ['i18n'],
 
     props: {
-        builder: {
+        template: {
             type: Object,
             required: true,
         },

@@ -1,6 +1,7 @@
 <template>
-    <vue-form-field v-slot:default="{ disabled, error, label, placeholder, update }"
-        v-bind="{...$props, ...$attrs}">
+    <headless-form-field v-slot:default="{ disabled, error, label, placeholder, update }"
+        v-bind="$props">
+        <div :class="field.before" v-if="field.before"/>
         <div class="control field text" :class="[$attrs.class, field.class, { confirm }, labels]">
             <label v-if="label" class="label" :for="id">
                 {{ label }}
@@ -13,31 +14,32 @@
                     'p-invalid': error,
                 }"
                 :disabled="disabled"
-                :feedback="feedback"
+                :feedback="field.feedback || feedback"
                 :id="id"
-                :placeholder="placeholder"
-                :toggle-mask="toggleMask"
+                :placeholder="field.placeholder || placeholder"
+                :toggle-mask="field.unmask || unmask"
                 @update:modelValue="update"/>
             <div class="error p-error" v-if="error">
                 <i class="pi pi-exclamation-circle" v-tooltip.top="error"></i>
                 <span class="message">{{ error }}</span>
             </div>
         </div>
-    </vue-form-field>
+        <div :class="field.after" v-if="field.after"/>
+    </headless-form-field>
 </template>
 
 <script>
 import { v4 as uuid } from 'uuid';
+import HeadlessFormField from '@/components/forms/headless/FormField.vue';
 import PrimevuePassword from 'primevue/password';
 import PrimevueTooltip from 'primevue/tooltip';
-import VueFormField from '@/components/forms/VueFormField';
 
 export default {
     inheritAttrs: false,
 
     components: {
+        HeadlessFormField,
         PrimevuePassword,
-        VueFormField,
     },
 
     directives: {
@@ -81,7 +83,7 @@ export default {
             type: String,
             default: null,
         },
-        toggleMask: {
+        unmask: {
             type: Boolean,
             default: false,
         },

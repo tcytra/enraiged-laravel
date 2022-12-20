@@ -1,12 +1,13 @@
 <template>
-    <vue-form-field v-slot:default="{ dirty, error, label, update }"
-        v-bind="{...$props, ...$attrs}">
+    <headless-form-field v-slot:default="{ dirty, error, label, update }"
+        v-bind="$props">
+        <div :class="field.before" v-if="field.before"/>
         <div class="control field switch" v-show="show"
             :class="[
                 $attrs.class,
                 field.class,
                 labels,
-                { 'switch-first': switchFirst },
+                { 'switch-first': field.switchFirst || switchFirst },
             ]">
             <label v-if="label" class="label" :for="id">
                 {{ label }}
@@ -26,21 +27,22 @@
                 <span class="message">{{ error }}</span>
             </div>
         </div>
-    </vue-form-field>
+        <div :class="field.after" v-if="field.after"/>
+    </headless-form-field>
 </template>
 
 <script>
 import { v4 as uuid } from 'uuid';
+import HeadlessFormField from '@/components/forms/headless/FormField.vue';
 import PrimevueSwitch from 'primevue/inputswitch';
 import PrimevueTooltip from 'primevue/tooltip';
-import VueFormField from '@/components/forms/VueFormField';
 
 export default {
     inheritAttrs: false,
 
     components: {
+        HeadlessFormField,
         PrimevueSwitch,
-        VueFormField,
     },
 
     directives: {

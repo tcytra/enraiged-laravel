@@ -29,10 +29,10 @@ class Edit extends Controller
 
         return inertia('accounts/profiles/Edit', [
             'account' => AccountResource::from($account),
-            'builder' => $builder->template(),
             'messages' => [
                 message('These are your default profile details. This information is visible only to you and the application administrators.')
             ],
+            'template' => $builder->template(),
         ]);
     }
 }

@@ -4,7 +4,6 @@ Todo:
 - Add remaining form fields (port from primevue)
 - Addresses, Contacts, Impersonation, Networks
 - Complex table searching
-- Custom table filters
 - Data Import (from model index page)
 - Implement theme preference
 - Import menus to database from json files
@@ -14,27 +13,32 @@ Todo:
 - Model Activity History
 - Move Auth Services into the Enraiged namespace
 - New account creates registered list of site 'helps' (dismissable)
-- Split VueTable component into reusable parts
 - Test cases and documentation
-- There is code common to the {Form,Table}Builder(s)
-  - Implement parent RequestBuilder class?
 - User configurable notifications system
 - Username availability check
-- Vendor role
 
 ! Correct avatar character centering in mobile browser
 
 ---
 
-2022-12-12 : 0.0.17  
+2022-12-20 : 0.0.17  
 Update: Improved the UI/UX and handling of forms and tables
 
+- Added accounts.availability system for api select options
+- Added ability to publish enraiged into the local app space
 - Better error handling when trying to delete a protected account
 - Corrected incorrect config file path in the README
-- Corrected issue in the table builder filter method
-- Corrected issue with the table filters when none present
-- Corrected issue with the VueTable inactive-data rowClass
-- Improvements to the VueForm,VueTable ui/ux
+- Exploded enraiged package into separate package namespaces
+- Improvements to the VueForm ui/ux and handling
+  - Added api fetching for DropdownField options
+  - Added creating,updating field aesthetics
+  - Easily switch between horizontal or vertical labels
+  - VueForm ability to auto-generate fields,layout from template
+- Improvements to the VueTable ui/ux and handling
+  - Added system for applying filters to table data
+  - Corrected issue with the VueTable inactive-data rowClass
+  - Provide table searching for columns with compound sources
+  - Provide table sorting for columns with compound sources
 - Removed extra features from login page password field
 - Simplifed handling the forms,tables from the controllers
 - Updated various items in the package.json
