@@ -7,10 +7,10 @@
             <calendar-field v-else-if="item.type === 'calendar'" v-bind="$props"
                 :field="item"
                 :id="key"/>
-            <dropdown-field v-else-if="item.type === 'select'" v-bind="$props"
+            <password-field v-else-if="item.type === 'password'" v-bind="$props"
                 :field="item"
                 :id="key"/>
-            <password-field v-else-if="item.type === 'password'" v-bind="$props"
+            <dropdown-field v-else-if="item.type === 'select'" v-bind="$props"
                 :field="item"
                 :id="key"/>
             <switch-field v-else-if="item.type === 'switch'" v-bind="$props"

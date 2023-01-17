@@ -19,6 +19,42 @@ class DatetimeAttributeResource extends JsonResource
     protected $user;
 
     /**
+     *  Return the created_at date for this resource.
+     *
+     *  @return string
+     */
+    public function createdAtDate()
+    {
+        return $this->created_at
+            ? $this->attribute('created_at')->toArray(request())['date']
+            : null;
+    }
+
+    /**
+     *  Return the deleted_at date for this resource.
+     *
+     *  @return string
+     */
+    public function deletedAtDate()
+    {
+        return $this->deleted_at
+            ? $this->attribute('deleted_at')->toArray(request())['date']
+            : null;
+    }
+
+    /**
+     *  Return the updated_at date for this resource.
+     *
+     *  @return string
+     */
+    public function updatedAtDate()
+    {
+        return $this->updated_at
+            ? $this->attribute('updated_at')->toArray(request())['date']
+            : null;
+    }
+
+    /**
      *  Transform the resource collection into an array.
      *
      *  @param  \Illuminate\Http\Request  $request

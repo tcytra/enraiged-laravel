@@ -1,4 +1,6 @@
 <script>
+import { format as dateFnsFormat } from 'date-fns'
+
 export default {
     data: () => ({
         clientWidth: document.documentElement.clientWidth,
@@ -54,8 +56,24 @@ export default {
             window.removeEventListener('resize', this.resizeDocument);
         },
 
+        formatDate(value, format) {
+            if (typeof format === 'undefined') {
+                format = 'yyyy-MM-dd';
+            }
+            return dateFnsFormat(value, format);
+        },
+
         isSuccess(status) {
             return status >= 200 && status < 300;
+        },
+
+        newDate(date) {
+            return new Date(`${date} 00:00:00`);
+        },
+
+        padNumber(value) {
+            const number = parseInt(value, 10);
+            return (number < 10 ? `0${number}` : number).toString();
         },
 
         resizeDocument() {
@@ -68,8 +86,10 @@ export default {
             actionHandler: this.actionHandler,
             clientSize: this.clientSize,
             errorHandler: this.errorHandler,
+            formatDate: this.formatDate,
             i18n: this.$t,
             isSuccess: this.isSuccess,
+            newDate: this.newDate,
         };
     },
 

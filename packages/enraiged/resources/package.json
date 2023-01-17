@@ -24,6 +24,7 @@
         "@popperjs/core": "^2.11.6",
         "@vue/server-renderer": "^3.2.45",
         "autoprefixer": "^10.4.0",
+        "date-fns": "^2.29.3",
         "eslint": "^8.29.0",
         "eslint-plugin-vue": "^9.8.0",
         "laravel-mix": "^6.0.49",

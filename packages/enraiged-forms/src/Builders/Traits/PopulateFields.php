@@ -17,7 +17,7 @@ trait PopulateFields
      *
      *  @param  \Illuminate\Database\Eloquent\Model  $model
      *  @param  array   $resource
-     *  @return self
+     *  @return $this
      */
     protected function populate($model, $resource)
     {
@@ -25,6 +25,34 @@ trait PopulateFields
             ->model($model)
             ->resource($resource)
             ->populateFieldGroup($this->fields);
+
+        return $this;
+    }
+
+    /**
+     *  Populate the parameters for a calendar field.
+     *
+     *  @param  string  $name
+     *  @param  object  $object = null
+     *  @return $this
+     */
+    protected function populateCalendarField($name, $object = null)
+    {
+        $field = (object) ($object ?? $this->field($name));
+
+        $parameters = [];
+
+        if (property_exists($field, 'maximum')) {
+            $parameters['maximum'] = datetime($field->maximum, 'Y-m-d');
+        }
+
+        if (property_exists($field, 'minimum')) {
+            $parameters['minimum'] = datetime($field->minimum, 'Y-m-d');
+        }
+
+        if (count($parameters)) {
+            $this->field($name, $parameters);
+        }
 
         return $this;
     }
@@ -70,11 +98,25 @@ trait PopulateFields
      *
      *  @param  string  $name
      *  @param  object  $object = null
-     *  @return void
+     *  @return $this
      */
-    protected function populateField($name, $object = null)
+    public function populateField($name, $object = null)
     {
+        if (gettype($name) === 'array') {
+            foreach ($name as $each) {
+                $this->populateField($each, $object);
+            }
+
+            return $this;
+        }
+
         $field = (object) ($object ?? $this->field($name));
+        $value = null;
+
+        //  populate the calendar field options, if necessary
+        if ($this->fieldType($name) === 'calendar') {
+            $this->populateCalendarField($name, $field);
+        }
 
         //  handle the field disabled state, if necessary
         if (property_exists($field, 'disabled') && gettype($field->disabled) !== 'bool') {
@@ -107,7 +149,8 @@ trait PopulateFields
                 ? $model->{$attribute}
                 : null;
 
-        } else {
+        } else
+        if ($this->model) {
             $value = $this->model->getAttribute($name);
         }
 
@@ -118,11 +161,10 @@ trait PopulateFields
         if (is_null($value) && $this->fieldType($name) === 'switch') {
             $value = false;
         }
-        if ($this->fieldType($name) === 'password') {
-            $value = null;
-        }
 
         $this->field($name, ['value' => $value]);
+
+        return $this;
     }
 
     /**

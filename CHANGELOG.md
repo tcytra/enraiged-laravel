@@ -2,7 +2,7 @@
 
 Todo:
 - Add remaining form fields (port from primevue)
-- Addresses, Contacts, Impersonation, Networks
+- Addresses, Contacts, Networks
 - Complex table searching
 - Data Import (from model index page)
 - Implement theme preference
@@ -11,13 +11,24 @@ Todo:
 - Geo, Geo Social
 - Minimize menu preference?
 - Model Activity History
-- Move Auth Services into the Enraiged namespace
+- Move Auth System into the Enraiged namespace
 - New account creates registered list of site 'helps' (dismissable)
 - Test cases and documentation
+- Transitions
 - User configurable notifications system
 - Username availability check
 
 ! Correct avatar character centering in mobile browser
+
+---
+
+2023-01-17 : 0.0.18  
+Update: Improved the UI/UX and handling of forms and tables
+
+- Added ability to specify default sort,direction in table builders
+- Added date-fns package https://date-fns.org/v2.29.3/docs/
+- Added traits for {Created,Deleted,Updated}By
+- Added yarn.lock to the publishable resources
 
 ---
 

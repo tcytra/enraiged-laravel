@@ -1,9 +1,8 @@
 <template>
     <div :class="template.class">
-        <div class="filter-controls p-card p-component vue-form" v-if="template.filters">
-            <div v-for="(filter, name) in template.filters">
-                <primevue-dropdown optionLabel="name" optionValue="id" show-clear
-                    class="col col-6 md:col-4 lg:col-3 xl:col-2 p-0"
+        <div class="filter-controls grid m-0 p-card p-component vue-form" v-if="template.filters">
+            <div class="filter col col-6 md:col-4 lg:col-3 xl:col-2" v-for="(filter, name) in template.filters">
+                <primevue-dropdown class="w-full" optionLabel="name" optionValue="id" show-clear
                     v-model="filters[name]"
                     :id="name"
                     :options="filter.options.values"
@@ -179,7 +178,6 @@ export default {
     async mounted() {
         this.ready = true;
         this.exportable = this.template.exportable ? this.template.exportable.default : null;
-        this.defaultFilters();
         if (this.template.state && this.template.id && localStorage[this.template.id]) {
             const state = JSON.parse(localStorage[this.template.id]);
             this.filters = state.filters;

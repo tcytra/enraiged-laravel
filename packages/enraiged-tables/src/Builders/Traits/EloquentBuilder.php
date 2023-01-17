@@ -9,8 +9,17 @@ trait EloquentBuilder
     /** @var  object  The eloquent query builder. */
     protected $builder;
 
+    /** @var  string  The default sort column. */
+    protected $defaultSort;
+
+    /** @var  string  The The default sort direction. */
+    protected $defaultSortDir = 'asc';
+
     /** @var  array  The completed pagination object. */
     protected $pagination;
+
+    /** @var  string  The model resource. */
+    protected $resource;
 
     /**
      *  Return the data for the table request.
@@ -98,7 +107,7 @@ trait EloquentBuilder
     /**
      *  Return the paginated records.
      *
-     *  @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     *  @return array|\Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function records()
     {
@@ -107,7 +116,9 @@ trait EloquentBuilder
                 $item->actions = $this->actionsForRow($item);
             });
 
-        return $this->resource::from($collection);
+        return $this->resource
+            ? $this->resource::from($collection)
+            : $collection->toArray();
     }
 
     /**
@@ -166,6 +177,8 @@ trait EloquentBuilder
             } else {
                 $this->builder->orderBy($source, $dir);
             }
+        } else if ($this->defaultSort) {
+            $this->builder->orderBy($this->defaultSort, $this->defaultSortDir ?? 'asc');
         }
 
         return $this;

@@ -139,7 +139,7 @@
   border-color:     $color-warning;
 }
 
-.p-inputtext.p-invalid, .p-inputwrapper.p-invalid {
+.p-inputtext.p-invalid, .p-inputwrapper.p-invalid, .p-inputwrapper.p-invalid .p-password-input {
   background-color: lighten($background-danger, 9%);
   border-color:     $color-danger;
 }

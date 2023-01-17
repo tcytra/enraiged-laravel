@@ -2,6 +2,22 @@
 .table.container {
     .filter-controls {
       padding:          .5rem 1rem;
+      
+        .filter {
+          padding:          0 .5rem;
+          
+            &:first-child {
+              padding-left:     0;
+            }
+            &:last-child {
+              padding-right:    0;
+            }
+
+            .p-inputtext {
+              font-size:        .925rem;
+              padding:          .375rem;
+            }
+        }
     }
 
     .p-datatable-tbody {

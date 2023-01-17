@@ -30,9 +30,9 @@ class IndexResource extends JsonResource
             'name' => $this->profile->name,
             'role' => $this->role(),
             'username' => $this->username,
-            'birthday' => $this->date('birthdate'),
-            'created' => $this->date('created_at'),
-            'deleted' => $this->date('deleted_at'),
+            'birthday' => $this->birthdate,
+            'created' => Datetime::from($this)->createdAtDate(),
+            'deleted' => Datetime::from($this)->deletedAtDate(),
             'actions' => $this->resource->actions,
         ];
     }
@@ -45,20 +45,6 @@ class IndexResource extends JsonResource
         $this->profile->load('avatar');
 
         return AvatarResource::from($this->profile->avatar);
-    }
-
-    /**
-     *  @return string|null
-     */
-    private function date($attribute)
-    {
-        if ($this->{$attribute}) {
-            $resource = (object) Datetime::fromAttribute($this, $attribute, $this->request);
-
-            return $resource->date;
-        }
-
-        return null;
     }
 
     /**

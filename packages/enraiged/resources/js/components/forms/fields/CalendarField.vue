@@ -7,7 +7,7 @@
             <label v-if="label" class="label" :for="id">
                 {{ label }}
             </label>
-            <primevue-calendar
+            <primevue-calendar class="w-full"
                 v-model="form[id]"
                 :class="{
                     'is-creating': dirty && creating,
@@ -16,12 +16,15 @@
                     'p-inputtext-sm': isSmall,
                     'p-invalid': error,
                 }"
-                :date-format="field.format || 'yy-mm-dd'"
+                :date-format="field.date_format || 'yy-mm-dd'"
                 :disabled="disabled"
+                :disabled-dates="field.disabled_dates || disabledDates"
+                :disabled-days="field.disabled_days || disabledDays"
                 :id="id"
                 :placeholder="placeholder"
-                :touchUI="isMobile || isTablet"
-                @update:modelValue="update"/>
+                :maxDate="maxDate"
+                :minDate="minDate"
+                @update:modelValue="update; $emit('update:modelValue', $event)"/>
             <div class="error p-error" v-if="error">
                 <i class="pi pi-exclamation-circle" v-tooltip.top="error"></i>
                 <span class="message">{{ error }}</span>
@@ -49,12 +52,20 @@ export default {
         tooltip: PrimevueTooltip,
     },
 
-    inject: ['isMobile', 'isTablet'],
+    inject: ['newDate'],
 
     props: {
         creating: {
             type: Boolean,
             default: false,
+        },
+        disabledDates: {
+            type: Array,
+            default: [],
+        },
+        disabledDays: {
+            type: Array,
+            default: [],
         },
         field: {
             type: Object,
@@ -91,6 +102,19 @@ export default {
         updating: {
             type: Boolean,
             default: false,
+        },
+    },
+
+    computed: {
+        maxDate() {
+            return this.field.maximum
+                ? this.newDate(this.field.maximum)
+                : null;
+        },
+        minDate() {
+            return this.field.minimum
+                ? this.newDate(this.field.minimum)
+                : null;
         },
     },
 };

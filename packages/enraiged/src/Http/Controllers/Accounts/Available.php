@@ -13,8 +13,8 @@ class Available extends Controller
     use AuthorizesRequests;
 
     /**
-     *  @param  \Illuminate\Http\Request  $request
-     *  @return \Inertia\Response
+     *  @param  \Enraiged\Forms\Requests\AvailabilityRequest  $request
+     *  @return \Illuminate\Http\Response
      */
     public function __invoke(AvailabilityRequest $request)
     {

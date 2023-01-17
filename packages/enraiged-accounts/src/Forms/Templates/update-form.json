@@ -94,7 +94,8 @@
                     "class": "col-6",
                     "data": "profile.birthdate",
                     "label": "Birthday",
-                    "placeholder": "Optional"
+                    "placeholder": "Optional",
+                    "type": "calendar"
                 }
             }
         },
