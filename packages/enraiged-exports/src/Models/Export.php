@@ -3,7 +3,7 @@
 namespace Enraiged\Exports\Models;
 
 use Enraiged\Files\Models\File;
-use Enraiged\Support\Traits\CreatedBy;
+use Enraiged\Support\Database\Traits\CreatedBy;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 

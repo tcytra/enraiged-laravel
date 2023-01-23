@@ -28,26 +28,30 @@ class TableBuilder
             ->sort()
             ->filter()
             ->search()
-            ->paginate(); // paginate last!
+            ->paginate();
 
         $pagination = (object) $this->pagination();
 
-        $filters = $this->request()->has('filters')
-            ? (array) json_decode($this->request->get('filters'))
-            : [];
-
         return [
-            'filters' => $filters,
             'records' => $this->records(),
             'pagination' => [
-                'dir' => $this->request->get('dir'),
+                'dir' => $this->request->dir(),
                 'page' => $pagination->current_page,
                 'rows' => $pagination->per_page,
-                'sort' => $this->request->get('sort'),
+                'sort' => $this->request->sort(),
                 'total' => $pagination->total,
             ],
-            'search' => $this->request->get('search'),
         ];
+    }
+
+    /**
+     *  Initiate the table export process.
+     *
+     *  @return void
+     */
+    public function export()
+    {
+        $this->exporter()->process();
     }
 
     /**
@@ -81,20 +85,5 @@ class TableBuilder
         }
 
         return $template;
-    }
-
-    /**
-     *  Create and return a builder from the request and optional parameters.
-     *
-     *  @param  \Illuminate\Http\Request  $request
-     *  @param  array  $parameters = []
-     *  @return \Enraiged\Tables\Builders\TableBuilder
-     *  @static
-     */
-    public static function From($request, $parameters = [])
-    {
-        $called = get_called_class();
-
-        return new $called($request, $parameters);
     }
 }

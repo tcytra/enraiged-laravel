@@ -47,7 +47,7 @@ class InternetAddressLogin extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->greeting(__('Hello :name', ['name' => $notifiable->account->profile->first_name]))
+            ->greeting(__('Hello :name', ['name' => $notifiable->profile->first_name]))
             ->line(__('We have detected a login with your account from a new internet address:'))
             ->line($this->address->ip())
             ->line(__('If this login is unexpected, please take immediate action by changing your password.'))

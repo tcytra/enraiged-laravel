@@ -63,8 +63,8 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => env('MUST_VERIFY_EMAIL')
-                ? App\Auth\VerifiedUser::class
-                : App\Auth\User::class,
+                ? Enraiged\Users\Models\VerifiedUser::class
+                : Enraiged\Users\Models\User::class,
         ],
 
         // 'users' => [

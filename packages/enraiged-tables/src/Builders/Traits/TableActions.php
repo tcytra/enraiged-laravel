@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 trait TableActions
 {
     /** @var  array  The table actions. */
-    protected $actions;
+    protected array $actions;
 
     /**
      *  Return the table row actions for the provided resource.

@@ -1,6 +1,5 @@
 <?php
 
-use App\Auth\User;
 use Enraiged\Agreements\Models\Agreement;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Auth;
@@ -43,7 +42,7 @@ function authenticable_check($user)
     if (!$user instanceof Authenticatable) {
         throw new PreconditionFailedHttpException(
             __(':method Argument must be an instance of :instance', [
-                'method' => 'App\\Auth\\User::canImpersonate():',
+                'method' => 'Enraiged\\Auth\\User::canImpersonate():',
                 'instance' => 'Illuminate\\Foundation\\Auth\\User',
             ])
         );
@@ -81,19 +80,12 @@ function uhash($key = null)
 }
 
 /**
- *  Return the current authenticated user model, if possible.
+ *  Return the current authenticated user model.
  *  
- *  @return object
+ *  @param  string|null  $guard
+ *  @return mixed
  */
-function user()
+function user($guard = null)
 {
-    static $user = null;
-
-    if ($user === null) {
-        $user = Auth::check()
-            ? Auth::user() ?? Auth::guard('api')->user()
-            : new User;
-    }
-
-    return $user;
+    return Auth::guard($guard)->user();
 }

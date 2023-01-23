@@ -1,30 +1,27 @@
 {
-    "name": "tcytra/enraiged-laravel",
+    "name": "laravel/laravel",
     "type": "project",
     "description": "The Laravel Framework.",
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
-        "ext-exif": "*",
-        "ext-gd": "*",
         "guzzlehttp/guzzle": "^7.2",
-        "inertiajs/inertia-laravel": "^0.5.4",
+        "inertiajs/inertia-laravel": "^0.6.9",
         "laravel-enso/enums": "^2.2",
-        "laravel/framework": "^9.2",
-        "laravel/sanctum": "^2.14.1",
+        "laravel/framework": "^9.19",
+        "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
-        "league/glide-laravel": "^1.0",
-        "maatwebsite/excel": "^3.1",
-        "psr/simple-cache": "^1.0"
+        "maatwebsite/excel": "^3.1"
     },
     "require-dev": {
-        "roave/security-advisories": "dev-latest",
         "fakerphp/faker": "^1.9.1",
+        "laravel/pint": "^1.0",
         "laravel/sail": "^1.0.1",
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^6.1",
         "phpunit/phpunit": "^9.5.10",
+        "roave/security-advisories": "dev-latest",
         "spatie/laravel-ignition": "^1.0"
     },
     "autoload": {
@@ -33,13 +30,8 @@
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
             "Enraiged\\": "packages/enraiged/src/",
-            "Enraiged\\Accounts\\": "packages/enraiged-accounts/src/",
-            "Enraiged\\Agreements\\": "packages/enraiged-agreements/src/",
-            "Enraiged\\Avatars\\": "packages/enraiged-avatars/src/",
             "Enraiged\\Exports\\": "packages/enraiged-exports/src/",
-            "Enraiged\\Files\\": "packages/enraiged-files/src/",
             "Enraiged\\Forms\\": "packages/enraiged-forms/src/",
-            "Enraiged\\Profiles\\": "packages/enraiged-profiles/src/",
             "Enraiged\\Tables\\": "packages/enraiged-tables/src/"
         },
         "files": [
@@ -66,9 +58,6 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
-        ],
-        "compile": [
-            "@php artisan migrate:fresh --seed"
         ]
     },
     "extra": {
@@ -81,6 +70,6 @@
         "preferred-install": "dist",
         "sort-packages": true
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true
 }

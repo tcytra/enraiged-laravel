@@ -1,0 +1,114 @@
+
+.default.layout {
+
+    .table.container {
+        .filter-controls {
+          padding:          .5rem 1rem;
+
+            .filter {
+              padding:          0 .5rem;
+
+                &:first-child {
+                  padding-left:     0;
+                }
+                &:last-child {
+                  padding-right:    0;
+                }
+
+                .p-inputtext {
+                  font-size:        .925rem;
+                  padding:          .375rem;
+                }
+            }
+        }
+
+        .p-datatable-tbody {
+            tr.inactive-data {
+              background-color: lighten($color-danger, 45%);
+            }
+        }
+
+        .p-datatable-header {
+            .controls-bar,
+            .search-bar {
+              align-items:      center;
+              display:          flex;
+              padding:          0;
+
+                .p-dropdown {
+                    .p-dropdown-label,
+                    .p-dropdown-trigger {
+                      height:           inherit;
+                    }
+
+                    .p-dropdown-label {
+                      align-items:      center;
+                      display:          flex;
+                      height:           inherit;
+                      justify-content:  center;
+                      padding:          0;
+                    }
+
+                    .p-dropdown-trigger {
+                      height:           inherit;
+                      width:            1.5rem;
+                    }
+                }
+            }
+
+            .controls-bar {
+              margin-bottom:    .5rem;
+            }
+        }
+
+        .p-datatable.p-datatable-sm {
+            .p-datatable-header {
+              display:          flex;
+              flex-wrap:        wrap;
+              padding:          .5rem 1rem;
+              justify-content:  space-between;
+
+                .controls-bar,
+                .search-bar {
+                  height:           2rem;
+                  padding:          0;
+
+                    .p-button,
+                    .p-component,
+                    .p-dropdown,
+                    .p-inputgroup-addon {
+                      height:           2rem;
+                    }
+
+                    .p-button.p-button-icon-only {
+                      width:            2rem;
+                    }
+
+                    .p-dropdown {
+                        .p-dropdown-label {
+                          padding-bottom:   .25rem;
+                          padding-left:     .25rem;
+                        }
+
+                        .p-dropdown-trigger .p-dropdown-trigger-icon {
+                          font-size:        .875rem;
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
+    @media screen and (min-width: $break-large) {
+        .table.container .p-datatable.p-datatable-sm {
+            .p-datatable-header {
+              flex-wrap:        nowrap;
+            }
+            .controls-bar {
+              margin-bottom:    0;
+            }
+        }
+    }
+
+}

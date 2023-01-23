@@ -1,0 +1,106 @@
+
+.default.layout {
+
+    .main.page {
+      overflow:         hidden;
+      position:         relative;
+      transition:       all $menu-transition;
+      z-index:          1;
+
+        .main.content {
+          margin-top:       $app-block-size;
+          min-height:       calc(100vh - $app-block-size);
+          position:         relative;
+          width:            100%;
+          z-index:          1;
+
+            >.container {
+              min-height:       calc(100vh - $app-block-size);
+              padding:          1rem;
+            }
+
+            >.footer {
+              bottom:           0;
+              display:          flex;
+              height:           $page-footer-size;
+              position:         fixed;
+              width:            100%;
+              z-index:          2;
+
+                &::before {
+                  background-color: var(--bluegray-100);
+                  content:          "";
+                  height:           $page-footer-size;
+                  opacity:          .8;
+                  width:            100%;
+                }
+            }
+
+            >.header {
+              align-items:      center;
+              background-color: $surface-ground;
+              border-bottom:    1px solid $surface-border;
+              display:          flex;
+              height:           $page-header-size;
+              position:         relative;
+
+                h1 {
+                  flex-grow:        1;
+                  font-size:        1.5rem;
+                  margin-left:      1rem;
+                  margin-right:     1rem;
+                }
+            }
+
+            >.header +.container {
+              min-height:       calc(100vh - ($app-block-size + $page-header-size));
+            }
+        }
+
+        .nav.top {
+          background-color: $top-background;
+          display:          flex;
+          flex-direction:   row;
+          height:           $app-block-size;
+          position:         fixed;
+          z-index:          7;
+
+            .block, .inline {
+              align-items:      center;
+              border-bottom:    1px solid $top-border;
+              border-right:     1px solid $top-border;
+              display:          flex !important;
+              height:           $app-block-size;
+              transition:       background-color .35s linear;
+
+                &:last-child {
+                  border-right:     0;
+                }
+
+                >.p-button {
+                  background-color: transparent;
+                  border-color:     transparent;
+                  border-radius:    0;
+                  height:           $app-block-size;
+                  width:            $app-block-size;
+                }
+
+                >.p-button >.pi,
+                >.pi {
+                  font-size:        1.5rem;
+                }
+            }
+
+            .block {
+              flex-grow:        1;
+              justify-content:  flex-start;
+            }
+
+            .inline {
+              justify-content:  center;
+              width:            $app-block-size;
+            }
+        }
+    }
+
+}

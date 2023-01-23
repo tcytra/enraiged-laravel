@@ -2,30 +2,33 @@
 
 namespace Enraiged\Tables\Builders\Traits;
 
+use Enraiged\Tables\Requests\TableRequest;
+use Illuminate\Foundation\Auth\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
 trait BuilderConstructor
 {
     /** @var  string  The css class(es) to apply to the table. */
-    protected $class;
+    protected string $class;
 
     /** @var  string  The message to display when there are no records. */
-    protected $empty;
+    protected string $empty;
 
     /** @var  string  The primary key column name. */
-    protected $key;
+    protected string $key;
 
     /** @var  string  The route prefix. */
-    protected $prefix;
+    protected string $prefix;
 
     /** @var  bool  The ability to preserve table state. */
-    protected $state;
+    protected bool $state;
 
     /** @var  string  The table name. */
-    protected $table;
+    protected string $table;
 
     /** @var  string  The request user. */
-    protected $user;
+    protected User $user;
 
     /**
      *  Create an instance of the TableBuilder.
@@ -36,10 +39,10 @@ trait BuilderConstructor
      *
      *  @todo   Validate the request.
      */
-    public function __construct($request, array $parameters = [])
+    public function __construct(Request $request, array $parameters = [])
     {
-        $this->request = collect($request);
-        $this->user = $request->user()->withoutRelations();
+        $this->request = TableRequest::createFrom($request);
+        $this->user = $request->user();
 
         $this->load(config('enraiged.tables.template'));
 
@@ -111,10 +114,25 @@ trait BuilderConstructor
     /**
      *  Return the table user.
      *
-     *  @return \App\Auth\User
+     *  @return \Enraiged\Users\Models\User
      */
     public function user()
     {
         return $this->user;
+    }
+
+    /**
+     *  Create and return a builder from the request and optional parameters.
+     *
+     *  @param  \Illuminate\Http\Request  $request
+     *  @param  array  $parameters = []
+     *  @return \Enraiged\Tables\Builders\TableBuilder
+     *  @static
+     */
+    public static function From(Request $request, $parameters = [])
+    {
+        $called = get_called_class();
+
+        return new $called($request, $parameters);
     }
 }

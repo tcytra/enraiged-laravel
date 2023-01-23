@@ -2,23 +2,82 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Enraiged\Profiles\Models\Profile;
+use Enraiged\Users\Models\User;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Artisan;
 
 class DatabaseSeeder extends Seeder
 {
+    use WithoutModelEvents;
+
+    /** @var  int  Create a predetermined number of factory users to seed. */
+    protected $create_users = 5;
+
+    /** @var  string  Set this login password for the created users. */
+    protected $insecure_password = 'changeme';
+
     /**
-     * Seed the application's database.
+     *  Seed the enraiged database.
      *
-     * @return void
+     *  @return void
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        Artisan::call('storage:clear');
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        $this->call([
+            AgreementSeeder::class,
+            RoleSeeder::class,
+            UserSeeder::class,
+        ]);
+
+        if (app()->environment(['dev', 'development', 'local'])) {
+            $this->createUsers();
+        }
+    }
+
+    /**
+     *  Create a predetermined number of users for testing.
+     *
+     *  @return self
+     */
+    protected function createUsers()
+    {
+        for ($i = 0; $i < $this->create_users; $i++) {
+            $password = $this->insecure_password;
+            $user = $this->createFactoryUser(['password' => $password]);
+
+            if (false) {
+                $this->command
+                    ->getOutput()
+                    ->writeln("<comment>Login:</comment> <info>{$user->email}:{$password}</info>");
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     *  Create a factory user from the provided parameters.
+     *
+     *  @param  array   $parameters
+     *  @return \Enraiged\Users\Models\User
+     */
+    protected function createFactoryUser(array $parameters): User
+    {
+        $profile = Profile::factory()->create();
+        $profile->generateAvatar();
+
+        $user = User::factory()->create(
+            collect($parameters)
+                ->merge(['profile_id' => $profile->id])
+                ->toArray()
+        );
+
+        $user->load('profile');
+
+        return $user;
     }
 }

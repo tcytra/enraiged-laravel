@@ -1,0 +1,24 @@
+
+.user-summary {
+  display:          flex;
+  flex-wrap:        wrap;
+
+    .descriptions {
+      display:          flex;
+      flex-direction:   row;
+      flex-grow:        1;
+
+        .description-lists {
+          margin-left:      2rem;
+          margin-right:     2rem;
+        }
+    }
+}
+
+@media screen and (min-width: $break-large) {
+    .account-summary {
+        .descriptions {
+          flex-direction:   row;
+        }
+    }
+}

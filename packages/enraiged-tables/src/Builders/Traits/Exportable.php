@@ -5,22 +5,22 @@ namespace Enraiged\Tables\Builders\Traits;
 trait Exportable
 {
     /** @var  int  The exportable chunk size. */
-    protected $chunksize;
+    protected int $chunksize;
 
     /** @var  array  The exportable parameters. */
-    protected $exportable;
+    protected array $exportable;
 
-     /** @var  array  The exported file location. */
-    protected $exportpath;
+     /** @var  string  The exported file location. */
+    protected string $exportpath;
 
-     /** @var  array  The human readable filename. */
-    protected $filename;
+     /** @var  string  The human readable filename. */
+    protected string $filename;
 
-     /** @var  array  The exported file type. */
-    protected $filetype;
+     /** @var  string  The exported file type. */
+    protected string $filetype;
 
-    /** @var  array  The hashed (storage) filename. */
-    protected $hashname;
+    /** @var  string  The hashed (storage) filename. */
+    protected string $hashname;
 
     /**
      *  Derive the name and location of the exportable data.
@@ -29,7 +29,7 @@ trait Exportable
      */
     public function exportable()
     {
-        $parameters = collect($this->request->get('export'));
+        $parameters = collect($this->request->export());
         $storage = config('enraiged.tables.storage');
 
         $this->chunksize = $parameters->get('chunk') ?? config('excel.exports.chunk_size');

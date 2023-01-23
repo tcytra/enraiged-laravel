@@ -1,0 +1,28 @@
+
+.default.layout {
+
+    .avatar-editor {
+        .p-fileupload-basic {
+            .p-fileupload-choose {
+                .p-button-label {
+                  display:          none;
+                }
+            }
+        }
+    }
+
+    .avatar {
+        &.editable {
+            .p-button {
+              opacity:          0;
+              transition:       opacity .25s linear;
+            }
+            &:hover {
+                .p-button {
+                  opacity:          .85;
+                }
+            }
+        }
+    }
+
+}

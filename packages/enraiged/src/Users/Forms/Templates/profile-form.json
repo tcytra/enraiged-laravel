@@ -1,0 +1,51 @@
+{
+    "actions": {
+        "back": {
+            "label": "Back"
+        },
+        "clear": {
+            "label": "Clear"
+        },
+        "reset": {
+            "label": "Reset"
+        },
+        "submit": {
+            "label": "Submit"
+        }
+    },
+    "fields": {
+        "salut": {
+            "after": "col-0 md:col-6 lg:hidden",
+            "class": "col-12 md:col-6 lg:col-4 xl:col-2",
+            "data": "profile.salut",
+            "label": "Salut",
+            "options": {
+                "source": "Enraiged\\Profiles\\Enums\\Saluts",
+                "type": "enum"
+            },
+            "placeholder": "Optional",
+            "type": "select"
+        },
+        "first_name": {
+            "class": "col-12 md:col-6 lg:col-4 xl:col-5",
+            "data": "profile.first_name",
+            "disabled": {
+                "attribute": "user.disable_name_change"
+            },
+            "label": "First Name",
+            "placeholder": "Required",
+            "required": true
+        },
+        "last_name": {
+            "class": "col-12 md:col-6 lg:col-4 xl:col-5",
+            "data": "profile.last_name",
+            "disabled": {
+                "attribute": "user.disable_name_change"
+            },
+            "label": "Last Name",
+            "placeholder": "Required",
+            "required": true
+        }
+    },
+    "labels": "vertical"
+}

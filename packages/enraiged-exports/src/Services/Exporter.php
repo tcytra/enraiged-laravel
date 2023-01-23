@@ -9,7 +9,7 @@ use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Excel;
 
-//use Enraiged\Exports\Notifications\ExportDone;
+//use Enraiged\Exports\Notifications\ExportDone; // todo
 
 class Exporter implements FromQuery
 {
@@ -67,10 +67,12 @@ class Exporter implements FromQuery
                     new AttachFileToExport($this->export, $exportable),
                     //new ExportDone($this->export),
                 ]);
+
         } else {
             $this->store($exportable->location, null, $this->writer());
 
             (new AttachFileToExport($this->export, $exportable))->handle();
+
             //(new ExportDone($this->export))->handle();
         }
 
@@ -105,8 +107,12 @@ class Exporter implements FromQuery
     {
         $table = clone $this->table;
 
+        $query = method_exists($table, 'query')
+            ? $table->query()
+            : $table->model::query();
+
         (object) $table
-            ->build()
+            ->build($query)
             ->sort()
             ->filter()
             ->search();

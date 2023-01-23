@@ -1,6 +1,7 @@
-# Project History
+# Release Notes
 
 Todo:
+- ActionBuilder,UriBuilder
 - Add remaining form fields (port from primevue)
 - Addresses, Contacts, Networks
 - Complex table searching
@@ -9,6 +10,7 @@ Todo:
 - Import menus to database from json files
 - Page exporter (ie. account details) (pdf, xls?, txt?)
 - Geo, Geo Social
+- Hash id flash messages, prevent reappearing when navigate back
 - Minimize menu preference?
 - Model Activity History
 - Move Auth System into the Enraiged namespace
@@ -22,13 +24,22 @@ Todo:
 
 ---
 
-2023-01-17 : 0.0.18  
-Update: Improved the UI/UX and handling of forms and tables
+2023-01-23 : 0.2.0  
+Update: Upgraded inertiajs and laravel framework
 
 - Added ability to specify default sort,direction in table builders
 - Added date-fns package https://date-fns.org/v2.29.3/docs/
 - Added traits for {Created,Deleted,Updated}By
 - Added yarn.lock to the publishable resources
+- Corrected issue executing correct query for table exports
+- Corrected issue with computed clientSize,clientWidth
+- Migrate sass to postcss with scss,plugins
+- Migrate webpack/mix to vite
+- Merged App\Auth,Enraiged\Auth,Enraiged\Accounts as Enraiged\Users
+- Removed pinia
+- Upgrade inertiajs/inertia-laravel to v0.6.9
+- Upgrade inertiajs to v1.0.0
+- Upgrade laravel/framework to v9.19
 
 ---
 

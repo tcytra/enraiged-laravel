@@ -3,23 +3,27 @@
 namespace Enraiged\Tables\Builders\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 trait EloquentBuilder
 {
-    /** @var  object  The eloquent query builder. */
-    protected $builder;
+    /** @var  \Illuminate\Database\Eloquent\Builder  The eloquent query builder. */
+    protected Builder $builder;
 
     /** @var  string  The default sort column. */
     protected $defaultSort;
 
-    /** @var  string  The The default sort direction. */
+    /** @var  string  The default sort direction. */
     protected $defaultSortDir = 'asc';
 
-    /** @var  array  The completed pagination object. */
-    protected $pagination;
+    /** @var  string  The pagination parameters. */
+    protected array $pagination;
+
+    /** @var  \Illuminate\Pagination\LengthAwarePaginator  The paginator instance. */
+    protected LengthAwarePaginator $paginator;
 
     /** @var  string  The model resource. */
-    protected $resource;
+    protected string $resource;
 
     /**
      *  Return the data for the table request.
@@ -53,7 +57,7 @@ trait EloquentBuilder
     public function filter()
     {
         if ($this->request()->has('filters')) {
-            $filters = (array) json_decode($this->request()->get('filters'));
+            $filters = (array) $this->request()->filters();
 
             if (count($filters)) {
                 foreach ($this->filters as $index => $filter) {
@@ -83,13 +87,12 @@ trait EloquentBuilder
     /**
      *  Execute the pagination.
      *
+     *  @param  int     $rows = null
      *  @return self
      */
-    public function paginate($per = null)
+    public function paginate(int $rows = null)
     {
-        $per = $this->request()->get('rows', $per ?? $this->pagination['rows']);
-
-        $this->pagination = $this->builder->paginate($per);
+        $this->paginator = $this->builder->paginate($rows ?? $this->request->rows());
 
         return $this;
     }
@@ -101,7 +104,9 @@ trait EloquentBuilder
      */
     public function pagination(): array
     {
-        return collect($this->pagination)->except('data')->toArray();
+        return collect($this->paginator)
+            ->except('data')
+            ->toArray();
     }
 
     /**
@@ -111,7 +116,7 @@ trait EloquentBuilder
      */
     public function records()
     {
-        $collection = collect($this->pagination->items())
+        $collection = collect($this->paginator->items())
             ->each(function ($item) {
                 $item->actions = $this->actionsForRow($item);
             });
@@ -132,7 +137,7 @@ trait EloquentBuilder
         $wheres = [];
 
         if ($this->request()->has('search')) {
-            $search = $this->request()->get('search');
+            $search = $this->request()->search();
 
             foreach (explode(" ", trim($search)) as $term) {
                 $term = filter_var($term);
@@ -164,8 +169,8 @@ trait EloquentBuilder
      */
     public function sort()
     {
-        $dir = $this->request()->get('dir') < 0 ? 'desc' : 'asc';
-        $sort = $this->request()->get('sort');
+        $dir = $this->request()->dir() < 0 ? 'desc' : 'asc';
+        $sort = $this->request()->sort();
 
         if ($sort && $this->columnKeys()->contains($sort)) {
             $source = $this->columnSource($sort);
@@ -174,9 +179,11 @@ trait EloquentBuilder
                 foreach ($source as $each) {
                     $this->builder->orderBy($each, $dir);
                 }
+
             } else {
                 $this->builder->orderBy($source, $dir);
             }
+
         } else if ($this->defaultSort) {
             $this->builder->orderBy($this->defaultSort, $this->defaultSortDir ?? 'asc');
         }

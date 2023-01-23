@@ -5,7 +5,7 @@ namespace Enraiged\Tables\Builders\Traits;
 trait TableColumns
 {
     /** @var  array  The table columns. */
-    protected $columns;
+    protected array $columns;
 
     /**
      *  Return the table columns.

@@ -2,20 +2,22 @@
 
 namespace Enraiged\Tables\Builders\Traits;
 
+use Enraiged\Tables\Requests\TableRequest;
+
 trait HttpRequest
 {
-    /** @var  object  The request collection. */
-    protected $request;
+    /** @var  \Enraiged\Tables\Requests\TableRequest  The http request instance. */
+    protected TableRequest $request;
 
     /** @var  string  The uri for the table data request. */
-    protected $uri;
+    protected string $uri;
 
     /**
-     *  Return the request.
+     *  Return the request instance.
      *
-     *  @return object
+     *  @return \Enraiged\Tables\Requests\TableRequest
      */
-    public function request()
+    public function request(): TableRequest
     {
         return $this->request;
     }

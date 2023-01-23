@@ -13,6 +13,11 @@ class AuthServiceProvider extends ServiceProvider
      *  @var array
      */
     protected $policies = [
+        \Enraiged\Avatars\Models\Avatar::class
+            => \Enraiged\Avatars\Policies\AvatarPolicy::class,
+
+        \Enraiged\Profiles\Models\Profile::class
+            => \Enraiged\Profiles\Policies\ProfilePolicy::class,
     ];
 
     /**

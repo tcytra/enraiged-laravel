@@ -1,0 +1,37 @@
+{
+    "actions": {
+        "back": {
+            "label": "Back"
+        },
+        "clear": {
+            "label": "Clear"
+        },
+        "reset": {
+            "label": "Reset"
+        },
+        "submit": {
+            "label": "Submit"
+        }
+    },
+    "fields": {
+        "email": {
+            "after": "col-0 md:col-6",
+            "class": "col-12 md:col-6",
+            "label": "Primary Email",
+            "placeholder": "Required",
+            "required": true
+        },
+        "password": {
+            "class": "col-12 md:col-6",
+            "label": "Password",
+            "placeholder": "Leave blank to keep password",
+            "type": "password"
+        },
+        "password_confirmation": {
+            "class": "col-12 md:col-6",
+            "label": "Confirm Password",
+            "type": "password"
+        }
+    },
+    "labels": "vertical"
+}

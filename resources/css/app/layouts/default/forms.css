@@ -1,0 +1,149 @@
+
+.default.layout {
+
+    .form {
+
+        >.p-card:not(:last-child) {
+          margin-bottom:    1rem;
+        }
+
+        &.custom-actions {
+          margin-bottom:    $page-footer-size;
+        }
+
+        .error {
+          color:            $color-danger;
+          font-size:        .75rem;
+        }
+
+        .field.control {
+          display:          flex;
+          min-height:       2.5rem;
+        }
+
+        .h2, .h3, .h4 {
+        }
+
+        .section {
+          margin-bottom:    1rem;
+        }
+
+        &.horizontal .field.control, .horizontal .field.control, .field.control.horizontal {
+          align-items:      center;
+          flex-direction:   row;
+
+            .label {
+              margin-bottom:    0;
+              margin-right:     .5rem;
+              max-width:        5rem;
+              min-width:        5rem;
+            }
+            &.label-size-3 {
+                .label {
+                  max-width:        3rem;
+                  min-width:        3rem;
+                }
+                &.switch.switch-first .p-inputswitch {
+                  margin-right:     .5rem;
+                }
+            }
+            &.label-size-6 {
+                .label {
+                  max-width:        6rem;
+                  min-width:        6rem;
+                }
+                &.switch.switch-first .p-inputswitch {
+                  margin-right:     .5rem;
+                }
+            }
+
+            .p-invalid {
+                .p-dropdown-trigger {
+                  display:          none;
+                }
+            }
+
+            .error {
+                .pi {
+                  align-items:      center;
+                  display:          flex;
+                  font-size:        1rem;
+                  height:           2rem;
+                  justify-content:  center;
+                  margin-left:      -2rem;
+                  position:         relative;
+                  width:            2rem;
+                  z-index:          999;
+                }
+                .message {
+                  display:          none;
+                }
+            }
+
+            &.switch.switch-first {
+                .label {
+                  margin-right:     0;
+                  max-width:        unset;
+                  min-width:        unset;
+                  order:            2;
+                  width:            auto;
+                }
+                .p-inputswitch {
+                  order:            1;
+                  margin-right:     2.5rem;
+                }
+            }
+        }
+
+        &.vertical .field.control, .vertical .field.control, .field.control.vertical {
+          align-items:      flex-start;
+          flex-direction:   column;
+
+            .label {
+              margin-bottom:    .5rem;
+              margin-right:     0;
+              max-width:        unset;
+              min-width:        unset;
+            }
+
+            &.switch .p-inputswitch {
+              margin-bottom:    .25rem;
+              margin-top:       .25rem;
+            }
+
+            .error {
+                .pi {
+                  display:          none;
+                }
+            }
+        }
+    }
+
+    .p-inputswitch.is-creating:not(.p-invalid) .p-inputswitch-slider::before {
+      background-color: $background-info;
+    }
+    .p-inputswitch.p-inputswitch-checked.is-creating:not(.p-invalid) .p-inputswitch-slider::before {
+      background-color: darken($background-info, 12%);
+    }
+    .p-inputtext.is-creating:not(.p-invalid), .p-inputwrapper.is-creating:not(.p-invalid) {
+      background-color: lighten($background-info, 12%);
+      border-color:     $color-info;
+    }
+
+    .p-inputswitch.is-updating:not(.p-invalid) .p-inputswitch-slider::before {
+      background-color: $background-warning;
+    }
+    .p-inputswitch.p-inputswitch-checked.is-updating:not(.p-invalid) .p-inputswitch-slider::before {
+      background-color: darken($background-warning, 12%);
+    }
+    .p-inputtext.is-updating:not(.p-invalid), .p-inputwrapper.is-updating:not(.p-invalid) {
+      background-color: lighten($background-warning, 12%);
+      border-color:     $color-warning;
+    }
+
+    .p-inputtext.p-invalid, .p-inputwrapper.p-invalid, .p-inputwrapper.p-invalid .p-password-input {
+      background-color: lighten($background-danger, 9%);
+      border-color:     $color-danger;
+    }
+
+}

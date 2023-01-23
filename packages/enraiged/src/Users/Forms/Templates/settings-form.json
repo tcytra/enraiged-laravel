@@ -1,0 +1,39 @@
+{
+    "actions": {
+        "back": {
+            "label": "Back"
+        },
+        "clear": {
+            "label": "Clear"
+        },
+        "reset": {
+            "label": "Reset"
+        },
+        "submit": {
+            "label": "Submit"
+        }
+    },
+    "fields": {
+        "language": {
+            "class": "col-12 md:col-6",
+            "label": "Language",
+            "options": {
+                "source": "App\\Auth\\Enums\\Languages",
+                "type": "enum"
+            },
+            "placeholder": "Optional",
+            "type": "select"
+        },
+        "timezone": {
+            "class": "col-12 md:col-6",
+            "label": "Timezone",
+            "options": {
+                "source": "App\\Auth\\Enums\\Timezones",
+                "type": "enum"
+            },
+            "placeholder": "Optional",
+            "type": "select"
+        }
+    },
+    "labels": "vertical"
+}

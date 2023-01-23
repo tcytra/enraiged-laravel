@@ -129,29 +129,31 @@ trait PopulateFields
         }
 
         //  populate the model data
-        if ($this->hasRelativeData($field)) {
-            $attribute = substr($field->data, strrpos($field->data, '.') +1);
-            $relationship = substr($field->data, 0, strrpos($field->data, '.'));
+        if ($this->fieldType($name) !== 'password') {
+            if ($this->hasRelativeData($field)) {
+                $attribute = substr($field->data, strrpos($field->data, '.') +1);
+                $relationship = substr($field->data, 0, strrpos($field->data, '.'));
 
-            if (!$this->model->{$relationship}) {
-                $this->model->load($relationship);
+                if (!$this->model->{$relationship}) {
+                    $this->model->load($relationship);
+                }
+
+                $chain = explode('.', $relationship);
+                $model = $this->model;
+
+                while (count($chain)) {
+                    $relative = array_shift($chain);
+                    $model = $model->{$relative};
+                }
+
+                $value = $model
+                    ? $model->{$attribute}
+                    : null;
+
+            } else
+            if ($this->model) {
+                $value = $this->model->getAttribute($name);
             }
-
-            $chain = explode('.', $relationship);
-            $model = $this->model;
-
-            while (count($chain)) {
-                $relative = array_shift($chain);
-                $model = $model->{$relative};
-            }
-
-            $value = $model
-                ? $model->{$attribute}
-                : null;
-
-        } else
-        if ($this->model) {
-            $value = $this->model->getAttribute($name);
         }
 
         //  set default values for various field types

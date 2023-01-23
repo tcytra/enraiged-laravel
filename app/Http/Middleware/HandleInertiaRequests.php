@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use Enraiged\Auth\Services\FlashMessages;
+use Enraiged\Users\Services\FlashMessages;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Middleware;
@@ -10,19 +10,21 @@ use Inertia\Middleware;
 class HandleInertiaRequests extends Middleware
 {
     /**
-     * The root template that's loaded on the first page visit.
+     *  The root template that's loaded on the first page visit.
      *
-     * @see https://inertiajs.com/server-side-setup#root-template
-     * @var string
+     *  @var string
+     *
+     *  @see https://inertiajs.com/server-side-setup#root-template
      */
     protected $rootView = 'app';
 
     /**
-     * Determines the current asset version.
+     *  Determines the current asset version.
      *
-     * @see https://inertiajs.com/asset-versioning
-     * @param  \Illuminate\Http\Request  $request
-     * @return string|null
+     *  @param  \Illuminate\Http\Request  $request
+     *  @return string|null
+     *
+     *  @see https://inertiajs.com/asset-versioning
      */
     public function version(Request $request): ?string
     {
@@ -30,13 +32,14 @@ class HandleInertiaRequests extends Middleware
     }
 
     /**
-     * Defines the props that are shared by default.
+     *  Defines the props that are shared by default.
      *
-     * @see https://inertiajs.com/shared-data
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
+     *  @param  \Illuminate\Http\Request  $request
+     *  @return array
+     *
+     *  @see https://inertiajs.com/shared-data
      */
-    public function share(Request $request)
+    public function share(Request $request): array
     {
         $response = [
             'auth' => Auth::check(),
@@ -44,12 +47,9 @@ class HandleInertiaRequests extends Middleware
             'language' => Auth::check() ? Auth::user()->language : config('app.locale'),
         ];
 
-        /*if ($request->session()->has('impersonate')) {
-            $response['impersonating'] = true;
-        }*/
-
-        return array_merge(
-            parent::share($request), $response
-        );
+        return [
+            ...parent::share($request),
+            ...$response,
+        ];
     }
 }

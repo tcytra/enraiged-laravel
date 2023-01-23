@@ -2,8 +2,8 @@
 
 namespace Enraiged\Forms\Builders\Traits;
 
-use Enraiged\Support\Security\Traits\AssertSecure;
-use Enraiged\Support\Security\Traits\RoleAssertions;
+use Enraiged\Support\Builders\Security\AssertSecure;
+use Enraiged\Support\Builders\Security\RoleAssertions;
 
 trait SecurityAssertions
 {

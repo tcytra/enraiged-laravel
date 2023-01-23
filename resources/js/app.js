@@ -1,28 +1,37 @@
-window._ = require('lodash');
+import '../css/app.css';
+import { createApp, h } from 'vue';
+import { createI18n } from 'vue-i18n';
+import { createInertiaApp } from '@inertiajs/vue3';
+import ConfirmationService from 'primevue/confirmationservice';
+import PrimeVue from 'primevue/config';
+import axios from 'axios';
+import VueAxios from 'vue-axios';
 
-/**
- * We'll load the axios HTTP library which allows us to easily issue requests
- * to our Laravel back-end. This library automatically handles sending the
- * CSRF token as a header based on the value of the "XSRF" token cookie.
- */
-
-window.axios = require('axios');
-
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-
-/**
- * Echo exposes an expressive API for subscribing to channels and listening
- * for events that are broadcast by Laravel. Echo and event broadcasting
- * allows your team to easily build robust real-time web applications.
- */
-
-// import Echo from 'laravel-echo';
-
-// window.Pusher = require('pusher-js');
-
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: process.env.MIX_PUSHER_APP_KEY,
-//     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-//     forceTLS: true
-// });
+createInertiaApp({
+    resolve: name => {
+        const pages = import.meta.glob('./pages/**/*.vue', { eager: true });
+        return pages[`./pages/${name}.vue`];
+    },
+    setup({ el, App, props, plugin }) {
+        const i18n = createI18n({
+            fallbackLocale: 'en',
+            locale: props.initialPage.props.language || 'en',
+            messages: props.initialPage.props.i18n || {},
+            silentFallbackWarn: true,
+            silentTranslationWarn: true,
+        });
+        const app = createApp({ render: () => h(App, props) });
+        const root = app
+            .use(i18n)
+            .use(plugin)
+            .use(PrimeVue, { inputStyle: 'filled', ripple: true })
+            .use(ConfirmationService)
+            .use(VueAxios, axios)
+            .mount(el);
+        //  This is temporarily required in order to provide computed data for injection
+        //  see: Temporary Config Required
+        //  at: https://vuejs.org/guide/components/provide-inject.html#working-with-reactivity
+        //  The current stable version of Vue (at this time) is v3.2.45
+        app.config.unwrapInjectedRef = true;
+    },
+});

@@ -9,7 +9,7 @@ trait TableFilters
     use SelectOptions;
 
     /** @var  array  The table filters. */
-    protected $filters;
+    protected array $filters;
 
     /**
      *  Assemble and return the table filters.

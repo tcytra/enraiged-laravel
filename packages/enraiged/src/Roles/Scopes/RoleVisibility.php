@@ -15,7 +15,7 @@ class RoleVisibility implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        //dd(Auth::user()->account);
+        //dd(Auth::user());
         //$builder->where('rank', '>=', Auth::user()->role->rank);
     }
 }

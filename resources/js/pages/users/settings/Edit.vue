@@ -1,0 +1,40 @@
+<template>
+    <main class="content main">
+        <page-header back-button :title="title"/>
+        <section class="auto-margin container max-width-lg">
+            <settings-form :template="template"/>
+        </section>
+    </main>
+</template>
+
+<script>
+import App from '@/layouts/App.vue';
+import PageHeader from '@/components/ui/pages/PageHeader.vue';
+import SettingsForm from '@/components/users/forms/SettingsForm.vue';
+
+export default {
+    layout: App,
+
+    components: {
+        PageHeader,
+        SettingsForm,
+    },
+
+    props: {
+        user: {
+            type: Object,
+            required: true,
+        },
+        template: {
+            type: Object,
+            required: true,
+        },
+    },
+
+    computed: {
+        title() {
+            return this.user.is_myself ? 'Update My Settings' : 'User Settings';
+        },
+    },
+};
+</script>
