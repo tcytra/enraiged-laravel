@@ -1,26 +1,54 @@
 
 .background-danger {
-  background-color: $background-danger;
+  background-color: $background-danger !important;
 }
 .background-info {
-  background-color: $background-info;
+  background-color: $background-info !important;
 }
 .background-success {
-  background-color: $background-success;
+  background-color: $background-success !important;
 }
 .background-warning {
-  background-color: $background-warning;
+  background-color: $background-warning !important;
+}
+
+.border-danger {
+  border-color: $color-danger !important;
+}
+.border-info {
+  border-color: $color-info !important;
+}
+.border-success {
+  border-color: $color-success !important;
+}
+.border-warning {
+  border-color: $color-warning !important;
 }
 
 .color-danger {
-  color: $color-danger;
+  color: $color-danger !important;
 }
 .color-info {
-  color: $color-info;
+  color: $color-info !important;
 }
 .color-success {
-  color: $color-success;
+  color: $color-success !important;
 }
 .color-warning {
-  color: $color-warning;
+  color: $color-warning !important;
+}
+
+:root {
+  --background-danger: $background-danger;
+  --background-info: $background-info;
+  --background-success: $background-success;
+  --background-warning: $background-warning;
+  --border-danger: $color-danger;
+  --border-info: $color-info;
+  --border-success: $color-success;
+  --border-warning: $color-warning;
+  --color-danger: $color-danger;
+  --color-info: $color-info;
+  --color-success: $color-success;
+  --color-warning: $color-warning;
 }

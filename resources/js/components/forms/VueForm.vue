@@ -1,7 +1,7 @@
 <template>
     <div class="vue-form">
         <form @submit.prevent="submit"
-            :class="['form', labels, {'custom-actions': customActions}]">
+            :class="['form', template.class, labels, {'custom-actions': customActions, 'formgrid grid': formGrid}]">
             <slot v-bind="{ form }">
                 <vue-form-section v-if="sections" v-for="(section, key) in sections"
                     :creating="creating"
@@ -56,6 +56,10 @@ export default {
             type: Boolean,
             default: false,
         },
+        formGrid: {
+            type: Boolean,
+            default: false,
+        },
         template: {
             type: Object,
             required: true,
@@ -106,6 +110,11 @@ export default {
                 if (type === 'section') {
                     flatten(template[item].fields);
                 } else {
+                    if (template[item].type === 'calendar'
+                        && template[item].value
+                        && template[item].value.toString().match(/^\d{4}-\d{2}-\d{2}$/)) {
+                        template[item].value = new Date(`${template[item].value} 00:00:00`);
+                    }
                     fields[item] = template[item].type === 'switch'
                         ? template[item].value && template[item].value === true
                         : template[item].value || null;

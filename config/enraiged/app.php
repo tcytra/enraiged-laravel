@@ -4,6 +4,17 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Absolute Uris
+    |--------------------------------------------------------------------------
+    | 
+    | Define whether or not generated routes use absolute uri paths.
+    |
+    */
+
+    'absolute_uris' => env('ABSOLUTE_URIS', true),
+
+    /*
+    |--------------------------------------------------------------------------
     | Country Code
     |--------------------------------------------------------------------------
     | 
@@ -11,7 +22,7 @@ return [
     |
     */
 
-    'country_code' => 'CA',
+    'country_code' => env('COUNTRY_CODE', 'CA'),
 
     /*
     |--------------------------------------------------------------------------
@@ -22,6 +33,6 @@ return [
     |
     */
     
-    'timezone' => 'America/Vancouver',
+    'timezone' => env('TIMEZONE', 'America/Vancouver'),
 
 ];

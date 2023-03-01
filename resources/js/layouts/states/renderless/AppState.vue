@@ -19,7 +19,7 @@ export default {
         ready: false,
         user: null,
         authMenuOpen: false,
-        mainMenuOpen: null,
+        mainMenuOpen: false,
     }),
 
     computed: {
@@ -49,6 +49,7 @@ export default {
     },
 
     created() {
+        this.mainMenuOpen = (this.isMobile !== true);
         this.initState();
     },
 
@@ -115,8 +116,6 @@ export default {
 
         stopImpersonating() {
             this.$inertia.get('/users/impersonate/stop');
-            // this.axios.request({ method: 'get', url: '/users/impersonate/stop' })
-            // .then(() => this.initState());
         },
 
         toggleAuth() {
@@ -128,9 +127,7 @@ export default {
                 this.authMenuOpen = false;
                 this.mainMenuOpen = true;
             } else {
-                this.mainMenuOpen = this.mainMenuOpen === null
-                    ? this.isMobile
-                    : !this.mainMenuOpen;
+                this.mainMenuOpen = !this.mainMenuOpen;
             }
         },
     },

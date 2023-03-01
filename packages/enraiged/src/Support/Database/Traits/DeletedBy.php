@@ -24,10 +24,23 @@ trait DeletedBy
     }
 
     /**
+     *  @return array
+     */
+    public function getDeletedAttribute()
+    {
+        return [
+            'at' => $this->atTimestamp($this->deleted_at),
+            'by' => $this->byUser($this->deletedBy),
+        ];
+    }
+
+    /**
      *  @return void
      */
     private function setDeletedBy()
     {
-        $this->deleted_by = Auth::check() ? Auth::id() : 1;
+        if (Auth::check()) {
+            $this->deleted_by = Auth::id();
+        }
     }
 }

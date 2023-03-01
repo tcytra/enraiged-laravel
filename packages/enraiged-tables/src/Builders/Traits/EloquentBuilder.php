@@ -4,6 +4,7 @@ namespace Enraiged\Tables\Builders\Traits;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\App;
 
 trait EloquentBuilder
 {
@@ -33,7 +34,8 @@ trait EloquentBuilder
      */
     public function build(Builder $builder = null)
     {
-        $this->builder = $builder ?? $this->model::query();
+        $this->builder = $builder
+            ?? App::make($this->model)::query();
 
         return $this;
     }
@@ -57,7 +59,7 @@ trait EloquentBuilder
     public function filter()
     {
         if ($this->request()->has('filters')) {
-            $filters = (array) $this->request()->filters();
+            $filters = (array) $this->request()->get('filters');
 
             if (count($filters)) {
                 foreach ($this->filters as $index => $filter) {
@@ -92,7 +94,7 @@ trait EloquentBuilder
      */
     public function paginate(int $rows = null)
     {
-        $this->paginator = $this->builder->paginate($rows ?? $this->request->rows());
+        $this->paginator = $this->builder->paginate($rows ?? $this->request->get('rows'));
 
         return $this;
     }
@@ -136,8 +138,8 @@ trait EloquentBuilder
     {
         $wheres = [];
 
-        if ($this->request()->has('search')) {
-            $search = $this->request()->search();
+        if ($this->request()->has('search') && $this->request()->filled('search')) {
+            $search = $this->request()->get('search');
 
             foreach (explode(" ", trim($search)) as $term) {
                 $term = filter_var($term);
@@ -169,8 +171,8 @@ trait EloquentBuilder
      */
     public function sort()
     {
-        $dir = $this->request()->dir() < 0 ? 'desc' : 'asc';
-        $sort = $this->request()->sort();
+        $dir = $this->request()->get('dir') < 0 ? 'desc' : 'asc';
+        $sort = $this->request()->get('sort');
 
         if ($sort && $this->columnKeys()->contains($sort)) {
             $source = $this->columnSource($sort);

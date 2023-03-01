@@ -13,10 +13,11 @@ trait FormFields
      *
      *  @param  string  $name
      *  @param  array   $params = null
+     *  @param  bool    $rewrite = false
      *  @param  array   $depth = []
      *  @return array|self
      *
-     *  @todo   This handles sections now also.. rename from field() to object() (?)
+     *  @todo   This handles sections now also.. rename from field() to object() (or something?)
      */
     public function field($name, $params = null, $rewrite = false, $depth = [])
     {
@@ -31,7 +32,7 @@ trait FormFields
         if (key_exists($name, $fields)) {
             $object = &$fields[$name];
 
-            if ($this->assert_security && !$this->assertSecure($object)) {
+            if (!$this->assertSecure($object)) {
                 unset($fields[$name]);
             }
 
@@ -54,7 +55,7 @@ trait FormFields
             $object = $fields[$each];
 
             if ($this->hasSectionFields($object)) {
-                if ($this->assert_security && !$this->assertSecure($object)) {
+                if (!$this->assertSecure($object)) {
                     unset($fields[$each]);
                 }
 
@@ -71,6 +72,24 @@ trait FormFields
         }
 
         return null;
+    }
+
+    /**
+     *  Set a form field if the condition is true.
+     *
+     *  @param  string  $name
+     *  @param  array   $params
+     *  @param  bool    $condition
+     *  @param  bool    $rewrite = false
+     *  @return self
+     */
+    public function fieldIf($name, $params, $condition, $rewrite = false)
+    {
+        if ($condition) {
+            $this->field($name, $params, $rewrite);
+        }
+
+        return $this;
     }
 
     /**

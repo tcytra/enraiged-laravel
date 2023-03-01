@@ -1,13 +1,13 @@
 <template>
     <main class="content flex-column main flex">
-        <page-header :title="i18n('Dashboard')"/>
+        <page-header fixed :title="i18n('Dashboard')"/>
         <section class="align-self-center container max-width-xl w-full">
-            <primevue-card class="mb-3">
-                <template #content>
-                    <p class="mb-1">{{ i18n('This is your dashboard.') }}</p>
+            <primevue-card class="mb-3 shadow-1">
+                <template #header>
+                    <header class="header">
+                        <h3>{{ i18n('This is your dashboard.') }}</h3>
+                    </header>
                 </template>
-            </primevue-card>
-            <primevue-card class="mb-3">
                 <template #content>
                     <p class="mb-3">
                         {{ user.profile.name }}

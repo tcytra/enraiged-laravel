@@ -1,15 +1,15 @@
 <?php
 
-namespace Enraiged\Avatars\Resources\Traits;
+namespace Enraiged\Avatars\Models\Attributes;
 
-trait File
+trait AvatarFile
 {
     /**
      *  Return the avatar file details.
      *
      *  @return array
      */
-    protected function file()
+    protected function getAvatarFileAttribute()
     {
         if ($this->file->exists) {
             return [

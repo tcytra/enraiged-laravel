@@ -25,6 +25,7 @@
         }
     }
 
+    /*
     @media screen and (min-width: $break-x-extra) {
         &.auth-open.menu-open,
         &.auth-open:not(.menu-closed) {
@@ -34,5 +35,6 @@
             }
         }
     }
+    */
 
 }

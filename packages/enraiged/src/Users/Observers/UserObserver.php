@@ -4,8 +4,8 @@ namespace Enraiged\Users\Observers;
 
 use App\Auth\Enums\Roles;
 use Enraiged\Users\Models\User;
-use Enraiged\Users\Notifications\UserIntroduction;
 use Enraiged\Users\Notifications\UserLoginChange;
+use Enraiged\Users\Notifications\UserWelcome;
 
 class UserObserver
 {
@@ -17,9 +17,7 @@ class UserObserver
      */
     public function created(User $user)
     {
-        if (config('enraiged.notifications.user_introduction')) {
-            $user->notify(new UserIntroduction());
-        }
+        $user->notify(new UserWelcome);
 
         $require_agreement = $user->must_agree_to_terms === true
             && $user->has_agreed_to_terms === false;

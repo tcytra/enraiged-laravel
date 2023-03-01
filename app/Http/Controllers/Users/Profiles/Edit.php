@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Users\Profiles;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Users\Profile\EditRequest;
+use Enraiged\Users\Forms\Builders\UpdateProfileForm;
 use Enraiged\Users\Resources\UserResource;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
@@ -22,8 +22,8 @@ class Edit extends Controller
 
         $this->authorize('edit', $user); // todo: authorize profile, not user
 
-        $request = EditRequest::createFrom($request);
-        $builder = $request->form()->edit($user, 'users.profile.update');
+        $builder = UpdateProfileForm::from($this)
+            ->edit($user, 'users.profile.update');
 
         return inertia('users/profiles/Edit', [
             'messages' => [

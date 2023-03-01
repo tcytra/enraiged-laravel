@@ -20,7 +20,7 @@
                 :id="id"
                 :placeholder="placeholder"
                 :type="text"
-                @update:modelValue="update; $emit('update:modelValue', $event)"/>
+                @update:modelValue="update(); $emit('update:modelValue', $event)"/>
             <div class="error p-error" v-if="error">
                 <i class="pi pi-exclamation-circle" v-tooltip.top="error"></i>
                 <span class="message">{{ error }}</span>

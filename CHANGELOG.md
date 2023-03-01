@@ -19,12 +19,46 @@ Todo:
 - Transitions
 - User configurable notifications system
 - Username availability check
+- User::morphMap();
 
+! Avatar colour picker seems to preserve some previous value
 ! Correct avatar character centering in mobile browser
+! SSR with multiple vhosts in a service environment not working?
 
 ---
 
-2023-01-23 : 0.2.0  
+2023-02-22 : 0.2.1  
+Update: Clean production ssr build; Various corrections,improvements
+
+- Added Enraiged\Support\Collections\RequestCollection
+- Added ability to assertSecure() against a config and value
+- Added app_host to the spa meta data
+- Added {created,deleted,updated}.{at,by} to the tracking traits
+- Added 'enraiged.auth.send_welcome_notification' config option
+- Added 'enraiged.notifications.*.markdown' config option for x-mail
+- Added is_date(), obj() helpers
+- Corrected issue with CreateUserProfile::from in registration system
+- Corrected issues with production,ssr build
+  - Added vite alias ! to ./resources
+  - Custom fonts now included in build from the resources directory
+  - Resolved build issues with bootstrap/ssr/ssr.mjs
+- Ensure 'automated_login' and 'must_verify_email' do not conflict
+- Include current build lock files in the package
+- Minor improvements with the enraiged.auth.allow_username_login config
+- Moved avatar_{color,file} from resource traits to model attributes
+- Removed $assert_security from FormBuilder; Assertions are automatic
+- Resolved security issue with symfony/http-kernel
+  - Remove symfony/http-kernel from composer.json when vendor updates
+- Updated enraiged-forms
+  - Ability to pass table class via form template
+  - Ability to pass route params to FormBuilder::{create,edit}
+  - Added fieldIf() method to the FormBuilder
+- Updated users index export
+- Various ui/ux corrections,improvements
+
+---
+
+2023-01-23 : 0.2.0
 Update: Upgraded inertiajs and laravel framework
 
 - Added ability to specify default sort,direction in table builders

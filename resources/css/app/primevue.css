@@ -15,6 +15,19 @@
     }
 }
 
+.justify-self-baseline {
+  justify-self:     baseline;
+}
+.justify-self-center {
+  justify-self:     center;
+}
+.justify-self-end {
+  justify-self:     end;
+}
+.justify-self-start {
+  justify-self:     start;
+}
+
 @media screen and (min-width: $break-large) {
     .p-paginator {
         .p-paginator-current {

@@ -28,7 +28,7 @@
           margin-bottom:    1rem;
         }
 
-        &.horizontal .field.control, .horizontal .field.control, .field.control.horizontal {
+        &.horizontal .field.control, .horizontal .field.control, .field.control.horizontal, .vertical .horizontal.field.control {
           align-items:      center;
           flex-direction:   row;
 
@@ -95,7 +95,7 @@
             }
         }
 
-        &.vertical .field.control, .vertical .field.control, .field.control.vertical {
+        &.vertical .field.control, .vertical .field.control, .field.control.vertical, .horizontal .field.control.vertical {
           align-items:      flex-start;
           flex-direction:   column;
 
@@ -117,6 +117,23 @@
                 }
             }
         }
+
+        .horizontal.field.control {
+          align-items:      center;
+          flex-direction:   row !important;
+
+            .label {
+              margin-bottom:    0;
+            }
+        }
+
+        .vertical.field.control {
+          flex-direction:   column !important;
+
+            .label {
+              margin-bottom:    .5rem;
+            }
+        }
     }
 
     .p-inputswitch.is-creating:not(.p-invalid) .p-inputswitch-slider::before {
@@ -125,7 +142,9 @@
     .p-inputswitch.p-inputswitch-checked.is-creating:not(.p-invalid) .p-inputswitch-slider::before {
       background-color: darken($background-info, 12%);
     }
-    .p-inputtext.is-creating:not(.p-invalid), .p-inputwrapper.is-creating:not(.p-invalid) {
+    .p-calendar.is-creating:not(.p-invalid) .p-inputtext,
+    .p-inputtext.is-creating:not(.p-invalid),
+    .p-inputwrapper.is-creating:not(.p-calendar):not(.p-invalid) {
       background-color: lighten($background-info, 12%);
       border-color:     $color-info;
     }
@@ -136,7 +155,9 @@
     .p-inputswitch.p-inputswitch-checked.is-updating:not(.p-invalid) .p-inputswitch-slider::before {
       background-color: darken($background-warning, 12%);
     }
-    .p-inputtext.is-updating:not(.p-invalid), .p-inputwrapper.is-updating:not(.p-invalid) {
+    .p-calendar.is-updating:not(.p-invalid) .p-inputtext,
+    .p-inputtext.is-updating:not(.p-invalid),
+    .p-inputwrapper.is-updating:not(.p-calendar):not(.p-invalid) {
       background-color: lighten($background-warning, 12%);
       border-color:     $color-warning;
     }
@@ -146,4 +167,34 @@
       border-color:     $color-danger;
     }
 
+    .vue-form .form.shadow-1 {
+      box-shadow:       none !important;
+        .section .p-card {
+          box-shadow:       $shadow-1;
+        }
+    }
+    .vue-form .form.shadow-2 {
+      box-shadow:       none !important;
+        .section .p-card {
+          box-shadow:       $shadow-2;
+        }
+    }
+    .vue-form .form.shadow-3 {
+      box-shadow:       none !important;
+        .section .p-card {
+          box-shadow:       $shadow-3;
+        }
+    }
+    .vue-form .form.shadow-4 {
+      box-shadow:       none !important;
+        .section .p-card {
+          box-shadow:       $shadow-4;
+        }
+    }
+    .vue-form .form.shadow-5 {
+      box-shadow:       none !important;
+        .section .p-card {
+          box-shadow:       $shadow-5;
+        }
+    }
 }

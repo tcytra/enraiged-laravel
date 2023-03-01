@@ -29,7 +29,7 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => allow_username_login() ? 'required|string' : 'required|string|email',
+            'email' => config('enraiged.auth.allow_username_login') ? 'required|string' : 'required|string|email',
             'password' => 'required|string',
         ];
     }

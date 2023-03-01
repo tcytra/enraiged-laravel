@@ -149,6 +149,19 @@ if (!function_exists('number')) {
     }
 }
 
+if (!function_exists('obj')) {
+    /**
+     *  Convert and return a provided value as an stdClass object.
+     *
+     *  @param  mixed   $value
+     *  @return object
+     */
+    function obj($value)
+    {
+        return json_decode(json_encode($value));
+    }
+}
+
 if (!function_exists('resolve_object_path')) {
     /**
      *  Evaluate a dot.notation string against an object to return a callable child object configuration.

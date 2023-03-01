@@ -21,7 +21,7 @@ trait Rules
         'salut' => 'nullable',
         'timezone' => 'nullable',
         'title' => 'nullable',
-        'username' => 'nullable|email|unique:users,username|unique:users,email',
+        'username' => 'sometimes|nullable|unique:users,username|unique:users,email',
     ];
 
     /**

@@ -29,7 +29,7 @@ trait Exportable
      */
     public function exportable()
     {
-        $parameters = collect($this->request->export());
+        $parameters = collect($this->request->get('export'));
         $storage = config('enraiged.tables.storage');
 
         $this->chunksize = $parameters->get('chunk') ?? config('excel.exports.chunk_size');

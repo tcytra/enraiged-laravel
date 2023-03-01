@@ -36,32 +36,32 @@
 </template>
 
 <script>
+import AppLayout from '@/layouts/App.vue';
 import UserSummary from '@/components/users/cards/UserSummary.vue';
-import App from '@/layouts/App.vue';
 import PageHeader from '@/components/ui/pages/PageHeader.vue';
 import PageMessages from '@/components/ui/pages/PageMessages.vue';
 import PrimevueCard from 'primevue/card/Card.vue';
 
 export default {
-    layout: App,
+    layout: AppLayout,
 
     components: {
-        UserSummary,
         PageHeader,
         PageMessages,
         PrimevueCard,
+        UserSummary,
     },
 
     inject: ['i18n'],
 
     props: {
-        user: {
-            type: Object,
-            required: true,
-        },
         messages: {
             type: Array,
             default: [],
+        },
+        user: {
+            type: Object,
+            required: true,
         },
     },
 

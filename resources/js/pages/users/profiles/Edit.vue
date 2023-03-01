@@ -2,7 +2,7 @@
     <main class="content main">
         <page-header back-button :title="title"/>
         <section class="auto-margin container max-width-lg">
-            <page-messages class="mb-3" :messages="messages" @dismiss="messages.splice($event, 1)"/>
+            <page-messages :messages="messages" @dismiss="messages.splice($event, 1)"/>
             <profile-form :template="template"/>
         </section>
     </main>
@@ -26,17 +26,17 @@ export default {
     inject: ['i18n'],
 
     props: {
-        user: {
-            type: Object,
-            required: true,
+        messages: {
+            type: Array,
+            default: [],
         },
         template: {
             type: Object,
             required: true,
         },
-        messages: {
-            type: Array,
-            default: [],
+        user: {
+            type: Object,
+            required: true,
         },
     },
 

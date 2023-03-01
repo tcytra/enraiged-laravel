@@ -1,5 +1,5 @@
 <template>
-    <headless-form-field v-slot:default="{ dirty, disabled, error, label, placeholder, update }"
+    <headless-form-field v-slot:default="{ disabled, error, label, placeholder, update }"
         v-bind="$props">
         <div :class="field.before" v-if="field.before"/>
         <div class="control field calendar" v-show="show"
@@ -16,7 +16,7 @@
                     'p-inputtext-sm': isSmall,
                     'p-invalid': error,
                 }"
-                :date-format="field.date_format || 'yy-mm-dd'"
+                :date-format="field.format || 'yy-mm-dd'"
                 :disabled="disabled"
                 :disabled-dates="field.disabled_dates || disabledDates"
                 :disabled-days="field.disabled_days || disabledDays"
@@ -24,7 +24,8 @@
                 :placeholder="placeholder"
                 :maxDate="maxDate"
                 :minDate="minDate"
-                @update:modelValue="update; $emit('update:modelValue', $event)"/>
+                :touchUI="isMobile || isTablet"
+                @update:modelValue="update(); $emit('update:modelValue', $event)"/>
             <div class="error p-error" v-if="error">
                 <i class="pi pi-exclamation-circle" v-tooltip.top="error"></i>
                 <span class="message">{{ error }}</span>
@@ -51,7 +52,7 @@ export default {
         tooltip: PrimevueTooltip,
     },
 
-    inject: ['newDate'],
+    inject: ['isMobile', 'isTablet', 'newDate'],
 
     props: {
         creating: {
@@ -105,6 +106,11 @@ export default {
     },
 
     computed: {
+        dirty() {
+            const field = this.field.value ? this.field.value.toString() : null;
+            const form = this.form[this.id] ? this.form[this.id].toString() : null;
+            return field !== form;
+        },
         maxDate() {
             return this.field.maximum
                 ? this.newDate(this.field.maximum)

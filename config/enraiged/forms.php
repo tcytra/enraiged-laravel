@@ -2,7 +2,9 @@
 
 return [
 
-    'absolute_uris' => env('ABSOLUTE_URIS', false),
+    'absolute_uris' => config('enraiged.app.absolute_uris', true),
+
+    'collapsible' => false,
 
     'labels' => 'vertical',
 

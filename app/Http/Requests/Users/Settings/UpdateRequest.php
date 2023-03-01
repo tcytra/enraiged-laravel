@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests\Users\Settings;
 
+use Enraiged\Forms\Requests\FormRequest;
 use Enraiged\Users\Forms\Validation\Rules;
 
-class UpdateRequest extends EditRequest
+class UpdateRequest extends FormRequest
 {
     use Rules;
 

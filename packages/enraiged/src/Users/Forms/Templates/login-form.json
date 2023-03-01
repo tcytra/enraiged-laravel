@@ -13,13 +13,21 @@
             "label": "Submit"
         }
     },
+    "class": "vertical shadow-1",
     "fields": {
         "email": {
-            "after": "col-0 md:col-6",
             "class": "col-12 md:col-6",
-            "label": "Primary Email",
+            "label": "Login Email",
             "placeholder": "Required",
             "required": true
+        },
+        "username": {
+            "class": "col-12 md:col-6",
+            "label": "Unique Username",
+            "placeholder": "Optional",
+            "secure": {
+                "config": "enraiged.auth.allow_username_login"
+            }
         },
         "password": {
             "class": "col-12 md:col-6",
@@ -32,6 +40,5 @@
             "label": "Confirm Password",
             "type": "password"
         }
-    },
-    "labels": "vertical"
+    }
 }

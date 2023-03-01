@@ -158,9 +158,9 @@ export default {
             flashWarning: this.flashWarning,
             formatDate: this.formatDate,
             i18n: this.$t,
-            isMobile: computed(() => this.isMobile).value,
+            isMobile: computed(() => this.isMobile),
             isSuccess: this.isSuccess,
-            isTablet: computed(() => this.isTablet).value,
+            isTablet: computed(() => this.isTablet),
             newDate: this.newDate,
         };
     },

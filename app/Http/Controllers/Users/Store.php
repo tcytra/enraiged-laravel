@@ -20,7 +20,7 @@ class Store extends Controller
     {
         $this->authorize('create', User::class);
 
-        $user = CreateUserProfile::from($request->validated());
+        $user = CreateUserProfile::from($request->validated())->user();
 
         $request->session()->put('success', 'User created');
 

@@ -11,7 +11,7 @@
 @import 'app/variables.css';
 @import 'app/colors.css';
 @import "fonts/helveticaneue";  // 'Helvetica Neue',
-@import "fonts/opensans";       // 'Open Sans',
+//@import "fonts/opensans";       // 'Open Sans',
 @import "fonts/roboto";         // 'Roboto','
 
 
@@ -36,7 +36,6 @@
 @import 'app/effects.css';
 @import 'app/indicators.css';
 @import 'app/notifications.css';
-@import 'app/positioning.css';
 @import 'app/sizing.css';
 
 
@@ -83,12 +82,16 @@ strong {
 }
 
 a, a:visited {
-  color:            var(--bluegray-700);
   text-decoration:  none;
   transition:       color .25s ease;
+    &:not(.p-button) {
+      color:            var(--blue-700);
+    }
 }
 a:active, a:hover {
-  color:            var(--bluegray-800);
+    &:not(.p-button) {
+      color:            var(--blue-800);
+    }
 }
 
 .antialiased {

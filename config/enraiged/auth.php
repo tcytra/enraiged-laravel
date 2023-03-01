@@ -160,10 +160,15 @@ return [
     |--------------------------------------------------------------------------
     | 
     | You may allow or disallow automatic post-registration login by providing
-    | a boolean true or false for 'automated_logins'. Please note that if other
-    | options such as 'must_agree_to_terms' or 'must_complete_profile' are
-    | enabled, the login will complete, but the user may be redirected to the
-    | systems that enforce these policies.
+    | a boolean true or false for 'automated_logins'.
+    |
+    | Please note:
+    |
+    | If 'must_verify_email' is enabled, this setting will be ignored.
+    |
+    | If 'must_verify_email' or 'must_complete_profile' are enabled, the login
+    | will complete but the user may be redirected to the systems that enforce
+    | these policies.
     |
     | The default value is false.
     |
@@ -239,7 +244,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Must Agree To Terms
+    | Must Complete Profile
     |--------------------------------------------------------------------------
     |
     | Not implemented at this time.
@@ -266,6 +271,20 @@ return [
     */
 
     'must_verify_email' => (bool) env('MUST_VERIFY_EMAIL', false),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Send Welcome Notification
+    |--------------------------------------------------------------------------
+    |
+    | The application may be configured to send a welcome notification to a
+    | user when their account is created.
+    | 
+    | The default value is false.
+    |
+    */
+
+    'send_welcome_notification' => (bool) env('SEND_WELCOME', false),
 
     /*
     |--------------------------------------------------------------------------

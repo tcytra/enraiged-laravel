@@ -3,6 +3,8 @@
 
     .table.container {
         .filter-controls {
+          border-bottom-left-radius: 0;
+          border-bottom-right-radius: 0;
           padding:          .5rem 1rem;
 
             .filter {
@@ -111,4 +113,52 @@
         }
     }
 
+}
+
+.container.table {
+    >.shadow-1 {
+      box-shadow: none !important;
+        >.filter-controls,
+        >.p-datatable >.p-datatable-header,
+        >.p-datatable >.p-datatable-wrapper,
+        >.p-datatable >.p-paginator-bottom {
+          box-shadow: $shadow-1;
+        }
+    }
+    >.shadow-2 {
+      box-shadow: none !important;
+        >.filter-controls,
+        >.p-datatable >.p-datatable-header,
+        >.p-datatable >.p-datatable-wrapper,
+        >.p-datatable >.p-paginator-bottom {
+          box-shadow: $shadow-2;
+        }
+    }
+    >.shadow-3 {
+      box-shadow: none !important;
+        >.filter-controls,
+        >.p-datatable >.p-datatable-header,
+        >.p-datatable >.p-datatable-wrapper,
+        >.p-datatable >.p-paginator-bottom {
+          box-shadow: $shadow-3;
+        }
+    }
+    >.shadow-4 {
+      box-shadow: none !important;
+        >.filter-controls,
+        >.p-datatable >.p-datatable-header,
+        >.p-datatable >.p-datatable-wrapper,
+        >.p-datatable >.p-paginator-bottom {
+          box-shadow: $shadow-4;
+        }
+    }
+    >.shadow-5 {
+      box-shadow: none !important;
+        >.filter-controls,
+        >.p-datatable >.p-datatable-header,
+        >.p-datatable >.p-datatable-wrapper,
+        >.p-datatable >.p-paginator-bottom {
+          box-shadow: $shadow-5;
+        }
+    }
 }

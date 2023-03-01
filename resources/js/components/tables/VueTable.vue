@@ -11,8 +11,8 @@
             </div>
         </div>
         <primevue-datatable class="p-datatable-sm" ref="datatable"
-            filterDisplay="menu"
-            paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink"
+            filter-display="menu"
+            paginator-template="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink"
             :current-page-report-template="pageReportTemplate"
             :first="first"
             :lazy="true"
@@ -82,7 +82,7 @@
                 </template>
             </primevue-column>
             <primevue-column v-if="template.actions" key="actions"
-                class="actions"
+                class="actions text-center"
                 field="actions"
                 :header="i18n('Actions')"
                 v-bind="$props">
@@ -270,7 +270,7 @@ export default {
                 this.loading = true;
                 const headers = { responseType: 'blob' };
                 const params = this.params();
-                params.export = { name: 'users', type: this.exportable };
+                params.export = { name: this.template.id.replace(/[^A-Za-z]/g, '-'), type: this.exportable };
                 this.axios.post(this.template.exportable.uri, params, { headers: headers })
                     .then((response) => {
                         this.loading = false;

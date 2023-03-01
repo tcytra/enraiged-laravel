@@ -28,7 +28,7 @@ class Store extends Controller
 
         $request->session()->put('success', 'Registration successful');
 
-        if (config('enraiged.auth.automated_login') === true) {
+        if (config('enraiged.auth.automated_login') === true && !config('enraiged.auth.must_verify_email')) {
             Auth::login($user);
         }
 

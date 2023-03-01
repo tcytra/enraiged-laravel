@@ -10,7 +10,7 @@ Route::middleware(['auth', 'verified', 'password.confirm', 'enraiged'])
 
         Route::get('profile', 'Show')->name('profile');
         Route::get('avatar', 'Avatars\Edit')->name('avatar');
-        Route::get('details', 'Profiles\Edit')->name('profile');
+        Route::get('details', 'Profiles\Edit')->name('details');
         Route::get('login', 'Login\Edit')->name('login');
         Route::get('settings', 'Settings\Edit')->name('settings');
 

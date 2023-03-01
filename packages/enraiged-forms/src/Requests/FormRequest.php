@@ -25,6 +25,16 @@ class FormRequest extends Request
     /**
      *  Get the validation rules that apply to the request.
      *
+     *  @return Illuminate\Support\Collection
+     */
+    public function collected(): Collection
+    {
+        return collect($this->validated());
+    }
+
+    /**
+     *  Get the validation rules that apply to the request.
+     *
      *  @return array
      */
     public function rules()

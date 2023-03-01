@@ -1,6 +1,6 @@
 <template>
     <div class="help-messages" :class="class" v-if="messages.length">
-        <primevue-message class="m-0" v-for="(message, index) in messages"
+        <primevue-message class="m-0 mb-3" v-for="(message, index) in messages"
             :closable="closable(message)"
             :severity="severity(message)"
             :key="index"

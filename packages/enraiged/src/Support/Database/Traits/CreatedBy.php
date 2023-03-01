@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 
 trait CreatedBy
 {
+    use AtTimestamp, ByUser;
+
     /**
      *  @return void
      */
@@ -24,10 +26,23 @@ trait CreatedBy
     }
 
     /**
+     *  @return array
+     */
+    public function getCreatedAttribute()
+    {
+        return [
+            'at' => $this->atTimestamp($this->created_at),
+            'by' => $this->byUser($this->createdBy),
+        ];
+    }
+
+    /**
      *  @return void
      */
     private function setCreatedBy()
     {
-        $this->created_by = Auth::check() ? Auth::id() : 1;
+        if (Auth::check()) {
+            $this->created_by = Auth::id();
+        }
     }
 }

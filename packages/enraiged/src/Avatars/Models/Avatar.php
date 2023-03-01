@@ -14,7 +14,9 @@ use Illuminate\Support\Str;
 
 class Avatar extends Model
 {
-    use Attributes\Folder,
+    use Attributes\AvatarColor,
+        Attributes\AvatarFile,
+        Attributes\Folder,
         CreatedBy, HasFile, UpdatedBy;
 
     /** @var  string  The database table name. */

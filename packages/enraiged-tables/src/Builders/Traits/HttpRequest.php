@@ -2,12 +2,12 @@
 
 namespace Enraiged\Tables\Builders\Traits;
 
-use Enraiged\Tables\Requests\TableRequest;
+use Enraiged\Support\Collections\RequestCollection;
 
 trait HttpRequest
 {
-    /** @var  \Enraiged\Tables\Requests\TableRequest  The http request instance. */
-    protected TableRequest $request;
+    /** @var  \Enraiged\Support\Collections\RequestCollection  The collected http request. */
+    protected RequestCollection $request;
 
     /** @var  string  The uri for the table data request. */
     protected string $uri;
@@ -15,9 +15,9 @@ trait HttpRequest
     /**
      *  Return the request instance.
      *
-     *  @return \Enraiged\Tables\Requests\TableRequest
+     *  @return \Illuminate\Support\Collection
      */
-    public function request(): TableRequest
+    public function request(): RequestCollection
     {
         return $this->request;
     }
@@ -32,7 +32,7 @@ trait HttpRequest
         $uri = $this->uri;
 
         if (preg_match('/\./', $uri)) {
-            $uri = route($uri, [], config('enraiged.tables.absolute_uris'));
+            return route($uri, [], config('enraiged.tables.absolute_uris'));
         }
 
         return '/'.trim($uri, '/');

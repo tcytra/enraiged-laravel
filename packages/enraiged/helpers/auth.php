@@ -6,17 +6,6 @@ use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpKernel\Exception\PreconditionFailedHttpException;
 
 /**
- *  Determine whether or not username logins are permitted.
- *
- *  @return bool
- */
-function allow_username_login(): bool
-{
-    return config('enraiged.auth.allow_username_login') === true
-        && config('enraiged.auth.allow_secondary_credential') === true;
-}
-
-/**
  *  Return the configured users auth model.
  *
  *  @return \Illuminate\Foundation\Auth\User

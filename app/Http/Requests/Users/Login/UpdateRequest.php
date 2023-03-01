@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests\Users\Login;
 
+use Enraiged\Forms\Requests\FormRequest;
 use Enraiged\Users\Forms\Validation\Messages;
 
-class UpdateRequest extends EditRequest
+class UpdateRequest extends FormRequest
 {
     use Messages;
 
@@ -22,7 +23,9 @@ class UpdateRequest extends EditRequest
         return [
             'email' => "required|email|unique:users,email,{$user->id}|unique:users,username,{$user->id}",
             'password' => 'nullable|confirmed',
-            'username' => "nullable|email|unique:users,email,{$user->id}|unique:users,username,{$user->id}",
+            'username' => config('enraiged.auth.allow_username_login')
+                ? "nullable|unique:users,email,{$user->id}|unique:users,username,{$user->id}"
+                : "nullable|email|unique:users,email,{$user->id}|unique:users,username,{$user->id}",
         ];
     }
 }

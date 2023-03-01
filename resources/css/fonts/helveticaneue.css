@@ -4,21 +4,21 @@
 @font-face {
   font-family:		'Helvetica Neue';
   font-weight:		400;
-  src:				url('/fonts/helvetica-neue/HelveticaNeueLTStd-Lt.otf') format('opentype');
+  src:				url('!/fonts/helvetica-neue/HelveticaNeueLTStd-Lt.otf') format('opentype');
 }
 @font-face {
   font-family:		'Helvetica Neue';
   font-style:		italic;
   font-weight:		400;
-  src:				url('/fonts/helvetica-neue/HelveticaNeueLTStd-It.otf') format('opentype');
+  src:				url('!/fonts/helvetica-neue/HelveticaNeueLTStd-It.otf') format('opentype');
 }
 @font-face {
   font-family:		'Helvetica Neue Condensed';
   font-weight:		400;
-  src:				url('/fonts/helvetica-neue/HelveticaNeueLTStd-LtCn.otf') format('opentype');
+  src:				url('!/fonts/helvetica-neue/HelveticaNeueLTStd-LtCn.otf') format('opentype');
 }
 @font-face {
   font-family:		'Helvetica Neue Condensed';
   font-weight:		900;
-  src:				url('/fonts/helvetica-neue/HelveticaNeueLTStd-BdCn.otf') format('opentype');
+  src:				url('!/fonts/helvetica-neue/HelveticaNeueLTStd-BdCn.otf') format('opentype');
 }

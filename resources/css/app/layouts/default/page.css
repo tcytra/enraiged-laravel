@@ -52,8 +52,11 @@
                 }
             }
 
-            >.header +.container {
+            >.header:not(.fixed) +.container {
               min-height:       calc(100vh - ($app-block-size + $page-header-size));
+            }
+            >.header.fixed +.container {
+              min-height:       calc(100vh - ($app-block-size));
             }
         }
 

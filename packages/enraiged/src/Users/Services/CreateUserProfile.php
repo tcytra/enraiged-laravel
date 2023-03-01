@@ -34,7 +34,9 @@ class CreateUserProfile
      */
     public function handle()
     {
-        $this->user = new User;
+        $model = auth_model();
+
+        $this->user = new $model;
 
         DB::transaction(function () {
             $profile_parameters = collect($this->parameters)
@@ -57,6 +59,16 @@ class CreateUserProfile
     }
 
     /**
+     *  Return the instance User model.
+     *
+     *  @return \Enraiged\Users\Models\User
+     */
+    public function user(): User
+    {
+        return $this->user;
+    }
+
+    /**
      *  Create and return an User from provided parameters.
      *
      *  @param  array   $parameters
@@ -66,6 +78,6 @@ class CreateUserProfile
     {
         $builder = (new self($parameters))->handle();
 
-        return $builder->user;
+        return $builder;
     }
 }

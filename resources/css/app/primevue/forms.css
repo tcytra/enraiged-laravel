@@ -17,6 +17,14 @@
     }
 }
 
+.p-dropdown.w-full {
+  overflow:         hidden;
+
+    .p-inputtext {
+      padding:          calc(.5rem - 1px) .5rem;
+    }
+}
+
 .p-inputswitch {
   min-width:        3rem;
 }

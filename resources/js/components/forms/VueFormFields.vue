@@ -19,7 +19,7 @@
             <textarea-field v-else-if="item.type === 'textarea'" v-bind="$props"
                 :field="item"
                 :id="key"/>
-            <text-field v-else v-bind="$props"
+            <text-field v-else-if="item.type !== 'hidden'" v-bind="$props"
                 :field="item"
                 :id="key"/>
         </template>

@@ -194,7 +194,6 @@ function holidays($country = 'CA', $years = [])
                 in_array(date("w", strtotime("jan 1 {$year}")), [0,6]) ? date("Y-m-d", strtotime("next monday", strtotime("jan 1 {$year}"))) : "{$year}-01-01",
                 date("Y-m-d", strtotime("{$year} february +3 monday")),
                 date("Y-m-d", strtotime("previous friday", easter_date($year))),
-                date("Y-m-d", strtotime("next monday", easter_date($year))),
                 (date("w", strtotime("may 24 {$year}")) == 1) ? "{$year}-05-24" : date("Y-m-d", strtotime("previous monday", strtotime("may 24 {$year}"))),
                 in_array(date("w", strtotime("jul 1 {$year}")), [0,6]) ? date("Y-m-d", strtotime("next monday", strtotime("jul 1 {$year}"))) : "{$year}-07-01",
                 date("Y-m-d", strtotime("{$year} august +1 monday")),
@@ -202,12 +201,10 @@ function holidays($country = 'CA', $years = [])
                 date("Y-m-d", strtotime("{$year} october +2 monday")),
                 in_array(date("w", strtotime("nov 11 {$year}")), [0,6]) ? date("Y-m-d", strtotime("next monday", strtotime("nov 11 {$year}"))) : "{$year}-11-11",
                 in_array(date("w", strtotime("dec 25 {$year}")), [0,6]) ? date("Y-m-d", strtotime("next monday", strtotime("dec 25 {$year}"))) : "{$year}-12-25",
-                "{$year}-12-26",
             ]); break;
             // tested against: //https://www.officeholidays.com/countries/usa/2023
             case 'US': $dates = array_merge($dates, [
                 in_array(date("w", strtotime("jan 1 {$year}")), [0,6]) ? date("Y-m-d", strtotime("next monday", strtotime("jan 1 {$year}"))) : "{$year}-01-01",
-                date("Y-01-01"),
                 date("Y-m-d", strtotime("{$year} january +3 monday")),
                 date("Y-m-d", strtotime("{$year} february +3 monday")),
                 (date("w", strtotime("may 31 {$year}")) == 1) ? "{$year}-05-31" : date("Y-m-d", strtotime("previous monday", strtotime("may 31 {$year}"))),
@@ -222,6 +219,23 @@ function holidays($country = 'CA', $years = [])
     }
 
     return $dates;
+}
+
+/**
+ *  Determine if a provided string is a valid date.
+ *
+ *  @param  string  $value
+ *  @return bool
+ */
+function is_date($value)
+{
+    if (!$stamp = strtotime($value)) {
+        return false;
+    }
+
+    [$year, $month, $date] = explode('-', date('Y-n-j', $stamp));
+
+    return checkdate($month, $date, $year);
 }
 
 /**

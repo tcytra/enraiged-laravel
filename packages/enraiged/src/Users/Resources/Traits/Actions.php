@@ -46,21 +46,6 @@ trait Actions
     /**
      *  @return array
      */
-    private function actionLoginEdit($full_url, $parameters)
-    {
-        return [
-            'class' => 'p-button-info p-button-text',
-            'icon' => 'pi pi-sign-in',
-            'label' => 'Login',
-            'uri' => $this->is_myself
-                ? route('my.login', [], $full_url)
-                : route('users.login.edit', $parameters, $full_url),
-        ];
-    }
-
-    /**
-     *  @return array
-     */
     private function actionDetailsEdit($full_url, $parameters)
     {
         return [
@@ -70,6 +55,21 @@ trait Actions
             'uri' => $this->is_myself
                 ? route('my.profile', [], $full_url)
                 : route('users.profile.edit', $parameters, $full_url),
+        ];
+    }
+
+    /**
+     *  @return array
+     */
+    private function actionLoginEdit($full_url, $parameters)
+    {
+        return [
+            'class' => 'p-button-info p-button-text',
+            'icon' => 'pi pi-sign-in',
+            'label' => 'Login',
+            'uri' => $this->is_myself
+                ? route('my.login', [], $full_url)
+                : route('users.login.edit', $parameters, $full_url),
         ];
     }
 

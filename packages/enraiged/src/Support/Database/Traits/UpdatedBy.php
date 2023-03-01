@@ -24,10 +24,23 @@ trait UpdatedBy
     }
 
     /**
+     *  @return array
+     */
+    public function getUpdatedAttribute()
+    {
+        return [
+            'at' => $this->atTimestamp($this->updated_at),
+            'by' => $this->byUser($this->updatedBy),
+        ];
+    }
+
+    /**
      *  @return void
      */
     private function setUpdatedBy()
     {
-        $this->updated_by = Auth::check() ? Auth::id() : 1;
+        if (Auth::check()) {
+            $this->updated_by = Auth::id();
+        }
     }
 }

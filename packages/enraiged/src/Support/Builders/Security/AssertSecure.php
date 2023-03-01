@@ -43,6 +43,15 @@ trait AssertSecure
 
         $security = (object) $object->secure;
 
+        if (property_exists($security, 'config')) {
+            $config = config($security->config);
+            $value = property_exists($security, 'value')
+                ? $security->value
+                : true;
+
+            return $config === $value;
+        }
+
         if (property_exists($security, 'method')) {
             $method = Str::camel("assert_{$security->method}");
 

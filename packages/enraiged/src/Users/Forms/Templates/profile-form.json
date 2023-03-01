@@ -13,6 +13,7 @@
             "label": "Submit"
         }
     },
+    "class": "vertical shadow-1",
     "fields": {
         "salut": {
             "after": "col-0 md:col-6 lg:hidden",
@@ -46,6 +47,5 @@
             "placeholder": "Required",
             "required": true
         }
-    },
-    "labels": "vertical"
+    }
 }

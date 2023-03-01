@@ -41,4 +41,19 @@ Route::middleware(['auth', 'verified', 'enraiged'])
                     });
             });
 
+        Route::prefix('api/users')
+            ->as('users.')
+            ->group(function () {
+                Route::namespace('Index')
+                    ->prefix('index')
+                    ->as('index.')
+                    ->group(function () {
+                        Route::match(['GET', 'POST'], 'data', 'Data')->name('data');
+                        Route::match(['GET', 'POST'], 'export', 'Export')->name('export');
+                    });
+
+                Route::match(['GET', 'POST'], 'available', 'Available')->name('available');
+                Route::delete('{user}', 'Destroy')->name('delete');
+            });
+
     });

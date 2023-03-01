@@ -38,7 +38,7 @@
                     </div>
                 </template>
                 <template #grid="props">
-                    <div class="col-6 md:col-4 lg:col-3">
+                    <div class="col-4 md:col-3 lg:col-2 mx-1">
                         <primevue-card class="text-center">
                             <template #title>
                                 <div class="file-type mb-2">

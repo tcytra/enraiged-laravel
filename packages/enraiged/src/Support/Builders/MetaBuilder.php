@@ -36,7 +36,7 @@ class MetaBuilder
         $this->request = $request;
 
         (object) $this
-            ->appName()
+            ->appParameters()
             ->authParameters();
 
         return $this->meta
@@ -45,14 +45,15 @@ class MetaBuilder
     }
 
     /**
-     *  Append the app name to the metadata collection.
+     *  Append the app parameters to the metadata collection.
      *
      *  @return self
      */
-    private function appName()
+    private function appParameters()
     {
         $this->meta = $this->meta
             ->merge([
+                'app_host' => url(''),
                 'app_name' => config('app.name'),
                 'app_version' => 'Laravel v'.\Illuminate\Foundation\Application::VERSION.' (PHP v'.PHP_VERSION.')',
             ]);

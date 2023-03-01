@@ -1,15 +1,15 @@
 <template>
     <div class="actions">
-        <div class="action" v-for="(action, index) in actions" :key="index"
-            @click="click(action)">
-            <primevue-button class="button"
+        <div class="action" v-for="(action, index) in actions" :key="index">
+            <primevue-button class="button" v-if="show(action)"
                 :class="action.class"
                 :icon="action.icon"
-                :label="i18n(action.label)"/>
+                :label="i18n(action.label)"
+                @click="click(action)"/>
         </div>
         <div class="action go-back" v-if="backButton && history" @click="back()">
             <primevue-button class="button p-button-info p-button-text"
-                icon="pi pi-sync"
+                icon="pi pi-angle-double-left"
                 :label="i18n('Back')"/>
         </div>
     </div>
@@ -48,6 +48,9 @@ export default {
         },
         click(action) {
             this.$inertia.get(action.uri);
+        },
+        show(action) {
+            return action.class && action.icon;
         },
     },
 };

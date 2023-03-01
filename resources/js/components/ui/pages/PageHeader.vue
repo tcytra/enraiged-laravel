@@ -1,5 +1,6 @@
 <template>
-    <header class="header">
+    <header class="header"
+        :class="{ fixed }">
         <Head :title="i18n(title)"/>
         <h1>{{ i18n(heading || title) }}</h1>
         <page-actions :actions="actions" :back-button="backButton"/>
@@ -24,6 +25,10 @@ export default {
             default: [],
         },
         backButton: {
+            type: Boolean,
+            default: false,
+        },
+        fixed: {
             type: Boolean,
             default: false,
         },

@@ -1,9 +1,27 @@
 
-.p-datatable-table {
+.p-datatable {
 
-    th.actions .p-column-header-content, td.actions {
-      justify-content:  center;
-      text-align:       center;
+    .p-datatable-table {
+      border-collapse: collapse;
+      min-width: 100%;
+      table-layout: fixed;
+    }
+
+    .p-datatable-tbody {
+        > tr {
+            &.background-danger {
+              background-color: lighten($background-danger, 5%);
+            }
+            &.background-info {
+              background-color: lighten($background-info, 5%);
+            }
+            &.background-success {
+              background-color: lighten($background-success, 5%);
+            }
+            &.background-warning {
+              background-color: lighten($background-warning, 5%);
+            }
+        }
     }
 
     td.actions {
@@ -25,6 +43,11 @@
         }
     }
 
+    th.actions .p-column-header-content, td.actions {
+      justify-content:  center;
+      text-align:       center;
+    }
+
     th.text-center .p-column-header-content {
       display:          initial;
       text-align:       center;
@@ -38,13 +61,14 @@
       text-align:       right;
     }
 
-    tr.p-datatable-emptymessage {
-      background-color:     transparent;
+    tbody.p-datatable-tbody > tr.p-datatable-emptymessage {
+      background-color:     var(--surface-c);
 
-        >td {
+        > td {
           border-bottom:    0;
           color:            $color-grey;
-          padding:          1rem;
+          font-style:       italic;
+          padding:          1.5rem .5rem;
           text-align:       center;
         }
     }

@@ -5,6 +5,7 @@ namespace Enraiged\Exports\Services;
 use Enraiged\Exports\Jobs\AttachFileToExport;
 use Enraiged\Exports\Models\Export;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\App;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Excel;
@@ -109,7 +110,7 @@ class Exporter implements FromQuery
 
         $query = method_exists($table, 'query')
             ? $table->query()
-            : $table->model::query();
+            : App::make($table->model)::query();
 
         (object) $table
             ->build($query)

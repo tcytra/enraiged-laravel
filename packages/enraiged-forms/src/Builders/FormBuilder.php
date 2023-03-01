@@ -22,12 +22,16 @@ class FormBuilder
      *  @param  string  $method  = 'post'
      *  @return self
      */
-    public function create($model, $route, $method = 'post')
+    public function create($model, $route, $method = 'post', $params = [])
     {
         $resource = [
             'method' => $method,
             'route' => $route,
         ];
+
+        if (count($params)) {
+            $resource['params'] = $params;
+        }
 
         return $this->populate(new $model, $resource);
     }
@@ -37,16 +41,21 @@ class FormBuilder
      *
      *  @param  \Illuminate\Database\Eloquent\Model  $model
      *  @param  string  $route
-     *  @param  string  $method  = 'patch'
+     *  @param  string  $method = 'patch'
+     *  @param  array   $params = []
      *  @return self
      */
-    public function edit($model, $route, $method = 'patch')
+    public function edit($model, $route, $method = 'patch', $params = [])
     {
         $resource = [
             'id' => $model->id,
             'method' => $method,
             'route' => $route,
         ];
+
+        if (count($params)) {
+            $resource['params'] = $params;
+        }
 
         return $this->populate($model, $resource);
     }
@@ -77,6 +86,7 @@ class FormBuilder
     {
         return [
             'actions' => $this->actions(),
+            'class' => $this->class,
             'fields' => $this->fields(),
             'labels' => $this->labels,
             'resource' => $this->resource(),

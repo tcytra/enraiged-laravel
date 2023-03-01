@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers\Users;
 
-use App\Auth\Enums\Roles;
 use App\Http\Controllers\Controller;
-use Enraiged\Forms\Requests\AvailabilityRequest;
+use App\Http\Requests\Users\AvailabilityRequest;
 use Enraiged\Users\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
@@ -28,8 +27,11 @@ class Available extends Controller
         $available = User::selectRaw(collect($columns)->join(','))
             ->join('profiles', 'profiles.id', '=', 'users.profile_id')
             ->join('roles', 'roles.id', '=', 'users.role_id')
-            ->where('roles.rank', '<=', Roles::Associate)
             ->where('users.is_hidden', false);
+
+        if ($request->has('role_id')) {
+            $available->where('role_id', $request->get('role_id'));
+        }
 
         if ($request->has('search')) {
             $search = $request->get('search');

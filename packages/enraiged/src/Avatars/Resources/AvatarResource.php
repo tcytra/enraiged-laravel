@@ -7,9 +7,7 @@ use App\Http\Resources\JsonResource;
 class AvatarResource extends JsonResource
 {
     use Traits\Actions,
-        Traits\Avatarable,
-        Traits\File,
-        Traits\Utility;
+        Traits\Avatarable;
 
     /** @var  bool  Whether or not to include the avatar actions. */
     protected $actions = false;
@@ -28,8 +26,8 @@ class AvatarResource extends JsonResource
         $resource = [
             'id' => $this->id,
             'chars' => $this->avatarable->avatarableCharacters(),
-            'color' => $this->indexToHex($this->color),
-            'file' => $this->file(),
+            'color' => $this->avatar_color->hex,
+            'file' => $this->avatar_file,
         ];
 
         if ($this->actions) {

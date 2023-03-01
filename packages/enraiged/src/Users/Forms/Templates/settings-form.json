@@ -13,6 +13,7 @@
             "label": "Submit"
         }
     },
+    "class": "vertical shadow-1",
     "fields": {
         "language": {
             "class": "col-12 md:col-6",
@@ -34,6 +35,5 @@
             "placeholder": "Optional",
             "type": "select"
         }
-    },
-    "labels": "vertical"
+    }
 }

@@ -22,7 +22,17 @@
           margin-right:     0;
           transition:       all $menu-transition;
           width:            calc(100vw - (100vw - 100%)); // this! handy little trick to account for scrollbar width
-            .main.content {}
+            .main.content {
+                >.fixed.header {
+                  transition:       all $menu-transition;
+                  width:            inherit;
+                  z-index:          9;
+                    +.container,
+                    +.container +.container {
+                      padding-top:      calc(1rem + $page-header-size);
+                    }
+                }
+            }
             .nav.top {
               width:            inherit;
             }
@@ -91,7 +101,9 @@
                 .main.page {
                   margin-left:      $app-block-size;
                   width:            calc((100vw - (100vw - 100%)) - $app-block-size);
-                    .main.content {}
+                    .main.content >.fixed.header {
+                      width:            calc((100vw - (100vw - 100%)) - $app-block-size);
+                    }
                     .nav.top {
                       width:            inherit; // calc(100% - $app-block-size);
                     }
@@ -105,7 +117,9 @@
                 .main.page {
                   margin-left:      $menu-panel-size;
                   width:            calc((100vw - (100vw - 100%)) - $menu-panel-size);
-                    .main.content {}
+                    .main.content >.fixed.header {
+                      width:            calc((100vw - (100vw - 100%)) - $menu-panel-size);
+                    }
                     .nav.top {
                       width:            inherit; // calc(100% - $menu-panel-size);
                     }
@@ -122,7 +136,9 @@
                   margin-left:      $app-block-size;
                   margin-right:     $auth-panel-size;
                   width:            calc((100vw - (100vw - 100%)) - ($app-block-size + $auth-panel-size));
-                    .main.content {}
+                    .main.content >.fixed.header {
+                      width:            calc((100vw - (100vw - 100%)) - ($app-block-size + $auth-panel-size));
+                    }
                     .nav.top {
                       width:            calc(100% - ($app-block-size + $auth-panel-size));
                     }

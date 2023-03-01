@@ -8,11 +8,13 @@ export default defineConfig({
     resolve: {
         alias: {
             '~' : path.resolve(__dirname, './node_modules'),
+            '!' : path.resolve(__dirname, './resources'),
         },
     },
     plugins: [
         vue({
             template: {
+                base: null,
                 compilerOptions: {
                     directiveTransforms: {
                         ripple: () => ({
@@ -21,8 +23,9 @@ export default defineConfig({
                         }),
                     },
                 },
-                base: null,
-                includeAbsolute: false,
+                transformAssetUrls: {
+                    includeAbsolute: false,
+                },
             },
         }),
         laravel({

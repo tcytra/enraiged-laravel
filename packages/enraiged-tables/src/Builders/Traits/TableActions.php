@@ -38,9 +38,12 @@ trait TableActions
 
                 } else {
                     $resource_route = "{$prefix}.{$action}";
+                    $permit_action = key_exists('action', $parameters)
+                        ? $parameters['action']
+                        : $action;
 
                     if ($routes->hasNamedRoute($resource_route)) {
-                        $parameters['permission'] = $this->user->can($action, $resource);
+                        $parameters['permission'] = $this->user->can($permit_action, $resource);
 
                         if (!key_exists('uri', $parameters) && $parameters['permission']) {
                             $parameters['uri'] = route(

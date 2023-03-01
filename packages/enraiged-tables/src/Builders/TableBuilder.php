@@ -2,6 +2,8 @@
 
 namespace Enraiged\Tables\Builders;
 
+use Illuminate\Support\Facades\App;
+
 class TableBuilder
 {
     use Traits\BuilderConstructor,
@@ -22,7 +24,7 @@ class TableBuilder
     {
         $query = method_exists($this, 'query')
             ? $this->query()
-            : $this->model::query();
+            : App::make($this->model)::query();
 
         $this->build($query)
             ->sort()
@@ -35,10 +37,10 @@ class TableBuilder
         return [
             'records' => $this->records(),
             'pagination' => [
-                'dir' => $this->request->dir(),
+                'dir' => $this->request->get('dir'),
                 'page' => $pagination->current_page,
                 'rows' => $pagination->per_page,
-                'sort' => $this->request->sort(),
+                'sort' => $this->request->get('sort'),
                 'total' => $pagination->total,
             ],
         ];
