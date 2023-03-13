@@ -29,11 +29,14 @@ trait TableFilters
 
                 if (key_exists('options', $filter)) {
                     $options = $filter['options'];
-                    //$filter['options'] = [...$options, ...$this->selectOptions($options)];
-                    $filter['options'] = $this->selectOptions($options);
 
-                    if (!key_exists('type', $filter)) {
-                        $filter['type'] = 'select';
+                    if (!key_exists('values', $options)) {
+                        //$filter['options'] = [...$options, ...$this->selectOptions($index, $options)];
+                        $filter['options'] = $this->selectOptions($index, $options);
+
+                        if (!key_exists('type', $filter)) {
+                            $filter['type'] = 'select';
+                        }
                     }
                 }
 

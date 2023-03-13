@@ -7,7 +7,7 @@
             <label v-if="label" class="label" :for="id">
                 {{ label }}
             </label>
-            <primevue-textarea class="w-full" auto-resize
+            <primevue-textarea class="w-full" ref="field" auto-resize
                 v-model="form[id]"
                 :class="{
                     'is-creating': dirty && creating,

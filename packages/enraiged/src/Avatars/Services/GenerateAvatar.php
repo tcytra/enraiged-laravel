@@ -4,13 +4,13 @@ namespace Enraiged\Avatars\Services;
 
 use Enraiged\Avatars\Models\Avatar;
 
-class DefaultAvatar
+class GenerateAvatar
 {
     /** @var  object  The avatarable model. */
     protected $model;
 
     /**
-     *  @param  object  $model
+     *  @param  \Illuminate\Database\Eloquent\Model  $model
      *  @return void
      */
     public function __construct($model)
@@ -19,9 +19,9 @@ class DefaultAvatar
     }
 
     /**
-     *  @return Avatar
+     *  @return \Enraiged\Avatars\Models\Avatar
      */
-    public function touch(): Avatar
+    public function generate(): Avatar
     {
         $color_index = config('enraiged.avatars.color.default') === 'random'
             ? mt_rand(
@@ -38,11 +38,13 @@ class DefaultAvatar
     }
 
     /**
-     *  
-     *  @param type $model
+     *  Generate an avatar from a provided model.
+     *
+     *  @param  \Illuminate\Database\Eloquent\Model  $model
+     *  @return \Enraiged\Avatars\Models\Avatar
      */
-    public static function From($model)
+    public static function From($model): Avatar
     {
-        return (new self($model))->touch();
+        return (new self($model))->generate();
     }
 }

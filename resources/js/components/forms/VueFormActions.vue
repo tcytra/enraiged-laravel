@@ -1,6 +1,9 @@
 <template>
     <div class="actions control" v-if="actions">
         <div class="actions-left">
+            <primevue-button class="p-button-secondary back-button" v-if="actions.back"
+                :label="i18n(actions.back.label)"
+                @click="back"/>
         </div>
         <div class="actions-right">
             <primevue-button class="p-button-primary submit-button" v-if="actions.submit"
@@ -37,6 +40,13 @@ export default {
         form: {
             type: Object,
             required: true,
+        },
+    },
+
+    methods: {
+        back() {
+            this.$emit('history:back');
+            window.history.go(-1);
         },
     },
 };

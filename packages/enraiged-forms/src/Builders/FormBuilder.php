@@ -61,23 +61,6 @@ class FormBuilder
     }
 
     /**
-     *  Return a flat array of form field values.
-     *
-     *  @param  array  $group = null
-     *  @return array
-     *
-    public function flatten($group = null)
-    {
-        static $fields = [];
-
-        foreach ($this->fields as $each => $object) {
-            //  todo (haven't needed it yet...)
-        }
-
-        return $fields;
-    }*/
-
-    /**
      *  Return the assembled table template.
      *
      *  @return array

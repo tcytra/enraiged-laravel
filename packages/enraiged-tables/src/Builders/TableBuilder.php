@@ -2,6 +2,7 @@
 
 namespace Enraiged\Tables\Builders;
 
+use Enraiged\Tables\Contracts\ProvidesTableQuery;
 use Illuminate\Support\Facades\App;
 
 class TableBuilder
@@ -22,7 +23,7 @@ class TableBuilder
      */
     public function data(): array
     {
-        $query = method_exists($this, 'query')
+        $query = $this instanceof ProvidesTableQuery
             ? $this->query()
             : App::make($this->model)::query();
 

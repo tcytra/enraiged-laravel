@@ -20,52 +20,64 @@ trait TableActions
     }
 
     /**
-     *  Return the table row actions for the provided resource.
+     *  Prepare and return an action from the provided parameters.
      *
-     *  @param  \Illuminate\Database\Eloquent\Model  $resource
+     *  @param  object  $model
+     *  @param  string  $action
+     *  @param  array   $parameters
      *  @return array
      */
-    public function actionsForRow($resource)
+    private function actionForRow($model, $action, $parameters)
     {
-        $actions = [];
-        $prefix = trim($this->prefix, '.');
-        $routes = Route::getRoutes();
+        if (!key_exists('permission', $parameters)) {
+            $parameters['permission'] = false;
+        }
 
-        foreach ($this->actions as $action => $parameters) {
-            if (key_exists('type', $parameters) && $parameters['type'] === 'row') {
-                if (key_exists('method', $parameters) && $parameters['method'] === 'emit') {
-                    $parameters['permission'] = true;
+        if (key_exists('method', $parameters) && $parameters['method'] === 'emit') {
+            $parameters['permission'] = true;
 
-                } else {
-                    $resource_route = "{$prefix}.{$action}";
-                    $permit_action = key_exists('action', $parameters)
-                        ? $parameters['action']
-                        : $action;
+        } else {
+            $route = key_exists('route', $parameters)
+                ? $parameters['route']
+                : preg_replace('/\.+/', '.', "{$this->prefix}.{$action}");
 
-                    if ($routes->hasNamedRoute($resource_route)) {
-                        $parameters['permission'] = $this->user->can($permit_action, $resource);
+            if (Route::has($route)) {
+                $parameters['permission'] = $this->user->can($action, $model);
 
-                        if (!key_exists('uri', $parameters) && $parameters['permission']) {
-                            $parameters['uri'] = route(
-                                $resource_route,
-                                $resource->{$this->key},
-                                config('enraiged.tables.absolute_uris')
-                            );
+                if (!key_exists('uri', $parameters) && $parameters['permission']) {
+                    $parameters['uri'] = route($route, $model->{$this->key}, config('enraiged.tables.absolute_uris'));
 
-                            if (!key_exists('method', $parameters)) {
-                                $resource_method = $routes
-                                    ->getByName($resource_route)
-                                    ->methods[0];
+                    if (!key_exists('method', $parameters)) {
+                        $method = Route::get($route)->methods[0];
 
-                                if ($resource_method !== 'GET') {
-                                    $parameters['method'] = strtolower($resource_method);
-                                }
-                            }
+                        if ($method !== 'GET') {
+                            $parameters['method'] = strtolower($method);
                         }
                     }
                 }
+            }
+        }
 
-                $actions[$action] = $parameters;
+        return $parameters;
+    }
+
+    /**
+     *  Return the table row actions for the provided resource.
+     *
+     *  @param  \Illuminate\Database\Eloquent\Model  $model
+     *  @return array
+     */
+    public function actionsForRow($model)
+    {
+        $actions = [];
+
+        foreach ($this->actions as $action => $parameters) {
+            if (key_exists('type', $parameters) && $parameters['type'] === 'row') {
+                $parameters = $this->actionForRow($model, $action, $parameters);
+
+                if ($this->assertSecure($parameters, $model)) {
+                    $actions[$action] = $parameters;
+                }
             }
         }
 
@@ -75,24 +87,25 @@ trait TableActions
     /**
      *  Return the table row actions for the provided resource.
      *
-     *  @param  \Illuminate\Database\Eloquent\Model  $resource
+     *  @param  \Illuminate\Database\Eloquent\Model  $model
      *  @return array
      */
-    public function assembleTemplateActions($resource = null)
+    public function assembleTemplateActions($model = null)
     {
         $actions = [];
-        $prefix = trim($this->prefix, '.');
 
         foreach ($this->actions as $action => $parameters) {
             if (!key_exists('type', $parameters) || $parameters['type'] === 'table') {
-                $resource_action = "{$prefix}.{$action}";
+                $route = key_exists('route', $parameters)
+                    ? $parameters['route']
+                    : preg_replace('/\.+/', '.', "{$this->prefix}.{$action}");
 
-                if (Route::has($resource_action)) {
-                    $parameters['permission'] = $this->user->can($action, $resource ?? $this->model);
+                if (Route::has($route)) {
+                    $parameters['permission'] = $this->user->can($action, $model ?? $this->model);
 
                     if (!key_exists('uri', $parameters)) {
                         $parameters['uri'] = route(
-                            $resource_action,
+                            $route,
                             [],
                             config('enraiged.tables.absolute_uris')
                         );

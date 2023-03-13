@@ -12,7 +12,7 @@
             <label v-if="label" class="label" :for="id">
                 {{ label }}
             </label>
-            <primevue-switch
+            <primevue-switch ref="field"
                 v-model="form[id]"
                 :class="{
                     'is-creating': dirty && creating,

@@ -7,7 +7,7 @@
             <label v-if="label" class="label" :for="id">
                 {{ label }}
             </label>
-            <primevue-calendar class="w-full"
+            <primevue-calendar class="w-full" ref="field"
                 v-model="form[id]"
                 :class="{
                     'is-creating': dirty && creating,

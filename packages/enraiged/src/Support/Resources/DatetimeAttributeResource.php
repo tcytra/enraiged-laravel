@@ -110,7 +110,7 @@ class DatetimeAttributeResource extends JsonResource
     {
         $default = 'g:i a';
         $format = $this->user
-            ? ($this->user->military_time == true ? 'G\hi' : 'g:i a')
+            ? ($this->user->timeformat ?? $default)
             : $default;
 
         return date($format, $this->timestamp);

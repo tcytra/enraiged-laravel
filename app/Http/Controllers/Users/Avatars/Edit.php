@@ -4,13 +4,14 @@ namespace App\Http\Controllers\Users\Avatars;
 
 use App\Http\Controllers\Controller;
 use Enraiged\Avatars\Resources\AvatarEditResource;
+use Enraiged\Users\Pages\Traits\Actions as PageActions;
 use Enraiged\Users\Resources\UserResource;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 
 class Edit extends Controller
 {
-    use AuthorizesRequests;
+    use AuthorizesRequests, PageActions;
 
     /**
      *  @param  \Illuminate\Http\Request  $request
@@ -24,6 +25,9 @@ class Edit extends Controller
         $this->authorize('edit', $avatar);
 
         return inertia('users/avatar/Edit', [
+            'actions' => collect($this->actions($user))
+                ->except('avatar')
+                ->toArray(),
             'avatar' => AvatarEditResource::from($avatar),
             'user' => UserResource::from($user),
         ]);

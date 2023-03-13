@@ -1,8 +1,8 @@
 <template>
     <main class="content main">
-        <page-header back-button :title="title"/>
+        <page-header back-button :actions="actions" :title="title"/>
         <section class="auto-margin container max-width-lg">
-             <primevue-card class="mb-3">
+             <primevue-card class="mb-3 shadow-1">
                 <template #header>
                     <header class="header">
                         <h3 class="auto-margin max-width-sm">
@@ -36,11 +36,15 @@ export default {
     inject: ['i18n'],
 
     props: {
-        user: {
+        actions: {
+            type: Array,
+            default: [],
+        },
+        avatar: {
             type: Object,
             required: true,
         },
-        avatar: {
+        user: {
             type: Object,
             required: true,
         },

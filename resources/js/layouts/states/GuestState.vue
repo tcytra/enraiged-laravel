@@ -2,7 +2,7 @@
     <app-state :api="uri">
         <template v-slot:default="{ ready }">
             <transition enter-active-class="fadein" leave-active-class="fadeout">
-                <div class="guest layout" v-if="ready">
+                <div id="page" class="guest layout" v-if="ready">
                     <div class="container bg-bluegray-800">
                         <slot />
                     </div>

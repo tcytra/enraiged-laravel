@@ -7,20 +7,6 @@ return [
     | Allow Impersonation
     |--------------------------------------------------------------------------
     |
-    | You may define the name of the Administrator role by providing a string
-    | value for 'administrator_role'.
-    |
-    | The default value is 'Administrator'.
-    |
-    */
-
-    'administrator_role' => 'Administrator',
-
-    /*
-    |--------------------------------------------------------------------------
-    | Allow Impersonation
-    |--------------------------------------------------------------------------
-    |
     | You may allow or disallow the ability for certain roles to impersonate 
     | users by providing a boolean true or false for 'allow_impersonation'.
     |

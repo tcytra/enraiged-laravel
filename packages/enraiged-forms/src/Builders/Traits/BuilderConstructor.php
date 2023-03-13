@@ -2,6 +2,8 @@
 
 namespace Enraiged\Forms\Builders\Traits;
 
+use Enraiged\Support\Collections\RequestCollection;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\File;
 
 trait BuilderConstructor
@@ -11,6 +13,9 @@ trait BuilderConstructor
 
     /** @var  object  The templated form labels direction. */
     protected $labels;
+
+    /** @var  string  The request user. */
+    protected User $user;
 
     /**
      *  Create an instance of the FormBuilder.
@@ -23,7 +28,8 @@ trait BuilderConstructor
      */
     public function __construct($request, array $parameters = [])
     {
-        $this->request = $request;
+        $this->request = new RequestCollection($request->all());
+        $this->user = $request->user();
 
         $this->load(config('enraiged.forms.template'));
 

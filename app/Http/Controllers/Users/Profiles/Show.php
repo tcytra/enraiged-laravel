@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Users\Profiles;
 
 use App\Http\Controllers\Controller;
 use Enraiged\Users\Models\User;
-use Enraiged\Users\Resources\UserProfileResource;
+use Enraiged\Users\Resources\UserResource;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 
@@ -31,7 +31,7 @@ class Show extends Controller
         $this->authorize('show', $this->user->profile);
 
         return inertia('users/profiles/Show', [
-            'user' => UserProfileResource::from($this->user),
+            'user' => UserResource::from($this->user),
         ]);
     }
 }

@@ -2,12 +2,8 @@
 
 namespace Enraiged\Forms\Builders\Traits;
 
-use Enraiged\Forms\Traits\SelectOptions;
-
 trait FormFields
 {
-    use SelectOptions;
-
     /**
      *  Get or set a form field.
      *

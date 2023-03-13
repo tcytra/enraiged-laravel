@@ -19,38 +19,34 @@ class Available extends Controller
     {
         $this->authorize('available', User::class);
 
-        $columns = [
-            '`users`.`id`',
-            "concat(`profiles`.`first_name`, ' ', `profiles`.`last_name`) as name",
-        ];
+        $columns = collect(['users.id', "concat(profiles.first_name, ' ', profiles.last_name) as name"])->join(',');
 
-        $available = User::selectRaw(collect($columns)->join(','))
+        $available = User::selectRaw($columns)
             ->join('profiles', 'profiles.id', '=', 'users.profile_id')
             ->join('roles', 'roles.id', '=', 'users.role_id')
-            ->where('users.is_hidden', false);
+            ->where('users.is_hidden', false)
+            ->where('roles.rank', '>=', $request->user->role->rank);
 
         if ($request->has('role_id')) {
             $available->where('role_id', $request->get('role_id'));
         }
 
         if ($request->has('search')) {
-            $search = $request->get('search');
-            $wheres = [];
+            $search = filter_var($request->get('search'));
+            $terms = explode(" ", trim($search));
 
-            foreach (explode(" ", trim($search)) as $term) {
-                $term = filter_var($term);
-                $searchable = collect(['profiles.first_name', 'profiles.last_name'])
-                    ->transform(function ($column) use ($term) {
-                        return "{$column} LIKE '%{$term}%'";
-                    })
-                    ->join(' OR ');
+            $available->whereRaw("concat(profiles.first_name, ' ', profiles.last_name) like '{$search}%'");
 
-                $wheres[] = "({$searchable})";
+            foreach ($terms as $term) {
+                if (strlen($term) > 1) {
+                    $available->orWhere(fn ($builder)
+                        => $builder
+                            ->where('profiles.first_name', 'like', "%{$term}%")
+                            ->orWhere('profiles.last_name', 'like', "%{$term}%"));
+                }
             }
 
-            $where = implode(' AND ', $wheres);
-
-            $available->whereRaw("({$where})");
+            $available->orderByRaw("concat(profiles.first_name, ' ', profiles.last_name) like '{$search}%' desc");
         }
 
         $available

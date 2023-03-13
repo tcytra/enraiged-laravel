@@ -6,7 +6,6 @@ require base_path('routes/web/auth.php');
 require base_path('routes/web/avatars.php');
 require base_path('routes/web/files.php');
 require base_path('routes/web/users.php');
-require base_path('routes/web/users.protected.php');
 
 Route::namespace('\App\Http\Controllers\State')
     ->group(function () {

@@ -32,6 +32,7 @@
                   content:          "";
                   height:           $page-footer-size;
                   opacity:          .8;
+                  position:         fixed;
                   width:            100%;
                 }
             }

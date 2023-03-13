@@ -2,6 +2,7 @@
 
 namespace Enraiged\Tables\Builders\Traits;
 
+use Enraiged\Tables\Contracts\ProvidesDefaultSort;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\App;
@@ -54,21 +55,33 @@ trait EloquentBuilder
      *  Apply the filtering to the query builder, if provided.
      *
      *  @return self
-     *  @todo   Apply custom filters
      */
     public function filter()
     {
         if ($this->request()->has('filters')) {
             $filters = (array) $this->request()->get('filters');
 
-            if (count($filters)) {
-                foreach ($this->filters as $index => $filter) {
-                    if (!$this->assertSecure($filter)) {
-                        continue;
-                    }
+            foreach ($this->filters as $index => $filter) {
+                if (!$this->assertSecure($filter)) {
+                    continue;
+                }
 
-                    if (key_exists($index, $filters) && $filters[$index]) {
-                        $value = $filters[$index];
+                if (key_exists($index, $filters) && $filters[$index]) {
+                    $options = key_exists('options', $filter)
+                        ? $this->selectOptions($index, $filter['options'], false)
+                        : [];                    
+
+                    $value = $filters[$index];
+
+                    $match = count($options)
+                        ? collect($options['values'])->where('id', $value)->first()
+                        : false;
+
+                    if ($match && key_exists('scope', $match)) {
+                        $scope = $match['scope'];
+                        $this->builder->{$scope}();
+
+                    } else {
                         $source = key_exists('source', $filter)
                             ? $filter['source']
                             : "{$this->table}.{$index}";
@@ -185,6 +198,9 @@ trait EloquentBuilder
             } else {
                 $this->builder->orderBy($source, $dir);
             }
+
+        } else if ($this instanceof ProvidesDefaultSort) {
+            $this->defaultSort();
 
         } else if ($this->defaultSort) {
             $this->builder->orderBy($this->defaultSort, $this->defaultSortDir ?? 'asc');

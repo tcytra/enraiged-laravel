@@ -1,8 +1,8 @@
 <template>
     <main class="content main">
-        <page-header back-button :title="title"/>
+        <page-header back-button :actions="actions" :title="title"/>
         <section class="auto-margin container max-width-lg">
-            <settings-form :template="template"/>
+            <settings-form class="shadow-1" :template="template"/>
         </section>
     </main>
 </template>
@@ -21,11 +21,15 @@ export default {
     },
 
     props: {
-        user: {
+        actions: {
+            type: Array,
+            default: [],
+        },
+        template: {
             type: Object,
             required: true,
         },
-        template: {
+        user: {
             type: Object,
             required: true,
         },

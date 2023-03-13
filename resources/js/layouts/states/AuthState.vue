@@ -4,11 +4,11 @@
                 classes, menu, ready, closeAuth, closeMenu, toggleAuth, toggleMenu, user,
             }">
             <transition enter-active-class="fadein" leave-active-class="fadeout">
-                <div class="default layout" key="layout" v-if="ready"
+                <div id="layout" class="default layout" key="layout" v-if="ready"
                     :class="[classes, clientSize]">
                     <main-panel class="main panel" ref="mainPanel"
                         @menu:toggle="toggleMenu"/>
-                    <div class="main page" ref="mainPage">
+                    <div id="page" class="main page" ref="mainPage">
                         <top-nav
                             @auth:toggle="toggleAuth"
                             @menu:toggle="toggleMenu"/>

@@ -30,6 +30,12 @@
                     +.container,
                     +.container +.container {
                       padding-top:      calc(1rem + $page-header-size);
+                      
+                        +.footer {
+                            >.actions {
+                              position:         relative;
+                            }
+                        }
                     }
                 }
             }

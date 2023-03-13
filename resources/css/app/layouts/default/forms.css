@@ -43,6 +43,7 @@
                   max-width:        3rem;
                   min-width:        3rem;
                 }
+                &.checkbox.checkbox-first .p-checkbox,
                 &.switch.switch-first .p-inputswitch {
                   margin-right:     .5rem;
                 }
@@ -52,6 +53,7 @@
                   max-width:        6rem;
                   min-width:        6rem;
                 }
+                &.checkbox.checkbox-first .p-checkbox,
                 &.switch.switch-first .p-inputswitch {
                   margin-right:     .5rem;
                 }
@@ -80,6 +82,7 @@
                 }
             }
 
+            &.checkbox.checkbox-first,
             &.switch.switch-first {
                 .label {
                   margin-right:     0;
@@ -88,8 +91,14 @@
                   order:            2;
                   width:            auto;
                 }
+                .p-checkbox,
                 .p-inputswitch {
                   order:            1;
+                }
+                .p-checkbox {
+                  margin-right:     .5rem;
+                }
+                .p-inputswitch {
                   margin-right:     2.5rem;
                 }
             }
@@ -106,6 +115,7 @@
               min-width:        unset;
             }
 
+            &.checkbox .p-checkbox,
             &.switch .p-inputswitch {
               margin-bottom:    .25rem;
               margin-top:       .25rem;
@@ -142,6 +152,7 @@
     .p-inputswitch.p-inputswitch-checked.is-creating:not(.p-invalid) .p-inputswitch-slider::before {
       background-color: darken($background-info, 12%);
     }
+    .p-checkbox.is-creating:not(.p-invalid) .p-checkbox-box,
     .p-calendar.is-creating:not(.p-invalid) .p-inputtext,
     .p-inputtext.is-creating:not(.p-invalid),
     .p-inputwrapper.is-creating:not(.p-calendar):not(.p-invalid) {
@@ -155,11 +166,16 @@
     .p-inputswitch.p-inputswitch-checked.is-updating:not(.p-invalid) .p-inputswitch-slider::before {
       background-color: darken($background-warning, 12%);
     }
+    .p-checkbox.is-updating:not(.p-invalid) .p-checkbox-box,
     .p-calendar.is-updating:not(.p-invalid) .p-inputtext,
     .p-inputtext.is-updating:not(.p-invalid),
     .p-inputwrapper.is-updating:not(.p-calendar):not(.p-invalid) {
       background-color: lighten($background-warning, 12%);
       border-color:     $color-warning;
+    }
+
+    .p-checkbox.is-updating:not(.p-invalid) .p-checkbox-box {
+      background-color: $background-info;
     }
 
     .p-inputtext.p-invalid, .p-inputwrapper.p-invalid, .p-inputwrapper.p-invalid .p-password-input {

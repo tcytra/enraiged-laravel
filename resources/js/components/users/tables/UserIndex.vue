@@ -6,6 +6,9 @@
         <template v-slot:avatar="props">
             <avatar :action="props.data.actions.show" :avatar="props.data.avatar"/>
         </template>
+        <template v-slot:unassignedUser="option">
+            <span :class="option.class">{{ option.name }}</span>
+        </template>
     </vue-table>
 </template>
 

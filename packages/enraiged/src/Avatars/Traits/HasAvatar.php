@@ -3,7 +3,7 @@
 namespace Enraiged\Avatars\Traits;
 
 use Enraiged\Avatars\Models\Avatar;
-use Enraiged\Avatars\Services\DefaultAvatar;
+use Enraiged\Avatars\Services\GenerateAvatar;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 trait HasAvatar
@@ -33,7 +33,7 @@ trait HasAvatar
     {
         optional($this->avatar)->delete();
 
-        DefaultAvatar::from($this);
+        GenerateAvatar::from($this);
 
         $this->load('avatar');
     }

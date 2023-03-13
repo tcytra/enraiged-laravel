@@ -1,8 +1,8 @@
 <template>
     <main class="content main">
-        <page-header back-button :title="title"/>
+        <page-header back-button :actions="actions" :title="title"/>
         <section class="auto-margin container max-width-lg">
-            <login-form :template="template"/>
+            <login-form class="shadow-1" :template="template"/>
         </section>
     </main>
 </template>
@@ -23,6 +23,10 @@ export default {
     inject: ['i18n'],
 
     props: {
+        actions: {
+            type: Array,
+            default: [],
+        },
         user: {
             type: Object,
             required: true,

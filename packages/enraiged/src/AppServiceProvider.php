@@ -3,7 +3,7 @@
 namespace Enraiged;
 
 use Enraiged\Support\Commands\StorageClear;
-// use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -32,10 +32,10 @@ class AppServiceProvider extends ServiceProvider
             \Enraiged\Support\Middleware\SetLanguage::class,
         ]);
 
-        /*Relation::enforceMorphMap([
-            'avatar' => 'Enraiged\Avatars\Models\Avatar',
-            'profile' => 'Enraiged\Profiles\Models\Profile',
+        Relation::morphMap([
+            //'avatar' => 'Enraiged\Avatars\Models\Avatar',
+            //'profile' => 'Enraiged\Profiles\Models\Profile',
             'user' => auth_model(),
-        ]);*/
+        ]);
     }
 }

@@ -2,11 +2,11 @@
 
 namespace Enraiged\Profiles\Traits;
 
-use Enraiged\Avatars\Traits\HasAvatar as CoreHasAvatar;
+use Enraiged\Avatars\Traits\HasAvatar as Avatarable;
 
 trait HasAvatar
 {
-    use CoreHasAvatar;
+    use Avatarable;
 
     /**
      *  @return string

@@ -19,7 +19,7 @@ class Profile extends Model
     protected $table = 'profiles';
 
     /** @var  array  The attributes that are mass assignable. */
-    protected $fillable = ['alias', 'first_name', 'last_name', 'gender', 'salut', 'title'];
+    protected $fillable = ['alias', 'birthdate', 'first_name', 'last_name', 'gender', 'salut', 'title'];
 
     /** @var  array  The attributes that should be hidden for serialization. */
     protected $hidden = [];

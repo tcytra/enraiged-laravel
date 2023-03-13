@@ -4,7 +4,7 @@ namespace Enraiged\Users\Models\Scopes;
 
 use Illuminate\Database\Eloquent\Builder;
 
-trait ScopeReportable
+trait Reportable
 {
     /** @var  Builder  The scope query builder. */
     private $reportable;

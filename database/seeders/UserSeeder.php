@@ -40,10 +40,6 @@ class UserSeeder extends Seeder
             if (key_exists('email', $parameters) && key_exists('name', $parameters)) {
                 $user = CreateUserProfile::from($parameters)->user();
                 $user->profile->generateAvatar();
-
-                $this->command
-                    ->getOutput()
-                    ->writeln("<comment>Administrator Login:</comment> <info>{$user->email}:{$parameters['password']}</info>");
             }
 
             $is_administrator = false;

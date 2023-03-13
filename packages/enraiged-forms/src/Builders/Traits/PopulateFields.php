@@ -2,10 +2,13 @@
 
 namespace Enraiged\Forms\Builders\Traits;
 
+use Enraiged\Forms\Traits\SelectOptions;
 use Illuminate\Database\Eloquent\Model;
 
 trait PopulateFields
 {
+    use SelectOptions;
+
     /** @var  object  The templated form fields. */
     protected $fields;
 
@@ -24,6 +27,7 @@ trait PopulateFields
         (object) $this
             ->model($model)
             ->resource($resource)
+            ->prepareActions($this->actions)
             ->populateFieldGroup($this->fields);
 
         return $this;
@@ -160,7 +164,7 @@ trait PopulateFields
         if (is_null($value) && property_exists($field, 'default')) {
             $value = $field->default;
         }
-        if (is_null($value) && $this->fieldType($name) === 'switch') {
+        if (is_null($value) && in_array($this->fieldType($name), ['checkbox', 'switch'])) {
             $value = false;
         }
 
@@ -212,7 +216,7 @@ trait PopulateFields
 
             if (!property_exists($options, 'values')) {
                 $this->field($name, [
-                    'options' => [...$field->options, ...$this->selectOptions($options)],
+                    'options' => [...$field->options, ...$this->selectOptions($name, $options)],
                 ]);
             }
         }

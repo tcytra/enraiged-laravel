@@ -2,7 +2,7 @@
 
 namespace Enraiged\Users\Models\Scopes;
 
-trait ScopeFilter
+trait Filter
 {
     /**
      *  Apply filters to the User model.

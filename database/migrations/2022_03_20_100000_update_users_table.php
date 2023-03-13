@@ -20,11 +20,9 @@ return new class extends Migration
             $table->bigInteger('role_id')->unsigned()->nullable()->index()->after('profile_id');
             $table->string('username')->nullable()->unique()->after('email');
             $table->string('dateformat', 16)->nullable()->after('remember_token');
-            $table->string('timezone', 64)->nullable()->after('dateformat');
+            $table->string('timeformat', 16)->nullable()->after('dateformat');
+            $table->string('timezone', 64)->nullable()->after('timeformat');
             $table->char('language', 2)->default(config('app.locale'))->after('timezone');
-            $table->date('birthdate')->nullable()->after('language');
-            $table->boolean('hide_birthyear')->default(false)->after('birthdate');
-            $table->boolean('military_time')->default(false)->after('hide_birthyear');
             $table->timestamp('deleted_at')->nullable()->after('created_at');
             $table->timestamp('verified_at')->nullable()->after('updated_at');
             $table->bigInteger('created_by')->unsigned()->nullable();

@@ -23,10 +23,14 @@ if (!function_exists('blade')) {
         try {
             eval('?' . '>' . $template);
         } catch (Exception $e) {
-            while (ob_get_level() > $ob) ob_end_clean();
+            while (ob_get_level() > $ob) {
+                ob_end_clean();
+            }
             throw $e;
         } catch (Throwable $e) {
-            while (ob_get_level() > $ob) ob_end_clean();
+            while (ob_get_level() > $ob) {
+                ob_end_clean();
+            }
             throw new FatalThrowableError($e);
         }
 

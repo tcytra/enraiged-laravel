@@ -7,8 +7,7 @@ use Enraiged\Support\Resources\DatetimeAttributeResource as Datetime;
 
 class UserResource extends JsonResource
 {
-    use Traits\Actions,
-        Traits\Avatar,
+    use Traits\Avatar,
         Traits\Profile;
 
     /**
@@ -21,29 +20,26 @@ class UserResource extends JsonResource
     {
         $resource = [
             'id' => $this->id,
+            'avatar' => $this->avatar(),
+            'profile' => $this->profile(),
             'email' => $this->email,
             'username' => $this->username,
             'is_active' => $this->is_active,
             'is_myself' => $this->is_myself,
             'language' => $this->language,
             'timezone' => $this->timezone,
-            'avatar' => $this->avatar(),
-            'profile' => $this->profile(),
+            'created' => Datetime::from($this)->attribute('created_at'),
         ];
 
         if ($request->session()->has('impersonate')) {
             $resource['is_impersonating'] = true;
         }
 
-        if (count($this->actions) && $this->is_myself) {
-            $resource['actions'] = $this->actions();
+        if ($this->deleted_at) {
+            $resource['deleted'] = Datetime::from($this)->attribute('deleted_at');
         }
 
-        if ($this->created) {
-            $resource['created'] = Datetime::from($this)->attribute('created_at');
-        }
-
-        if ($this->updated) {
+        if ($this->created_at !== $this->updated_at) {
             $resource['updated'] = Datetime::from($this)->attribute('updated_at');
         }
 

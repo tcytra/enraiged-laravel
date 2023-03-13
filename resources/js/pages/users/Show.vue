@@ -1,36 +1,9 @@
 <template>
     <main class="content main">
-        <page-header back-button :actions="user.actions" :heading="heading" :title="title"/>
+        <page-header back-button :actions="actions" :heading="heading" :title="title"/>
         <section class="auto-margin container max-width-xl w-full">
-            <div class="grid">
-                <page-messages class="col-12" :messages="messages" @dismiss="messages.splice($event, 1)"/>
-                <div class="col-12">
-                    <user-summary :user="user"/>
-                </div>
-                <!--
-                <div class="col-4">
-                    <primevue-card>
-                        <template #content>
-                            contacts
-                        </template>
-                    </primevue-card>
-                </div>
-                <div class="col-4">
-                    <primevue-card>
-                        <template #content>
-                            networks
-                        </template>
-                    </primevue-card>
-                </div>
-                <div class="col-4">
-                    <primevue-card>
-                        <template #content>
-                            profiles
-                        </template>
-                    </primevue-card>
-                </div>
-                -->
-            </div>
+            <page-messages :messages="messages" @dismiss="messages.splice($event, 1)"/>
+            <user-summary class="shadow-1" :user="user"/>
         </section>
     </main>
 </template>
@@ -55,6 +28,10 @@ export default {
     inject: ['i18n'],
 
     props: {
+        actions: {
+            type: Array,
+            default: [],
+        },
         messages: {
             type: Array,
             default: [],

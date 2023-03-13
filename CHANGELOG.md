@@ -1,29 +1,51 @@
 # Release Notes
 
 Todo:
-- ActionBuilder,UriBuilder
+- ActionBuilder, FieldBuilder, OptionsBuilder, PageBuilder
 - Add remaining form fields (port from primevue)
 - Addresses, Contacts, Networks
 - Complex table searching
+- Controller messages system
 - Data Import (from model index page)
 - Implement theme preference
 - Import menus to database from json files
 - Page exporter (ie. account details) (pdf, xls?, txt?)
 - Geo, Geo Social
-- Hash id flash messages, prevent reappearing when navigate back
-- Minimize menu preference?
+- Hash id flash messages, prevent reappearing when navigate back(?)
 - Model Activity History
-- Move Auth System into the Enraiged namespace
 - New account creates registered list of site 'helps' (dismissable)
+- Select options groups
 - Test cases and documentation
-- Transitions
 - User configurable notifications system
 - Username availability check
-- User::morphMap();
 
-! Avatar colour picker seems to preserve some previous value
-! Correct avatar character centering in mobile browser
-! SSR with multiple vhosts in a service environment not working?
+! Avatar colour picker seems to preserve some previous value  
+! Correct avatar character centering in mobile browser  
+! Remove form.labels; use class for horizontal,vertical  
+! Minimize form field props; Solve template vs prop issue  
+
+---
+
+2023-03-13 : 0.2.2  
+Update: Improvements to enraiged tables and security assertions
+
+- Added /bootstrap/ssr to .gitignore
+- Added ability to append,prepend select options via template
+- Added ability to define,apply table filters per defined scope
+- Added ability to define a defaultSort() method to a table builder
+- Added ability to define a select option class,slot via template
+- Added ability to filter/restore deleted users via the UserIndex
+- Added actions to the profile pages/forms
+- Added morphMap for auth_model() to the enraiged AppServiceProvider
+- Added PrimevueCheckbox field component
+- Corrected issue in the enraiged FormRequest
+- Display the provided back button in the form actions
+- Ensure table paginator scrolls to top when data is fetched
+- Improved the security assertions system
+  - Ability to define multiple action security assertions
+  - Ability to define 'permission' as a security assertion
+- Removed unused enraiged.auth.administrator_role config
+- Simplified,improved the users available
 
 ---
 
@@ -58,7 +80,7 @@ Update: Clean production ssr build; Various corrections,improvements
 
 ---
 
-2023-01-23 : 0.2.0
+2023-01-23 : 0.2.0  
 Update: Upgraded inertiajs and laravel framework
 
 - Added ability to specify default sort,direction in table builders

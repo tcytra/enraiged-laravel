@@ -29,7 +29,7 @@ trait LoadParameters
 
             $parameters['first_name'] = array_shift($names);
             $parameters['last_name'] = count($names)
-                ? implode($names)
+                ? implode(' ', $names)
                 : null;
 
             unset($parameters['name']);

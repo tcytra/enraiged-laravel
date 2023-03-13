@@ -14,6 +14,7 @@
         "impersonate": {
             "class": "p-button-secondary",
             "icon": "pi pi-user",
+            "secure": { "method": "roleIs", "role": "Administrator" },
             "tooltip": "Impersonate",
             "type": "row"
         },
@@ -34,7 +35,23 @@
             "confirm": "Are you certain you wish to delete this user?",
             "icon": "pi pi-trash",
             "method": "delete",
+            "secure": [
+                { "method": "roleIs", "role": "Administrator" },
+                { "method": "isNotDeleted" }
+            ],
             "tooltip": "Delete user",
+            "type": "row"
+        },
+        "restore": {
+            "class": "p-button-success",
+            "confirm": "Are you certain you wish to restore this user?",
+            "icon": "pi pi-trash",
+            "method": "patch",
+            "secure": [
+                { "method": "roleIs", "role": "Administrator" },
+                { "method": "isDeleted" }
+            ],
+            "tooltip": "Restore user",
             "type": "row"
         }
     },
@@ -43,6 +60,10 @@
             "class": "text-center",
             "custom": true,
             "exportable": false
+        },
+        "salut": {
+            "label": "Salutation",
+            "source": "profiles.salut"
         },
         "first_name": {
             "label": "First Name",
@@ -100,10 +121,17 @@
                 "type": "model"
             },
             "placeholder": "All Roles",
-            "secure": {
-                "method": "roleIs",
-                "role": "Administrator"
+            "secure": {"method": "roleIs", "role": "Administrator"},
+            "type": "select"
+        },
+        "deleted": {
+            "options": {
+                "values": [
+                    {"id": "Deleted", "name": "Deleted", "scope": "whereDeleted"}
+                ]
             },
+            "placeholder": "Not Deleted",
+            "secure": {"method": "roleIs", "role": "Administrator"},
             "type": "select"
         }
     },

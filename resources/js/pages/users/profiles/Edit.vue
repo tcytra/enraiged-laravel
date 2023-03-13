@@ -1,6 +1,6 @@
 <template>
     <main class="content main">
-        <page-header back-button :title="title"/>
+        <page-header back-button :actions="actions" :title="title"/>
         <section class="auto-margin container max-width-lg">
             <page-messages :messages="messages" @dismiss="messages.splice($event, 1)"/>
             <profile-form :template="template"/>
@@ -26,6 +26,10 @@ export default {
     inject: ['i18n'],
 
     props: {
+        actions: {
+            type: Array,
+            default: [],
+        },
         messages: {
             type: Array,
             default: [],

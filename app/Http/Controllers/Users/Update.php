@@ -14,17 +14,19 @@ class Update extends Controller
 
     /**
      *  @param  \App\Http\Requests\Users\UpdateRequest  $request
-     *  @param  \Enraiged\Users\Models\User  $user
+     *  @param  int  $user
      *  @return \Illuminate\Http\RedirectResponse
      */
-    public function __invoke(UpdateRequest $request, User $user)
+    public function __invoke(UpdateRequest $request, $user)
     {
+        $user = User::withTrashed()->findOrFail($user);
+
         $this->authorize('update', $user);
 
         UpdateUserProfile::from($user, $request->validated());
 
         $request->session()->put('success', 'Update successful');
 
-        return redirect()->back();
+        return redirect()->route('users.index');
     }
 }

@@ -36,7 +36,8 @@ class UserPolicy
     public function delete(User $user, User $account)
     {
         return $user->role->atLeast(Roles::Administrator)
-            && !$account->is_protected;
+            && !$account->is_protected
+            && is_null($account->deleted_at);
     }
 
     /**
@@ -65,7 +66,8 @@ class UserPolicy
      */
     public function impersonate(User $user, User $account)
     {
-        return $user->canImpersonate($account);
+        return is_null($account->deleted_at)
+            && $user->canImpersonate($account);
     }
 
     /**
@@ -75,6 +77,17 @@ class UserPolicy
     public function index(User $user)
     {
         return $user->exists;
+    }
+
+    /**
+     *  @param  \App\Auth\User  $user
+     *  @param  \App\GroundTruth\Users\Models\User  $account
+     *  @return bool
+     */
+    public function restore(User $user, User $account)
+    {
+        return $user->role->atLeast(Roles::Administrator)
+            && !is_null($account->deleted_at);
     }
 
     /**
@@ -94,7 +107,11 @@ class UserPolicy
      */
     public function update(User $user, User $account)
     {
-        return $user->role->atLeast(Roles::Administrator)
+        if ($account->deleted_at) {
+            return false;
+        }
+
+        return $user->role->is(Roles::Administrator)
             || $user->id === $account->id;
     }
 }

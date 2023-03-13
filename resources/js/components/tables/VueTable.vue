@@ -7,7 +7,13 @@
                     :id="name"
                     :options="filter.options.values"
                     :placeholder="filter.placeholder"
-                    @update:modelValue="fetch"/>
+                    @update:modelValue="fetch">
+                    <template #option="props">
+                        <slot :name="props.option.slot" v-bind="props.option">
+                            <span :class="props.option.class">{{ props.option.name }}</span>
+                        </slot>
+                    </template>
+                </primevue-dropdown>
             </div>
         </div>
         <primevue-datatable class="p-datatable-sm" ref="datatable"
@@ -89,7 +95,7 @@
                 <template #body="props">
                     <primevue-button class="p-button-rounded p-button-sm p-button-text"
                         :class="button.class"
-                        :disabled="!button.permission"
+                        :disabled="typeof button.permission === 'boolean' && button.permission === false"
                         :icon="button.icon"
                         :key="name"
                         v-for="(button, name) in props.data.actions"
@@ -290,6 +296,7 @@ export default {
                 const {records, pagination} = data;
                 this.records = records;
                 this.pagination = pagination;
+                document.getElementById('page').scrollIntoView({ behavior: 'smooth' });
             } else {
                 this.errorHandler(response);
             }

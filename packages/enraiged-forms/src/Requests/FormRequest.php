@@ -3,6 +3,7 @@
 namespace Enraiged\Forms\Requests;
 
 use Illuminate\Foundation\Http\FormRequest as Request;
+use Illuminate\Support\Collection;
 
 class FormRequest extends Request
 {

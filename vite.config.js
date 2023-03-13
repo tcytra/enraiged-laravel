@@ -7,22 +7,22 @@ const path = require('path');
 export default defineConfig({
     resolve: {
         alias: {
-            '~' : path.resolve(__dirname, './node_modules'),
-            '!' : path.resolve(__dirname, './resources'),
+            '~' : path.resolve(__dirname, './node_modules/'),
+            '!' : path.resolve(__dirname, './resources/'),
         },
     },
     plugins: [
         vue({
             template: {
-                base: null,
-                compilerOptions: {
+                // base: null,
+                /* compilerOptions: {
                     directiveTransforms: {
                         ripple: () => ({
                             props: [],
                             needRuntime: true,
                         }),
                     },
-                },
+                }, */
                 transformAssetUrls: {
                     includeAbsolute: false,
                 },
@@ -35,10 +35,6 @@ export default defineConfig({
         }),
     ],
     build: {
-        rollupOptions: {
-            output: {
-                manualChunks: {},
-            },
-        },
+        chunkSizeWarningLimit: 1600,
     },
 });

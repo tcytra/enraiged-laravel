@@ -11,12 +11,6 @@
 + [PrimeFlex 3](https://www.primefaces.org/primeflex/)
 + [PrimeIcons v6](https://www.primefaces.org/primevue/#/icons)
 
-## Requirements
-
-- Laravel v9 (review vendor requirements)
-- NPM v16
-- Vue v3
-
 ---
 
 ## Install Application

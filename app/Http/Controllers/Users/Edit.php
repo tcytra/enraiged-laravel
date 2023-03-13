@@ -18,14 +18,14 @@ class Edit extends Controller
 
     /**
      *  @param  \Illuminate\Http\Request  $request
-     *  @param  \Enraiged\Users\Models\User  $user
+     *  @param  int  $user
      *  @return \Inertia\Response
      */
-    public function __invoke(Request $request, User $user = null)
+    public function __invoke(Request $request, $user = null)
     {
         $this->user = preg_match('/^my\.profile/', $request->route()->getName())
             ? $request->user()
-            : $user;
+            : User::withTrashed()->findOrFail($user);
 
         $this->authorize('edit', $this->user);
 
@@ -46,10 +46,20 @@ class Edit extends Controller
      */
     private function messages()
     {
-        if (!$this->user->is_myself && $this->user->is_administrator) {
-            return [message('You are updating these user details as an administrator.', 'warn')];
+        $messages = [];
+
+        if ($this->user->deleted_at) {
+            $datetime = date_create(datetimezone($this->user->deleted_at), new \DateTimeZone(timezone()));
+            $formatter = new \IntlDateFormatter(language(), \IntlDateFormatter::FULL, \IntlDateFormatter::SHORT);
+            $message = __('This user was deleted on :deleted', ['deleted' => $formatter->format($datetime)]);
+
+            array_push($messages, message($message, 'error'));
         }
 
-        return [];
+        if (!$this->user->is_myself && $this->user->is_administrator) {
+            array_push($messages, message('You are updating these user details as an administrator.', 'warn'));
+        }
+
+        return $messages;
     }
 }

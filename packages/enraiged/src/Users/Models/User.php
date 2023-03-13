@@ -19,8 +19,9 @@ class User extends Authenticatable
         BelongsToMany\Agreements,
         HasMany\Files,
         HasMany\IpAddresses,
-        Scopes\ScopeReportable,
-        Scopes\ScopeFilter,
+        Scopes\Deleted,
+        Scopes\NotDeleted,
+        Scopes\Reportable,
         Traits\HasFactory,
         Traits\IsProtected,
         Traits\ManagesPassword,
@@ -31,8 +32,8 @@ class User extends Authenticatable
 
     /** @var  array  The attributes that are mass assignable. */
     protected $fillable = [
-        'birthdate', 'dateformat', 'email', 'language', 'password', 'timezone', 'username',
-        'is_active', 'is_hidden', 'is_protected', 'military_time', 'profile_id', 'role_id',
+        'dateformat', 'email', 'language', 'password', 'timeformat', 'timezone', 'username',
+        'is_active', 'is_hidden', 'is_protected', 'profile_id', 'role_id',
     ];
 
     /** @var  array  The attributes that should be hidden for serialization. */
@@ -46,7 +47,6 @@ class User extends Authenticatable
         'is_active' => 'boolean',
         'is_hidden' => 'boolean',
         'is_protected' => 'boolean',
-        'military_time' => 'boolean',
     ];
 
     /**

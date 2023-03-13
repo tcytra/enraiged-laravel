@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
     use WithoutModelEvents;
 
     /** @var  int  Create a predetermined number of factory users to seed. */
-    protected $create_users = 5;
+    protected $create_users = 9;
 
     /** @var  string  Set this login password for the created users. */
     protected $insecure_password = 'changeme';

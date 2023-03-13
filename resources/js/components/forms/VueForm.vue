@@ -115,7 +115,7 @@ export default {
                         && template[item].value.toString().match(/^\d{4}-\d{2}-\d{2}$/)) {
                         template[item].value = new Date(`${template[item].value} 00:00:00`);
                     }
-                    fields[item] = template[item].type === 'switch'
+                    fields[item] = ['checkbox', 'switch'].includes(template[item].type)
                         ? template[item].value && template[item].value === true
                         : template[item].value || null;
                 }

@@ -24,7 +24,11 @@
                 :placeholder="placeholder"
                 :show-clear="field.clearable || clearable"
                 @filter="filter"
-                @update:modelValue="update(); $emit('update:modelValue', $event)"/>
+                @update:modelValue="update(); $emit('update:modelValue', $event)">
+                <template #option="props">
+                    <span :class="props.option.class">{{ props.option.name }}</span>
+                </template>
+            </primevue-dropdown>
             <div class="error p-error" v-if="error">
                 <i class="pi pi-exclamation-circle" v-tooltip.top="error"></i>
                 <span class="message">{{ error }}</span>

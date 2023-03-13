@@ -38,6 +38,20 @@ function authenticable_check($user)
     }
 }
 
+if (!function_exists('language')) {
+    /**
+     *  Return the appropriate user or app language (locale).
+     *
+     *  @return string
+     */
+    function language()
+    {
+        return Auth::check() && Auth::user()->language
+            ? Auth::user()->language
+            : config('app.locale');
+    }
+}
+
 /**
  *  Determine whether or not terms agreements are required.
  *
