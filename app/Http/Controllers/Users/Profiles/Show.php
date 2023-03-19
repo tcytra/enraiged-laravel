@@ -24,7 +24,7 @@ class Show extends Controller
      */
     public function __invoke(Request $request, User $user)
     {
-        $this->user = preg_match('/^my\.profile/', $request->route()->getName())
+        $this->user = preg_match('/^my\./', $request->route()->getName())
             ? $request->user()
             : $user;
 

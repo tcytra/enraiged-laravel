@@ -8,7 +8,7 @@ use Illuminate\Support\Collection;
 
 class JsonResource extends IlluminateResource
 {
-    /** @var  string  The key with which to wrap the data array. */
+    /** @var  string|null  The data wrapper that should be applied. */
     public static $wrap = null;
 
     /** @var  array  The array of actions available for this resource. */

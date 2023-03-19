@@ -2,6 +2,7 @@
 
 namespace Enraiged\Forms\Builders\Traits;
 
+use Enraiged\Forms\Contracts\ProvidesRefererRedirect;
 use Enraiged\Support\Collections\RequestCollection;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\File;
@@ -28,6 +29,10 @@ trait BuilderConstructor
      */
     public function __construct($request, array $parameters = [])
     {
+        $this->referer = $this instanceof ProvidesRefererRedirect
+            ? $request->server('HTTP_REFERER')
+            : null;
+
         $this->request = new RequestCollection($request->all());
         $this->user = $request->user();
 

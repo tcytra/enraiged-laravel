@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use Enraiged\Users\Services\FlashMessages;
+use Enraiged\Support\Builders\FlashableBuilder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Middleware;
@@ -43,7 +43,7 @@ class HandleInertiaRequests extends Middleware
     {
         $response = [
             'auth' => Auth::check(),
-            'flash' => (new FlashMessages)->handle($request),
+            'flash' => (new FlashableBuilder)->handle($request),
             'language' => Auth::check() ? Auth::user()->language : config('app.locale'),
         ];
 

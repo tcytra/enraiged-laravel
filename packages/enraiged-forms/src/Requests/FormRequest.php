@@ -3,6 +3,7 @@
 namespace Enraiged\Forms\Requests;
 
 use Illuminate\Foundation\Http\FormRequest as Request;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Collection;
 
 class FormRequest extends Request
@@ -34,13 +35,27 @@ class FormRequest extends Request
     }
 
     /**
+     *  Return a redirect to the referer if possible, or back.
+     *
+     *  @return \Illuminate\Http\RedirectResponse
+     */
+    public function redirect(): RedirectResponse
+    {
+        return $this->has('_referer')
+            ? redirect($this->get('_referer'))
+            : redirect()->back();
+    }
+
+    /**
      *  Get the validation rules that apply to the request.
      *
      *  @return array
      */
     public function rules()
     {
-        return $this->rules;
+        return property_exists($this, 'rules')
+            ? $this->rules
+            : [];
     }
 
     /**

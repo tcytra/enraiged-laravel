@@ -52,7 +52,7 @@
                             :disabled="!records || !records.length"
                             @click="download()"/>
                     </div>
-                    <primevue-button class="create-button ml-2"
+                    <primevue-button class="create-button ml-2 pl-2"
                         v-if="template.actions.create && template.actions.create.permission"
                         v-tooltip.top="i18n(template.actions.create.tooltip)"
                         :class="[

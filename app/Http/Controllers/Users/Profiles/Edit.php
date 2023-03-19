@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Users\Profiles;
 use App\Auth\Enums\Roles;
 use App\Http\Controllers\Controller;
 use Enraiged\Users\Forms\Builders\UpdateProfileForm;
-use Enraiged\Users\Pages\Traits\Actions as PageActions;
 use Enraiged\Users\Resources\UserResource;
+use Enraiged\Users\Traits\Actions as PageActions;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 
@@ -28,9 +28,7 @@ class Edit extends Controller
             ->edit($user, 'users.profile.update');
 
         return inertia('users/profiles/Edit', [
-            'actions' => collect($this->actions($user))
-                ->except('edit')
-                ->toArray(),
+            'actions' => collect($this->actions($user))->except('edit')->values(),
             'messages' => $this->messages($request),
             'template' => $builder->template(),
             'user' => UserResource::from($user),

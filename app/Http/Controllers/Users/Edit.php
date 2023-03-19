@@ -23,7 +23,7 @@ class Edit extends Controller
      */
     public function __invoke(Request $request, $user = null)
     {
-        $this->user = preg_match('/^my\.profile/', $request->route()->getName())
+        $this->user = preg_match('/^my\./', $request->route()->getName())
             ? $request->user()
             : User::withTrashed()->findOrFail($user);
 

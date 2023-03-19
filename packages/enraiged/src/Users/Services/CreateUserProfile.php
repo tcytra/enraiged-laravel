@@ -4,12 +4,11 @@ namespace Enraiged\Users\Services;
 
 use Enraiged\Profiles\Models\Profile;
 use Enraiged\Users\Models\User;
+use Enraiged\Users\Support\UserProfileParameters;
 use Illuminate\Support\Facades\DB;
 
 class CreateUserProfile
 {
-    use Traits\LoadParameters;
-
     /** @var  object  The User model. */
     protected User $user;
 
@@ -24,7 +23,7 @@ class CreateUserProfile
      */
     public function __construct(array $parameters)
     {
-        $this->load($parameters);
+        $this->parameters = UserProfileParameters::from($parameters);
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace Enraiged\Users\Pages\Traits;
+namespace Enraiged\Users\Traits;
 
 use Enraiged\Users\Models\User;
 

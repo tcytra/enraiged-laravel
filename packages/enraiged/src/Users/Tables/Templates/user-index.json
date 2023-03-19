@@ -9,7 +9,8 @@
         "create": {
             "class": "p-button-success",
             "icon": "pi pi-plus",
-            "tooltip": "Create user"
+            "label": "User",
+            "tooltip": "Create a new user"
         },
         "impersonate": {
             "class": "p-button-secondary",

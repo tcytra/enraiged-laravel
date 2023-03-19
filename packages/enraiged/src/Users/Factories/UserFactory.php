@@ -29,7 +29,7 @@ class UserFactory extends Factory
             'is_protected' => false,
             'password' => bcrypt(Str::random(10)),
             'remember_token' => Str::random(10),
-            'role_id' => Role::lowest()->id,
+            'role_id' => Role::whereNot('name', 'Administrator')->inRandomOrder()->first()->id,
             'verified_at' => now(),
         ];
     }

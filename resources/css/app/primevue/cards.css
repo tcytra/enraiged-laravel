@@ -5,13 +5,13 @@
   box-shadow:       none;
   color:            $card-color;
 
-    header {
+    .header {
       background-color: $card-header-background;
       border-bottom-width: 1px;
       border-bottom-style: solid;
       border-color:     $card-border;
       color:            $card-color;
-      padding:          1rem;
+      padding:          .5rem 1rem;
     }
 
     .p-card-content {

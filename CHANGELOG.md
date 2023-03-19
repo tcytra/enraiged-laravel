@@ -26,6 +26,17 @@ Todo:
 
 ---
 
+2023-03-19 : 0.2.3  
+Update: Improved enraiged forms redirect; Various minor changes
+
+- Corrected issue saving user details
+- Enraiged FormBuilder tracks referer, redirects when stored,updated
+- Improved the obj() helper; Will decode first if string
+- Improved the {Create,Update}UserProfile parameters handling
+- Moved FlashMessages to Enraiged\Support\Builders\FlashableBuilder
+
+---
+
 2023-03-13 : 0.2.2  
 Update: Improvements to enraiged tables and security assertions
 

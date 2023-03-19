@@ -162,6 +162,10 @@ if (!function_exists('obj')) {
      */
     function obj($value)
     {
+        if (gettype($value) === 'string') {
+            $value = json_decode($value);
+        }
+
         return json_decode(json_encode($value));
     }
 }

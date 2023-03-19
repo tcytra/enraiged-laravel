@@ -1,6 +1,7 @@
 
 .default.layout {
 
+    .data .actions,
     .form .actions {
       display:          flex;
       justify-content:  space-between;

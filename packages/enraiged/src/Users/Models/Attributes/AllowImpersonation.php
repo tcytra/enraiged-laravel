@@ -11,7 +11,7 @@ trait AllowImpersonation
      */
     public function getAllowImpersonationAttribute(): bool
     {
-        $config = json_decode(json_encode( config('enraiged.auth.allow_impersonation') ));
+        $config = obj(config('enraiged.auth.allow_impersonation'));
         $default = $this->role->is(Roles::Administrator);
 
         if ($config === false || $config === true) {

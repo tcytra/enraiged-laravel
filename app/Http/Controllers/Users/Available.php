@@ -12,7 +12,7 @@ class Available extends Controller
     use AuthorizesRequests;
 
     /**
-     *  @param  \Enraiged\Forms\Requests\AvailabilityRequest  $request
+     *  @param  \App\Http\Requests\Users\AvailabilityRequest  $request
      *  @return \Illuminate\Http\Response
      */
     public function __invoke(AvailabilityRequest $request)

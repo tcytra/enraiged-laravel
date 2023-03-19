@@ -1,6 +1,6 @@
 <?php
 
-namespace Enraiged\Users\Services;
+namespace Enraiged\Users\Tables\Exporters;
 
 use Enraiged\Exports\Services\Exporter;
 use Enraiged\Exports\Contracts\ExportFrom;

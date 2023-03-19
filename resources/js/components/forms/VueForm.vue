@@ -83,7 +83,9 @@ export default {
     },
 
     setup (props, { emit }) {
-        let fields = {};
+        let fields = props.template.referer
+            ? {_referer: props.template.referer}
+            : {};
 
         function clear() {
             form.clearErrors();
@@ -133,7 +135,6 @@ export default {
             form[props.template.resource.method](props.template.uri, {
                 onSuccess: () => emit('form:success', form),
             });
-            emit('form:submit');
         }
 
         flatten(props.template.fields);

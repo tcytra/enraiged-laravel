@@ -27,6 +27,6 @@ class Update extends Controller
 
         $request->session()->put('success', 'Update successful');
 
-        return redirect()->route('users.index');
+        return $request->redirect();
     }
 }

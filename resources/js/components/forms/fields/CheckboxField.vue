@@ -1,7 +1,7 @@
 <template>
     <headless-form-field v-slot:default="props" v-bind="$props">
         <div :class="field.before" v-if="field.before"/>
-        <div class="control field checkbox align-items-center" v-show="props.visible"
+        <div class="control field checkbox align-items-center"
             :class="[$attrs.class, field.class, labels]">
             <label v-if="props.label" class="label" :for="id">
                 {{ props.label }}

@@ -3,8 +3,6 @@
   align-items:      center;
   display:          flex;
   flex-grow:        1;
-  margin-left:      1rem;
-  margin-right:     1rem;
 
     .icon, .text {
       font-size:        1.25rem;
@@ -12,16 +10,39 @@
     }
 
     .icon {
-      text-align:       center;
-      width:            2rem;
+      align-items:      center;
+      background-color: $white;
+      border-radius:    12345px;
+      display:          flex;
+      height:           2.5rem;
+      justify-content:  center;
+      width:            2.5rem;
 
         img {
-          max-height:       2.5rem;
+          max-height:       2.125rem;
         }
     }
 
     .text {
       text-indent:      .5rem;
       white-space:      nowrap;
+    }
+}
+
+.default.layout {
+    &.menu-closed {
+        .branding {
+          justify-content:  center;
+          margin-left:      0;
+          margin-right:     0;
+        }
+    }
+
+    &.menu-open, &:not(.menu-closed) {
+        .branding {
+          justify-content:  flex-start;
+          margin-left:      1rem;
+          margin-right:     1rem;
+        }
     }
 }

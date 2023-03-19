@@ -3,6 +3,7 @@
 namespace Enraiged\Users\Observers;
 
 use App\Auth\Enums\Roles;
+use Enraiged\Roles\Models\Role;
 use Enraiged\Users\Models\User;
 use Enraiged\Users\Notifications\UserLoginChange;
 use Enraiged\Users\Notifications\UserWelcome;
@@ -32,6 +33,19 @@ class UserObserver
             if ($automatic_agreements) {
                 $user->acceptAgreements();
             }
+        }
+    }
+
+    /**
+     *  Handle the User created event.
+     *
+     *  @param  \Enraiged\Users\Models\User  $user
+     *  @return void
+     */
+    public function creating(User $user)
+    {
+        if (is_null('role_id') && config('enraiged.auth.force_lowest_role')) {
+            $user->role_id = Role::lowest()->id;
         }
     }
 

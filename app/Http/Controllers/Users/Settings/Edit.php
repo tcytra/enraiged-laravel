@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Users\Settings;
 use App\Http\Controllers\Controller;
 use Enraiged\Users\Forms\Builders\UpdateSettingsForm;
 use Enraiged\Users\Resources\UserResource;
-use Enraiged\Users\Pages\Traits\Actions as PageActions;
+use Enraiged\Users\Traits\Actions as PageActions;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 
@@ -27,9 +27,7 @@ class Edit extends Controller
             ->edit($user, 'users.settings.update');
 
         return inertia('users/settings/Edit', [
-            'actions' => collect($this->actions($user))
-                ->except('settings')
-                ->toArray(),
+            'actions' => collect($this->actions($user))->except('settings')->values(),
             'template' => $builder->template(),
             'user' => UserResource::from($user),
         ]);

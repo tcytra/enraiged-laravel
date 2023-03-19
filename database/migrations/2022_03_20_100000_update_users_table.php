@@ -49,8 +49,8 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn([
-                'profile_id', 'role_id', 'username', 'dateformat', 'timezone', 'language', 'birthdate',
-                'hide_birthyear', 'military_time', 'deleted_at', 'verified_at', 'created_by', 'deleted_by',
+                'profile_id', 'role_id', 'username', 'dateformat', 'timeformat', 'timezone', 'language',
+                'deleted_at', 'verified_at', 'created_by', 'deleted_by',
                 'updated_by', 'is_active', 'is_hidden', 'is_protected',
             ]);
             $table->timestamp('email_verified_at')->nullable()->after('email');

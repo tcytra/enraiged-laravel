@@ -7,7 +7,7 @@ use Enraiged\Tables\Contracts\ProvidesDefaultSort;
 use Enraiged\Tables\Contracts\ProvidesTableQuery;
 use Enraiged\Tables\Contracts\ProvidesTableServices;
 use Enraiged\Users\Models\User;
-use Enraiged\Users\Services\IndexExporter;
+use Enraiged\Users\Tables\Exporters\IndexExporter;
 use Enraiged\Users\Tables\Resources\IndexResource;
 use Enraiged\Users\Traits\Assertions\AssertIsDeleted;
 use Enraiged\Users\Traits\Assertions\AssertIsNotDeleted;

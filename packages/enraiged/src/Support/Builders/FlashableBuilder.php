@@ -1,10 +1,10 @@
 <?php
 
-namespace Enraiged\Users\Services;
+namespace Enraiged\Support\Builders;
 
 use Illuminate\Http\Request;
 
-class FlashMessages
+class FlashableBuilder
 {
     /** @var  array  The flashable session indexes. */
     protected $flashable = [

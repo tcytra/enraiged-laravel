@@ -3,12 +3,11 @@
 namespace Enraiged\Users\Services;
 
 use Enraiged\Users\Models\User;
+use Enraiged\Users\Support\UserProfileParameters;
 use Illuminate\Support\Facades\DB;
 
 class UpdateUserProfile
 {
-    use Traits\LoadParameters;
-
     /** @var  object  The User model. */
     protected User $user;
 
@@ -26,7 +25,7 @@ class UpdateUserProfile
     {
         $this->user = $user;
 
-        $this->load($parameters);
+        $this->parameters = UserProfileParameters::from($parameters);
     }
 
     /**

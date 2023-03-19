@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Users\Login;
 
 use App\Http\Controllers\Controller;
 use Enraiged\Users\Forms\Builders\UpdateLoginForm;
-use Enraiged\Users\Pages\Traits\Actions as PageActions;
 use Enraiged\Users\Resources\UserResource;
+use Enraiged\Users\Traits\Actions as PageActions;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 
@@ -28,9 +28,7 @@ class Edit extends Controller
             ->edit($user, 'users.login.update');
 
         return inertia('users/login/Edit', [
-            'actions' => collect($this->actions($user))
-                ->except('login')
-                ->toArray(),
+            'actions' => collect($this->actions($user))->except('login')->values(),
             'template' => $builder->template(),
             'user' => UserResource::from($user),
         ]);
