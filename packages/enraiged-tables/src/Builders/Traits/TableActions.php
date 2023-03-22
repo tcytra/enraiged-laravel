@@ -23,11 +23,11 @@ trait TableActions
      *  Prepare and return an action from the provided parameters.
      *
      *  @param  object  $model
-     *  @param  string  $action
+     *  @param  string  $index
      *  @param  array   $parameters
      *  @return array
      */
-    private function actionForRow($model, $action, $parameters)
+    private function actionForRow($model, $index, $parameters)
     {
         if (!key_exists('permission', $parameters)) {
             $parameters['permission'] = false;
@@ -39,9 +39,10 @@ trait TableActions
         } else {
             $route = key_exists('route', $parameters)
                 ? $parameters['route']
-                : preg_replace('/\.+/', '.', "{$this->prefix}.{$action}");
+                : preg_replace('/\.+/', '.', "{$this->prefix}.{$index}");
 
             if (Route::has($route)) {
+                $action = key_exists('action', $parameters) ? $parameters['action'] : $index;
                 $parameters['permission'] = $this->user->can($action, $model);
 
                 if (!key_exists('uri', $parameters) && $parameters['permission']) {
