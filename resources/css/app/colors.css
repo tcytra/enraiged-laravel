@@ -5,6 +5,12 @@
 .background-info {
   background-color: $background-info !important;
 }
+.background-primary {
+  background-color: $background-primary !important;
+}
+.background-secondary {
+  background-color: $background-secondary !important;
+}
 .background-success {
   background-color: $background-success !important;
 }
@@ -17,6 +23,12 @@
 }
 .border-info {
   border-color: $color-info !important;
+}
+.border-primary {
+  border-color: $color-primary !important;
+}
+.border-secondary {
+  border-color: $color-secondary !important;
 }
 .border-success {
   border-color: $color-success !important;

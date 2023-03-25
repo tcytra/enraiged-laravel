@@ -23,14 +23,4 @@ trait Rules
         'title' => 'nullable',
         'username' => 'sometimes|nullable|unique:users,username|unique:users,email',
     ];
-
-    /**
-     *  Get the validation rules that apply to the request.
-     *
-     *  @return array
-     */
-    public function rules()
-    {
-        return $this->rules;
-    }
 }

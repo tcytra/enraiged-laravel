@@ -1,6 +1,6 @@
 <template>
     <main class="content main">
-        <page-header back-button :title="title"/>
+        <page-header back-button fixed :title="title"/>
         <section class="auto-margin container max-width-xl w-full">
             <div class="grid">
                 <div class="col-12">

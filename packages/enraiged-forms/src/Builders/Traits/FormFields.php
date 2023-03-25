@@ -55,11 +55,8 @@ trait FormFields
                     unset($fields[$each]);
                 }
 
-                $layers = collect($depth)
-                    ->merge($each)
-                    ->merge('fields')
-                    ->toArray();
-                $search = $this->field($name, $params, $rewrite, $layers);
+                $layers = collect($depth)->merge($each)->merge('fields');
+                $search = $this->field($name, $params, $rewrite, $layers->toArray());
 
                 if ($search) {
                     return $search;
@@ -122,6 +119,33 @@ trait FormFields
         }
 
         return null;
+    }
+
+    /**
+     *  Remove a field from the builder.
+     *
+     *  @return self
+     */
+    public function remove($name, $depth = [])
+    {
+        $fields = &$this->fields;
+
+        foreach ($fields as $index => $value) {
+            if ($index === $name) {
+                unset($fields[$name]);
+                break;
+            }
+            if ($this->isFormSection($index) && key_exists($name, $fields[$index])) {
+                unset($fields[$index][$name]);
+                break;
+            }
+            if ($this->hasSectionFields($fields[$index]) && key_exists($name, $fields[$index]['fields'])) {
+                unset($fields[$index]['fields'][$name]);
+                break;
+            }
+        }
+
+        return $this;
     }
 
     /**

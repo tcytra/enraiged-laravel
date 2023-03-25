@@ -1,28 +1,18 @@
 # Release Notes
 
-Todo:
-- ActionBuilder, FieldBuilder, OptionsBuilder, PageBuilder
-- Add remaining form fields (port from primevue)
-- Addresses, Contacts, Networks
-- Complex table searching
-- Controller messages system
-- Data Import (from model index page)
-- Implement theme preference
-- Import menus to database from json files
-- Page exporter (ie. account details) (pdf, xls?, txt?)
-- Geo, Geo Social
-- Hash id flash messages, prevent reappearing when navigate back(?)
-- Model Activity History
-- New account creates registered list of site 'helps' (dismissable)
-- Select options groups
-- Test cases and documentation
-- User configurable notifications system
-- Username availability check
+2023-03-25 : 0.2.4  
+Update: Improved enraiged table actions handling; Various minor changes
 
-! Avatar colour picker seems to preserve some previous value  
-! Correct avatar character centering in mobile browser  
-! Remove form.labels; use class for horizontal,vertical  
-! Minimize form field props; Solve template vs prop issue  
+- Added FormBuilder::remove() method to purge section/field by key
+- Added AvatarFormSection.vue to enable editing avatars via edit form
+- Various updates to the enraiged tables actions systems
+  - Added standard theme coloring (danger,info,etc) as table row classes
+  - Ensure application of table row actions is conditional
+    - Removed Enraiged\Tables\Contracts\ProvidesTableBuilder
+    - Removed Enraiged\Tables\Contracts\ProvidesTableServices
+  - Ensure table row actions are using action parameter, if provided
+  - Ensure tables will display without provided actions
+  - Ensure tables will display without resource class
 
 ---
 

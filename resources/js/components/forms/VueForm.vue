@@ -1,7 +1,9 @@
 <template>
     <div class="vue-form">
         <form @submit.prevent="submit"
-            :class="['form', template.class, labels, {'custom-actions': customActions, 'formgrid grid': formGrid}]">
+            :class="[
+                'form', template.class, labels, {'custom-actions': customActions, 'formgrid grid mb-3': formGrid}
+            ]">
             <slot v-bind="{ form }">
                 <vue-form-section v-if="sections" v-for="(section, key) in sections"
                     :creating="creating"

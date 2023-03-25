@@ -1,5 +1,5 @@
 <template>
-    <div class="formgrid grid">
+    <div class="formgrid grid mb-3">
         <template v-for="(item, key) in fields" :key="key">
             <slot v-if="item.custom" v-bind="$props"
                 :id="key"

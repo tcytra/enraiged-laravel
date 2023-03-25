@@ -22,7 +22,7 @@ createInertiaApp({
         const root = app
             .use(i18n)
             .use(plugin)
-            .use(PrimeVue, { inputStyle: 'filled' })
+            .use(PrimeVue, { inputStyle: 'filled', ripple: true })
             .use(ConfirmationService)
             .use(VueAxios, axios)
             .mount(el);

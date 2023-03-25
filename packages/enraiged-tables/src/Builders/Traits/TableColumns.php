@@ -14,14 +14,21 @@ trait TableColumns
      */
     public function assembleTemplateColumns(): array
     {
+        $actions = $this->hasRowActions()
+            ? ['actions' => 'Actions']
+            : [];
+
         return collect($this->columns)
             ->transform(function ($row, $index) {
                 $row['label'] = $this->columnLabel($index);
+
                 if (!key_exists('source', $row)) {
                     $row['source'] = "{$this->table}.{$index}";
                 }
+
                 return $row;
             })
+            ->merge($actions)
             ->toArray();
     }
 
@@ -49,6 +56,7 @@ trait TableColumns
             $label = key_exists('label', $columns->get($key))
                 ? $columns->get($key)['label']
                 : ucwords(str_replace('_', ' ', $key));
+
             return __($label);
         }
 
@@ -109,6 +117,7 @@ trait TableColumns
                     foreach ($source as $each) {
                         $columns[] = $each;
                     }
+
                 } else {
                     $columns[] = $this->columnSource($key);
                 }

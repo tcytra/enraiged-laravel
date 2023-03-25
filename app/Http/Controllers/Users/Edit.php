@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
+use Enraiged\Avatars\Resources\AvatarEditResource;
 use Enraiged\Users\Forms\Builders\UpdateForm;
 use Enraiged\Users\Models\User;
 use Enraiged\Users\Resources\UserResource;
@@ -33,6 +34,7 @@ class Edit extends Controller
             ->edit($this->user, 'users.update');
 
         return inertia('users/Edit', [
+            'avatar' => AvatarEditResource::from($this->user->profile->avatar),
             'messages' => $this->messages(),
             'template' => $form->template(),
             'user' => UserResource::from($this->user),

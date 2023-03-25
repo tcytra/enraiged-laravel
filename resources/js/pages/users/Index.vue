@@ -1,6 +1,6 @@
 <template>
     <main class="content main">
-        <page-header title="Users"/>
+        <page-header fixed title="Users"/>
         <section class="container table">
             <user-index :template="template" />
         </section>

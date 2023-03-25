@@ -5,11 +5,12 @@ namespace Enraiged\Users\Tables\Resources;
 use App\Http\Resources\JsonResource;
 use Enraiged\Avatars\Resources\AvatarResource;
 use Enraiged\Support\Resources\DatetimeAttributeResource as Datetime;
+use Enraiged\Tables\Traits\ModelDeletedBackground;
+use Enraiged\Tables\Traits\ModelInactiveBackground;
 
 class IndexResource extends JsonResource
 {
-    /** @var  TableRequest  The http request. */
-    protected $request;
+    use ModelDeletedBackground, ModelInactiveBackground;
 
     /**
      *  Transform the resource collection into an array.
@@ -20,6 +21,7 @@ class IndexResource extends JsonResource
     public function toArray($request): array
     {
         return [
+            '__' => $this->modelDeletedBackground() ?? $this->modelInactiveBackground(),
             'id' => $this->id,
             'avatar' => $this->avatar(),
             'alias' => $this->profile->alias,
@@ -32,6 +34,7 @@ class IndexResource extends JsonResource
             'salut' => $this->profile->salut,
             'username' => $this->username,
             'birthday' => $this->profile->birthdate,
+            'is_active' => $this->is_active,
             'created' => Datetime::from($this)->createdAtDate(),
             'deleted' => Datetime::from($this)->deletedAtDate(),
             'actions' => $this->resource->actions,

@@ -10,7 +10,7 @@ trait TableActions
     protected array $actions;
 
     /**
-     *  Return the table row actions for the provided resource.
+     *  Return the table actions for the provided resource.
      *
      *  @return array
      */

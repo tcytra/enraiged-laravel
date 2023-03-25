@@ -24,8 +24,8 @@ class Available extends Controller
         $available = User::selectRaw($columns)
             ->join('profiles', 'profiles.id', '=', 'users.profile_id')
             ->join('roles', 'roles.id', '=', 'users.role_id')
-            ->where('users.is_hidden', false)
-            ->where('roles.rank', '>=', $request->user->role->rank);
+            ->where('users.is_active', true)
+            ->where('users.is_hidden', false);
 
         if ($request->has('role_id')) {
             $available->where('role_id', $request->get('role_id'));

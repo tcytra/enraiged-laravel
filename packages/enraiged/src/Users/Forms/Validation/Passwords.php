@@ -1,12 +1,12 @@
 <?php
 
-namespace Enraiged\Users\Forms\Validation\Traits;
+namespace Enraiged\Users\Forms\Validation;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
-trait PasswordValidator
+trait Passwords
 {
     /**
      *  @param  array   $matches

@@ -78,16 +78,17 @@
             <template #empty>
                 {{ i18n(template.empty || 'No records found') }}
             </template>
-            <primevue-column v-for="(column, name, index) in template.columns" :key="name"
+            <primevue-column v-for="(column, name, index) in columns"
                 :class="column.class"
                 :field="name"
                 :header="column.label"
+                :key="name"
                 :sortable="column.sortable">
                 <template #body="column" v-if="column.custom">
                     <slot :name="name" :data="column.data"/>
                 </template>
             </primevue-column>
-            <primevue-column v-if="template.actions" key="actions"
+            <primevue-column v-if="template.columns.actions" key="actions"
                 class="actions text-center"
                 field="actions"
                 :header="i18n('Actions')"
@@ -169,6 +170,13 @@ export default {
     }),
 
     computed: {
+        columns() {
+            let columns = {};
+            Object.keys(this.template.columns)
+                .filter((name) => name !== 'actions')
+                .forEach((name) => columns[name] = this.template.columns[name]);
+            return columns;
+        },
         dirty() {
             return (this.pagination.page != this.template.pagination.page)
                 || (this.pagination.sort != this.template.pagination.sort)
@@ -329,9 +337,9 @@ export default {
         },
 
         rowClass(data) {
-            return {
-                'inactive-data': typeof data.active !== 'undefined' && !data.active,
-            };
+            return data.__ !== 'undefined'
+                ? `background-${data.__}`
+                : null;
         },
 
         rows(event) {

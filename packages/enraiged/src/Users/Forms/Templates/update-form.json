@@ -42,6 +42,12 @@
                 }
             }
         },
+        "avatar": {
+            "heading": "User Avatar",
+            "custom": true,
+            "fields": {},
+            "type": "section"
+        },
         "personal": {
             "heading": "Personal Details",
             "type": "section",

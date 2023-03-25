@@ -1,6 +1,6 @@
 <template>
     <main class="content main">
-        <page-header title="My Files"/>
+        <page-header fixed title="My Files"/>
         <section class="container">
             <primevue-dataview :layout="layout" :value="files" v-if="files.length">
                 <template #header>

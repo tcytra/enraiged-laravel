@@ -5,7 +5,6 @@ namespace Enraiged\Tables\Builders\Traits;
 use Enraiged\Tables\Contracts\ProvidesDefaultSort;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Facades\App;
 
 trait EloquentBuilder
 {
@@ -25,29 +24,22 @@ trait EloquentBuilder
     protected LengthAwarePaginator $paginator;
 
     /** @var  string  The model resource. */
-    protected string $resource;
+    protected $resource;
 
     /**
-     *  Return the data for the table request.
+     *  Set or return the eloquent table builder.
      *
      *  @param  \Illuminate\Database\Eloquent\Builder  $builder
-     *  @return self
+     *  @return \Illuminate\Database\Eloquent\Builder|self
      */
-    public function build(Builder $builder = null)
+    public function builder(Builder $builder = null)
     {
-        $this->builder = $builder
-            ?? App::make($this->model)::query();
+        if ($builder) {
+            $this->builder = $builder;
 
-        return $this;
-    }
+            return $this;
+        }
 
-    /**
-     *  Return the eloquent table builder.
-     *
-     *  @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function builder(): Builder
-    {
         return $this->builder;
     }
 
@@ -127,18 +119,20 @@ trait EloquentBuilder
     /**
      *  Return the paginated records.
      *
-     *  @return array|\Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     *  @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection|\Illuminate\Support\Collection
      */
     public function records()
     {
-        $collection = collect($this->paginator->items())
-            ->each(function ($item) {
-                $item->actions = $this->actionsForRow($item);
-            });
+        $collection = $this->hasRowActions()
+            ? collect($this->paginator->items())
+                ->each(function ($item) {
+                    $item->actions = $this->actionsForRow($item);
+                })
+            : collect($this->paginator->items());
 
         return $this->resource
             ? $this->resource::from($collection)
-            : $collection->toArray();
+            : $collection;
     }
 
     /**

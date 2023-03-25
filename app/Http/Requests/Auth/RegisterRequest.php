@@ -3,15 +3,15 @@
 namespace App\Http\Requests\Auth;
 
 use Enraiged\Forms\Requests\FormRequest;
-use Enraiged\Users\Forms\Validation\Traits\PasswordValidator;
 use Enraiged\Users\Forms\Validation\Messages as ValidationMessages;
+use Enraiged\Users\Forms\Validation\Passwords as ValidationPassword;
 use Enraiged\Users\Forms\Validation\Rules as ValidationRules;
 use Enraiged\Users\Models\User;
 use Enraiged\Users\Services\CreateUserProfile;
 
 class RegisterRequest extends FormRequest
 {
-    use PasswordValidator, ValidationMessages, ValidationRules;
+    use ValidationMessages, ValidationPassword, ValidationRules;
 
     /**
      *  Return boolean true if the user has agreed.

@@ -27,7 +27,7 @@ class TableBuilder
             ? $this->query()
             : App::make($this->model)::query();
 
-        $this->build($query)
+        $this->builder($query)
             ->sort()
             ->filter()
             ->search()

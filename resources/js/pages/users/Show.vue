@@ -1,6 +1,6 @@
 <template>
     <main class="content main">
-        <page-header back-button :actions="actions" :heading="heading" :title="title"/>
+        <page-header back-button fixed :actions="actions" :heading="heading" :title="title"/>
         <section class="auto-margin container max-width-xl w-full">
             <page-messages :messages="messages" @dismiss="messages.splice($event, 1)"/>
             <user-summary class="shadow-1" :user="user"/>

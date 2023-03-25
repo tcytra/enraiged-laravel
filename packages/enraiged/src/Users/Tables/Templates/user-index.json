@@ -105,6 +105,13 @@
             "label": "Created",
             "sortable": true,
             "source": "users.created_at"
+        },
+        "is_active": {
+            "class": "text-center",
+            "custom": true,
+            "label": "Active",
+            "source": "users.is_active",
+            "sortable": true
         }
     },
     "exportable": {

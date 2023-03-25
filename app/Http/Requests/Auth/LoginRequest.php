@@ -41,7 +41,10 @@ class LoginRequest extends FormRequest
      */
     private function attempt()
     {
-        $primary_credentials = $this->only('email', 'password');
+        $primary_credentials = collect($this->only('email', 'password'))
+            ->merge(['is_active' => true])
+            ->toArray();
+
         $secondary_credentials = collect($primary_credentials)
             ->merge(['username' => $this->get('email')])
             ->except('email')

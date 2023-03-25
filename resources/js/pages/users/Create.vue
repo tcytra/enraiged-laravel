@@ -1,6 +1,6 @@
 <template>
     <main class="content main">
-        <page-header back-button :heading="page.heading" :title="page.title"/>
+        <page-header back-button fixed :heading="page.heading" :title="page.title"/>
         <section class="auto-margin container max-width-lg">
             <primevue-card>
                 <template #header>
