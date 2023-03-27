@@ -70,6 +70,6 @@ class AvatarPolicy
      */
     public function upload(User $user, Avatar $avatar)
     {
-        return $user->id === $avatar->avatarable->id;
+        return $user->can('update', $avatar->avatarable);
     }
 }
