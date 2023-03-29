@@ -1,6 +1,6 @@
 <?php
 
-namespace Enraiged\Profiles\Traits;
+namespace Enraiged\Profiles\Models\Traits;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory as IlluminateHasFactory;
 

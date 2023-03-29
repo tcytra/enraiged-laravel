@@ -2,18 +2,19 @@
 
 namespace Enraiged\Profiles\Models;
 
-use Enraiged\Profiles\Traits\HasAvatar;
-use Enraiged\Profiles\Traits\HasFactory;
+use Enraiged\Avatars\Contracts\AvatarableContract;
+use Enraiged\Avatars\Traits\Avatarable;
 use Enraiged\Support\Database\Traits\UserTracking;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Profile extends Model
+class Profile extends Model implements AvatarableContract
 {
     use Attributes\Initials,
         Attributes\Name,
         HasOne\User,
-        HasAvatar, HasFactory, SoftDeletes, UserTracking;
+        Traits\HasFactory,
+        Avatarable, SoftDeletes, UserTracking;
 
     /** @var  string  The database table name. */
     protected $table = 'profiles';

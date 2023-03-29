@@ -6,7 +6,7 @@ use Enraiged\Avatars\Models\Avatar;
 use Enraiged\Avatars\Services\GenerateAvatar;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 
-trait HasAvatar
+trait Avatarable
 {
     /**
      *  @return \Illuminate\Database\Eloquent\Relations\MorphOne
@@ -27,6 +27,8 @@ trait HasAvatar
     }
 
     /**
+     *  Call the service to generate the avatar for this model.
+     *
      *  @return void
      */
     public function generateAvatar()
