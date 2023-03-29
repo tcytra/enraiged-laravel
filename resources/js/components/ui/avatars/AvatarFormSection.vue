@@ -1,5 +1,5 @@
 <template>
-    <section class="auto-margin container max-width-lg">
+    <section>
          <primevue-card class="mb-3 shadow-1">
             <template #header>
                 <header class="header">

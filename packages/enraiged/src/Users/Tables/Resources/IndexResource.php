@@ -15,7 +15,7 @@ class IndexResource extends JsonResource
     /**
      *  Transform the resource collection into an array.
      *
-     *  @param  \App\Http\Requests\Users\TableRequest  $request
+     *  @param  \Illuminate\Http\Request  $request
      *  @return array
      */
     public function toArray($request): array

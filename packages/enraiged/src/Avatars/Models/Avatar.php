@@ -25,11 +25,6 @@ class Avatar extends Model
     /** @var  array  The attributes that aren't mass assignable. */
     protected $guarded = ['id'];
 
-    /** @var  array  The attributes that should be cast. */
-    protected $casts = [
-        'avatarable_id' => 'int',
-    ];
-
     /**
      *  Get the parent avatarable model.
      *
