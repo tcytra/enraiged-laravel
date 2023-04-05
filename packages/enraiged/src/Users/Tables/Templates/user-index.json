@@ -36,10 +36,7 @@
             "confirm": "Are you certain you wish to delete this user?",
             "icon": "pi pi-trash",
             "method": "delete",
-            "secure": [
-                { "method": "roleIs", "role": "Administrator" },
-                { "method": "isNotDeleted" }
-            ],
+            "secure": { "method": "isNotDeleted" },
             "tooltip": "Delete user",
             "type": "row"
         },
@@ -48,10 +45,7 @@
             "confirm": "Are you certain you wish to restore this user?",
             "icon": "pi pi-trash",
             "method": "patch",
-            "secure": [
-                { "method": "roleIs", "role": "Administrator" },
-                { "method": "isDeleted" }
-            ],
+            "secure": { "method": "isDeleted" },
             "tooltip": "Restore user",
             "type": "row"
         }
@@ -122,6 +116,7 @@
     },
     "filters": {
         "role_id": {
+            "clearable": true,
             "default": null,
             "options": {
                 "scope": "strictVisibility",
@@ -133,6 +128,7 @@
             "type": "select"
         },
         "deleted": {
+            "clearable": true,
             "options": {
                 "values": [
                     {"id": "Deleted", "name": "Deleted", "scope": "whereDeleted"}

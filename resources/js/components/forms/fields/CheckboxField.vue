@@ -2,7 +2,7 @@
     <headless-form-field v-slot:default="props" v-bind="$props">
         <div :class="field.before" v-if="field.before"/>
         <div class="control field checkbox align-items-center"
-            :class="[$attrs.class, field.class, labels]">
+            :class="[$attrs.class, field.class]">
             <label v-if="props.label" class="label" :for="id">
                 {{ props.label }}
             </label>
@@ -60,10 +60,6 @@ export default {
         id: {
             type: String,
             required: true,
-        },
-        labels: {
-            type: String,
-            default: null,
         },
         updating: {
             type: Boolean,

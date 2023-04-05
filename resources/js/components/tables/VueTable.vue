@@ -2,18 +2,11 @@
     <div :class="template.class">
         <div class="filter-controls grid m-0 p-card p-component vue-form" v-if="template.filters">
             <div class="filter col col-6 md:col-4 lg:col-3 xl:col-2" v-for="(filter, name) in template.filters">
-                <primevue-dropdown class="w-full" optionLabel="name" optionValue="id" show-clear
-                    v-model="filters[name]"
+                <dropdown-filter
+                    :field="filter"
+                    :form="filters"
                     :id="name"
-                    :options="filter.options.values"
-                    :placeholder="filter.placeholder"
-                    @update:modelValue="fetch">
-                    <template #option="props">
-                        <slot :name="props.option.slot" v-bind="props.option">
-                            <span :class="props.option.class">{{ props.option.name }}</span>
-                        </slot>
-                    </template>
-                </primevue-dropdown>
+                    @update:filterValue="fetch"/>
             </div>
         </div>
         <primevue-datatable class="p-datatable-sm" ref="datatable"
@@ -109,6 +102,7 @@
 </template>
 
 <script>
+import DropdownFilter from './filters/DropdownFilter.vue';
 import PrimevueButton from 'primevue/button/Button.vue';
 import PrimevueColumn from 'primevue/column/Column.vue';
 import PrimevueDatatable from 'primevue/datatable/DataTable.vue';
@@ -119,6 +113,7 @@ import PrimevueTooltip from 'primevue/tooltip/tooltip.cjs.js';
 
 export default {
     components: {
+        DropdownFilter,
         PrimevueButton,
         PrimevueColumn,
         PrimevueDatatable,

@@ -4,10 +4,11 @@ namespace App\Http\Requests\Users\Login;
 
 use Enraiged\Forms\Requests\FormRequest;
 use Enraiged\Users\Forms\Validation\Messages;
+use Enraiged\Users\Forms\Validation\Passwords;
 
 class UpdateRequest extends FormRequest
 {
-    use Messages;
+    use Messages, Passwords;
 
     /**
      *  Get the validation rules that apply to the request.

@@ -3,7 +3,7 @@
         v-bind="$props">
         <div :class="field.before" v-if="field.before"/>
         <div class="control field dropdown" v-show="show"
-            :class="[$attrs.class, field.class, labels]">
+            :class="[$attrs.class, field.class]">
             <label v-if="label" class="label" :for="id">
                 {{ label }}
             </label>
@@ -94,10 +94,6 @@ export default {
             type: Boolean,
             default: false,
         },
-        labels: {
-            type: String,
-            default: null,
-        },
         searchable: {
             type: Boolean,
             default: false,
@@ -132,8 +128,16 @@ export default {
     },
 
     methods: {
+        clear() {
+            const value = typeof this.field.default !== 'undefined'
+                ? this.field.default
+                : null;
+            // this.field.value = value;
+            this.form[this.id] = value;
+        },
         fetch() {
             this.loading = true;
+            this.options = [];
             return this.axios.get(this.field.options.uri, { params: this.params() })
                 .then(({ data }) => {
                     this.options = data;
@@ -146,8 +150,15 @@ export default {
             this.search = payload.value;
         },
         params() {
+            let params = {};
+            if (typeof this.field.options.params !== 'undefined') {
+                this.field.options.params.forEach((param) => {
+                    params[param] = this.form[param];
+                });
+            }
             return {
                 ...this.field.options.filters,
+                ...params,
                 limit: this.limit,
                 search: this.search,
             };

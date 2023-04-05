@@ -2,7 +2,7 @@
     <headless-form-field v-slot:default="{ disabled, error, label, placeholder, update }"
         v-bind="$props">
         <div :class="field.before" v-if="field.before"/>
-        <div class="control field text" :class="[$attrs.class, field.class, { confirm }, labels]">
+        <div class="control field text" :class="[$attrs.class, field.class, { confirm }]">
             <label v-if="label" class="label" :for="id">
                 {{ label }}
             </label>
@@ -77,10 +77,6 @@ export default {
         isSmall: {
             type: Boolean,
             default: false,
-        },
-        labels: {
-            type: String,
-            default: null,
         },
         unmask: {
             type: Boolean,

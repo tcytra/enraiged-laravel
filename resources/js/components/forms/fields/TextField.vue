@@ -3,7 +3,7 @@
         v-bind="$props">
         <div :class="field.before" v-if="field.before"/>
         <div class="control field text" v-show="show"
-            :class="[$attrs.class, field.class, labels]">
+            :class="[$attrs.class, field.class]">
             <label v-if="label" class="label" :for="id">
                 {{ label }}
             </label>
@@ -75,10 +75,6 @@ export default {
         isSmall: {
             type: Boolean,
             default: false,
-        },
-        labels: {
-            type: String,
-            default: null,
         },
         show: {
             type: Boolean,

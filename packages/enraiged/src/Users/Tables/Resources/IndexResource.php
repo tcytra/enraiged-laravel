@@ -2,13 +2,13 @@
 
 namespace Enraiged\Users\Tables\Resources;
 
-use App\Http\Resources\JsonResource;
 use Enraiged\Avatars\Resources\AvatarResource;
 use Enraiged\Support\Resources\DatetimeAttributeResource as Datetime;
 use Enraiged\Tables\Traits\ModelDeletedBackground;
 use Enraiged\Tables\Traits\ModelInactiveBackground;
+use Enraiged\Users\Resources\UserResource;
 
-class IndexResource extends JsonResource
+class IndexResource extends UserResource
 {
     use ModelDeletedBackground, ModelInactiveBackground;
 
@@ -20,25 +20,21 @@ class IndexResource extends JsonResource
      */
     public function toArray($request): array
     {
-        return [
-            '__' => $this->modelDeletedBackground() ?? $this->modelInactiveBackground(),
-            'id' => $this->id,
-            'avatar' => $this->avatar(),
-            'alias' => $this->profile->alias,
-            'active' => $this->is_active && is_null($this->deleted_at),
-            'email' => $this->email,
-            'first_name' => $this->profile->first_name,
-            'last_name' => $this->profile->last_name,
-            'name' => $this->profile->name,
-            'role' => $this->role(),
-            'salut' => $this->profile->salut,
-            'username' => $this->username,
-            'birthday' => $this->profile->birthdate,
-            'is_active' => $this->is_active,
-            'created' => Datetime::from($this)->createdAtDate(),
-            'deleted' => Datetime::from($this)->deletedAtDate(),
-            'actions' => $this->resource->actions,
-        ];
+        return collect(parent::toArray($request))
+            ->merge([
+                '__' => $this->modelDeletedBackground() ?? $this->modelInactiveBackground(),
+                'active' => $this->is_active && is_null($this->deleted_at),
+                'alias' => $this->profile->alias,
+                'birthday' => $this->profile->birthdate,
+                'first_name' => $this->profile->first_name,
+                'last_name' => $this->profile->last_name,
+                'role' => $this->role(),
+                'salut' => $this->profile->salut,
+                'created' => Datetime::from($this)->createdAtDate(),
+                'deleted' => Datetime::from($this)->deletedAtDate(),
+                'actions' => $this->resource->actions,
+            ])
+            ->toArray();
     }
 
     /**

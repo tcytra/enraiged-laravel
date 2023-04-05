@@ -1,5 +1,28 @@
 # Release Notes
 
+2023-04-05 : 0.2.5  
+Update: Various updates,corrections for avatars,passwords,assertions
+
+- Added Enraiged\Forms\Builder\FormBuilder::{remove,value}If() methods
+- Added Profile::name() method to return formatted first and last name
+- Added predis/predis to the composer.json
+- Added users.name table column; Populated via services and observers
+- Corrected issue enforcing avatar policies
+- Corrected issue enforcing password validation
+- Corrected issue booting Avatarable trait
+- Removed labels attribute from form builders,components (use class)
+- Renamed Enraiged\Avatars\Traits\HasAvatar to Avatarable
+- Renamed Enraiged\Files\Traits\HasFile to Attachable
+- Various updates to the dropdown form fields
+  - Added ability to define additional params for dropdown api fetches
+  - Ensure table dropdown filters are able to fetch from api source
+- Various updates to the security assertions system
+  - Added ability to assert security against env variable
+  - Added assertion filter to FormBuilder::assembleTemplateColumns()
+  - Ensure ability to enforce all|any of multiple assertions
+
+---
+
 2023-03-25 : 0.2.4  
 Update: Improved enraiged table actions handling; Various minor changes
 

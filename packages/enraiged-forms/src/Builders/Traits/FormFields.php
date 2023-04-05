@@ -72,12 +72,16 @@ trait FormFields
      *
      *  @param  string  $name
      *  @param  array   $params
-     *  @param  bool    $condition
+     *  @param  bool|\Closure  $condition
      *  @param  bool    $rewrite = false
      *  @return self
      */
     public function fieldIf($name, $params, $condition, $rewrite = false)
     {
+        if ($condition instanceof \Closure) {
+            $condition = $condition();
+        }
+
         if ($condition) {
             $this->field($name, $params, $rewrite);
         }
@@ -160,6 +164,27 @@ trait FormFields
         $populate = ['value' => $data];
 
         $this->field($name, $populate);
+
+        return $this;
+    }
+
+    /**
+     *  Explicity set the value for a specified field if the provided condition is true.
+     *
+     *  @param  string  $name
+     *  @param  mixed   $data
+     *  @param  bool|\Closure    $condition
+     *  @return self
+     */
+    public function valueIf($name, $data, $condition)
+    {
+        if ($condition instanceof \Closure) {
+            $condition = $condition();
+        }
+
+        if ($condition) {
+            $this->value($name, $data);
+        }
 
         return $this;
     }

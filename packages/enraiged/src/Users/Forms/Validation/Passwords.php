@@ -127,16 +127,16 @@ trait Passwords
             $validator->after(function ($validator) {
                 if (Auth::check()) {
                     if ($this->user()->currentPasswordIs($this->get('password'))) {
-                        $validator->errors()->add('password', $this->messages['enraiged.password.current']);
+                        $validator->errors()->add('password', $this->messages['password.current']);
                     }
 
                     if ($this->passwordHistory()) {
-                        $validator->errors()->add('password', $this->messages['enraiged.password.history']);
+                        $validator->errors()->add('password', $this->messages['password.history']);
                     }
                 }
 
                 if (!$this->passwordMinLength()) {
-                    $error = __($this->messages['enraiged.password.length'], [
+                    $error = __($this->messages['password.length'], [
                         'number' => config('enraiged.password.length'),
                     ]);
 
@@ -144,16 +144,7 @@ trait Passwords
                 }
 
                 if (!$this->passwordUppercase()) {
-                    $error = __($this->messages['enraiged.password.uppercase'], [
-                        'number' => config('enraiged.password.uppercase'),
-                        'plural' => config('enraiged.password.uppercase') > 1 ? 'letters' : 'letter',
-                    ]);
-
-                    $validator->errors()->add('password', $error);
-                }
-
-                if (!$this->passwordUppercase()) {
-                    $error = __($this->messages['enraiged.password.uppercase'], [
+                    $error = __($this->messages['password.uppercase'], [
                         'number' => config('enraiged.password.uppercase'),
                         'plural' => config('enraiged.password.uppercase') > 1 ? 'letters' : 'letter',
                     ]);
@@ -162,7 +153,7 @@ trait Passwords
                 }
 
                 if (!$this->passwordLowercase()) {
-                    $error = __($this->messages['enraiged.password.lowercase'], [
+                    $error = __($this->messages['password.lowercase'], [
                         'number' => config('enraiged.password.lowercase'),
                         'plural' => config('enraiged.password.lowercase') > 1 ? 'letters' : 'letter',
                     ]);
@@ -171,7 +162,7 @@ trait Passwords
                 }
 
                 if (!$this->passwordNumeric()) {
-                    $error = __($this->messages['enraiged.password.numeric'], [
+                    $error = __($this->messages['password.numeric'], [
                         'number' => config('enraiged.password.numeric'),
                         'plural' => config('enraiged.password.numeric') > 1 ? 'numbers' : 'number',
                     ]);
@@ -180,7 +171,7 @@ trait Passwords
                 }
 
                 if (!$this->passwordSpecial()) {
-                    $error = __($this->messages['enraiged.password.special'], [
+                    $error = __($this->messages['password.special'], [
                         'number' => config('enraiged.password.special'),
                         'plural' => config('enraiged.password.special') > 1 ? 'characters' : 'character',
                     ]);

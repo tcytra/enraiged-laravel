@@ -19,14 +19,15 @@ trait TableColumns
             : [];
 
         return collect($this->columns)
-            ->transform(function ($row, $index) {
-                $row['label'] = $this->columnLabel($index);
+            ->filter(fn ($column) => $this->assertSecure($column))
+            ->transform(function ($column, $index) {
+                $column['label'] = $this->columnLabel($index);
 
-                if (!key_exists('source', $row)) {
-                    $row['source'] = "{$this->table}.{$index}";
+                if (!key_exists('source', $column)) {
+                    $column['source'] = "{$this->table}.{$index}";
                 }
 
-                return $row;
+                return $column;
             })
             ->merge($actions)
             ->toArray();

@@ -4,6 +4,8 @@ namespace Enraiged;
 
 use Enraiged\Agreements\Models\Agreement;
 use Enraiged\Agreements\Observers\AgreementObserver;
+use Enraiged\Profiles\Models\Profile;
+use Enraiged\Profiles\Observers\ProfileObserver;
 use Enraiged\Users\Models\InternetAddress;
 use Enraiged\Users\Models\User;
 use Enraiged\Users\Observers\IpAddressObserver;
@@ -26,6 +28,8 @@ class EventServiceProvider extends ServiceProvider
         Agreement::observe(AgreementObserver::class);
 
         InternetAddress::observe(IpAddressObserver::class);
+
+        Profile::observe(ProfileObserver::class);
 
         User::observe(UserObserver::class);
     }

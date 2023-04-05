@@ -1,11 +1,9 @@
 <template>
     <div class="vue-form">
         <form @submit.prevent="submit"
-            :class="[
-                'form', template.class, labels, {'custom-actions': customActions, 'formgrid grid mb-3': formGrid}
-            ]">
+            :class="['form', template.class, {'custom-actions': customActions, 'formgrid grid': formGrid}]">
             <slot v-bind="{ form }">
-                <vue-form-section v-if="sections" v-for="(section, key) in sections"
+                <vue-form-section v-if="Object.keys(sections).length" v-for="(section, key) in sections"
                     :creating="creating"
                     :form="form"
                     :id="key"
@@ -13,10 +11,10 @@
                     :section="section"
                     :updating="updating">
                     <template v-if="section.custom" v-slot:[key]="props">
-                        <slot :name="key" v-bind="{ creating, labels, section, form, key, updating }"/>
+                        <slot :name="key" v-bind="{ creating, section, form, key, updating }"/>
                     </template>
                 </vue-form-section>
-                <vue-form-fields v-if="fields"
+                <vue-form-fields v-else-if="Object.keys(fields).length"
                     :creating="creating"
                     :fields="fields"
                     :form="form"
@@ -66,21 +64,9 @@ export default {
             type: Object,
             required: true,
         },
-        toggleLabels: {
-            type: Boolean,
-            default: false,
-        },
         updating: {
             type: Boolean,
             default: false,
-        },
-    },
-
-    computed: {
-        labels() {
-            return this.template.labels === false
-                ? null
-                : this.template.labels || 'vertical';
         },
     },
 

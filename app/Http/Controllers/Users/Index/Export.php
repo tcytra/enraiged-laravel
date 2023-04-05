@@ -22,6 +22,10 @@ class Export extends Controller
 
         UserIndex::from($request)->export();
 
-        return response()->json(['success' => 'Export started.']);
+        $message = config('queue.default') === 'sync'
+            ? 'Export completed.'
+            : 'Export started.';
+
+        return response()->json(['success' => $message]);
     }
 }

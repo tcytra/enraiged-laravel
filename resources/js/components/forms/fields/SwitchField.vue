@@ -6,7 +6,6 @@
             :class="[
                 $attrs.class,
                 field.class,
-                labels,
                 { 'switch-first': field.switchFirst || switchFirst },
             ]">
             <label v-if="label" class="label" :for="id">
@@ -64,10 +63,6 @@ export default {
         id: {
             type: String,
             required: true,
-        },
-        labels: {
-            type: String,
-            default: null,
         },
         show: {
             type: Boolean,

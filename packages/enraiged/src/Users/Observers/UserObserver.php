@@ -20,6 +20,12 @@ class UserObserver
     {
         $user->notify(new UserWelcome);
 
+        if ($user->profile && $user->profile->name !== $user->name) {
+            (object) $user
+                ->fill(['name' => $user->profile->name])
+                ->save();
+        }
+
         $require_agreement = $user->must_agree_to_terms === true
             && $user->has_agreed_to_terms === false;
 

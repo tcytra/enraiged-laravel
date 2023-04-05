@@ -113,7 +113,7 @@ class Exporter implements FromQuery
             : App::make($table->model)::query();
 
         (object) $table
-            ->build($query)
+            ->builder($query)
             ->sort()
             ->filter()
             ->search();

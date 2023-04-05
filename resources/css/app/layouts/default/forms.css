@@ -104,6 +104,7 @@
             }
         }
 
+        &:not(.horizontal) .field.control,
         &.vertical .field.control, .vertical .field.control, .field.control.vertical, .horizontal .field.control.vertical {
           align-items:      flex-start;
           flex-direction:   column;

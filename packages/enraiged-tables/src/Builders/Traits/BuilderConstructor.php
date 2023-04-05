@@ -112,6 +112,14 @@ trait BuilderConstructor
     }
 
     /**
+     *  @return string
+     */
+    protected function route($name, $params = []): string
+    {
+        return route($name, $params, config('enraiged.tables.absolute_uris'));
+    }
+
+    /**
      *  Return the table user.
      *
      *  @return \Enraiged\Users\Models\User

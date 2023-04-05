@@ -46,7 +46,7 @@ class CreateUserProfile
 
             $user_parameters = collect($this->parameters)
                 ->only($this->user->getFillable())
-                ->merge(['profile_id' => $profile->id])
+                ->merge(['profile_id' => $profile->id, 'name' => $profile->name])
                 ->toArray();
 
             $this->user

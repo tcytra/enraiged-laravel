@@ -19,7 +19,7 @@ trait Avatarable
     /**
      *  @return void
      */
-    public static function bootHasAvatar()
+    public static function bootAvatarable()
     {
         self::created(function ($model) {
             $model->generateAvatar();

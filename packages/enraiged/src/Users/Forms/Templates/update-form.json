@@ -14,7 +14,7 @@
             "method": "emit"
         }
     },
-    "class": "horizontal shadow-1",
+    "class": "vertical shadow-1",
     "fields": {
         "administration": {
             "heading": "Administrative Options",
@@ -24,12 +24,6 @@
             },
             "type": "section",
             "fields": {
-                "is_active": {
-                    "class": "col-6",
-                    "default": true,
-                    "label": "Active",
-                    "type": "switch"
-                },
                 "role_id": {
                     "class": "col-6",
                     "label": "Role",
@@ -39,6 +33,12 @@
                     },
                     "placeholder": "Optional",
                     "type": "select"
+                },
+                "is_active": {
+                    "class": "col-6",
+                    "default": true,
+                    "label": "Active",
+                    "type": "switch"
                 }
             }
         },

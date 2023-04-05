@@ -22,4 +22,14 @@ return new class extends Migration
             $table->foreign('agreement_id')->references('id')->on('agreements');
         });
     }
+
+    /**
+     *  Reverse the migrations.
+     *
+     *  @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('agreement_user');
+    }
 };

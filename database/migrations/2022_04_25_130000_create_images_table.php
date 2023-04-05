@@ -13,15 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('avatars', function (Blueprint $table) {
+        Schema::create('images', function (Blueprint $table) {
             $table->id();
-            $table->morphs('avatarable');
+            $table->morphs('imageable');
             $table->integer('color')->unsigned()->nullable();
 
             $this->track_created($table);
             $this->track_updated($table);
 
-            $table->index(['avatarable_id', 'avatarable_type'], 'avatarable');
+            $table->index(['imageable_id', 'imageable_type'], 'imageable');
         });
     }
 
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('avatars');
+        Schema::dropIfExists('images');
     }
 };
