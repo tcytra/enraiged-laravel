@@ -82,6 +82,12 @@ When complete, build the app for service:
 npm run build
 ```
 
+Apply the patch:
+
+```sh
+patch -Nr - --version-control none -p0 < patches/primevue-datatable-correct-rowgroup-colspan.patch
+```
+
 ---
 
 ## Serve the application

@@ -1,0 +1,23 @@
+--- node_modules/primevue/datatable/TableBody.vue
++++ node_modules/primevue/datatable/TableBody.vue
+@@ -6 +6 @@
+-                    <td :colspan="columnsLength - 1">
++                    <td :colspan="columnsLength">
+
+--- node_modules/primevue/datatable/datatable.cjs.js
++++ node_modules/primevue/datatable/datatable.cjs.js
+@@ -1296 +1296 @@
+-                    colspan: $options.columnsLength - 1
++                    colspan: $options.columnsLength
+
+--- node_modules/primevue/datatable/datatable.esm.js
++++ node_modules/primevue/datatable/datatable.esm.js
+@@ -1296 +1296 @@
+-                    colspan: $options.columnsLength - 1
++                    colspan: $options.columnsLength
+
+--- node_modules/primevue/datatable/datatable.js
++++ node_modules/primevue/datatable/datatable.js
+@@ -1286 +1286 @@
+-                        colspan: $options.columnsLength - 1
++                        colspan: $options.columnsLength
