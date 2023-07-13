@@ -37,6 +37,16 @@ trait TableFilters
                     }
                 }
 
+                if ($filter['type'] === 'daterange') {
+                    if (key_exists('maximum', $filter)) {
+                        $filter['maximum'] = datetime($filter['maximum'], 'Y-m-d');
+                    }
+
+                    if (key_exists('minimum', $filter)) {
+                        $filter['minimum'] = datetime($filter['minimum'], 'Y-m-d');
+                    }
+                }
+
                 return $filter;
             })
             ->toArray();

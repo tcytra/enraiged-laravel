@@ -11,7 +11,7 @@ if (!function_exists('blade')) {
      *
      *  @param  string  $template
      *  @param  array   $parameters = []
-     *  @return string;
+     *  @return string
      */
     function blade($template, $parameters = [])
     {
@@ -128,6 +128,7 @@ if (!function_exists('message')) {
      *  @param  string  $body
      *  @param  string  $severity = 'info'  Can be 'danger', 'info', or 'warn'.
      *  @param  bool    $closable
+     *  @return object
      */
     function message(string $body, string $severity = 'info', bool $closable = true)
     {

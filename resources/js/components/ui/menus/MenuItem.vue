@@ -29,7 +29,7 @@ export default {
         MenuGroup,
     },
 
-    inject: ['i18n'],
+    inject: ['i18n', 'meta'],
 
     props: {
         item: {
@@ -48,7 +48,9 @@ export default {
 
     computed: {
         current() {
-            return this.$page.url === this.item.route;
+            return this.item.route === '/'
+                ? (this.$page.url === '/' || this.$page.url === this.meta.app_home)
+                : this.$page.url.indexOf(this.item.route) === 0;
         },
         page() {
             return this.$page.url.substr(1);

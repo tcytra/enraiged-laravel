@@ -1,8 +1,9 @@
 <template>
-    <headless-form-field v-slot:default="{ dirty, disabled, error, label, placeholder, update }"
+    <headless-form-field v-slot:default="{ error, isDirty, isDisabled, isHidden, label, placeholder, update }"
         v-bind="$props">
+        <div class="col-12 line-break" v-if="field.break"><hr class=""></div>
         <div :class="field.before" v-if="field.before"/>
-        <div class="control field text" v-show="show"
+        <div class="control field text" v-show="show && !isHidden"
             :class="[$attrs.class, field.class]">
             <label v-if="label" class="label" :for="id">
                 {{ label }}
@@ -10,13 +11,13 @@
             <primevue-input-text class="w-full" type="text" ref="field" focus
                 v-model="form[id]"
                 :class="{
-                    'is-creating': dirty && creating,
-                    'is-updating': dirty && updating,
+                    'is-creating': isDirty && creating,
+                    'is-updating': isDirty && updating,
                     'p-inputtext-lg': isLarge,
                     'p-inputtext-sm': isSmall,
                     'p-invalid': error,
                 }"
-                :disabled="disabled"
+                :disabled="isDisabled"
                 :id="id"
                 :placeholder="placeholder"
                 :type="text"
@@ -33,7 +34,7 @@
 <script>
 import HeadlessFormField from '@/components/forms/headless/FormField.vue';
 import PrimevueInputText from 'primevue/inputtext/InputText.vue';
-import PrimevueTooltip from 'primevue/tooltip/tooltip.cjs.js';
+import PrimevueTooltip from 'primevue/tooltip/tooltip.esm.js';
 
 export default {
     inheritAttrs: false,

@@ -59,29 +59,40 @@ trait EloquentBuilder
                 }
 
                 if (key_exists($index, $filters) && $filters[$index]) {
-                    $options = key_exists('options', $filter)
-                        ? $this->selectOptions($index, $filter['options'], false)
-                        : [];                    
+                    $source = key_exists('source', $filter)
+                        ? $filter['source']
+                        : "{$this->table}.{$index}";
+                    $type = $this->filters[$index]['type'];
 
-                    $value = $filters[$index];
+                    if ($type === 'daterange') {
+                        [$first, $final] = $filters[$index];
 
-                    $match = count($options)
-                        ? collect($options['values'])->where('id', $value)->first()
-                        : false;
+                        if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $first) && preg_match('/^\d{4}-\d{2}-\d{2}$/', $final)) {
+                            $this->builder->whereBetween($source, [$first, $final]);
+                        }
+                    }
 
-                    if ($match && key_exists('scope', $match)) {
-                        $scope = $match['scope'];
-                        $this->builder->{$scope}();
+                    if ($type === 'select') {
+                        $options = key_exists('options', $filter)
+                            ? $this->selectOptions($index, $filter['options'], false)
+                            : [];                    
 
-                    } else {
-                        $source = key_exists('source', $filter)
-                            ? $filter['source']
-                            : "{$this->table}.{$index}";
+                        $value = $filters[$index];
 
-                        if (gettype($value) === 'array') {
-                            $this->builder->whereIn($source, $value);
+                        $match = count($options)
+                            ? collect($options['values'])->where('id', $value)->first()
+                            : false;
+
+                        if ($match && key_exists('scope', $match)) {
+                            $scope = $match['scope'];
+                            $this->builder->{$scope}();
+
                         } else {
-                            $this->builder->where($source, $value);
+                            if (gettype($value) === 'array') {
+                                $this->builder->whereIn($source, $value);
+                            } else {
+                                $this->builder->where($source, $value);
+                            }
                         }
                     }
                 }
@@ -180,14 +191,23 @@ trait EloquentBuilder
     {
         $dir = $this->request()->get('dir') < 0 ? 'desc' : 'asc';
         $sort = $this->request()->get('sort');
+        $column = $sort ? $this->column($sort) : null;
 
-        if ($sort && $this->columnKeys()->contains($sort)) {
-            $source = $this->columnSource($sort);
+        if ($column && key_exists('sortable', $column) && $column['sortable'] !== false) {
+            $sortable = $column['sortable'];
+            $source = key_exists('source', $column) ? $column['source'] : "{$this->table}.{$sort}";
 
             if (gettype($source) === 'array') {
                 foreach ($source as $each) {
-                    $this->builder->orderBy($each, $dir);
+                    if ($sortable === 'count') {
+                        $this->builder->withCount($each)->orderBy("{$each}_count", $dir);
+                    } else {
+                        $this->builder->orderBy($each, $dir);
+                    }
                 }
+
+            } else if ($sortable === 'count') {
+                $this->builder->withCount($source)->orderBy("{$source}_count", $dir);
 
             } else {
                 $this->builder->orderBy($source, $dir);

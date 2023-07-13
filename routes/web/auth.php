@@ -62,7 +62,7 @@ Route::namespace('\App\Http\Controllers\Auth')
                             ->name('verification.verify');
                     });
 
-                Route::delete('logout', 'Login\Destroy')->name('logout');
+                Route::post('logout', 'Login\Destroy')->name('logout');
             });
 
     });

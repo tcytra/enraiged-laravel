@@ -11,7 +11,6 @@
 
 <script>
 import { computed } from 'vue';
-import { format as dateFnsFormat } from 'date-fns'
 import AuthState from './states/AuthState.vue';
 import GuestState from './states/GuestState.vue';
 import ConfirmDialog from 'primevue/confirmdialog/ConfirmDialog.vue';
@@ -51,7 +50,7 @@ export default {
             return ['sm', 'xs'].includes(this.clientSize);
         },
         isTablet() {
-            return ['lg', 'md'].includes(this.clientSize);
+            return this.clientSize === 'md';
         },
     },
 
@@ -85,7 +84,16 @@ export default {
         },
 
         errorHandler(error) {
-            // console.log(error);
+            // const { message, response } = error;
+            const { data, status } = error.response;
+            switch (status) {
+                case 422:
+                    this.flashWarning(data.message);
+                    break;
+                case 500:
+                    this.flashError(data.message);
+                    break;
+            }
         },
 
         eventsAttach() {
@@ -120,19 +128,8 @@ export default {
             this.flashMessages.push({ severity: 'warn', content: message, expiry: 3000 });
         },
 
-        formatDate(value, format) {
-            if (typeof format === 'undefined') {
-                format = 'yyyy-MM-dd';
-            }
-            return dateFnsFormat(value, format);
-        },
-
         isSuccess(status) {
             return status >= 200 && status < 300;
-        },
-
-        newDate(date) {
-            return new Date(`${date} 00:00:00`);
         },
 
         padNumber(value) {
@@ -156,12 +153,10 @@ export default {
             flashInfo: this.flashInfo,
             flashSuccess: this.flashSuccess,
             flashWarning: this.flashWarning,
-            formatDate: this.formatDate,
             i18n: this.$t,
             isMobile: computed(() => this.isMobile),
             isSuccess: this.isSuccess,
             isTablet: computed(() => this.isTablet),
-            newDate: this.newDate,
         };
     },
 

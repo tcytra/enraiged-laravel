@@ -72,7 +72,7 @@ class TableBuilder
             'columns' => $this->assembleTemplateColumns(),
             'empty' => $this->get('empty'),
             'id' => $identity,
-            'exportable' => $this->get('exportable'),
+            'exportable' => $this->user->can('export', $this->model) ? $this->get('exportable') : null,
             'key' => $this->get('key'),
             'pagination' => $this->get('pagination'),
             'state' => $this->get('state'),

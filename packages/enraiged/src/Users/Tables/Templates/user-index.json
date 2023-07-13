@@ -52,56 +52,37 @@
     },
     "columns": {
         "avatar": {
-            "class": "text-center",
+            "class": "text-center width-64",
             "custom": true,
-            "exportable": false
+            "exportable": false,
+            "source": "avatar"
         },
-        "salut": {
-            "label": "Salutation",
-            "source": "profiles.salut"
-        },
-        "first_name": {
-            "label": "First Name",
-            "source": "profiles.first_name",
-            "searchable": true,
-            "sortable": true
-        },
-        "last_name": {
-            "label": "Last Name",
+        "name": {
+            "label": "Name",
             "searchable": true,
             "sortable": true,
-            "source": "profiles.last_name"
+            "source": ["profiles.first_name", "profiles.last_name"]
         },
         "email": {
             "label": "Email",
             "searchable": true,
             "sortable": true
         },
-        "alias": {
-            "label": "Alias",
-            "searchable": true,
-            "sortable": true,
-            "source": "profiles.alias"
-        },
         "role": {
+            "class": "width-160",
             "label": "Role",
             "searchable": true,
             "source": "roles.name"
         },
-        "birthday": {
-            "class": "text-right",
-            "label": "Birthday",
-            "sortable": true,
-            "source": "profiles.birthdate"
-        },
-        "created": {
-            "class": "text-right",
+        "created_at": {
+            "class": "width-160",
+            "custom": true,
             "label": "Created",
             "sortable": true,
             "source": "users.created_at"
         },
         "is_active": {
-            "class": "text-center",
+            "class": "text-center width-96",
             "custom": true,
             "label": "Active",
             "source": "users.is_active",

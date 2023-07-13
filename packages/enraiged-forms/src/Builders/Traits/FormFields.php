@@ -5,6 +5,61 @@ namespace Enraiged\Forms\Builders\Traits;
 trait FormFields
 {
     /**
+     *  Explicity set the disabled attribute for a specified field or array of fields.
+     *
+     *  @param  array|string  $name
+     *  @return self
+     */
+    public function disableField($name)
+    {
+        if (gettype($name) === 'array') {
+            foreach ($name as $each) {
+                $this->disableField($each);
+            }
+        } else {
+            $this->field($name, ['disabled' => true]);
+        }
+
+        return $this;
+    }
+
+    /**
+     *  Explicity set the disabled attribute for a specified field to the provided condition.
+     *
+     *  @param  string  $name
+     *  @param  bool|\Closure $condition
+     *  @return self
+     */
+    public function disabledIf($name, $condition)
+    {
+        if ($condition instanceof \Closure) {
+            $condition = $condition();
+        }
+
+        $this->field($name, ['disabled' => $condition]);
+
+        return $this;
+    }
+
+    /**
+     *  Explicity set the disabled attribute for a specified field to the inverse of the provided condition.
+     *
+     *  @param  string  $name
+     *  @param  bool|\Closure $condition
+     *  @return self
+     */
+    public function disabledUnless($name, $condition)
+    {
+        if ($condition instanceof \Closure) {
+            $condition = $condition();
+        }
+
+        $this->field($name, ['disabled' => !$condition]);
+
+        return $this;
+    }
+
+    /**
      *  Get or set a form field.
      *
      *  @param  string  $name
@@ -173,10 +228,11 @@ trait FormFields
      *
      *  @param  string  $name
      *  @param  mixed   $data
-     *  @param  bool|\Closure    $condition
+     *  @param  bool|\Closure $condition
+     *  @param  mixed   $else = null
      *  @return self
      */
-    public function valueIf($name, $data, $condition)
+    public function valueIf($name, $data, $condition, $else = null)
     {
         if ($condition instanceof \Closure) {
             $condition = $condition();
@@ -184,6 +240,8 @@ trait FormFields
 
         if ($condition) {
             $this->value($name, $data);
+        } else if (func_num_args() === 4) {
+            $this->value($name, $else);
         }
 
         return $this;

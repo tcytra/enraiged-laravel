@@ -123,7 +123,7 @@ trait PopulateFields
         }
 
         //  handle the field disabled state, if necessary
-        if (property_exists($field, 'disabled') && gettype($field->disabled) !== 'bool') {
+        if (property_exists($field, 'disabled') && gettype($field->disabled) !== 'boolean') {
             $this->populateDisabledAttribute($name, $field);
         }
 

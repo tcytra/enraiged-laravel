@@ -24,6 +24,15 @@
         .h2, .h3, .h4 {
         }
 
+        .line-break {
+          margin:           0 0 .5rem;
+            hr {
+              background:       var(--surface-400);
+              border:           0;
+              height:           1px;
+            }
+        }
+
         .section {
           margin-bottom:    1rem;
         }

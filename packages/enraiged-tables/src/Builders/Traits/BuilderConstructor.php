@@ -6,6 +6,7 @@ use Enraiged\Support\Collections\RequestCollection;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Symfony\Component\HttpKernel\Exception\PreconditionFailedHttpException;
 
 trait BuilderConstructor
 {
@@ -37,7 +38,8 @@ trait BuilderConstructor
      *  @param  array   $parameters = []
      *  @return void
      *
-     *  @todo   Validate the request.
+     *  @throws \Symfony\Component\HttpKernel\Exception\PreconditionFailedHttpException
+     *  @todo   Validate the configuration.
      */
     public function __construct(Request $request, array $parameters = [])
     {
@@ -46,7 +48,11 @@ trait BuilderConstructor
 
         $this->load(config('enraiged.tables.template'));
 
-        if ($this->template && File::exists($this->template)) { // todo: option to ignore config template
+        if ($this->template) {
+            if (!File::exists($this->template)) {
+                throw new PreconditionFailedHttpException('A table template is defined but the file does not exist.');
+            }
+
             $this->load(json_decode(file_get_contents($this->template), true));
         }
 
@@ -103,11 +109,15 @@ trait BuilderConstructor
     /**
      *  Create and return a Resource from a provided model.
      *
-     *  @param  \Illuminate\Database\Eloquent\Model  $model
-     *  @return 
+     *  @param  \Illuminate\Database\Eloquent\Model|null  $model
+     *  @return \Illuminate\Http\Resources\Json\JsonResource|bool
      */
-    public function resource($model)
+    public function resource($model = null)
     {
+        if (is_null($model)) {
+            return !is_null($this->resource);
+        }
+
         return $this->resource::from($model);
     }
 

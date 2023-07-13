@@ -3,6 +3,7 @@
         <header class="header profile">
             <avatar size="xx" :avatar="user.avatar" @click="get('/my/profile/avatar')"/>
             <h4 class="name">{{ user.profile.name }}</h4>
+            <h5 class="email">{{ user.email }}</h5>
         </header>
         <ul class="options">
             <li class="action item" @click="get('/my/profile')">
@@ -72,7 +73,7 @@ export default {
             this.$inertia.get(url);
         },
         logout() {
-            router.delete('/logout');
+            router.post('/logout');
         },
         match(...urls) {
             let currentUrl = this.$page.url.substr(1)

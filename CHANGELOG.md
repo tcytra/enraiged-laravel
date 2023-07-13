@@ -1,5 +1,34 @@
 # Release Notes
 
+2023-07-11 : 0.3.0  
+Update: Upgraded laravel; Corrections for SSR; Various improvements
+
+- Added Enraiged TableBuilder::{column,columExists}() methods
+- Added ability to define model for table action security assertions
+- Added ability to configure tables to order by sortable count
+- Added ability to define a horizontal rule before a form field
+- Added ability to define field disabledIf,disabledUnless conditions
+- Added ability to define field hiddenIf,hiddenUnless conditions
+  - Add definition to the json template to process client-side
+  - Or, add method call server-side to process in the form builder
+- Added 'daterange' type table filter
+- Added exim data reader for geo coords in uploaded images
+- Added patch for correcting primevue import lines for ssr use
+- Added patch for issue with primevue datatables rowgroup colspan
+  - https://github.com/primefaces/primevue/issues/3685
+- Added 'enraiged:fix-ssr' command to enable ssr with primevue
+- Corrected 419 error issue handling logout requests
+- Corrected issue handling field disabled attribute when provided
+- Corrected issue searching table columns with compound sources
+- Corrected various issues with the user password validation
+- Ensure table export options not displayed unless permitted
+- Improved table global actions processing
+- Removed neccessity of errors object in the js form system
+- Updated to the Laravel 10 framework
+  - https://laravel.com/docs/10.x/releases
+
+---
+
 2023-04-05 : 0.2.5  
 Update: Various updates,corrections for avatars,passwords,assertions
 

@@ -38,7 +38,7 @@ class User extends Authenticatable
 
     /** @var  array  The attributes that should be hidden for serialization. */
     protected $hidden = [
-        'is_active', 'is_hidden', 'is_protected', 'password', 'remember_token',
+        'password', 'remember_token',
     ];
 
     /** @var  array  The attributes that should be cast. */

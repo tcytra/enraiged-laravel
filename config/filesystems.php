@@ -36,6 +36,12 @@ return [
             'throw' => false,
         ],
 
+        'node' => [
+            'driver' => 'local',
+            'root' => base_path('node_modules'),
+            'throw' => false,
+        ],
+
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),

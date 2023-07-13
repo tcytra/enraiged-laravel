@@ -1,10 +1,21 @@
 
+.cursor-default {
+  cursor:           default;
+}
+
 .p-component {
   font-family:      $font-family-primary;
 }
 
 .p-component-overlay {
   background-color: rgba(255, 255, 255, 0.4)
+}
+
+.p-input-disabled {
+  opacity:        .6;
+    &::placeholder {
+      color:            #6c757d;
+    }
 }
 
 .p-paginator {
@@ -26,6 +37,30 @@
 }
 .justify-self-start {
   justify-self:     start;
+}
+
+.m-px {
+  margin:           1px !important;
+}
+.mb-px {
+  margin-bottom:    1px !important;
+}
+.ml-px {
+  margin-left:      1px !important;
+}
+.mr-px {
+  margin-right:     1px !important;
+}
+.mt-px {
+  margin-top:       1px !important;
+}
+.my-px {
+  margin-left:      1px !important;
+  margin-right:     1px !important;
+}
+.my-px {
+  margin-bottom:    1px !important;
+  margin-top:       1px !important;
 }
 
 @media screen and (min-width: $break-large) {

@@ -3,6 +3,10 @@
 
 .relative-overflow { overflow:hidden; position:relative; }
 
+.width-quarter { width: 25%; }
+.width-full { width: 100%; }
+.width-half { width: 50%; }
+
 .max-height-16 { max-height:  1rem; }
 .max-height-24 { max-height:  1.5rem; }
 .max-height-32 { max-height:  2rem; }

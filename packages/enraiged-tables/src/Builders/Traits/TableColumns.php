@@ -19,18 +19,42 @@ trait TableColumns
             : [];
 
         return collect($this->columns)
-            ->filter(fn ($column) => $this->assertSecure($column))
-            ->transform(function ($column, $index) {
-                $column['label'] = $this->columnLabel($index);
+            ->filter(fn ($row) => $this->assertSecure($row))
+            ->transform(function ($row, $index) {
+                $row['label'] = $this->columnLabel($index);
 
-                if (!key_exists('source', $column)) {
-                    $column['source'] = "{$this->table}.{$index}";
+                if (!key_exists('source', $row)) {
+                    $row['source'] = "{$this->table}.{$index}";
                 }
 
-                return $column;
+                return $row;
             })
             ->merge($actions)
             ->toArray();
+    }
+
+    /**
+     *  Return the column parameters identified by index.
+     *
+     *  @param  string  $index
+     *  @return array|null
+     */
+    public function column(string $index): ?array
+    {
+        return $this->columnExists($index)
+            ? $this->columns[$index]
+            : null;
+    }
+
+    /**
+     *  Determine if a specified column key exists.
+     *
+     *  @param  string  $index
+     *  @return bool
+     */
+    public function columnExists(string $index): bool
+    {
+        return collect($this->columns)->keys()->contains($index);
     }
 
     /**
@@ -38,7 +62,7 @@ trait TableColumns
      *
      *  @return array
      */
-    public function columnKeys()
+    public function columnKeys(): array
     {
         return collect($this->columns)->keys()->flatten();
     }
@@ -49,7 +73,7 @@ trait TableColumns
      *  @param  string  $key
      *  @return string|null
      */
-    public function columnLabel($key)
+    public function columnLabel($key): ?string
     {
         $columns = collect($this->columns);
 
@@ -70,14 +94,20 @@ trait TableColumns
      *  @param  string  $key
      *  @return string|null
      */
-    public function columnSource($key)
+    public function columnSource($key): ?string
     {
         $columns = collect($this->columns);
 
         if ($columns->has($key)) {
-            return key_exists('source', $columns->get($key))
+            $source = key_exists('source', $columns->get($key))
                 ? $columns->get($key)['source']
                 : "{$this->table}.{$key}";
+
+            if (gettype($source) === 'array') {
+                return 'concat('.collect($source)->join(",' ',").')';
+            }
+
+            return $source;
         }
 
         return null;
@@ -88,17 +118,12 @@ trait TableColumns
      *
      *  @return array
      */
-    public function exportableColumns()
+    public function exportableColumns(): array
     {
-        $columns = [];
-
-        foreach ($this->columns as $key => $parameters) {
-            if (!key_exists('exportable', $parameters) || $parameters['exportable'] !== false) {
-                $columns[$key] = $this->columnLabel($key);
-            }
-        }
-
-        return $columns;
+        return collect($this->columns)
+            ->filter(fn ($column) => !key_exists('exportable', $column) || $column['exportable'] !== false)
+            ->transform(fn ($column) => $column['label'])
+            ->toArray();
     }
 
     /**
@@ -106,7 +131,7 @@ trait TableColumns
      *
      *  @return array
      */
-    public function searchableColumns()
+    public function searchableColumns(): array
     {
         $columns = [];
 

@@ -1,7 +1,8 @@
 <template>
     <headless-form-field v-slot:default="props" v-bind="$props">
+        <div class="col-12 line-break" v-if="field.break"><hr class=""></div>
         <div :class="field.before" v-if="field.before"/>
-        <div class="control field checkbox align-items-center"
+        <div class="control field checkbox align-items-center" v-show="!props.isHidden"
             :class="[$attrs.class, field.class]">
             <label v-if="props.label" class="label" :for="id">
                 {{ props.label }}
@@ -9,6 +10,7 @@
             <primevue-checkbox :id="id" ref="field"
                 v-model="props.form[id]"
                 :binary="field.binary || binary"
+                :disabled="props.isDisabled"
                 @update:modelValue="props.update(); $emit('update:modelValue', $event)"/>
             <div class="error p-error" v-if="props.error">
                 <i class="pi pi-exclamation-circle" v-tooltip.top="props.error"></i>
@@ -22,7 +24,7 @@
 <script>
 import HeadlessFormField from '@/components/forms/headless/FormField.vue';
 import PrimevueCheckbox from 'primevue/checkbox/Checkbox.vue';
-import PrimevueTooltip from 'primevue/tooltip/tooltip.cjs.js';
+import PrimevueTooltip from 'primevue/tooltip/tooltip.esm.js';
 
 export default {
     inheritAttrs: false,

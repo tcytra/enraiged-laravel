@@ -1,0 +1,35 @@
+--- node_modules/primevue/datatable/TableBody.vue
++++ node_modules/primevue/datatable/TableBody.vue
+@@ -13 +13 @@
+-                    <td :colspan="columnsLength - 1" v-bind="{ ...getColumnPT('root'), ...getColumnPT('bodyCell') }">
++                    <td :colspan="columnsLength" v-bind="{ ...getColumnPT('root'), ...getColumnPT('bodyCell') }">
+@@ -105 +105 @@
+-                    <td :colspan="columnsLength - 1" v-bind="{ ...getColumnPT('root'), ...getColumnPT('bodyCell') }">
++                    <td :colspan="columnsLength" v-bind="{ ...getColumnPT('root'), ...getColumnPT('bodyCell') }">
+
+--- node_modules/primevue/datatable/datatable.cjs.js
++++ node_modules/primevue/datatable/datatable.cjs.js
+@@ -1938 +1938 @@
+-      colspan: $options.columnsLength - 1
++      colspan: $options.columnsLength
+@@ -2076 +2076 @@
+-      colspan: $options.columnsLength - 1
++      colspan: $options.columnsLength
+
+--- node_modules/primevue/datatable/datatable.esm.js
++++ node_modules/primevue/datatable/datatable.esm.js
+@@ -1908 +1908 @@
+-      colspan: $options.columnsLength - 1
++      colspan: $options.columnsLength
+@@ -2046 +2046 @@
+-      colspan: $options.columnsLength - 1
++      colspan: $options.columnsLength
+
+--- node_modules/primevue/datatable/datatable.js
++++ node_modules/primevue/datatable/datatable.js
+@@ -1910 +1910 @@
+-          colspan: $options.columnsLength - 1
++          colspan: $options.columnsLength
+@@ -2048 +2048 @@
+-          colspan: $options.columnsLength - 1
++          colspan: $options.columnsLength

@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 class MenuBuilder
 {
     use Security\AssertSecure,
-        Security\RoleAssertions;
+        Security\RoleAssertions,
+        Security\UserAssertions;
 
     /** @var  object  The menu items collection. */
     protected $menu;
@@ -82,11 +83,7 @@ class MenuBuilder
                     return false;
                 }
 
-                if (key_exists('secure', $item)) {
-                    return $this->assertSecure($item);
-                }
-
-                return true;
+                return $this->assertSecure($item);
             });
 
         if ($menu) {

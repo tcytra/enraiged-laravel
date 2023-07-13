@@ -8,13 +8,8 @@ use Enraiged\Support\Resources\DatetimeAttributeResource as Datetime;
 class UserResource extends JsonResource
 {
     use Traits\Avatar,
-        Traits\Profile;
-
-    /** @var  bool  Whether or not to include the avatar in the resource. */
-    protected $with_avatar = true;
-
-    /** @var  bool  Whether or not to include the avatar in the resource. */
-    protected $with_profile = true;
+        Traits\Profile,
+        Traits\Role;
 
     /**
      *  Transform the resource collection into an array.
@@ -26,15 +21,16 @@ class UserResource extends JsonResource
     {
         $resource = [
             'id' => $this->id,
-            'avatar' => $this->avatar(),
-            'profile' => $this->profile(),
             'email' => $this->email,
+            'name' => $this->profile->name,
+            'role' => $this->role->name,
             'username' => $this->username,
             'is_active' => $this->is_active,
             'is_myself' => $this->is_myself,
             'language' => $this->language,
             'timezone' => $this->timezone,
             'created' => Datetime::from($this)->attribute('created_at'),
+            'created_at' => $this->created_at,
         ];
 
         if ($this->with_avatar) {
@@ -45,7 +41,11 @@ class UserResource extends JsonResource
             $resource['profile'] = $this->profile();
         }
 
-        if ($request->session()->has('impersonate')) {
+        if ($this->with_role) {
+            $resource['role'] = $this->role();
+        }
+
+        if (session_status() === PHP_SESSION_ACTIVE && $request->session()->has('impersonate')) {
             $resource['is_impersonating'] = true;
         }
 
@@ -58,29 +58,5 @@ class UserResource extends JsonResource
         }
 
         return $resource;
-    }
-
-    /**
-     *  Prevent the resource from including the avatar.
-     *
-     *  @return self
-     */
-    public function withoutAvatar()
-    {
-        $this->with_avatar = false;
-
-        return $this;
-    }
-
-    /**
-     *  Prevent the resource from including the profile.
-     *
-     *  @return self
-     */
-    public function withoutProfile()
-    {
-        $this->with_profile = false;
-
-        return $this;
     }
 }

@@ -23,13 +23,13 @@ $color:                 var(--text-color);
 $background-danger:     #ffcdd2;
 $background-info:       #b3e5fc;
 $background-primary:    #bbc7cd; // var(--bluegray-200);
-$background-secondary:  #fbc791; // var(--orange-200);
+$background-secondary:  #bfcbd1;
 $background-success:    #c8e6c9;
 $background-warning:    #ffecb3;
 $color-danger:          #f44336;
 $color-info:            #0288d1;
 $color-primary:         #526a76; // var(--bluegray-600);
-$color-secondary:       #d06900; // var(--orange-600);
+$color-secondary:       #607d8b;
 $color-success:         #689f38;
 $color-warning:         #fbc02d;
 

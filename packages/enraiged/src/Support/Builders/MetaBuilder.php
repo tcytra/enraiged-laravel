@@ -2,6 +2,7 @@
 
 namespace Enraiged\Support\Builders;
 
+use App\Providers\RouteServiceProvider;
 use Enraiged\Agreements\Models\Agreement;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -53,6 +54,7 @@ class MetaBuilder
     {
         $this->meta = $this->meta
             ->merge([
+                'app_home' => RouteServiceProvider::HOME,
                 'app_host' => url(''),
                 'app_name' => config('app.name'),
                 'app_version' => 'Laravel v'.\Illuminate\Foundation\Application::VERSION.' (PHP v'.PHP_VERSION.')',

@@ -20,6 +20,7 @@
 @import 'app/layouts/default/actions.css';
 @import 'app/layouts/default/avatars.css';
 @import 'app/layouts/default/forms.css';
+@import 'app/layouts/default/images.css';
 @import 'app/layouts/default/lists.css';
 @import 'app/layouts/default/menus.css';
 @import 'app/layouts/default/menus/auth.css';
@@ -42,8 +43,10 @@
 //  the app primevue adjustments
 @import 'app/primevue.css';
 @import 'app/primevue/avatars.css';
+@import 'app/primevue/buttons.css';
 @import 'app/primevue/cards.css';
 @import 'app/primevue/dataviews.css';
+@import 'app/primevue/dialog.css';
 @import 'app/primevue/forms.css';
 @import 'app/primevue/panels.css';
 @import 'app/primevue/tables.css';

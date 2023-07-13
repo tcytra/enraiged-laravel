@@ -1,19 +1,7 @@
 
-.p-button {
-    &.p-button-sm {
-      font-size:        .825rem;
-      height:           2rem;
-      width:            2rem;
-    }
-    &.p-button-xs {
-      font-size:        .625rem;
-      width:            1.5rem;
-        &.p-button-icon-only.p-button-rounded {
-          height:           1.5rem;
-        }
-        .pi {
-          font-size:        .625rem;
-        }
+.bg-white.dropdown {
+    .p-dropdown, .p-dropdown-label {
+      background:       white !important;
     }
 }
 
@@ -27,6 +15,16 @@
 
 .p-inputswitch {
   min-width:        3rem;
+}
+
+.p-dropdown-label.p-placeholder {
+  opacity:          .5;
+}
+
+.p-dropdown-label.p-placeholder
+.p-inputtextarea,
+.p-inputtext {
+  font-family:      $font-family-primary;
 }
 
 /*.p-inputtextarea,

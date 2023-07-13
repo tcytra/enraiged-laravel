@@ -2,8 +2,6 @@
 
 namespace Enraiged\Users\Tables\Resources;
 
-use Enraiged\Avatars\Resources\AvatarResource;
-use Enraiged\Support\Resources\DatetimeAttributeResource as Datetime;
 use Enraiged\Tables\Traits\ModelDeletedBackground;
 use Enraiged\Tables\Traits\ModelInactiveBackground;
 use Enraiged\Users\Resources\UserResource;
@@ -11,6 +9,9 @@ use Enraiged\Users\Resources\UserResource;
 class IndexResource extends UserResource
 {
     use ModelDeletedBackground, ModelInactiveBackground;
+
+    /** @var  bool  Whether or not to include the role in the resource. */
+    protected $with_role = false;
 
     /**
      *  Transform the resource collection into an array.
@@ -24,36 +25,8 @@ class IndexResource extends UserResource
             ->merge([
                 '__' => $this->modelDeletedBackground() ?? $this->modelInactiveBackground(),
                 'active' => $this->is_active && is_null($this->deleted_at),
-                'alias' => $this->profile->alias,
-                'birthday' => $this->profile->birthdate,
-                'first_name' => $this->profile->first_name,
-                'last_name' => $this->profile->last_name,
-                'role' => $this->role(),
-                'salut' => $this->profile->salut,
-                'created' => Datetime::from($this)->createdAtDate(),
-                'deleted' => Datetime::from($this)->deletedAtDate(),
                 'actions' => $this->resource->actions,
             ])
             ->toArray();
-    }
-
-    /**
-     *  @return array
-     */
-    private function avatar()
-    {
-        $this->profile->load('avatar');
-
-        return AvatarResource::from($this->profile->avatar);
-    }
-
-    /**
-     *  @return string|null
-     */
-    private function role()
-    {
-        return $this->role
-            ? $this->role->name
-            : null;
     }
 }

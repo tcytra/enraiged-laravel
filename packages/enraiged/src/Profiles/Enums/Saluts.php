@@ -2,7 +2,7 @@
 
 namespace Enraiged\Profiles\Enums;
 
-use LaravelEnso\Enums\Services\Enum;
+use Enraiged\Enums\Services\Enum;
 
 class Saluts extends Enum
 {

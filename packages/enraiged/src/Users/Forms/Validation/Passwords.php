@@ -2,7 +2,6 @@
 
 namespace Enraiged\Users\Forms\Validation;
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -18,14 +17,17 @@ trait Passwords
     }
 
     /**
+     *  @param  User|null  $user
+     *
      *  @return bool
      */
-    protected function passwordHistory(): bool
+    protected function passwordHistory($user = null): bool
 	{
         $config = config('enraiged.password.history');
+        $user = $user ?? $this->user();
 
-		if ($config && Auth::check()) {
-            return $this->user()->passwordHistory()
+		if ($config) {
+            return $user->passwordHistory()
                 ->orderBy('created_at', 'desc')
                 ->limit(config('enraiged.password.history'))
                 ->pluck('password')
@@ -125,12 +127,16 @@ trait Passwords
     {
         if ($this->filled('password')) {
             $validator->after(function ($validator) {
-                if (Auth::check()) {
-                    if ($this->user()->currentPasswordIs($this->get('password'))) {
+                $creating = $this->method() === 'POST';
+                $updating = $this->method() === 'PATCH' && !is_null($this->user);
+                $user = $updating ? auth_model()::find($this->user) : null;
+
+                if ($user) {
+                    if ($user->currentPasswordIs($this->get('password'))) {
                         $validator->errors()->add('password', $this->messages['password.current']);
                     }
 
-                    if ($this->passwordHistory()) {
+                    if ($this->passwordHistory($user)) {
                         $validator->errors()->add('password', $this->messages['password.history']);
                     }
                 }

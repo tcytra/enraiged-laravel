@@ -41,6 +41,8 @@ return [
             ],
         ],
 
+        'empty' => 'There are no records to display.',
+
         'key' => 'id',
 
         'pagination' => [
@@ -48,6 +50,8 @@ return [
             'page' => 1,
             'rows' => 10,
         ],
+
+        'state' => false,
 
     ],
 

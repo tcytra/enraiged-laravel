@@ -2,7 +2,7 @@
 
 namespace Enraiged\Agreements\Enums;
 
-use LaravelEnso\Enums\Services\Enum;
+use Enraiged\Enums\Services\Enum;
 
 class AgreementStatus extends Enum
 {

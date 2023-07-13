@@ -50,7 +50,7 @@ import PrimevueButton from 'primevue/button/Button.vue';
 import PrimevueColorpicker from 'primevue/colorpicker/ColorPicker.vue';
 import PrimevueFileupload from 'primevue/fileupload/FileUpload.vue';
 import PrimevueInputtext from 'primevue/inputtext/InputText.vue';
-import PrimevueTooltip from 'primevue/tooltip/tooltip.cjs.js';
+import PrimevueTooltip from 'primevue/tooltip/tooltip.esm.js';
 
 export default {
     components: {

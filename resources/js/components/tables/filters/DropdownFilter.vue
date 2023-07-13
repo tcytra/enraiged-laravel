@@ -23,17 +23,12 @@
 
 <script>
 import PrimevueDropdown from 'primevue/dropdown/Dropdown.vue';
-import PrimevueTooltip from 'primevue/tooltip/tooltip.cjs.js';
 
 export default {
     inheritAttrs: false,
 
     components: {
         PrimevueDropdown,
-    },
-
-    directives: {
-        tooltip: PrimevueTooltip,
     },
 
     props: {

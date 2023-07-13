@@ -1,0 +1,41 @@
+
+.p-image-mask.p-component-overlay {
+    .image-information {
+      bottom:           0;
+      min-height:       $app-block-size;
+      position:         fixed;
+      width:            100%;
+      z-index:          999;
+
+        &::before {
+          background-color: $black;
+          content:          "";
+          display:          block;
+          min-height:       $app-block-size;
+          opacity:          .25;
+          position:         absolute;
+          top:              0;
+          transition:       opacity .2s linear;
+          width:            inherit;
+        }
+
+        >* {
+          color:            var(--surface-600);
+          position:         relative;
+          transition:       color .2s linear;
+        }
+
+        &:hover {
+            &::before {
+              opacity:          .5;
+            }
+            >* {
+              color:            var(--surface-300);
+            }
+        }
+    }
+
+    .p-image-toolbar {
+      z-index:          999;
+    }
+}

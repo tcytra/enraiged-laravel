@@ -8,7 +8,7 @@ trait Exportable
     protected int $chunksize;
 
     /** @var  array  The exportable parameters. */
-    protected array $exportable;
+    protected $exportable;
 
      /** @var  string  The exported file location. */
     protected string $exportpath;

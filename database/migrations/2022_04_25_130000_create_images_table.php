@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('images', function (Blueprint $table) {
             $table->id();
             $table->morphs('imageable');
-            $table->integer('color')->unsigned()->nullable();
 
             $this->track_created($table);
             $this->track_updated($table);

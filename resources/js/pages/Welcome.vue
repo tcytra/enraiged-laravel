@@ -1,8 +1,8 @@
 <template>
     <main class="relative flex align-items-center justify-content-center min-height-screen p-0">
         <div class="block fixed top-0 right-0 p-2" v-if="meta.allow_login">
-            <a href="/login" class="m-1 text-sm text-gray-300 underline">Log in</a>
-            <a href="/register" class="m-1 text-sm text-gray-300 underline" v-if="meta.allow_registration">Register</a>
+            <Link href="/login" class="m-1 text-sm text-gray-300 underline">Log in</Link>
+            <Link href="/register" class="m-1 text-sm text-gray-300 underline" v-if="meta.allow_registration">Register</Link>
         </div>
 
         <div class="max-width-lg auto-margin sm:px-2 lg:px-4">
@@ -80,6 +80,7 @@
 </template>
 
 <script>
+import { Link } from '@inertiajs/vue3';
 import App from '@/layouts/App.vue';
 import PageHeader from '@/components/ui/pages/PageHeader.vue';
 
@@ -87,6 +88,7 @@ export default {
     layout: App,
 
     components: {
+        Link,
         PageHeader,
     },
 

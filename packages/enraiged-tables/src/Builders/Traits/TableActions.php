@@ -27,34 +27,32 @@ trait TableActions
      *  @param  array   $parameters
      *  @return array
      */
-    private function actionForRow($model, $index, $parameters)
+    private function actionForRow($model, $index, $parameters): array
     {
+        $action = key_exists('action', $parameters)
+            ? $parameters['action']
+            : $index;
+
+        $model = key_exists('model', $parameters)
+            ? $parameters['model']
+            : $model;
+
         if (!key_exists('permission', $parameters)) {
-            $parameters['permission'] = false;
+            $parameters['permission'] = $this->assertSecure($parameters, $model) && $this->user->can($action, $model);
         }
 
-        if (key_exists('method', $parameters) && $parameters['method'] === 'emit') {
-            $parameters['permission'] = true;
+        $route = key_exists('route', $parameters)
+            ? $parameters['route']
+            : preg_replace('/\.+/', '.', "{$this->prefix}.{$index}");
 
-        } else {
-            $route = key_exists('route', $parameters)
-                ? $parameters['route']
-                : preg_replace('/\.+/', '.', "{$this->prefix}.{$index}");
+        if (Route::has($route) && !key_exists('uri', $parameters) && $parameters['permission']) {
+            $parameters['uri'] = route($route, $model->{$this->key}, config('enraiged.tables.absolute_uris'));
 
-            if (Route::has($route)) {
-                $action = key_exists('action', $parameters) ? $parameters['action'] : $index;
-                $parameters['permission'] = $this->user->can($action, $model);
+            if (!key_exists('method', $parameters)) {
+                $method = Route::get($route)->methods[0];
 
-                if (!key_exists('uri', $parameters) && $parameters['permission']) {
-                    $parameters['uri'] = route($route, $model->{$this->key}, config('enraiged.tables.absolute_uris'));
-
-                    if (!key_exists('method', $parameters)) {
-                        $method = Route::get($route)->methods[0];
-
-                        if ($method !== 'GET') {
-                            $parameters['method'] = strtolower($method);
-                        }
-                    }
+                if ($method !== 'GET') {
+                    $parameters['method'] = strtolower($method);
                 }
             }
         }
@@ -68,16 +66,18 @@ trait TableActions
      *  @param  \Illuminate\Database\Eloquent\Model  $model
      *  @return array
      */
-    public function actionsForRow($model)
+    public function actionsForRow($model): array
     {
         $actions = [];
 
-        foreach ($this->actions as $action => $parameters) {
+        foreach ($this->actions as $index => $parameters) {
             if (key_exists('type', $parameters) && $parameters['type'] === 'row') {
-                $parameters = $this->actionForRow($model, $action, $parameters);
+                $parameters = $this->actionForRow($model, $index, $parameters);
 
-                if ($this->assertSecure($parameters, $model)) {
-                    $actions[$action] = $parameters;
+                if ($parameters['permission']) {
+                    $actions[$index] = collect($parameters)
+                        ->except(['permission', 'route', 'secure', 'secureAll', 'secureAny'])
+                        ->toArray();
                 }
             }
         }
@@ -88,32 +88,41 @@ trait TableActions
     /**
      *  Return the table row actions for the provided resource.
      *
-     *  @param  \Illuminate\Database\Eloquent\Model  $model
      *  @return array
      */
-    public function assembleTemplateActions($model = null)
+    public function assembleTemplateActions()
     {
         $actions = [];
 
-        foreach ($this->actions as $action => $parameters) {
+        foreach ($this->actions as $index => $parameters) {
             if (!key_exists('type', $parameters) || $parameters['type'] === 'table') {
-                $route = key_exists('route', $parameters)
-                    ? $parameters['route']
-                    : preg_replace('/\.+/', '.', "{$this->prefix}.{$action}");
+                $action = key_exists('action', $parameters)
+                    ? $parameters['action']
+                    : $index;
 
-                if (Route::has($route)) {
-                    $parameters['permission'] = $this->user->can($action, $model ?? $this->model);
+                $model = key_exists('model', $parameters)
+                    ? $parameters['model']
+                    : $this->model;
 
-                    if (!key_exists('uri', $parameters)) {
+                $parameters['permission'] = $this->user->can($action, $model ?? $this->model);
+
+                if ($parameters['permission']) {
+                    $route = key_exists('route', $parameters)
+                        ? $parameters['route']
+                        : preg_replace('/\.+/', '.', "{$this->prefix}.{$action}");
+
+                    if (Route::has($route) && !key_exists('uri', $parameters)) {
                         $parameters['uri'] = route(
                             $route,
                             [],
                             config('enraiged.tables.absolute_uris')
                         );
                     }
-                }
 
-                $actions[$action] = $parameters;
+                    if ($this->assertSecure($parameters, $model)) {
+                        $actions[$index] = $parameters;
+                    }
+                }
             }
         }
 

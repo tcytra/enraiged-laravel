@@ -47,6 +47,45 @@ class UserIndex extends TableBuilder implements ProvidesDefaultSort, ProvidesTab
      */
     public function query(): Builder
     {
+        //return $this->nonResourceBuild();
+
         return User::reportable();
     }
+
+    /**
+     *  This is for reference/demo; Handling builders without a laravel resource.
+     *
+     *  @return \Illuminate\Database\Eloquent\Builder
+     *
+    private function nonResourceBuild($columns): Builder
+    {
+        $avatars = url(config('enraiged.avatars.storage'));
+        $columns = [
+            'avatars.id as avatar',
+            'avatars.color as avatar_color',
+            'files.name as avatar_file_name',
+            'profiles.first_name',
+            'profiles.last_name',
+            'roles.id as role_id',
+            'roles.name as role_name',
+            'users.created_at',
+            'users.deleted_at',
+            'users.id',
+            'users.is_active',
+            'users.email',
+            'users.profile_id',
+            "concat('{$avatars}/',avatars.id) as avatar_file_url",
+            "concat(profiles.first_name, ' ', profiles.last_name) as profile_name",
+        ];
+
+        return User::selectRaw(collect($columns)->join(','))
+            ->join('avatars', fn ($join) => $join->on('avatars.avatarable_id', '=', 'users.profile_id')
+                ->where('avatars.avatarable_type', '=', config('enraiged.profiles.model')))
+            ->join('profiles', 'profiles.id', '=', 'users.profile_id')
+            ->join('roles', 'roles.id', '=', 'users.role_id')
+            ->leftJoin('files', fn ($join) => $join->on('files.attachable_id', '=', 'avatars.id'))
+                ->where('files.attachable_type', '=', config('enraiged.avatars.model'))
+                ->orWhereNull('files.attachable_type')
+            ->where('is_hidden', false);
+    }*/
 }

@@ -72,6 +72,6 @@ trait AllowImpersonation
             return true;
         }
 
-        return $user->role->isNot(Roles::Administrator) && !$user->outranks($this);
+        return !$user->outranks($this);
     }
 }

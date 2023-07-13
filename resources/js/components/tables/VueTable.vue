@@ -1,12 +1,18 @@
 <template>
     <div :class="template.class">
         <div class="filter-controls grid m-0 p-card p-component vue-form" v-if="template.filters">
-            <div class="filter col col-6 md:col-4 lg:col-3 xl:col-2" v-for="(filter, name) in template.filters">
-                <dropdown-filter
+            <div class="filter col-12" v-for="(filter, name) in template.filters" :key="name"
+                :class="['md:col-6', 'lg:col-4', 'xl:col-3', filter.class]">
+                <daterange-filter v-if="filter.type === 'daterange'"
                     :field="filter"
                     :form="filters"
                     :id="name"
-                    @update:filterValue="fetch"/>
+                    @update:filterValue="fetch" />
+                <dropdown-filter v-if="filter.type === 'select'"
+                    :field="filter"
+                    :form="filters"
+                    :id="name"
+                    @update:filterValue="fetch" />
             </div>
         </div>
         <primevue-datatable class="p-datatable-sm" ref="datatable"
@@ -17,6 +23,7 @@
             :lazy="true"
             :loading="loading"
             :paginator="true"
+            :responsive-layout="responsiveLayout"
             :row-class="rowClass"
             :rows="pagination.rows"
             :rows-per-page-options="template.pagination.options"
@@ -25,7 +32,7 @@
             @page="page($event)"
             @sort="sort($event)">
             <template #header>
-                <div class="col controls-bar flex-order-1 lg:flex-order-1">
+                <div class="col controls-bar flex-order-1">
                     <primevue-button icon="pi pi-sync" class="table-fetch p-button-secondary mr-1"
                         v-tooltip.top="i18n('Refresh this data')"
                         @click="fetch()"/>
@@ -36,60 +43,64 @@
                         :options="template.pagination.options"
                         @change="rows($event)"/>
                 </div>
-                <div class="col controls-bar flex-order-2 lg:flex-order-3 justify-content-end">
-                    <div class="table-export p-inputgroup width-112 ml-2" v-if="template.exportable">
-                        <primevue-dropdown v-model="exportable"
-                            :options="template.exportable.options"/>
-                        <primevue-button class="p-button-secondary" icon="pi pi-cloud-download"
-                            v-tooltip.top="i18n('Export this data')"
-                            :disabled="!records || !records.length"
-                            @click="download()"/>
+                <div class="col controls-bar flex-order-2 justify-content-end"
+                    :class="['lg:flex-order-3']">
+                    <div class="table-export width-112 ml-2" v-if="template.exportable">
+                        <div class="p-inputgroup">
+                            <primevue-dropdown v-model="exportable"
+                                :options="template.exportable.options"/>
+                            <primevue-button class="p-button-secondary" icon="pi pi-cloud-download"
+                                v-tooltip.top="i18n('Export this data')"
+                                :disabled="!records || !records.length"
+                                @click="download()"/>
+                        </div>
                     </div>
-                    <primevue-button class="create-button ml-2 pl-2"
-                        v-if="template.actions.create && template.actions.create.permission"
-                        v-tooltip.top="i18n(template.actions.create.tooltip)"
-                        :class="[
-                            template.actions.create.class,
-                            {'p-button-icon-only': !template.actions.create.label},
-                        ]"
-                        :disabled="!template.actions.create.permission"
-                        :icon="template.actions.create.icon"
-                        :label="template.actions.create.label"
-                        @click="action('create', template.actions.create)"/>
-                </div>
-                <div class="search-bar p-inputgroup col-12 flex-order-3 lg:col-4 lg:flex-order-2">
-                    <span class="p-inputgroup-addon">
-                        <i class="pi pi-search"></i>
+                    <span v-for="(button, index) in template.actions" :key="index">
+                        <primevue-button
+                            v-tooltip.top="i18n(button.tooltip)"
+                            :class="['ml-2 pl-2', button.class, {'p-button-icon-only': !button.label}]"
+                            :disabled="button.disabled"
+                            :icon="button.icon"
+                            :label="button.label"
+                            @click="action(name, button)" />
                     </span>
-                    <primevue-inputtext v-model="search" :placeholder="i18n('Search for')"/>
-                    <primevue-button icon="pi pi-times" class="p-button-secondary"
-                        v-tooltip.top="'Clear the search'"
-                        :disabled="!search || !search.length"
-                        @click="search = null"/>
+                </div>
+                <div class="search-bar col-12 flex-order-3" v-if="searchable"
+                    :class="['lg:col-4 lg:flex-order-2']">
+                    <div class="p-inputgroup">
+                        <span class="p-inputgroup-addon">
+                            <i class="pi pi-search"></i>
+                        </span>
+                        <primevue-inputtext v-model="search" :placeholder="i18n('Search for')"/>
+                        <primevue-button icon="pi pi-times" class="p-button-secondary"
+                            v-tooltip.top="'Clear the search'"
+                            :disabled="!search || !search.length"
+                            @click="search = null"/>
+                    </div>
                 </div>
             </template>
             <template #empty>
                 {{ i18n(template.empty || 'No records found') }}
             </template>
-            <primevue-column v-for="(column, name, index) in columns"
+            <primevue-column v-for="(column, name) in columns"
                 :class="column.class"
                 :field="name"
                 :header="column.label"
                 :key="name"
-                :sortable="column.sortable">
+                :sortable="column.sortable && column.sortable !== false">
                 <template #body="column" v-if="column.custom">
                     <slot :name="name" :data="column.data"/>
                 </template>
             </primevue-column>
-            <primevue-column v-if="template.columns.actions" key="actions"
-                class="actions text-center"
-                field="actions"
+            <primevue-column v-if="template.columns.actions"
+                class="actions text-center" field="actions" key="actions"
+                :class="[ actionsClass ]"
                 :header="i18n('Actions')"
                 v-bind="$props">
                 <template #body="props">
                     <primevue-button class="p-button-rounded p-button-sm p-button-text"
                         :class="button.class"
-                        :disabled="typeof button.permission === 'boolean' && button.permission === false"
+                        :disabled="button.disabled"
                         :icon="button.icon"
                         :key="name"
                         v-for="(button, name) in props.data.actions"
@@ -102,24 +113,24 @@
 </template>
 
 <script>
+import DaterangeFilter from './filters/DaterangeFilter.vue';
 import DropdownFilter from './filters/DropdownFilter.vue';
 import PrimevueButton from 'primevue/button/Button.vue';
 import PrimevueColumn from 'primevue/column/Column.vue';
 import PrimevueDatatable from 'primevue/datatable/DataTable.vue';
 import PrimevueDropdown from 'primevue/dropdown/Dropdown.vue';
 import PrimevueInputtext from 'primevue/inputtext/InputText.vue';
-import PrimevueRow from 'primevue/row/Row.vue';
-import PrimevueTooltip from 'primevue/tooltip/tooltip.cjs.js';
+import PrimevueTooltip from 'primevue/tooltip/tooltip.esm.js';
 
 export default {
     components: {
+        DaterangeFilter,
         DropdownFilter,
         PrimevueButton,
         PrimevueColumn,
         PrimevueDatatable,
         PrimevueDropdown,
         PrimevueInputtext,
-        PrimevueRow,
     },
 
     directives: {
@@ -137,9 +148,17 @@ export default {
     ],
 
     props: {
+        actionsClass: {
+            type: String,
+            default: null,
+        },
         pageReportTemplate: {
             type: String,
             default: '{first} - {last} / {totalRecords}',
+        },
+        responsiveLayout: {
+            type: String,
+            default: 'stack',
         },
         template: {
             type: Object,
@@ -183,6 +202,12 @@ export default {
                 ? (this.pagination.page * this.pagination.rows) - this.pagination.rows
                 : 0;
         },
+        searchable() {
+            const columns = this.template.columns;
+            return Object.keys(this.template.columns)
+                .filter((name) => columns[name].searchable)
+                .length > 0;
+        },
         table() {
             return this.ready
                 ? this.$refs.datatable
@@ -190,14 +215,20 @@ export default {
         },
     },
 
-    async mounted() {
-        this.ready = true;
+    created() {
         this.exportable = this.template.exportable ? this.template.exportable.default : null;
         if (this.template.state && this.template.id && localStorage[this.template.id]) {
             const state = JSON.parse(localStorage[this.template.id]);
             this.filters = state.filters;
             this.pagination = state.pagination;
             this.search = state.search;
+        }
+    },
+
+    mounted() {
+        this.ready = true;
+        if (this.template.state && this.template.id && localStorage[this.template.id]) {
+            const state = JSON.parse(localStorage[this.template.id]);
             this.table.d_sortField = state.pagination.sort;
             this.table.d_sortOrder = state.pagination.dir;
             localStorage.removeItem(this.template.id);
@@ -240,11 +271,14 @@ export default {
                     accept: () => this.action(name, button, props, true),
                 });
             } else {
+                const method = button.method || 'get';
+                if (method === 'emit') {
+                    this.$emit(name, props.data);
+                } else
                 if (button.uri && button.uri.match(/\/api/)) {
-                    const method = button.method || 'get';
                     this.api(button.uri, method.toLowerCase());
                 } else {
-                    this.actionHandler(button, 'button:clicked');
+                    this.actionHandler(button, name);
                 }
             }
         },
@@ -332,7 +366,7 @@ export default {
         },
 
         rowClass(data) {
-            return data.__ !== 'undefined'
+            return typeof data.__ !== 'undefined'
                 ? `background-${data.__}`
                 : null;
         },

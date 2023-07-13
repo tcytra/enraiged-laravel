@@ -9,12 +9,13 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-//use Symfony\Component\HttpFoundation\File\File as SymfonyFile;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class File extends Model
 {
-    use Attributes\Type,
+    use Attributes\Storage,
+        Attributes\Type,
         CreatedBy;
 
     /** @var  string  The database table name. */
@@ -83,15 +84,21 @@ class File extends Model
      *  Return the resource file.
      *
      *  @return \Symfony\Component\HttpFoundation\StreamedResponse
+     *  @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
     public function inline(): StreamedResponse
     {
+        if (is_null($this->path)) {
+            throw new NotFoundHttpException(i18n('The requested file does not exist.'));
+        }
+
         return Storage::response($this->path);
     }
 
     /**
-     *  
-     *  @param  UploadedFile $file
+     *  Store the uploaded file to the configured directory.
+     *
+     *  @param  \Illuminate\Http\UploadedFile  $file
      *  @return self
      *  @throws type
      */
@@ -105,11 +112,12 @@ class File extends Model
             }
 
             $extension = $file->guessExtension();
-            $hashname = uhash();
+            $original = $file->getClientOriginalName();
+            $hashname = sha1($original.microtime());
             $filename = "{$hashname}.{$extension}";
 
             $parameters = [
-                'name' => $file->getClientOriginalName(),
+                'name' => $original,
                 'path' => "{$folder}/{$filename}",
                 'size' => $file->getSize(),
                 'mime' => $file->getMimeType(),

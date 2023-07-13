@@ -18,6 +18,9 @@ class AuthServiceProvider extends ServiceProvider
 
         \Enraiged\Profiles\Models\Profile::class
             => \Enraiged\Profiles\Policies\ProfilePolicy::class,
+
+        \Enraiged\Users\Models\User::class
+            => \Enraiged\Users\Policies\UserPolicy::class,
     ];
 
     /**

@@ -89,7 +89,7 @@ import PrimevueButton from 'primevue/button/Button.vue';
 import PrimevueCard from 'primevue/card/Card.vue';
 import PrimevueDataview from 'primevue/dataview/DataView.vue';
 import PrimevueDataviewLayoutOptions from 'primevue/dataviewlayoutoptions/DataViewLayoutOptions.vue';
-import PrimevueTooltip from 'primevue/tooltip/tooltip.cjs.js';
+import PrimevueTooltip from 'primevue/tooltip/tooltip.esm.js';
 
 export default {
     layout: App,

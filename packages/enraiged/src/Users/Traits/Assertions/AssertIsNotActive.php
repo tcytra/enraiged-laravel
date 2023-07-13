@@ -7,7 +7,7 @@ use Enraiged\Users\Models\User;
 trait AssertIsNotActive
 {
     /**
-     *  Assert a user is deleted.
+     *  Assert a user is not active.
      *
      *  @param  object  $secure
      *  @param  \Enraiged\Users\Models\User  $user

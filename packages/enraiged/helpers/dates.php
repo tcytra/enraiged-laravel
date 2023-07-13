@@ -448,7 +448,7 @@ function timestamp($datetime = null)
  */
 function timezone()
 {
-    return user()->exists && !empty(user()->timezone)
+    return user() && !empty(user()->timezone)
         ? user()->timezone
         : config('enraiged.app.timezone');
 }

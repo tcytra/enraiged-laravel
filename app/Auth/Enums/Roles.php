@@ -2,7 +2,7 @@
 
 namespace App\Auth\Enums;
 
-use LaravelEnso\Enums\Services\Enum;
+use Enraiged\Enums\Services\Enum;
 
 final class Roles extends Enum
 {

@@ -1,0 +1,17 @@
+
+.p-dialog {
+  background-color: $white;
+
+    .p-dialog-header {
+      background-color: var(--bluegray-100);
+      margin-bottom:    1rem;
+      padding:          1rem;
+    }
+    .p-dialog-content {
+      padding:          0 1rem;
+    }
+    .p-dialog-footer {
+      margin-top:       1rem;
+      padding:          1rem;
+    }
+}

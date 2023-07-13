@@ -17,7 +17,7 @@
                   padding-right:    0;
                 }
 
-                .p-inputtext {
+                .p-button, .p-inputtext {
                   font-size:        .925rem;
                   padding:          .375rem;
                 }
@@ -94,6 +94,9 @@
 
         .p-datatable-tbody {
             > tr {
+                &.p-rowgroup-header {
+                  background-color: var(--surface-b);
+                }
                 &.background-danger {
                   background-color: lighten($background-danger, 5%) !important;
                 }

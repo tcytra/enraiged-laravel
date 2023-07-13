@@ -1,0 +1,18 @@
+
+.p-button {
+    &.p-button-sm {
+      font-size:        .825rem;
+      height:           2rem !important;
+      width:            2rem !important;
+    }
+    &.p-button-xs {
+      font-size:        .625rem;
+      width:            1.5rem;
+        &.p-button-icon-only.p-button-rounded {
+          height:           1.5rem;
+        }
+        .pi {
+          font-size:        .625rem;
+        }
+    }
+}

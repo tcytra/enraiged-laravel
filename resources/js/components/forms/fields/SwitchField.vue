@@ -1,8 +1,9 @@
 <template>
-    <headless-form-field v-slot:default="{ dirty, error, label, update }"
+    <headless-form-field v-slot:default="{ error, isDirty, isDisabled, isHidden, label, update }"
         v-bind="$props">
+        <div class="col-12 line-break" v-if="field.break"><hr class=""></div>
         <div :class="field.before" v-if="field.before"/>
-        <div class="control field switch" v-show="show"
+        <div class="control field switch" v-show="show && !isHidden"
             :class="[
                 $attrs.class,
                 field.class,
@@ -14,10 +15,11 @@
             <primevue-switch ref="field"
                 v-model="form[id]"
                 :class="{
-                    'is-creating': dirty && creating,
-                    'is-updating': dirty && updating,
+                    'is-creating': isDirty && creating,
+                    'is-updating': isDirty && updating,
                     'p-invalid': error,
                 }"
+                :disabled="isDisabled"
                 :id="id"
                 @change="$emit('change')"
                 @update:modelValue="update(); $emit('update:modelValue', $event)"/>
@@ -33,7 +35,7 @@
 <script>
 import HeadlessFormField from '@/components/forms/headless/FormField.vue';
 import PrimevueSwitch from 'primevue/inputswitch/InputSwitch.vue';
-import PrimevueTooltip from 'primevue/tooltip/tooltip.cjs.js';
+import PrimevueTooltip from 'primevue/tooltip/tooltip.esm.js';
 
 export default {
     inheritAttrs: false,

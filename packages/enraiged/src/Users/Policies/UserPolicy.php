@@ -11,107 +11,108 @@ class UserPolicy
     use HandlesAuthorization;
 
     /**
-     *  @param  \Enraiged\Users\Models\User  $user
+     *  @param  \Enraiged\Users\Models\User  $auth
      *  @return bool
      */
-    public function available(User $user)
+    public function available(User $auth)
     {
-        return $user->role->atLeast(Roles::Administrator);
+        return $auth->role->atLeast(Roles::Administrator);
     }
 
     /**
-     *  @param  \Enraiged\Users\Models\User  $user
+     *  @param  \Enraiged\Users\Models\User  $auth
      *  @return bool
      */
-    public function create(User $user)
+    public function create(User $auth)
     {
-        return $user->role->atLeast(Roles::Administrator);
+        return $auth->role->atLeast(Roles::Administrator);
     }
 
     /**
-     *  @param  \Enraiged\Users\Models\User  $user
-     *  @param  \Enraiged\Users\Models\User  $account
-     *  @return bool
-     */
-    public function delete(User $user, User $account)
-    {
-        return $user->role->atLeast(Roles::Administrator)
-            && !$account->is_protected
-            && is_null($account->deleted_at);
-    }
-
-    /**
-     *  @param  \Enraiged\Users\Models\User  $user
-     *  @param  \Enraiged\Users\Models\User  $account
-     *  @return bool
-     */
-    public function edit(User $user, User $account)
-    {
-        return $this->update($user, $account);
-    }
-
-    /**
+     *  @param  \Enraiged\Users\Models\User  $auth
      *  @param  \Enraiged\Users\Models\User  $user
      *  @return bool
      */
-    public function export(User $user)
+    public function delete(User $auth, User $user)
     {
-        return $this->index($user);
+        return $auth->role->atLeast(Roles::Administrator)
+            && !$user->is_protected
+            && is_null($user->deleted_at);
     }
 
     /**
-     *  @param  \Enraiged\Users\Models\User  $user
-     *  @param  \Enraiged\Users\Models\User  $account
-     *  @return bool
-     */
-    public function impersonate(User $user, User $account)
-    {
-        return is_null($account->deleted_at)
-            && $user->canImpersonate($account);
-    }
-
-    /**
+     *  @param  \Enraiged\Users\Models\User  $auth
      *  @param  \Enraiged\Users\Models\User  $user
      *  @return bool
      */
-    public function index(User $user)
+    public function edit(User $auth, User $user)
     {
-        return $user->exists;
+        return $this->update($auth, $user);
     }
 
     /**
-     *  @param  \App\Auth\User  $user
-     *  @param  \App\GroundTruth\Users\Models\User  $account
+     *  @param  \Enraiged\Users\Models\User  $auth
      *  @return bool
      */
-    public function restore(User $user, User $account)
+    public function export(User $auth)
     {
-        return $user->role->atLeast(Roles::Administrator)
-            && !is_null($account->deleted_at);
+        return $this->index($auth);
     }
 
     /**
+     *  @param  \Enraiged\Users\Models\User  $auth
      *  @param  \Enraiged\Users\Models\User  $user
-     *  @param  \Enraiged\Users\Models\User  $account
      *  @return bool
      */
-    public function show(User $user, User $account)
+    public function impersonate(User $auth, User $user)
     {
-        return $user->exists && $account->exists;
+        return is_null($user->deleted_at)
+            && $auth->canImpersonate($user)
+            && $auth->id !== $user->id;
     }
 
     /**
-     *  @param  \Enraiged\Users\Models\User  $user
-     *  @param  \Enraiged\Users\Models\User  $account
+     *  @param  \Enraiged\Users\Models\User  $auth
      *  @return bool
      */
-    public function update(User $user, User $account)
+    public function index(User $auth)
     {
-        if ($account->deleted_at) {
+        return $auth->exists;
+    }
+
+    /**
+     *  @param  \App\Auth\User  $auth
+     *  @param  \App\GroundTruth\Users\Models\User  $user
+     *  @return bool
+     */
+    public function restore(User $auth, User $user)
+    {
+        return $auth->role->atLeast(Roles::Administrator)
+            && !is_null($user->deleted_at);
+    }
+
+    /**
+     *  @param  \Enraiged\Users\Models\User  $auth
+     *  @param  \Enraiged\Users\Models\User  $user
+     *  @return bool
+     */
+    public function show(User $auth, User $user)
+    {
+        return $auth->exists && $user->exists;
+    }
+
+    /**
+     *  @param  \Enraiged\Users\Models\User  $auth
+     *  @param  \Enraiged\Users\Models\User  $user
+     *  @return bool
+     */
+    public function update(User $auth, User $user)
+    {
+        if ($user->deleted_at) {
             return false;
         }
 
-        return $user->role->is(Roles::Administrator)
-            || $user->id === $account->id;
+        return $auth->role->is(Roles::Administrator)
+            || $auth->id === $user->id;
     }
 }
