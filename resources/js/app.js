@@ -30,6 +30,7 @@ createInertiaApp({
         //  see: Temporary Config Required
         //  at: https://vuejs.org/guide/components/provide-inject.html#working-with-reactivity
         //  The current stable version of Vue (at this time) is v3.2.45
-        app.config.unwrapInjectedRef = true;
+        //  Update (2023-09-16): This doesn't appear to be necessary any more
+        //app.config.unwrapInjectedRef = true;
     },
 });
