@@ -2,7 +2,7 @@
     <ul class="options sub-menu"
         :class="{ 'is-open': open }">
         <menu-item v-for="(item, name) in menu" :key="name"
-            :item="item"
+            :item="{ ...item, prefix }"
             :name="name"
             @menu:navigate="$emit('menu:navigate')"/>
     </ul>
@@ -24,6 +24,10 @@ export default {
         open: {
             type: Boolean,
             default: false,
+        },
+        prefix: {
+            type: String,
+            default: null,
         },
     },
 };

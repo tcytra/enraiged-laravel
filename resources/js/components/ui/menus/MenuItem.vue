@@ -17,6 +17,7 @@
         <menu-group v-if="item.menu"
             :menu="item.menu"
             :open="item.open"
+            :prefix="item.prefix"
             @menu:navigate="$emit('menu:navigate')"/>
     </li>
 </template>
@@ -48,13 +49,28 @@ export default {
 
     computed: {
         current() {
-            return this.item.route === '/'
-                ? (this.$page.url === '/' || this.$page.url === this.meta.app_home)
-                : this.$page.url.indexOf(this.item.route) === 0;
+            if (this.item.route === '/') {
+                return this.$page.url === '/' || this.$page.url === this.meta.app_home;
+            }
+            return this.$page.url.indexOf(this.route) === 0;
         },
         page() {
             return this.$page.url.substr(1);
         },
+        route() {
+            if (!this.item.route) {
+                return null;
+            }
+            return this.item.prefix && this.item.route.indexOf(this.item.prefix) !== 0
+                ? this.item.prefix + this.item.route
+                : this.item.route;
+        },
+    },
+
+    created() {
+        this.item.open = this.item.prefix
+            ? this.$page.url.indexOf(this.item.prefix) === 0
+            : this.$page.url.indexOf(this.item.route) === 0;
     },
 
     methods: {
@@ -63,7 +79,7 @@ export default {
                 this.item.open = !this.item.open;
             } else {
                 this.$emit('menu:navigate');
-                this.$inertia.get(this.item.route);
+                this.$inertia.get(this.route);
             }
         },
     },

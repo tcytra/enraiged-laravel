@@ -5,7 +5,7 @@
         .options {
             .item {
               overflow:         hidden;
-              padding:          0;
+              padding:          .125rem 0 0;
 
                 .option {
                   align-items:      center;
