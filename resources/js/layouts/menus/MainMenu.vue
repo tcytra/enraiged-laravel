@@ -14,12 +14,11 @@
 
 <script>
 import MenuHandler from './core/MenuHandler.vue';
-import MenuItem from '@/components/ui/menus/MenuItem.vue';
 
 export default {
     components: {
         MenuHandler,
-        MenuItem,
+        MenuItem: defineAsyncComponent(() => import('@/components/ui/menus/MenuItem.vue')),
     },
 };
 </script>
