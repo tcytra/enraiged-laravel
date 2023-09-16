@@ -1,17 +1,4 @@
 
-.p-datatable {
-
-    .p-datatable-table {
-      border-collapse:  collapse;
-      min-width:        100%;
-      table-layout:     fixed;
-
-        .p-datatable-tbody td {
-          overflow:         hidden;
-        }
-    }
-}
-
 .p-datatable-header {
   margin-bottom:    1rem;
 }
