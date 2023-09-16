@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import { defineAsyncComponent } from 'vue';
 import MenuHandler from './core/MenuHandler.vue';
 
 export default {
