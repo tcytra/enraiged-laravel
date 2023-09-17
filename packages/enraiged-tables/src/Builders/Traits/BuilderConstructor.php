@@ -6,6 +6,7 @@ use Enraiged\Support\Collections\RequestCollection;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 use Symfony\Component\HttpKernel\Exception\PreconditionFailedHttpException;
 
 trait BuilderConstructor
@@ -84,26 +85,21 @@ trait BuilderConstructor
      *  @param  array   $parameters
      *  @return self
      */
-    public function load(array $parameters)
+    public function load(array $parameters): self
     {
         foreach ($parameters as $parameter => $content) {
             if (property_exists($this, $parameter)) {
-                $this->{$parameter} = $content;
+                $method = Str::camel("set_{$parameter}");
+
+                if (method_exists($this, $method)) {
+                    $this->{$method}($content);
+                } else {
+                    $this->{$parameter} = $content;
+                }
             }
         }
 
         return $this;
-    }
-
-    /**
-     *  Return the table route prefix.
-     *
-     *  @param  string  $separator = '.'
-     *  @return string
-     */
-    public function prefix($separator = '.')
-    {
-        return trim($this->get('prefix'), $separator).$separator;
     }
 
     /**
@@ -130,11 +126,35 @@ trait BuilderConstructor
     }
 
     /**
+     *  Return the table route prefix.
+     *
+     *  @param  array|string  $content
+     *  @return self
+     */
+    public function setPrefix($content): self
+    {
+        if (gettype($content) === 'array') {
+            foreach ($content as $each) {
+                $method = $each['method'];
+
+                if (method_exists($this, $method) && $this->{$method}($each)) {
+                    $this->prefix = $each['prefix'];
+                }
+            }
+
+        } else {
+            $this->prefix = $content;
+        }
+
+        return $this;
+    }
+
+    /**
      *  Return the table user.
      *
      *  @return \Enraiged\Users\Models\User
      */
-    public function user()
+    public function user(): User
     {
         return $this->user;
     }

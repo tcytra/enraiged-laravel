@@ -64,7 +64,7 @@ class TableBuilder
      */
     public function template(): array
     {
-        $identity = $this->get('id') ?? $this->prefix().'index';
+        $identity = $this->get('id') ?? trim($this->prefix, '.').'index';
 
         $template = [
             'actions' => $this->assembleTemplateActions(),
