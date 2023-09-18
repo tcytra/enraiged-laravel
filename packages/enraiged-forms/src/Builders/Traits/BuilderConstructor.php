@@ -6,6 +6,8 @@ use Enraiged\Forms\Contracts\ProvidesRefererRedirect;
 use Enraiged\Support\Collections\RequestCollection;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Route;
+use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 
 trait BuilderConstructor
 {
@@ -62,5 +64,24 @@ trait BuilderConstructor
         }
 
         return $this;
+    }
+
+    /**
+     *  Find and return the routing object for this route.
+     *
+     *  @param  string  $route
+     *  @return \Illuminate\Routing\Route
+     *
+     *  @throws \Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException
+     */
+    private function router($route)
+    {
+        if (!$router = Route::getRoutes()->getByName($route)) {
+            throw new UnprocessableEntityHttpException(
+                __('Route :route does not exist', ['route' => $route])
+            );
+        }
+
+        return $router;
     }
 }
