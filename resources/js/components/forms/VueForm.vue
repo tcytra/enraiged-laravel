@@ -35,7 +35,9 @@
 </template>
 
 <script>
-import { useForm } from '@inertiajs/vue3';
+import axios from 'axios';
+import { inject } from 'vue';
+import { router, useForm } from '@inertiajs/vue3';
 import VueFormActions from './VueFormActions.vue';
 import VueFormFields from './VueFormFields.vue';
 import VueFormSection from './VueFormSection.vue';
@@ -71,6 +73,10 @@ export default {
     },
 
     setup (props, { emit }) {
+        const errorHandler = inject('errorHandler');
+        const isSuccess = inject('isSuccess');
+        const flashSuccess = inject('flashSuccess');
+
         let fields = props.template.referer
             ? {_referer: props.template.referer}
             : {};
@@ -122,9 +128,34 @@ export default {
         }
 
         function submit() {
-            form[props.template.resource.method](props.template.uri, {
-                onSuccess: () => emit('form:success', form),
-            });
+            const method = props.template.resource.method;
+            if (props.template.resource.api === true) {
+                axios[method](props.template.uri, form.data())
+                    .then((response) => {
+                        const { status, data } = response;
+                        if (isSuccess(status) && data.success) {
+                            flashSuccess(data.success);
+                        }
+                        if (data.redirect) {
+                            router.get(data.redirect);
+                        } else {
+                            form.defaults();
+                        }
+                    })
+                    .catch((error) => {
+                        const { response } = error;
+                        const { errors } = response.data;
+                        Object.keys(errors).forEach((each) => {
+                            errors[each] = errors[each][0];
+                        });
+                        form.setError(errors);
+                        errorHandler(error);
+                    });
+            } else {
+                form[method](props.template.uri, {
+                    onSuccess: () => emit('form:success', form),
+                });
+            }
         }
 
         flatten(props.template.fields);

@@ -3,6 +3,8 @@
 namespace Enraiged\Forms\Builders;
 
 use Enraiged\Forms\Contracts\ProvidesRefererRedirect;
+use Illuminate\Support\Facades\Route;
+use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 
 class CoreBuilder
 {
@@ -23,10 +25,19 @@ class CoreBuilder
      *  @param  string  $route
      *  @param  string  $method  = 'post'
      *  @return self
+     *
+     *  @throws \Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException
      */
     public function create($model, $route, $method = 'post', $params = [])
     {
+        if (!$router = Route::getRoutes()->getByName($route)) {
+            throw new UnprocessableEntityHttpException(
+                __('Route :route does not exist', ['route' => $route])
+            );
+        }
+
         $resource = [
+            'api' => preg_match('/^api/', $router->uri) === 1 ? true : false,
             'method' => $method,
             'route' => $route,
         ];
