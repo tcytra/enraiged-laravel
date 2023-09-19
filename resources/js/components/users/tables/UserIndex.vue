@@ -1,6 +1,5 @@
 <template>
     <vue-table ref="datatable"
-        :actions-class="'width-192'"
         :page-report-template="'Showing {first} to {last} of {totalRecords} users'"
         :template="template"
         @show="show">
