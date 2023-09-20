@@ -17,6 +17,9 @@ trait BuilderConstructor
     /** @var  object  The templated form labels direction. */
     protected $labels;
 
+    /** @var  bool  Whether or not this form is tabbed. */
+    protected $tabbed;
+
     /** @var  string  The request user. */
     protected User $user;
 

@@ -81,6 +81,7 @@ class CoreBuilder
             'fields' => $this->fields(),
             'labels' => $this->labels,
             'resource' => $this->resource(),
+            'tabbed' => $this->tabbed ?? $this->isTabbedForm(),
             'uri' => $this->uri(),
         ];
 

@@ -179,14 +179,14 @@ trait PopulateFields
      *  @param  array  $fields
      *  @return void
      */
-    protected function populateFieldGroup($fields)
+    protected function populateFieldGroup($fields = null)
     {
         $keys = array_keys($fields);
 
         foreach ($keys as $name) {
             $object = (object) $this->field($name);
 
-            if ($this->hasSectionFields($object)) {
+            if ($this->hasSectionFields($object) || $this->hasTabbedFields($object)) {
                 $this->populateFieldGroup($object->fields);
 
             } else if ($this->canPopulateValues($object)) {

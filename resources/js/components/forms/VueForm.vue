@@ -3,7 +3,12 @@
         <form @submit.prevent="submit"
             :class="['form', template.class, {'custom-actions': customActions, 'formgrid grid': formGrid}]">
             <slot v-bind="{ form }">
-                <vue-form-section v-if="Object.keys(sections).length" v-for="(section, key) in sections"
+                <vue-form-tabs v-if="template.tabbed"
+                    :creating="creating"
+                    :form="form"
+                    :template="template"
+                    :updating="updating"/>
+                <vue-form-section v-else-if="Object.keys(sections).length" v-for="(section, key) in sections"
                     :creating="creating"
                     :form="form"
                     :id="key"
@@ -41,12 +46,14 @@ import { router, useForm } from '@inertiajs/vue3';
 import VueFormActions from './VueFormActions.vue';
 import VueFormFields from './VueFormFields.vue';
 import VueFormSection from './VueFormSection.vue';
+import VueFormTabs from './VueFormTabs.vue';
 
 export default {
     components: {
         VueFormActions,
         VueFormFields,
         VueFormSection,
+        VueFormTabs,
     },
 
     props: {
@@ -103,7 +110,7 @@ export default {
         function flatten(template) {
             Object.keys(template).forEach((item) => {
                 const type = template[item].type || 'text';
-                if (type === 'section') {
+                if (type === 'section' || type === 'tab') {
                     flatten(template[item].fields);
                 } else {
                     /*

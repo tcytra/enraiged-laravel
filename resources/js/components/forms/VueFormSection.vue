@@ -8,11 +8,15 @@
                 </header>
             </template>
             <template #content>
+                <div class="section-precontent mb-3" v-if="section.precontent"
+                    :class="[ section.precontent.class ]">{{ section.precontent.body || section.precontent }}</div>
                 <vue-form-fields
                     :creating="creating"
                     :fields="section.fields"
                     :form="form"
                     :updating="updating"/>
+                <div class="section-postcontent" v-if="section.postcontent"
+                    :class="[ section.postcontent.class ]">{{ section.postcontent.body || section.postcontent }}</div>
             </template>
         </primevue-card>
     </section>

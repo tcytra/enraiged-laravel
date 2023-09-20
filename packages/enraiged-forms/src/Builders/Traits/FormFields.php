@@ -105,7 +105,7 @@ trait FormFields
         foreach ($keys as $each) {
             $object = $fields[$each];
 
-            if ($this->hasSectionFields($object)) {
+            if ($this->hasSectionFields($object) || $this->hasTabbedFields($object)) {
                 if (!$this->assertSecure($object)) {
                     unset($fields[$each]);
                 }
@@ -185,7 +185,7 @@ trait FormFields
      *
      *  @return self
      */
-    public function remove($name, $depth = [])
+    public function remove($name)
     {
         $fields = &$this->fields;
 

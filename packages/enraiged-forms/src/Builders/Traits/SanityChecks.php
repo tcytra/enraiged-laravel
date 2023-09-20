@@ -34,7 +34,7 @@ trait SanityChecks
     }
 
     /**
-     *  Determine if the provided contents has fields.
+     *  Determine if the provided section has fields.
      *
      *  @param  array|object  $section
      *  @return bool
@@ -45,6 +45,20 @@ trait SanityChecks
 
         return property_exists($object, 'fields')
             && $this->isFormSection($object);
+    }
+
+    /**
+     *  Determine if the provided tab has fields.
+     *
+     *  @param  array|object  $section
+     *  @return bool
+     */
+    protected function hasTabbedFields($section): bool
+    {
+        $object = (object) $section;
+
+        return property_exists($object, 'fields')
+            && $this->isFormTab($object);
     }
 
     /**
@@ -59,5 +73,33 @@ trait SanityChecks
 
         return property_exists($object, 'type')
             && $object->type === 'section';
+    }
+
+    /**
+     *  Determine if the provided contents is a tab.
+     *
+     *  @param  array|object  $section
+     *  @return bool
+     */
+    protected function isFormTab($section): bool
+    {
+        $object = (object) $section;
+
+        return property_exists($object, 'type')
+            && $object->type === 'tab';
+    }
+
+    /**
+     *  Determine if this is a tabbed form.
+     *
+     *  @return bool
+     */
+    protected function isTabbedForm(): bool
+    {
+        $tabs = collect($this->fields)
+            ->filter(fn ($field) => $field['type'] === 'tab')
+            ->count();
+
+        return $tabs > 0;
     }
 }

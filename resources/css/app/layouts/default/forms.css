@@ -193,6 +193,21 @@
       border-color:     $color-danger;
     }
 
+    .p-tabview {
+        .p-card {
+          background-color: unset;
+          border-color:     unset;
+
+            .p-card-body {
+              padding:          0;
+            }
+
+            .p-card-header {
+              margin-bottom:    1rem;
+            }
+        }
+    }
+
     .vue-form .form.shadow-1 {
       box-shadow:       none !important;
         .section .p-card {
