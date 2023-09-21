@@ -29,26 +29,22 @@ export default {
             return this.form[this.id] !== this.field.value;
         },
         isDisabled() {
-            let disabled = this.field.disabled || this.$props.disabled;
+            const disabled = this.field.disabled || this.$props.disabled;
             if (typeof this.field.disabledUnless !== 'undefined') {
-                const field = Object.keys(this.field.disabledUnless).shift();
-                disabled = this.form[field] !== this.field.disabledUnless[field];
+                return this.determineUnless(this.field.disabledUnless, disabled);
             } else
             if (typeof this.field.disabledIf !== 'undefined') {
-                const field = Object.keys(this.field.disabledIf).shift();
-                disabled = this.form[field] === this.field.disabledIf[field];
+                return this.determineIf(this.field.disabledIf, disabled);
             }
             return disabled;
         },
         isHidden() {
-            let hidden = this.field.hidden || false;
+            let hidden = this.field.hidden || this.$props.hidden;
             if (typeof this.field.hiddenUnless !== 'undefined') {
-                const field = Object.keys(this.field.hiddenUnless).shift();
-                hidden = this.form[field] !== this.field.hiddenUnless[field];
+                return this.determineUnless(this.field.hiddenUnless, hidden);
             } else
             if (typeof this.field.hiddenIf !== 'undefined') {
-                const field = Object.keys(this.field.hiddenIf).shift();
-                hidden = this.form[field] === this.field.hiddenIf[field];
+                return this.determineIf(this.field.hiddenIf, hidden);
             }
             return hidden;
         },
@@ -61,6 +57,42 @@ export default {
     },
 
     methods: {
+        determineIf(argument, value) {
+            if (typeof argument === 'object' && Array.isArray(argument)) {
+                for (let i = 0; i < argument.length; i++) {
+                    if (this.determineIf(argument[i])) {
+                        return true;
+                    }
+                }
+                return false;
+            } else
+            if (typeof argument === 'object') {
+                const field = Object.keys(argument).shift();
+                return this.form[field] === argument[field];
+            } else
+            if (typeof argument === 'string') {
+                return this.form[argument] !== null;
+            }
+            return value;
+        },
+        determineUnless(argument, value) {
+            if (typeof argument === 'object' && Array.isArray(argument)) {
+                for (let i = 0; i < argument.length; i++) {
+                    if (!this.determineUnless(argument[i])) {
+                        return false;
+                    }
+                }
+                return true;
+            } else
+            if (typeof argument === 'object') {
+                const field = Object.keys(argument).shift();
+                return this.form[field] !== argument[field];
+            } else
+            if (typeof argument === 'string') {
+                return this.form[argument] === null;
+            }
+            return value;
+        },
         update() {
             if (this.form[this.id] === '' && this.field.value === null) {
                 this.form[this.id] = null;
