@@ -3,20 +3,25 @@
         <slot :name="id" v-if="section.custom"/>
         <primevue-card v-else>
             <template #header>
-                <header class="header" v-if="section.heading">
-                    <h3>{{ i18n(section.heading) }}</h3>
+                <header class="header" v-if="section.heading"
+                    :class="[ section.heading.class ]">
+                    <h3>{{ i18n(section.heading.body || section.heading) }}</h3>
                 </header>
             </template>
             <template #content>
                 <div class="section-precontent mb-3" v-if="section.precontent"
-                    :class="[ section.precontent.class ]">{{ section.precontent.body || section.precontent }}</div>
+                    :class="[ section.precontent.class ]">
+                    {{ i18n(section.precontent.body || section.precontent) }}
+                </div>
                 <vue-form-fields
                     :creating="creating"
                     :fields="section.fields"
                     :form="form"
                     :updating="updating"/>
                 <div class="section-postcontent" v-if="section.postcontent"
-                    :class="[ section.postcontent.class ]">{{ section.postcontent.body || section.postcontent }}</div>
+                    :class="[ section.postcontent.class ]">
+                    {{ i18n(section.postcontent.body || section.postcontent) }}
+                </div>
             </template>
         </primevue-card>
     </section>
