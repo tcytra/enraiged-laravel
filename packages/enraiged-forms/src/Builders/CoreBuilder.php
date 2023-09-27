@@ -76,13 +76,12 @@ class CoreBuilder
     public function template(): array
     {
         $template = [
-            'actions' => $this->actions(),
+            'actions' => $this->actions,
             'class' => $this->class,
-            'fields' => $this->fields(),
+            'fields' => $this->fields,
             'labels' => $this->labels,
-            'resource' => $this->resource(),
+            'resource' => $this->resource,
             'tabbed' => $this->tabbed ?? $this->isTabbedForm(),
-            'uri' => $this->uri(),
         ];
 
         return $this instanceof ProvidesRefererRedirect

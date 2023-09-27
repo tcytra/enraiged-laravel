@@ -135,9 +135,9 @@ export default {
         }
 
         function submit() {
-            const method = props.template.resource.method;
+            const { method, uri } = props.template.resource;
             if (props.template.resource.api === true) {
-                axios[method](props.template.uri, form.data())
+                axios[method](uri, form.data())
                     .then((response) => {
                         const { status, data } = response;
                         if (isSuccess(status) && data.success) {
@@ -159,7 +159,7 @@ export default {
                         errorHandler(error);
                     });
             } else {
-                form[method](props.template.uri, {
+                form[method](uri, {
                     onSuccess: () => emit('form:success', form),
                 });
             }

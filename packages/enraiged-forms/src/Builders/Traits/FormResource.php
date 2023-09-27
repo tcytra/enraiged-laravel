@@ -15,13 +15,17 @@ trait FormResource
     /**
      *  Get or set the form resource.
      *
-     *  @param  array|null  $value = null
+     *  @param  array|null  $resource = null
      *  @return array|self
      */
-    public function resource(array $value = null)
+    public function resource(array $resource = null)
     {
-        if ($value) {
-            $this->resource = $value;
+        if ($resource) {
+            if ($uri = $this->uri($resource)) {
+                $resource['uri'] = $uri;
+            }
+
+            $this->resource = $resource;
 
             return $this;
         }
@@ -40,19 +44,15 @@ trait FormResource
     /**
      *  Get or set the form uri.
      *
-     *  @param  string|null  $value = null
-     *  @return string|self
+     *  @param  array  $resource
+     *  @return string
      */
-    public function uri(string $value = null)
+    protected function uri($resource): string
     {
-        if ($this->uri) {
-            return $this->uri;
-        }
-
-        $resource = (object) $this->resource();
+        $resource = (object) $resource;
         $uri = null;
 
-        if ($resource && property_exists($resource, 'route')) {
+        if (property_exists($resource, 'route')) {
             $route = Route::getRoutes()->getByName($resource->route);
 
             if (property_exists($resource, 'params')) {
