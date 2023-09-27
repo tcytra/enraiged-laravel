@@ -5,6 +5,43 @@ namespace Enraiged\Forms\Builders\Traits;
 trait FormFields
 {
     /**
+     *  Add a definition to the form fields template.
+     *
+     *  @param  mixed   $object
+     *  @param  string  $name
+     *  @param  string|null  $type = null
+     *  @param  string|null  $parent = null
+     *  @return self
+     */
+    public function appendFields($object, string $name, ?string $type = null, ?string $parent = null): self
+    {
+        if (gettype($object) === 'string') {
+            $object = $this->parse($object);
+        }
+
+        if ($type) {
+            $object['type'] = $type;
+        }
+
+        if (!is_null($parent)) {
+            $target = $this->field($parent);
+
+            if (key_exists('fields', $target)) {
+                $target['fields'][$name] = $object;
+            } else {
+                $target[$name] = $object;
+            }
+
+            $this->field($parent, $target, true);
+
+        } else {
+            $this->fields[$name] = $object;
+        }
+
+        return $this;
+    }
+
+    /**
      *  Explicity set the disabled attribute for a specified field or array of fields.
      *
      *  @param  array|string  $name

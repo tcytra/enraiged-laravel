@@ -20,6 +20,9 @@ trait BuilderConstructor
     /** @var  bool  Whether or not this form is tabbed. */
     protected $tabbed;
 
+    /** @var  string  The master template json file path. */
+    protected $template;
+
     /** @var  string  The request user. */
     protected User $user;
 
@@ -43,8 +46,8 @@ trait BuilderConstructor
 
         $this->load(config('enraiged.forms.template'));
 
-        if ($this->template && File::exists($this->template)) { // todo: option to ignore config template
-            $this->load(json_decode(file_get_contents($this->template), true));
+        if ($this->template && $template = $this->parse($this->template)) {
+            $this->load($template);
         }
 
         if (count($parameters)) {
@@ -67,6 +70,25 @@ trait BuilderConstructor
         }
 
         return $this;
+    }
+
+    /**
+     *  Parse a json template from a provided argument.
+     *
+     *  @param  string  $value
+     *  @return array|null
+     */
+    public function parse($value): ?array
+    {
+        $object = substr($value, 0, 1) !== '{' && File::exists($value)
+            ? file_get_contents($value)
+            : $value;
+
+        if (substr($object, 0, 1) === '{') {
+            return json_decode($object, true);
+        }
+
+        return null;
     }
 
     /**
