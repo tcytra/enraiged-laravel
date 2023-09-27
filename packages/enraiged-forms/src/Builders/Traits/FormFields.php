@@ -10,7 +10,7 @@ trait FormFields
      *  @param  array|string  $name
      *  @return self
      */
-    public function disableField($name)
+    public function disableField($name): self
     {
         if (gettype($name) === 'array') {
             foreach ($name as $each) {
@@ -26,17 +26,24 @@ trait FormFields
     /**
      *  Explicity set the disabled attribute for a specified field to the provided condition.
      *
-     *  @param  string  $name
+     *  @param  array|string  $field
      *  @param  bool|\Closure $condition
      *  @return self
      */
-    public function disabledIf($name, $condition)
+    public function disabledIf($field, $condition): self
     {
-        if ($condition instanceof \Closure) {
-            $condition = $condition();
-        }
+        if (gettype($field) === 'array') {
+            foreach ($field as $each) {
+                $this->disabledIf($each, $condition);
+            }
 
-        $this->field($name, ['disabled' => $condition]);
+        } else {
+            if ($condition instanceof \Closure) {
+                $condition = $condition();
+            }
+
+            $this->field($field, ['disabled' => $condition]);
+        }
 
         return $this;
     }
@@ -44,17 +51,24 @@ trait FormFields
     /**
      *  Explicity set the disabled attribute for a specified field to the inverse of the provided condition.
      *
-     *  @param  string  $name
+     *  @param  array|string  $field
      *  @param  bool|\Closure $condition
      *  @return self
      */
-    public function disabledUnless($name, $condition)
+    public function disabledUnless($field, $condition): self
     {
-        if ($condition instanceof \Closure) {
-            $condition = $condition();
-        }
+        if (gettype($field) === 'array') {
+            foreach ($field as $each) {
+                $this->disabledUnless($each, $condition);
+            }
 
-        $this->field($name, ['disabled' => !$condition]);
+        } else {
+            if ($condition instanceof \Closure) {
+                $condition = $condition();
+            }
+
+            $this->field($field, ['disabled' => !$condition]);
+        }
 
         return $this;
     }
@@ -131,13 +145,35 @@ trait FormFields
      *  @param  bool    $rewrite = false
      *  @return self
      */
-    public function fieldIf($name, $params, $condition, $rewrite = false)
+    public function fieldIf($name, $params, $condition, $rewrite = false): self
     {
         if ($condition instanceof \Closure) {
             $condition = $condition();
         }
 
         if ($condition) {
+            $this->field($name, $params, $rewrite);
+        }
+
+        return $this;
+    }
+
+    /**
+     *  Set a form field if the condition is not true.
+     *
+     *  @param  string  $name
+     *  @param  array   $params
+     *  @param  bool|\Closure  $condition
+     *  @param  bool    $rewrite = false
+     *  @return self
+     */
+    public function fieldUnless($name, $params, $condition, $rewrite = false): self
+    {
+        if ($condition instanceof \Closure) {
+            $condition = $condition();
+        }
+
+        if (!$condition) {
             $this->field($name, $params, $rewrite);
         }
 
@@ -167,7 +203,7 @@ trait FormFields
      *  @param  string  $name
      *  @return string|null
      */
-    protected function fieldType($name, $params = null)
+    protected function fieldType($name, $params = null): ?string
     {
         $field = (object) ($params ?? $this->field($name));
 
@@ -185,7 +221,7 @@ trait FormFields
      *
      *  @return self
      */
-    public function remove($name)
+    public function remove($name): self
     {
         $fields = &$this->fields;
 
@@ -214,7 +250,7 @@ trait FormFields
      *  @param  mixed   $data
      *  @return self
      */
-    public function value($name, $data)
+    public function value($name, $data): self
     {
         $populate = ['value' => $data];
 
@@ -232,7 +268,7 @@ trait FormFields
      *  @param  mixed   $else = null
      *  @return self
      */
-    public function valueIf($name, $data, $condition, $else = null)
+    public function valueIf($name, $data, $condition, $else = null): self
     {
         if ($condition instanceof \Closure) {
             $condition = $condition();
@@ -242,6 +278,27 @@ trait FormFields
             $this->value($name, $data);
         } else if (func_num_args() === 4) {
             $this->value($name, $else);
+        }
+
+        return $this;
+    }
+
+    /**
+     *  Explicity set the value for a specified field if the provided condition is not true.
+     *
+     *  @param  string  $name
+     *  @param  mixed   $data
+     *  @param  bool|\Closure $condition
+     *  @return self
+     */
+    public function valueUnless($name, $data, $condition): self
+    {
+        if ($condition instanceof \Closure) {
+            $condition = $condition();
+        }
+
+        if (!$condition) {
+            $this->value($name, $data);
         }
 
         return $this;
