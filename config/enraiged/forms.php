@@ -4,19 +4,27 @@ return [
 
     'absolute_uris' => config('enraiged.app.absolute_uris', true),
 
-    'collapsible' => false,
-
     'labels' => 'vertical',
 
     'template' => [
 
         'actions' => [
-            'clear', 'reset', 'submit',
+            'back' => [
+                'label' => 'Back',
+            ],
+            'clear' => [
+                'label' => 'Clear',
+            ],
+            'reset' => [
+                'label' => 'Reset',
+            ],
+            'submit' => [
+                'label' => 'Submit',
+            ],
         ],
 
-        'content' => [],
+        'fields' => [],
 
-        'options' => [],
     ],
 
 ];
