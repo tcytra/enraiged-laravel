@@ -144,7 +144,11 @@ export default {
                             flashSuccess(data.success);
                         }
                         if (data.redirect) {
-                            router.get(data.redirect);
+                            if (data.redirect === 'back') {
+                                window.history.go(-1);
+                            } else {
+                                router.get(data.redirect);
+                            }
                         } else {
                             form.defaults();
                         }

@@ -37,12 +37,19 @@ class FormRequest extends Request
     /**
      *  Return a redirect to the referer if possible, or back.
      *
-     *  @return \Illuminate\Http\RedirectResponse
+     *  @param  string  $default = null
+     *  @return string|\Illuminate\Http\RedirectResponse
      */
-    public function redirect(): RedirectResponse
+    public function redirect($default = null)
     {
-        return $this->has('_referer')
-            ? redirect($this->get('_referer'))
+        if ($this->has('_referer') && $this->get('_referer') !== route('login', [], config('enraiged.app.absolute_uris'))) {
+            return $this->is('api/*')
+                ? $this->get('_referer')
+                : redirect($this->get('_referer'));
+        }
+
+        return !is_null($default)
+            ? route($default, [], config('enraiged.app.absolute_uris'))
             : redirect()->back();
     }
 
