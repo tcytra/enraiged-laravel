@@ -137,13 +137,12 @@ export default {
             const value = typeof this.field.default !== 'undefined'
                 ? this.field.default
                 : null;
-            // this.field.value = value;
             this.form[this.id] = value;
         },
         fetch() {
             this.loading = true;
             this.options = [];
-            return this.axios.get(this.field.options.uri, { params: this.params() })
+            this.axios.get(this.field.options.uri, { params: this.params() })
                 .then(({ data }) => {
                     this.options = data;
                     this.loading = false;
