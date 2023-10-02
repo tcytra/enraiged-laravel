@@ -87,6 +87,9 @@ export default {
             // const { message, response } = error;
             const { data, status } = error.response;
             switch (status) {
+                case 404:
+                    this.flashError(this.$t('The remote host responded with a page not found error'));
+                    break;
                 case 422:
                     this.flashWarning(data.message);
                     break;
