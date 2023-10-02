@@ -139,10 +139,30 @@ export default {
                 : null;
             this.form[this.id] = value;
         },
+        data() {
+            let params = {};
+            if (typeof this.field.options.params !== 'undefined') {
+                this.field.options.params.forEach((param) => {
+                    params[param] = this.form[param];
+                });
+            }
+            if (typeof this.params === 'object' && Object.keys(this.params).length) {
+                params = { ...params, ...this.params };
+            }
+            return {
+                ...this.field.options.filters,
+                ...params,
+                limit: this.limit,
+                search: this.search,
+            };
+        },
         fetch() {
             this.loading = true;
             this.options = [];
-            this.axios.get(this.field.options.uri, { params: this.params() })
+            const data = this.data();
+            const method = this.field.options.method || 'get';
+            const url = this.field.options.uri;
+            this.axios({ method, url, data })
                 .then(({ data }) => {
                     this.options = data;
                     this.loading = false;
@@ -153,25 +173,11 @@ export default {
             this.field.options.values = [];
             this.search = payload.value;
         },
-        params() {
-            let params = {};
-            if (typeof this.field.options.params !== 'undefined') {
-                this.field.options.params.forEach((param) => {
-                    params[param] = this.form[param];
-                });
-            }
-            return {
-                ...this.field.options.filters,
-                ...params,
-                limit: this.limit,
-                search: this.search,
-            };
-        },
     },
 
     watch: {
         search: {
-            handler(value) {
+            handler() {
                 clearTimeout(this.timer);
                 this.timer = setTimeout(this.fetch, 500);
             }
