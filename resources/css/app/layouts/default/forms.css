@@ -35,6 +35,10 @@
 
         .section {
           margin-bottom:    1rem;
+          
+            .p-card {
+              margin-bottom:    2.5rem;
+            }
         }
 
         &.horizontal .field.control, .horizontal .field.control, .field.control.horizontal, .vertical .horizontal.field.control {

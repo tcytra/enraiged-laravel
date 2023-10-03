@@ -5,11 +5,11 @@
             <template #header>
                 <header class="header" v-if="section.heading"
                     :class="[ section.heading.class ]">
-                    <h3>{{ i18n(section.heading.body || section.heading) }}</h3>
+                    <span class="text">{{ i18n(section.heading.body || section.heading) }}</span>
                 </header>
             </template>
             <template #content>
-                <div class="section-precontent mb-3" v-if="section.precontent"
+                <div class="precontent mb-3" v-if="section.precontent"
                     :class="[ section.precontent.class ]">
                     {{ i18n(section.precontent.body || section.precontent) }}
                 </div>
@@ -18,7 +18,7 @@
                     :fields="section.fields"
                     :form="form"
                     :updating="updating"/>
-                <div class="section-postcontent" v-if="section.postcontent"
+                <div class="postcontent" v-if="section.postcontent"
                     :class="[ section.postcontent.class ]">
                     {{ i18n(section.postcontent.body || section.postcontent) }}
                 </div>
