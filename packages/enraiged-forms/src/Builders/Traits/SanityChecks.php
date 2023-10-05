@@ -88,18 +88,4 @@ trait SanityChecks
         return property_exists($object, 'type')
             && $object->type === 'tab';
     }
-
-    /**
-     *  Determine if this is a tabbed form.
-     *
-     *  @return bool
-     */
-    protected function isTabbedForm(): bool
-    {
-        $tabs = collect($this->fields)
-            ->filter(fn ($field) => $field['type'] === 'tab')
-            ->count();
-
-        return $tabs > 0;
-    }
 }

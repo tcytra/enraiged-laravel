@@ -81,7 +81,6 @@ class CoreBuilder
             'fields' => $this->fields,
             'labels' => $this->labels,
             'resource' => $this->resource,
-            'tabbed' => $this->tabbed ?? $this->isTabbedForm(),
         ];
 
         return $this instanceof ProvidesRefererRedirect
