@@ -2,13 +2,22 @@
     <div class="vue-form">
         <form @submit.prevent="submit"
             :class="['form', template.class, {'custom-actions': customActions, 'formgrid grid': formGrid}]">
-            <slot v-bind="{ form }">
-                <vue-form-tabs v-if="template.tabbed"
-                    :creating="creating"
-                    :form="form"
-                    :template="template"
-                    :updating="updating"/>
-                <vue-form-section v-else-if="Object.keys(sections).length" v-for="(section, key) in sections"
+            <tab-view class="my-3 shadow-1" ref="tabview" v-if="Object.keys(tabs).length">
+                <tab-panel :header="tab.name" v-for="(tab, key) in tabs" :key="key">
+                    <vue-form-tab
+                        :creating="creating"
+                        :form="form"
+                        :id="key"
+                        :tab="tab"
+                        :updating="updating">
+                        <template v-for="(_, slot) of $slots" v-slot:[slot]="scope">
+                            <slot :name="slot" v-bind="scope"/>
+                        </template>
+                    </vue-form-tab>
+                </tab-panel>
+            </tab-view>
+            <slot v-bind="{ form }" v-else-if="Object.keys(sections).length">
+                <vue-form-section v-if="Object.keys(sections).length" v-for="(section, key) in sections"
                     :creating="creating"
                     :form="form"
                     :id="key"
@@ -43,17 +52,21 @@
 import axios from 'axios';
 import { inject } from 'vue';
 import { router, useForm } from '@inertiajs/vue3';
+import TabPanel from 'primevue/tabpanel/TabPanel.vue';
+import TabView from 'primevue/tabview/TabView.vue';
 import VueFormActions from './VueFormActions.vue';
 import VueFormFields from './VueFormFields.vue';
 import VueFormSection from './VueFormSection.vue';
-import VueFormTabs from './VueFormTabs.vue';
+import VueFormTab from './VueFormTab.vue';
 
 export default {
     components: {
+        TabPanel,
+        TabView,
         VueFormActions,
         VueFormFields,
         VueFormSection,
-        VueFormTabs,
+        VueFormTab,
     },
 
     props: {
@@ -101,6 +114,13 @@ export default {
                 const matchType = /^not:/.test(type)
                     ? !type.replace('not:', '').split(',').includes(template[item].type)
                     : template[item].type === type;
+                /*
+                const matchTypeOriginal = (
+                    (/^not:/.test(type) && template[item].type !== type.replace('not:', '')) 
+                    ||
+                    (!/^not:/.test(type) && template[item].type === type)
+                );
+                */
                 if (matchType && matchCustom) {
                     items[item] = template[item];
                 }
@@ -176,11 +196,12 @@ export default {
                 sections: filter(props.template.fields, 'section', true),
                 tabs: filter(props.template.fields, 'tab', true),
             },
-            fields: filter(props.template.fields, 'not:section'),
+            fields: filter(props.template.fields, 'not:section,tab'),
             form,
             reset,
             sections: filter(props.template.fields, 'section'),
             submit,
+            tabs: filter(props.template.fields, 'tab'),
         };
     },
 };

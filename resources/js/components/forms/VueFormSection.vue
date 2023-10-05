@@ -1,6 +1,6 @@
 <template>
     <section class="section" :class="section.class">
-        <slot :name="id" v-if="section.custom"/>
+        <slot :name="id" v-if="section.custom" v-bind="{ creating, section, form, updating }"/>
         <primevue-card v-else>
             <template #header>
                 <header class="header" v-if="section.heading"
