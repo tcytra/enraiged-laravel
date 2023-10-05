@@ -98,8 +98,9 @@ export default {
             Object.keys(template).forEach((item) => {
                 const itemType = template[item].type || 'text';
                 const matchCustom = typeof custom === 'undefined' || template[item].custom;
-                const matchType = ((/^not:/.test(type) && template[item].type !== type.replace('not:', '')) 
-                    || (!/^not:/.test(type) && template[item].type === type));
+                const matchType = /^not:/.test(type)
+                    ? !type.replace('not:', '').split(',').includes(template[item].type)
+                    : template[item].type === type;
                 if (matchType && matchCustom) {
                     items[item] = template[item];
                 }
@@ -113,13 +114,6 @@ export default {
                 if (type === 'section' || type === 'tab') {
                     flatten(template[item].fields);
                 } else {
-                    /*
-                    if (template[item].type === 'calendar'
-                        && template[item].value
-                        && template[item].value.toString().match(/^\d{4}-\d{2}-\d{2}$/)) {
-                        template[item].value = new Date(`${template[item].value} 00:00:00`);
-                    }
-                    */
                     fields[item] = ['checkbox', 'switch'].includes(template[item].type)
                         ? template[item].value && template[item].value === true
                         : template[item].value || null;
@@ -178,8 +172,9 @@ export default {
         return {
             clear,
             custom: {
-                fields: filter(props.template.fields, 'not:section', true),
+                fields: filter(props.template.fields, 'not:section,tab', true),
                 sections: filter(props.template.fields, 'section', true),
+                tabs: filter(props.template.fields, 'tab', true),
             },
             fields: filter(props.template.fields, 'not:section'),
             form,
