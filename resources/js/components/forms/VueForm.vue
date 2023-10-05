@@ -16,28 +16,26 @@
                     </vue-form-tab>
                 </tab-panel>
             </tab-view>
-            <slot v-bind="{ form }" v-else-if="Object.keys(sections).length">
-                <vue-form-section v-if="Object.keys(sections).length" v-for="(section, key) in sections"
-                    :creating="creating"
-                    :form="form"
-                    :id="key"
-                    :key="key"
-                    :section="section"
-                    :updating="updating">
-                    <template v-if="section.custom" v-slot:[key]="props">
-                        <slot :name="key" v-bind="{ creating, section, form, key, updating }"/>
-                    </template>
-                </vue-form-section>
-                <vue-form-fields v-else-if="Object.keys(fields).length"
-                    :creating="creating"
-                    :fields="fields"
-                    :form="form"
-                    :updating="updating">
-                    <template v-for="(field, key) in custom.fields" v-slot:[key]="props">
-                        <slot :name="key" v-bind="{ creating, field, form, key, updating }"/>
-                    </template>
-                </vue-form-fields>
-            </slot>
+            <vue-form-section v-else-if="Object.keys(sections).length" v-for="(section, key) in sections"
+                :creating="creating"
+                :form="form"
+                :id="key"
+                :key="key"
+                :section="section"
+                :updating="updating">
+                <template v-if="section.custom" v-slot:[key]="props">
+                    <slot :name="key" v-bind="{ creating, section, form, key, updating }"/>
+                </template>
+            </vue-form-section>
+            <vue-form-fields v-else-if="Object.keys(fields).length"
+                :creating="creating"
+                :fields="fields"
+                :form="form"
+                :updating="updating">
+                <template v-for="(field, key) in custom.fields" v-slot:[key]="props">
+                    <slot :name="key" v-bind="{ creating, field, form, key, updating }"/>
+                </template>
+            </vue-form-fields>
             <vue-form-actions v-if="!customActions"
                 :actions="template.actions"
                 :form="form"
