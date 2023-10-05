@@ -1,15 +1,22 @@
 <template>
-    <section>
-         <primevue-card class="mb-3 shadow-1">
+    <section :class="section.class">
+        <primevue-card>
             <template #header>
-                <header class="header">
-                    <h3 class="auto-margin max-width-sm">
-                        {{ i18n('Select a color or upload an image for this avatar.') }}
-                    </h3>
+                <header class="header" v-if="section.heading"
+                    :class="[ section.heading.class ]">
+                    <span class="text w-full">{{ i18n(section.heading.body || section.heading) }}</span>
                 </header>
             </template>
             <template #content>
-                <avatar-editor :avatar="avatar" class="auto-margin width-sm"/>
+                <div class="precontent mb-3" v-if="section.precontent"
+                    :class="[ section.precontent.class ]">
+                    {{ i18n(section.precontent.body || section.precontent) }}
+                </div>
+                <avatar-editor :avatar="avatar" :class="field ? field.class : null"/>
+                <div class="postcontent" v-if="section.postcontent"
+                    :class="[ section.postcontent.class ]">
+                    {{ i18n(section.postcontent.body || section.postcontent) }}
+                </div>
             </template>
         </primevue-card>
     </section>
@@ -31,10 +38,25 @@ export default {
         avatar: {
             type: Object,
             required: true,
-        }
+        },
+        creating: {
+            type: Boolean,
+            default: false,
+        },
+        section: {
+            type: Object,
+            required: true,
+        },
+        updating: {
+            type: Boolean,
+            default: false,
+        },
     },
 
     computed: {
+        field() {
+            return this.section.fields['avatar'];
+        },
     },
 };
 </script>

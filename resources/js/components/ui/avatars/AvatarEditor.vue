@@ -1,5 +1,5 @@
 <template>
-    <div class="avatar-editor flex align-items-center my-1">
+    <div class="avatar-editor" :class="class">
         <avatar :avatar="model" size="xl"/>
         <div class="flex align-items-center mx-3" v-if="avatar.file">
             <primevue-button class="p-button-xs p-button-danger mr-2" icon="pi pi-times"
@@ -71,6 +71,10 @@ export default {
         avatar: {
             type: Object,
             required: true,
+        },
+        class: {
+            type: String,
+            default: 'flex align-items-center justify-content-center my-1',
         },
     },
 
