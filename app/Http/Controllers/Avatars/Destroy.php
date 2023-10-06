@@ -16,7 +16,7 @@ class Destroy extends Controller
      *
      *  @param  \Illuminate\Http\Request  $request
      *  @param  \Enraiged\Avatars\Models\Avatar  $avatar
-     *  @return \Illuminate\Http\RedirectResponse
+     *  @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function __invoke(Request $request, Avatar $avatar)
     {
@@ -24,7 +24,11 @@ class Destroy extends Controller
 
         $avatar->file->delete();
 
-        $request->session()->put('success', 'Avatar deleted');
+        if ($request->is('api/*')) {
+            return response()->json(['success' => __('Avatar file deleted')]);
+        }
+
+        $request->session()->put('success', 'Avatar file deleted');
 
         return redirect()->back();
     }

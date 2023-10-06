@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware(['auth', 'verified', 'enraiged'])
     ->namespace('\App\Http\Controllers\Avatars')
-    ->prefix('avatars')->as('avatars.')
+    ->prefix('api/avatars')
+    ->as('avatars.')
     ->group(function(){
 
         Route::get('{avatar}', 'Show')->name('show');

@@ -16,7 +16,7 @@
     },
     "class": "vertical shadow-1",
     "fields": {
-        "administration": {
+        "administration_section": {
             "heading": "Administrative Options",
             "secure": {
                 "method": "roleIs",
@@ -42,23 +42,28 @@
                 }
             }
         },
-        "avatar": {
-            "heading": "User Avatar",
+        "avatar_section": {
             "custom": true,
-            "fields": {},
+            "heading": "User Avatar",
+            "fields": {
+                "avatar": {
+                    "class": "flex align-items-center justify-content-center my-3",
+                    "data": "avatar.id"
+                }
+            },
             "type": "section"
         },
-        "personal": {
+        "personal_section": {
             "heading": "Personal Details",
             "type": "section",
             "fields": {
                 "salut": {
                     "after": "col-6",
                     "class": "col-6",
-                    "data": "profile.salut",
+                    "data": "person.salut",
                     "label": "Salut",
                     "options": {
-                        "source": "Enraiged\\Profiles\\Enums\\Saluts",
+                        "source": "Enraiged\\Persons\\Enums\\Saluts",
                         "type": "enum"
                     },
                     "placeholder": "Optional",
@@ -66,7 +71,7 @@
                 },
                 "first_name": {
                     "class": "col-6",
-                    "data": "profile.first_name",
+                    "data": "person.first_name",
                     "disabled": {
                         "attribute": "user.disable_name_change"
                     },
@@ -76,7 +81,7 @@
                 },
                 "last_name": {
                     "class": "col-6",
-                    "data": "profile.last_name",
+                    "data": "person.last_name",
                     "disabled": {
                         "attribute": "user.disable_name_change"
                     },
@@ -93,20 +98,20 @@
                 },
                 "alias": {
                     "class": "col-6",
-                    "data": "profile.alias",
+                    "data": "person.alias",
                     "label": "Alias",
                     "placeholder": "Optional"
                 },
                 "birthdate": {
                     "class": "col-6",
-                    "data": "profile.birthdate",
+                    "data": "person.birthdate",
                     "label": "Birthday",
                     "placeholder": "Optional",
                     "type": "calendar"
                 }
             }
         },
-        "authentication": {
+        "authentication_section": {
             "heading": "Account Password",
             "type": "section",
             "fields": {

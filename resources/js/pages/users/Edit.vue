@@ -5,7 +5,7 @@
             <page-messages :messages="messages" @dismiss="messages.splice($event, 1)"/>
             <vue-form updating ref="userForm" v-bind="$props" :template="template">
                 <template v-slot:avatar="props">
-                    <avatar-form-section class="auto-margin max-width-lg" :avatar="avatar" />
+                    <avatar-form-section :avatar="avatar" />
                 </template>
             </vue-form>
         </section>

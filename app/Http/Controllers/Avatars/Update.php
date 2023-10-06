@@ -15,7 +15,7 @@ class Update extends Controller
      *  Provide the requested avatar.
      *
      *  @param  \Enraiged\Avatars\Models\Avatar  $avatar
-     *  @return \Illuminate\Http\RedirectResponse
+     *  @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function __invoke(UpdateRequest $request, Avatar $avatar)
     {
@@ -27,8 +27,12 @@ class Update extends Controller
             ->fill(['color' => $color])
             ->save();
 
+        if ($request->is('api/*')) {
+            return response()->json(['color' => $request->get('color'), 'success' => __('Avatar color updated')]);
+        }
+
         $request->session()->put('status', 205);
-        $request->session()->put('success', 'Color updated');
+        $request->session()->put('success', 'Avatar color updated');
 
         return redirect()->back();
     }

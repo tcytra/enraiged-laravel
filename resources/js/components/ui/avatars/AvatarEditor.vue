@@ -2,26 +2,26 @@
     <div class="avatar-editor" :class="class">
         <avatar :avatar="model" size="xl"/>
         <div class="flex align-items-center mx-3" v-if="avatar.file">
-            <primevue-button class="p-button-xs p-button-danger mr-2" icon="pi pi-times"
+            <primevue-button class="p-button-sm p-button-danger mr-2" icon="pi pi-times"
                 v-tooltip.top="i18n('Remove this avatar')"
                 @click="destroy"/>
             {{ avatar.file.name }}
         </div>
         <div class="flex flex-column justify-content-center mx-3" v-else>
             <div class="flex align-items-center my-2">
-                <primevue-colorpicker v-model="color"/>
-                <primevue-inputtext class="p-inputtext-sm" v-model="color"/>
-                <primevue-button class="p-button-sm ml-2" icon="pi pi-eye"
+                <primevue-colorpicker class="mr-1" style="height:2.325rem;width:2.325rem;" v-model="color"/>
+                <primevue-inputtext class="" v-model="color"/>
+                <primevue-button class="ml-1" icon="pi pi-eye"
                     v-if="!changed"
                     v-tooltip.top="i18n('Preview this color')"
                     :disabled="`#${color}` === model.color"
                     @click="preview"/>
-                <primevue-button class="p-button-sm p-button-danger ml-1" icon="pi pi-times"
+                <primevue-button class="p-button-danger ml-1" icon="pi pi-times"
                     v-if="changed"
                     v-tooltip.top="i18n('I don\'t like it!')"
                     @click="reset"/>
-                <primevue-button class="p-button-sm p-button-success ml-1" icon="pi pi-check"
-                    v-if="changed"
+                <primevue-button class="p-button-success ml-1" icon="pi pi-check"
+                    :disabled="!changed"
                     v-tooltip.top="i18n('I like it!')"
                     @click="update"/>
             </div>
@@ -65,7 +65,7 @@ export default {
         tooltip: PrimevueTooltip,
     },
 
-    inject: ['i18n'],
+    inject: ['errorHandler', 'flashSuccess', 'i18n', 'initState', 'user'],
 
     props: {
         avatar: {
@@ -92,32 +92,61 @@ export default {
     methods: {
         destroy() {
             const method = this.avatar.actions.delete.method;
-            const uri = this.avatar.actions.delete.uri;
-            this.$inertia[method](uri, { onSuccess: () => this.reset()});
+            const url = this.avatar.actions.delete.uri;
+            this.axios({ method, url })
+                .then(({ data }) => {
+                    if (data.success) {
+                        this.avatar.file = null;
+                        this.reset(data);
+                    }
+                })
+                .catch(error => this.errorHandler(error));
         },
         preview() {
             this.model.color = `#${this.color}`;
             this.changed = true;
         },
-        reset() {
+        reset(data) {
             this.model = { ...this.avatar };
             this.color = this.model.color.replace('#', '');
             this.changed = false;
             delete this.model.actions;
+            if (typeof data !== 'undefined') {
+                this.flashSuccess(data.success);
+                if (this.avatar.id === this.user.avatar.id) {
+                    console.log('init state');
+                    this.initState();
+                }
+            }
         },
         update() {
+            const data = { color: this.color };
             const method = this.avatar.actions.update.method;
-            const uri = this.avatar.actions.update.uri;
-            this.$inertia[method](uri, { color: this.color }, { onSuccess: () => this.reset()});
+            const url = this.avatar.actions.update.uri;
+            this.axios({ method, url, data })
+                .then(({ data }) => {
+                    if (data.success) {
+                        this.avatar.color = `#${data.color}`;
+                        this.reset(data);
+                    }
+                })
+                .catch(error => this.errorHandler(error));
         },
         upload(payload) {
             this.file = payload.files[0];
-            const form = useForm({
-                image: this.file,
-            });
+            const form = useForm({image: this.file});
+            const data = form.data();
+            const headers = {'Content-Type': 'multipart/form-data'};
             const method = this.avatar.actions.upload.method;
-            const uri = this.avatar.actions.upload.uri;
-            form[method](uri, { onSuccess: () => this.reset()});
+            const url = this.avatar.actions.upload.uri;
+            this.axios({ method, url, data, headers })
+                .then(({ data }) => {
+                    if (data.success) {
+                        this.avatar.file = data.file;
+                        this.reset(data);
+                    }
+                })
+                .catch(error => this.errorHandler(error));
         },
     },
 };

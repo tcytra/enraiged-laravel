@@ -92,6 +92,11 @@ export default {
         setMenu(menu) {
             if (menu) {
                 Object.keys(menu).forEach(key => {
+                    if (menu[key].prefix) {
+                        if (this.$page.url.indexOf(menu[key].prefix) === 0) {
+                            menu[key].open = true;
+                        }
+                    } else
                     if (menu[key].menu) {
                         let state = false;
                         Object.values(menu[key].menu).every(item => {
