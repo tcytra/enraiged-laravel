@@ -159,10 +159,12 @@ export default {
         fetch() {
             this.loading = true;
             this.options = [];
-            const data = this.data();
             const method = this.field.options.method || 'get';
+            const data = method === 'get'
+                ? { params: this.data() }
+                : this.data();
             const url = this.field.options.uri;
-            this.axios({ method, url, data })
+            this.axios[method](url, data)
                 .then(({ data }) => {
                     this.options = data;
                     this.loading = false;
