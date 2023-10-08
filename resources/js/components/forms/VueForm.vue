@@ -23,6 +23,9 @@
                 :key="key"
                 :section="section"
                 :updating="updating">
+                <template v-for="(_, slot) of $slots" v-slot:[slot]="scope">
+                    <slot :name="slot" v-bind="scope"/>
+                </template>
                 <template v-if="section.custom" v-slot:[key]="props">
                     <slot :name="key" v-bind="{ creating, section, form, key, updating }"/>
                 </template>
