@@ -2,6 +2,7 @@
     <div class="formgrid grid mb-3">
         <template v-for="(item, key) in fields" :key="key">
             <slot v-if="item.custom" v-bind="$props"
+                :field="item"
                 :id="key"
                 :name="key"/>
             <calendar-field v-else-if="item.type === 'calendar'" v-bind="$props"

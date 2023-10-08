@@ -17,7 +17,11 @@
                     :creating="creating"
                     :fields="section.fields"
                     :form="form"
-                    :updating="updating"/>
+                    :updating="updating">
+                    <template v-for="(_, slot) of $slots" v-slot:[slot]="scope">
+                        <slot :name="slot" v-bind="scope"/>
+                    </template>
+                </vue-form-fields>
                 <div class="postcontent" v-if="section.postcontent"
                     :class="[ section.postcontent.class ]">
                     {{ i18n(section.postcontent.body || section.postcontent) }}
