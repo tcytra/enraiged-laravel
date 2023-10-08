@@ -114,7 +114,6 @@ export default {
             if (typeof data !== 'undefined') {
                 this.flashSuccess(data.success);
                 if (this.avatar.id === this.user.avatar.id) {
-                    console.log('init state');
                     this.initState();
                 }
             }
