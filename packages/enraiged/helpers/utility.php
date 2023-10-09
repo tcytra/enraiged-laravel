@@ -171,6 +171,29 @@ if (!function_exists('obj')) {
     }
 }
 
+if (!function_exists('phone_format')) {
+    /**
+     *  Return a provided numeric string as a north american phone number.
+     *
+     *  @param  string  $number
+     *  @return string|null
+     */
+    function phone_format($number) {
+        if (preg_match('/^\d{10,11}$/', preg_replace('/[^\d]/', '', $number))) {
+            $line_number = substr($number, -4);
+            $phone_prefix = substr($number, -7, -4);
+            $area_code = substr($number, -10, -7);
+            $country_code = strlen($number) === 11
+                ? '+'.substr($number, 0, 1).'-'
+                : '';
+
+            return "{$country_code}{$area_code}-{$phone_prefix}-{$line_number}";
+        }
+
+        return null;
+    }
+}
+
 if (!function_exists('resolve_object_path')) {
     /**
      *  Evaluate a dot.notation string against an object to return a callable child object configuration.
