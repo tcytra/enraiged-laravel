@@ -139,7 +139,10 @@ trait PopulateFields
                 $relationship = substr($field->data, 0, strrpos($field->data, '.'));
 
                 if (!$this->model->{$relationship}) {
-                    $this->model->load($relationship);
+                    try {
+                        $this->model->load($relationship);
+                    }
+                    catch (\Exception $e) {}
                 }
 
                 $chain = explode('.', $relationship);
