@@ -57,6 +57,7 @@ class MetaBuilder
                 'app_home' => RouteServiceProvider::HOME,
                 'app_host' => url(''),
                 'app_name' => config('app.name'),
+                'app_theme' => config('enraiged.theme.color'),
                 'app_version' => 'Laravel v'.\Illuminate\Foundation\Application::VERSION.' (PHP v'.PHP_VERSION.')',
             ]);
 

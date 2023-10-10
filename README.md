@@ -2,6 +2,8 @@
 
 > **Status:** This package is currently being tested as the framework in a small number of production projects.
 
+> **Warning:** There is a breaking change coming in the next release. The `profiles` table will be renamed to `persons`.
+
 ### Laravel +Vue +Inertiajs +PrimeVue +Vite
 
 + [Laravel 10](https://laravel.com/docs/10.x/releases)
@@ -99,6 +101,8 @@ Apply the patch (optional):
 patch -Nr - --version-control none -p0 < patches/primevue-3.30.0-datatable-correct-rowgroup-colspan.patch
 ```
 
+> **Note:** The `npm run build` command will need to be reexecuted after applying this patch.
+
 ---
 
 ## Serve the application
@@ -132,6 +136,9 @@ Primevue does not seem to be ssr-ready, so I spent some time providing a quick m
 There are two options for applying these corrections. While option 2 is quicker, option 1 is more likely to work for
 future versions of the vendor packages.
 
+> **Note:** Verify whether this fix is working for by inspecting the initial html response with the SSR service
+running. If SSR is working, the html body will be populated with the html structure of the initial page.
+
 **Option 1: Artisan Command**
 
 The primevue packages can be fixed with an artisan command:
@@ -144,7 +151,7 @@ php artisan enraiged:fix-ssr
 
 **Option 2: Apply Patch**
 
-Or, the quicker option is to apply a patch I've provided:
+Or, the quicker option is to apply the provided patch:
 
 > Reverse these changes by using `-Rp0` instead of `-p0`
 

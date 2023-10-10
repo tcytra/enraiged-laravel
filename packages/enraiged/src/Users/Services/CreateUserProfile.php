@@ -4,26 +4,25 @@ namespace Enraiged\Users\Services;
 
 use Enraiged\Profiles\Models\Profile;
 use Enraiged\Users\Models\User;
-use Enraiged\Users\Support\UserProfileParameters;
 use Illuminate\Support\Facades\DB;
 
 class CreateUserProfile
 {
-    /** @var  object  The User model. */
+    /** @var  User  The User model. */
     protected User $user;
 
-    /** @var  array  The provided parameters. */
-    protected $parameters;
+    /** @var  array  The array of attributes. */
+    protected $attributes;
 
     /**
      *  Create an instance of the CreateUserProfile service.
      *
-     *  @param  array   $parameters
+     *  @param  array   $attributes
      *  @return void
      */
-    public function __construct(array $parameters)
+    public function __construct(array $attributes)
     {
-        $this->parameters = UserProfileParameters::from($parameters);
+        $this->attributes = UserProfileAttributes::from($attributes)->toArray();
     }
 
     /**
@@ -38,19 +37,19 @@ class CreateUserProfile
         $this->user = new $model;
 
         DB::transaction(function () {
-            $profile_parameters = collect($this->parameters)
+            $profile_attributes = collect($this->attributes)
                 ->only((new Profile)->getFillable())
                 ->toArray();
 
-            $profile = Profile::create($profile_parameters);
+            $profile = Profile::create($profile_attributes);
 
-            $user_parameters = collect($this->parameters)
+            $user_attributes = collect($this->attributes)
                 ->only($this->user->getFillable())
-                ->merge(['profile_id' => $profile->id, 'name' => $profile->name])
+                ->merge(['profile_id' => $profile->id])
                 ->toArray();
 
             $this->user
-                ->fill($user_parameters)
+                ->fill($user_attributes)
                 ->save();
         });
 
@@ -68,15 +67,15 @@ class CreateUserProfile
     }
 
     /**
-     *  Create and return an User from provided parameters.
+     *  Create and return a User from provided attributes.
      *
-     *  @param  array   $parameters
-     *  @return \Enraiged\Users\Models\User
+     *  @param  array   $attributes
+     *  @return \App\Teamo\Users\Models\User
      */
-    public static function From($parameters)
+    public static function From($attributes)
     {
-        $builder = (new self($parameters))->handle();
+        $handler = (new self($attributes))->handle();
 
-        return $builder;
+        return $handler->user;
     }
 }

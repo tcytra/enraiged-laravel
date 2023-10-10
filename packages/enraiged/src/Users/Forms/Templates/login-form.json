@@ -15,30 +15,47 @@
     },
     "class": "vertical shadow-1",
     "fields": {
-        "email": {
-            "class": "col-12 md:col-6",
-            "label": "Login Email",
-            "placeholder": "Required",
-            "required": true
-        },
-        "username": {
-            "class": "col-12 md:col-6",
-            "label": "Unique Username",
-            "placeholder": "Optional",
-            "secure": {
-                "config": "enraiged.auth.allow_username_login"
+        "personal_details_section": {
+            "type": "section",
+            "heading": {
+                "class": "text-lg text-center",
+                "body": "Update Login"
+            },
+            "precontent": {
+                "class": "text-center mb-3",
+                "body": "Use this form to update your account login."
+            },
+            "fields": {
+                "email": {
+                    "before": "md:col-2",
+                    "class": "col-12 md:col-4",
+                    "label": "Login Email",
+                    "placeholder": "Required",
+                    "required": true
+                },
+                "username": {
+                    "after": "md:col-2",
+                    "class": "col-12 md:col-4",
+                    "label": "Unique Username",
+                    "placeholder": "Optional",
+                    "secure": {
+                        "config": "enraiged.auth.allow_username_login"
+                    }
+                },
+                "password": {
+                    "before": "md:col-2",
+                    "class": "col-12 md:col-4",
+                    "label": "Password",
+                    "placeholder": "Leave blank to keep password",
+                    "type": "password"
+                },
+                "password_confirmation": {
+                    "after": "md:col-2",
+                    "class": "col-12 md:col-4",
+                    "label": "Confirm Password",
+                    "type": "password"
+                }
             }
-        },
-        "password": {
-            "class": "col-12 md:col-6",
-            "label": "Password",
-            "placeholder": "Leave blank to keep password",
-            "type": "password"
-        },
-        "password_confirmation": {
-            "class": "col-12 md:col-6",
-            "label": "Confirm Password",
-            "type": "password"
         }
     }
 }

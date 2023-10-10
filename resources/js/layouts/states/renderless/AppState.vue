@@ -67,6 +67,12 @@ export default {
             this.mainMenuOpen = false;
         },
 
+        currentTheme() {
+            let href = document.getElementById('theme-color').href;
+            href = href.substr(0, href.lastIndexOf('/'));
+            return href.substr(href.lastIndexOf('/') +1);
+        },
+
         initState() {
             this.axios.get(this.api)
                 .then(response => this.fetched(response));
@@ -79,6 +85,7 @@ export default {
                 let lang = meta.language;
                 if (user) {
                     lang = user.language;
+                    this.setTheme(user);
                     this.setUser(user);
                 }
                 this.$root.$i18n.locale = lang;
@@ -115,6 +122,12 @@ export default {
             this.meta = meta;
         },
 
+        setTheme(user) {
+            if (user.theme) {
+                this.$primevue.changeTheme(this.currentTheme(), user.theme, 'theme-color', () => {});
+            }
+        },
+
         setUser(user) {
             this.user = user;
         },
@@ -142,6 +155,7 @@ export default {
             closeAllPanels: this.closeAll,
             closeAuthPanel: this.closeAuth,
             closeMainPanel: this.closeMenu,
+            currentTheme: this.currentTheme,
             initState: this.initState,
             menu: computed(() => this.menu),
             meta: computed(() => this.meta),

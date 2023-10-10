@@ -1,32 +1,38 @@
 <template>
     <main class="content main">
         <page-header back-button fixed :heading="heading" :title="title"/>
-        <section class="auto-margin container max-width-md">
+        <section class="auto-margin container max-width-xl">
             <page-messages :messages="messages" @dismiss="messages.splice($event, 1)"/>
-            <vue-form updating ref="userForm" v-bind="$props" :template="template">
-                <template v-slot:avatar="props">
-                    <avatar-form-section :avatar="avatar" />
-                </template>
-            </vue-form>
+            <update-form ref="updateUser" custom-actions updating :template="template"/>
         </section>
+        <footer class="footer">
+            <form-actions v-if="ready"
+                :actions="template.actions"
+                :form="form.form"
+                @clear="form.clear"
+                @reset="form.reset"
+                @submit="form.submit"/>
+        </footer>
     </main>
 </template>
 
 <script>
 import App from '@/layouts/App.vue';
 import AvatarFormSection from '@/components/ui/avatars/AvatarFormSection.vue';
+import FormActions from '@/components/forms/VueFormActions.vue';
 import PageHeader from '@/components/ui/pages/PageHeader.vue';
 import PageMessages from '@/components/ui/pages/PageMessages.vue';
-import VueForm from '@/components/forms/VueForm.vue';
+import UpdateForm from '@/components/users/forms/UpdateForm.vue';
 
 export default {
     layout: App,
 
     components: {
         AvatarFormSection,
+        FormActions,
         PageHeader,
         PageMessages,
-        VueForm,
+        UpdateForm,
     },
 
     inject: ['i18n'],
@@ -50,13 +56,26 @@ export default {
         },
     },
 
+    data: () => ({
+        ready: false,
+    }),
+
     computed: {
+        form() {
+            return this.ready
+                ? this.$refs.updateUser.$refs.updateForm
+                : null;
+        },
         heading() {
             return `${this.i18n('Update User')}: ${this.user.profile.name}`;
         },
         title() {
             return this.i18n('Update User');
         },
+    },
+
+    mounted() {
+        this.ready = true;
     },
 };
 </script>

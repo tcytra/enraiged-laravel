@@ -2,14 +2,6 @@
 
 namespace Enraiged;
 
-use Enraiged\Agreements\Models\Agreement;
-use Enraiged\Agreements\Observers\AgreementObserver;
-use Enraiged\Profiles\Models\Profile;
-use Enraiged\Profiles\Observers\ProfileObserver;
-use Enraiged\Users\Models\InternetAddress;
-use Enraiged\Users\Models\User;
-use Enraiged\Users\Observers\IpAddressObserver;
-use Enraiged\Users\Observers\UserObserver;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -25,12 +17,12 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Agreement::observe(AgreementObserver::class);
+        \Enraiged\Agreements\Models\Agreement::observe(\Enraiged\Agreements\Observers\AgreementObserver::class);
 
-        InternetAddress::observe(IpAddressObserver::class);
+        \Enraiged\Users\Models\InternetAddress::observe(\Enraiged\Users\Observers\InternetAddressObserver::class);
 
-        Profile::observe(ProfileObserver::class);
+        \Enraiged\Profiles\Models\Profile::observe(\Enraiged\Profiles\Observers\ProfileObserver::class);
 
-        User::observe(UserObserver::class);
+        \Enraiged\Users\Models\User::observe(\Enraiged\Users\Observers\UserObserver::class);
     }
 }

@@ -1,8 +1,8 @@
 <template>
     <main class="content main">
         <page-header back-button fixed :actions="actions" :title="title"/>
-        <section class="auto-margin container max-width-lg">
-            <login-form class="shadow-1" :template="template"/>
+        <section class="auto-margin container max-width-xl">
+            <login-form :template="template"/>
         </section>
     </main>
 </template>

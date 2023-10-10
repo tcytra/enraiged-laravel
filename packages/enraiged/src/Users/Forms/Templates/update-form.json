@@ -17,15 +17,26 @@
     "class": "vertical shadow-1",
     "fields": {
         "administration_section": {
-            "heading": "Administrative Options",
+            "heading": {
+                "body": "Administrative Options",
+                "class": "text-center text-lg"
+            },
             "secure": {
                 "method": "roleIs",
                 "role": "Administrator"
             },
             "type": "section",
             "fields": {
+                "is_active": {
+                    "before": "md:col-2",
+                    "class": "col-6 md:col-4",
+                    "default": true,
+                    "label": "Active",
+                    "type": "switch"
+                },
                 "role_id": {
-                    "class": "col-6",
+                    "after": "md:col-2",
+                    "class": "col-6 md:col-4",
                     "label": "Role",
                     "options": {
                         "source": "Enraiged\\Roles\\Models\\Role",
@@ -33,18 +44,15 @@
                     },
                     "placeholder": "Optional",
                     "type": "select"
-                },
-                "is_active": {
-                    "class": "col-6",
-                    "default": true,
-                    "label": "Active",
-                    "type": "switch"
                 }
             }
         },
         "avatar_section": {
             "custom": true,
-            "heading": "User Avatar",
+            "heading": {
+                "body": "User Avatar",
+                "class": "text-center text-lg"
+            },
             "fields": {
                 "avatar": {
                     "class": "flex align-items-center justify-content-center my-3",
@@ -54,24 +62,29 @@
             "type": "section"
         },
         "personal_section": {
-            "heading": "Personal Details",
+            "heading": {
+                "body": "Personal Details",
+                "class": "text-center text-lg"
+            },
             "type": "section",
             "fields": {
                 "salut": {
-                    "after": "col-6",
-                    "class": "col-6",
-                    "data": "person.salut",
+                    "after": "col-6 md:col-6",
+                    "before": "md:col-2",
+                    "class": "col-6 md:col-4",
+                    "data": "profile.salut",
                     "label": "Salut",
                     "options": {
-                        "source": "Enraiged\\Persons\\Enums\\Saluts",
+                        "source": "Enraiged\\Profiles\\Enums\\Saluts",
                         "type": "enum"
                     },
                     "placeholder": "Optional",
                     "type": "select"
                 },
                 "first_name": {
-                    "class": "col-6",
-                    "data": "person.first_name",
+                    "before": "md:col-2",
+                    "class": "col-6 md:col-4",
+                    "data": "profile.first_name",
                     "disabled": {
                         "attribute": "user.disable_name_change"
                     },
@@ -80,8 +93,9 @@
                     "required": true
                 },
                 "last_name": {
-                    "class": "col-6",
-                    "data": "person.last_name",
+                    "after": "md:col-2",
+                    "class": "col-6 md:col-4",
+                    "data": "profile.last_name",
                     "disabled": {
                         "attribute": "user.disable_name_change"
                     },
@@ -90,21 +104,24 @@
                     "required": true
                 },
                 "email": {
-                    "class": "col-6",
+                    "before": "md:col-2",
+                    "class": "col-6 md:col-4",
                     "label": "Email",
                     "placeholder": "Required",
                     "required": true,
                     "value": null
                 },
                 "alias": {
-                    "class": "col-6",
-                    "data": "person.alias",
+                    "after": "md:col-2",
+                    "class": "col-6 md:col-4",
+                    "data": "profile.alias",
                     "label": "Alias",
                     "placeholder": "Optional"
                 },
                 "birthdate": {
-                    "class": "col-6",
-                    "data": "person.birthdate",
+                    "before": "md:col-2",
+                    "class": "col-6 md:col-4",
+                    "data": "profile.birthdate",
                     "label": "Birthday",
                     "placeholder": "Optional",
                     "type": "calendar"
@@ -112,11 +129,15 @@
             }
         },
         "authentication_section": {
-            "heading": "Account Password",
+            "heading": {
+                "body": "Account Password",
+                "class": "text-center text-lg"
+            },
             "type": "section",
             "fields": {
                 "password": {
-                    "class": "col-6",
+                    "before": "md:col-2",
+                    "class": "col-6 md:col-4",
                     "feedback": true,
                     "label": "Password",
                     "placeholder": "Leave blank to keep password",
@@ -124,6 +145,7 @@
                     "value": false
                 },
                 "password_confirmation": {
+                    "after": "md:col-2 md:col-4",
                     "class": "col-6",
                     "label": "Confirm Password",
                     "type": "password",

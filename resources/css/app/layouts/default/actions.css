@@ -95,10 +95,10 @@
         }
 
         &.impersonating {
-          background-color: $color-warning;
+          background-color: $impersonation-button;
 
             &:hover {
-              background-color: darken($color-warning, 10%);
+              background-color: $impersonation-hover;
             }
         }
     }

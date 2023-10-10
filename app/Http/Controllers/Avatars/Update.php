@@ -34,6 +34,6 @@ class Update extends Controller
         $request->session()->put('status', 205);
         $request->session()->put('success', 'Avatar color updated');
 
-        return redirect()->back();
+        return $request->redirect();
     }
 }

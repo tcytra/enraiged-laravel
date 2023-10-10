@@ -3,7 +3,7 @@
   background-color: $white;
 
     .p-dialog-header {
-      background-color: var(--bluegray-100);
+      background-color: $surface-section;
       margin-bottom:    1rem;
       padding:          1rem;
     }

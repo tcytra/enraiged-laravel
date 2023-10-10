@@ -1,10 +1,10 @@
 <?php
 
-namespace Enraiged\Agreements\Models\BelongsToMany;
+namespace Enraiged\Agreements\Models\Relations;
 
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-trait Users
+trait BelongsToManyUsers
 {
     /**
      *  @return \Illuminate\Database\Eloquent\Relations\BelongsToMany

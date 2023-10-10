@@ -1,11 +1,11 @@
 <?php
 
-namespace Enraiged\Users\Models\HasMany;
+namespace Enraiged\Users\Models\Relations;
 
 use Enraiged\Files\Models\File;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-trait Files
+trait HasManyFiles
 {
     /**
      *  @return \Illuminate\Database\Eloquent\Relations\HasMany

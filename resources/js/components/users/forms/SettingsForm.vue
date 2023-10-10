@@ -1,27 +1,21 @@
 <template>
-    <primevue-card class="mb-3 max-width-md auto-margin">
-        <template #header>
-            <header class="header">
-                <h3>{{ i18n('This form will allow you to manage user settings.') }}</h3>
-            </header>
+    <vue-form updating ref="settingsForm"
+        :template="template"
+        :updating="updating"
+        @form:reset="$refs.themeFormSection.reset()">
+        <template v-slot:ui_theme_section="props">
+            <theme-form-section id="theme" v-bind="props" ref="themeFormSection"/>
         </template>
-        <template #content>
-            <vue-form :template="template"/>
-        </template>
-    </primevue-card>
+    </vue-form>
 </template>
 
 <script>
-import PrimevueCard from 'primevue/card/Card.vue';
-import DropdownField from '@/components/forms/fields/DropdownField.vue';
-import SwitchField from '@/components/forms/fields/SwitchField.vue';
+import ThemeFormSection from '@/components/ui/themes/ThemeFormSection.vue';
 import VueForm from '@/components/forms/VueForm.vue';
 
 export default {
     components: {
-        PrimevueCard,
-        DropdownField,
-        SwitchField,
+        ThemeFormSection,
         VueForm,
     },
 

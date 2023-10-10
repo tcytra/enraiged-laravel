@@ -2,6 +2,8 @@
 #app {
 
     .guest.layout {
+      background-color: $surface-overlay;
+
         >.container {
           display:          flex;
           align-items:      center;

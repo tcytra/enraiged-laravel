@@ -1,5 +1,28 @@
 # Release Notes
 
+2023-10-10 : 0.3.1  
+Update: Multiple improvements to forms/tables; Added theme switching
+
+- Added ability to define a route prefix for main menu groups
+- Added ability to define a table route prefix via security assertions
+- Added ability to define multi conditions: disabled/hidden if/unless
+- Added ability to group enraiged-form fields,sections into tabs
+- Added ability to provide css classes for form section text content
+- Added appendFields method to build form template fields,sections,tabs
+- Added fieldUnless, valueUnless methods to the enraiged form builder
+- Corrected css display issues with primevue tables
+- Corrected issue displaying 'stop impersonating' button in top nav
+- Corrected issue with form population attempting to use model attrs
+- Ensure the Users AvailabilityRequest leverages validated values
+- Implemented basic theme preference selection (enraiged{-blue,-grey})
+- Improved forms redirect; avoid redirect to login, argue fallback
+- Improved the AvatarEditor,AvatarFormSection components
+- Updated DropdownField component to use externally provided uri params
+- Updated enraiged-forms to allow submitting to api routes via axios
+- Updated postcss{,--scss} packages
+
+---
+
 2023-07-11 : 0.3.0  
 Update: Upgraded laravel; Corrections for SSR; Various improvements
 

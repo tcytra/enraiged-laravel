@@ -4,7 +4,7 @@
         "is_hidden": true,
         "is_protected": true,
         "name": "Application Administrator",
-        "password": "changeme",
+        "password": "letmein!",
         "role": "Administrator",
         "username": "admin"
     }

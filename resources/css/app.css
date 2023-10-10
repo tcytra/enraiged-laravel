@@ -1,17 +1,16 @@
 @charset 'UTF-8';
 
 //  the base vendor resources
-@import '~/primevue/resources/themes/saga-blue/theme.css';
+@import 'app/primevue/themes/saga.css';
 @import '~/primevue/resources/primevue.min.css';
 @import '~/primeflex/primeflex.min.css';
 @import '~/primeicons/primeicons.css';
 
 
 //  the local app resources
-@import 'app/variables.css';
 @import 'app/colors.css';
+@import 'app/variables.css';
 @import "fonts/helveticaneue";  // 'Helvetica Neue',
-//@import "fonts/opensans";       // 'Open Sans',
 @import "fonts/roboto";         // 'Roboto','
 
 

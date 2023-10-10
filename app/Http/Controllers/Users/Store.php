@@ -14,13 +14,20 @@ class Store extends Controller
 
     /**
      *  @param  \App\Http\Requests\Users\CreateRequest  $request
-     *  @return \Illuminate\Http\RedirectResponse
+     *  @return @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function __invoke(CreateRequest $request)
     {
         $this->authorize('create', User::class);
 
         CreateUserProfile::from($request->validated());
+
+        if ($request->is('api/*')) {
+            return response()->json([
+                'redirect' => $request->redirect(),
+                'success' => __('User created'),
+            ]);
+        }
 
         $request->session()->put('success', 'User created');
 

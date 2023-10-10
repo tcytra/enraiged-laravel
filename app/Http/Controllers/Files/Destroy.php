@@ -26,6 +26,6 @@ class Destroy extends Controller
 
         $request->session()->put('success', 'File deleted');
 
-        return redirect()->back();
+        return $request->redirect();
     }
 }

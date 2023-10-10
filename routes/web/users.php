@@ -12,9 +12,7 @@ Route::middleware(['auth', 'verified', 'enraiged'])
                 Route::get('', 'Index')->name('index');
                 Route::get('create', 'Create')->name('create');
                 Route::get('{user}/edit', 'Edit')->name('edit');
-                Route::patch('{user}/update', 'Update')->name('update');
                 Route::get('{user}', 'Show')->name('show');
-                Route::post('', 'Store')->name('store');
 
                 //  User Avatar
                 Route::get('{user}/avatar/edit', 'Avatars\Edit')->name('avatar.edit');
@@ -55,6 +53,8 @@ Route::middleware(['auth', 'verified', 'enraiged'])
                 Route::match(['GET', 'POST'], 'available', 'Available')->name('available');
                 Route::delete('{user}', 'Destroy')->name('delete');
                 Route::patch('{user}', 'Restore')->name('restore');
+                Route::patch('{user}/update', 'Update')->name('update');
+                Route::post('', 'Store')->name('store');
             });
 
     });

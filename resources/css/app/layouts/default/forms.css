@@ -27,7 +27,7 @@
         .line-break {
           margin:           0 0 .5rem;
             hr {
-              background:       var(--surface-400);
+              background:       $surface-card;
               border:           0;
               height:           1px;
             }
@@ -35,10 +35,6 @@
 
         .section {
           margin-bottom:    1rem;
-          
-            .p-card {
-              margin-bottom:    2.5rem;
-            }
         }
 
         &.horizontal .field.control, .horizontal .field.control, .field.control.horizontal, .vertical .horizontal.field.control {
@@ -164,13 +160,13 @@
       background-color: $background-info;
     }
     .p-inputswitch.p-inputswitch-checked.is-creating:not(.p-invalid) .p-inputswitch-slider::before {
-      background-color: darken($background-info, 12%);
+      background-color: $form-creating-slider;
     }
     .p-checkbox.is-creating:not(.p-invalid) .p-checkbox-box,
     .p-calendar.is-creating:not(.p-invalid) .p-inputtext,
     .p-inputtext.is-creating:not(.p-invalid),
     .p-inputwrapper.is-creating:not(.p-calendar):not(.p-invalid) {
-      background-color: lighten($background-info, 12%);
+      background-color: $form-creating-ground;
       border-color:     $color-info;
     }
 
@@ -178,13 +174,13 @@
       background-color: $background-warning;
     }
     .p-inputswitch.p-inputswitch-checked.is-updating:not(.p-invalid) .p-inputswitch-slider::before {
-      background-color: darken($background-warning, 12%);
+      background-color: $form-updating-slider;
     }
     .p-checkbox.is-updating:not(.p-invalid) .p-checkbox-box,
     .p-calendar.is-updating:not(.p-invalid) .p-inputtext,
     .p-inputtext.is-updating:not(.p-invalid),
     .p-inputwrapper.is-updating:not(.p-calendar):not(.p-invalid) {
-      background-color: lighten($background-warning, 12%);
+      background-color: $form-updating-ground;
       border-color:     $color-warning;
     }
 
@@ -193,7 +189,7 @@
     }
 
     .p-inputtext.p-invalid, .p-inputwrapper.p-invalid, .p-inputwrapper.p-invalid .p-password-input {
-      background-color: lighten($background-danger, 9%);
+      background-color: $form-invalid-ground;
       border-color:     $color-danger;
     }
 
@@ -201,6 +197,7 @@
         .p-card {
           background-color: unset;
           border-color:     unset;
+          margin-bottom:    2.5rem;
 
             .p-card-body {
               padding:          0;

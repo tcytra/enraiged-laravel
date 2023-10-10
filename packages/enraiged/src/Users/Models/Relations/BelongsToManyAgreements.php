@@ -1,12 +1,12 @@
 <?php
 
-namespace Enraiged\Users\Models\BelongsToMany;
+namespace Enraiged\Users\Models\Relations;
 
 use Enraiged\Agreements\Models\Agreement;
 use Enraiged\Agreements\Models\Pivots\AgreementUser;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-trait Agreements
+trait BelongsToManyAgreements
 {
     /**
      *  @return \Illuminate\Database\Eloquent\Relations\BelongsToMany

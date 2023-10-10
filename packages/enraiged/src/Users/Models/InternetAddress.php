@@ -2,14 +2,14 @@
 
 namespace Enraiged\Users\Models;
 
-use Enraiged\Users\Models\BelongsTo\User as BelongsToUser;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class InternetAddress extends Model
 {
-    use BelongsToUser, SoftDeletes;
+    use Relations\BelongsToUser,
+        SoftDeletes;
 
     /** @var  string  The database table name. */
     protected $table = 'ip_addresses';

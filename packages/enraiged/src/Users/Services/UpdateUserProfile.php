@@ -3,7 +3,6 @@
 namespace Enraiged\Users\Services;
 
 use Enraiged\Users\Models\User;
-use Enraiged\Users\Support\UserProfileParameters;
 use Illuminate\Support\Facades\DB;
 
 class UpdateUserProfile
@@ -11,21 +10,20 @@ class UpdateUserProfile
     /** @var  object  The User model. */
     protected User $user;
 
-    /** @var  array  The provided parameters. */
-    protected $parameters;
+    /** @var  array  The array of attributes. */
+    protected $attributes;
 
     /**
      *  Create an instance of the UpdateUserProfile service.
      *
-     *  @param  \Enraiged\Users\Models\User  $user
-     *  @param  array   $parameters
+     *  @param  \App\Teamo\Users\Models\User  $user
+     *  @param  array   $attributes
      *  @return void
      */
-    public function __construct(User $user, array $parameters)
+    public function __construct(User $user, array $attributes)
     {
         $this->user = $user;
-
-        $this->parameters = UserProfileParameters::from($parameters);
+        $this->attributes = UserProfileAttributes::from($attributes)->toArray();
     }
 
     /**
@@ -36,33 +34,33 @@ class UpdateUserProfile
     public function handle()
     {
         DB::transaction(function () {
-            $user_parameters = collect($this->parameters)
+            $user_attributes = collect($this->attributes)
                 ->only($this->user->getFillable())
                 ->toArray();
 
-            $this->user->update($user_parameters);
+            $this->user->update($user_attributes);
 
-            $profile_parameters = collect($this->parameters)
+            $profile_attributes = collect($this->attributes)
                 ->only($this->user->profile->getFillable())
                 ->toArray();
 
-            $this->user->profile->update($profile_parameters);
+            $this->user->profile->update($profile_attributes);
         });
 
         return $this;
     }
 
     /**
-     *  Update and return a User from provided parameters.
+     *  Update and return a User from provided attributes.
      *
-     *  @param  \Enraiged\Users\Models\User  $user
-     *  @param  array   $parameters
-     *  @return \Enraiged\Users\Models\User
+     *  @param  \App\Teamo\Users\Models\User  $user
+     *  @param  array   $attributes
+     *  @return \App\Teamo\Users\Models\User
      */
-    public static function From(User $user, array $parameters)
+    public static function From(User $user, array $attributes): User
     {
-        $builder = (new self($user, $parameters))->handle();
+        $handler = (new self($user, $attributes))->handle();
 
-        return $builder->user;
+        return $handler->user;
     }
 }

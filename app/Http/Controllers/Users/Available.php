@@ -13,13 +13,14 @@ class Available extends Controller
 
     /**
      *  @param  \App\Http\Requests\Users\AvailabilityRequest  $request
-     *  @return \Illuminate\Http\Response
+     *  @return \Illuminate\Http\JsonResponse
      */
     public function __invoke(AvailabilityRequest $request)
     {
         $this->authorize('available', User::class);
 
         $columns = collect(['users.id', "concat(profiles.first_name, ' ', profiles.last_name) as name"])->join(',');
+        $validated = collect($request->validated());
 
         $available = User::selectRaw($columns)
             ->join('profiles', 'profiles.id', '=', 'users.profile_id')
@@ -27,12 +28,12 @@ class Available extends Controller
             ->where('users.is_active', true)
             ->where('users.is_hidden', false);
 
-        if ($request->has('role_id')) {
-            $available->where('role_id', $request->get('role_id'));
+        if ($validated->has('role_id')) {
+            $available->where('role_id', $validated->get('role_id'));
         }
 
-        if ($request->has('search')) {
-            $search = filter_var($request->get('search'));
+        if ($validated->has('search')) {
+            $search = filter_var($validated->get('search'));
             $terms = explode(" ", trim($search));
 
             $available->whereRaw("concat(profiles.first_name, ' ', profiles.last_name) like '{$search}%'");
@@ -49,9 +50,11 @@ class Available extends Controller
             $available->orderByRaw("concat(profiles.first_name, ' ', profiles.last_name) like '{$search}%' desc");
         }
 
+        $limit = $validated->get('limit') ?? 100;
+
         $available
             ->orderBy('name')
-            ->limit(100);
+            ->limit($limit);
 
         return response()->json($available->get());
     }

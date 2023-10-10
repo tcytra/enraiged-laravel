@@ -1,11 +1,11 @@
 <?php
 
-namespace Enraiged\Users\Models\HasMany;
+namespace Enraiged\Users\Models\Relations;
 
 use Enraiged\Users\Models\InternetAddress;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-trait IpAddresses
+trait HasManyInternetAddresses
 {
     /**
      *  @return \Illuminate\Database\Eloquent\Relations\HasMany

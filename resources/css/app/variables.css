@@ -13,45 +13,6 @@ $break-x-large:         1184px;
 $break-x-small:         416px;
 
 
-//  define the colours
-$black:                 black;
-$white:                 white;
-
-$background-color:      var(--bg-color);
-$color:                 var(--text-color);
-
-$background-danger:     #ffcdd2;
-$background-info:       #b3e5fc;
-$background-primary:    #bbc7cd; // var(--bluegray-200);
-$background-secondary:  #bfcbd1;
-$background-success:    #c8e6c9;
-$background-warning:    #ffecb3;
-$color-danger:          #f44336;
-$color-info:            #0288d1;
-$color-primary:         #526a76; // var(--bluegray-600);
-$color-secondary:       #607d8b;
-$color-success:         #689f38;
-$color-warning:         #fbc02d;
-
-$surface-border:        var(--bluegray-100);
-$surface-card:          var(--bluegray-200); // bbc7cd
-$surface-ground:        var(--bluegray-50);
-$surface-overlay:       var(--bluegray-800); // 35454c
-$surface-overlay-dark:  darken(#35454c, 3%);
-$surface-section:       var(--bluegray-100);
-
-$body-background:       $surface-section;
-$body-color:            $surface-overlay;
-$card-background:       $surface-ground;
-$card-border:           $surface-border;
-$card-color:            #495057;
-$card-header-background:var(--surface-200);
-$card-header-color:     #495057;
-$top-background:        $surface-card;
-$top-border:            #a1b1ba;
-$top-hover:             var(--bluegray-300);
-
-
 //  define the fonts
 $font-family-primary:   'Helvetica Neue', 'Helvetica', sans-serif;
 $font-family-secondary: 'Roboto', $font-family-primary;

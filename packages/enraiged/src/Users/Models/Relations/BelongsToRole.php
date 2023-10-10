@@ -1,18 +1,18 @@
 <?php
 
-namespace Enraiged\Users\Models\BelongsTo;
+namespace Enraiged\Users\Models\Relations;
 
-use Enraiged\Roles\Models\Role as RoleModel;
+use Enraiged\Roles\Models\Role;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-trait Role
+trait BelongsToRole
 {
     /**
      *  @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function role(): BelongsTo
     {
-        return $this->belongsTo(RoleModel::class, 'role_id', 'id');
+        return $this->belongsTo(Role::class, 'role_id', 'id');
     }
 
     /**

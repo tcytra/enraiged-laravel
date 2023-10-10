@@ -43,7 +43,7 @@
               justify-content:  center;
 
                 &:active, &:hover {
-                  background-color: var(--bluegray-600);
+                  background-color: $surface-primary;
                 }
             }
         }

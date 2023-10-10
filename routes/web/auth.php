@@ -17,6 +17,8 @@ Route::namespace('\App\Http\Controllers\Auth')
                     ->group(function(){
                         Route::get('login', 'Create')->name('login');
                         Route::post('login', 'Store')->name('login.store');
+                        //  Comment out the above line and uncomment below to enable login attempt limiting
+                        //Route::post('login', 'Store')->name('login.store')->middleware('throttle:8,2');
                     });
 
                 Route::namespace('Password\Reset')

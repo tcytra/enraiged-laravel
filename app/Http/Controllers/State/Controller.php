@@ -8,8 +8,7 @@ use App\Http\Responses\State\AppState as AppStateResponse;
 class Controller extends AppController
 {
     /**
-     *  
-     *  @return \App\Http\Responses\State\AppState
+     *  @return \Symfony\Component\HttpFoundation\Response
      */
     public function __invoke()
     {

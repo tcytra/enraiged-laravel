@@ -2,7 +2,7 @@
 
 namespace Enraiged\Users\Observers;
 
-use App\Auth\Enums\Roles;
+use App\Support\Enums\Roles;
 use Enraiged\Roles\Models\Role;
 use Enraiged\Users\Models\User;
 use Enraiged\Users\Notifications\UserLoginChange;
@@ -19,12 +19,6 @@ class UserObserver
     public function created(User $user)
     {
         $user->notify(new UserWelcome);
-
-        if ($user->profile && $user->profile->name !== $user->name) {
-            (object) $user
-                ->fill(['name' => $user->profile->name])
-                ->save();
-        }
 
         $require_agreement = $user->must_agree_to_terms === true
             && $user->has_agreed_to_terms === false;

@@ -1,7 +1,7 @@
 <template>
     <nav class="text-50" refs="nav">
         <header class="header profile">
-            <avatar size="xx" :avatar="user.avatar" @click="get('/my/profile/avatar')"/>
+            <avatar size="xx" :avatar="user.avatar" @click="get('/my/avatar')"/>
             <h4 class="name">{{ user.profile.name }}</h4>
             <h5 class="email">{{ user.email }}</h5>
         </header>
@@ -62,7 +62,7 @@ export default {
 
     emits: ['auth:close', 'auth:toggle'],
 
-    inject: ['i18n', 'user'],
+    inject: ['currentTheme', 'i18n', 'meta', 'user'],
 
     methods: {
         close() {
@@ -73,6 +73,10 @@ export default {
             this.$inertia.get(url);
         },
         logout() {
+            const app_theme = this.currentTheme();
+            if (app_theme !== this.meta.app_theme) {
+                this.$primevue.changeTheme(app_theme, this.meta.app_theme, 'theme-color', () => {});
+            }
             router.post('/logout');
         },
         match(...urls) {

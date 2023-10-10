@@ -70,7 +70,8 @@ trait Reportable
      */
     private function whereVisible(): self
     {
-        $this->reportable->where('is_hidden', false);
+        $this->reportable
+            ->where('users.is_hidden', false);
 
         return $this;
     }

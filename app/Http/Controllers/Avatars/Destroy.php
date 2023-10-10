@@ -30,6 +30,6 @@ class Destroy extends Controller
 
         $request->session()->put('success', 'Avatar file deleted');
 
-        return redirect()->back();
+        return $request->redirect();
     }
 }

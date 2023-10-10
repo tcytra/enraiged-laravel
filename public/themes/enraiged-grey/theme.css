@@ -1,0 +1,40 @@
+
+:root {
+  --black: #000000;
+  --background-danger: #ffcdd2;
+  --background-info: #b3e5fc;
+  --background-primary: #bbc7cd;
+  --background-secondary: #bfcbd1;
+  --background-success: #c8e6c9;
+  --background-warning: #ffecb3;
+  --color-danger: #f44336;
+  --color-info: #0288d1;
+  --color-primary: #526a76;
+  --color-secondary: #607d8b;
+  --color-success: #689f38;
+  --color-warning: #fbc02d;
+  --enraiged-body: #e3e8ea;
+  --enraiged-border: #d9e0e3;
+  --enraiged-card: #bbc7cd;
+  --enraiged-color: #495057;
+  --enraiged-ground: #fbfdff;
+  --enraiged-header: #f7f9f9;
+  --enraiged-hilight: #9caeb7;
+  --enraiged-overlay: #35454c;
+  --enraiged-primary: #526a76;
+  --enraiged-section: #d9e0e3;
+  --form-creating-ground: #f0fafe;
+  --form-creating-slider: #7bd1f9;
+  --form-updating-ground: #fffbf0;
+  --form-updating-slider: #ffecb3;
+  --form-invalid-ground: #fffafa;
+  --menu-active: #263238;
+  --menu-hover: #d06900;
+  --table-row-danger: #ffe6e8;
+  --table-row-info: #ceeefd;
+  --table-row-primary: #cad3d8;
+  --table-row-secondary: #cdd6db;
+  --table-row-success: #d8eed9;
+  --table-row-warning: #fff2cc;
+  --white: #ffffff;
+}

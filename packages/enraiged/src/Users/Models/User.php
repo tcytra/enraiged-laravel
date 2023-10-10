@@ -14,11 +14,11 @@ class User extends Authenticatable
         Attributes\AllowNameChange,
         Attributes\HasContext,
         Attributes\MustAgreeToTerms,
-        BelongsTo\Profile,
-        BelongsTo\Role,
-        BelongsToMany\Agreements,
-        HasMany\Files,
-        HasMany\IpAddresses,
+        Relations\BelongsToProfile,
+        Relations\BelongsToRole,
+        Relations\BelongsToManyAgreements,
+        Relations\HasManyFiles,
+        Relations\HasManyInternetAddresses,
         Scopes\Deleted,
         Scopes\NotDeleted,
         Scopes\Reportable,
@@ -32,18 +32,26 @@ class User extends Authenticatable
 
     /** @var  array  The attributes that are mass assignable. */
     protected $fillable = [
-        'dateformat', 'email', 'language', 'name', 'password', 'timeformat', 'timezone', 'username',
-        'is_active', 'is_hidden', 'is_protected', 'profile_id', 'role_id',
+        'email',
+        'is_active',
+        'is_hidden',
+        'is_protected',
+        'language',
+        'password',
+        'person_id',
+        'role_id',
+        'theme',
+        'timezone',
     ];
 
     /** @var  array  The attributes that should be hidden for serialization. */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
 
     /** @var  array  The attributes that should be cast. */
     protected $casts = [
-        'email_verified_at' => 'datetime',
         'is_active' => 'boolean',
         'is_hidden' => 'boolean',
         'is_protected' => 'boolean',

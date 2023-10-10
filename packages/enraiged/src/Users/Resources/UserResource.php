@@ -24,6 +24,7 @@ class UserResource extends JsonResource
             'email' => $this->email,
             'name' => $this->profile->name,
             'role' => $this->role->name,
+            'theme' => $this->theme ?? config('enraiged.theme.color'),
             'username' => $this->username,
             'is_active' => $this->is_active,
             'is_myself' => $this->is_myself,
@@ -45,7 +46,7 @@ class UserResource extends JsonResource
             $resource['role'] = $this->role();
         }
 
-        if (session_status() === PHP_SESSION_ACTIVE && $request->session()->has('impersonate')) {
+        if ($request->session()->has('impersonate')) {
             $resource['is_impersonating'] = true;
         }
 

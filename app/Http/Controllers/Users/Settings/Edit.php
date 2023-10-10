@@ -24,7 +24,8 @@ class Edit extends Controller
         $this->authorize('edit', $user);
 
         $builder = UpdateSettingsForm::from($request)
-            ->edit($user, 'users.settings.update');
+            ->edit($user, 'users.settings.update')
+            ->value('theme', $user->theme ?? config('enraiged.theme.color'));
 
         return inertia('users/settings/Edit', [
             'actions' => collect($this->actions($user))->except('settings')->values(),

@@ -14,7 +14,7 @@ class Destroy extends Controller
     /**
      *  @param  \App\Http\Requests\Users\IndexRequest  $request
      *  @param  \Enraiged\Users\Models\User  $user
-     *  @return \Inertia\Response
+     *  @return \Illuminate\Http\JsonResponse|\Inertia\Response
      */
     public function __invoke(Request $request, User $user)
     {
@@ -31,12 +31,14 @@ class Destroy extends Controller
             $user->delete();
 
             if ($request->is('api/*')) {
-                return response()->json(['success' => __('User deleted')]);
+                return response()->json([
+                    'success' => __('User deleted'),
+                ]);
             }
 
             $request->session()->put('success', __('User deleted'));
         }
 
-        return redirect()->back();
+        return $request->redirect();
     }
 }

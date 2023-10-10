@@ -14,18 +14,18 @@
             .avatar {
                 .p-avatar {
                     &.greyscale-dark {
-                      background-color: var(--bluegray-600) !important;
+                      background-color: $surface-primary !important;
 
                         .p-avatar-text {
-                          color:            var(--bluegray-100);
+                          color:            $surface-section;
                         }
                     }
 
                     &.greyscale-light {
-                      background-color: var(--bluegray-100) !important;
+                      background-color: $surface-section !important;
 
                         .p-avatar-text {
-                          color:            var(--bluegray-600);
+                          color:            $surface-primary;
                         }
                     }
 
@@ -73,7 +73,7 @@
                       width:            2.5rem;
 
                         .pi {
-                          color:            var(--bluegray-800);
+                          color:            $surface-overlay;
                           font-size:        1.25rem;
                         }
                     }

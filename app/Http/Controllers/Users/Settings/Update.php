@@ -26,6 +26,6 @@ class Update extends Controller
         $request->session()->put('status', 205);
         $request->session()->put('success', 'Update successful');
 
-        return redirect()->back();
+        return redirect('/my/profile');
     }
 }

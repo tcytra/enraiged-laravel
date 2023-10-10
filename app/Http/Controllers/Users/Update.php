@@ -15,7 +15,7 @@ class Update extends Controller
     /**
      *  @param  \App\Http\Requests\Users\UpdateRequest  $request
      *  @param  int  $user
-     *  @return \Illuminate\Http\RedirectResponse
+     *  @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function __invoke(UpdateRequest $request, $user)
     {
@@ -25,7 +25,14 @@ class Update extends Controller
 
         UpdateUserProfile::from($user, $request->validated());
 
-        $request->session()->put('success', 'Update successful');
+        if ($request->is('api/*')) {
+            return response()->json([
+                'redirect' => $request->redirect(),
+                'success' => __('User updated'),
+            ]);
+        }
+
+        $request->session()->put('success', __('User updated'));
 
         return $request->redirect();
     }

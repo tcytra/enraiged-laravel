@@ -1,17 +1,17 @@
 <template>
     <main class="content main">
         <page-header back-button fixed :actions="actions" :title="title"/>
-        <section class="auto-margin container max-width-lg">
+        <section class="auto-margin container max-width-xl">
              <primevue-card class="mb-3 shadow-1">
                 <template #header>
-                    <header class="header">
-                        <h3 class="auto-margin max-width-sm">
-                            {{ i18n('Select a color or upload an image for this avatar.') }}
-                        </h3>
+                    <header class="header text-lg text-center">
+                        <span class="text">
+                            {{ i18n('Select a color or upload an image for your avatar.') }}
+                        </span>
                     </header>
                 </template>
                 <template #content>
-                    <avatar-editor :avatar="avatar" class="auto-margin width-sm"/>
+                    <avatar-editor :avatar="avatar" class="flex align-items-center justify-content-center my-3"/>
                 </template>
             </primevue-card>
         </section>

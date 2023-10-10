@@ -15,25 +15,65 @@
     },
     "class": "vertical shadow-1",
     "fields": {
-        "language": {
-            "class": "col-12 md:col-6",
-            "label": "Language",
-            "options": {
-                "source": "App\\Auth\\Enums\\Languages",
-                "type": "enum"
+        "user_locale_section": {
+            "type": "section",
+            "heading": {
+                "class": "text-lg text-center",
+                "body": "User Locale"
             },
-            "placeholder": "Optional",
-            "type": "select"
+            "precontent": {
+                "class": "text-center mb-3",
+                "body": "Configure your preferred language and timezone."
+            },
+            "fields": {
+                "language": {
+                    "before": "md:col-2",
+                    "class": "col-12 md:col-4",
+                    "label": "Language",
+                    "options": {
+                        "source": "App\\Support\\Enums\\Languages",
+                        "type": "enum"
+                    },
+                    "placeholder": "Optional",
+                    "type": "select"
+                },
+                "timezone": {
+                    "after": "md:col-2",
+                    "class": "col-12 md:col-4",
+                    "label": "Timezone",
+                    "options": {
+                        "source": "App\\Support\\Enums\\Timezones",
+                        "type": "enum"
+                    },
+                    "placeholder": "Optional",
+                    "type": "select"
+                }
+            }
         },
-        "timezone": {
-            "class": "col-12 md:col-6",
-            "label": "Timezone",
-            "options": {
-                "source": "App\\Auth\\Enums\\Timezones",
-                "type": "enum"
+        "ui_theme_section": {
+            "custom": true,
+            "type": "section",
+            "heading": {
+                "class": "text-lg text-center",
+                "body": "UI Theme"
             },
-            "placeholder": "Optional",
-            "type": "select"
+            "precontent": {
+                "body": "Select a theme to apply as your UI colors.",
+                "class": "text-center"
+            },
+            "fields": {
+                "theme": {
+                    "after": "md:col-3 lg:col-4",
+                    "before": "md:col-3 lg:col-4",
+                    "class": "col-12 md:col-6 lg:col-4",
+                    "options": {
+                        "source": "App\\Support\\Enums\\Themes",
+                        "type": "enum"
+                    },
+                    "placeholder": "Select One",
+                    "type": "select"
+                }
+            }
         }
     }
 }

@@ -5,7 +5,7 @@ namespace Enraiged\Users\Observers;
 use Enraiged\Users\Models\InternetAddress;
 use Enraiged\Users\Notifications\InternetAddressLogin;
 
-class IpAddressObserver
+class InternetAddressObserver
 {
     /**
      *  Handle the InternetAddress created event.

@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Agreement extends Model
 {
     use Attributes\Published,
-        BelongsToMany\Users,
+        Relations\BelongsToManyUsers,
         SoftDeletes, UserTracking;
 
     /** @var  array  The attributes that are mass assignable. */

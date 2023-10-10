@@ -14,7 +14,7 @@ class Restore extends Controller
     /**
      *  @param  \App\Http\Requests\Users\IndexRequest  $request
      *  @param  int     $user_id
-     *  @return \Inertia\Response
+     *  @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function __invoke(Request $request, $user_id)
     {
@@ -30,6 +30,6 @@ class Restore extends Controller
 
         $request->session()->put('success', __('User restored'));
 
-        return redirect()->back();
+        return $request->redirect();
     }
 }

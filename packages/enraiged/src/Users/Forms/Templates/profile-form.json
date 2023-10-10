@@ -15,37 +15,50 @@
     },
     "class": "vertical shadow-1",
     "fields": {
-        "salut": {
-            "after": "col-0 md:col-6 lg:hidden",
-            "class": "col-12 md:col-6 lg:col-4 xl:col-2",
-            "data": "profile.salut",
-            "label": "Salut",
-            "options": {
-                "source": "Enraiged\\Profiles\\Enums\\Saluts",
-                "type": "enum"
+        "personal_details_section": {
+            "type": "section",
+            "heading": {
+                "class": "text-lg text-center",
+                "body": "Personal Details"
             },
-            "placeholder": "Optional",
-            "type": "select"
-        },
-        "first_name": {
-            "class": "col-12 md:col-6 lg:col-4 xl:col-5",
-            "data": "profile.first_name",
-            "disabled": {
-                "attribute": "user.disable_name_change"
+            "precontent": {
+                "class": "text-center mb-3",
+                "body": "Use this form to edit your basic personal details."
             },
-            "label": "First Name",
-            "placeholder": "Required",
-            "required": true
-        },
-        "last_name": {
-            "class": "col-12 md:col-6 lg:col-4 xl:col-5",
-            "data": "profile.last_name",
-            "disabled": {
-                "attribute": "user.disable_name_change"
-            },
-            "label": "Last Name",
-            "placeholder": "Required",
-            "required": true
+            "fields": {
+                "salut": {
+                    "after": "md:col-6 lg:hidden",
+                    "class": "col-12 md:col-6 lg:col-4 xl:col-2",
+                    "data": "profile.salut",
+                    "label": "Salut",
+                    "options": {
+                        "source": "Enraiged\\Profiles\\Enums\\Saluts",
+                        "type": "enum"
+                    },
+                    "placeholder": "Optional",
+                    "type": "select"
+                },
+                "first_name": {
+                    "class": "col-12 md:col-6 lg:col-4 xl:col-5",
+                    "data": "profile.first_name",
+                    "disabled": {
+                        "attribute": "user.disable_name_change"
+                    },
+                    "label": "First Name",
+                    "placeholder": "Required",
+                    "required": true
+                },
+                "last_name": {
+                    "class": "col-12 md:col-6 lg:col-4 xl:col-5",
+                    "data": "profile.last_name",
+                    "disabled": {
+                        "attribute": "user.disable_name_change"
+                    },
+                    "label": "Last Name",
+                    "placeholder": "Required",
+                    "required": true
+                }
+            }
         }
     }
 }

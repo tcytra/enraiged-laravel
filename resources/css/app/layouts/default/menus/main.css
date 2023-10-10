@@ -15,11 +15,11 @@
                   padding-right:    1rem;
 
                     &.is-active {
-                      background-color: var(--bluegray-900);
+                      background-color: $menu-active;
                     }
 
                     &:hover:not(.is-active):not(.has-children) {
-                      background-color: var(--orange-600);
+                      background-color: $menu-hover;
                     }
 
                     .icon {
@@ -75,7 +75,7 @@
                 }
 
                 >.sub-menu {
-                  background-color: $surface-overlay-dark;
+                  background-color: rgba(0, 0, 0, 0.15);
                 }
             }
         }

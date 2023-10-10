@@ -18,6 +18,7 @@ trait Rules
         'password' => 'required|confirmed',
         'role_id' => 'nullable|exists:roles,id',
         'salut' => 'nullable',
+        'theme' => 'nullable|string|max:32',
         'timeformat' => 'nullable|string',
         'timezone' => 'nullable',
         'title' => 'nullable',

@@ -1,8 +1,8 @@
 <template>
     <div :class="template.class">
-        <div class="filter-controls grid m-0 p-card p-component vue-form" v-if="template.filters">
+        <div class="filter-controls grid m-0" v-if="template.filters">
             <div class="filter col-12" v-for="(filter, name) in template.filters" :key="name"
-                :class="['md:col-6', 'lg:col-4', 'xl:col-3', filter.class]">
+                :class="['md:col-4', 'lg:col-3', 'xl:col-2', filter.class]">
                 <daterange-filter v-if="filter.type === 'daterange'"
                     :field="filter"
                     :form="filters"

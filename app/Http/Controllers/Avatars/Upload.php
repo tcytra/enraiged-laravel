@@ -30,6 +30,6 @@ class Upload extends Controller
         $request->session()->put('status', 205);
         $request->session()->put('success', 'Avatar file uploaded');
 
-        return redirect()->back();
+        return $request->redirect();
     }
 }

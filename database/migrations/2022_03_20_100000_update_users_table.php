@@ -20,12 +20,13 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->bigInteger('profile_id')->unsigned()->nullable()->index()->after('id');
             $table->bigInteger('role_id')->unsigned()->nullable()->index()->after('profile_id');
+
             $table->string('username')->nullable()->unique()->after('email');
-            $table->string('name')->nullable()->after('username');
             $table->string('dateformat', 16)->nullable()->after('remember_token');
             $table->string('timeformat', 16)->nullable()->after('dateformat');
             $table->string('timezone', 64)->nullable()->after('timeformat');
-            $table->char('language', 2)->default(config('app.locale'))->after('timezone');
+            $table->string('theme', 32)->nullable()->after('timezone');
+            $table->char('language', 2)->default(config('app.locale'))->after('theme');
             $table->timestamp('deleted_at')->nullable()->after('created_at');
             $table->timestamp('verified_at')->nullable()->after('updated_at');
             $table->bigInteger('created_by')->unsigned()->nullable();

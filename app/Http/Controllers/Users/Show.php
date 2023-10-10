@@ -21,17 +21,19 @@ class Show extends Controller
      */
     public function __invoke(Request $request, $user = null)
     {
-        $user = preg_match('/^my\./', $request->route()->getName())
+        $this->user = preg_match('/^my\./', $request->route()->getName())
             ? $request->user()
             : User::withTrashed()
                 ->findOrFail($user);
 
-        $this->authorize('show', $user);
+        $this->authorize('show', $this->user);
 
         return inertia('users/Show', [
-            'actions' => collect($this->actions($user))->except('show')->values(),
-            'messages' => $this->messages($user),
-            'user' => UserResource::from($user),
+            'actions' => $this->user->is_myself
+                ? collect($this->actions($this->user))->except('show')->values()
+                : [],
+            'messages' => $this->messages($this->user),
+            'user' => UserResource::from($this->user),
         ]);
     }
 }

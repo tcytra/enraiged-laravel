@@ -18,7 +18,7 @@ class FixSSR extends Command
     protected $revert = false;
 
     /**
-     *  Cycle through the package names and executes a find/sed replace to ensure ssr compatibility.
+     *  Execute the console command.
      *
      *  @return void
      */

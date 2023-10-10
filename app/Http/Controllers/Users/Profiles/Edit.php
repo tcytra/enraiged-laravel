@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Users\Profiles;
 
-use App\Auth\Enums\Roles;
 use App\Http\Controllers\Controller;
+use App\Support\Enums\Roles;
 use Enraiged\Users\Forms\Builders\UpdateProfileForm;
 use Enraiged\Users\Resources\UserResource;
 use Enraiged\Users\Traits\Actions as PageActions;

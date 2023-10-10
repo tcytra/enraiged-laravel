@@ -115,13 +115,7 @@ export default {
                 const matchType = /^not:/.test(type)
                     ? !type.replace('not:', '').split(',').includes(template[item].type)
                     : template[item].type === type;
-                /*
-                const matchTypeOriginal = (
-                    (/^not:/.test(type) && template[item].type !== type.replace('not:', '')) 
-                    ||
-                    (!/^not:/.test(type) && template[item].type === type)
-                );
-                */
+
                 if (matchType && matchCustom) {
                     items[item] = template[item];
                 }

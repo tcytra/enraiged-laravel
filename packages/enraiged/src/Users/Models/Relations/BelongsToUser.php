@@ -1,10 +1,10 @@
 <?php
 
-namespace Enraiged\Users\Models\BelongsTo;
+namespace Enraiged\Users\Models\Relations;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-trait User
+trait BelongsToUser
 {
     /**
      *  @return \Illuminate\Database\Eloquent\Relations\BelongsTo

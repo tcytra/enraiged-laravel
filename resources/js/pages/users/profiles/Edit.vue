@@ -1,7 +1,7 @@
 <template>
     <main class="content main">
         <page-header back-button fixed :actions="actions" :title="title"/>
-        <section class="auto-margin container max-width-lg">
+        <section class="auto-margin container max-width-xl">
             <page-messages :messages="messages" @dismiss="messages.splice($event, 1)"/>
             <profile-form :template="template"/>
         </section>

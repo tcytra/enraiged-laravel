@@ -5,6 +5,11 @@
     }
 }
 
+.p-colorpicker .p-colorpicker-preview {
+  height:           inherit;
+  width:            inherit;
+}
+
 .p-dropdown.w-full {
   overflow:         hidden;
 

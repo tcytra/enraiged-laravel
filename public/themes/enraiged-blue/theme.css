@@ -1,0 +1,40 @@
+
+:root {
+  --black: #000000;
+  --background-danger: #ffcdd2;
+  --background-info: #b3e5fc;
+  --background-primary: #a0d2fa;
+  --background-secondary: #bfcbd1;
+  --background-success: #c8e6c9;
+  --background-warning: #ffecb3;
+  --color-danger: #f44336;
+  --color-info: #0288d1;
+  --color-primary: #1c80cf;
+  --color-secondary: #2196f3;
+  --color-success: #689f38;
+  --color-warning: #fbc02d;
+  --enraiged-body: #e5f3fe;
+  --enraiged-border: #cae6fc;
+  --enraiged-card: #a0d2fa;
+  --enraiged-color: #495057;
+  --enraiged-ground: #fdfeff;
+  --enraiged-header: #f4fafe;
+  --enraiged-hilight: #75bef8;
+  --enraiged-overlay: #125386;
+  --enraiged-primary: #1c80cf;
+  --enraiged-section: #cae6fc;
+  --form-creating-ground: #f0fafe;
+  --form-creating-slider: #7bd1f9;
+  --form-updating-ground: #fffbf0;
+  --form-updating-slider: #ffecb3;
+  --form-invalid-ground: #fffafa;
+  --menu-active: #0d3c61;
+  --menu-hover: #00a0b4;
+  --table-row-danger: #ffe6e8;
+  --table-row-info: #ceeefd;
+  --table-row-primary: #cad3d8;
+  --table-row-secondary: #cdd6db;
+  --table-row-success: #d8eed9;
+  --table-row-warning: #fff2cc;
+  --white: #ffffff;
+}

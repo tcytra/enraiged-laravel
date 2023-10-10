@@ -17,7 +17,7 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return collect($this->rules)
-            ->only(['dateformat', 'language', 'timeformat', 'timezone'])
+            ->only(['dateformat', 'language', 'theme', 'timeformat', 'timezone'])
             ->toArray();
     }
 }
