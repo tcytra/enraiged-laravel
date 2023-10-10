@@ -23,6 +23,9 @@
             <text-field v-else-if="item.type !== 'hidden'" v-bind="$props"
                 :field="item"
                 :id="key"/>
+            <hidden-field v-else-if="item.type === 'hidden'" v-bind="$props"
+                :field="item"
+                :id="key"/>
         </template>
     </div>
 </template>
@@ -30,6 +33,7 @@
 <script>
 import CalendarField from './fields/CalendarField.vue';
 import DropdownField from './fields/DropdownField.vue';
+import HiddenField from './fields/HiddenField.vue';
 import PasswordField from './fields/PasswordField.vue';
 import SwitchField from './fields/SwitchField.vue';
 import TextField from './fields/TextField.vue';
@@ -39,6 +43,7 @@ export default {
     components: {
         CalendarField,
         DropdownField,
+        HiddenField,
         PasswordField,
         SwitchField,
         TextField,
