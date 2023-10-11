@@ -171,6 +171,18 @@ if (!function_exists('obj')) {
     }
 }
 
+if (!function_exists('packages_path')) {
+    /**
+     *  Get the packages path.
+     *
+     *  @param  string  $path
+     *  @return string
+     */
+    function packages_path($path = '') {
+        return app()->basePath("packages/{$path}");
+    }
+}
+
 if (!function_exists('phone_format')) {
     /**
      *  Return a provided numeric string as a north american phone number.

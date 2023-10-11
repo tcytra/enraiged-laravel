@@ -1,5 +1,14 @@
 # Release Notes
 
+2023-10-11 : 0.3.1.1  
+Minor: Corrected various issues with 0.3.1
+
+- Corrected enraiged-ground color in the enraiged-grey theme
+- Ensure the ThemeFormField component reset method works properly
+- Ensure the initial seeded administrator user from env is_hidden
+
+---
+
 2023-10-10 : 0.3.1  
 Update: Multiple improvements to forms/tables; Added theme switching
 
