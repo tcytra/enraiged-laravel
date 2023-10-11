@@ -152,7 +152,7 @@ export default {
             this.viewing = this.form[this.id];
         },
         reset() {
-            this.$primevue.changeTheme(this.viewing, this.form[this.id], 'theme-color', () => {});
+            this.$primevue.changeTheme(this.viewing, this.field.value, 'theme-color', () => {});
             this.form[this.id] = this.field.value;
             this.viewing = null;
         },
