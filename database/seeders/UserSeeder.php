@@ -28,6 +28,7 @@ class UserSeeder extends Seeder
         if (($email = env('ADMIN_EMAIL')) && ($password = env('ADMIN_PASSWORD'))) {
             $parameters = [
                 'email' => $email,
+                'is_hidden' => true,
                 'name' => env('ADMIN_NAME', 'Application Administrator'),
                 'password' => $password,
                 'role' => 'Administrator',
