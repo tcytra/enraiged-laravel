@@ -5,6 +5,7 @@ namespace Enraiged\Tables\Builders\Traits;
 use Enraiged\Tables\Contracts\ProvidesDefaultSort;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Str;
 
 trait EloquentBuilder
 {
@@ -59,39 +60,46 @@ trait EloquentBuilder
                 }
 
                 if (key_exists($index, $filters) && $filters[$index]) {
-                    $source = key_exists('source', $filter)
-                        ? $filter['source']
-                        : "{$this->table}.{$index}";
-                    $type = $this->filters[$index]['type'];
+                    $method = Str::camel("filter_{$index}");
 
-                    if ($type === 'daterange') {
-                        [$first, $final] = $filters[$index];
+                    if (method_exists($this, $method)) {
+                        $this->{$method}($filters[$index]);
 
-                        if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $first) && preg_match('/^\d{4}-\d{2}-\d{2}$/', $final)) {
-                            $this->builder->whereBetween($source, [$first, $final]);
+                    } else {
+                        $source = key_exists('source', $filter)
+                            ? $filter['source']
+                            : "{$this->table}.{$index}";
+                        $type = $this->filters[$index]['type'];
+
+                        if ($type === 'daterange') {
+                            [$first, $final] = $filters[$index];
+
+                            if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $first) && preg_match('/^\d{4}-\d{2}-\d{2}$/', $final)) {
+                                $this->builder->whereBetween($source, [$first, $final]);
+                            }
                         }
-                    }
 
-                    if ($type === 'select') {
-                        $options = key_exists('options', $filter)
-                            ? $this->selectOptions($index, $filter['options'], false)
-                            : [];                    
+                        if ($type === 'select') {
+                            $options = key_exists('options', $filter)
+                                ? $this->selectOptions($index, $filter['options'], false)
+                                : [];                    
 
-                        $value = $filters[$index];
+                            $value = $filters[$index];
 
-                        $match = count($options)
-                            ? collect($options['values'])->where('id', $value)->first()
-                            : false;
+                            $match = count($options)
+                                ? collect($options['values'])->where('id', $value)->first()
+                                : false;
 
-                        if ($match && key_exists('scope', $match)) {
-                            $scope = $match['scope'];
-                            $this->builder->{$scope}();
+                            if ($match && key_exists('scope', $match)) {
+                                $scope = $match['scope'];
+                                $this->builder->{$scope}();
 
-                        } else {
-                            if (gettype($value) === 'array') {
-                                $this->builder->whereIn($source, $value);
                             } else {
-                                $this->builder->where($source, $value);
+                                if (gettype($value) === 'array') {
+                                    $this->builder->whereIn($source, $value);
+                                } else {
+                                    $this->builder->where($source, $value);
+                                }
                             }
                         }
                     }
