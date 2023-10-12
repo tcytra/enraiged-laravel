@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Str;
 use Symfony\Component\Debug\Exception\FatalThrowableError; // todo: deprecated?
 
 /**
@@ -272,6 +273,24 @@ if (!function_exists('set_env')) {
         $fp = fopen($env, 'w');
         fwrite($fp, $str);
         fclose($fp);
+    }
+}
+
+if (!function_exists('short_description')) {
+    /**
+     *  Shorten a text description to a provided number of words.
+     *
+     *  @param  string  $description
+     *  @param  int     $words = 6
+     *  @return string
+     */
+    function short_description(string $description, int $words = 6): string
+    {
+        //  this is an attempt to strip emojis out of the description
+        $converted_data = mb_convert_encoding($description, "UTF-8");
+        $new_description = preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $converted_data);
+
+        return Str::words($new_description, $words);
     }
 }
 
