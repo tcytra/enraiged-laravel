@@ -108,6 +108,17 @@
             "secure": {"method": "roleIs", "role": "Administrator"},
             "type": "select"
         },
+        "active": {
+            "clearable": true,
+            "options": {
+                "values": [
+                    {"id": "Inactive", "name": "Inactive", "scope": "whereInactive"}
+                ]
+            },
+            "placeholder": "Active",
+            "secure": {"method": "roleAtLeast", "role": "Company"},
+            "type": "select"
+        },
         "deleted": {
             "clearable": true,
             "options": {

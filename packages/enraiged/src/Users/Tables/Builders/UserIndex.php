@@ -49,7 +49,13 @@ class UserIndex extends TableBuilder implements ProvidesDefaultSort, ProvidesTab
     {
         //return $this->nonResourceBuild();
 
-        return User::reportable();
+        $builder = User::reportable();
+
+        if (!$this->request()->hasFilter('active')) {
+            $builder->where('users.is_active', true);
+        }
+
+        return $builder;
     }
 
     /**
