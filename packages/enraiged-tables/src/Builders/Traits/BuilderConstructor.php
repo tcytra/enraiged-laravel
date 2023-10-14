@@ -2,7 +2,7 @@
 
 namespace Enraiged\Tables\Builders\Traits;
 
-use Enraiged\Support\Collections\RequestCollection;
+use Enraiged\Tables\Support\TableRequestCollection;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -44,7 +44,7 @@ trait BuilderConstructor
      */
     public function __construct(Request $request, array $parameters = [])
     {
-        $this->request = new RequestCollection($request->all());
+        $this->request = new TableRequestCollection($request->all());
         $this->user = $request->user();
 
         $this->load(config('enraiged.tables.template'));
