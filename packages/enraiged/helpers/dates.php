@@ -76,6 +76,18 @@ function datetimezone($datetime = null, $format = 'Y-m-d H:i:s')
 }
 
 /**
+ *  Return a timezoned date/time for querying records, optionally from a provided datetime value.
+ *
+ *  @param  mixed   $datetime
+ *  @param  string  $format
+ *  @return string
+ */
+function datetimezone_at($datetime = null, $format = 'Y-m-d H:i:s')
+{
+    return date($format, timezonestamp_at($datetime));
+}
+
+/**
  *  Return a human readable string representing an elapsed period of time.
  *
  *  @param  mixed   $since
@@ -463,6 +475,20 @@ function timezone()
 function timezonestamp($datetime = null, $timezone = null)
 {
     $offset = timezone_offset_inverse($timezone);
+
+    return strtotime("{$offset} hrs", timestamp($datetime));
+}
+
+/**
+ *  Return a timezone converted unix timestamp for querying records from the provided datetime/timestamp.
+ *
+ *  @param  mixed   $datetime = null
+ *  @param  string  $timezone = null
+ *  @return mixed
+ */
+function timezonestamp_at($datetime = null, $timezone = null)
+{
+    $offset = timezone_offset($timezone);
 
     return strtotime("{$offset} hrs", timestamp($datetime));
 }
