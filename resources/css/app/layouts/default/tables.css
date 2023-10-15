@@ -2,6 +2,15 @@
 .default.layout {
 
     .table.container {
+        >.fixed-layout .p-datatable .p-datatable-table,
+        .p-datatable .p-datatable-table.fixed-layout {
+          table-layout:     fixed;
+        }
+        >.unfixed-layout .p-datatable .p-datatable-table,
+        .p-datatable .p-datatable-table.unfixed-layout {
+          table-layout:     unset;
+        }
+
         .filter-controls {
           background-color: $surface-header;
           border-bottom-left-radius: 0;
