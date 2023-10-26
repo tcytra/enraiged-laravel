@@ -89,7 +89,7 @@ class File extends Model
     public function inline(): StreamedResponse
     {
         if (is_null($this->path)) {
-            throw new NotFoundHttpException(i18n('The requested file does not exist.'));
+            throw new NotFoundHttpException(__('The requested file does not exist.'));
         }
 
         return Storage::response($this->path);
