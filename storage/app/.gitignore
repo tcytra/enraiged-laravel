@@ -3,4 +3,5 @@
 !exports/
 !imports/
 !public/
+!temp/
 !.gitignore
