@@ -55,7 +55,7 @@
                                 @click="download()"/>
                         </div>
                     </div>
-                    <span v-for="(button, index) in template.actions" :key="index">
+                    <span v-for="(button, name, index) in template.actions" :key="index">
                         <primevue-button
                             v-tooltip.top="i18n(button.tooltip)"
                             :class="['ml-2 pl-2', button.class, {'p-button-icon-only': !button.label}]"
