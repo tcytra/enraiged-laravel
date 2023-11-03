@@ -75,6 +75,9 @@ trait EloquentBuilder
                             [$first, $final] = $filters[$index];
 
                             if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $first) && preg_match('/^\d{4}-\d{2}-\d{2}$/', $final)) {
+                                $first = datetimezone_at($first);
+                                $final = datetimezone_at($final);
+
                                 $this->builder->whereBetween($source, [$first, $final]);
                             }
                         }
