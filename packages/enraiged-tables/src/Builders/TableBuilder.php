@@ -4,6 +4,7 @@ namespace Enraiged\Tables\Builders;
 
 use Enraiged\Tables\Contracts\ProvidesTableQuery;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Str;
 
 class TableBuilder
 {
@@ -74,6 +75,7 @@ class TableBuilder
             'id' => $identity,
             'exportable' => $this->user->can('export', $this->model) ? $this->get('exportable') : null,
             'key' => $this->get('key'),
+            'model' => Str::snake(class_basename($this->model)),
             'pagination' => $this->get('pagination'),
             'state' => $this->get('state'),
             'uri' => $this->assembleTemplateUri(),
