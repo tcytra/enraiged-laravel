@@ -10,7 +10,7 @@ class InternetAddressObserver
     /**
      *  Handle the InternetAddress created event.
      *
-     *  @param  \App\Auth\Models\InternetAddress  $address
+     *  @param  \Enraiged\Users\Models\InternetAddress  $address
      *  @return void
      */
     public function created(InternetAddress $address)

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Auth\Contracts;
+namespace Enraiged\Users\Models\Traits;
 
 use Illuminate\Auth\Notifications\VerifyEmail;
 

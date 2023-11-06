@@ -19,7 +19,7 @@ trait UserAttribute
     /**
      *  Define the attribute accessor.
      *
-     *  @return \App\Auth\User
+     *  @return \Enraiged\Users\Models\User
      */
     protected function getUserAttribute()
     {

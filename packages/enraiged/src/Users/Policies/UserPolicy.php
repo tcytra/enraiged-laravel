@@ -81,8 +81,8 @@ class UserPolicy
     }
 
     /**
-     *  @param  \App\Auth\User  $auth
-     *  @param  \App\GroundTruth\Users\Models\User  $user
+     *  @param  \Enraiged\Users\Models\User  $auth
+     *  @param  \Enraiged\Users\Models\User  $user
      *  @return bool
      */
     public function restore(User $auth, User $user)

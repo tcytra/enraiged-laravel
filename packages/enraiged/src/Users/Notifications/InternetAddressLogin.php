@@ -17,7 +17,7 @@ class InternetAddressLogin extends Notification implements ShouldQueue
     /**
      *  Create an instance of the InternetAddressLogin notification.
      *
-     *  @param  \App\Auth\Models\InternetAddress  $address
+     *  @param  \Enraiged\Users\Models\InternetAddress  $address
      */
     public function __construct(InternetAddress $address)
     {
