@@ -128,15 +128,15 @@ trait Passwords
         if ($this->filled('password')) {
             $validator->after(function ($validator) {
                 // $creating = $this->method() === 'POST';
-                // $updating = $this->method() === 'PATCH' && !is_null($this->user);
-                // $user = $updating ? auth_model()::find($this->user) : null;
+                $updating = $this->method() === 'PATCH' && !is_null($this->user);
+                $user = $updating ? auth_model()::find($this->user) : null;
 
-                if ($this->user) {
-                    if ($this->user->currentPasswordIs($this->get('password'))) {
+                if ($user) {
+                    if ($user->currentPasswordIs($this->get('password'))) {
                         $validator->errors()->add('password', $this->messages['password.current']);
                     }
 
-                    if ($this->passwordHistory($this->user)) {
+                    if ($this->passwordHistory($user)) {
                         $validator->errors()->add('password', $this->messages['password.history']);
                     }
                 }
