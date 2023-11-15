@@ -25,7 +25,9 @@ export default {
     },
 
     data: () => ({
-        clientWidth: document.documentElement.clientWidth,
+        clientWidth: typeof document !== 'undefined'
+            ? document.documentElement.clientWidth
+            : 0,
         flashMessages: [],
     }),
 
@@ -80,7 +82,9 @@ export default {
         },
 
         documentSize() {
-            this.clientWidth = document.documentElement.clientWidth;
+            if (typeof document !== 'undefined') {
+                this.clientWidth = document.documentElement.clientWidth;
+            }
         },
 
         errorHandler(error) {

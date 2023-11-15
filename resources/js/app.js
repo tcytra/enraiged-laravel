@@ -1,5 +1,5 @@
 import '../css/app.css';
-import { createApp, h } from 'vue';
+import { createSSRApp, h } from 'vue';
 import { createI18n } from 'vue-i18n';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
@@ -9,7 +9,11 @@ import axios from 'axios';
 import VueAxios from 'vue-axios';
 
 createInertiaApp({
-    resolve: (name) => resolvePageComponent(`./pages/${name}.vue`, import.meta.glob('./pages/**/*.vue')),
+    // resolve: (name) => resolvePageComponent(`./pages/${name}.vue`, import.meta.glob('./pages/**/*.vue')),
+    resolve: name => {
+        const pages = import.meta.glob('./pages/**/*.vue', { eager: true });
+        return pages[`./pages/${name}.vue`];
+    },
     setup({ el, App, props, plugin }) {
         const i18n = createI18n({
             fallbackLocale: 'en',
@@ -18,8 +22,7 @@ createInertiaApp({
             silentFallbackWarn: true,
             silentTranslationWarn: true,
         });
-        const app = createApp({ render: () => h(App, props) });
-        const root = app
+        createSSRApp({ render: () => h(App, props) })
             .use(i18n)
             .use(plugin)
             .use(PrimeVue, { inputStyle: 'filled', ripple: true })

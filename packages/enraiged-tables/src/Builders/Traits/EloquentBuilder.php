@@ -165,7 +165,7 @@ trait EloquentBuilder
      */
     public function search()
     {
-        $wheres = [];
+        $conditions = [];
 
         if ($this->request()->has('search') && $this->request()->filled('search')) {
             $search = $this->request()->get('search');
@@ -179,12 +179,12 @@ trait EloquentBuilder
                     })
                     ->join(' OR ');
 
-                $wheres[] = "({$searchable})";
+                $conditions[] = "({$searchable})";
             }
         }
 
-        if (count($wheres)) {
-            $where = implode(' AND ', $wheres);
+        if (count($conditions)) {
+            $where = implode(' AND ', $conditions);
             $query = "({$where})";
 
             $this->builder()->whereRaw("({$query})");

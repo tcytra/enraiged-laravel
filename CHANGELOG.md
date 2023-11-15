@@ -1,5 +1,19 @@
 # Release Notes
 
+2023-11-15 : 0.3.2  
+Update: Upgrade primevue to v3.40; Resolved SSR issues
+
+- Added ~/storage/app/temp directory
+- Added ability to apply custom table filter methods
+- Added model name to table template output
+- Corrected issues preventing SSR from working properly
+- Corrected v-for args in the VueTable template.actions
+- Ensure table daterange dates are adjusted for user timezone
+- Tweaks/improvements to the enraiged themes
+- Updated primevue to v3.40.1; Updated the patches
+
+---
+
 2023-10-11 : 0.3.1.1  
 Minor: Corrected various issues with 0.3.1
 

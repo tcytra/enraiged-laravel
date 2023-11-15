@@ -116,7 +116,7 @@
                 ]
             },
             "placeholder": "Active",
-            "secure": {"method": "roleAtLeast", "role": "Company"},
+            "secure": {"method": "roleAtLeast", "role": "Administrator"},
             "type": "select"
         },
         "deleted": {

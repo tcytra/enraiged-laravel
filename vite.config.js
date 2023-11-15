@@ -14,15 +14,15 @@ export default defineConfig({
     plugins: [
         vue({
             template: {
-                // base: null,
-                /* compilerOptions: {
+                base: null,
+                compilerOptions: {
                     directiveTransforms: {
                         ripple: () => ({
                             props: [],
                             needRuntime: true,
                         }),
                     },
-                }, */
+                },
                 transformAssetUrls: {
                     includeAbsolute: false,
                 },
@@ -35,6 +35,6 @@ export default defineConfig({
         }),
     ],
     build: {
-        chunkSizeWarningLimit: 1600,
+        chunkSizeWarningLimit: 1024,
     },
 });

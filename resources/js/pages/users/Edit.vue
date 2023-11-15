@@ -18,7 +18,6 @@
 
 <script>
 import App from '@/layouts/App.vue';
-import AvatarFormSection from '@/components/ui/avatars/AvatarFormSection.vue';
 import FormActions from '@/components/forms/VueFormActions.vue';
 import PageHeader from '@/components/ui/pages/PageHeader.vue';
 import PageMessages from '@/components/ui/pages/PageMessages.vue';
@@ -28,7 +27,6 @@ export default {
     layout: App,
 
     components: {
-        AvatarFormSection,
         FormActions,
         PageHeader,
         PageMessages,

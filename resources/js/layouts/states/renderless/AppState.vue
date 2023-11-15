@@ -68,14 +68,18 @@ export default {
         },
 
         currentTheme() {
-            let href = document.getElementById('theme-color').href;
-            href = href.substr(0, href.lastIndexOf('/'));
-            return href.substr(href.lastIndexOf('/') +1);
+            if (typeof document !== 'undefined') {
+                let href = document.getElementById('theme-color').href;
+                href = href.substr(0, href.lastIndexOf('/'));
+                return href.substr(href.lastIndexOf('/') +1);
+            }
         },
 
         initState() {
-            this.axios.get(this.api)
-                .then(response => this.fetched(response));
+            if (typeof document !== 'undefined') {
+                this.axios.get(this.api)
+                    .then(response => this.fetched(response));
+            }
         },
 
         fetched(response) {

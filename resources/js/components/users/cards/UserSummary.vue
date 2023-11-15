@@ -1,12 +1,12 @@
 <template>
     <primevue-card>
         <template #content>
-            <div class="user-summary">
-                <avatar action="/my/avatar" class="width-96" size="xl"
+            <div class="user-summary flex flex-row">
+                <avatar action="/my/avatar" class="width-96 mr-3" size="xl"
                     :avatar="user.avatar"
                     :editable="user.is_myself"/>
-                <div class="descriptions flex-grow-1">
-                    <div class="description-lists">
+                <div class="descriptions flex-grow-1 flex flex-row">
+                    <div class="description-lists mr-3">
                         <dl>
                             <dt>{{ i18n('Profile Name') }}:</dt>
                             <dd>{{ user.profile.name }}</dd>
@@ -16,7 +16,7 @@
                             <dd>{{ user.email }}</dd>
                         </dl>
                     </div>
-                    <div class="description-lists">
+                    <div class="description-lists mr-3">
                         <dl>
                             <dt>{{ i18n('Profile Created') }}:</dt>
                             <dd>

@@ -8,7 +8,7 @@ abstract class AttributeHandler
     protected $attributes;
 
     /**
-     *  Create an instance of the company user pivot attributes.
+     *  Create an instance of the AttributeHandler.
      *
      *  @param  array   $attributes
      *  @return void

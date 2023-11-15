@@ -33,6 +33,10 @@ class Edit extends Controller
         $form = UpdateForm::from($request)
             ->edit($this->user, 'users.update');
 
+        if ($this->user->isProtected()) {
+            $form->disableField(['is_active', 'role_id']);
+        }
+
         return inertia('users/Edit', [
             'avatar' => AvatarEditResource::from($this->user->profile->avatar),
             'messages' => $this->messages(),

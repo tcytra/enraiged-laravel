@@ -93,7 +93,7 @@ class FixSSR extends Command
     }
 
     /**
-     *  This executes a sed to expand the include call to the full *.esm.js package filename.
+     *  This executes a sed to expand the include call to the full *.esm.js filenames.
      *
      *  @return $this
      */
@@ -104,17 +104,42 @@ class FixSSR extends Command
         $directories = collect(Storage::disk('node')->directories('primevue'))
             ->filter(fn ($directory) => Storage::disk('node')->exists("{$directory}/package.json"));
 
-        $progress = $this->output->createProgressBar($directories->count());
+        $progress = $this->output->createProgressBar($directories->count() + 2);
 
-        $directories->each(function ($package) use ($progress) {
-            $filename = substr($package, strrpos($package, '/') +1);
+        $directories->each(function ($package_path) use ($progress) {
+            $package_name = substr($package_path, strrpos($package_path, '/') +1);
+
+            //  first we ensure we have a full filename call to the package
             $command = $this->revert
-                ? "find {$this->basepath}/ -type f -name '*.esm.js' -exec sed -i \"s|'{$package}/{$filename}.esm.js'|'{$package}'|\" {} \;"
-                : "find {$this->basepath}/ -type f -name '*.esm.js' -exec sed -i \"s|'{$package}'|'{$package}/{$filename}.esm.js'|\" {} \;";
+                ? "find {$this->basepath}/ -type f -name '*.esm.js' -exec sed -i \"s|'{$package_path}/{$package_name}.esm.js'|'{$package_path}'|\" {} \;"
+                : "find {$this->basepath}/ -type f -name '*.esm.js' -exec sed -i \"s|'{$package_path}'|'{$package_path}/{$package_name}.esm.js'|\" {} \;";
             Process::run($command);
+
+            //  then we ensure the package script has a full filename call to the local style
+            $command = $this->revert
+                ? "find {$this->basepath}/{$package_name}/ -type f -name '{$package_name}.esm.js' -exec sed -i \"s|''|''|\" {} \;"
+                : "find {$this->basepath}/{$package_name}/ -type f -name '{$package_name}.esm.js' -exec sed -i \"s|'{$package_path}/style'|'{$package_path}/style/{$package_name}style.esm.js'|\" {} \;";
+            Process::run($command);
+
+            //  finally we ensure the local style script has a full filename call to the base style
+            if (Storage::disk('node')->exists("{$package_path}/style/{$package_name}style.esm.js")) {
+                $command = $this->revert
+                    ? "find {$this->basepath}/{$package_name}/style/ -type f -name '{$package_name}style.esm.js' -exec sed -i \"s|'primevue/base/style/basestyle.esm.js'|'primevue/base/style'|\" {} \;"
+                    : "find {$this->basepath}/{$package_name}/style/ -type f -name '{$package_name}style.esm.js' -exec sed -i \"s|'primevue/base/style'|'primevue/base/style/basestyle.esm.js'|\" {} \;";
+                Process::run($command);
+            }
 
             $progress->advance();
         });
+
+        foreach (['basecomponent', 'basedirective'] as $each) {
+            $command = $this->revert
+                ? "find {$this->basepath}/{$each}/ -type f -name '{$each}.esm.js' -exec sed -i \"s|'primevue/base/style/basestyle.esm.js'|'primevue/base/style'|\" {} \;"
+                : "find {$this->basepath}/{$each}/ -type f -name '{$each}.esm.js' -exec sed -i \"s|'primevue/base/style'|'primevue/base/style/basestyle.esm.js'|\" {} \;";
+            Process::run($command);
+
+            $progress->advance();
+        }
 
         $progress->finish();
         $this->newLine();

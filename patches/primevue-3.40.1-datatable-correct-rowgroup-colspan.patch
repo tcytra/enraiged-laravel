@@ -1,35 +1,35 @@
 --- node_modules/primevue/datatable/TableBody.vue
 +++ node_modules/primevue/datatable/TableBody.vue
 @@ -13 +13 @@
--                    <td :colspan="columnsLength - 1" v-bind="{ ...getColumnPT('root'), ...getColumnPT('bodyCell') }">
-+                    <td :colspan="columnsLength" v-bind="{ ...getColumnPT('root'), ...getColumnPT('bodyCell') }">
+-                    <td :colspan="columnsLength - 1" v-bind="{ ...getColumnPT('bodycell'), ...ptm('rowGroupHeaderCell') }">
++                    <td :colspan="columnsLength" v-bind="{ ...getColumnPT('bodycell'), ...ptm('rowGroupHeaderCell') }">
 @@ -105 +105 @@
--                    <td :colspan="columnsLength - 1" v-bind="{ ...getColumnPT('root'), ...getColumnPT('bodyCell') }">
-+                    <td :colspan="columnsLength" v-bind="{ ...getColumnPT('root'), ...getColumnPT('bodyCell') }">
+-                    <td :colspan="columnsLength - 1" v-bind="{ ...getColumnPT('bodycell'), ...ptm('rowGroupFooterCell') }">
++                    <td :colspan="columnsLength" v-bind="{ ...getColumnPT('bodycell'), ...ptm('rowGroupFooterCell') }">
 
 --- node_modules/primevue/datatable/datatable.cjs.js
 +++ node_modules/primevue/datatable/datatable.cjs.js
-@@ -1938 +1938 @@
+@@ -1736 +1736 @@
 -      colspan: $options.columnsLength - 1
 +      colspan: $options.columnsLength
-@@ -2076 +2076 @@
+@@ -1874 +1874 @@
 -      colspan: $options.columnsLength - 1
 +      colspan: $options.columnsLength
 
 --- node_modules/primevue/datatable/datatable.esm.js
 +++ node_modules/primevue/datatable/datatable.esm.js
-@@ -1908 +1908 @@
+@@ -1705 +1705 @@
 -      colspan: $options.columnsLength - 1
 +      colspan: $options.columnsLength
-@@ -2046 +2046 @@
+@@ -1843 +1843 @@
 -      colspan: $options.columnsLength - 1
 +      colspan: $options.columnsLength
 
 --- node_modules/primevue/datatable/datatable.js
 +++ node_modules/primevue/datatable/datatable.js
-@@ -1910 +1910 @@
+@@ -1708 +1708 @@
 -          colspan: $options.columnsLength - 1
 +          colspan: $options.columnsLength
-@@ -2048 +2048 @@
+@@ -1846 +1846 @@
 -          colspan: $options.columnsLength - 1
 +          colspan: $options.columnsLength

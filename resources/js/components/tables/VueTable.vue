@@ -333,7 +333,9 @@ export default {
                 const {records, pagination} = data;
                 this.records = records;
                 this.pagination = pagination;
-                document.getElementById('page').scrollIntoView({ behavior: 'smooth' });
+                if (typeof document !== 'undefined') {
+                    document.getElementById('page').scrollIntoView({ behavior: 'smooth' });
+                }
             } else {
                 this.errorHandler(response);
             }

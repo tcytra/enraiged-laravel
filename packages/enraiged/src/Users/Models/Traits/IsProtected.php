@@ -6,6 +6,17 @@ use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 
 trait IsProtected
 {
+    /**
+     *  @return bool
+     */
+    public function isProtected()
+    {
+        return $this->is_protected;
+    }
+
+    /**
+     *  @return void
+     */
     public static function bootIsProtected()
     {
         self::deleting(function ($model) {
