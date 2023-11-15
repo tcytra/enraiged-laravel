@@ -39,3 +39,10 @@
         }
     }
 }
+
+.p-tabview-panels .container.table {
+    .filter-controls, .p-paginator.p-component, .p-paginator-current {
+      padding-left:     0 !important;
+      padding-right:    0 !important;
+    }
+}

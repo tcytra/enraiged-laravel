@@ -4,28 +4,28 @@ $white:                 var(--white);
 
 $background-danger:     var(--background-danger);
 $background-info:       var(--background-info);
-$background-primary:    var(--background-primary);
+$background-primary:    var(--background-primary);      // --bluegray-200
 $background-secondary:  var(--background-secondary);
 $background-success:    var(--background-success);
 $background-warning:    var(--background-warning);
 
 $color-danger:          var(--color-danger);
 $color-info:            var(--color-info);
-$color-primary:         var(--color-primary);
-$color-secondary:       var(--color-secondary);
+$color-primary:         var(--color-primary);           // --bluegray-600
+$color-secondary:       var(--color-secondary);         // --bluegray-500
 $color-success:         var(--color-success);
 $color-warning:         var(--color-warning);
 
 $surface-body:          var(--enraiged-body);
-$surface-border:        var(--enraiged-border);
-$surface-card:          var(--enraiged-card);
-$surface-color:         var(--enraiged-color);
-$surface-ground:        var(--enraiged-ground);
-$surface-header:        var(--enraiged-header);
-$surface-hilight:       var(--enraiged-hilight);
-$surface-overlay:       var(--enraiged-overlay);
-$surface-primary:       var(--enraiged-primary);
-$surface-section:       var(--enraiged-section);
+$surface-border:        var(--enraiged-border);         // --bluegray-100
+$surface-card:          var(--enraiged-card);           // --bluegray-200
+$surface-color:         var(--enraiged-color);          // --text-color
+$surface-ground:        var(--enraiged-ground);         // --surface-200 (#eeeeee) darken r, lighten bg
+$surface-header:        var(--enraiged-header);         // --bluegray-50
+$surface-hilight:       var(--enraiged-hilight);        // --bluegray-300
+$surface-overlay:       var(--enraiged-overlay);        // --bluegray-800
+$surface-primary:       var(--enraiged-primary);        // --bluegray-600
+$surface-section:       var(--enraiged-section);        // --bluegray-100
 
 $body-background:       $surface-body;
 $body-color:            $surface-overlay;
@@ -36,28 +36,30 @@ $card-color:            $surface-color;
 $card-header-background:$surface-header; 
 $card-header-color:     $surface-color;
 
-$form-creating-ground:  var(--form-creating-ground);
-$form-creating-slider:  var(--form-creating-slider);
-$form-updating-ground:  var(--form-updating-ground);
-$form-updating-slider:  var(--form-updating-slider);
-$form-invalid-ground:   var(--form-invalid-ground);
+$form-creating-ground:  var(--form-creating-ground);    // --background-info lighten 12%
+$form-creating-slider:  var(--form-creating-slider);    // --background-info darken 12%
+$form-updating-ground:  var(--form-updating-ground);    // --background-warning lighten 12%
+$form-updating-slider:  var(--form-updating-slider);    // --background-warning darken 12%
+$form-invalid-ground:   var(--form-invalid-ground);     // --background-danger lighten 9%
 
 $menu-active:           var(--menu-active);
 $menu-hover:            var(--menu-hover);
 
-$table-row-danger:      var(--table-row-danger);
-$table-row-info:        var(--table-row-info);
-$table-row-primary:     var(--table-row-primary);
-$table-row-secondary:   var(--table-row-secondary);
-$table-row-success:     var(--table-row-success);
-$table-row-warning:     var(--table-row-warning);
+$table-header:          var(--table-header);
+$table-header-color:    var(--enraiged-color);
+$table-row-danger:      var(--table-row-danger);        // --background-danger lighten 5%
+$table-row-info:        var(--table-row-info);          // --background-info lighten 5%
+$table-row-primary:     var(--table-row-primary);       // --background-primary lighten 5%
+$table-row-secondary:   var(--table-row-secondary);     // --background-secondary lighten 5%
+$table-row-success:     var(--table-row-success);       // --background-success lighten 5%
+$table-row-warning:     var(--table-row-warning);       // --background-warning lighten 5%
 
 $top-background:        $surface-card;
 $top-border:            $surface-border;
 $top-hover:             $surface-hilight;
 
 $impersonation-button:  $color-warning;
-$impersonation-hover:   #fbc02d; // darken color-warning 10%
+$impersonation-hover:   #fbc02d;                        // darken color-warning 10%
 
 .background-danger {
   background-color: $background-danger !important;

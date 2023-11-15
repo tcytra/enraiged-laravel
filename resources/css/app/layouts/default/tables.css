@@ -12,9 +12,10 @@
         }
 
         .filter-controls {
-          background-color: $surface-header;
+          background-color: $table-header;
           border-bottom-left-radius: 0;
           border-bottom-right-radius: 0;
+          color:            $table-header-color;
           padding:          .25rem .5rem;
 
             .filter {
@@ -27,13 +28,15 @@
 
         .p-datatable {
             .p-datatable-header {
-              background-color: $surface-header;
+              background-color: $table-header;
+              color:            $table-header-color;
             }
 
             .p-datatable-table {
                 .p-datatable-thead {
                     tr th {
-                      background-color: $surface-header;
+                      background-color: $table-header;
+                      color:            $table-header-color;
                     }
                 }
             }

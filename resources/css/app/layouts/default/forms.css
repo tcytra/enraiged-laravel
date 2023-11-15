@@ -27,7 +27,7 @@
         .line-break {
           margin:           0 0 .5rem;
             hr {
-              background:       $surface-card;
+              background:       $surface-border;
               border:           0;
               height:           1px;
             }

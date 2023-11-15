@@ -33,7 +33,7 @@
                 }
 
                 .header {
-                  background-color: $surface-section;
+                  background-color: $surface-header;
                   border-bottom:    1px solid $surface-border;
                 }
             }
