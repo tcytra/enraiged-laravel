@@ -22,7 +22,9 @@ trait CreatedBy
      */
     public function createdBy(): BelongsTo
     {
-        return $this->belongsTo(config('auth.providers.users.model'), 'created_by');
+        return $this
+            ->belongsTo(config('auth.providers.users.model'), 'created_by')
+            ->withTrashed();
     }
 
     /**

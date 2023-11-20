@@ -20,7 +20,9 @@ trait DeletedBy
      */
     public function deletedBy(): BelongsTo
     {
-        return $this->belongsTo(config('auth.providers.users.model'), 'deleted_by');
+        return $this
+            ->belongsTo(config('auth.providers.users.model'), 'deleted_by')
+            ->withTrashed();
     }
 
     /**
