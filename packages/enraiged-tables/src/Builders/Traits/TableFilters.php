@@ -16,7 +16,7 @@ trait TableFilters
      *
      *  @return array
      */
-    public function assembleTemplateFilters(): array
+    protected function assembleTemplateFilters(): array
     {
         return collect($this->get('filters'))
             ->filter(fn ($filter) => $this->assertSecure($filter))

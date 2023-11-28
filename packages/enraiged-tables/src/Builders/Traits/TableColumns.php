@@ -12,7 +12,7 @@ trait TableColumns
      *
      *  @return array
      */
-    public function assembleTemplateColumns(): array
+    protected function assembleTemplateColumns(): array
     {
         $actions = $this->hasRowActions()
             ? ['actions' => 'Actions']

@@ -2,6 +2,7 @@
 
 namespace Enraiged\Tables\Builders;
 
+use Enraiged\Support\Builders\UriBuilder;
 use Enraiged\Tables\Contracts\ProvidesTableQuery;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
@@ -73,12 +74,12 @@ class TableBuilder
             'columns' => $this->assembleTemplateColumns(),
             'empty' => $this->get('empty'),
             'id' => $identity,
-            'exportable' => $this->user->can('export', $this->model) ? $this->get('exportable') : null,
+            'exportable' => $this->assembleExportableConfiguration(),
             'key' => $this->get('key'),
             'model' => Str::snake(class_basename($this->model)),
             'pagination' => $this->get('pagination'),
             'state' => $this->get('state'),
-            'uri' => $this->assembleTemplateUri(),
+            'uri' => UriBuilder::from($this->uri, $this->request->get('route')),
         ];
 
         if ($this->filters) {

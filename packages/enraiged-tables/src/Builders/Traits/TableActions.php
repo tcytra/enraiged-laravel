@@ -90,7 +90,7 @@ trait TableActions
      *
      *  @return array
      */
-    public function assembleTemplateActions()
+    protected function assembleTemplateActions()
     {
         $actions = [];
 

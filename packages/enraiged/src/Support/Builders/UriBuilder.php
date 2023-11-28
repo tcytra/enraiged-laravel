@@ -2,40 +2,69 @@
 
 namespace Enraiged\Support\Builders;
 
-/**
- *  @todo
- */
 class UriBuilder
 {
-    /** @var  array  The builder attributes. */
-    protected $attributes;
+    /** @var  array  The provided uri argument. */
+    protected array|string $uri;
 
     /**
-     *  @param  array   $attributes
+     *  @param  array|string  $uri
+     *  @param  \Illuminate\Routing\Route  $route
      */
-    public function __construct($attributes)
+    public function __construct($uri, $route = null)
     {
-        $this->attributes = $attributes;
+        $this->uri = $uri;
+        $this->route = $route ?? route();
     }
 
     /**
-     *  Process the uri attributes and return the result.
-     *
-     *  @return array
+     *  @return string
      */
-    public function uri(): array
+    protected function route($name, $params = []): string
     {
-        return $this->attributes;
+        return route($name, $params, config('enraiged.app.absolute_uris'));
+    }
+
+    /**
+     *  Process the uri argument and return the result.
+     *
+     *  @return string
+     */
+    public function uri(): string
+    {
+        $uri = $this->uri;
+
+        if (gettype($uri) === 'array') {
+            if (key_exists('param', $uri)) {
+                $index = $uri['param'];
+                $param = $this->route->parameter($index);
+
+                if ($param instanceof \Illuminate\Database\Eloquent\Model) {
+                    return $this->route($uri['route'], [$index => $param->id]);
+                }
+
+                return $this->route($uri['route'], [$index => $param]);
+            }
+
+            $uri = $uri['route'];
+        }
+
+        if (preg_match('/\./', $uri)) {
+            return $this->route($uri);
+        }
+
+        return '/'.trim($uri, '/');
     }
 
     /**
      *  Create an instance of the UriBuilder and return the result.
      *
-     *  @param  array   $attributes
-     *  @return array
+     *  @param  array|string  $uri
+     *  @param  \Illuminate\Routing\Route  $route
+     *  @return string
      */
-    public static function From($attributes): array
+    public static function From($uri, $route = null): string
     {
-        return (new self($attributes))->uri();
+        return (new self($uri, $route))->uri();
     }
 }

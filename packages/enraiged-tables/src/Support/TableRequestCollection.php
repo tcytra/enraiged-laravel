@@ -3,6 +3,7 @@
 namespace Enraiged\Tables\Support;
 
 use Enraiged\Support\Collections\RequestCollection;
+use Illuminate\Routing\Route;
 
 class TableRequestCollection extends RequestCollection
 {
@@ -29,5 +30,15 @@ class TableRequestCollection extends RequestCollection
     {
         return $this->has('filters')
             && key_exists($key, $this->get('filters'));
+    }
+
+    /**
+     *  Return the route associated with this table request.
+     *
+     *  @return \Illuminate\Routing\Route
+     */
+    public function route(): Route
+    {
+        return $this->get('route');
     }
 }

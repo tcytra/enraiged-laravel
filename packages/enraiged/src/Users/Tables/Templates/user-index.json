@@ -1,5 +1,5 @@
 {
-    "id": "users.index",
+    "id": "usersIndex",
     "class": "users-index shadow-1",
     "empty": "There are no users to display",
     "prefix": "users.",

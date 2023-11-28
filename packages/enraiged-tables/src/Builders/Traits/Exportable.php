@@ -2,6 +2,8 @@
 
 namespace Enraiged\Tables\Builders\Traits;
 
+use Enraiged\Support\Builders\UriBuilder;
+
 trait Exportable
 {
     /** @var  int  The exportable chunk size. */
@@ -21,6 +23,24 @@ trait Exportable
 
     /** @var  string  The hashed (storage) filename. */
     protected string $hashname;
+
+    /**
+     *  Return the export configuration.
+     *
+     *  @return array|null
+     */
+    protected function assembleExportableConfiguration()
+    {
+        if ($this->get('exportable') && (is_null($this->model) || $this->user->can('export', $this->model))) {
+            $uri = UriBuilder::from($this->get('exportable')['uri'], $this->request->get('route'));
+
+            return collect($this->get('exportable'))
+                ->merge(['uri' => $uri])
+                ->toArray();
+        }
+
+        return null;
+    }
 
     /**
      *  Derive the name and location of the exportable data.

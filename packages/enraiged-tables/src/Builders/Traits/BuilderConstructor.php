@@ -17,6 +17,9 @@ trait BuilderConstructor
     /** @var  string  The message to display when there are no records. */
     protected string $empty;
 
+    /** @var  string  The table html id. */
+    protected string $id;
+
     /** @var  string  The primary key column name. */
     protected string $key;
 
@@ -44,7 +47,7 @@ trait BuilderConstructor
      */
     public function __construct(Request $request, array $parameters = [])
     {
-        $this->request = new TableRequestCollection($request->all());
+        $this->request = new TableRequestCollection([...$request->all(), 'route' => $request->route()]);
         $this->user = $request->user();
 
         $this->load(config('enraiged.tables.template'));
