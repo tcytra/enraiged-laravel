@@ -14,10 +14,6 @@ trait TableColumns
      */
     protected function assembleTemplateColumns(): array
     {
-        $actions = $this->hasRowActions()
-            ? ['actions' => 'Actions']
-            : [];
-
         return collect($this->columns)
             ->filter(fn ($row) => $this->assertSecure($row))
             ->transform(function ($row, $index) {
@@ -29,7 +25,11 @@ trait TableColumns
 
                 return $row;
             })
-            ->merge($actions)
+            ->merge(
+                $this->hasRowActions()
+                    ? ['actions' => __('Actions')]
+                    : []
+            )
             ->toArray();
     }
 
@@ -124,6 +124,41 @@ trait TableColumns
             ->filter(fn ($column) => !key_exists('exportable', $column) || $column['exportable'] !== false)
             ->transform(fn ($column) => $column['label'])
             ->toArray();
+    }
+
+    /**
+     *  Remove an action from the table structure.
+     *
+     *  @param  string  $index
+     *  @return self
+     */
+    public function removeColumn($index)
+    {
+        $this->columns = collect($this->columns)
+            ->except($index)
+            ->toArray();
+
+        return $this;
+    }
+
+    /**
+     *  Remove an action from the table structure.
+     *
+     *  @param  string  $index
+     *  @param  boolean|\Closure  $condition
+     *  @return self
+     */
+    public function removeColumnIf($index, $condition)
+    {
+        if ($condition instanceof \Closure) {
+            $condition = $condition();
+        }
+
+        if ($condition) {
+            $this->removeColumn($index);
+        }
+
+        return $this;
     }
 
     /**

@@ -55,7 +55,7 @@
                                 @click="download()"/>
                         </div>
                     </div>
-                    <span v-for="(button, name, index) in template.actions" :key="index">
+                    <span v-for="(button, name, index) in tableActions" :key="index">
                         <primevue-button
                             v-tooltip.top="i18n(button.tooltip)"
                             :class="['ml-2 pl-2', button.class, {'p-button-icon-only': !button.label}]"
@@ -92,20 +92,20 @@
                     <slot :name="name" :data="column.data"/>
                 </template>
             </primevue-column>
-            <primevue-column v-if="template.columns.actions"
+            <primevue-column v-if="Object.keys(rowActions).length"
                 class="actions text-center" field="actions" key="actions"
                 :class="[ actionsClass ]"
                 :header="i18n('Actions')"
                 v-bind="$props">
                 <template #body="props">
                     <primevue-button class="p-button-rounded p-button-sm p-button-text"
-                        :class="button.class"
-                        :disabled="button.disabled"
-                        :icon="button.icon"
+                        :class="props.data.actions[name].class"
+                        :disabled="props.data.actions[name].disabled"
+                        :icon="props.data.actions[name].icon"
                         :key="name"
-                        v-for="(button, name) in props.data.actions"
-                        v-tooltip.top="i18n(button.tooltip || name)"
-                        @click="action(name, button, props)"/>
+                        v-for="(button, name) in rowActions"
+                        v-tooltip.top="i18n(props.data.actions[name].tooltip || name)"
+                        @click="action(name, props.data.actions[name], props)"/>
                 </template>
             </primevue-column>
         </primevue-datatable>
@@ -202,6 +202,9 @@ export default {
                 ? (this.pagination.page * this.pagination.rows) - this.pagination.rows
                 : 0;
         },
+        rowActions() {
+            return this.actions('row');
+        },
         searchable() {
             const columns = this.template.columns;
             return Object.keys(this.template.columns)
@@ -212,6 +215,9 @@ export default {
             return this.ready
                 ? this.$refs.datatable
                 : null;
+        },
+        tableActions() {
+            return this.actions('table');
         },
     },
 
@@ -281,6 +287,16 @@ export default {
                     this.actionHandler(button, name);
                 }
             }
+        },
+
+        actions(type) {
+            let actions = {};
+            Object.keys(this.template.actions).forEach((action) => {
+                if (this.template.actions[action].type === type) {
+                    actions[action] = this.template.actions[action];
+                }
+            });
+            return actions;
         },
 
         api(uri, method) {

@@ -95,7 +95,15 @@ trait TableActions
         $actions = [];
 
         foreach ($this->actions as $index => $parameters) {
-            if (!key_exists('type', $parameters) || $parameters['type'] === 'table') {
+            if (!key_exists('type', $parameters)) {
+                $parameters['type'] = 'table';
+            }
+
+            if ($parameters['type'] === 'row') {
+                $actions[$index] = $parameters;
+            }
+
+            if ($parameters['type'] === 'table') {
                 $action = key_exists('action', $parameters)
                     ? $parameters['action']
                     : $index;
@@ -143,5 +151,40 @@ trait TableActions
                         && strtolower($action['type']) === 'row';
                 })
                 ->count() > 0;
+    }
+
+    /**
+     *  Remove an action from the table structure.
+     *
+     *  @param  string  $index
+     *  @return self
+     */
+    public function removeAction($index)
+    {
+        $this->actions = collect($this->actions)
+            ->except($index)
+            ->toArray();
+
+        return $this;
+    }
+
+    /**
+     *  Remove an action from the table structure.
+     *
+     *  @param  string  $index
+     *  @param  boolean|\Closure  $condition
+     *  @return self
+     */
+    public function removeActionIf($index, $condition)
+    {
+        if ($condition instanceof \Closure) {
+            $condition = $condition();
+        }
+
+        if ($condition) {
+            $this->removeAction($index);
+        }
+
+        return $this;
     }
 }

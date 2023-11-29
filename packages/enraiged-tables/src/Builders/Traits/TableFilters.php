@@ -53,6 +53,41 @@ trait TableFilters
     }
 
     /**
+     *  Remove a filter from the table structure.
+     *
+     *  @param  string  $index
+     *  @return self
+     */
+    public function removeFilter($index)
+    {
+        $this->filters = collect($this->filters)
+            ->except($index)
+            ->toArray();
+
+        return $this;
+    }
+
+    /**
+     *  Remove a filter from the table structure.
+     *
+     *  @param  string  $index
+     *  @param  boolean|\Closure  $condition
+     *  @return self
+     */
+    public function removeFilterIf($index, $condition)
+    {
+        if ($condition instanceof \Closure) {
+            $condition = $condition();
+        }
+
+        if ($condition) {
+            $this->removeFilter($index);
+        }
+
+        return $this;
+    }
+
+    /**
      *  Explicitly set the default value for a specified table filter.
      *
      *  @param  strimg  $filter
@@ -73,6 +108,7 @@ trait TableFilters
      *
      *  @param  strimg  $filter
      *  @param  mixed   $value
+     *  @param  boolean|\Closure  $condition
      *  @return self
      */
     public function setFilterDefaultIf($filter, $value, $condition)
