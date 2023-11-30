@@ -40,6 +40,7 @@
                         v-tooltip.top="i18n('Reset the table')"
                         @click="fresh()"/>
                     <primevue-dropdown class="pagination-rows width-64 ml-1" v-model="pagination.rows"
+                        v-if="typeof template.pagination.options === 'array' && template.pagination.options.length"
                         :options="template.pagination.options"
                         @change="rows($event)"/>
                 </div>
