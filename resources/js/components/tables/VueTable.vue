@@ -99,14 +99,16 @@
                 :header="i18n('Actions')"
                 v-bind="$props">
                 <template #body="props">
-                    <primevue-button class="p-button-rounded p-button-sm p-button-text"
-                        :class="props.data.actions[name].class"
-                        :disabled="props.data.actions[name].disabled"
-                        :icon="props.data.actions[name].icon"
-                        :key="name"
-                        v-for="(button, name) in rowActions"
-                        v-tooltip.top="i18n(props.data.actions[name].tooltip || name)"
-                        @click="action(name, props.data.actions[name], props)"/>
+                    <span v-for="(button, name) in rowActions">
+                        <primevue-button class="p-button-rounded p-button-sm p-button-text"
+                            :class="props.data.actions[name].class"
+                            :disabled="props.data.actions[name].disabled"
+                            :icon="props.data.actions[name].icon"
+                            :key="name"
+                            v-if="typeof props.data.actions[name] !== 'undefined'"
+                            v-tooltip.top="i18n(props.data.actions[name].tooltip || name)"
+                            @click="action(name, props.data.actions[name], props)"/>
+                    </span>
                 </template>
             </primevue-column>
         </primevue-datatable>
