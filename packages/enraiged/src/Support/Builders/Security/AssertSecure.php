@@ -43,6 +43,18 @@ trait AssertSecure
         }
 
         if (property_exists($object, 'secureAny')) {
+            if (property_exists($object, 'secureFirst')) {
+                $object->secure = $object->secureFirst; unset($object->secureFirst);
+            }
+
+            if (property_exists($object, 'secure')) {
+                $first = $object; unset($first->secureAny);
+
+                if (!$this->assertSecure($object, $model)) {
+                    return false;
+                }
+            }
+
             $object->secure = $object->secureAny;
             unset($object->secureAny);
         }
