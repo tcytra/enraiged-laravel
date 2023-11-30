@@ -200,28 +200,30 @@ trait EloquentBuilder
      */
     public function sort()
     {
-        $dir = $this->request()->get('dir') < 0 ? 'desc' : 'asc';
-        $sort = $this->request()->get('sort');
-        $column = $sort ? $this->column($sort) : null;
+        if ($this->request()->has('sort') && $this->request()->filled('sort')) {
+            $dir = $this->request()->get('dir') < 0 ? 'desc' : 'asc';
+            $sort = $this->request()->get('sort');
 
-        if ($column && key_exists('sortable', $column) && $column['sortable'] !== false) {
-            $sortable = $column['sortable'];
-            $source = key_exists('source', $column) ? $column['source'] : "{$this->table}.{$sort}";
+            if ($this->columnExists($sort) && $this->isSortable($sort)) {
+                $column = $this->column($sort);
+                $sortable = $column['sortable'];
+                $source = key_exists('source', $column) ? $column['source'] : "{$this->table}.{$sort}";
 
-            if (gettype($source) === 'array') {
-                foreach ($source as $each) {
-                    if ($sortable === 'count') {
-                        $this->builder->withCount($each)->orderBy("{$each}_count", $dir);
-                    } else {
-                        $this->builder->orderBy($each, $dir);
+                if (gettype($source) === 'array') {
+                    foreach ($source as $each) {
+                        if ($sortable === 'count') {
+                            $this->builder->withCount($each)->orderBy("{$each}_count", $dir);
+                        } else {
+                            $this->builder->orderBy($each, $dir);
+                        }
                     }
+
+                } else if ($sortable === 'count') {
+                    $this->builder->withCount($source)->orderBy("{$source}_count", $dir);
+
+                } else {
+                    $this->builder->orderBy($source, $dir);
                 }
-
-            } else if ($sortable === 'count') {
-                $this->builder->withCount($source)->orderBy("{$source}_count", $dir);
-
-            } else {
-                $this->builder->orderBy($source, $dir);
             }
 
         } else if ($this instanceof ProvidesDefaultSort) {

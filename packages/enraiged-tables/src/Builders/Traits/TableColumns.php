@@ -127,6 +127,25 @@ trait TableColumns
     }
 
     /**
+     *  Determine whether a specified column is sortable.
+     *
+     *  @param  array|object|string  $column
+     *  @return bool
+     */
+    public function isSortable($column): bool
+    {
+        if (gettype($column) === 'string') {
+            $column = $this->column($column);
+        }
+
+        if (gettype($column) === 'array') {
+            $column = (object) $column;
+        }
+
+        return property_exists($column, 'sortable') && $column->sortable !== false;
+    }
+
+    /**
      *  Remove an action from the table structure.
      *
      *  @param  string  $index
