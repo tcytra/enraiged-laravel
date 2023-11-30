@@ -2,32 +2,22 @@
 
 namespace Enraiged\Support\Collections;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 
 class RequestCollection extends Collection
 {
+    use Traits\Filled;
+
     /**
-     *  Determine if the specified item(s) from the collection has/have value.
+     *  Return the RouteCollection.
      *
-     *  @param  string|array  $key
-     *  @return bool
+     *  @return \Enraiged\Support\Collections\RouteCollection
      */
-    public function filled($key)
+    public function route(): RouteCollection
     {
-        $keys = is_array($key) ? $key : func_get_args();
-
-        foreach ($keys as $key) {
-            $value = $this->get($key);
-
-            if (is_null($value)
-            || (is_array($value) && !count($value))
-            || (!is_bool($value) && trim((string) $value) === '')) {
-                return false;
-            }
-        }
-
-        return true;
+        return $this->get('route');
     }
 
     /**
@@ -39,5 +29,23 @@ class RequestCollection extends Collection
     public function user($guard = null)
     {
         return Auth::guard($guard)->user();
+    }
+
+    /**
+     *  Create a collection from the provided Request object.
+     *
+     *  @param  \Illuminate\Http\Request  $request
+     *  @return self
+     */
+    public static function From(Request $request): self
+    {
+        $called = get_called_class();
+
+        $parameters = [
+            ...$request->all(),
+            'route' => RouteCollection::from($request->route()),
+        ];
+
+        return new $called($parameters);
     }
 }

@@ -47,7 +47,7 @@ trait BuilderConstructor
      */
     public function __construct(Request $request, array $parameters = [])
     {
-        $this->request = new TableRequestCollection([...$request->all(), 'route' => $request->route()]);
+        $this->request = TableRequestCollection::from($request);
         $this->user = $request->user();
 
         $this->load(config('enraiged.tables.template'));
