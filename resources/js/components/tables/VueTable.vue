@@ -1,18 +1,18 @@
 <template>
     <div :class="template.class">
         <div class="filter-controls grid m-0" v-if="template.filters">
-            <div class="filter col-12" v-for="(filter, name) in template.filters" :key="name"
-                :class="['md:col-4', 'lg:col-3', 'xl:col-2', filter.class]">
-                <daterange-filter v-if="filter.type === 'daterange'"
-                    :field="filter"
+            <div class="filter col-12" v-for="(field, name) in template.filters" :key="name"
+                :class="['md:col-4', 'lg:col-3', 'xl:col-2', field.class]">
+                <daterange-filter v-if="field.type === 'daterange'" :ref="name"
+                    :field="field"
                     :form="filters"
                     :id="name"
-                    @update:filterValue="fetch" />
-                <dropdown-filter v-if="filter.type === 'select'"
-                    :field="filter"
+                    @update:filterValue="filter(name)" />
+                <dropdown-filter v-if="field.type === 'select'" :ref="name"
+                    :field="field"
                     :form="filters"
                     :id="name"
-                    @update:filterValue="fetch" />
+                    @update:filterValue="filter(name)" />
             </div>
         </div>
         <primevue-datatable class="p-datatable-sm" ref="datatable"
@@ -370,6 +370,18 @@ export default {
             this.table.d_sortField = null;
             this.table.d_sortOrder = null;
             this.fetch();
+        },
+
+        filter(field) {
+            this.fetch();
+            Object.keys(this.template.filters)
+                .forEach((each) => {
+                    if (typeof this.template.filters[each].options !== 'undefined'
+                     && typeof this.template.filters[each].options.params !== 'undefined'
+                     && this.template.filters[each].options.params.includes(field)) {
+                        this.$refs[each][0].fetch(); // not sure why this ref ends up in an array
+                    }
+                });
         },
 
         page(event) {

@@ -80,8 +80,15 @@ export default {
             this.search = payload.value;
         },
         params() {
+            let params = {};
+            if (typeof this.field.options.params !== 'undefined') {
+                this.field.options.params.forEach((param) => {
+                    params[param] = this.form[param];
+                });
+            }
             return {
                 ...this.field.options.filters,
+                ...params,
                 limit: this.limit,
                 search: this.search,
             };
