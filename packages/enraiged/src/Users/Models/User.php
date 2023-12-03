@@ -38,7 +38,7 @@ class User extends Authenticatable
         'is_protected',
         'language',
         'password',
-        'person_id',
+        'profile_id',
         'role_id',
         'theme',
         'timezone',

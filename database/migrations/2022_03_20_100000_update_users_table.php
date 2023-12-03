@@ -36,7 +36,7 @@ return new class extends Migration
             $table->boolean('is_hidden')->default(false);
             $table->boolean('is_protected')->default(false);
 
-            $table->foreign('profile_id')->references('id')->on('users');
+            $table->foreign('profile_id')->references('id')->on('profiles');
             $table->foreign('role_id')->references('id')->on('roles');
             $table->foreign('created_by')->references('id')->on('users');
             $table->foreign('deleted_by')->references('id')->on('users');

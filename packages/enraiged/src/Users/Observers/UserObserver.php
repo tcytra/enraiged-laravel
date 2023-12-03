@@ -37,7 +37,7 @@ class UserObserver
     }
 
     /**
-     *  Handle the User created event.
+     *  Handle the User creating event.
      *
      *  @param  \Enraiged\Users\Models\User  $user
      *  @return void
