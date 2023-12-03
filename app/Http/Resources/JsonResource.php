@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Collection as EloquentCollection;
 use Illuminate\Http\Resources\Json\JsonResource as IlluminateResource;
 use Illuminate\Support\Collection;
 
-class JsonResource extends IlluminateResource
+abstract class JsonResource extends IlluminateResource
 {
     /** @var  string|null  The data wrapper that should be applied. */
     public static $wrap = null;
