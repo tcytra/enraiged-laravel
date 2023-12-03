@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 require base_path('routes/web/auth.php');
 require base_path('routes/web/avatars.php');
 require base_path('routes/web/files.php');
+require base_path('routes/web/roles.php');
 require base_path('routes/web/users.php');
 
 Route::namespace('\App\Http\Controllers\State')

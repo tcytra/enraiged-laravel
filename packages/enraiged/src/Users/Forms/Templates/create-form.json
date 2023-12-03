@@ -19,13 +19,12 @@
         "role_id": {
             "after": "col-6",
             "class": "col-6",
-            "clearable": true,
             "label": "Role",
             "options": {
-                "source": "Enraiged\\Roles\\Models\\Role",
-                "type": "model"
+                "source": "api",
+                "uri": "roles.available"
             },
-            "placeholder": "Optional",
+            "placeholder": "Required",
             "secure": {
                 "method": "roleIs",
                 "role": "Administrator"
