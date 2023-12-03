@@ -9,7 +9,6 @@ import axios from 'axios';
 import VueAxios from 'vue-axios';
 
 createInertiaApp({
-    // resolve: (name) => resolvePageComponent(`./pages/${name}.vue`, import.meta.glob('./pages/**/*.vue')),
     resolve: name => {
         const pages = import.meta.glob('./pages/**/*.vue', { eager: true });
         return pages[`./pages/${name}.vue`];
@@ -29,11 +28,5 @@ createInertiaApp({
             .use(ConfirmationService)
             .use(VueAxios, axios)
             .mount(el);
-        //  This is temporarily required in order to provide computed data for injection
-        //  see: Temporary Config Required
-        //  at: https://vuejs.org/guide/components/provide-inject.html#working-with-reactivity
-        //  The current stable version of Vue (at this time) is v3.2.45
-        //  Update (2023-09-16): This doesn't appear to be necessary any more
-        //app.config.unwrapInjectedRef = true;
     },
 });
