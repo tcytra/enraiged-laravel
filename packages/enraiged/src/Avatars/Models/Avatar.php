@@ -3,8 +3,8 @@
 namespace Enraiged\Avatars\Models;
 
 use Enraiged\Files\Traits\Attachable;
-use Enraiged\Support\Database\Traits\CreatedBy;
-use Enraiged\Support\Database\Traits\UpdatedBy;
+use Enraiged\Support\Database\Traits\Created;
+use Enraiged\Support\Database\Traits\Updated;
 use Illuminate\Database\Eloquent\Model;
 
 class Avatar extends Model
@@ -12,7 +12,7 @@ class Avatar extends Model
     use Attributes\AvatarColor,
         Attributes\AvatarFile,
         Attributes\Folder,
-        Attachable, CreatedBy, UpdatedBy;
+        Attachable, Created, Updated;
 
     /** @var  string  The morphable name. */
     protected $morphable = 'avatarable';

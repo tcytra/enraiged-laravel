@@ -4,5 +4,5 @@ namespace Enraiged\Support\Database\Traits;
 
 trait UserTracking
 {
-    use CreatedBy, DeletedBy, UpdatedBy;
+    use Created, Deleted, Updated;
 }

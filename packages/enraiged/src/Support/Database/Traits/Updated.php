@@ -5,7 +5,7 @@ namespace Enraiged\Support\Database\Traits;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Auth;
 
-trait UpdatedBy
+trait Updated
 {
     /**
      *  @return void
@@ -30,7 +30,7 @@ trait UpdatedBy
      */
     public function getUpdatedAttribute()
     {
-        return [
+        return (object) [
             'at' => $this->atTimestamp($this->updated_at),
             'by' => $this->byUser($this->updatedBy),
         ];

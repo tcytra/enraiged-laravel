@@ -5,7 +5,7 @@ namespace Enraiged\Support\Database\Traits;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Auth;
 
-trait DeletedBy
+trait Deleted
 {
     /**
      *  @return void
@@ -30,7 +30,7 @@ trait DeletedBy
      */
     public function getDeletedAttribute()
     {
-        return [
+        return (object) [
             'at' => $this->atTimestamp($this->deleted_at),
             'by' => $this->byUser($this->deletedBy),
         ];

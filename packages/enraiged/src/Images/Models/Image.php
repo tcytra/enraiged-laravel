@@ -3,8 +3,8 @@
 namespace Enraiged\Images\Models;
 
 use Enraiged\Files\Traits\Attachable;
-use Enraiged\Support\Database\Traits\CreatedBy;
-use Enraiged\Support\Database\Traits\UpdatedBy;
+use Enraiged\Support\Database\Traits\Created;
+use Enraiged\Support\Database\Traits\Updated;
 use Illuminate\Database\Eloquent\Model;
 
 class Image extends Model
@@ -12,7 +12,7 @@ class Image extends Model
     use Attributes\Exif,
         Attributes\Folder,
         Attributes\GeoLocation,
-        Attachable, CreatedBy, UpdatedBy;
+        Attachable, Created, Updated;
 
     /** @var  string  The morphable name. */
     protected $morphable = 'imageable';

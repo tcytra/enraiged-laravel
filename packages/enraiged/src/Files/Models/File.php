@@ -2,7 +2,7 @@
 
 namespace Enraiged\Files\Models;
 
-use Enraiged\Support\Database\Traits\CreatedBy;
+use Enraiged\Support\Database\Traits\Created;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\File as IlluminateFile;
 use Illuminate\Http\UploadedFile;
@@ -16,7 +16,7 @@ class File extends Model
 {
     use Attributes\Storage,
         Attributes\Type,
-        CreatedBy;
+        Created;
 
     /** @var  string  The database table name. */
     protected $table = 'files';

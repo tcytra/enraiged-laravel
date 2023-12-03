@@ -5,7 +5,7 @@ namespace Enraiged\Support\Database\Traits;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Auth;
 
-trait CreatedBy
+trait Created
 {
     use AtTimestamp, ByUser;
 
@@ -32,7 +32,7 @@ trait CreatedBy
      */
     public function getCreatedAttribute()
     {
-        return [
+        return (object) [
             'at' => $this->atTimestamp($this->created_at),
             'by' => $this->byUser($this->createdBy),
         ];

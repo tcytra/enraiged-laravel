@@ -2,15 +2,15 @@
 
 namespace Enraiged\Addresses\Models;
 
-use Enraiged\Support\Database\Traits\CreatedBy;
-use Enraiged\Support\Database\Traits\UpdatedBy;
+use Enraiged\Support\Database\Traits\Created;
+use Enraiged\Support\Database\Traits\Updated;
 use Illuminate\Database\Eloquent\Model;
 
 class Address extends Model
 {
     use Relations\BelongsToCountry,
         Relations\BelongsToRegion,
-        CreatedBy, UpdatedBy;
+        Created, Updated;
 
     /** @var  string  The morphable name. */
     protected $morphable = 'addressable';
