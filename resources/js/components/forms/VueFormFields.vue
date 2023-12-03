@@ -8,6 +8,9 @@
             <calendar-field v-else-if="item.type === 'calendar'" v-bind="$props"
                 :field="item"
                 :id="key"/>
+            <checkbox-field v-else-if="item.type === 'checkbox'" v-bind="$props"
+                :field="item"
+                :id="key"/>
             <password-field v-else-if="item.type === 'password'" v-bind="$props"
                 :field="item"
                 :id="key"/>
@@ -32,6 +35,7 @@
 
 <script>
 import CalendarField from './fields/CalendarField.vue';
+import CheckboxField from './fields/CheckboxField.vue';
 import DropdownField from './fields/DropdownField.vue';
 import HiddenField from './fields/HiddenField.vue';
 import PasswordField from './fields/PasswordField.vue';
@@ -42,6 +46,7 @@ import TextareaField from './fields/TextareaField.vue';
 export default {
     components: {
         CalendarField,
+        CheckboxField,
         DropdownField,
         HiddenField,
         PasswordField,
