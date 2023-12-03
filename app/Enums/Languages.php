@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Support\Enums;
+namespace App\Enums;
 
 final class Languages
 {

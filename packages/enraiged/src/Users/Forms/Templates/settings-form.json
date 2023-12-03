@@ -31,7 +31,7 @@
                     "class": "col-12 md:col-4",
                     "label": "Language",
                     "options": {
-                        "source": "App\\Support\\Enums\\Languages",
+                        "source": "App\\Enums\\Languages",
                         "type": "enum"
                     },
                     "placeholder": "Optional",
@@ -42,7 +42,7 @@
                     "class": "col-12 md:col-4",
                     "label": "Timezone",
                     "options": {
-                        "source": "App\\Support\\Enums\\Timezones",
+                        "source": "App\\Enums\\Timezones",
                         "type": "enum"
                     },
                     "placeholder": "Optional",
@@ -67,7 +67,7 @@
                     "before": "md:col-3 lg:col-4",
                     "class": "col-12 md:col-6 lg:col-4",
                     "options": {
-                        "source": "App\\Support\\Enums\\Themes",
+                        "source": "App\\Enums\\Themes",
                         "type": "enum"
                     },
                     "placeholder": "Select One",
