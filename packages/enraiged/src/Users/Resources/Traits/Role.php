@@ -6,8 +6,8 @@ use Enraiged\Roles\Resources\RoleResource;
 
 trait Role
 {
-    /** @var  bool  Whether or not to include the role in the resource. */
-    protected $with_role = true;
+    /** @var  bool  Whether or not to include the role with this resource. */
+    protected bool $with_role = true;
 
     /**
      *  @return array

@@ -6,8 +6,8 @@ use Enraiged\Profiles\Resources\ProfileResource;
 
 trait Profile
 {
-    /** @var  bool  Whether or not to include the profile in the resource. */
-    protected $with_profile = true;
+    /** @var  bool  Whether or not to include the profile with this resource. */
+    protected bool $with_profile = true;
 
     /**
      *  @return array

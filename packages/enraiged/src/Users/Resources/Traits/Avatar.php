@@ -6,8 +6,8 @@ use Enraiged\Avatars\Resources\AvatarResource;
 
 trait Avatar
 {
-    /** @var  bool  Whether or not to include the avatar in the resource. */
-    protected $with_avatar = true;
+    /** @var  bool  Whether or not to include the avatar with this resource. */
+    protected bool $with_avatar = true;
 
     /**
      *  @return array

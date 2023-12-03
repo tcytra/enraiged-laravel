@@ -18,7 +18,7 @@
                             </li>
                             <li class="mb-1">
                                 {{ i18n('Created') }}:
-                                <strong>{{ `${props.data.created.date} ${props.data.created.time}` }}</strong>
+                                <strong>{{ `${props.data.created.at.short} ${props.data.created.at.time}` }}</strong>
                             </li>
                         </ul>
                         <ul class="flex list-none">
@@ -53,10 +53,10 @@
                                     <span>{{ props.data.name }}</span>
                                 </div>
                                 <div class="file-date mb-2">
-                                    <span>{{ props.data.created.date }}</span>
+                                    <span>{{ props.data.created.at.short }}</span>
                                 </div>
                                 <div class="file-time mb-2">
-                                    <span>{{ props.data.created.time }}</span>
+                                    <span>{{ props.data.created.at.time }}</span>
                                 </div>
                             </template>
                             <template #footer>

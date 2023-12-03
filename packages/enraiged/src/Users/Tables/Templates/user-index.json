@@ -76,7 +76,6 @@
         },
         "created_at": {
             "class": "width-160",
-            "custom": true,
             "label": "Created",
             "sortable": true,
             "source": "users.created_at"
@@ -93,7 +92,7 @@
         "chunk": 100,
         "default": "XLSX",
         "options": ["CSV", "XLSX"],
-        "uri": "/api/users/index/export"
+        "uri": "users.index.export"
     },
     "filters": {
         "role_id": {

@@ -3,7 +3,6 @@
 namespace Enraiged\Files\Resources;
 
 use App\Http\Resources\JsonResource;
-use Enraiged\Support\Resources\DatetimeAttributeResource as Datetime;
 
 class FileResource extends JsonResource
 {
@@ -17,7 +16,7 @@ class FileResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'created' => Datetime::from($this)->attribute('created_at'),
+            'created' => $this->resource->created,
             'icon' => $this->icon(),
             'name' => $this->name,
             'size' => $this->size,

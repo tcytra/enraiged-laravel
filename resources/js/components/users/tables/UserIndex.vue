@@ -11,8 +11,8 @@
             <primevue-badge class="p-badge-success" value="Active" v-else-if="data.is_active"/>
             <primevue-badge class="p-badge-warning" value="Inactive" v-else/>
         </template>
-        <template v-slot:created_at="{ data }">
-            <span>{{ data.created ? data.created.date : date(data.created_at) }}</span>
+        <template v-slot:created="{ data }">
+            <span>{{ data.created.at.short }}</span>
         </template>
     </vue-table>
 </template>

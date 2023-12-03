@@ -3,13 +3,15 @@
 namespace Enraiged\Users\Resources;
 
 use App\Http\Resources\JsonResource;
-use Enraiged\Support\Resources\DatetimeAttributeResource as Datetime;
 
 class UserResource extends JsonResource
 {
     use Traits\Avatar,
         Traits\Profile,
         Traits\Role;
+
+    /** @var  bool  Whether or not to include the tracking objects with this resource. */
+    protected bool $with_tracking = true;
 
     /**
      *  Transform the resource collection into an array.
@@ -30,8 +32,6 @@ class UserResource extends JsonResource
             'is_myself' => $this->is_myself,
             'language' => $this->language,
             'timezone' => $this->timezone,
-            'created' => Datetime::from($this)->attribute('created_at'),
-            'created_at' => $this->created_at,
         ];
 
         if ($this->with_avatar) {
@@ -50,12 +50,16 @@ class UserResource extends JsonResource
             $resource['is_impersonating'] = true;
         }
 
-        if ($this->deleted_at) {
-            $resource['deleted'] = Datetime::from($this)->attribute('deleted_at');
+        if ($this->with_tracking) {
+            $resource['created'] = $this->resource->created;
         }
 
-        if ($this->created_at !== $this->updated_at) {
-            $resource['updated'] = Datetime::from($this)->attribute('updated_at');
+        if ($this->with_tracking && !is_null($this->deleted_at)) {
+            $resource['deleted'] = $this->resource->deleted;
+        }
+
+        if ($this->with_tracking && $this->created_at !== $this->updated_at) {
+            $resource['updated'] = $this->resource->updated;
         }
 
         return $resource;
