@@ -16,7 +16,7 @@ trait RoleAssertions
     {
         $security = (object) $secure;
 
-        return Auth::check()
+        return Auth::check() && Auth::user()->hasRole()
             ? Auth::user()->role->atLeast($security->role)
             : false;
     }
@@ -31,7 +31,7 @@ trait RoleAssertions
     {
         $security = (object) $secure;
 
-        return Auth::check()
+        return Auth::check() && Auth::user()->hasRole()
             ? Auth::user()->role->is($security->role)
             : false;
     }
@@ -46,7 +46,7 @@ trait RoleAssertions
     {
         $security = (object) $secure;
 
-        return Auth::check()
+        return Auth::check() && Auth::user()->hasRole()
             ? Auth::user()->role->isNot($security->role)
             : false;
     }

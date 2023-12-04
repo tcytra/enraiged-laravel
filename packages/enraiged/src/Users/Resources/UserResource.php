@@ -25,7 +25,6 @@ class UserResource extends JsonResource
             'id' => $this->id,
             'email' => $this->email,
             'name' => $this->profile->name,
-            'role' => $this->role->name,
             'theme' => $this->theme ?? config('enraiged.theme.color'),
             'username' => $this->username,
             'is_active' => $this->is_active,
@@ -42,7 +41,7 @@ class UserResource extends JsonResource
             $resource['profile'] = $this->profile();
         }
 
-        if ($this->with_role) {
+        if ($this->with_role && $this->hasRole()) {
             $resource['role'] = $this->role();
         }
 

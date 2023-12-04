@@ -16,6 +16,16 @@ trait BelongsToRole
     }
 
     /**
+     *  Determine whether this user belongs to a role.
+     *
+     *  @return bool
+     */
+    public function hasRole(): bool
+    {
+        return !is_null($this->role_id);
+    }
+
+    /**
      *  Determine whether this user outranks another user in role.
      *
      *  @param  \Illuminate\Foundation\Auth\User  $user
