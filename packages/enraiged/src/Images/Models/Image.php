@@ -2,6 +2,7 @@
 
 namespace Enraiged\Images\Models;
 
+use App\Enums\FileTypes;
 use Enraiged\Files\Traits\Attachable;
 use Enraiged\Support\Database\Traits\Created;
 use Enraiged\Support\Database\Traits\Updated;
@@ -39,7 +40,7 @@ class Image extends Model
      */
     public function isGif()
     {
-        return $this->file->mime === 'image/gif';
+        return $this->file->mime === FileTypes::GIF;
     }
 
     /**
@@ -48,7 +49,7 @@ class Image extends Model
      */
     public function isJpg()
     {
-        return $this->file->mime === 'image/jpeg';
+        return $this->file->mime === FileTypes::JPG;
     }
 
     /**
@@ -57,6 +58,6 @@ class Image extends Model
      */
     public function isPng()
     {
-        return $this->file->mime === 'image/png';
+        return $this->file->mime === FileTypes::PNG;
     }
 }
