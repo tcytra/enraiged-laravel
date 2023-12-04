@@ -2,15 +2,19 @@
 
 namespace Enraiged\Tables\Builders\Traits;
 
+use Enraiged\Enums\FileTypes;
+use Enraiged\Support\Builders\Enums\TemplateSources;
+use Enraiged\Support\Builders\Traits\LoadParameters;
 use Enraiged\Tables\Support\TableRequestCollection;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str;
 use Symfony\Component\HttpKernel\Exception\PreconditionFailedHttpException;
 
 trait BuilderConstructor
 {
+    use LoadParameters;
+
     /** @var  string  The css class(es) to apply to the table. */
     protected string $class;
 
@@ -25,6 +29,9 @@ trait BuilderConstructor
 
     /** @var  string  The route prefix. */
     protected string $prefix;
+
+    /** @var  string  The table configuration source. */
+    protected $source = 'file';
 
     /** @var  bool  The ability to preserve table state. */
     protected bool $state;
@@ -43,7 +50,6 @@ trait BuilderConstructor
      *  @return void
      *
      *  @throws \Symfony\Component\HttpKernel\Exception\PreconditionFailedHttpException
-     *  @todo   Validate the configuration.
      */
     public function __construct(Request $request, array $parameters = [])
     {
@@ -56,12 +62,25 @@ trait BuilderConstructor
             $this->load($parameters);
         }
 
-        if ($this->template) {
+        if ($this->source === TemplateSources::Database) {
+            
+        }
+
+        if ($this->source === TemplateSources::Filesystem) {
+            if (!$this->template) {
+                throw new PreconditionFailedHttpException(__('exceptions.template.undefined'));
+            }
             if (!File::exists($this->template)) {
-                throw new PreconditionFailedHttpException('A table template is defined but the file does not exist.');
+                throw new PreconditionFailedHttpException(__('exceptions.template.missing'));
             }
 
-            $this->load(json_decode(file_get_contents($this->template), true));
+            if (File::mimeType($this->template) === FileTypes::JSON) {
+                $this->load(json_decode(file_get_contents($this->template), true));
+            }
+            if (File::mimeType($this->template) === FileTypes::PHP) {
+                $menu = include $this->template;
+                $this->load($menu);
+            }
         }
 
         if ($this->request->has('export')) {
@@ -80,29 +99,6 @@ trait BuilderConstructor
         return property_exists($this, $attribute)
             ? $this->{$attribute}
             : null;
-    }
-
-    /**
-     *  Load a provided array of builder parameters.
-     *
-     *  @param  array   $parameters
-     *  @return self
-     */
-    public function load(array $parameters): self
-    {
-        foreach ($parameters as $parameter => $content) {
-            if (property_exists($this, $parameter)) {
-                $method = Str::camel("set_{$parameter}");
-
-                if (method_exists($this, $method)) {
-                    $this->{$method}($content);
-                } else {
-                    $this->{$parameter} = $content;
-                }
-            }
-        }
-
-        return $this;
     }
 
     /**

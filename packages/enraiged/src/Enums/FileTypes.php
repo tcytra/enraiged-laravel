@@ -1,10 +1,8 @@
 <?php
 
-namespace App\Enums;
+namespace Enraiged\Enums;
 
-use Enraiged\Enums\Services\Enum;
-
-class FileTypes extends Enum
+class FileTypes extends Services\Enum
 {
     public const JSON = 'application/json';
     public const PDF = 'application/pdf';

@@ -1,0 +1,20 @@
+{
+    "Home": {
+        "icon": "pi pi-home",
+        "route": "/",
+        "secure": {"method": "isGuest"}
+    },
+
+    "Dashboard": {
+        "icon": "pi pi-home",
+        "route": "/dashboard",
+        "secure": {"method": "isAuth"}
+    },
+
+    "Manage Users": {
+        "icon": "pi pi-user",
+        "route": "/users",
+        "secure": {"method": "roleIs", "role": "Administrator"}
+    }
+
+}
