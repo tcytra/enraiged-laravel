@@ -40,7 +40,7 @@ class RegisterRequest extends FormRequest
      */
     public function handle(): User
     {
-        $user = CreateUserProfile::from($this->validated())->user();
+        $user = CreateUserProfile::from($this->validated());
 
         if ($user->mustAgreeToTerms && !$user->hasAgreedToTerms) {
             $user->acceptAgreements();
