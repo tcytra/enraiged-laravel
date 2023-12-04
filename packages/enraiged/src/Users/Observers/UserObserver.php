@@ -44,8 +44,13 @@ class UserObserver
      */
     public function creating(User $user)
     {
-        if (is_null('role_id') && config('enraiged.auth.force_lowest_role')) {
-            $user->role_id = Role::lowest()->id;
+        if (is_null($user->role_id)) {
+            if (($name = config('enraiged.auth.force_default_role')) && ($role = Role::find($name))) {
+                $user->role_id = $role->id;
+            } else
+            if (config('enraiged.auth.force_lowest_role', false) === true) {
+                $user->role_id = Role::lowest()->id;
+            }
         }
     }
 

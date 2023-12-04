@@ -164,18 +164,41 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Force Lowest Role
+    | Force Default Role
     |--------------------------------------------------------------------------
     |
-    | You may choose to enforce a policy that all users must have a role. If
-    | you switch a production host from false to true, be aware that you will
-    | need to assign a role to users to make them visible in the indexing.
+    | You may choose to enforce a policy that all users will default to a
+    | specified role if no role is provided when the user is created. This
+    | value will take priority over the 'force_lowest_role' configuration.
     |
-    | The default value is true.
+    | The default value is 'Member'.
+    |
+    | Remove this and the 'force_lowest_role' config if you want to allow
+    | registering users without a role. This is however not recommended as it
+    | will cause the app to malfunction.
     |
     */
 
-    'force_lowest_role' => (bool) env('FORCE_ROLE', true),
+    'force_default_role' => (string) env('FORCE_DEFAULT_ROLE', 'Member'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Force Lowest Role
+    |--------------------------------------------------------------------------
+    |
+    | You may choose to enforce a policy that all users will default to the
+    | lowest ranked role if no role is provided when the user is created. This
+    | value is secondary to the 'force_default_role' configuration.
+    |
+    | The default value is true.
+    |
+    | Remove this and the 'force_default_role' config if you want to allow
+    | registering users without a role. This is however not recommended as it
+    | will cause the app to malfunction.
+    |
+    */
+
+    'force_lowest_role' => (bool) env('FORCE_LOWEST_ROLE', true),
 
     /*
     |--------------------------------------------------------------------------

@@ -20,6 +20,22 @@ class Role extends Model
     public $timestamps = false;
 
     /**
+     *  Find a role by its id or name.
+     *
+     *  @param  mixed   $id
+     *  @param  array|string  $columns
+     *  @return \Enraiged\Roles\Models\Role
+     */
+    public static function Find($id, $columns = ['*'])
+    {
+        if (gettype($id) === 'string') {
+            return self::where('name', $id)->first();
+        }
+
+        return parent::Find($id, $columns);
+    }
+
+    /**
      *  Return the lowest ranking application role.
      *
      *  @return self
