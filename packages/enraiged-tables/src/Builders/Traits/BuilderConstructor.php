@@ -52,16 +52,16 @@ trait BuilderConstructor
 
         $this->load(config('enraiged.tables.template'));
 
+        if (count($parameters)) {
+            $this->load($parameters);
+        }
+
         if ($this->template) {
             if (!File::exists($this->template)) {
                 throw new PreconditionFailedHttpException('A table template is defined but the file does not exist.');
             }
 
             $this->load(json_decode(file_get_contents($this->template), true));
-        }
-
-        if (count($parameters)) {
-            $this->load($parameters);
         }
 
         if ($this->request->has('export')) {
