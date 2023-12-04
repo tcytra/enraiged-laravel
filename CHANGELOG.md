@@ -1,5 +1,22 @@
 # Release Notes
 
+2023-12-04 : 0.3.3  
+Update: Improvement updates to the datatables system; Various bugfixes
+
+- Added ability to remove table template actions,filters,columns
+- Added ability to define FORCE_DEFAULT_ROLE against user registration
+- Added isSortable($column) method to the table builder
+- Added RouteCollection class; Improved RequestCollection handling
+- Corrected issues with the User/Profile relation
+- Corrected issue preventing ability to register an account
+- Corrected issue throwing errors for users without a role
+- Implemented a UriBuilder for determining table routes
+- Improved functional application of the table sorting
+- Only show table rows dropdown if options exist in the template
+- Provide ability to assert secureFirst before secureAny
+
+---
+
 2023-11-15 : 0.3.2  
 Update: Upgrade primevue to v3.40; Resolved SSR issues
 
