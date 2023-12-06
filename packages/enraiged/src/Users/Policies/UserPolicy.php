@@ -12,11 +12,62 @@ class UserPolicy
 
     /**
      *  @param  \Enraiged\Users\Models\User  $auth
+     *  @param  \Enraiged\Users\Models\User  $user
+     *  @return bool
+     */
+    public function _read(User $auth, User $user = null)
+    {
+        return $auth->exists && $user->exists;
+    }
+
+    /**
+     *  @param  \Enraiged\Users\Models\User  $auth
+     *  @param  \Enraiged\Users\Models\User  $user
+     *  @return bool
+     */
+    public function _write(User $auth, User $user = null)
+    {
+        return $auth->role->is(Roles::Administrator)
+            || $auth->id === $user->id;
+    }
+
+    /**
+     *  @param  \Enraiged\Users\Models\User  $auth
      *  @return bool
      */
     public function available(User $auth)
     {
-        return $auth->role->atLeast(Roles::Administrator);
+        return $auth->role->is(Roles::Administrator);
+    }
+
+    /**
+     *  @param  \Enraiged\Users\Models\User  $auth
+     *  @param  \Enraiged\Users\Models\User  $user
+     *  @return bool
+     */
+    public function avatarEdit(User $auth, User $user)
+    {
+        return $this->_write($auth, $user);
+    }
+
+    /**
+     *  @param  \Enraiged\Users\Models\User  $auth
+     *  @param  \Enraiged\Users\Models\User  $user
+     *  @return bool
+     */
+    public function loginEdit(User $auth, User $user)
+    {
+        return $this->_write($auth, $user);
+    }
+
+    /**
+     *  @param  \Enraiged\Users\Models\User  $auth
+     *  @param  \Enraiged\Users\Models\User  $user
+     *  @return bool
+     */
+    public function settingsEdit(User $auth, User $user)
+    {
+        return $this->_write($auth, $user);
     }
 
     /**
@@ -25,7 +76,7 @@ class UserPolicy
      */
     public function create(User $auth)
     {
-        return $auth->role->atLeast(Roles::Administrator);
+        return $auth->role->is(Roles::Administrator);
     }
 
     /**
@@ -35,8 +86,7 @@ class UserPolicy
      */
     public function delete(User $auth, User $user)
     {
-        return $auth->role->atLeast(Roles::Administrator)
-            && !$user->is_protected
+        return $this->_write($auth, $user)
             && is_null($user->deleted_at);
     }
 
@@ -47,7 +97,7 @@ class UserPolicy
      */
     public function edit(User $auth, User $user)
     {
-        return $this->update($auth, $user);
+        return $this->_write($auth, $user);
     }
 
     /**
@@ -56,7 +106,7 @@ class UserPolicy
      */
     public function export(User $auth)
     {
-        return $this->index($auth);
+        return $auth->role->is(Roles::Administrator);
     }
 
     /**
@@ -77,7 +127,7 @@ class UserPolicy
      */
     public function index(User $auth)
     {
-        return $auth->exists;
+        return $auth->role->is(Roles::Administrator);
     }
 
     /**
@@ -87,7 +137,7 @@ class UserPolicy
      */
     public function restore(User $auth, User $user)
     {
-        return $auth->role->atLeast(Roles::Administrator)
+        return $this->_write($auth, $user)
             && !is_null($user->deleted_at);
     }
 
@@ -98,7 +148,7 @@ class UserPolicy
      */
     public function show(User $auth, User $user)
     {
-        return $auth->exists && $user->exists;
+        return $this->_read($auth, $user);
     }
 
     /**
@@ -108,11 +158,6 @@ class UserPolicy
      */
     public function update(User $auth, User $user)
     {
-        if ($user->deleted_at) {
-            return false;
-        }
-
-        return $auth->role->is(Roles::Administrator)
-            || $auth->id === $user->id;
+        return $this->_write($auth, $user);
     }
 }
