@@ -14,7 +14,7 @@ class UriBuilder
     public function __construct($uri, $route = null)
     {
         $this->uri = $uri;
-        $this->route = $route ?? route();
+        $this->route = $route ?? request()->route();
     }
 
     /**
