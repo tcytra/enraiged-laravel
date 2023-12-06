@@ -55,9 +55,18 @@ class UriBuilder
 
             $route = $this->route($uri['route'], $params);
 
-            return key_exists('method', $uri) && strtoupper($uri['method']) !== 'GET'
-                ? ['method' => strtolower($uri['method']), 'route' => $route]
-                : $route;
+            $using_api = key_exists('api', $uri) && $uri['api'] === true;
+            $using_method = key_exists('method', $uri) && strtoupper($uri['method']) !== 'GET';
+
+            if ($using_api || $using_method) {
+                return [
+                    'api' => $uri['api'] === true,
+                    'method' => strtolower($uri['method']),
+                    'route' => $route,
+                ];
+            }
+
+            return $route;
         }
 
         if (preg_match('/\./', $uri)) {
