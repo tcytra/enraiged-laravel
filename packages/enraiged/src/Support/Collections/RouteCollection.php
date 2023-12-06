@@ -31,6 +31,16 @@ class RouteCollection extends Collection
     }
 
     /**
+     *  Determine whether this route has parameters.
+     *
+     *  @return bool
+     */
+    public function hasParameters(): bool
+    {
+        return $this->keys()->count() > 0;
+    }
+
+    /**
      *  Get a given parameter from the collection.
      *
      *  @param  string  $name
