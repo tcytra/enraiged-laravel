@@ -22,7 +22,7 @@ trait IsProtected
         self::deleting(function ($model) {
             if ($model->is_protected) {
                 throw new ConflictHttpException(
-                    __('This user is protected and cannot be deleted')
+                    __('exceptions.user.protected')
                 );
             }
         });
