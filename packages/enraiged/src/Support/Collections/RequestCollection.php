@@ -4,9 +4,8 @@ namespace Enraiged\Support\Collections;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Auth;
 
-class RequestCollection extends Collection
+class RequestCollection extends Collection // this class exists because Illuminate\Http\Request cannot be serialized
 {
     use Traits\Filled;
 
@@ -17,18 +16,17 @@ class RequestCollection extends Collection
      */
     public function route(): RouteCollection
     {
-        return $this->get('route');
+        return $this->get('_route');
     }
 
     /**
-     *  Get the user making the request.
+     *  Get the authenticated user who made the request.
      *
-     *  @param  string|null  $guard
      *  @return mixed
      */
-    public function user($guard = null)
+    public function user()
     {
-        return Auth::guard($guard)->user();
+        return $this->get('_authenticated');
     }
 
     /**
@@ -42,8 +40,9 @@ class RequestCollection extends Collection
         $called = get_called_class();
 
         $parameters = [
+            '_authenticated' => $request->user(),
+            '_route' => RouteCollection::from($request->route()),
             ...$request->all(),
-            'route' => RouteCollection::from($request->route()),
         ];
 
         return new $called($parameters);
