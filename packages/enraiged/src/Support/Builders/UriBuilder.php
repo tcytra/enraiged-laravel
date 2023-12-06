@@ -35,18 +35,29 @@ class UriBuilder
         $uri = $this->uri;
 
         if (gettype($uri) === 'array') {
+            $required_params = [];
+
             if (key_exists('param', $uri)) {
-                $index = $uri['param'];
-                $param = $this->route->parameter($index);
-
-                if ($param instanceof \Illuminate\Database\Eloquent\Model) {
-                    return $this->route($uri['route'], [$index => $param->id]);
-                }
-
-                return $this->route($uri['route'], [$index => $param]);
+                array_push($required_params, $uri['param']);
+            }
+            if (key_exists('params', $uri)) {
+                array_push($required_params, ...$uri['params']);
             }
 
-            $uri = $uri['route'];
+            $params = $this->route->hasParameters()
+                ? collect($this->route->parameters())
+                    ->only($required_params)
+                    ->transform(fn ($item) => $item instanceof \Illuminate\Database\Eloquent\Model
+                        ? (int) $item->id
+                        : $item)
+                    ->toArray()
+                : [];
+
+            $route = $this->route($uri['route'], $params);
+
+            return key_exists('method', $uri) && strtoupper($uri['method']) !== 'GET'
+                ? ['method' => strtolower($uri['method']), 'route' => $route]
+                : $route;
         }
 
         if (preg_match('/\./', $uri)) {
@@ -61,10 +72,10 @@ class UriBuilder
      *
      *  @param  array|string  $uri
      *  @param  \Illuminate\Routing\Route  $route
-     *  @return string
+     *  @return self
      */
-    public static function From($uri, $route = null): string
+    public static function From($uri, $route = null): self
     {
-        return (new self($uri, $route))->uri();
+        return (new self($uri, $route));
     }
 }

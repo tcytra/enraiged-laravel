@@ -32,7 +32,7 @@ trait Exportable
     protected function assembleExportableConfiguration()
     {
         if ($this->get('exportable') && (is_null($this->model) || $this->user->can('export', $this->model))) {
-            $uri = UriBuilder::from($this->get('exportable')['uri'], $this->request->get('route'));
+            $uri = UriBuilder::from($this->get('exportable')['uri'], $this->request->get('route'))->uri();
 
             return collect($this->get('exportable'))
                 ->merge(['uri' => $uri])

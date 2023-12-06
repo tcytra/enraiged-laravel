@@ -79,7 +79,7 @@ class TableBuilder
             'model' => Str::snake(class_basename($this->model)),
             'pagination' => $this->get('pagination'),
             'state' => $this->get('state'),
-            'uri' => UriBuilder::from($this->uri, $this->request->get('route')),
+            'uri' => UriBuilder::from($this->uri, $this->request->get('route'))->uri(),
         ];
 
         if ($this->filters) {
