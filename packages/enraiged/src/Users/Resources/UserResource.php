@@ -10,6 +10,9 @@ class UserResource extends JsonResource
         Traits\Profile,
         Traits\Role;
 
+    /** @var  bool  Whether or not to include the deleted at,by with this resource. */
+    protected bool $with_deleted = false;
+
     /** @var  bool  Whether or not to include the tracking objects with this resource. */
     protected bool $with_tracking = true;
 
@@ -53,7 +56,7 @@ class UserResource extends JsonResource
             $resource['created'] = $this->resource->created;
         }
 
-        if ($this->with_tracking && !is_null($this->deleted_at)) {
+        if (($this->with_deleted || $this->with_tracking) && !is_null($this->deleted_at)) {
             $resource['deleted'] = $this->resource->deleted;
         }
 

@@ -13,6 +13,9 @@ class IndexResource extends UserResource
     /** @var  bool  Whether or not to include the role with this resource. */
     protected bool $with_role = false;
 
+    /** @var  bool  Whether or not to include the deleted at,by with this resource. */
+    protected bool $with_deleted = true;
+
     /** @var  bool  Whether or not to include the tracking objects with this resource. */
     protected bool $with_tracking = false;
 
@@ -25,7 +28,6 @@ class IndexResource extends UserResource
     public function toArray($request): array
     {
         return collect(parent::toArray($request))
-            ->except(['created', 'deleted', 'updated'])
             ->merge([
                 '__' => $this->modelDeletedBackground() ?? $this->modelInactiveBackground(),
                 'active' => $this->is_active && is_null($this->deleted_at),
