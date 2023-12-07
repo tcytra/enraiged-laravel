@@ -9,38 +9,53 @@ trait UserAssertions
     /**
      *  Assert a user id match.
      *
-     *  @param  object  $secure
+     *  @param  array|object  $user
      *  @return bool
      */
-    protected function assertUserEmail($secure): bool
+    protected function assertUserEmail($user): bool
     {
-        $security = (object) $secure;
+        $user = (object) $user;
 
         if (!Auth::check()) {
             return false;
         }
 
-        return gettype($security->email) === 'array'
-            ? in_array(Auth::user()->email, $security->email)
-            : Auth::user()->email === $security->email;
+        return gettype($user->email) === 'array'
+            ? in_array(Auth::user()->email, $user->email)
+            : Auth::user()->email === $user->email;
+    }
+
+    /**
+     *  Assert a user model is myself.
+     *
+     *  @param  User  $user
+     *  @return bool
+     */
+    protected function assertUserIsMyself($user): bool
+    {
+        if (!Auth::check()) {
+            return false;
+        }
+
+        return Auth::user()->id === (int) $user->id;
     }
 
     /**
      *  Assert a user id match.
      *
-     *  @param  object  $secure
+     *  @param  array|User  $user
      *  @return bool
      */
-    protected function assertUserId($secure): bool
+    protected function assertUserId($user): bool
     {
-        $security = (object) $secure;
+        $user = (object) $user;
 
         if (!Auth::check()) {
             return false;
         }
 
-        return gettype($security->id) === 'array'
-            ? in_array(Auth::user()->id, $security->id)
-            : Auth::user()->id === (int) $security->id;
+        return gettype($user->id) === 'array'
+            ? in_array(Auth::user()->id, $user->id)
+            : Auth::user()->id === (int) $user->id;
     }
 }

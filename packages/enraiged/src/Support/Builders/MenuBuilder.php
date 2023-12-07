@@ -2,36 +2,19 @@
 
 namespace Enraiged\Support\Builders;
 
-use Enraiged\Enums\FileTypes;
-use Enraiged\Support\Builders\Enums\TemplateSources;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
-use Symfony\Component\HttpKernel\Exception\PreconditionFailedHttpException;
 
-class MenuBuilder
+abstract class MenuBuilder
 {
     use Security\AssertSecure,
         Security\RoleAssertions,
         Security\UserAssertions,
-        Traits\LoadParameters;
+        Traits\ConfigurationHandler,
+        Traits\HttpRequest,
+        Traits\ParameterLoader;
 
-    /** @var  array|bool  Perform a cleanup on the processed menu. */
-    protected $clean = true;
-
-    /** @var  array  The menu items collection. */
-    protected $menu;
-
-    /** @var  string  The menu items name. */
-    protected $name;
-
-    /** @var  Request  The http request. */
-    protected $request;
-
-    /** @var  string  The menu configuration source. */
-    protected $source = 'file';
-
-    /** @var  string  The menu template file location. */
-    protected $template;
+    /** @var  array|string  Perform a cleanup on the processed configuration. */
+    protected $clean = ['secure', 'secureAll', 'secureAny'];
 
     /**
      *  Create an instance of the TableBuilder.
@@ -42,102 +25,76 @@ class MenuBuilder
      */
     public function __construct(Request $request, array $parameters = [])
     {
-        $this->request = $request;
-
-        if (count($parameters)) {
-            $this->load($parameters);
-        }
+        (object) $this
+            ->setRequest($request)
+            ->setParameters($parameters);
     }
 
     /**
-     *  Perform final cleanup in the processed menu.
+     *  Create and return the configuration against the provided request.
      *
-     *  return self
+     *  @return MenuBuilder
      */
-    protected function clean()
-    {
-        if ($this->clean) {
-            $except = gettype($this->clean) === 'array'
-                ? $this->clean
-                : 'secure';
-
-            $clean = collect($this->menu)
-                ->transform(fn ($item) => collect($item)
-                    ->except($except)
-                    ->toArray());
-
-            $this->menu = $clean->toArray();
-        }
-
-        return $this;
-    }
-
-    /**
-     *  Retrieve the menu from the specified source.
-     *
-     *  @return self
-     */
-    protected function fetch()
-    {
-        $menu = null;
-
-        if ($this->source === TemplateSources::Database) {
-            
-        }
-
-        if ($this->source === TemplateSources::Filesystem) {
-            if (!$this->template) {
-                throw new PreconditionFailedHttpException(__('exceptions.template.undefined'));
-            }
-            if (!File::exists($this->template)) {
-                throw new PreconditionFailedHttpException(__('exceptions.template.missing'));
-            }
-
-            if (File::mimeType($this->template) === FileTypes::JSON) {
-                $menu = json_decode(file_get_contents($this->template), true);
-            }
-            if (File::mimeType($this->template) === FileTypes::PHP) {
-                $menu = include $this->template;
-            }
-        }
-
-        $this->menu = $this instanceof Contracts\ShouldPreprocess
-            ? collect($menu)
-                ->transform(fn ($item, $index) => $this
-                    ->preprocess($this->request, $item, $index))
-                ->toArray()
-            : $menu;
-
-        return $this;
-    }
-
-    /**
-     *  Create and return the application menu against the provided request.
-     *
-     *  @return array
-     */
-    protected function handle(): array
+    public function handle()
     {
         (object) $this
             ->fetch()
-            ->secure()
+            ->process()
             ->clean();
 
-        return $this->menu;
+        return $this;
     }
 
     /**
-     *  Secure the menu for the authenticated user.
+     *  Return the menu configuration.
+     *
+     *  @return array
+     */
+    public function menu(): array
+    {
+        return $this->get();
+    }
+
+    /**
+     *  Process the configuration.
      *
      *  @return self
      */
-    protected function secure()
+    protected function process()
     {
-        $menu = collect($this->menu)
+        $configuration = collect($this->configuration);
+
+        if ($this instanceof Contracts\ShouldPreprocess) {
+            $configuration = $configuration
+                ->transform(fn ($item, $index) => $this
+                    ->preprocess($this->request, $item, $index));
+        }
+
+        $this->secure();
+
+        if ($this instanceof Contracts\ShouldPostprocess) {
+            $this->configuration = collect($this->configuration)
+                ->transform(fn ($item, $index) => $this
+                    ->postprocess($this->request, $item, $index))
+                ->toArray();
+        }
+
+        return $this;
+    }
+
+    /**
+     *  Secure the configuration against the authenticated user.
+     *
+     *  @param  array|object  $configuration = null
+     *  @return self
+     */
+    protected function secure($configuration = null)
+    {
+        $this->configuration = collect($configuration ?: $this->configuration)
             ->transform(function ($item) {
                 if (key_exists('menu', $item)) {
-                    $secure = $this->secure(collect($item['menu']));
-                    
+                    $secure = $this->secure($item['menu']);
+
                     if ($secure->count()) {
                         $item['menu'] = $secure->toArray();
                         return $item;
@@ -157,25 +114,18 @@ class MenuBuilder
             })
             ->toArray();
 
-        $this->menu = $this instanceof Contracts\ShouldPostprocess
-            ? collect($menu)
-                ->transform(fn ($item, $index) => $this
-                    ->postprocess($this->request, $item, $index))
-                ->toArray()
-            : $menu;
-
         return $this;
     }
 
     /**
-     *  Create and return a menu from the request.
+     *  Create and return a configuration from the provided request and parameters.
      *
      *  @param  \Illuminate\Http\Request  $request
      *  @param  array   $parameters = []
-     *  @return \Enraiged\Tables\Builders\TableBuilder
+     *  @return self
      *  @static
      */
-    public static function From(Request $request, array $parameters = [])
+    public static function From(Request $request, array $parameters = []): self
     {
         $called = get_called_class();
 

@@ -28,9 +28,9 @@ class UriBuilder
     /**
      *  Process the uri argument and return the result.
      *
-     *  @return string
+     *  @return array|string
      */
-    public function uri(): string
+    public function uri()
     {
         $uri = $this->uri;
 

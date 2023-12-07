@@ -1,0 +1,89 @@
+{
+    "impersonate": {
+        "class": "p-button-info p-button-text background-warning",
+        "icon": "pi pi-sync",
+        "label": "Assume",
+        "secure": {"method": "isNotDeleted"},
+        "uri": {"route": "users.impersonate", "param": "user"}
+    },
+    "show": {
+        "class": "p-button-info p-button-text",
+        "icon": "pi pi-user",
+        "label": "Show",
+        "uriIf": {
+            "condition": {"attribute": "isMyself"},
+            "uri": {"route": "my.profile"}
+        },
+        "uriElse": {"route": "users.show", "param": "user"}
+    },
+    "edit": {
+        "class": "p-button-info p-button-text",
+        "icon": "pi pi-pencil",
+        "label": "Edit",
+        "secure": {"method": "isNotDeleted"},
+        "uriIf": {
+            "condition": {"attribute": "isMyself"},
+            "uri": {"route": "my.details"}
+        },
+        "uriElse": {"route": "users.edit", "param": "user"}
+    },
+    "avatar": {
+        "action": "avatarEdit",
+        "class": "p-button-info p-button-text",
+        "icon": "pi pi-circle",
+        "label": "Avatar",
+        "uriIf": {
+            "condition": {"attribute": "isMyself"},
+            "uri": {"route": "my.avatar"}
+        },
+        "uriElse": {"method": "get", "route": "users.avatar.edit", "param": "user"}
+    },
+    "login": {
+        "action": "loginEdit",
+        "class": "p-button-info p-button-text",
+        "icon": "pi pi-sign-in",
+        "label": "Login",
+        "uriIf": {
+            "condition": {"attribute": "isMyself"},
+            "uri": {"route": "my.login"}
+        },
+        "uriElse": {"route": "users.login.edit", "param": "user"}
+    },
+    "settings": {
+        "action": "settingsEdit",
+        "class": "p-button-info p-button-text",
+        "icon": "pi pi-cog",
+        "label": "Settings",
+        "uriIf": {
+            "condition": {"attribute": "isMyself"},
+            "uri": {"route": "my.settings"}
+        },
+        "uriElse": {"route": "users.settings.edit", "param": "user"}
+    },
+    "files": {
+        "action": "filesShow",
+        "class": "p-button-info p-button-text",
+        "icon": "pi pi-file",
+        "label": "Files",
+        "uriIf": {
+            "condition": {"attribute": "isMyself"},
+            "uri": {"route": "my.files"}
+        }
+    },
+    "delete": {
+        "class": "p-button-info p-button-text background-danger",
+        "confirm": "Are you certain you wish to delete this user?",
+        "icon": "pi pi-trash",
+        "label": "Delete",
+        "secure": {"method": "canBeDeleted"},
+        "uri": {"api": true, "method": "delete", "route": "users.delete", "param": "user"}
+    },
+    "restore": {
+        "class": "p-button-info p-button-text background-success",
+        "confirm": "Are you certain you wish to restore this user?",
+        "icon": "pi pi-trash",
+        "label": "Restore",
+        "secure": {"method": "isDeleted"},
+        "uri": {"api": true, "method": "patch", "route": "users.restore", "param": "user"}
+    }
+}

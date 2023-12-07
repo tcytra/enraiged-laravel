@@ -11,10 +11,18 @@ trait HasContext
      *  Initialize the trait.
      *
      *  @return void
-     */
+     *
     public function initializeContext()
     {
         $this->append(['is_administrator', 'is_myself']);
+    }*/
+
+    /**
+     *  @return bool
+     */
+    public function getCanBeSelfDeletedAttribute(): bool
+    {
+        return $this->isMyself && config('enraiged.auth.allow_self_delete');
     }
 
     /**

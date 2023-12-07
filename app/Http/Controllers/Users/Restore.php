@@ -25,7 +25,7 @@ class Restore extends Controller
         $user->restore();
 
         if ($request->is('api/*')) {
-            return response()->json(['success' => __('User restored')]);
+            return response()->json(['success' => __('User restored')], 205);
         }
 
         $request->session()->put('success', __('User restored'));

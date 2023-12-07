@@ -21,7 +21,7 @@ export default {
 
     props: {
         actions: {
-            type: Object,
+            type: Array,
             default: [],
         },
         backButton: {

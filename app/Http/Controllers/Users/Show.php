@@ -3,37 +3,34 @@
 namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
+use Enraiged\Users\Actions\Builders\ProfileActions;
 use Enraiged\Users\Models\User;
 use Enraiged\Users\Resources\UserResource;
-use Enraiged\Users\Traits\Actions as PageActions;
 use Enraiged\Users\Traits\Messages as PageMessages;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 
 class Show extends Controller
 {
-    use AuthorizesRequests, PageActions, PageMessages;
+    use AuthorizesRequests, PageMessages;
 
     /**
      *  @param  \Illuminate\Http\Request  $request
-     *  @param  int  $user
+     *  @param  \Enraiged\Users\Models\User  $user
      *  @return \Inertia\Response
      */
     public function __invoke(Request $request, $user = null)
     {
-        $this->user = preg_match('/^my\./', $request->route()->getName())
-            ? $request->user()
-            : User::withTrashed()
-                ->findOrFail($user);
+        $user = $request->route()->hasParameter('user')
+            ? User::withTrashed()->findOrFail($user)
+            : $request->user();
 
-        $this->authorize('show', $this->user);
+        $this->authorize('show', $user);
 
         return inertia('users/Show', [
-            'actions' => $this->user->is_myself
-                ? collect($this->actions($this->user))->except('show')->values()
-                : [],
-            'messages' => $this->messages($this->user),
-            'user' => UserResource::from($this->user),
+            'actions' => ProfileActions::From($request, $user)->values(),
+            'messages' => $this->messages($user),
+            'user' => UserResource::from($user),
         ]);
     }
 }

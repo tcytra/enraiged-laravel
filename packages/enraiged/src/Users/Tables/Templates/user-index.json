@@ -15,7 +15,7 @@
         "impersonate": {
             "class": "p-button-secondary",
             "icon": "pi pi-sync",
-            "secure": {"method": "roleIs", "role": "Administrator"},
+            "secure": {"method": "isNotDeleted"},
             "tooltip": "Impersonate",
             "type": "row"
         },
@@ -28,6 +28,7 @@
         "edit": {
             "class": "p-button-warning",
             "icon": "pi pi-pencil",
+            "secure": {"method": "isNotDeleted"},
             "tooltip": "Edit user",
             "type": "row"
         },

@@ -21,6 +21,8 @@ trait Messages
             $message = __('This user was deleted on :deleted', ['deleted' => $formatter->format($datetime)]);
 
             array_push($messages, message($message, 'error'));
+
+            return $messages;
         }
 
         if ($user->isMyself) {

@@ -4,7 +4,7 @@ namespace Enraiged\Tables\Builders\Traits;
 
 use Enraiged\Enums\FileTypes;
 use Enraiged\Support\Builders\Enums\TemplateSources;
-use Enraiged\Support\Builders\Traits\LoadParameters;
+use Enraiged\Support\Builders\Traits\ParameterLoader;
 use Enraiged\Tables\Support\TableRequestCollection;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
@@ -13,7 +13,7 @@ use Symfony\Component\HttpKernel\Exception\PreconditionFailedHttpException;
 
 trait BuilderConstructor
 {
-    use LoadParameters;
+    use ParameterLoader;
 
     /** @var  string  The css class(es) to apply to the table. */
     protected string $class;

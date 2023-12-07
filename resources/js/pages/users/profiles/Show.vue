@@ -1,6 +1,6 @@
 <template>
     <main class="content main">
-        <page-header back-button fixed :title="title"/>
+        <page-header back-button fixed :actions="actions" :title="title"/>
         <section class="auto-margin container max-width-xl w-full">
             <div class="grid">
                 <div class="col-12">
@@ -27,6 +27,10 @@ export default {
     inject: ['i18n'],
 
     props: {
+        actions: {
+            type: Array,
+            default: [],
+        },
         user: {
             type: Object,
             required: true,

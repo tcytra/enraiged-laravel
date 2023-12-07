@@ -1,6 +1,6 @@
 <template>
     <main class="content main">
-        <page-header fixed title="My Files"/>
+        <page-header back-button fixed :actions="actions" title="My Files"/>
         <section class="container">
             <primevue-dataview :layout="layout" :value="files" v-if="files.length">
                 <template #header>
@@ -109,6 +109,10 @@ export default {
     inject: ['i18n'],
 
     props: {
+        actions: {
+            type: Array,
+            default: [],
+        },
         files: {
             type: Object,
             required: true,

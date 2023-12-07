@@ -2,15 +2,17 @@
 
 namespace Enraiged\Support\Builders\Contracts;
 
+use Enraiged\Support\Collections\RequestCollection;
+
 interface ShouldPostprocess
 {
     /**
      *  Perform postprocess logic on an indexed item.
      *
-     *  @param  \Illuminate\Http\Request  $request
+     *  @param  \Enraiged\Support\Collections\RequestCollection  $request
      *  @param  mixed   $item
      *  @param  string  $index
      *  @return array
      */
-    public function postprocess($request, $item, $index);
+    public function postprocess(RequestCollection $request, $item, $index);
 }

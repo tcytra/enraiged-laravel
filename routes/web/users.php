@@ -51,7 +51,7 @@ Route::middleware(['auth', 'verified', 'enraiged'])
                     });
 
                 Route::match(['GET', 'POST'], 'available', 'Available')->name('available');
-                Route::delete('{user}', 'Destroy')->name('delete');
+                Route::delete((config('enraiged.auth.allow_self_delete') ? '{user?}' : '{user}'), 'Destroy')->name('delete');
                 Route::patch('{user}', 'Restore')->name('restore');
                 Route::patch('{user}/update', 'Update')->name('update');
                 Route::post('', 'Store')->name('store');
@@ -71,11 +71,6 @@ Route::middleware(['auth', 'verified', 'password.confirm', 'enraiged'])
         Route::get('login', 'Login\Edit')->name('login');
         Route::get('settings', 'Settings\Edit')->name('settings');
 
-        Route::namespace('Files')
-            ->prefix('files')
-            ->as('files.')
-            ->group(function () {
-                Route::get('', 'Index')->name('index');
-            });
+        Route::get('files', 'Files\Index')->name('files');
 
     });

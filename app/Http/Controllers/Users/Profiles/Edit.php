@@ -4,31 +4,33 @@ namespace App\Http\Controllers\Users\Profiles;
 
 use App\Enums\Roles;
 use App\Http\Controllers\Controller;
+use Enraiged\Users\Actions\Builders\ProfileActions;
 use Enraiged\Users\Forms\Builders\UpdateProfileForm;
+use Enraiged\Users\Models\User;
 use Enraiged\Users\Resources\UserResource;
-use Enraiged\Users\Traits\Actions as PageActions;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 
 class Edit extends Controller
 {
-    use AuthorizesRequests, PageActions;
+    use AuthorizesRequests;
 
     /**
      *  @param  \Illuminate\Http\Request  $request
+     *  @param  \Enraiged\Users\Models\User  $user
      *  @return \Inertia\Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request, User $user = null)
     {
-        $user = $request->user();
+        $user = $request->route()->user ?: $request->user();
 
-        $this->authorize('edit', $user); // todo: authorize profile, not user
+        $this->authorize('edit', $user);
 
         $builder = UpdateProfileForm::from($request)
             ->edit($user, 'users.profile.update');
 
         return inertia('users/profiles/Edit', [
-            'actions' => collect($this->actions($user))->except('edit')->values(),
+            'actions' => ProfileActions::From($request, $user)->values(),
             'messages' => $this->messages($request),
             'template' => $builder->template(),
             'user' => UserResource::from($user),

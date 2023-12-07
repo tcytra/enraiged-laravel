@@ -15,6 +15,6 @@ trait Menu
      */
     private function menu(Request $request)
     {
-        return MainMenu::From($request);
+        return MainMenu::From($request)->menu();
     }
 }

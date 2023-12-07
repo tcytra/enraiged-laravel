@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Enraiged\Users\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class Destroy extends Controller
 {
@@ -16,9 +17,17 @@ class Destroy extends Controller
      *  @param  \Enraiged\Users\Models\User  $user
      *  @return \Illuminate\Http\JsonResponse|\Inertia\Response
      */
-    public function __invoke(Request $request, User $user)
+    public function __invoke(Request $request, $user = null)
     {
+        $user = $request->route()->hasParameter('user')
+            ? User::findOrFail($user)
+            : $request->user();
+
         $this->authorize('delete', $user);
+
+        $myself = $user->isMyself === true;
+        $message = $myself ? 'Account deleted' : 'User deleted';
+        $redirect = $myself ? '/' : null;
 
         if ($user->is_protected) {
             if ($request->is('api/*')) {
@@ -30,15 +39,22 @@ class Destroy extends Controller
         } else {
             $user->delete();
 
-            if ($request->is('api/*')) {
-                return response()->json([
-                    'success' => __('User deleted'),
-                ]);
+            if ($user->isMyself) {
+                Auth::logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
             }
 
-            $request->session()->put('success', __('User deleted'));
+            if ($request->is('api/*')) {
+                return response()
+                    ->json(['success' => __($message)], 205);
+            }
+
+            $request->session()->forget('impersonate');
+            $request->session()->put('success', __($message));
         }
 
-        return $request->redirect();
+
+        return $request->redirect($redirect);
     }
 }

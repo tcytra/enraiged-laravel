@@ -1,6 +1,6 @@
 <template>
     <main class="content main">
-        <page-header back-button fixed :heading="heading" :title="title"/>
+        <page-header back-button fixed :actions="actions" :heading="heading" :title="title"/>
         <section class="auto-margin container max-width-xl">
             <page-messages :messages="messages" @dismiss="messages.splice($event, 1)"/>
             <update-form ref="updateUser" custom-actions updating :template="template"/>
@@ -36,6 +36,10 @@ export default {
     inject: ['i18n'],
 
     props: {
+        actions: {
+            type: Array,
+            default: [],
+        },
         avatar: {
             type: Object,
             required: true,

@@ -1,5 +1,58 @@
 # Release Notes
 
+Todo:
+- FieldBuilder, OptionsBuilder, PageBuilder
+- Add remaining form fields (port from primevue)
+- Complex table searching
+- Controller messages system
+- Data Import (from model index page)
+- Import menus to database from json files; Or, add builder/template
+- Page exporter (ie. account details) (pdf, xls?, txt?)
+- Geo, Geo Social
+- Hash id flash messages, prevent reappearing when navigate back(?)
+- Model Activity History
+- New account creates registered list of site 'helps' (dismissable)
+- Select options groups
+- Test cases and documentation
+- User configurable notifications system
+- Username availability check
+
+! Avatar colour picker seems to preserve some previous value  
+! Correct avatar character centering in mobile browser  
+! Minimize form field props; Solve template vs prop issue  
+! add badges to the main avatar block; indicate export completed  
+! preserve last page when impersonate.start (or redirect back to index)  
+! toggle fixed header in state meta (meta.ui config options?)  
+! users.deleted_by not being populated  
+! was able to get to edit my profile (from users index) without password challenge?  
+
+table grouping!
+
+---
+
+2023-00-00 : 0.0.0  
+Update: Added builders for handlings actions, menus
+
+- Added Enraiged\Support\Builders\{ActionBuilder,MenuBuilder} classes
+  - Improvements to the UriBuilder class
+  - Moved User profile actions to Enraiged\Users\Actions\ProfileActions
+  - Moved config.enraiged.menu to App\Menus builder/template system
+  - Updated pages,PageActions components to reflect these changes
+- Upgraded vite from 4.5.0 to 4.5.1 (dependabot alert)
+
+Breaking changes from 0.3.3
+
+The current main menu configuration system has been changed. Assembling
+the main menu is now performed through the MenuBuilder class. The 
+developer should be able to move their ~/config/enraiged/menu.php to 
+~/app/Menus/Templates/main-menu.php and the app will work as before.
+
+```
+mv config/enraiged/menu.php app/Menus/Templates/main-menu.php
+```
+
+---
+
 2023-12-04 : 0.3.3  
 Update: Improvement updates to the datatables system; Various bugfixes
 
