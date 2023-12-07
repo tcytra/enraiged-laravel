@@ -1,37 +1,7 @@
 # Release Notes
 
-Todo:
-- FieldBuilder, OptionsBuilder, PageBuilder
-- Add remaining form fields (port from primevue)
-- Complex table searching
-- Controller messages system
-- Data Import (from model index page)
-- Import menus to database from json files; Or, add builder/template
-- Page exporter (ie. account details) (pdf, xls?, txt?)
-- Geo, Geo Social
-- Hash id flash messages, prevent reappearing when navigate back(?)
-- Model Activity History
-- New account creates registered list of site 'helps' (dismissable)
-- Select options groups
-- Test cases and documentation
-- User configurable notifications system
-- Username availability check
-
-! Avatar colour picker seems to preserve some previous value  
-! Correct avatar character centering in mobile browser  
-! Minimize form field props; Solve template vs prop issue  
-! add badges to the main avatar block; indicate export completed  
-! preserve last page when impersonate.start (or redirect back to index)  
-! toggle fixed header in state meta (meta.ui config options?)  
-! users.deleted_by not being populated  
-! was able to get to edit my profile (from users index) without password challenge?  
-
-table grouping!
-
----
-
-2023-00-00 : 0.0.0  
-Update: Added builders for handlings actions, menus
+2023-12-07 : 0.3.4  
+Update: Completed initial builder systems for templating actions,menus
 
 - Added Enraiged\Support\Builders\{ActionBuilder,MenuBuilder} classes
   - Improvements to the UriBuilder class
