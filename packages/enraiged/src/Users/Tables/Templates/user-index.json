@@ -14,8 +14,8 @@
         },
         "impersonate": {
             "class": "p-button-secondary",
-            "icon": "pi pi-user",
-            "secure": { "method": "roleIs", "role": "Administrator" },
+            "icon": "pi pi-sync",
+            "secure": {"method": "roleIs", "role": "Administrator"},
             "tooltip": "Impersonate",
             "type": "row"
         },
@@ -36,7 +36,7 @@
             "confirm": "Are you certain you wish to delete this user?",
             "icon": "pi pi-trash",
             "method": "delete",
-            "secure": { "method": "isNotDeleted" },
+            "secure": {"method": "isNotDeleted"},
             "tooltip": "Delete user",
             "type": "row"
         },
@@ -45,7 +45,7 @@
             "confirm": "Are you certain you wish to restore this user?",
             "icon": "pi pi-trash",
             "method": "patch",
-            "secure": { "method": "isDeleted" },
+            "secure": {"method": "isDeleted"},
             "tooltip": "Restore user",
             "type": "row"
         }
