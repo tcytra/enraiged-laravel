@@ -10,7 +10,7 @@ trait Updated
     /**
      *  @return void
      */
-    public static function bootUpdatedBy()
+    public static function bootUpdated()
     {
         self::updating(fn ($model) => $model->setUpdatedBy());
     }

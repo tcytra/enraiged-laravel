@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\Roles;
 use Enraiged\Profiles\Models\Profile;
 use Enraiged\Users\Models\User;
 use Enraiged\Users\Services\CreateUserProfile;
@@ -25,12 +26,13 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        if (($email = env('ADMIN_EMAIL')) && ($password = env('ADMIN_PASSWORD'))) {
+        if ($email = env('ADMIN_EMAIL')) {
             $parameters = [
                 'email' => $email,
                 'is_hidden' => true,
+                'is_protected' => true,
                 'name' => env('ADMIN_NAME', 'Application Administrator'),
-                'password' => $password,
+                'password' => env('ADMIN_PASSWORD', $this->insecure_password),
                 'role' => 'Administrator',
                 'username' => env('ADMIN_USERNAME', 'administrator'),
             ];

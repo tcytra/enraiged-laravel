@@ -10,9 +10,9 @@ trait Deleted
     /**
      *  @return void
      */
-    public static function bootDeletedBy()
+    public static function bootDeleted()
     {
-        self::deleting(fn ($model) => $model->setDeletedBy());
+        self::deleted(fn ($model) => $model->setDeletedBy());
     }
 
     /**
@@ -43,6 +43,7 @@ trait Deleted
     {
         if (Auth::check()) {
             $this->deleted_by = Auth::id();
+            $this->save();
         }
     }
 }

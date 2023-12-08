@@ -1,5 +1,11 @@
 
+.p-avatar,
+.p-avatar-circle img {
+  border-radius:    $avatar-border-radius;
+}
+
 .p-avatar {
+
     &.has-border {
       border:           1px solid $white;
     }

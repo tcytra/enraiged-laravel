@@ -31,4 +31,14 @@ class ProfilePolicy
     {
         return $profile->exists;
     }
+
+    /**
+     *  @param  \Enraiged\Users\Models\User  $user
+     *  @param  \Enraiged\Profiles\Models\Profile  $profile
+     *  @return bool
+     */
+    public function update(User $user, Profile $profile)
+    {
+        return $user->can('update', $profile->user);
+    }
 }

@@ -15,7 +15,7 @@ trait AssertCanBeDeleted
      */
     protected function assertCanBeDeleted(object $secure, User $user): bool
     {
-        return is_null($user->deleted_at)
+        return is_null($user->deleted_at) && !$user->is_protected
             && ($this->request()->user()->role->is('Administrator') || $user->canBeSelfDeleted);
     }
 }

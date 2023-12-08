@@ -109,6 +109,12 @@
               background-color: $impersonation-hover;
             }
         }
+
+        .avatar .p-avatar {
+          font-size:        2rem;
+          height:           3rem;
+          width:            3rem;
+        }
     }
 
 }

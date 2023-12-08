@@ -21,9 +21,7 @@ trait IsProtected
     {
         self::deleting(function ($model) {
             if ($model->is_protected) {
-                throw new ConflictHttpException(
-                    __('exceptions.user.protected')
-                );
+                throw new ConflictHttpException(__('exceptions.user.protected'));
             }
         });
     }

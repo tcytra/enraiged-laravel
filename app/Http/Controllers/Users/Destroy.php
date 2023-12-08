@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Enraiged\Users\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class Destroy extends Controller
 {
@@ -23,11 +22,8 @@ class Destroy extends Controller
             ? User::findOrFail($user)
             : $request->user();
 
-        $this->authorize('delete', $user);
 
-        $myself = $user->isMyself === true;
-        $message = $myself ? 'Account deleted' : 'User deleted';
-        $redirect = $myself ? '/' : null;
+        $this->authorize('delete', $user);
 
         if ($user->is_protected) {
             if ($request->is('api/*')) {
@@ -36,25 +32,26 @@ class Destroy extends Controller
 
             $request->session()->put('warn', __('This user is protected and cannot be deleted'));
 
-        } else {
-            $user->delete();
-
-            if ($user->isMyself) {
-                Auth::logout();
-                $request->session()->invalidate();
-                $request->session()->regenerateToken();
-            }
-
-            if ($request->is('api/*')) {
-                return response()
-                    ->json(['success' => __($message)], 205);
-            }
-
-            $request->session()->forget('impersonate');
-            $request->session()->put('success', __($message));
+            return $request->redirect();
         }
 
+        $myself = $user->isMyself === true;
+        $message = $myself ? 'Account deleted' : 'User deleted';
+        $status = $myself ? 205 : 200;
 
-        return $request->redirect($redirect);
+        $user->delete();
+
+        if ($myself) {
+            logout($request);
+        }
+
+        if ($request->is('api/*')) {
+            return response()->json(['success' => __($message)], $status);
+        }
+
+        //$request->session()->forget('impersonate');
+        $request->session()->put('success', __($message));
+
+        return $request->redirect($myself ? '/' : null);
     }
 }

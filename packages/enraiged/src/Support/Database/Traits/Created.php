@@ -12,7 +12,7 @@ trait Created
     /**
      *  @return void
      */
-    public static function bootCreatedBy()
+    public static function bootCreated()
     {
         self::creating(fn ($model) => $model->setCreatedBy());
     }

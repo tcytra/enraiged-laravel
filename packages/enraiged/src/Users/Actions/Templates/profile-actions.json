@@ -8,6 +8,7 @@
     },
     "show": {
         "class": "p-button-info p-button-text",
+        "default": true,
         "icon": "pi pi-user",
         "label": "Show",
         "uriIf": {
@@ -75,6 +76,7 @@
         "confirm": "Are you certain you wish to delete this user?",
         "icon": "pi pi-trash",
         "label": "Delete",
+        "redirectDefault": true,
         "secure": {"method": "canBeDeleted"},
         "uri": {"api": true, "method": "delete", "route": "users.delete", "param": "user"}
     },
@@ -83,6 +85,7 @@
         "confirm": "Are you certain you wish to restore this user?",
         "icon": "pi pi-trash",
         "label": "Restore",
+        "redirectDefault": true,
         "secure": {"method": "isDeleted"},
         "uri": {"api": true, "method": "patch", "route": "users.restore", "param": "user"}
     }

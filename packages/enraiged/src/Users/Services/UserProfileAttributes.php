@@ -36,6 +36,16 @@ class UserProfileAttributes extends AttributeHandler
 
         //  determine the id of a role identified by its name
         if (key_exists('role', $this->attributes)) {
+            /*
+            $role = preg_match('/\d+/', $this->attributes['role'])
+                ? Role::find($this->attributes['role'])
+                : Role::where('name', $this->attributes['role'])->first();
+
+            if ($role->exists) {
+                $this->attributes['role_id'] = $role->id;
+            }
+            */
+
             $this->attributes['role_id'] = Role::where('name', $this->attributes['role'])
                 ->first()
                 ->id;

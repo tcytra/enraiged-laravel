@@ -89,11 +89,11 @@ export default {
                             if (data.success) {
                                 this.flashSuccess(data.success);
                             }
-                            switch (status) {
-                                case 205:
-                                    this.initState();
-                                    this.reloadPage();
-                                    break;
+                            if (status === 205) {
+                                this.initState();
+                            }
+                            if (button.redirectDefault) {
+                                this.actionHandler(this.actions.filter((each) => each.default === true)[0]);
                             }
                         })
                         .catch(error => this.errorHandler(error));
@@ -126,10 +126,11 @@ export default {
             return false;
         },
 
-        reloadPage() {
-            if (this.current) {
-                this.actionHandler(this.current);
+        redirectPage() {
+            if (1) {
+                
             }
+            this.$inertia.get(this.$page.url);
         },
     },
 };

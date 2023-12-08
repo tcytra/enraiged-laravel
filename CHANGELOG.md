@@ -1,5 +1,16 @@
 # Release Notes
 
+2023-12-08 : 0.3.4.1  
+Bugfix: Resolved various issues with 0.3.4
+
+- Corrected issue preventing administrator accessing my profile systems
+- Corrected issue preventing model tracking 'deleted_by' properly
+- Corrected issue preventing avatar image upload; correct border radius
+- Corrected issue preventing table refresh on delete action
+- Simplified,improved initial administrator seeding; Ensure is_protected
+
+---
+
 2023-12-07 : 0.3.4  
 Update: Completed initial builder systems for templating actions,menus
 

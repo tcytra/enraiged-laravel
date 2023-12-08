@@ -79,6 +79,10 @@ class UserPolicy
             return $auth->canBeSelfDeleted;
         }
 
+        if ($user->is_protected) {
+            return false;
+        }
+
         return $auth->isAdministrator || $user->canBeSelfDeleted;
     }
 

@@ -311,7 +311,7 @@ export default {
                         if (data.success) {
                             this.flashSuccess(data.success);
                             this.fetch();
-                        } else {
+                        } else if (data.warn) {
                             const severity = Object.keys(data)[0];
                             this.flash({ severity, content: data.warn, expiry: 5000 });
                         }

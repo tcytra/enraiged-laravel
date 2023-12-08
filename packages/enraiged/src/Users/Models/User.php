@@ -30,18 +30,9 @@ class User extends Authenticatable
     /** @var  string  The database table name. */
     protected $table = 'users';
 
-    /** @var  array  The attributes that are mass assignable. */
-    protected $fillable = [
-        'email',
-        'is_active',
-        'is_hidden',
-        'is_protected',
-        'language',
-        'password',
-        'profile_id',
-        'role_id',
-        'theme',
-        'timezone',
+    /** @var  array  The attributes that aren't mass assignable. */
+    protected $guarded = [
+        'id', 'remember_token',
     ];
 
     /** @var  array  The attributes that should be hidden for serialization. */
@@ -62,4 +53,28 @@ class User extends Authenticatable
      *  User needs ability to select notification channels (global and/or per notification type or hybrid?).
      */
     public $notification_channels = ['mail'];
+
+    /**
+     *  Get the fillable attributes for the model.
+     *
+     *  @return array
+     */
+    public function getFillable()
+    {
+        return [
+            'created_by',
+            'deleted_by',
+            'email',
+            'is_active',
+            'is_hidden',
+            'is_protected',
+            'language',
+            'password',
+            'profile_id',
+            'role_id',
+            'theme',
+            'timezone',
+            'updated_by',
+        ];
+    }
 }

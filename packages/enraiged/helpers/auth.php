@@ -53,6 +53,24 @@ if (!function_exists('language')) {
 }
 
 /**
+ *  Handle an authenticated user logout.
+ */
+function logout($request = null)
+{
+    if (Auth::check()) {
+        $request = $request ?: request();
+
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return true;
+    }
+
+    return false;
+}
+
+/**
  *  Determine whether or not terms agreements are required.
  *
  *  @return bool
