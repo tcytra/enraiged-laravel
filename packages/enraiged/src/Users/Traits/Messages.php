@@ -16,8 +16,9 @@ trait Messages
         $messages = [];
 
         if ($user->deleted_at) {
-            $datetime = date_create(datetimezone($user->deleted_at), new \DateTimeZone(timezone()));
-            $formatter = new \IntlDateFormatter(language(), \IntlDateFormatter::FULL, \IntlDateFormatter::SHORT);
+            $timezone = timezone();
+            $datetime = date_create(datetimezone($user->deleted_at), new \DateTimeZone($timezone));
+            $formatter = new \IntlDateFormatter(language(), \IntlDateFormatter::FULL, \IntlDateFormatter::SHORT, $timezone);
             $message = __('This user was deleted on :deleted', ['deleted' => $formatter->format($datetime)]);
 
             array_push($messages, message($message, 'error'));
