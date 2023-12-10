@@ -81,6 +81,10 @@ export default {
             }
         },
 
+        back() {
+            window.history.go(-1);
+        },
+
         documentSize() {
             if (typeof document !== 'undefined') {
                 this.clientWidth = document.documentElement.clientWidth;
@@ -88,18 +92,22 @@ export default {
         },
 
         errorHandler(error) {
-            // const { message, response } = error;
-            const { data, status } = error.response;
-            switch (status) {
-                case 404:
-                    this.flashError(this.$t('The remote host responded with a page not found error'));
-                    break;
-                case 422:
-                    this.flashWarning(data.message);
-                    break;
-                case 500:
-                    this.flashError(data.message);
-                    break;
+            if (error.response) {
+                const { message, response } = error;
+                const { data, status } = response;
+                switch (status) {
+                    case 404:
+                        this.flashError(this.$t('The remote host responded with a page not found error'));
+                        break;
+                    case 422:
+                        this.flashWarning(data.message);
+                        break;
+                    case 500:
+                        this.flashError(data.message);
+                        break;
+                }
+            } else {
+                // console.log(error);
             }
         },
 
@@ -152,6 +160,7 @@ export default {
     provide() {
         return {
             actionHandler: this.actionHandler,
+            back: this.back,
             clientSize: computed(() => this.clientSize),
             clientWidth: computed(() => this.clientWidth),
             errorHandler: this.errorHandler,
