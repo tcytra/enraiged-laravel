@@ -1,16 +1,8 @@
 {
-    "impersonate": {
-        "class": "p-button-info p-button-text background-warning",
-        "icon": "pi pi-sync",
-        "label": "Assume",
-        "secure": {"method": "isNotDeleted"},
-        "uri": {"route": "users.impersonate", "param": "user"}
-    },
     "show": {
-        "class": "p-button-info p-button-text",
-        "default": true,
         "icon": "pi pi-user",
         "label": "Show",
+        "severity": "success",
         "uriIf": {
             "condition": {"attribute": "isMyself"},
             "uri": {"route": "my.profile"}
@@ -18,10 +10,10 @@
         "uriElse": {"route": "users.show", "param": "user"}
     },
     "edit": {
-        "class": "p-button-info p-button-text",
         "icon": "pi pi-pencil",
         "label": "Edit",
         "secure": {"method": "isNotDeleted"},
+        "severity": "warning",
         "uriIf": {
             "condition": {"attribute": "isMyself"},
             "uri": {"route": "my.details"}
@@ -30,7 +22,6 @@
     },
     "avatar": {
         "action": "avatarEdit",
-        "class": "p-button-info p-button-text",
         "icon": "pi pi-circle",
         "label": "Avatar",
         "uriIf": {
@@ -41,7 +32,6 @@
     },
     "login": {
         "action": "loginEdit",
-        "class": "p-button-info p-button-text",
         "icon": "pi pi-sign-in",
         "label": "Login",
         "uriIf": {
@@ -52,7 +42,6 @@
     },
     "settings": {
         "action": "settingsEdit",
-        "class": "p-button-info p-button-text",
         "icon": "pi pi-cog",
         "label": "Settings",
         "uriIf": {
@@ -61,32 +50,28 @@
         },
         "uriElse": {"route": "users.settings.edit", "param": "user"}
     },
-    "files": {
-        "action": "filesShow",
-        "class": "p-button-info p-button-text",
-        "icon": "pi pi-file",
-        "label": "Files",
-        "uriIf": {
-            "condition": {"attribute": "isMyself"},
-            "uri": {"route": "my.files"}
-        }
+    "impersonate": {
+        "class": "background-warning",
+        "icon": "pi pi-sync",
+        "label": "Assume",
+        "secure": {"method": "isNotDeleted"},
+        "uri": {"route": "users.impersonate", "param": "user"}
     },
     "delete": {
-        "class": "p-button-info p-button-text background-danger",
+        "class": "background-danger",
         "confirm": "Are you certain you wish to delete this user?",
         "icon": "pi pi-trash",
         "label": "Delete",
-        "redirectDefault": true,
         "secure": {"method": "canBeDeleted"},
-        "uri": {"api": true, "method": "delete", "route": "users.delete", "param": "user"}
+        "severity": "danger",
+        "uri": {"api": true, "method": "delete", "redirect": "default", "route": "users.delete", "param": "user"}
     },
     "restore": {
-        "class": "p-button-info p-button-text background-success",
+        "class": "background-success",
         "confirm": "Are you certain you wish to restore this user?",
         "icon": "pi pi-trash",
         "label": "Restore",
-        "redirectDefault": true,
         "secure": {"method": "isDeleted"},
-        "uri": {"api": true, "method": "patch", "route": "users.restore", "param": "user"}
+        "uri": {"api": true, "method": "patch", "redirect": "default", "route": "users.restore", "param": "user"}
     }
 }

@@ -28,7 +28,7 @@ class Show extends Controller
         $this->authorize('show', $user);
 
         return inertia('users/Show', [
-            'actions' => ProfileActions::From($request, $user)->values(),
+            'actions' => ProfileActions::From($request, $user)->actions(),
             'messages' => $this->messages($user),
             'user' => UserResource::from($user),
         ]);

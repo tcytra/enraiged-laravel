@@ -29,7 +29,7 @@ class Index extends Controller
             ->toArray($request);
 
         return inertia('users/files/Index', [
-            'actions' => ProfileActions::From($request, $request->user())->values(),
+            'actions' => ProfileActions::From($request, $request->user())->actions(),
             'files' => $files,
         ]);
     }

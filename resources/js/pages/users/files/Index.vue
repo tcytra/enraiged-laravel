@@ -106,12 +106,14 @@ export default {
         tooltip: PrimevueTooltip,
     },
 
-    inject: ['i18n'],
+    inject: [
+        'i18n',
+    ],
 
     props: {
         actions: {
-            type: Array,
-            default: [],
+            type: Object,
+            required: true,
         },
         files: {
             type: Object,
@@ -124,9 +126,6 @@ export default {
     }),
 
     methods: {
-        back() {
-            window.history.go(-1);
-        },
         destroy(file) {
             this.$inertia.visit(`/files/${file.id}`, { method: 'delete' });
         },

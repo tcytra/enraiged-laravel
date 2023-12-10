@@ -29,8 +29,8 @@ export default {
 
     props: {
         actions: {
-            type: Array,
-            default: [],
+            type: Object,
+            required: true,
         },
         messages: {
             type: Array,

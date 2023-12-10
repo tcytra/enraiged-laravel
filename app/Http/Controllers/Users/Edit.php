@@ -37,7 +37,7 @@ class Edit extends Controller
         }
 
         return inertia('users/Edit', [
-            'actions' => ProfileActions::From($request, $user)->values(),
+            'actions' => ProfileActions::From($request, $user)->actions(),
             'avatar' => AvatarEditResource::from($user->profile->avatar),
             'messages' => $this->messages($user),
             'template' => $form->template(),

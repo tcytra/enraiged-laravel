@@ -30,7 +30,7 @@ class Show extends Controller
         $this->authorize('show', $user->profile);
 
         return inertia('users/profiles/Show', [
-            'actions' => ProfileActions::From($request, $user)->values(),
+            'actions' => ProfileActions::From($request, $user)->actions(),
             'user' => UserResource::from($user),
         ]);
     }

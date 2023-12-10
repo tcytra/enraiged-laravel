@@ -30,7 +30,10 @@ export default {
         PrimevueButton,
     },
 
-    inject: ['i18n'],
+    inject: [
+        'back',
+        'i18n',
+    ],
 
     props: {
         actions: {
@@ -40,13 +43,6 @@ export default {
         form: {
             type: Object,
             required: true,
-        },
-    },
-
-    methods: {
-        back() {
-            this.$emit('history:back');
-            window.history.go(-1);
         },
     },
 };

@@ -13,6 +13,12 @@ trait ConfigurationHandler
     /** @var  array  The configuration array of items. */
     protected array $configuration = [];
 
+    /** @var  array|string  The configuration will except this/these item(s). */
+    protected $except;
+
+    /** @var  array|string  The configuration will include only this/these item(s). */
+    protected $only;
+
     /** @var  string  The configuration source type. */
     protected $source;
 
@@ -54,11 +60,15 @@ trait ConfigurationHandler
      */
     protected function fetch()
     {
+        $configuration = null;
+
         if ($this->source === TemplateSources::Database) {
             //  todo
         }
 
         if ($this->source === TemplateSources::Filesystem) {
+            $template = null;
+
             if (!$this->template) {
                 throw new PreconditionFailedHttpException(__('exceptions.template.undefined'));
             }
@@ -67,11 +77,28 @@ trait ConfigurationHandler
             }
 
             if (File::mimeType($this->template) === FileTypes::JSON) {
-                $this->configuration = json_decode(file_get_contents($this->template), true);
+                $template = json_decode(file_get_contents($this->template), true);
+                $configuration = json_decode(file_get_contents($this->template), true);
             }
             if (File::mimeType($this->template) === FileTypes::PHP) {
-                $this->configuration = include $this->template;
+                $template = include $this->template;
             }
+
+            if ($template) {
+                $configuration = collect($template);
+            }
+        }
+
+        if ($configuration) {
+            if ($this->except) {
+                $configuration = $configuration->except($this->except);
+            }
+
+            if ($this->only) {
+                $configuration = $configuration->only($this->only);
+            }
+
+            $this->configuration = $configuration->toArray();
         }
 
         return $this;

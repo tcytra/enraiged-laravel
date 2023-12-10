@@ -1,13 +1,13 @@
 <template>
     <div class="actions">
-        <div class="action" v-for="(button, index) in buttons"
-            :class="{'current': button.current}"
+        <div class="action" v-for="(action, index) in actions"
+            :class="{'current': this.isCurrent(action)}"
             :key="index">
-            <primevue-button class="button" v-if="canShow(button)"
-                :class="button.class"
-                :icon="button.icon"
-                :label="i18n(button.label)"
-                @click="actionHandler(button)"/>
+            <primevue-button class="button" v-if="canShow(action)"
+                :class="action.class"
+                :icon="action.icon"
+                :label="i18n(action.label)"
+                @click="actionHandler(action)"/>
         </div>
         <div class="action go-back" v-if="backButton && history" @click="back()">
             <primevue-button class="button p-button-info p-button-text"
@@ -25,12 +25,20 @@ export default {
         PrimevueButton,
     },
 
-    inject: ['errorHandler', 'flashSuccess', 'i18n', 'initState', 'meta'],
+    inject: [
+        'back',
+        'errorHandler',
+        'flash',
+        'flashSuccess',
+        'i18n',
+        'isSuccess',
+        'initState',
+        'meta',
+    ],
 
     props: {
         actions: {
             type: Object,
-            default: [],
         },
         backButton: {
             type: Boolean,
@@ -39,19 +47,18 @@ export default {
     },
 
     computed: {
-        buttons() {
-            return this.actions
-                .map((action) => {
-                    return {...action, current: this.isCurrent(action)};
-                });
-        },
         current() {
-            const current = this.buttons
-                .filter((action) => {
-                    return action.current === true;
-                });
-            return current.length
-                ? current[0]
+            const actions = Object.keys(this.actions)
+                .filter((action) => this.isCurrent(this.actions[action]));
+            return actions.length
+                ? this.actions[actions[0]]
+                : null;
+        },
+        default() {
+            const actions = Object.keys(this.actions)
+                .filter((action) => this.actions[action].default);
+            return actions.length
+                ? this.actions[actions[0]]
                 : null;
         },
         history() {
@@ -60,50 +67,67 @@ export default {
     },
 
     methods: {
-        back() {
-            window.history.go(-1);
-        },
-
-        actionHandler(button, confirmed) {
-            if (typeof button.uri === 'object') {
-                const method = typeof button.uri.method !== 'undefined'
-                    ? button.uri.method
+        actionHandler(action, confirmed) {
+            if (typeof action.uri === 'object') {
+                const method = typeof action.uri.method !== 'undefined'
+                    ? action.uri.method
                     : 'get';
 
-                if (button.confirm && confirmed !== true) {
+                if (action.confirm && confirmed !== true) {
                     this.$confirm.require({
-                        message: typeof button.confirm === 'string'
-                            ? this.i18n(button.confirm)
+                        message: typeof action.confirm === 'string'
+                            ? this.i18n(action.confirm)
                             : this.i18n('Are you sure you want to proceed?'),
                         header: this.i18n('Please confirm'),
                         icon: 'pi pi-exclamation-triangle',
                         acceptClass: 'p-button-danger',
                         acceptLabel: this.i18n('Yes'),
                         rejectLabel: this.i18n('No'),
-                        accept: () => this.actionHandler(button, true),
+                        accept: () => this.actionHandler(action, true),
                     });
 
-                } else if (typeof button.uri.api !== 'undefined' && button.uri.api === true) {
-                    this.axios[method](button.uri.route)
+                } else if (typeof action.uri.api !== 'undefined' && action.uri.api === true) {
+                    this.axios[method](action.uri.route)
                         .then(({ data, status }) => {
-                            if (data.success) {
-                                this.flashSuccess(data.success);
-                            }
-                            if (status === 205) {
-                                this.initState();
-                            }
-                            if (button.redirectDefault) {
-                                this.actionHandler(this.actions.filter((each) => each.default === true)[0]);
+                            if (this.isSuccess(status)) {
+                                if (action.emit) {
+                                    this.$emit('action', action);
+                                }
+                                if (data.success) {
+                                    this.flashSuccess(data.success);
+                                } else
+                                if (data.message) {
+                                    this.flash(data.message);
+                                }
+                                if (status === 205) {
+                                    this.initState();
+                                }
+                                if (data.redirect) {
+                                    this.$inertia.get(data.redirect);
+                                } else
+                                if (action.uri.redirect) {
+                                    if (action.uri.redirect === 'back') {
+                                        this.back();
+                                    }
+                                    if (action.uri.redirect === 'default') {
+                                        this.actionHandler(this.default);
+                                    }
+                                    //if (action.uri.redirect.match(/[a-z]+/)) {
+                                    //    
+                                    //}
+                                }
                             }
                         })
-                        .catch(error => this.errorHandler(error));
-
-                } else {
-                    this.$inertia[method](button.uri);
+                        .catch((error) => this.errorHandler(error));
                 }
 
             } else {
-                this.$inertia.get(button.uri);
+                if (action.emit) {
+                    this.$emit('action', action);
+                }
+                if (typeof action.uri === 'string') {
+                    this.$inertia.get(action.uri);
+                }
             }
         },
 
@@ -124,13 +148,6 @@ export default {
             }
 
             return false;
-        },
-
-        redirectPage() {
-            if (1) {
-                
-            }
-            this.$inertia.get(this.$page.url);
         },
     },
 };

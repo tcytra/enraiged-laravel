@@ -27,7 +27,7 @@ class Edit extends Controller
         $this->authorize('avatarEdit', $user);
 
         return inertia('users/avatar/Edit', [
-            'actions' => ProfileActions::From($request, $user)->values(),
+            'actions' => ProfileActions::From($request, $user)->actions(),
             'avatar' => AvatarEditResource::from($avatar),
             'user' => UserResource::from($user),
         ]);

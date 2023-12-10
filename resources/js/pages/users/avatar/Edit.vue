@@ -37,8 +37,8 @@ export default {
 
     props: {
         actions: {
-            type: Array,
-            default: [],
+            type: Object,
+            required: true,
         },
         avatar: {
             type: Object,

@@ -30,7 +30,7 @@ class Edit extends Controller
             ->value('theme', $user->theme ?? config('enraiged.theme.color'));
 
         return inertia('users/settings/Edit', [
-            'actions' => ProfileActions::From($request, $user)->values(),
+            'actions' => ProfileActions::From($request, $user)->actions(),
             'template' => $builder->template(),
             'user' => UserResource::from($user),
         ]);

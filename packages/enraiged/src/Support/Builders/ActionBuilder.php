@@ -3,6 +3,7 @@
 namespace Enraiged\Support\Builders;
 
 use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\PreconditionRequiredHttpException;
 
 abstract class ActionBuilder
 {
@@ -44,6 +45,30 @@ abstract class ActionBuilder
     }
 
     /**
+     *  Perform a sanity check on the completed configuration.
+     *
+     *  @return self
+     */
+    protected function check()
+    {
+        if (config('app.debug')) {
+            $redirect_default = collect($this->configuration)
+                ->where('uri.redirect', 'default')
+                ->count();
+
+            $default_action = collect($this->configuration)
+                ->where('default')
+                ->count();
+
+            if ($redirect_default > 0 && $default_action !== 1) {
+                throw new PreconditionRequiredHttpException(__('exceptions.action.nodefault'));
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      *  Create and return the configuration against the provided request.
      *
      *  @return self
@@ -53,7 +78,8 @@ abstract class ActionBuilder
         (object) $this
             ->fetch()
             ->process()
-            ->clean();
+            ->clean()
+            ->check();
 
         return $this;
     }

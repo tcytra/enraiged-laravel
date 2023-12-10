@@ -66,12 +66,6 @@
       display:          flex;
       flex-direction:   row;
 
-        .action.current {
-            .p-button.p-button-info.p-button-text {
-              background: rgba(2, 136, 209, .12);
-            }
-        }
-
         .action {
             .p-button {
               border-bottom:    1px solid $surface-border;
@@ -92,6 +86,16 @@
                 }
             }
         }
+
+        .action.current {
+            .p-button.p-button-info.p-button-text {
+              background-color: $surface-body;
+              border-bottom:    1px solid $surface-body;
+              border-left:      1px solid $surface-border;
+              border-right:     1px solid $surface-border;
+            }
+        }
+
     }
 
     .nav.top .block.action,

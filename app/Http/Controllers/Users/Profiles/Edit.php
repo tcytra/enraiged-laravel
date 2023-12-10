@@ -30,7 +30,7 @@ class Edit extends Controller
             ->edit($user, 'users.profile.update');
 
         return inertia('users/profiles/Edit', [
-            'actions' => ProfileActions::From($request, $user)->values(),
+            'actions' => ProfileActions::From($request, $user)->actions(),
             'messages' => $this->messages($request),
             'template' => $builder->template(),
             'user' => UserResource::from($user),
