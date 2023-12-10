@@ -15,13 +15,13 @@ class ProfileActions extends ActionBuilder implements ShouldPostprocess, ShouldP
     use AssertCanBeDeleted, AssertIsDeleted, AssertIsNotDeleted;
 
     /** @var  array|string  The configuration will include only this/these item(s). */
-    protected $only = ['show', 'edit'];
+    //protected $only = ['show', 'edit'];
 
     /** @var  string  The menu configuration source type. */
     protected $source = 'file';
 
     /** @var  string  The actions template file location. */
-    protected $template = __DIR__.'/../Templates/profile-actions.json';
+    protected $template = __DIR__.'/../Templates/user-actions.json';
 
     /**
      *  Perform a preprocess routine on an indexed item.
