@@ -15,7 +15,7 @@ class RoleSeeder extends Seeder
     public function run()
     {
         //  be sure to modify this config to suit the project
-        $seeds = resource_path('seeds/auth/roles.json');
+        $seeds = resource_path('seeds/roles.json');
         $roles = json_decode(file_get_contents($seeds), true);
 
         if (key_exists('administrator_role', config('enraiged.auth'))) {

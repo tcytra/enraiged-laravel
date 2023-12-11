@@ -1,92 +1,107 @@
 # Enraiged Laravel
 
-> **Status:** This package is currently being tested as the framework in a small number of production projects.
+**[Laravel 10](https://laravel.com/docs/10.x/releases)
+ • [Vue v3.3](https://vuejs.org/guide/introduction.html)
+ • [Inertia.js v1.0](https://inertiajs.com/)
+ • [PrimeVUE v3.40](https://primevue.org/installation/)
+ • [PrimeFlex v3.3](https://primeflex.org/installation)
+ • [PrimeIcons v6.0](https://primevue.org/icons/#list)**
 
-### Laravel +Vue +Inertiajs +PrimeVue +Vite
+---
 
-+ [Laravel 10](https://laravel.com/docs/10.x/releases)
-+ [Vue 3](https://vuejs.org/guide/introduction.html)
-+ [Inertia.js v1](https://inertiajs.com/)
-+ [PrimeVUE 3](https://www.primefaces.org/primevue/#/setup)
-+ [PrimeFlex 3](https://www.primefaces.org/primeflex/)
-+ [PrimeIcons v6](https://www.primefaces.org/primevue/#/icons)
+## Table of Contents
+
+- [Installation](#installation)
+  * [Retrieve Repository](#retrieve-repository)
+  * [Init Environment](#init-environment)
+  * [Install Database](#install-database)
+  * [Build Client](#build-client)
+  * [Serve Application](#serve-application)
+- [Usage](#usage)
+  * []()
+- [Licence]
 
 ---
 
 ## Install Application
 
-Retrieve the repository contents:
+### Retrieve Repository
 
-```sh
-cd /path/to/your/repos/ # ensure you are in the correct directory
-git clone https://github.com/tcytra/enraiged-laravel
-cd enraiged-laravel/
+```bash
+cd /path/to/your/repos/ # traverse into your repositories directory
+git clone https://github.com/tcytra/enraiged-laravel [new-directory]
+cd [new-directory]/
 ```
 
 > **Important:** Ensure system state directories exist, these must be writable by the host service user:
 
-```sh
+```bash
 install -d bootstrap/cache
-install -d storage/{app,logs,framework/{cache,sessions,views}}
+install -d storage/{app,logs,framework/{cache,sessions,testing,views}}
 ```
 
 Install the vendor packages:
 
 > Add the --no-dev flag when installing on a production host.
 
-```sh
+```bash
 composer install
 ```
 
----
 
-## Configure Application
+### Init Environment
 
-The application configuration file must be created and updated to suit the environment:
+Create the initial environment configuration:
 
-```sh
+```bash
 cp .env.example .env     # create the .env file from the example config
 php artisan key:generate # create the application key
 ```
 
-The setup from the .env.example will be enough to get you started in a local environment. At minimum, a valid database 
-connection will need to be created in the .env config file. Change the appropriate lines to match the environment:
+The setup from the .env.example will be enough to get you started in a local environment. At minimum, valid DB_ parameters will need to be added, and the developer may want to double-check the basic APP_ config.
 
----
 
-## Build Database
+### Build Database
 
-We can now execute the data migration and seeder scripts:
+The database build process will use the data found in the seeds resources to add the application roles and the initial users. These assets were published into ~/resources/seeds/:
 
-```sh
+The developer will need to define their application roles and any initial users, such as a master adminisatrator:
+
+- Define the initial users in ~/resources/seeds/users.json
+- Define the application roles in ~/resources/seeds/roles.json
+- Update the roles enums in ~/app/Enums/Roles.php
+
+
+The migration and seeder assets can now be run:
+
+```bash
 php artisan migrate --seed
 ```
 
----
 
-## Build Client
+### Build Client
 
 Finally, we will install the node packages and build the front-end resources. Start with:
 
 > Add the --no-dev flag when installing on a production host.
 
-```sh
+```bash
 npm install
 ```
 
 Launch the vite development build (during development):
 
-```sh
+```bash
 npm run dev
 ```
 
 When complete, build the app for service:
 
-```sh
+```bash
 npm run build
 ```
 
-### Known Issue
+#### Known Issue
 
 I encountered an issue with Primevue Datatables handling of rowgroup colspan. In the vendor files, they are actively
 subtracting the calculated column count and I don't understand why. I've included a patch to prevent this subtraction.
@@ -95,25 +110,23 @@ Apply the patch (optional):
 
 > Revert these changes by using `-Rp0` instead of `-p0`
 
-```sh
+```bash
 patch -Nr - --version-control none -p0 < patches/primevue-3.40.1-datatable-correct-rowgroup-colspan.patch
 ```
 
 > **Note:** The `npm run build` command will need to be reexecuted after applying this patch.
 
----
-
-## Serve the application
+### Serve Application
 
 The simplest way to launch and preview this application is with `artisan serve`:
 
-```sh
+```bash
 php artisan serve
 ```
 
 Run the SSR server:
 
-```sh
+```bash
 php artisan inertia:start-ssr
 ```
 
@@ -124,11 +137,11 @@ Serving this application by other means is beyond the scope of this README.
 
 Stop the SSR server:
 
-```sh
+```bash
 php artisan inertia:stop-ssr
 ```
 
-### Known Issue
+#### Known Issue
 
 Primevue does not seem to be ssr-ready, so I spent some time providing a quick means of correcting the vendor files. 
 There are two options for applying these corrections. While option 2 is quicker, option 1 is more likely to work for
@@ -143,7 +156,7 @@ The primevue packages can be fixed with an artisan command:
 
 > Add the --revert flag to reverse these changes.
 
-```sh
+```bash
 php artisan enraiged:fix-ssr
 ```
 
@@ -153,9 +166,15 @@ Or, the quicker option is to apply the provided patch:
 
 > Reverse these changes by using `-Rp0` instead of `-p0`
 
-```sh
+```bash
 patch -Nr - --version-control none -p0 < patches/primevue-3.40.1-ssr-ready-corrections.patch
 ```
+
+---
+
+## Usage
+
+...
 
 ---
 

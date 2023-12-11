@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Enums\Roles;
 use Enraiged\Profiles\Models\Profile;
 use Enraiged\Users\Models\User;
 use Enraiged\Users\Services\CreateUserProfile;
@@ -41,7 +40,7 @@ class UserSeeder extends Seeder
             $user->profile->generateAvatar();
         }
 
-        $this->loadJsonData(resource_path('seeds/auth/users.json'));
+        $this->loadJsonData(resource_path('seeds/users.json'));
 
         if (app()->environment('local')) {
             $this->createFactoryUsers();

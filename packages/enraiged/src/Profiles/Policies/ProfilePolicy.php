@@ -2,7 +2,7 @@
 
 namespace Enraiged\Profiles\Policies;
 
-use App\Enums\Roles;
+use Enraiged\Enums\Roles;
 use Enraiged\Profiles\Models\Profile;
 use Enraiged\Users\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;

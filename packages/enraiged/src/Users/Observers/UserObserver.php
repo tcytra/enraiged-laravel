@@ -2,7 +2,7 @@
 
 namespace Enraiged\Users\Observers;
 
-use App\Enums\Roles;
+use Enraiged\Enums\Roles;
 use Enraiged\Roles\Models\Role;
 use Enraiged\Users\Models\User;
 use Enraiged\Users\Notifications\UserLoginChange;

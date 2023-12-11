@@ -2,27 +2,23 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Artisan;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
     /**
-     *  Seed the enraiged database.
+     *  Seed the application's database.
      *
      *  @return void
      */
-    public function run()
+    public function run(): void
     {
-        Artisan::call('storage:clear');
+        // \App\Models\User::factory(10)->create();
 
-        $this->call([
-            AgreementSeeder::class,
-            RoleSeeder::class,
-            UserSeeder::class,
-        ]);
+        // \App\Models\User::factory()->create([
+        //     'name' => 'Test User',
+        //     'email' => 'test@example.com',
+        // ]);
     }
 }

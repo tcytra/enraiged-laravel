@@ -2,7 +2,7 @@
 
 namespace Enraiged\Avatars\Policies;
 
-use App\Enums\Roles;
+use Enraiged\Enums\Roles;
 use Enraiged\Avatars\Models\Avatar;
 use Enraiged\Users\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;

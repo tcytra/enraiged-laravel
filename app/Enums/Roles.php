@@ -2,10 +2,10 @@
 
 namespace App\Enums;
 
-use Enraiged\Enums\Services\Enum;
+use Enraiged\Enums\Roles as Enum; // remove
+// use Enraiged\Enums\Services\Enum; // uncomment
 
-final class Roles extends Enum
+class Roles extends Enum
 {
-    public const Administrator = 1;
-    public const Member = 2;
+    //  define application roles
 }

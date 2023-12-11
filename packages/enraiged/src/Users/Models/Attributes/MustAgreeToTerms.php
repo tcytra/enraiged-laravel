@@ -15,7 +15,7 @@ trait MustAgreeToTerms
     {
         $config = config('enraiged.auth');
 
-        if (key_exists('must_agree_to_terms', $config)) {
+        if ($config && key_exists('must_agree_to_terms', $config)) {
             $this->append(['has_agreed_to_terms', 'must_agree_to_terms']);
         }
     }

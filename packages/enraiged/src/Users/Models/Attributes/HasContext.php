@@ -2,7 +2,7 @@
 
 namespace Enraiged\Users\Models\Attributes;
 
-use App\Enums\Roles;
+use Enraiged\Enums\Roles;
 use Illuminate\Support\Facades\Auth;
 
 trait HasContext
