@@ -7,7 +7,7 @@
  • [PrimeFlex v3.3](https://primeflex.org/installation)
  • [PrimeIcons v6.0](https://primevue.org/icons/#list)**
 
----
+
 
 ## Table of Contents
 
@@ -21,7 +21,7 @@
   * []()
 - [Licence]
 
----
+
 
 ## Install Application
 
@@ -170,13 +170,13 @@ Or, the quicker option is to apply the provided patch:
 patch -Nr - --version-control none -p0 < patches/primevue-3.40.1-ssr-ready-corrections.patch
 ```
 
----
+
 
 ## Usage
 
 ...
 
----
+
 
 ## License
 
