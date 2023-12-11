@@ -62,7 +62,9 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => env('MUST_VERIFY_EMAIL')
+                ? Enraiged\Users\Models\VerifiedUser::class
+                : Enraiged\Users\Models\User::class,
         ],
 
         // 'users' => [

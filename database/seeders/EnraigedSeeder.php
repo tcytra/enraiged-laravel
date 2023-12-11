@@ -6,16 +6,14 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Artisan;
 
-class DatabaseSeeder extends Seeder
+class EnraigedSeeder extends Seeder
 {
     use WithoutModelEvents;
 
     /**
-     *  Seed the enraiged database.
-     *
-     *  @return void
+     * Seed the application's database.
      */
-    public function run()
+    public function run(): void
     {
         Artisan::call('storage:clear');
 

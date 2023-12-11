@@ -1,0 +1,11 @@
+[
+    {
+        "email": "administrator@enraiged.dev",
+        "is_hidden": true,
+        "is_protected": true,
+        "name": "Application Administrator",
+        "password": "letmein!",
+        "role": "Administrator",
+        "username": "admin"
+    }
+]

@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->publishable();
+        // $this->publishable();
 
         $this->app['router']->middlewareGroup('enraiged', [
             \Enraiged\Support\Middleware\Impersonate::class,

@@ -1,0 +1,12 @@
+[
+    {
+        "name": "Administrator",
+        "rank": 1,
+        "text": "The top level application role"
+    },
+    {
+        "name": "Member",
+        "rank": 2,
+        "text": "The application membership role"
+    }
+]
