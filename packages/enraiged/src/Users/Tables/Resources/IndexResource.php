@@ -27,12 +27,15 @@ class IndexResource extends UserResource
      */
     public function toArray($request): array
     {
+        $this->resource->load('role');
+
         return collect(parent::toArray($request))
             ->merge([
                 '__' => $this->modelDeletedBackground() ?? $this->modelInactiveBackground(),
                 'active' => $this->is_active && is_null($this->deleted_at),
                 'actions' => $this->resource->actions,
                 'created_at' => $this->resource->created->at->short,
+                'role' => !is_null($this->role_id) ? $this->role->name : null,
             ])
             ->toArray();
     }
