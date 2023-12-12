@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 
 trait Updated
 {
+    use AtTimestamp, ByUser;
+
     /**
      *  @return void
      */

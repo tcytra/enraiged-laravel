@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 
 trait Deleted
 {
+    use AtTimestamp, ByUser;
+
     /**
      *  @return void
      */
