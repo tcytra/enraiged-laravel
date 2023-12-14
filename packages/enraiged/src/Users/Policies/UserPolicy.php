@@ -75,15 +75,11 @@ class UserPolicy
      */
     public function delete(User $auth, User $user)
     {
-        if (!$user->exists) {
-            return $auth->canBeSelfDeleted;
-        }
-
-        if ($user->is_protected) {
+        if (!is_null($user->deleted_at) || $user->isProtected || ($user->isMyself && !$user->canBeSelfDeleted)) {
             return false;
         }
 
-        return $auth->isAdministrator || $user->canBeSelfDeleted;
+        return $auth->isAdministrator || ($user->isMyself && $user->canBeSelfDeleted);
     }
 
     /**
@@ -131,7 +127,7 @@ class UserPolicy
      */
     public function restore(User $auth, User $user)
     {
-        return $auth->isAdministrator;
+        return !is_null($user->deleted_at) && $auth->isAdministrator;
     }
 
     /**

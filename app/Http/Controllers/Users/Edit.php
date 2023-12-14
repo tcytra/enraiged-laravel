@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
 use Enraiged\Avatars\Resources\AvatarEditResource;
-use Enraiged\Users\Actions\Builders\ProfileActions;
-use Enraiged\Users\Forms\Builders\EditForm;
+use Enraiged\Users\Actions\Builders\UserActions;
+use Enraiged\Users\Forms\Builders\UpdateUserForm;
 use Enraiged\Users\Models\User;
 use Enraiged\Users\Resources\UserResource;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -29,15 +29,16 @@ class Edit extends Controller
 
         $this->authorize('edit', $user);
 
-        $form = EditForm::from($request)
-            ->edit($user, 'users.update');
+        $form = UpdateUserForm::from($request)
+            ->edit($user, 'users.update')
+            ->disabledIf(['is_active', 'is_hidden', 'is_protected', 'role_id'], $user->id === 1);
 
-        if ($user->isProtected()) {
+        if ($user->isProtected) {
             $form->disableField(['is_active', 'role_id']);
         }
 
         return inertia('users/Edit', [
-            'actions' => ProfileActions::From($request, $user)->actions(),
+            'actions' => UserActions::From($request, $user)->actions(),
             'avatar' => AvatarEditResource::from($user->profile->avatar),
             'messages' => $this->messages($user),
             'template' => $form->template(),

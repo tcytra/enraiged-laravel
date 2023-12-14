@@ -3,6 +3,7 @@
 namespace Enraiged\Users\Services;
 
 use Enraiged\Users\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class UpdateUserProfile
@@ -16,7 +17,7 @@ class UpdateUserProfile
     /**
      *  Create an instance of the UpdateUserProfile service.
      *
-     *  @param  \App\Teamo\Users\Models\User  $user
+     *  @param  \Enraiged\Users\Models\User  $user
      *  @param  array   $attributes
      *  @return void
      */
@@ -34,8 +35,14 @@ class UpdateUserProfile
     public function handle()
     {
         DB::transaction(function () {
+            $user_fillable = (!Auth::check() && !app()->environment('production')) || Auth::user()->isAdministrator
+                ? collect($this->user->getFillable())
+                    ->merge(['is_hidden', 'is_protected'])
+                    ->toArray()
+                : $this->user->getFillable();
+
             $user_attributes = collect($this->attributes)
-                ->only($this->user->getFillable())
+                ->only($user_fillable)
                 ->toArray();
 
             $this->user->update($user_attributes);
@@ -53,9 +60,9 @@ class UpdateUserProfile
     /**
      *  Update and return a User from provided attributes.
      *
-     *  @param  \App\Teamo\Users\Models\User  $user
+     *  @param  \Enraiged\Users\Models\User  $user
      *  @param  array   $attributes
-     *  @return \App\Teamo\Users\Models\User
+     *  @return \Enraiged\Users\Models\User
      */
     public static function From(User $user, array $attributes): User
     {

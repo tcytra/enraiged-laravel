@@ -10,7 +10,7 @@
         <div class="flex flex-column justify-content-center mx-3" v-else>
             <div class="flex align-items-center my-2">
                 <primevue-colorpicker class="mr-1" style="height:2.325rem;width:2.325rem;" v-model="color"/>
-                <primevue-inputtext class="" v-model="color"/>
+                <primevue-inputtext class="max-width-80" v-model="color"/>
                 <primevue-button class="ml-1" icon="pi pi-eye"
                     v-if="!changed"
                     v-tooltip.top="i18n('Preview this color')"
@@ -65,7 +65,13 @@ export default {
         tooltip: PrimevueTooltip,
     },
 
-    inject: ['errorHandler', 'flashSuccess', 'i18n', 'initState', 'user'],
+    inject: [
+        'errorHandler',
+        'flashSuccess',
+        'i18n',
+        'initState',
+        'user',
+    ],
 
     props: {
         avatar: {

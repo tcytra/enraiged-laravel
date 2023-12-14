@@ -19,7 +19,7 @@
   * [Serve Application](#serve-application)
 - [Usage](#usage)
   * []()
-- [Licence]
+- [Licence](#license)
 
 
 
@@ -58,14 +58,16 @@ cp .env.example .env     # create the .env file from the example config
 php artisan key:generate # create the application key
 ```
 
-The setup from the .env.example will be enough to get you started in a local environment. At minimum, valid DB_ parameters will need to be added, and the developer may want to double-check the basic APP_ config.
+The setup from the .env.example will be enough to get you started in a local environment. At minimum, valid DB_ 
+parameters will need to be added, and the developer may want to double-check the basic APP_ config.
 
 
 ### Build Database
 
-The database build process will use the data found in the seeds resources to add the application roles and the initial users. These assets were published into ~/resources/seeds/:
+The database build process will use the data found in the seeds resources to add the application roles and the initial 
+users. These assets were published into ~/resources/seeds/:
 
-The developer will need to define their application roles and any initial users, such as a master adminisatrator:
+The developer will need to define their application roles and any initial users, such as a master administrator:
 
 - Define the initial users in ~/resources/seeds/users.json
 - Define the application roles in ~/resources/seeds/roles.json
@@ -169,6 +171,8 @@ Or, the quicker option is to apply the provided patch:
 ```bash
 patch -Nr - --version-control none -p0 < patches/primevue-3.40.1-ssr-ready-corrections.patch
 ```
+
+> **Note:** The `npm run build` command will need to be reexecuted after applying this patch.
 
 
 

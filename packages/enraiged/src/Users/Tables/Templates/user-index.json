@@ -84,7 +84,7 @@
         "is_active": {
             "class": "text-center width-96",
             "custom": true,
-            "label": "Active",
+            "label": "Status",
             "source": "users.is_active",
             "sortable": true
         }

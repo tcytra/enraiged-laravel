@@ -27,16 +27,8 @@
             },
             "type": "section",
             "fields": {
-                "is_active": {
-                    "before": "md:col-2",
-                    "class": "col-6 md:col-4",
-                    "default": true,
-                    "label": "Active",
-                    "type": "switch"
-                },
                 "role_id": {
-                    "after": "md:col-2",
-                    "class": "col-6 md:col-4",
+                    "class": "col-12 md:col-6",
                     "label": "Role",
                     "options": {
                         "source": "api",
@@ -44,22 +36,26 @@
                     },
                     "placeholder": "Required",
                     "type": "select"
+                },
+                "is_active": {
+                    "class": "col-4 md:col-2",
+                    "default": true,
+                    "label": "Active",
+                    "type": "switch"
+                },
+                "is_hidden": {
+                    "class": "col-4 md:col-2",
+                    "default": false,
+                    "label": "Hidden",
+                    "type": "switch"
+                },
+                "is_protected": {
+                    "class": "col-4 md:col-2",
+                    "default": false,
+                    "label": "Protected",
+                    "type": "switch"
                 }
             }
-        },
-        "avatar_section": {
-            "custom": true,
-            "heading": {
-                "body": "User Avatar",
-                "class": "text-center text-lg"
-            },
-            "fields": {
-                "avatar": {
-                    "class": "flex align-items-center justify-content-center my-3",
-                    "data": "avatar.id"
-                }
-            },
-            "type": "section"
         },
         "personal_section": {
             "heading": {
@@ -69,9 +65,8 @@
             "type": "section",
             "fields": {
                 "salut": {
-                    "after": "col-6 md:col-6",
-                    "before": "md:col-2",
-                    "class": "col-6 md:col-4",
+                    "after": "col-6 md:col-9",
+                    "class": "col-6 md:col-3",
                     "data": "profile.salut",
                     "label": "Salut",
                     "options": {
@@ -82,8 +77,7 @@
                     "type": "select"
                 },
                 "first_name": {
-                    "before": "md:col-2",
-                    "class": "col-6 md:col-4",
+                    "class": "col-12 md:col-6",
                     "data": "profile.first_name",
                     "disabled": {
                         "attribute": "user.disable_name_change"
@@ -93,8 +87,7 @@
                     "required": true
                 },
                 "last_name": {
-                    "after": "md:col-2",
-                    "class": "col-6 md:col-4",
+                    "class": "col-12 md:col-6",
                     "data": "profile.last_name",
                     "disabled": {
                         "attribute": "user.disable_name_change"
@@ -104,23 +97,21 @@
                     "required": true
                 },
                 "email": {
-                    "before": "md:col-2",
-                    "class": "col-6 md:col-4",
+                    "class": "col-12 md:col-6",
                     "label": "Email",
                     "placeholder": "Required",
                     "required": true,
                     "value": null
                 },
                 "alias": {
-                    "after": "md:col-2",
-                    "class": "col-6 md:col-4",
+                    "class": "col-12 md:col-6",
                     "data": "profile.alias",
                     "label": "Alias",
                     "placeholder": "Optional"
                 },
                 "birthdate": {
-                    "before": "md:col-2",
-                    "class": "col-6 md:col-4",
+                    "after": "col-6 md:col-9",
+                    "class": "col-6 md:col-3",
                     "data": "profile.birthdate",
                     "label": "Birthday",
                     "placeholder": "Optional",
@@ -128,7 +119,7 @@
                 }
             }
         },
-        "authentication_section": {
+        "password_section": {
             "heading": {
                 "body": "Account Password",
                 "class": "text-center text-lg"
@@ -136,8 +127,7 @@
             "type": "section",
             "fields": {
                 "password": {
-                    "before": "md:col-2",
-                    "class": "col-6 md:col-4",
+                    "class": "col-12 md:col-6",
                     "feedback": true,
                     "label": "Password",
                     "placeholder": "Leave blank to keep password",
@@ -145,8 +135,7 @@
                     "value": false
                 },
                 "password_confirmation": {
-                    "after": "md:col-2 md:col-4",
-                    "class": "col-6",
+                    "class": "col-12 md:col-6",
                     "label": "Confirm Password",
                     "type": "password",
                     "value": false

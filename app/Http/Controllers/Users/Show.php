@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
-use Enraiged\Users\Actions\Builders\ProfileActions;
+use Enraiged\Users\Actions\Builders\UserActions;
 use Enraiged\Users\Models\User;
 use Enraiged\Users\Resources\UserResource;
 use Enraiged\Users\Traits\Messages as PageMessages;
@@ -28,7 +28,7 @@ class Show extends Controller
         $this->authorize('show', $user);
 
         return inertia('users/Show', [
-            'actions' => ProfileActions::From($request, $user)->actions(),
+            'actions' => UserActions::From($request, $user)->actions(),
             'messages' => $this->messages($user),
             'user' => UserResource::from($user),
         ]);

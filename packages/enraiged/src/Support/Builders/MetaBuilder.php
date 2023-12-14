@@ -42,6 +42,7 @@ class MetaBuilder
 
         return $this->meta
             ->merge(['language' => config('app.locale')])
+            ->merge(['themes' => \Enraiged\Enums\Themes::select()])
             ->toArray();
     }
 

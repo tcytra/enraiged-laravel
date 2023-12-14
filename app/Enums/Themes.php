@@ -2,15 +2,8 @@
 
 namespace App\Enums;
 
-use Enraiged\Enums\Services\Enum;
+use Enraiged\Enums\Themes as Enum;
 
 class Themes extends Enum
 {
-    public const EnraigedBlue = 'enraiged-blue';
-    public const EnraigedGrey = 'enraiged-grey';
-
-    protected static array $data = [
-        self::EnraigedBlue => 'Enraiged Blue',
-        self::EnraigedGrey => 'Enraiged Grey',
-    ];
 }

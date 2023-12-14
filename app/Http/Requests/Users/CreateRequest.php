@@ -23,4 +23,14 @@ class CreateRequest extends FormRequest
             ->merge(['name' => 'required|string'])
             ->toArray();
     }
+
+    /**
+     *  Form and return a success message for this request.
+     *
+     *  @return string
+     */
+    public function successMessage(): string
+    {
+        return 'User Created';
+    }
 }

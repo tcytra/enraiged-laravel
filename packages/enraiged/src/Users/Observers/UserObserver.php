@@ -7,6 +7,7 @@ use Enraiged\Roles\Models\Role;
 use Enraiged\Users\Models\User;
 use Enraiged\Users\Notifications\UserLoginChange;
 use Enraiged\Users\Notifications\UserWelcome;
+use Symfony\Component\HttpKernel\Exception\ConflictHttpException;
 
 class UserObserver
 {
@@ -51,6 +52,19 @@ class UserObserver
             if (config('enraiged.auth.force_lowest_role', false) === true) {
                 $user->role_id = Role::lowest()->id;
             }
+        }
+    }
+
+    /**
+     *  Handle the User creating event.
+     *
+     *  @param  \Enraiged\Users\Models\User  $user
+     *  @return void
+     */
+    public function deleting(User $user)
+    {
+        if ($model->is_protected) {
+            throw new ConflictHttpException(__('exceptions.user.protected'));
         }
     }
 

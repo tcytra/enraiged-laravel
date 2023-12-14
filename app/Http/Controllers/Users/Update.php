@@ -15,9 +15,10 @@ class Update extends Controller
     /**
      *  @param  \App\Http\Requests\Users\UpdateRequest  $request
      *  @param  int  $user
+     *  @param  string|null  $attribute = null
      *  @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function __invoke(UpdateRequest $request, $user)
+    public function __invoke(UpdateRequest $request, $user, $attribute = null)
     {
         $user = User::withTrashed()->findOrFail($user);
 
@@ -28,11 +29,11 @@ class Update extends Controller
         if ($request->is('api/*')) {
             return response()->json([
                 'redirect' => $request->redirect(),
-                'success' => __('User updated'),
+                'success' => __($request->successMessage()),
             ]);
         }
 
-        $request->session()->put('success', __('User updated'));
+        $request->session()->put('success', __($request->successMessage()));
 
         return $request->redirect();
     }

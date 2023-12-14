@@ -6,18 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
 {
-    use HasMany\Users,
+    use Relations\HasManyUsers,
         Scopes\StrictVisibility,
         Traits\SecurityRanking;
 
     /** @var  string  The database table name. */
     protected $table = 'roles';
 
-    /** @var  array  The attributes that aren't mass assignable. */
-    protected $guarded = [];
-
     /** @var  bool  Indicates if the model should be timestamped. */
     public $timestamps = false;
+
+    /** @var  array  The attributes that aren't mass assignable. */
+    protected $guarded = [];
 
     /**
      *  Find a role by its id or name.

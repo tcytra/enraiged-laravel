@@ -43,8 +43,14 @@ class CreateUserProfile
 
             $profile = Profile::create($profile_attributes);
 
+            $user_fillable = (!Auth::check() && !app()->environment('production')) || Auth::user()->isAdministrator
+                ? collect($this->user->getFillable())
+                    ->merge(['is_hidden', 'is_protected'])
+                    ->toArray()
+                : $this->user->getFillable();
+
             $user_attributes = collect($this->attributes)
-                ->only($this->user->getFillable())
+                ->only($user_fillable)
                 ->merge(['profile_id' => $profile->id])
                 ->toArray();
 
@@ -70,7 +76,7 @@ class CreateUserProfile
      *  Create and return a User from provided attributes.
      *
      *  @param  array   $attributes
-     *  @return \App\Teamo\Users\Models\User
+     *  @return \Enraiged\Users\Models\User
      */
     public static function From($attributes)
     {

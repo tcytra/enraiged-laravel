@@ -6,7 +6,7 @@
                 @click="back"/>
         </div>
         <div class="actions-right">
-            <primevue-button class="p-button-primary submit-button" v-if="actions.submit"
+            <primevue-button class="p-button-success submit-button" v-if="actions.submit"
                 :disabled="!form.isDirty"
                 :label="i18n(actions.submit.label)"
                 @click="$emit('submit')"/>

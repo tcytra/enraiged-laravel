@@ -5,7 +5,7 @@
         "severity": "success",
         "uriIf": {
             "condition": {"attribute": "isMyself"},
-            "uri": {"route": "my.profile"}
+            "uri": {"route": "my.account"}
         },
         "uriElse": {"route": "users.show", "param": "user"}
     },
@@ -16,39 +16,9 @@
         "severity": "warning",
         "uriIf": {
             "condition": {"attribute": "isMyself"},
-            "uri": {"route": "my.details"}
+            "uri": {"route": "my.account.details"}
         },
         "uriElse": {"route": "users.edit", "param": "user"}
-    },
-    "avatar": {
-        "action": "avatarEdit",
-        "icon": "pi pi-circle",
-        "label": "Avatar",
-        "uriIf": {
-            "condition": {"attribute": "isMyself"},
-            "uri": {"route": "my.avatar"}
-        },
-        "uriElse": {"method": "get", "route": "users.avatar.edit", "param": "user"}
-    },
-    "login": {
-        "action": "loginEdit",
-        "icon": "pi pi-sign-in",
-        "label": "Login",
-        "uriIf": {
-            "condition": {"attribute": "isMyself"},
-            "uri": {"route": "my.login"}
-        },
-        "uriElse": {"route": "users.login.edit", "param": "user"}
-    },
-    "settings": {
-        "action": "settingsEdit",
-        "icon": "pi pi-cog",
-        "label": "Settings",
-        "uriIf": {
-            "condition": {"attribute": "isMyself"},
-            "uri": {"route": "my.settings"}
-        },
-        "uriElse": {"route": "users.settings.edit", "param": "user"}
     },
     "impersonate": {
         "class": "background-warning",
@@ -62,7 +32,6 @@
         "confirm": "Are you certain you wish to delete this user?",
         "icon": "pi pi-trash",
         "label": "Delete",
-        "secure": {"method": "canBeDeleted"},
         "severity": "danger",
         "uri": {"api": true, "method": "delete", "redirect": "default", "route": "users.delete", "param": "user"}
     },

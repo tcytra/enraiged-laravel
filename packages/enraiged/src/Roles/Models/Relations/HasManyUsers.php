@@ -1,10 +1,10 @@
 <?php
 
-namespace Enraiged\Roles\Models\HasMany;
+namespace Enraiged\Roles\Models\Relations;
 
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-trait Users
+trait HasManyUsers
 {
     /**
      *  @return \Illuminate\Database\Eloquent\Relations\HasMany

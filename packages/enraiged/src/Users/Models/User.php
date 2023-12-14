@@ -12,7 +12,6 @@ class User extends Authenticatable
 {
     use Attributes\AllowImpersonation,
         Attributes\AllowNameChange,
-        Attributes\HasContext,
         Attributes\MustAgreeToTerms,
         Relations\BelongsToProfile,
         Relations\BelongsToRole,
@@ -22,8 +21,8 @@ class User extends Authenticatable
         Scopes\Active,
         Scopes\Deleted,
         Scopes\Reportable,
+        Traits\HasContext,
         Traits\HasFactory,
-        Traits\IsProtected,
         Traits\ManagesPassword,
         HasApiTokens, Notifiable, SoftDeletes, UserTracking;
 
@@ -32,7 +31,8 @@ class User extends Authenticatable
 
     /** @var  array  The attributes that aren't mass assignable. */
     protected $guarded = [
-        'id', 'remember_token',
+        'id',
+        'remember_token',
     ];
 
     /** @var  array  The attributes that should be hidden for serialization. */
@@ -66,8 +66,6 @@ class User extends Authenticatable
             'deleted_by',
             'email',
             'is_active',
-            'is_hidden',
-            'is_protected',
             'language',
             'password',
             'profile_id',

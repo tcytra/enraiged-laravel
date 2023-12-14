@@ -3,7 +3,15 @@
         <page-header back-button fixed :actions="actions" :heading="heading" :title="title"/>
         <section class="auto-margin container max-width-xl">
             <page-messages :messages="messages" @dismiss="messages.splice($event, 1)"/>
-            <update-form ref="updateUser" custom-actions updating :template="template"/>
+            <div class="grid">
+                <div class="col-12 xl:col-5">
+                    <avatar-editor :avatar="avatar"/>
+                    <theme-editor :resource="template.resource" :user="user"/>
+                </div>
+                <div class="col-12 xl:col-7">
+                    <update-form ref="updateUser" custom-actions updating :template="template"/>
+                </div>
+            </div>
         </section>
         <footer class="footer">
             <form-actions v-if="ready"
@@ -18,18 +26,22 @@
 
 <script>
 import App from '@/layouts/App.vue';
+import AvatarEditor from '@/components/users/cards/AvatarEditor.vue';
 import FormActions from '@/components/forms/VueFormActions.vue';
 import PageHeader from '@/components/ui/pages/PageHeader.vue';
 import PageMessages from '@/components/ui/pages/PageMessages.vue';
+import ThemeEditor from '@/components/users/cards/ThemeEditor.vue';
 import UpdateForm from '@/components/users/forms/UpdateForm.vue';
 
 export default {
     layout: App,
 
     components: {
+        AvatarEditor,
         FormActions,
         PageHeader,
         PageMessages,
+        ThemeEditor,
         UpdateForm,
     },
 

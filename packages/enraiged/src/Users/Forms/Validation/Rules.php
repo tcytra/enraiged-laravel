@@ -2,6 +2,8 @@
 
 namespace Enraiged\Users\Forms\Validation;
 
+use Illuminate\Support\Collection;
+
 trait Rules
 {
     /** @var  array  the validation rules that apply to the request. */
@@ -24,4 +26,42 @@ trait Rules
         'title' => 'nullable',
         'username' => 'sometimes|nullable|unique:users,username|unique:users,email',
     ];
+
+    /**
+     *  Get the validation rules that apply to the request.
+     *
+     *  @return array
+     */
+    public function rules()
+    {
+        if ($this->route()->hasParameter('attribute')) {
+            return $this
+                ->uniqueUserRules()
+                ->only($this->route()->parameter('attribute'))
+                ->toArray();
+        }
+
+        return $this
+            ->uniqueUserRules()
+            ->toArray();
+    }
+
+    /**
+     *  Return a collection of the full set of rules enforcing unique user email,username.
+     *
+     *  @return \Illuminate\Support\Collection
+     */
+    protected function uniqueUserRules(): Collection
+    {
+        $user_id = $this->route('user');
+
+        $rules = [
+            'email' => "required|email|unique:users,email,{$user_id}|unique:users,username,{$user_id}",
+            'password' => 'nullable|confirmed',
+            'username' => "nullable|email|unique:users,email,{$user_id}|unique:users,username,{$user_id}",
+        ];
+
+        return collect($this->rules)
+            ->merge($rules);
+    }
 }

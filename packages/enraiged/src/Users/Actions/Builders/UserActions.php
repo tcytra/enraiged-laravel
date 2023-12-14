@@ -6,13 +6,12 @@ use Enraiged\Support\Builders\ActionBuilder;
 use Enraiged\Support\Builders\Contracts\ShouldPostprocess;
 use Enraiged\Support\Builders\Contracts\ShouldPreprocess;
 use Enraiged\Support\Collections\RequestCollection;
-use Enraiged\Users\Traits\Assertions\AssertCanBeDeleted;
 use Enraiged\Users\Traits\Assertions\AssertIsDeleted;
 use Enraiged\Users\Traits\Assertions\AssertIsNotDeleted;
 
-class ProfileActions extends ActionBuilder implements ShouldPostprocess, ShouldPreprocess
+class UserActions extends ActionBuilder implements ShouldPostprocess, ShouldPreprocess
 {
-    use AssertCanBeDeleted, AssertIsDeleted, AssertIsNotDeleted;
+    use AssertIsDeleted, AssertIsNotDeleted;
 
     /** @var  array|string  The configuration will include only this/these item(s). */
     //protected $only = ['show', 'edit'];

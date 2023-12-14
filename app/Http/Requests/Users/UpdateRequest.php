@@ -12,22 +12,18 @@ class UpdateRequest extends FormRequest
     use Messages, Passwords, Rules;
 
     /**
-     *  Get the validation rules that apply to the request.
+     *  Form and return a success message for this request.
      *
-     *  @return array
+     *  @return string
      */
-    public function rules()
+    public function successMessage(): string
     {
-        $user_id = $this->route('user');
+        if ($this->route()->hasParameter('attribute')) {
+            $attribute = $this->route()->parameter('attribute');
 
-        $rules = [
-            'email' => "required|email|unique:users,email,{$user_id}|unique:users,username,{$user_id}",
-            'password' => 'nullable|confirmed',
-            'username' => "nullable|email|unique:users,email,{$user_id}|unique:users,username,{$user_id}",
-        ];
+            return ucwords("{$attribute} Updated");
+        }
 
-        return collect($this->rules)
-            ->merge($rules)
-            ->toArray();
+        return 'User Updated';
     }
 }

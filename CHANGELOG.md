@@ -1,5 +1,15 @@
 # Release Notes
 
+2023-12-14 : 0.3.5  
+Update: Cleanup,improvements in the user actions system
+
+- Begin isolating enraiged assets for package publishing
+- Corrected timezone issue with deleted message date formatting
+- Improved the aesthetics,redirect handling of the page actions buttons
+- Simplified the users forms,actions into a single edit page
+
+---
+
 2023-12-08 : 0.3.4.1  
 Bugfix: Resolved various issues with 0.3.4
 

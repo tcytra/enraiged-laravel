@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Users\Files;
 
 use App\Http\Controllers\Controller;
-use Enraiged\Users\Actions\Builders\ProfileActions;
+use Enraiged\Users\Actions\Builders\UserActions;
 use Enraiged\Files\Resources\FileResource;
 use Illuminate\Http\Request;
 
@@ -29,7 +29,7 @@ class Index extends Controller
             ->toArray($request);
 
         return inertia('users/files/Index', [
-            'actions' => ProfileActions::From($request, $request->user())->actions(),
+            'actions' => UserActions::From($request, $request->user())->actions(),
             'files' => $files,
         ]);
     }

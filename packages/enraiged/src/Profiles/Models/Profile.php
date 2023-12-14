@@ -12,19 +12,37 @@ class Profile extends Model implements AvatarableContract
 {
     use Attributes\Initials,
         Attributes\Name,
-        HasOne\User,
+        Relations\HasOneUser,
         Traits\HasFactory,
         Avatarable, SoftDeletes, UserTracking;
 
     /** @var  string  The database table name. */
     protected $table = 'profiles';
 
-    /** @var  array  The attributes that are mass assignable. */
-    protected $fillable = ['alias', 'birthdate', 'first_name', 'last_name', 'gender', 'salut', 'title'];
+    /** @var  array  The attributes that aren't mass assignable. */
+    protected $guarded = ['id'];
 
     /** @var  array  The attributes that should be hidden for serialization. */
     protected $hidden = [];
 
     /** @var  array  The attributes that should be cast. */
     protected $casts = [];
+
+    /**
+     *  Get the fillable attributes for the model.
+     *
+     *  @return array
+     */
+    public function getFillable()
+    {
+        return [
+            'alias',
+            'birthdate',
+            'first_name',
+            'last_name',
+            'gender',
+            'salut',
+            'title'
+        ];
+    }
 }

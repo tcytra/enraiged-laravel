@@ -1,10 +1,10 @@
 <?php
 
-namespace Enraiged\Profiles\Models\HasOne;
+namespace Enraiged\Profiles\Models\Relations;
 
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-trait User
+trait HasOneUser
 {
     /**
      *  @return \Illuminate\Database\Eloquent\Relations\HasOne
@@ -15,6 +15,9 @@ trait User
             ->withTrashed();
     }
 
+    /**
+     *  @return void
+     */
     public static function bootUser()
     {
         static::updated(function ($profile) {

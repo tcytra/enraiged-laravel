@@ -1,12 +1,12 @@
 <template>
     <nav class="text-50" refs="nav">
         <header class="header profile">
-            <avatar size="xx" :avatar="user.avatar" @click="get('/my/avatar')"/>
+            <avatar size="xx" :avatar="user.avatar"/>
             <h4 class="name">{{ user.profile.name }}</h4>
             <h5 class="email">{{ user.email }}</h5>
         </header>
         <ul class="options">
-            <li class="action item" @click="get('/my/profile')">
+            <li class="action item" @click="get('/my/account')">
                 <dl class="option">
                     <dt class="icon">
                         <i class="pi pi-user"></i>
