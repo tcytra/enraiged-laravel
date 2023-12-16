@@ -95,7 +95,9 @@ trait EloquentBuilder
 
                             if ($match && key_exists('scope', $match)) {
                                 $scope = $match['scope'];
-                                $this->builder->{$scope}();
+                                if (method_exists($this->model, "scope{$scope}")) {
+                                    $this->builder->{$scope}();
+                                }
 
                             } else {
                                 if (gettype($value) === 'array') {
