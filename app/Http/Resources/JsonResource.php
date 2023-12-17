@@ -18,10 +18,19 @@ abstract class JsonResource extends IlluminateResource
     protected $attribute;
 
     /** @var  bool  Whether or not to include a created_at resource. */
-    protected $created = false;
+    protected bool $with_created = false;
+
+    /** @var  bool  Whether or not to include a created_at resource. */
+    protected bool $with_deleted = false;
+
+    /** @var  bool  Whether or not to include the tracking objects with this resource. */
+    protected bool $with_tracking = false;
+
+    /** @var  bool  Whether or not to include a severity level. */
+    protected bool $with_severity = false;
 
     /** @var  bool  Whether or not to include a updated_at resource. */
-    protected $updated = false;
+    protected bool $with_updated = false;
 
     /**
      *  Get or set a specific resource attribute.
@@ -50,6 +59,18 @@ abstract class JsonResource extends IlluminateResource
     public function route($name, $parameters = [])
     {
         return route($name, $parameters, config('enraiged.app.absolute_uris'));
+    }
+
+    /**
+     *  Toggle the severity output on.
+     *
+     *  @return $this
+     */
+    public function withSeverity()
+    {
+        $this->with_severity = true;
+
+        return $this;
     }
 
     /**

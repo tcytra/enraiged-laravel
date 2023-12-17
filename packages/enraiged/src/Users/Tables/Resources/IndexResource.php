@@ -2,22 +2,18 @@
 
 namespace Enraiged\Users\Tables\Resources;
 
-use Enraiged\Tables\Traits\ModelDeletedBackground;
-use Enraiged\Tables\Traits\ModelInactiveBackground;
 use Enraiged\Users\Resources\UserResource;
 
 class IndexResource extends UserResource
 {
-    use ModelDeletedBackground, ModelInactiveBackground;
-
     /** @var  bool  Whether or not to include the role with this resource. */
-    protected bool $with_role = false;
+    protected $with_role = false;
 
     /** @var  bool  Whether or not to include the deleted at,by with this resource. */
-    protected bool $with_deleted = true;
+    protected $deleted = true;
 
-    /** @var  bool  Whether or not to include the tracking objects with this resource. */
-    protected bool $with_tracking = false;
+    /** @var  bool  Whether or not to include a severity level. */
+    protected $severity = true;
 
     /**
      *  Transform the resource collection into an array.
@@ -31,7 +27,6 @@ class IndexResource extends UserResource
 
         return collect(parent::toArray($request))
             ->merge([
-                '__' => $this->modelDeletedBackground() ?? $this->modelInactiveBackground(),
                 'active' => $this->is_active && is_null($this->deleted_at),
                 'actions' => $this->resource->actions,
                 'created_at' => $this->resource->created->at->short,

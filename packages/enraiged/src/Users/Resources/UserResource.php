@@ -3,15 +3,16 @@
 namespace Enraiged\Users\Resources;
 
 use App\Http\Resources\JsonResource;
+use Enraiged\Tables\Traits\ModelDeletedBackground;
+use Enraiged\Tables\Traits\ModelInactiveBackground;
 
 class UserResource extends JsonResource
 {
     use Traits\Avatar,
         Traits\Profile,
-        Traits\Role;
-
-    /** @var  bool  Whether or not to include the deleted at,by with this resource. */
-    protected bool $with_deleted = false;
+        Traits\Role,
+        ModelDeletedBackground,
+        ModelInactiveBackground;
 
     /** @var  bool  Whether or not to include the tracking objects with this resource. */
     protected bool $with_tracking = true;
@@ -50,6 +51,10 @@ class UserResource extends JsonResource
 
         if ($request->session()->has('impersonate')) {
             $resource['is_impersonating'] = true;
+        }
+
+        if ($this->with_severity) {
+            $resource['__'] = $this->modelDeletedBackground() ?? $this->modelInactiveBackground();
         }
 
         if ($this->with_tracking) {
