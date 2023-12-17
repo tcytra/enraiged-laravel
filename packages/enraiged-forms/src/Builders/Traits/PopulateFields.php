@@ -168,7 +168,7 @@ trait PopulateFields
             $value = $field->default;
         }
         if (is_null($value) && in_array($this->fieldType($name), ['checkbox', 'switch'])) {
-            $value = false;
+            $value = $field->value ?? false;
         }
 
         $this->field($name, ['value' => $value]);
