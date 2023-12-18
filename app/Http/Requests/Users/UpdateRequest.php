@@ -19,7 +19,7 @@ class UpdateRequest extends FormRequest
     public function successMessage(): string
     {
         if ($this->route()->hasParameter('attribute')) {
-            $attribute = $this->route()->parameter('attribute');
+            $attribute = str_replace('_', ' ', $this->route()->parameter('attribute'));
 
             return ucwords("{$attribute} Updated");
         }
