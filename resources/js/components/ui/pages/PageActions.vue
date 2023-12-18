@@ -3,7 +3,7 @@
         <div class="action" v-for="(action, index) in actions"
             :class="{'current': this.isCurrent(action)}"
             :key="index">
-            <primevue-button class="button" v-if="canShow(action)"
+            <primevue-button class="button p-button-info p-button-text"
                 :class="action.class"
                 :icon="action.icon"
                 :label="i18n(action.label)"
@@ -129,10 +129,6 @@ export default {
                     this.$inertia.get(action.uri);
                 }
             }
-        },
-
-        canShow(action) {
-            return action.class && action.icon;
         },
 
         isCurrent(action) {

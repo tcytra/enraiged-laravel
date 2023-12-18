@@ -32,6 +32,7 @@
         "confirm": "Are you certain you wish to delete this user?",
         "icon": "pi pi-trash",
         "label": "Delete",
+        "secure": {"method": "isNotDeleted"},
         "severity": "danger",
         "uri": {"api": true, "method": "delete", "redirect": "default", "route": "users.delete", "param": "user"}
     },

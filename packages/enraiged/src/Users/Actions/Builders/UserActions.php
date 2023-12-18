@@ -55,15 +55,13 @@ class UserActions extends ActionBuilder implements ShouldPostprocess, ShouldPrep
      */
     public function preprocess(RequestCollection $request, $item, $index): array
     {
-        $class = key_exists('class', $item)
-            ? $item['class']
-            : null;
+        $classes = explode(' ', $item['class']);
 
-        $severity = key_exists('severity', $item) && in_array($index, ['delete', 'restore'])
-            ? 'p-button-'.$item['severity']
-            : 'p-button-info';
+        if (key_exists('severity', $item) && in_array($index, ['delete', 'restore'])) {
+            $classes[] = 'p-button-'.$item['severity'];
+        }
 
-        $item['class'] = trim("{$class} {$severity} p-button-text");
+        $item['class'] = implode(' ', $classes);
 
         return $item;
     }
