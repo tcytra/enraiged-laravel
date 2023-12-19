@@ -36,6 +36,11 @@
   font-family:      $font-family-primary;
 }
 
+.p-inputtextarea,
+.p-inputtext {
+  padding:          0.425rem;
+}
+
 /*.p-inputtextarea,
 .p-inputtext {
     &::placeholder {
