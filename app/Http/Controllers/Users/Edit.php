@@ -15,9 +15,6 @@ class Edit extends Controller
 {
     use AuthorizesRequests;
 
-    /** @var  User  The request user. */
-    protected $user;
-
     /**
      *  @param  \Illuminate\Http\Request  $request
      *  @param  \Enraiged\Users\Models\User  $user
@@ -42,7 +39,7 @@ class Edit extends Controller
             'avatar' => AvatarEditResource::from($user->profile->avatar),
             'messages' => $this->messages($user),
             'template' => $form->template(),
-            'user' => UserResource::from($user),
+            'user' => UserResource::from($user)->withoutAvatar(),
         ]);
     }
 
@@ -64,7 +61,7 @@ class Edit extends Controller
             array_push($messages, message($message, 'error'));
         }
 
-        if (!$user->is_myself && $user->is_administrator) {
+        if ($user->isAdministrator && !$user->isMyself) {
             array_push($messages, message('You are updating these user details as an administrator.', 'warn'));
         }
 
