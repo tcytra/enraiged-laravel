@@ -15,6 +15,19 @@ trait HttpRequest
     protected RequestCollection $request;
 
     /**
+     *  Add a parameter to the route collection.
+     *
+     *  @param  array   $parameter
+     *  @return self
+     */
+    public function addRouteParameter(array $parameter): self
+    {
+        $this->request->addRouteParameter($parameter);
+
+        return $this;
+    }
+
+    /**
      *  Determine whether the request user is permitted to perform an action on the model.
      *
      *  @param  array|object  $item

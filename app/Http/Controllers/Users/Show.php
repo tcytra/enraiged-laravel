@@ -28,7 +28,9 @@ class Show extends Controller
         $this->authorize('show', $user);
 
         return inertia('users/Show', [
-            'actions' => UserActions::From($request, $user)->actions(),
+            'actions' => (new UserActions($request, $user))
+                ->addRouteParameter(['user' => $user])
+                ->actions(),
             'messages' => $this->messages($user),
             'user' => UserResource::from($user),
         ]);

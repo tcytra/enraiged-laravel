@@ -10,6 +10,19 @@ class RequestCollection extends Collection // this class exists because Illumina
     use Traits\Filled;
 
     /**
+     *  Add a parameter to the route collection.
+     *
+     *  @param  array   $parameter
+     *  @return self
+     */
+    public function addRouteParameter(array $parameter): self
+    {
+        $this->items['_route'] = $this->items['_route']->merge($parameter);
+
+        return $this;
+    }
+
+    /**
      *  Return the RouteCollection.
      *
      *  @return \Enraiged\Support\Collections\RouteCollection

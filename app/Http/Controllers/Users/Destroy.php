@@ -16,24 +16,9 @@ class Destroy extends Controller
      *  @param  \Enraiged\Users\Models\User  $user
      *  @return \Illuminate\Http\JsonResponse|\Inertia\Response
      */
-    public function __invoke(Request $request, $user = null)
+    public function __invoke(Request $request, User $user)
     {
-        $user = $request->route()->hasParameter('user')
-            ? User::findOrFail($user)
-            : $request->user();
-
-
         $this->authorize('delete', $user);
-
-        if ($user->is_protected) {
-            if ($request->is('api/*')) {
-                return response()->json(['warn' => __('This user is protected and cannot be deleted')]);
-            }
-
-            $request->session()->put('warn', __('This user is protected and cannot be deleted'));
-
-            return $request->redirect();
-        }
 
         $myself = $user->isMyself === true;
         $message = $myself ? 'Account deleted' : 'User deleted';

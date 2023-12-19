@@ -29,7 +29,9 @@ class Index extends Controller
             ->toArray($request);
 
         return inertia('users/files/Index', [
-            'actions' => UserActions::From($request, $request->user())->actions(),
+            'actions' => (new UserActions($request, $request->user()))
+                ->addRouteParameter(['user' => $request->user()])
+                ->actions(),
             'files' => $files,
         ]);
     }

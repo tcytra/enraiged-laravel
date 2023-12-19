@@ -35,7 +35,9 @@ class Edit extends Controller
         }
 
         return inertia('users/Edit', [
-            'actions' => UserActions::From($request, $user)->actions(),
+            'actions' => (new UserActions($request, $user))
+                ->addRouteParameter(['user' => $user])
+                ->actions(),
             'avatar' => AvatarEditResource::from($user->profile->avatar),
             'messages' => $this->messages($user),
             'template' => $form->template(),

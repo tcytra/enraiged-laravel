@@ -34,7 +34,7 @@ Route::middleware(['auth', 'verified', 'enraiged'])
                     });
 
                 Route::match(['GET', 'POST'], 'available', 'Available')->name('available');
-                Route::delete('{user?}', 'Destroy')->name('delete');
+                Route::delete('{user}', 'Destroy')->name('delete');
                 Route::patch('{user}', 'Restore')->name('restore');
                 Route::patch('{user}/update/{attribute?}', 'Update')->name('update')->where(['attribute' => '^[a-z]{2,}(_[a-z]+)?$']);
                 Route::post('', 'Store')->name('store');

@@ -18,6 +18,9 @@ abstract class ActionBuilder
     /** @var  array|string  Perform a cleanup on the processed configuration. */
     protected $clean = ['action', 'permission', 'secure', 'secureAll', 'secureAny', 'uriIf', 'uriElse'];
 
+    /** @var  bool  Whether or not this configuration has been handled. */
+    private $handled = false;
+
     /**
      *  Create an instance of the TableBuilder.
      *
@@ -41,6 +44,10 @@ abstract class ActionBuilder
      */
     public function actions(): array
     {
+        if (!$this->handled) {
+            $this->handle();
+        }
+
         return $this->get();
     }
 
@@ -80,6 +87,8 @@ abstract class ActionBuilder
             ->process()
             ->clean()
             ->check();
+
+        $this->handled = true;
 
         return $this;
     }
