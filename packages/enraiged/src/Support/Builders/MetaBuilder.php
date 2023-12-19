@@ -51,7 +51,7 @@ class MetaBuilder
      *
      *  @return self
      */
-    private function appParameters()
+    protected function appParameters()
     {
         $this->meta = $this->meta
             ->merge([
@@ -70,7 +70,7 @@ class MetaBuilder
      *
      *  @return self
      */
-    private function authParameters()
+    protected function authParameters()
     {
         $this->meta = $this->meta
             ->merge([
