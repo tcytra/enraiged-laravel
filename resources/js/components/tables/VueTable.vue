@@ -225,27 +225,23 @@ export default {
         },
     },
 
-    created() {
+    mounted() {
         this.exportable = this.template.exportable ? this.template.exportable.default : null;
+        this.ready = true;
         if (this.template.state && this.template.id && localStorage[this.template.id]) {
             const state = JSON.parse(localStorage[this.template.id]);
             this.filters = state.filters;
             this.pagination = state.pagination;
             this.search = state.search;
-        }
-    },
-
-    mounted() {
-        this.ready = true;
-        if (this.template.state && this.template.id && localStorage[this.template.id]) {
-            const state = JSON.parse(localStorage[this.template.id]);
             this.table.d_sortField = state.pagination.sort;
             this.table.d_sortOrder = state.pagination.dir;
-            localStorage.removeItem(this.template.id);
-            this.fetch();
+            if (!state.search) {
+                this.fetch();
+            }
         } else {
             this.fresh();
         }
+        localStorage.removeItem(this.template.id);
     },
 
     beforeUnmount() {
@@ -261,6 +257,7 @@ export default {
 
     methods: {
         async fetch() {
+            console.log('fetch')
             this.loading = true;
             return this.axios.get(this.template.uri, { params: this.params() })
                 .then(response => this.fetched(response))
@@ -367,10 +364,13 @@ export default {
             this.pagination.page = 1;
             this.pagination.rows = this.template.pagination.rows;
             this.pagination.sort = null;
-            this.search = null;
             this.table.d_sortField = null;
             this.table.d_sortOrder = null;
-            this.fetch();
+            if (typeof this.search === 'string') {
+                this.search = null;
+            } else {
+                this.fetch();
+            }
         },
 
         filter(field) {
