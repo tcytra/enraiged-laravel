@@ -55,7 +55,9 @@ class UserActions extends ActionBuilder implements ShouldPostprocess, ShouldPrep
      */
     public function preprocess(RequestCollection $request, $item, $index): array
     {
-        if ($index === 'delete' && $request->user()->isMyself) {
+        $auth_model = auth_model();
+
+        if ($index === 'delete' && ($this->model instanceof $auth_model && $this->model->isMyself)) {
             $item['confirm'] = __('Warning! This cannot be undone. Are you certain you want to delete your account?');
         }
 
