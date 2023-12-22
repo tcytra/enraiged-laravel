@@ -6,19 +6,19 @@
                 <template #header>
                     <primevue-dataview-layout-options class="mb-3" v-model="layout"/>
                 </template>
-                <template #list="props">
-                    <div class="bg-white flex p-2 w-full">
+                <template #list="{ items }">
+                    <div class="bg-white flex p-2 w-full" v-for="item in items" :key="item.id">
                         <div class="file-name mb-2">
-                            <i :class="props.data.icon" style="font-size:2.5rem"></i>
+                            <i :class="item.icon" style="font-size:2.5rem"></i>
                         </div>
                         <ul class="flex flex-column flex-grow-1 list-none">
                             <li class="mb-1">
                                 {{ i18n('Name') }}:
-                                <strong>{{props.data.name}}</strong>
+                                <strong>{{item.name}}</strong>
                             </li>
                             <li class="mb-1">
                                 {{ i18n('Created') }}:
-                                <strong>{{ `${props.data.created.at.short} ${props.data.created.at.time}` }}</strong>
+                                <strong>{{ `${item.created.at.short} ${item.created.at.time}` }}</strong>
                             </li>
                         </ul>
                         <ul class="flex list-none">
@@ -26,37 +26,37 @@
                                 <primevue-button class="p-button-rounded p-button-text p-button-success"
                                     icon="pi pi-download"
                                     v-tooltip.top="i18n('Download')"
-                                    @click="download(props.data)"/>
+                                    @click="download(item)"/>
                             </li>
                             <li>
                                 <primevue-button class="p-button-rounded p-button-text p-button-danger"
                                     icon="pi pi-times"
                                     v-tooltip.top="i18n('Delete')"
-                                    @click="destroy(props.data)"/>
+                                    @click="destroy(item)"/>
                             </li>
                         </ul>
                     </div>
                 </template>
-                <template #grid="props">
-                    <div class="col-4 md:col-3 lg:col-2 mx-1">
+                <template #grid="{ items }">
+                    <div class="col-4 md:col-3 lg:col-2 mx-1" v-for="item in items" :key="item.id">
                         <primevue-card class="text-center">
                             <template #title>
                                 <div class="file-type mb-2">
-                                    <strong>{{props.data.type}}</strong>
+                                    <strong>{{item.type}}</strong>
                                 </div>
                             </template>
                             <template #content>
                                 <div class="file-name mb-2">
-                                    <i :class="props.data.icon" style="font-size:2.5rem"></i>
+                                    <i :class="item.icon" style="font-size:2.5rem"></i>
                                 </div>
                                 <div class="file-name mb-2">
-                                    <span>{{ props.data.name }}</span>
+                                    <span>{{ item.name }}</span>
                                 </div>
                                 <div class="file-date mb-2">
-                                    <span>{{ props.data.created.at.short }}</span>
+                                    <span>{{ item.created.at.short }}</span>
                                 </div>
                                 <div class="file-time mb-2">
-                                    <span>{{ props.data.created.at.time }}</span>
+                                    <span>{{ item.created.at.time }}</span>
                                 </div>
                             </template>
                             <template #footer>
@@ -64,11 +64,11 @@
                                     <primevue-button class="p-button-rounded p-button-text p-button-success"
                                         icon="pi pi-download"
                                         v-tooltip.top="i18n('Download')"
-                                        @click="download(props.data)"/>
+                                        @click="download(item)"/>
                                     <primevue-button class="p-button-rounded p-button-text p-button-danger"
                                         icon="pi pi-times"
                                         v-tooltip.top="i18n('Delete')"
-                                        @click="destroy(props.data)"/>
+                                        @click="destroy(item)"/>
                                 </div>
                             </template>
                         </primevue-card>
