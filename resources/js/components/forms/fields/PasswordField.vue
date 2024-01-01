@@ -47,11 +47,11 @@ export default {
     },
 
     props: {
-        field: {
-            type: Object,
-            required: true,
-        },
         confirm: {
+            type: Boolean,
+            default: false,
+        },
+        disabled: {
             type: Boolean,
             default: false,
         },
@@ -62,6 +62,10 @@ export default {
         focus: {
             type: Boolean,
             default: false,
+        },
+        field: {
+            type: Object,
+            required: true,
         },
         form: {
             type: Object,

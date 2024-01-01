@@ -55,6 +55,10 @@ export default {
             type: Boolean,
             default: false,
         },
+        disabled: {
+            type: Boolean,
+            default: false,
+        },
         field: {
             type: Object,
             required: true,

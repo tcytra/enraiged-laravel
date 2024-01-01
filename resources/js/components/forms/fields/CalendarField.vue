@@ -60,6 +60,10 @@ export default {
             type: Boolean,
             default: false,
         },
+        disabled: {
+            type: Boolean,
+            default: false,
+        },
         disabledDates: {
             type: Array,
             default: [],
