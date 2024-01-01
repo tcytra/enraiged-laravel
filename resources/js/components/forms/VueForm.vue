@@ -1,7 +1,13 @@
 <template>
     <div class="vue-form">
         <form @submit.prevent="submit"
-            :class="['form', template.class, {'custom-actions': customActions, 'formgrid grid': formGrid}]">
+            :class="[
+                'form',
+                template.class,
+                {'custom-actions': customActions, 'formgrid grid': formGrid},
+                {'horizontal': template.labels === 'horizontal' },
+                {'vertical': template.labels === 'vertical' },
+            ]">
             <tab-view class="my-3 shadow-1" ref="tabview" v-if="Object.keys(tabs).length">
                 <tab-panel :header="tab.name" v-for="(tab, key) in tabs" :key="key">
                     <vue-form-tab
