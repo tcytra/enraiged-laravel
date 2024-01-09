@@ -31,7 +31,9 @@ trait GeoLocation
         $gps = collect($gps)
             ->transform(function ($value) {
                 [$numerator, $denominator] = explode('/', $value);
-                return $numerator / $denominator;
+                return $denominator
+                    ? $numerator / $denominator
+                    : null;
             })
             ->toArray();
 
