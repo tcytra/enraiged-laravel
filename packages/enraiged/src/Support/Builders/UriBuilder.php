@@ -59,11 +59,17 @@ class UriBuilder
             $using_method = key_exists('method', $uri) && strtoupper($uri['method']) !== 'GET';
 
             if ($using_api || $using_method) {
-                return [
+                $collect = [
                     'api' => $uri['api'] === true,
                     'method' => strtolower($uri['method']),
                     'route' => $route,
                 ];
+
+                if (key_exists('redirect', $uri)) {
+                    $collect['redirect'] = $uri['redirect'];
+                }
+
+                return $collect;
             }
 
             return $route;
