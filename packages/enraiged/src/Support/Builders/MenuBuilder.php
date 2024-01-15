@@ -70,14 +70,16 @@ abstract class MenuBuilder
                     ->preprocess($this->request, $item, $index));
         }
 
-        $this->secure();
+        $configuration = $this->secure($configuration);
 
         if ($this instanceof Contracts\ShouldPostprocess) {
-            $this->configuration = collect($this->configuration)
+            $configuration = collect($configuration)
                 ->transform(fn ($item, $index) => $this
                     ->postprocess($this->request, $item, $index))
                 ->toArray();
         }
+
+        $this->configuration = $configuration;
 
         return $this;
     }
@@ -85,18 +87,18 @@ abstract class MenuBuilder
     /**
      *  Secure the configuration against the authenticated user.
      *
-     *  @param  array|object  $configuration = null
-     *  @return self
+     *  @param  array|object  $items
+     *  @return array
      */
-    protected function secure($configuration = null)
+    protected function secure($items)
     {
-        $this->configuration = collect($configuration ?: $this->configuration)
+        $configuration = collect($items)
             ->transform(function ($item) {
                 if (key_exists('menu', $item)) {
                     $secure = $this->secure($item['menu']);
 
-                    if ($secure->count()) {
-                        $item['menu'] = $secure->toArray();
+                    if (count($secure)) {
+                        $item['menu'] = $secure;
                         return $item;
                     }
 
@@ -114,7 +116,7 @@ abstract class MenuBuilder
             })
             ->toArray();
 
-        return $this;
+        return $configuration;
     }
 
     /**
