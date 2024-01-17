@@ -1,6 +1,6 @@
 <?php
 
-use Enraiged\Support\Database\Migration;
+use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
@@ -18,9 +18,8 @@ return new class extends Migration
         });
 
         Schema::table('users', function (Blueprint $table) {
-            $table->bigInteger('profile_id')->unsigned()->nullable()->index()->after('id');
-            $table->bigInteger('role_id')->unsigned()->nullable()->index()->after('profile_id');
-
+            $table->foreignBigInteger('profile_id', 'profiles')->after('id')->nullable();
+            $table->foreignBigInteger('role_id', 'roles')->after('profile_id')->nullable();
             $table->string('username')->nullable()->unique()->after('email');
             $table->string('dateformat', 16)->nullable()->after('remember_token');
             $table->string('timeformat', 16)->nullable()->after('dateformat');
@@ -29,18 +28,12 @@ return new class extends Migration
             $table->char('language', 2)->default(config('app.locale'))->after('theme');
             $table->timestamp('deleted_at')->nullable()->after('created_at');
             $table->timestamp('verified_at')->nullable()->after('updated_at');
-            $table->bigInteger('created_by')->unsigned()->nullable();
-            $table->bigInteger('deleted_by')->unsigned()->nullable();
-            $table->bigInteger('updated_by')->unsigned()->nullable();
+            $table->foreignBigInteger('created_by', 'users')->nullable();
+            $table->foreignBigInteger('deleted_by', 'users')->nullable();
+            $table->foreignBigInteger('updated_by', 'users')->nullable();
             $table->boolean('is_active')->default(true);
             $table->boolean('is_hidden')->default(false);
             $table->boolean('is_protected')->default(false);
-
-            $table->foreign('profile_id')->references('id')->on('profiles');
-            $table->foreign('role_id')->references('id')->on('roles');
-            $table->foreign('created_by')->references('id')->on('users');
-            $table->foreign('deleted_by')->references('id')->on('users');
-            $table->foreign('updated_by')->references('id')->on('users');
         });
     }
 

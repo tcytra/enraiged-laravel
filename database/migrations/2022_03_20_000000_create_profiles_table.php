@@ -1,6 +1,6 @@
 <?php
 
-use Enraiged\Support\Database\Migration;
+use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('salut', 16)->nullable();
             $table->string('title', 16)->nullable();
             $table->date('birthdate')->nullable();
-            $this->tracking($table);
+            $table->trackingAll();
         });
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-use Enraiged\Support\Database\Migration;
+use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
@@ -21,9 +21,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('path');
             $table->string('size');
-
-            $this->track_created($table);
-            $this->track_updated($table);
+            $table->trackCreated();
+            $table->trackUpdated();
         });
     }
 
