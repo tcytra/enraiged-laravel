@@ -4,6 +4,7 @@ namespace Enraiged\Users\Services;
 
 use Enraiged\Profiles\Models\Profile;
 use Enraiged\Users\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class CreateUserProfile
@@ -22,7 +23,7 @@ class CreateUserProfile
      */
     public function __construct(array $attributes)
     {
-        $this->attributes = UserProfileAttributes::from($attributes)->toArray();
+        $this->attributes = Support\UserProfileAttributes::from($attributes)->toArray();
     }
 
     /**
