@@ -8,7 +8,7 @@
             <label v-if="label" class="label" :for="id">
                 {{ label }}
             </label>
-            <primevue-input-text class="w-full" type="text" ref="field" focus
+            <primevue-input-text class="w-full" type="text" ref="field"
                 v-model="form[id]"
                 :class="{
                     'is-creating': isDirty && creating,
@@ -20,7 +20,6 @@
                 :disabled="isDisabled"
                 :id="id"
                 :placeholder="placeholder"
-                :type="text"
                 @update:modelValue="update(); $emit('update:modelValue', $event)"/>
             <div class="error p-error" v-if="error">
                 <i class="pi pi-exclamation-circle" v-tooltip.top="error"></i>
