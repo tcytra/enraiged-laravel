@@ -95,24 +95,24 @@ class AppServiceProvider extends ServiceProvider
             $this->timestamp('deleted_at', $precision)->nullable();
             $this->timestamp('updated_at', $precision)->nullable();
 
-            $this->foreignbigInteger('created_by', $auth_table)->nullable();
-            $this->foreignbigInteger('deleted_by', $auth_table)->nullable();
-            $this->foreignbigInteger('updated_by', $auth_table)->nullable();
+            $this->foreignBigInteger('created_by', $auth_table)->nullable();
+            $this->foreignBigInteger('deleted_by', $auth_table)->nullable();
+            $this->foreignBigInteger('updated_by', $auth_table)->nullable();
         });
 
         Blueprint::macro('trackCreated', function ($precision = 0) use ($auth_table) {
             $this->timestamp('created_at', $precision)->nullable();
-            $this->foreignbigInteger('created_by', $auth_table)->nullable();
+            $this->foreignBigInteger('created_by', $auth_table)->nullable();
         });
 
         Blueprint::macro('trackDeleted', function ($precision = 0) use ($auth_table) {
             $this->timestamp('deleted_at', $precision)->nullable();
-            $this->foreignbigInteger('deleted_by', $auth_table)->nullable();
+            $this->foreignBigInteger('deleted_by', $auth_table)->nullable();
         });
 
         Blueprint::macro('trackUpdated', function ($precision = 0) use ($auth_table) {
             $this->timestamp('updated_at', $precision)->nullable();
-            $this->foreignbigInteger('updated_by', $auth_table)->nullable();
+            $this->foreignBigInteger('updated_by', $auth_table)->nullable();
         });
 
         return $this;
