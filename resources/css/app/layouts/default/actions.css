@@ -88,7 +88,7 @@
         }
 
         .action.current {
-            .p-button.p-button-info.p-button-text {
+            .p-button.p-button-text {
               background-color: $surface-body;
               border-bottom:    1px solid $surface-body;
               border-left:      1px solid $surface-border;

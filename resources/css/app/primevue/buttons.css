@@ -2,3 +2,27 @@
 .p-button-icon p-button-icon-left {
   margin-left:      -.25rem;
 }
+
+.p-button.p-button-danger.inset-shadow:enabled:focus,
+.p-buttonset.p-button-danger > .p-button.inset-shadow:enabled:focus,
+.p-splitbutton.p-button-danger > .p-button.inset-shadow:enabled:focus {
+  box-shadow: inset 0 0 0 .2rem #edacac;
+}
+
+.p-button.p-button-info.inset-shadow:enabled:focus,
+.p-buttonset.p-button-info > .p-button.inset-shadow:enabled:focus,
+.p-splitbutton.p-button-info > .p-button.inset-shadow:enabled:focus {
+  box-shadow: inset 0 0 0 .2rem #89d4fe;
+}
+
+.p-button.p-button-success.inset-shadow:enabled:focus,
+.p-buttonset.p-button-success > .p-button.inset-shadow:enabled:focus,
+.p-splitbutton.p-button-success > .p-button.inset-shadow:enabled:focus {
+  box-shadow: inset 0 0 0 .2rem #c2e0a8;
+}
+
+.p-button.p-button-warning.inset-shadow:enabled:focus,
+.p-buttonset.p-button-warning > .p-button.inset-shadow:enabled:focus,
+.p-splitbutton.p-button-warning > .p-button.inset-shadow:enabled:focus {
+  box-shadow: inset 0 0 0 .2rem #fde6ab;
+}

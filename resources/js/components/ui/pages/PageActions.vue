@@ -3,8 +3,8 @@
         <div class="action" v-for="(action, index) in actions"
             :class="{'current': this.isCurrent(action)}"
             :key="index">
-            <primevue-button class="button p-button-info p-button-text"
-                :class="action.class"
+            <primevue-button class="p-button-text inset-shadow"
+                :class="[action.class, actionClass(action)]"
                 :icon="action.icon"
                 :label="i18n(action.label)"
                 @click="actionHandler(action)"/>
@@ -67,6 +67,9 @@ export default {
     },
 
     methods: {
+        actionClass(action) {
+            return action.severity === 'danger' ? 'p-button-danger' : 'p-button-info';
+        },
         actionHandler(action, confirmed) {
             if (typeof action.uri === 'object') {
                 const method = typeof action.uri.method !== 'undefined'
