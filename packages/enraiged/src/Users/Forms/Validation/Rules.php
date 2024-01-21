@@ -2,6 +2,7 @@
 
 namespace Enraiged\Users\Forms\Validation;
 
+use Enraiged\Enums\Roles;
 use Illuminate\Support\Collection;
 
 trait Rules
@@ -34,6 +35,12 @@ trait Rules
      */
     public function rules()
     {
+        if (!$this->user()->role->atLeast(Roles::Administrator)) {
+            $this->rules = collect($this->rules)
+                ->except(['role_id'])
+                ->toArray();
+        }
+
         if ($this->route()->hasParameter('attribute')) {
             return $this
                 ->uniqueUserRules()

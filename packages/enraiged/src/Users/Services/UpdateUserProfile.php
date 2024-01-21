@@ -24,7 +24,7 @@ class UpdateUserProfile
     public function __construct(User $user, array $attributes)
     {
         $this->user = $user;
-        $this->attributes = UserProfileAttributes::from($attributes)->toArray();
+        $this->attributes = Support\UserProfileAttributes::from($attributes)->toArray();
     }
 
     /**

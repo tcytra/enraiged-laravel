@@ -34,6 +34,14 @@ trait HasContext
     /**
      *  @return bool
      */
+    public function getIsDeletedAttribute(): bool
+    {
+        return !is_null($this->deleted_at);
+    }
+
+    /**
+     *  @return bool
+     */
     public function getIsHiddenAttribute(): bool
     {
         return $this->attributes['is_hidden'] === 1;
@@ -45,6 +53,14 @@ trait HasContext
     public function getIsMyselfAttribute(): bool
     {
         return $this->id === Auth::id();
+    }
+
+    /**
+     *  @return bool
+     */
+    public function getIsNotMyselfAttribute(): bool
+    {
+        return !$this->isMyself;
     }
 
     /**

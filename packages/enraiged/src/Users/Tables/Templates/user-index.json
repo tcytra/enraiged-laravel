@@ -14,7 +14,7 @@
         },
         "impersonate": {
             "class": "p-button-secondary",
-            "icon": "pi pi-sync",
+            "icon": "pi pi-user",
             "secure": {"method": "isNotDeleted"},
             "tooltip": "Impersonate",
             "type": "row"

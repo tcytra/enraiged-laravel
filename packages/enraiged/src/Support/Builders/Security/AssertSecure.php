@@ -2,11 +2,22 @@
 
 namespace Enraiged\Support\Builders\Security;
 
+use Enraiged\Enums\Roles;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 trait AssertSecure
 {
+    /**
+     *  Assert a user is authenticated.
+     *
+     *  @return bool
+     */
+    protected function assertIsAdministrator(): bool
+    {
+        return Auth::check() && Auth::user()->role->is(Roles::Administrator);
+    }
+
     /**
      *  Assert a user is authenticated.
      *

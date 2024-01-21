@@ -257,7 +257,6 @@ export default {
 
     methods: {
         async fetch() {
-            console.log('fetch')
             this.loading = true;
             return this.axios.get(this.template.uri, { params: this.params() })
                 .then(response => this.fetched(response))

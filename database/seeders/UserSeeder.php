@@ -33,6 +33,7 @@ class UserSeeder extends Seeder
                 'name' => env('ADMIN_NAME', 'Application Administrator'),
                 'password' => env('ADMIN_PASSWORD', $this->insecure_password),
                 'role' => 'Administrator',
+                'timezone' => config('enraiged.app.timezone'),
                 'username' => env('ADMIN_USERNAME', 'administrator'),
             ];
 
@@ -81,7 +82,7 @@ class UserSeeder extends Seeder
 
         $user = User::factory()->create(
             collect($parameters)
-                ->merge(['profile_id' => $profile->id])
+                ->merge(['profile_id' => $profile->id, 'timezone' => config('enraiged.app.timezone')])
                 ->toArray()
         );
 

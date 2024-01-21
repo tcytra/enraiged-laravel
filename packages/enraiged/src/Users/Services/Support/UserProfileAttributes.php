@@ -1,6 +1,6 @@
 <?php
 
-namespace Enraiged\Users\Services;
+namespace Enraiged\Users\Services\Support;
 
 use Enraiged\Roles\Models\Role;
 use Enraiged\Support\Services\AttributeHandler;

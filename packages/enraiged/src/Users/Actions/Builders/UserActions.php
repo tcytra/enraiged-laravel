@@ -61,7 +61,9 @@ class UserActions extends ActionBuilder implements ShouldPostprocess, ShouldPrep
             $item['confirm'] = __('Warning! This cannot be undone. Are you certain you want to delete your account?');
         }
 
-        $classes = explode(' ', $item['class']);
+        $classes = key_exists('class', $item)
+            ? explode(' ', $item['class'])
+            : [];
 
         if (key_exists('severity', $item) && in_array($index, ['delete', 'restore'])) {
             $classes[] = 'p-button-'.$item['severity'];

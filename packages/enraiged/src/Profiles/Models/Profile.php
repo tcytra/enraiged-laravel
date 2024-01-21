@@ -41,8 +41,9 @@ class Profile extends Model implements AvatarableContract
             'first_name',
             'last_name',
             'gender',
+            'phone',
             'salut',
-            'title'
+            'title',
         ];
     }
 }

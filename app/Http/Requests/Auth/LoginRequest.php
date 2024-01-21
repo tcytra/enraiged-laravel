@@ -35,11 +35,11 @@ class LoginRequest extends FormRequest
     }
 
     /**
-     *  Execute the attempt to authenticate the request's credentials.
+     *  Prepare the credentials form authentication attempts.
      *
-     *  @return boolean
+     *  @return bool
      */
-    private function attempt()
+    private function attempt(): bool
     {
         $primary_credentials = collect($this->only('email', 'password'))
             ->merge(['is_active' => true])
@@ -50,13 +50,28 @@ class LoginRequest extends FormRequest
             ->except('email')
             ->toArray();
 
-        return Auth::attempt($primary_credentials, $this->boolean('remember'))
-            || (config('enraiged.auth.allow_secondary_credential') === true
-                && Auth::attempt($secondary_credentials, $this->boolean('remember')));
+        $allow_secondary_credentials = config('enraiged.auth.allow_secondary_credential') === true;
+
+        return $this->attemptLoginWith($primary_credentials)
+            || ($allow_secondary_credentials && $this->attemptLoginWith($secondary_credentials));
     }
 
     /**
-     *  Prepare for and handle the attempt to authenticate the request's credentials.
+     *  Execute an attempt to authenticate the provided credentials.
+     *
+     *  @param  array   $credentials
+     *  @param  bool    $validate_company = false
+     *  @return bool
+     */
+    private function attemptLoginWith($credentials, $validate_company = false): bool
+    {
+        return $validate_company
+            ? Auth::attemptWhen($credentials, fn ($user) => $user->company->is_active, $this->boolean('remember'))
+            : Auth::attempt($credentials, $this->boolean('remember'));
+    }
+
+    /**
+     *  Handle the attempt to authenticate the request's credentials.
      *
      *  @return void
      *

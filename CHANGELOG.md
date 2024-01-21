@@ -1,5 +1,18 @@
 # Release Notes
 
+2024-01-21 : 0.3.6  
+Update: Security update for axios,vite; Other minor updates
+
+- Added service provider macros to handle model tracking columns
+- Corrected issue in the MenuBuilder when submenus are defined
+- Corrected issue preventing user changing password
+- Force box-shadow to inset in the page action buttons
+- Provided means of adding route parameter through ActionBuilder
+- Updated axios package for newest follow-redirects package
+- Updated vite package to patch server.fs.deny bypass issue
+
+---
+
 2023-12-14 : 0.3.5  
 Update: Cleanup,improvements in the user actions system
 

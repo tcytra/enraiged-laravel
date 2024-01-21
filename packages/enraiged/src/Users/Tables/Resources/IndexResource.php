@@ -6,14 +6,14 @@ use Enraiged\Users\Resources\UserResource;
 
 class IndexResource extends UserResource
 {
-    /** @var  bool  Whether or not to include the role with this resource. */
-    protected $with_role = false;
-
     /** @var  bool  Whether or not to include the deleted at,by with this resource. */
-    protected $deleted = true;
+    protected bool $with_deleted = false;
+
+    /** @var  bool  Whether or not to include the role with this resource. */
+    protected bool $with_role = false;
 
     /** @var  bool  Whether or not to include a severity level. */
-    protected $severity = true;
+    protected bool $with_severity = false;
 
     /**
      *  Transform the resource collection into an array.

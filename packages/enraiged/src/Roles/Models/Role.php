@@ -17,7 +17,7 @@ class Role extends Model
     public $timestamps = false;
 
     /** @var  array  The attributes that aren't mass assignable. */
-    protected $guarded = [];
+    protected $guarded = ['id', 'rank'];
 
     /**
      *  Find a role by its id or name.

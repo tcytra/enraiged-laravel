@@ -2,7 +2,7 @@
 
 namespace Enraiged\Images\Models;
 
-use App\Enums\FileTypes;
+use Enraiged\Enums\FileTypes;
 use Enraiged\Files\Traits\Attachable;
 use Enraiged\Support\Database\Traits\Created;
 use Enraiged\Support\Database\Traits\Updated;
