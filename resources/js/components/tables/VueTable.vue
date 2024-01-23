@@ -22,7 +22,7 @@
             :first="first"
             :lazy="true"
             :loading="loading"
-            :paginator="true"
+            :paginator="showPaginator && template.pagination"
             :responsive-layout="responsiveLayout"
             :row-class="rowClass"
             :rows="pagination.rows"
@@ -31,7 +31,7 @@
             :value="records"
             @page="page($event)"
             @sort="sort($event)">
-            <template #header>
+            <template #header v-if="showControls">
                 <div class="col controls-bar flex-order-1">
                     <primevue-button icon="pi pi-sync" class="table-fetch p-button-secondary mr-1"
                         v-tooltip.top="i18n('Refresh this data')"
@@ -163,6 +163,14 @@ export default {
         responsiveLayout: {
             type: String,
             default: 'stack',
+        },
+        showControls: {
+            type: Boolean,
+            default: true,
+        },
+        showPaginator: {
+            type: Boolean,
+            default: true,
         },
         template: {
             type: Object,
