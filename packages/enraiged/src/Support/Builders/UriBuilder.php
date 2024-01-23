@@ -2,14 +2,18 @@
 
 namespace Enraiged\Support\Builders;
 
+use Enraiged\Support\Collections\RouteCollection;
+
 class UriBuilder
 {
+    protected $route;
+
     /** @var  array  The provided uri argument. */
     protected array|string $uri;
 
     /**
      *  @param  array|string  $uri
-     *  @param  \Illuminate\Routing\Route  $route
+     *  @param  \Enraiged\Support\Collections\RouteCollection|\Illuminate\Routing\Route  $route
      */
     public function __construct($uri, $route = null)
     {
@@ -75,8 +79,12 @@ class UriBuilder
             return $route;
         }
 
+        $params = $this->route->hasParameters()
+            ? $this->route->parameters()
+            : [];
+
         if (preg_match('/\./', $uri)) {
-            return $this->route($uri);
+            return $this->route($uri, $params);
         }
 
         return '/'.trim($uri, '/');
@@ -86,7 +94,7 @@ class UriBuilder
      *  Create an instance of the UriBuilder and return the result.
      *
      *  @param  array|string  $uri
-     *  @param  \Illuminate\Routing\Route  $route
+     *  @param  \Enraiged\Support\Collections\RouteCollection|\Illuminate\Routing\Route  $route
      *  @return self
      */
     public static function From($uri, $route = null): self
