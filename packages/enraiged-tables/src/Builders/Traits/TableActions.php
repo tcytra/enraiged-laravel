@@ -46,7 +46,13 @@ trait TableActions
             : preg_replace('/\.+/', '.', "{$this->prefix}.{$index}");
 
         if (Route::has($route) && !key_exists('uri', $parameters) && $parameters['permission']) {
-            $parameters['uri'] = route($route, $model->{$this->key}, config('enraiged.tables.absolute_uris'));
+            $parameters['uri'] = route(
+                $route,
+                $this->request()->route()->hasParameters()
+                    ? $this->request()->route()->parameters($model->{$this->key})
+                    : $model->{$this->key},
+                config('enraiged.tables.absolute_uris')
+            );
 
             if (!key_exists('method', $parameters)) {
                 $method = Route::get($route)->methods[0];
@@ -112,7 +118,7 @@ trait TableActions
                     ? $parameters['model']
                     : $this->model;
 
-                $parameters['permission'] = $this->user->can($action, $model ?? $this->model);
+                $parameters['permission'] = $this->user->can($action, $model);
 
                 if ($parameters['permission']) {
                     $route = key_exists('route', $parameters)
@@ -122,7 +128,9 @@ trait TableActions
                     if (Route::has($route) && !key_exists('uri', $parameters)) {
                         $parameters['uri'] = route(
                             $route,
-                            [],
+                            $this->request()->route()->hasParameters()
+                                ? $this->request()->route()->parameters()
+                                : [],
                             config('enraiged.tables.absolute_uris')
                         );
                     }

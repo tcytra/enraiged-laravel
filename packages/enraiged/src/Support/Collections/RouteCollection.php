@@ -57,11 +57,14 @@ class RouteCollection extends Collection
     /**
      *  Get the key / value list of parameters for the route.
      *
+     *  @param  array|string  $with = null
      *  @return array
      */
-    public function parameters()
+    public function parameters($with = null)
     {
-        return $this->all();
+        return !is_null($with)
+            ? $this->merge($with)->all()
+            : $this->all();
     }
 
     /**
