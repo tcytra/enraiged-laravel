@@ -1,6 +1,6 @@
 <template>
     <span :class="containerClass" :style="style">
-        <img v-bind="$attrs" :style="imageStyle" :class="imageClass" @error="onError" />
+        <img v-bind="$attrs" :style="imageStyle" :class="imageClass" @error="onError"/>
         <button v-if="preview" ref="previewButton" class="p-image-preview-indicator" @click="onImageClick" v-bind="previewButtonProps">
             <slot name="indicator">
                 <i class="p-image-preview-icon pi pi-eye"></i>
@@ -27,10 +27,10 @@
                 </div>
                 <transition name="p-image-preview" @before-enter="onBeforeEnter" @enter="onEnter" @leave="onLeave" @before-leave="onBeforeLeave" @after-leave="onAfterLeave">
                     <div v-if="previewVisible">
-                        <img :src="$attrs.src" class="p-image-preview" :style="imagePreviewStyle" @click="onPreviewImageClick" />
+                        <img :src="$attrs.src" class="p-image-preview" :style="imagePreviewStyle" @click="onPreviewImageClick"/>
                     </div>
                 </transition>
-                <slot name="information" />
+                <slot name="information"/>
             </div>
         </Portal>
     </span>

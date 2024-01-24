@@ -29,7 +29,7 @@
             <div class="submit container"
                 :class="{ 'flex-row-reverse': !success }">
                 <primevue-button label="Register" class="p-button-secondary" v-if="!success"
-                @click="submit" />
+                @click="submit"/>
                 <Link class="flex align-items-center" href="/login">
                     <!--<i class="pi pi-angle-right"></i>-->
                     <span>Login</span>

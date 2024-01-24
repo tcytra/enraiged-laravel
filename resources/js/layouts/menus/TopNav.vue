@@ -4,7 +4,7 @@
             @click="$emit('menu:toggle')">
             <i class="pi pi-bars"></i>
         </div>
-        <div class="block" />
+        <div class="block"/>
         <div class="inline action impersonating" v-if="user.is_impersonating"
             @click="stopImpersonating()">
             <i class="pi pi-user-minus"></i>

@@ -7,12 +7,12 @@
                     :field="field"
                     :form="filters"
                     :id="name"
-                    @update:filterValue="filter(name)" />
+                    @update:filterValue="filter(name)"/>
                 <dropdown-filter v-if="field.type === 'select'" :ref="name"
                     :field="field"
                     :form="filters"
                     :id="name"
-                    @update:filterValue="filter(name)" />
+                    @update:filterValue="filter(name)"/>
             </div>
         </div>
         <primevue-datatable class="p-datatable-sm" ref="datatable"
@@ -64,7 +64,7 @@
                             :disabled="button.disabled"
                             :icon="button.icon"
                             :label="button.label"
-                            @click="action(name, button)" />
+                            @click="action(name, button)"/>
                     </span>
                 </div>
                 <div class="search-bar col-12 flex-order-3" v-if="searchable"

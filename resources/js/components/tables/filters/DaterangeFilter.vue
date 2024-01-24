@@ -16,7 +16,7 @@
                 :placeholder="field.placeholder"
                 :showIcon="showIcon"
                 :touchUI="isMobile || isTablet"
-                @update:modelValue="update" />
+                @update:modelValue="update"/>
             <primevue-button icon="pi pi-times" class="p-button-secondary"
                 :disabled="!model"
                 @click="clear()"/>

@@ -16,7 +16,7 @@
         </div>
         <footer class="footer">
             <div class="submit container flex-row-reverse">
-                <primevue-button label="Login" class="p-button-secondary" @click="submit" />
+                <primevue-button label="Login" class="p-button-secondary" @click="submit"/>
                 <div class="flex">
                     <span v-if="meta.allow_registration">
                         <Link href="/register">

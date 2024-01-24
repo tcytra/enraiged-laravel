@@ -2,7 +2,7 @@
     <div>
         <label v-if="label" class="form-label">{{ label }}:</label>
         <div class="form-input p-0" :class="{ error: errors.length }">
-            <input ref="file" type="file" :accept="accept" class="hidden" @change="change" />
+            <input ref="file" type="file" :accept="accept" class="hidden" @change="change"/>
             <div v-if="!modelValue" class="p-2">
                 <button type="button" class="px-4 py-1 text-white text-xs font-medium bg-gray-500 hover:bg-gray-700 rounded-sm" @click="browse">Browse</button>
             </div>

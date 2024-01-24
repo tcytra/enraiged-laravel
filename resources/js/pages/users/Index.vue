@@ -2,7 +2,7 @@
     <main class="content main">
         <page-header fixed title="Users"/>
         <section class="container table">
-            <user-index :template="template" />
+            <user-index :template="template"/>
         </section>
     </main>
 </template>
