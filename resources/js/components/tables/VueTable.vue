@@ -22,7 +22,7 @@
             :first="first"
             :lazy="true"
             :loading="loading"
-            :paginator="showPaginator && template.pagination"
+            :paginator="showPaginator && template.pagination !== null"
             :responsive-layout="responsiveLayout"
             :row-class="rowClass"
             :rows="pagination.rows"
