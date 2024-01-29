@@ -3,9 +3,11 @@
 
 .relative-overflow { overflow:hidden; position:relative; }
 
-.width-quarter { width: 25%; }
-.width-full { width: 100%; }
-.width-half { width: 50%; }
+.width-fifth, .w-fifth { width: 20%; }
+.width-full, .w-full { width: 100%; }
+.width-half, .w-half { width: 50%; }
+.width-quarter, .w-quarter { width: 25%; }
+.width-third, .w-third { width: 33.33%; }
 
 .max-height-16 { max-height:  1rem; }
 .max-height-24 { max-height:  1.5rem; }
