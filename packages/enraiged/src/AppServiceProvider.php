@@ -81,7 +81,7 @@ class AppServiceProvider extends ServiceProvider
                 : $column;
         });
 
-        Blueprint::macro('foreignTinyInteger', function ($local_column, $foreign_table, $foreign_id = 'id', $nullable = true) {
+        Blueprint::macro('foreignTinyInteger', function ($local_column, $foreign_table, $foreign_id = 'id', $nullable = false) {
             $column = $this->tinyInteger($local_column)->unsigned()->index();
             $this->foreign($local_column)->references($foreign_id)->on($foreign_table);
 
@@ -90,29 +90,67 @@ class AppServiceProvider extends ServiceProvider
                 : $column;
         });
 
-        Blueprint::macro('trackAll', function ($precision = 0) use ($auth_table) {
-            $this->timestamp('created_at', $precision)->nullable();
-            $this->timestamp('deleted_at', $precision)->nullable();
-            $this->timestamp('updated_at', $precision)->nullable();
+        Blueprint::macro('track', function ($name, $nullable = false, $precision = 0) use ($auth_table) {
+            if (gettype($name) === 'array') {
+                $columns = [];
 
-            $this->foreignBigInteger('created_by', $auth_table)->nullable();
-            $this->foreignBigInteger('deleted_by', $auth_table)->nullable();
-            $this->foreignBigInteger('updated_by', $auth_table)->nullable();
+                foreach ($name as $index => $value) {
+                    $has_arguments = preg_match('/^[a-z]/', $index);
+
+                    $column_name = $has_arguments
+                        ? $index
+                        : $value;
+
+                    $set_nullable = $has_arguments
+                        ? (gettype($value) === 'array' && key_exists('nullable', $value) ? $value['nullable'] : $value)
+                        : $nullable;
+
+                    $set_precision = $has_arguments && gettype($value) === 'array' && key_exists('precision', $value)
+                        ? $value['precision']
+                        : $precision;
+
+                    $timestamp = $this->timestamp("{$column_name}_at", $set_precision);
+
+                    if ($set_nullable) {
+                        $timestamp->nullable();
+                    }
+
+                    $columns[$column_name] = $set_nullable;
+                }
+
+                foreach ($columns as $column_name => $set_nullable) {
+                    $foreignid = $this->foreignBigInteger("{$column_name}_by", $auth_table);
+
+                    if ($set_nullable) {
+                        $foreignid->nullable();
+                    }
+                }
+
+            } else {
+                $timestamp = $this->timestamp("{$name}_at", $precision);
+                $foreignid = $this->foreignBigInteger("{$name}_by", $auth_table);
+
+                if ($nullable) {
+                    $timestamp->nullable();
+                    $foreignid->nullable();
+                }
+            }
         });
 
-        Blueprint::macro('trackCreated', function ($precision = 0) use ($auth_table) {
-            $this->timestamp('created_at', $precision)->nullable();
-            $this->foreignBigInteger('created_by', $auth_table)->nullable();
+        Blueprint::macro('trackAll', function ($nullable = true, $precision = 0) {
+            $this->track(['created', 'deleted', 'updated'], $nullable, $precision);
         });
 
-        Blueprint::macro('trackDeleted', function ($precision = 0) use ($auth_table) {
-            $this->timestamp('deleted_at', $precision)->nullable();
-            $this->foreignBigInteger('deleted_by', $auth_table)->nullable();
+        Blueprint::macro('trackCreated', function ($nullable = true, $precision = 0) {
+            $this->track('created', $nullable, $precision);
         });
 
-        Blueprint::macro('trackUpdated', function ($precision = 0) use ($auth_table) {
-            $this->timestamp('updated_at', $precision)->nullable();
-            $this->foreignBigInteger('updated_by', $auth_table)->nullable();
+        Blueprint::macro('trackDeleted', function ($nullable = true, $precision = 0) {
+            $this->track('deleted', $nullable, $precision);
+        });
+
+        Blueprint::macro('trackUpdated', function ($nullable = true, $precision = 0) {
+            $this->track('updated', $nullable, $precision);
         });
 
         return $this;
