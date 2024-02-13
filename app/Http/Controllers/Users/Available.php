@@ -19,10 +19,10 @@ class Available extends Controller
     {
         $this->authorize('available', User::class);
 
-        $columns = collect(['users.id', "concat(profiles.first_name, ' ', profiles.last_name) as name"])->join(',');
+        $columns = ['users.id', "concat(profiles.first_name, ' ', profiles.last_name) as name"];
         $validated = collect($request->validated());
 
-        $available = User::selectRaw($columns)
+        $available = User::selectRaw(collect($columns)->join(','))
             ->join('profiles', 'profiles.id', '=', 'users.profile_id')
             ->join('roles', 'roles.id', '=', 'users.role_id')
             ->where('users.is_active', true)
@@ -46,14 +46,12 @@ class Available extends Controller
                             ->orWhere('profiles.last_name', 'like', "%{$term}%"));
                 }
             }
-
-            $available->orderByRaw("concat(profiles.first_name, ' ', profiles.last_name) like '{$search}%' desc");
         }
 
         $limit = $validated->get('limit') ?? 100;
 
         $available
-            ->orderBy('name')
+            ->orderByRaw("concat(profiles.first_name, ' ', profiles.last_name)")
             ->limit($limit);
 
         return response()->json($available->get());
