@@ -77,12 +77,13 @@ export default {
         },
         determineUnless(argument, value) {
             if (typeof argument === 'object' && Array.isArray(argument)) {
+                let determined = 0;
                 for (let i = 0; i < argument.length; i++) {
                     if (!this.determineUnless(argument[i])) {
-                        return false;
+                        determined++;
                     }
                 }
-                return true;
+                return argument.length > determined;
             } else
             if (typeof argument === 'object') {
                 const field = Object.keys(argument).shift();
