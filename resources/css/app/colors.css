@@ -3,6 +3,7 @@ $black:                 var(--black);
 $white:                 var(--white);
 
 $background-danger:     var(--background-danger);
+$background-help:       var(--background-help);
 $background-info:       var(--background-info);
 $background-primary:    var(--background-primary);      // --bluegray-200
 $background-secondary:  var(--background-secondary);
@@ -10,6 +11,7 @@ $background-success:    var(--background-success);
 $background-warning:    var(--background-warning);
 
 $color-danger:          var(--color-danger);
+$color-help:            var(--color-help);
 $color-info:            var(--color-info);
 $color-primary:         var(--color-primary);           // --bluegray-600
 $color-secondary:       var(--color-secondary);         // --bluegray-500
@@ -48,6 +50,7 @@ $menu-hover:            var(--menu-hover);
 $table-header:          var(--table-header);
 $table-header-color:    var(--enraiged-color);
 $table-row-danger:      var(--table-row-danger);        // --background-danger lighten 5%
+$table-row-help:        var(--table-row-help);
 $table-row-info:        var(--table-row-info);          // --background-info lighten 5%
 $table-row-primary:     var(--table-row-primary);       // --background-primary lighten 5%
 $table-row-secondary:   var(--table-row-secondary);     // --background-secondary lighten 5%
@@ -63,6 +66,9 @@ $impersonation-hover:   #fbc02d;                        // darken color-warning 
 
 .background-danger {
   background-color: $background-danger !important;
+}
+.background-help {
+  background-color: $background-help !important;
 }
 .background-info {
   background-color: $background-info !important;
@@ -83,6 +89,9 @@ $impersonation-hover:   #fbc02d;                        // darken color-warning 
 .border-danger {
   border-color: $color-danger !important;
 }
+.border-help {
+  border-color: $color-help !important;
+}
 .border-info {
   border-color: $color-info !important;
 }
@@ -101,6 +110,9 @@ $impersonation-hover:   #fbc02d;                        // darken color-warning 
 
 .color-danger {
   color: $color-danger !important;
+}
+.color-help {
+  color: $color-help !important;
 }
 .color-info {
   color: $color-info !important;
