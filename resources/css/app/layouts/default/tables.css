@@ -85,7 +85,7 @@
 
                 > td {
                   border-bottom:    0;
-                  color:            $color-secondary;
+                  color:            var(--surface-600);
                   font-style:       italic;
                   padding:          1rem;
                   text-align:       center;
