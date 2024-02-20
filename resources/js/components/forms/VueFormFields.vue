@@ -68,6 +68,10 @@ export default {
             type: Object,
             required: true,
         },
+        invalid: {
+            type: Boolean,
+            default: false,
+        },
         updating: {
             type: Boolean,
             default: false,

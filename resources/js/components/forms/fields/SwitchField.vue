@@ -17,7 +17,7 @@
                 :class="{
                     'is-creating': isDirty && creating,
                     'is-updating': isDirty && updating,
-                    'p-invalid': error,
+                    'p-invalid': invalid || error,
                 }"
                 :disabled="isDisabled"
                 :id="id"
@@ -69,6 +69,10 @@ export default {
         id: {
             type: String,
             required: true,
+        },
+        invalid: {
+            type: Boolean,
+            default: false,
         },
         show: {
             type: Boolean,

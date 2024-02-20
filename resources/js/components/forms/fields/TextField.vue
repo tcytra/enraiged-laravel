@@ -15,7 +15,7 @@
                     'is-updating': isDirty && updating,
                     'p-inputtext-lg': isLarge,
                     'p-inputtext-sm': isSmall,
-                    'p-invalid': error,
+                    'p-invalid': invalid || error,
                 }"
                 :disabled="isDisabled"
                 :id="id"
@@ -71,6 +71,10 @@ export default {
         id: {
             type: String,
             required: true,
+        },
+        invalid: {
+            type: Boolean,
+            default: false,
         },
         isLarge: {
             type: Boolean,

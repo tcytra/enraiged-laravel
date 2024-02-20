@@ -15,7 +15,7 @@
                     'is-updating': isDirty && updating,
                     'p-inputtext-lg': isLarge,
                     'p-inputtext-sm': isSmall,
-                    'p-invalid': error,
+                    'p-invalid': invalid || error,
                 }"
                 :date-format="field.format || 'yy-mm-dd'"
                 :disabled="isDisabled"
@@ -93,6 +93,10 @@ export default {
             default: false,
         },
         isSmall: {
+            type: Boolean,
+            default: false,
+        },
+        invalid: {
             type: Boolean,
             default: false,
         },

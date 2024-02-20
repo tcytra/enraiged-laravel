@@ -12,7 +12,7 @@
                 :class="{
                     'p-inputtext-lg': isLarge,
                     'p-inputtext-sm': isSmall,
-                    'p-invalid': error,
+                    'p-invalid': invalid || error,
                 }"
                 :disabled="isDisabled"
                 :feedback="field.feedback || feedback"
@@ -59,13 +59,13 @@ export default {
             type: Boolean,
             default: false,
         },
-        focus: {
-            type: Boolean,
-            default: false,
-        },
         field: {
             type: Object,
             required: true,
+        },
+        focus: {
+            type: Boolean,
+            default: false,
         },
         form: {
             type: Object,
@@ -80,6 +80,10 @@ export default {
             default: false,
         },
         isSmall: {
+            type: Boolean,
+            default: false,
+        },
+        invalid: {
             type: Boolean,
             default: false,
         },

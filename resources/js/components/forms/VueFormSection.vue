@@ -17,6 +17,7 @@
                     :creating="creating"
                     :fields="section.fields"
                     :form="form"
+                    :invalid="error"
                     :updating="updating">
                     <template v-for="(_, slot) of $slots" v-slot:[slot]="scope">
                         <slot :name="slot" v-bind="scope"/>
@@ -25,6 +26,9 @@
                 <div class="postcontent" v-if="section.postcontent"
                     :class="[ section.postcontent.class ]">
                     {{ i18n(section.postcontent.body || section.postcontent) }}
+                </div>
+                <div class="error p-error section-error" v-if="error">
+                    <span class="message">{{ error }}</span>
                 </div>
             </template>
         </primevue-card>
@@ -63,6 +67,12 @@ export default {
         updating: {
             type: Boolean,
             default: false,
+        },
+    },
+
+    computed: {
+        error() {
+            return this.form && this.form.errors ? this.form.errors[this.id] : null;
         },
     },
 };    

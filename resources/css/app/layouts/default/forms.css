@@ -35,6 +35,10 @@
 
         .section {
           margin-bottom:    1rem;
+
+            .section-error {
+              margin-top:       -1.5rem;
+            }
         }
 
         &.horizontal .field.control, .horizontal .field.control, .field.control.horizontal, .vertical .horizontal.field.control {

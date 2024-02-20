@@ -15,7 +15,7 @@
                     'is-updating': isDirty && updating,
                     'p-inputtext-lg': isLarge,
                     'p-inputtext-sm': isSmall,
-                    'p-invalid': error,
+                    'p-invalid': invalid || error,
                 }"
                 :disabled="loading || isDisabled"
                 :filter="field.searchable || searchable"
@@ -96,6 +96,10 @@ export default {
             default: false,
         },
         isSmall: {
+            type: Boolean,
+            default: false,
+        },
+        invalid: {
             type: Boolean,
             default: false,
         },
