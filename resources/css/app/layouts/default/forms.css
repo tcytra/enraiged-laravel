@@ -192,7 +192,7 @@
       background-color: $background-info;
     }
 
-    .p-inputtext.p-invalid, .p-inputwrapper.p-invalid, .p-inputwrapper.p-invalid .p-password-input {
+    .p-inputtext.p-invalid, .p-inputwrapper.p-invalid, .p-inputwrapper.p-invalid .p-password-input, .p-invalid .p-inputtext {
       background-color: $form-invalid-ground;
       border-color:     $color-danger;
     }
