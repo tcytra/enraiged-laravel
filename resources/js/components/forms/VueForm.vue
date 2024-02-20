@@ -150,6 +150,7 @@ export default {
         }
 
         function submit() {
+            form.clearErrors();
             const { method, uri } = props.template.resource;
             if (props.template.resource.api === true) {
                 axios[method](uri, form.data())
@@ -157,6 +158,7 @@ export default {
                         const { status, data } = response;
                         if (isSuccess(status) && data.success) {
                             flashSuccess(data.success);
+                            this.$emit('form:success');
                         }
                         if (data.redirect) {
                             if (data.redirect === 'back') {
