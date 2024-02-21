@@ -3,6 +3,7 @@
 namespace Enraiged\Tables\Builders\Traits;
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 
 trait TableActions
 {
@@ -63,6 +64,10 @@ trait TableActions
             }
         }
 
+        if (key_exists('disabled', $parameters) && gettype($parameters['disabled']) === 'array') {
+            $parameters['disabled'] = $this->assertDisabledAction($parameters['disabled'], $model);
+        }
+
         return $parameters;
     }
 
@@ -89,6 +94,28 @@ trait TableActions
         }
 
         return $actions;
+    }
+
+    /**
+     *  Determine whether or not an action should be disabled.
+     *
+     *  @param  array|object  $assertion
+     *  @param  object|string  $model
+     *  @return bool
+     */
+    protected function assertDisabledAction($assertion, $model)
+    {
+        $assertion = (object) $assertion;
+
+        if (property_exists($assertion, 'method')) {
+            $method = preg_match('/^assert/', $assertion->method)
+                ? $assertion->method
+                : Str::camel("assert_{$assertion->method}");
+
+            return method_exists($this, $method)
+                ? $this->{$method}($assertion, $model)
+                : false;
+        }
     }
 
     /**
@@ -138,6 +165,10 @@ trait TableActions
                     if ($this->assertSecure($parameters, $model)) {
                         $actions[$index] = $parameters;
                     }
+                }
+
+                if (key_exists('disabled', $parameters) && gettype($parameters['disabled']) === 'array') {
+                    $parameters['disabled'] = $this->assertDisabledAction($parameters['disabled'], $model);
                 }
             }
         }
