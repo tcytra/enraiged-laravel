@@ -1,6 +1,8 @@
 <template>
     <headless-form-field v-slot:default="props" v-bind="$props">
-        <div class="col-12 line-break" v-if="field.break"><hr class=""></div>
+        <div class="col-12 line-break" v-if="field.break">
+            <hr :class="field.break">
+        </div>
         <div :class="field.before" v-if="field.before"/>
         <div class="control field checkbox align-items-center" v-show="!props.isHidden"
             :class="[$attrs.class, field.class]">

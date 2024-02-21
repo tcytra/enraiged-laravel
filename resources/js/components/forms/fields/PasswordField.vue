@@ -1,7 +1,9 @@
 <template>
     <headless-form-field v-slot:default="{ error, isDisabled, isHidden, label, placeholder, update }"
         v-bind="$props">
-        <div class="col-12 line-break" v-if="field.break"><hr class=""></div>
+        <div class="col-12 line-break" v-if="field.break">
+            <hr :class="field.break">
+        </div>
         <div :class="field.before" v-if="field.before"/>
         <div class="control field text" :class="[$attrs.class, field.class, { confirm }]">
             <label v-if="label" class="label" :for="id">
