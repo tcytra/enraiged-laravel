@@ -71,12 +71,18 @@ trait EloquentBuilder
                             : "{$this->table}.{$index}";
                         $type = $this->filters[$index]['type'];
 
+                        $column_type = key_exists('schema', $this->filters[$index])
+                            ? $this->filters[$index]['schema']
+                            : (preg_match('/_at$/', $index) ? 'datetime' : 'date');
+
                         if ($type === 'daterange') {
                             [$first, $final] = $filters[$index];
 
                             if (preg_match('/^\d{4}-\d{2}-\d{2}$/', $first) && preg_match('/^\d{4}-\d{2}-\d{2}$/', $final)) {
-                                $first = datetimezone_at($first);
-                                $final = datetimezone_at($final);
+                                if ($column_type === 'datetime') {
+                                    $first = datetimezone_at($first);
+                                    $final = datetimezone_at($final);
+                                }
 
                                 $this->builder->whereBetween($source, [$first, $final]);
                             }
