@@ -1,20 +1,9 @@
 <template>
     <div :class="template.class">
-        <div class="filter-controls grid m-0" v-if="template.filters">
-            <div class="filter col-12" v-for="(field, name) in template.filters" :key="name"
-                :class="['md:col-4', 'lg:col-3', 'xl:col-2', field.class]">
-                <daterange-filter v-if="field.type === 'daterange'" :ref="name"
-                    :field="field"
-                    :form="filters"
-                    :id="name"
-                    @update:filterValue="filter(name)"/>
-                <dropdown-filter v-if="field.type === 'select'" :ref="name"
-                    :field="field"
-                    :form="filters"
-                    :id="name"
-                    @update:filterValue="filter(name)"/>
-            </div>
-        </div>
+        <vue-table-filters class="filter-controls" v-if="template.filters"
+            :filter="filter"
+            :filters="template.filters"
+            :form="filters"/>
         <primevue-datatable class="p-datatable-sm" ref="datatable"
             filter-display="menu"
             paginator-template="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink"
@@ -117,24 +106,22 @@
 </template>
 
 <script>
-import DaterangeFilter from './filters/DaterangeFilter.vue';
-import DropdownFilter from './filters/DropdownFilter.vue';
 import PrimevueButton from 'primevue/button/Button.vue';
 import PrimevueColumn from 'primevue/column/Column.vue';
 import PrimevueDatatable from 'primevue/datatable/DataTable.vue';
 import PrimevueDropdown from 'primevue/dropdown/Dropdown.vue';
 import PrimevueInputtext from 'primevue/inputtext/InputText.vue';
 import PrimevueTooltip from 'primevue/tooltip/tooltip.esm.js';
+import VueTableFilters from './VueTableFilters.vue';
 
 export default {
     components: {
-        DaterangeFilter,
-        DropdownFilter,
         PrimevueButton,
         PrimevueColumn,
         PrimevueDatatable,
         PrimevueDropdown,
         PrimevueInputtext,
+        VueTableFilters,
     },
 
     directives: {
