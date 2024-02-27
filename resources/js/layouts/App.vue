@@ -48,6 +48,9 @@ export default {
         isAuthenticated(){
             return this.$page.props.auth;
         },
+        isDesktop() {
+            return !['md', 'sm', 'xs'].includes(this.clientSize);
+        },
         isMobile() {
             return ['sm', 'xs'].includes(this.clientSize);
         },
@@ -170,6 +173,7 @@ export default {
             flashSuccess: this.flashSuccess,
             flashWarning: this.flashWarning,
             i18n: this.$t,
+            isDesktop: computed(() => this.isDesktop),
             isMobile: computed(() => this.isMobile),
             isSuccess: this.isSuccess,
             isTablet: computed(() => this.isTablet),
