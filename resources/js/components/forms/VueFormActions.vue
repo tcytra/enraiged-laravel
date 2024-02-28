@@ -44,6 +44,10 @@ export default {
             type: Object,
             required: true,
         },
+        template: {
+            type: Object,
+            required: true,
+        },
     },
 };
 </script>

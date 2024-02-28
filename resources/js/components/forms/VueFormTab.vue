@@ -72,6 +72,10 @@ export default {
             type: Object,
             required: true,
         },
+        template: {
+            type: Object,
+            required: true,
+        },
         updating: {
             type: Boolean,
             default: false,

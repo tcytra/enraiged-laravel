@@ -15,6 +15,7 @@
                         :form="form"
                         :id="key"
                         :tab="tab"
+                        :template="template"
                         :updating="updating">
                         <template v-for="(_, slot) of $slots" v-slot:[slot]="scope">
                             <slot :name="slot" v-bind="scope"/>
@@ -28,6 +29,7 @@
                 :id="key"
                 :key="key"
                 :section="section"
+                :template="template"
                 :updating="updating">
                 <template v-for="(_, slot) of $slots" v-slot:[slot]="scope">
                     <slot :name="slot" v-bind="scope"/>
@@ -40,6 +42,7 @@
                 :creating="creating"
                 :fields="fields"
                 :form="form"
+                :template="template"
                 :updating="updating">
                 <template v-for="(field, key) in custom.fields" v-slot:[key]="props">
                     <slot :name="key" v-bind="{ creating, field, form, key, updating }"/>
@@ -48,6 +51,7 @@
             <vue-form-actions v-if="!customActions"
                 :actions="template.actions"
                 :form="form"
+                :template="template"
                 @clear="clear"
                 @reset="reset"
                 @submit="submit"/>
