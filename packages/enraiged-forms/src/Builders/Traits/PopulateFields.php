@@ -150,6 +150,7 @@ trait PopulateFields
 
                 while (count($chain)) {
                     $relative = array_shift($chain);
+                    $model->load($relative);
                     $model = $model->{$relative};
                 }
 
@@ -192,11 +193,12 @@ trait PopulateFields
             if ($this->hasSectionFields($object) || $this->hasTabbedFields($object)) {
                 $this->populateFieldGroup($object->fields);
 
-            } else if ($this->canPopulateValues($object)) {
-                $this->populateField($name, $object);
+            //} else if ($this->canPopulateValues($object)) {
+            //    $this->populateField($name, $object);
 
             } else {
-                $this->field($name, ['value' => null]);
+                //$this->field($name, ['value' => null]);
+                $this->populateField($name, $object);
             }
         }
     }

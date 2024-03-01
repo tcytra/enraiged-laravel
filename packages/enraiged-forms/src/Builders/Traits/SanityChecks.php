@@ -9,14 +9,14 @@ trait SanityChecks
      *
      *  @param  array|object  $field
      *  @return bool
-     */
+     *
     protected function canPopulateValues($field): bool
     {
         $object = (object) $field;
 
         return !property_exists($object, 'value')
             || $object->value !== false;
-    }
+    }*/
 
     /**
      *  Determine if a provided field requires model relationship data.
