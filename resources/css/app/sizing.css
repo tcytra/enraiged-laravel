@@ -32,6 +32,7 @@
 .max-width-md { max-width:  $break-medium; }
 .max-width-lg { max-width:  $break-large; }
 .max-width-xl { max-width:  $break-x-large; }
+.max-width-xx { max-width:  $break-xxlarge; }
 .max-width-screen { max-width: 100vw; }
 
 .min-width-xs { min-width:  $break-x-small; }
@@ -46,6 +47,7 @@
 .width-md { width:  $break-medium; }
 .width-lg { width:  $break-large; }
 .width-xl { width:  $break-x-large; }
+.width-xx { width:  $break-xxlarge; }
 
 .max-width-16 { max-width:  1rem; }
 .max-width-24 { max-width:  1.5rem; }
