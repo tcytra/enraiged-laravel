@@ -42,9 +42,12 @@
             }
 
             td.actions {
-              white-space:          nowrap;
+              white-space:      nowrap;
 
                 .p-button {
+                  background-color: $white;
+                  margin-left:      2px;
+
                     &.p-button-sm,
                     &.p-button-sm .pi.p-button-icon {
                       font-size:        .825rem;
