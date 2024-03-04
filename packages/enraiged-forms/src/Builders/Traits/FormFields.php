@@ -254,6 +254,64 @@ trait FormFields
     }
 
     /**
+     *  Lock a dropdown field to a single option.
+     *
+     *  @param  string  $name
+     *  @param  array   $option
+     *  @return self
+     */
+    public function lockDropdown($name, array $option): self
+    {
+        $select = ['clearable' => false, 'disabled' => true, 'options' => ['values' => $option]];
+
+        $this->field($name, $select);
+
+        return $this;
+    }
+
+    /**
+     *  Lock a dropdown field to a single option.
+     *
+     *  @param  string  $name
+     *  @param  array   $option
+     *  @param  bool|\Closure $condition
+     *  @return self
+     */
+    public function lockDropdownIf($name, array $option, $condition): self
+    {
+        if ($condition instanceof \Closure) {
+            $condition = $condition();
+        }
+
+        if ($condition) {
+            $this->lockDropdown($name, $option);
+        }
+
+        return $this;
+    }
+
+    /**
+     *  Explicity lock a dropdown to a single option if the provided condition is not true.
+     *
+     *  @param  string  $name
+     *  @param  array   $option
+     *  @param  bool|\Closure $condition
+     *  @return self
+     */
+    public function lockDropdownUnless($name, array $option, $condition): self
+    {
+        if ($condition instanceof \Closure) {
+            $condition = $condition();
+        }
+
+        if (!$condition) {
+            $this->lockDropdown($name, $option);
+        }
+
+        return $this;
+    }
+
+    /**
      *  Remove a field from the builder.
      *
      *  @return self
