@@ -92,6 +92,44 @@ class CoreBuilder
      *  Create and return a builder from the request and optional parameters.
      *
      *  @param  \Illuminate\Http\Request  $request
+     *  @param  \Illuminate\Database\Eloquent\Model  $model
+     *  @param  string  $route
+     *  @param  array   $parameters = []
+     *  @param  array   $route_params = []
+     *  @return \Enraiged\Forms\Builders\FormBuilder
+     *  @static
+     */
+    public static function CreateFrom($request, $model, $route, $parameters = [], $route_params = [])
+    {
+        $called = get_called_class();
+
+        return (new $called($request, $parameters))
+            ->create($model, $route, 'post', $route_params);
+    }
+
+    /**
+     *  Create and return a builder from the request and optional parameters.
+     *
+     *  @param  \Illuminate\Http\Request  $request
+     *  @param  \Illuminate\Database\Eloquent\Model  $model
+     *  @param  string  $route
+     *  @param  array   $parameters = []
+     *  @param  array   $route_params = []
+     *  @return \Enraiged\Forms\Builders\FormBuilder
+     *  @static
+     */
+    public static function UpdateFrom($request, $model, $route, $parameters = [], $route_params = [])
+    {
+        $called = get_called_class();
+
+        return (new $called($request, $parameters))
+            ->edit($model, $route, 'patch', $route_params);
+    }
+
+    /**
+     *  Create and return a builder from the request and optional parameters.
+     *
+     *  @param  \Illuminate\Http\Request  $request
      *  @param  array  $parameters = []
      *  @return \Enraiged\Forms\Builders\FormBuilder
      *  @static
