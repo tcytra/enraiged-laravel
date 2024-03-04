@@ -162,7 +162,7 @@ export default {
                         const { status, data } = response;
                         if (isSuccess(status) && data.success) {
                             flashSuccess(data.success);
-                            this.$emit('form:success');
+                            emit('form:success');
                         }
                         if (data.redirect) {
                             if (data.redirect === 'back') {
