@@ -53,6 +53,16 @@ trait TableFilters
     }
 
     /**
+     *  Return a collection of the table columns.
+     *
+     *  @return \Illuminate\Support\Collection
+     */
+    public function filters(): Collection
+    {
+        return collect($this->filters);
+    }
+
+    /**
      *  Remove a filter from the table structure.
      *
      *  @param  string  $index

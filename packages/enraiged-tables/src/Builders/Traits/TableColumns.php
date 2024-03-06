@@ -47,6 +47,16 @@ trait TableColumns
     }
 
     /**
+     *  Return a collection of the table columns.
+     *
+     *  @return \Illuminate\Support\Collection
+     */
+    public function columns(): Collection
+    {
+        return collect($this->columns);
+    }
+
+    /**
      *  Determine if a specified column key exists.
      *
      *  @param  string  $index
