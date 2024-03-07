@@ -6,6 +6,7 @@
                 :disabled="action.disabled || disabled"
                 :icon="action.icon"
                 :key="index"
+                v-if="action.type && action.type === 'row'"
                 v-tooltip.top="i18n(action.tooltip || index)"
                 @click="actionHandler(action, index)"/>
         </span>
