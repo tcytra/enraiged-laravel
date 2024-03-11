@@ -264,7 +264,7 @@ trait FormFields
     {
         $select = ['clearable' => false, 'disabled' => true, 'options' => ['values' => $option]];
 
-        $this->field($name, $select);
+        $this->field($name, $select)->value($name, $option[0]['id']);
 
         return $this;
     }
