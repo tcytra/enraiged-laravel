@@ -211,5 +211,9 @@ export default {
             tabs: filter(props.template.fields, 'tab'),
         };
     },
+
+    mounted() {
+        this.$emit('mounted');
+    },
 };
 </script>
