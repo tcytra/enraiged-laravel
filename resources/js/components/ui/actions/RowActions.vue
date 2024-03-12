@@ -6,7 +6,7 @@
                 :disabled="action.disabled || disabled"
                 :icon="action.icon"
                 :key="index"
-                v-if="action.type && action.type === 'row'"
+                v-if="!action.type || action.type === 'row'"
                 v-tooltip.top="i18n(action.tooltip || index)"
                 @click="actionHandler(action, index)"/>
         </span>
@@ -80,6 +80,7 @@ export default {
                                     this.$emit('action', action);
                                 }
                                 if (data.success) {
+                                    this.$emit('success', action);
                                     this.flashSuccess(data.success);
                                 } else
                                 if (data.message) {
