@@ -27,8 +27,10 @@
                     :class="[ section.postcontent.class ]">
                     {{ i18n(section.postcontent.body || section.postcontent) }}
                 </div>
-                <div class="error p-error section-error" v-if="error">
-                    <span class="message">{{ error }}</span>
+                <div class="p-message p-message-error error section-error" v-if="error">
+                    <div class="p-message-wrapper py-1 px-3">
+                        <div class="p-message-text p-message-text">{{ error }}</div>
+                    </div>
                 </div>
             </template>
         </primevue-card>
