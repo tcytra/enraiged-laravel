@@ -77,7 +77,7 @@ export default {
                         .then(({ data, status }) => {
                             if (this.isSuccess(status)) {
                                 if (action.emit) {
-                                    this.$emit('action', action);
+                                    this.$emit(index, action);
                                 }
                                 if (data.success) {
                                     this.$emit('success', action);
