@@ -41,6 +41,11 @@
   padding:          0.425rem;
 }
 
+.p-input-filled .p-inputtext,
+.p-input-filled .p-inputtext:enabled:hover {
+  background:       transparent;
+}
+
 /*.p-inputtextarea,
 .p-inputtext {
     &::placeholder {
