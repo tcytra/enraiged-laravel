@@ -127,6 +127,20 @@ export default {
         timer: null,
     }),
 
+    computed: {
+        selectedOption() {
+            if (Object.keys(this.form.data()).includes(this.id)) {
+                const option = this.options
+                    .filter((each) => each.id === this.form[this.id]);
+                if (option.length) {
+                    return option[0];
+                }
+            }
+
+            return null;
+        },
+    },
+
     mounted() {
         if (this.field.options.source === 'api') {
             if (this.field.options.limit) {
