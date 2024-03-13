@@ -134,6 +134,10 @@ trait PopulateFields
 
         //  populate the model data
         if ($this->fieldType($name) !== 'password') {
+            if (property_exists($field, 'value')) {
+                $value = $field->value;
+            }
+
             if ($this->hasRelativeData($field)) {
                 $attribute = substr($field->data, strrpos($field->data, '.') +1);
                 $relationship = substr($field->data, 0, strrpos($field->data, '.'));
@@ -159,7 +163,7 @@ trait PopulateFields
                     : null;
 
             } else
-            if ($this->model) {
+            if ($this->model && !is_null($this->model->getAttribute($name))) {
                 $value = $this->model->getAttribute($name);
             }
         }
