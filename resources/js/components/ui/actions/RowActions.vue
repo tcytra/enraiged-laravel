@@ -50,25 +50,26 @@ export default {
 
     methods: {
         actionHandler(action, index, confirmed) {
-            if (typeof action.uri === 'object') {
+            if (action.confirm && confirmed !== true) {
+                this.$confirm.require({
+                    message: typeof action.confirm === 'string'
+                        ? this.i18n(action.confirm)
+                        : this.i18n('Are you sure you want to proceed?'),
+                    header: this.i18n('Please confirm'),
+                    icon: 'pi pi-exclamation-triangle',
+                    acceptClass: 'p-button-danger',
+                    acceptLabel: this.i18n('Yes'),
+                    rejectLabel: this.i18n('No'),
+                    accept: () => this.actionHandler(action, index, true),
+                });
+            } else if (action.emit || action.method === 'emit') {
+                this.$emit(index, action);
+            } else if (typeof action.uri === 'object') {
                 const method = typeof action.uri.method !== 'undefined'
                     ? action.uri.method
                     : 'get';
 
-                if (action.confirm && confirmed !== true) {
-                    this.$confirm.require({
-                        message: typeof action.confirm === 'string'
-                            ? this.i18n(action.confirm)
-                            : this.i18n('Are you sure you want to proceed?'),
-                        header: this.i18n('Please confirm'),
-                        icon: 'pi pi-exclamation-triangle',
-                        acceptClass: 'p-button-danger',
-                        acceptLabel: this.i18n('Yes'),
-                        rejectLabel: this.i18n('No'),
-                        accept: () => this.actionHandler(action, index, true),
-                    });
-
-                } else if (typeof action.method !== 'undefined' && action.method === 'emit') {
+                if (typeof action.method !== 'undefined' && action.method === 'emit') {
                     const emit = action.emit || `action:${index}`;
                     this.$emit(emit, action);
 
@@ -108,13 +109,8 @@ export default {
                         .catch((error) => this.errorHandler(error));
                 }
 
-            } else {
-                if (action.emit) {
-                    this.$emit('action', action);
-                }
-                if (typeof action.uri === 'string') {
-                    this.$inertia.get(action.uri);
-                }
+            } else if (typeof action.uri === 'string') {
+                this.$inertia.get(action.uri);
             }
         },
     },
