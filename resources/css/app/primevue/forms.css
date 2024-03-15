@@ -41,8 +41,8 @@
   padding:          0.425rem;
 }
 
-.p-input-filled .p-inputtext,
-.p-input-filled .p-inputtext:enabled:hover {
+.p-input-filled .p-inputtext:not(.is-creating):not(.is-updating),
+.p-input-filled .p-inputtext:enabled:hover:not(.is-creating):not(.is-updating), {
   background:       transparent;
 }
 
