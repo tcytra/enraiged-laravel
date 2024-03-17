@@ -7,7 +7,7 @@
                     <primevue-dataview-layout-options class="mb-3" v-model="layout"/>
                 </template>
                 <template #list="{ items }">
-                    <div class="bg-white flex p-2 w-full" v-for="item in items" :key="item.id">
+                    <div class="bg-white flex mb-1 p-2 w-full" v-for="item in items" :key="item.id">
                         <div class="file-name mb-2">
                             <i :class="item.icon" style="font-size:2.5rem"></i>
                         </div>
@@ -38,40 +38,42 @@
                     </div>
                 </template>
                 <template #grid="{ items }">
-                    <div class="col-4 md:col-3 lg:col-2 mx-1" v-for="item in items" :key="item.id">
-                        <primevue-card class="text-center">
-                            <template #title>
-                                <div class="file-type mb-2">
-                                    <strong>{{item.type}}</strong>
-                                </div>
-                            </template>
-                            <template #content>
-                                <div class="file-name mb-2">
-                                    <i :class="item.icon" style="font-size:2.5rem"></i>
-                                </div>
-                                <div class="file-name mb-2">
-                                    <span>{{ item.name }}</span>
-                                </div>
-                                <div class="file-date mb-2">
-                                    <span>{{ item.created.at.short }}</span>
-                                </div>
-                                <div class="file-time mb-2">
-                                    <span>{{ item.created.at.time }}</span>
-                                </div>
-                            </template>
-                            <template #footer>
-                                <div class="flex justify-content-between">
-                                    <primevue-button class="p-button-rounded p-button-text p-button-success"
-                                        icon="pi pi-download"
-                                        v-tooltip.top="i18n('Download')"
-                                        @click="download(item)"/>
-                                    <primevue-button class="p-button-rounded p-button-text p-button-danger"
-                                        icon="pi pi-times"
-                                        v-tooltip.top="i18n('Delete')"
-                                        @click="destroy(item)"/>
-                                </div>
-                            </template>
-                        </primevue-card>
+                    <div class="grid">
+                        <div class="col-4 md:col-3 lg:col-2 mx-1" v-for="item in items" :key="item.id">
+                            <primevue-card class="text-center">
+                                <template #title>
+                                    <div class="file-type mb-2">
+                                        <strong>{{item.type}}</strong>
+                                    </div>
+                                </template>
+                                <template #content>
+                                    <div class="file-name mb-2">
+                                        <i :class="item.icon" style="font-size:2.5rem"></i>
+                                    </div>
+                                    <div class="file-name mb-2">
+                                        <span>{{ item.name }}</span>
+                                    </div>
+                                    <div class="file-date mb-2">
+                                        <span>{{ item.created.at.short }}</span>
+                                    </div>
+                                    <div class="file-time mb-2">
+                                        <span>{{ item.created.at.time }}</span>
+                                    </div>
+                                </template>
+                                <template #footer>
+                                    <div class="flex justify-content-between">
+                                        <primevue-button class="p-button-rounded p-button-text p-button-success"
+                                            icon="pi pi-download"
+                                            v-tooltip.top="i18n('Download')"
+                                            @click="download(item)"/>
+                                        <primevue-button class="p-button-rounded p-button-text p-button-danger"
+                                            icon="pi pi-times"
+                                            v-tooltip.top="i18n('Delete')"
+                                            @click="destroy(item)"/>
+                                    </div>
+                                </template>
+                            </primevue-card>
+                        </div>
                     </div>
                 </template>
             </primevue-dataview>
