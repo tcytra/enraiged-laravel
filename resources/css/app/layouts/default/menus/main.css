@@ -15,7 +15,7 @@
                   padding-right:    1rem;
 
                     &.is-active {
-                      background-color: $menu-active;
+                      background-color: rgba(0, 0, 0, 0.15);
                     }
 
                     &:hover:not(.is-active):not(.has-children) {
@@ -37,6 +37,12 @@
                       text-indent:      .5rem;
                       white-space:      nowrap;
                       width:            0;
+                    }
+
+                    &.submenu-heading {
+                        .text {
+                          text-indent:      0;
+                        }
                     }
                 }
 
@@ -75,8 +81,14 @@
                 }
 
                 >.sub-menu {
-                  background-color: rgba(0, 0, 0, 0.15);
+                  background-color: rgba(0, 0, 0, 0.10);
                 }
+
+                .submenu-heading {
+                  background-color: rgba(0, 0, 0, 0.25);
+                  border-bottom:    1px solid rgba(0, 0, 0, 0.30);
+                }
+
             }
         }
     }
