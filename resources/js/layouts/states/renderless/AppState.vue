@@ -172,10 +172,10 @@ export default {
 
     render() {
         return this.$slots.default({
-            classes: this.menuClass,
             closeAuth: this.closeAuth,
             closeMenu: this.closeMenu,
             menu: this.menu,
+            menuClasses: this.menuClass,
             ready: this.ready,
             toggleAuth: this.toggleAuth,
             toggleMenu: this.toggleMenu,

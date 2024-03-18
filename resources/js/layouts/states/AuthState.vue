@@ -1,11 +1,11 @@
 <template>
     <app-state :api="uri">
         <template v-slot:default="{
-                classes, menu, ready, closeAuth, closeMenu, toggleAuth, toggleMenu, user,
+                menuClasses, menu, ready, closeAuth, closeMenu, toggleAuth, toggleMenu, user,
             }">
             <transition enter-active-class="fadein" leave-active-class="fadeout">
                 <div id="layout" class="default layout" key="layout" v-if="ready"
-                    :class="[classes, clientSize]">
+                    :class="[menuClasses, clientSize]">
                     <main-panel class="main panel" ref="mainPanel"
                         @menu:toggle="toggleMenu"/>
                     <div id="page" class="main page" ref="mainPage">
