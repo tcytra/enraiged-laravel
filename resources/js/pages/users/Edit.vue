@@ -16,10 +16,8 @@
         <footer class="footer">
             <form-actions v-if="ready"
                 :actions="template.actions"
-                :form="form.form"
-                @clear="form.clear"
-                @reset="form.reset"
-                @submit="form.submit"/>
+                :form="userForm.form"
+                :template="template"/>
         </footer>
     </main>
 </template>
@@ -75,7 +73,7 @@ export default {
     }),
 
     computed: {
-        form() {
+        userForm() {
             return this.ready
                 ? this.$refs.updateUser.$refs.updateForm
                 : null;
