@@ -25,6 +25,7 @@
 @import 'app/layouts/default/menus.css';
 @import 'app/layouts/default/menus/auth.css';
 @import 'app/layouts/default/menus/main.css';
+@import 'app/layouts/default/messages.css';
 @import 'app/layouts/default/page.css';
 @import 'app/layouts/default/panels.css';
 @import 'app/layouts/default/tables.css';
