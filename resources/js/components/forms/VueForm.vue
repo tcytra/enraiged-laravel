@@ -103,6 +103,15 @@ export default {
         },
     },
 
+    computed: {
+        hasErrors() {
+            return this.form.hasErrors;
+        },
+        isDirty() {
+            return this.form.isDirty;
+        },
+    },
+
     setup (props, { emit }) {
         const errorHandler = inject('errorHandler');
         const isSuccess = inject('isSuccess');

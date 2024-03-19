@@ -16,7 +16,7 @@
         <footer class="footer">
             <form-actions v-if="ready"
                 :actions="template.actions"
-                :form="userForm.form"
+                :form="userForm"
                 :template="template"/>
         </footer>
     </main>
