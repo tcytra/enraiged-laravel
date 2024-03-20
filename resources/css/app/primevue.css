@@ -70,4 +70,8 @@
           justify-content:  flex-start;
         }
     }
+    .p-datepicker-multiple-month.p-datepicker-touch-ui {
+      max-width:        $break-x-large;
+      min-width:        unset;
+    }
 }
