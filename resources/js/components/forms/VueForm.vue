@@ -212,7 +212,7 @@ export default {
                 sections: filter(props.template.fields, 'section', true),
                 tabs: filter(props.template.fields, 'tab', true),
             },
-            fields: filter(props.template.fields, 'not:section,tab'),
+            fields: Object.keys(fields),
             form,
             reset,
             sections: filter(props.template.fields, 'section'),
