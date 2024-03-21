@@ -6,8 +6,18 @@
 .width-fifth, .w-fifth { width: 20%; }
 .width-full, .w-full { width: 100%; }
 .width-half, .w-half { width: 50%; }
+.width-three-quarter, .w-three-quarter { width: 75%; }
 .width-quarter, .w-quarter { width: 25%; }
 .width-third, .w-third { width: 33.33%; }
+.width-two-third, .w-two-third { width: 66.66%; }
+
+.vertical-width-fifth, .vw-fifth { width: 20vw; }
+.vertical-width-full, .vw-full { width: 100vw; }
+.vertical-width-half, .vw-half { width: 50vw; }
+.vertical-width-three-quarter, .vw-three-quarter { width: 75vw; }
+.vertical-width-quarter, .vw-quarter { width: 25vw; }
+.vertical-width-third, .vw-third { width: 33vw; }
+.vertical-width-two-third, .vw-two-third { width: 66vw; }
 
 .max-height-16 { max-height:  1rem; }
 .max-height-24 { max-height:  1.5rem; }
@@ -47,7 +57,6 @@
 .width-md { width:  $break-medium; }
 .width-lg { width:  $break-large; }
 .width-xl { width:  $break-x-large; }
-.width-xx { width:  $break-xxlarge; }
 
 .max-width-16 { max-width:  1rem; }
 .max-width-24 { max-width:  1.5rem; }
