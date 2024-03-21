@@ -19,7 +19,7 @@
                     'p-inputtext-sm': isSmall,
                     'p-invalid': invalid || error,
                 }"
-                :disabled="loading || isDisabled"
+                :disabled="loading || isDisabled || (disableIfNoOptions && !options.length)"
                 :filter="field.searchable || searchable"
                 :id="id"
                 :loading=loading
@@ -70,6 +70,10 @@ export default {
             default: false,
         },
         disabled: {
+            type: Boolean,
+            default: false,
+        },
+        disableIfNoOptions: {
             type: Boolean,
             default: false,
         },
