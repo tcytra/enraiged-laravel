@@ -1,5 +1,5 @@
 
-.default.layout {
+.default.layout, .p-dialog {
 
     .data .actions,
     .form .actions {
