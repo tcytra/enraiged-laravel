@@ -9,15 +9,15 @@
             <primevue-button class="p-button-success submit-button" v-if="actions.submit"
                 :disabled="!form.isDirty"
                 :label="i18n(actions.submit.label)"
-                @click="form.submit"/>
+                @click="$emit('submit')"/>
             <primevue-button class="p-button-warning reset-button" v-if="actions.reset && form.isDirty"
                 :class="{'fadein': form.isDirty}"
                 :label="i18n(actions.reset.label)"
-                @click="form.reset"/>
+                @click="$emit('reset')"/>
             <primevue-button class="p-button-danger error-button" v-if="actions.clear && form.hasErrors"
                 :class="{'fadein': form.hasErrors}"
                 :label="i18n(actions.clear.label)"
-                @click="form.clear"/>
+                @click="$emit('clear')"/>
         </div>
     </div>
 </template>
