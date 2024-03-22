@@ -40,7 +40,7 @@
             </vue-form-section>
             <vue-form-fields v-else-if="Object.keys(fields).length"
                 :creating="creating"
-                :fields="fields"
+                :fields="template.fields"
                 :form="form"
                 :template="template"
                 :updating="updating">
