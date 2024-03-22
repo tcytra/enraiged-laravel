@@ -21,13 +21,16 @@
                 }"
                 :date-format="field.format || 'yy-mm-dd'"
                 :disabled="isDisabled"
-                :disabled-dates="field.disabled_dates || disabledDates"
-                :disabled-days="field.disabled_days || disabledDays"
+                :disabled-dates="disabledDates || field.disabledDates"
+                :disabled-days="disabledDays || field.disabledDays"
+                :hideOnRangeSelection="hideOnRangeSelection || field.hideOnRangeSelection"
                 :id="id"
                 :placeholder="placeholder"
-                :maxDate="maxDate"
-                :minDate="minDate"
-                :touchUI="isMobile || isTablet"
+                :max-date="maxDate"
+                :min-date="minDate"
+                :number-of-months="numberOfMonths || field.numberOfMonths"
+                :selection-mode="selectionMode || field.selectionMode"
+                :touchUI="touchUI || field.touchUI || (isMobile || isTablet)"
                 @update:modelValue="update(); $emit('update:modelValue', $event)"/>
             <div class="error p-error" v-if="error">
                 <i class="pi pi-exclamation-circle" v-tooltip.top="error"></i>
@@ -86,6 +89,10 @@ export default {
             type: Object,
             required: true,
         },
+        hideOnRangeSelection: {
+            type: Boolean,
+            required: false,
+        },
         id: {
             type: String,
             required: true,
@@ -102,9 +109,21 @@ export default {
             type: Boolean,
             default: false,
         },
+        numberOfMonths: {
+            type: Number,
+            required: false,
+        },
+        selectionMode: {
+            type: String,
+            required: false,
+        },
         show: {
             type: Boolean,
             default: true,
+        },
+        touchUI: {
+            type: Boolean,
+            required: false,
         },
         updating: {
             type: Boolean,
