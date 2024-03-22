@@ -274,7 +274,9 @@ export default {
             } else {
                 const method = button.method || 'get';
                 if (method === 'emit') {
-                    this.$emit(name, props.data);
+                    props
+                        ? this.$emit(name, props.data)
+                        : this.$emit(name);
                 } else
                 if (button.uri && button.uri.match(/\/api/)) {
                     this.api(button.uri, method.toLowerCase());
