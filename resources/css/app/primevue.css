@@ -18,6 +18,10 @@
     }
 }
 
+.p-input-filled .p-dropdown {
+  background:       unset;
+}
+
 .p-paginator {
     .p-paginator-current {
       flex-basis:       100%;
