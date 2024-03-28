@@ -338,7 +338,7 @@ export default {
             return actions;
         },
 
-        api(uri, method, data) {
+        api(uri, method, data, success) {
             this.axios.request({ method, url: uri, data })
                 .then((response) => {
                     const { data, status } = response;
@@ -346,6 +346,9 @@ export default {
                         if (data.success) {
                             this.flashSuccess(data.success);
                             this.fetch();
+                            if (typeof success === 'function') {
+                                success();
+                            }
                         } else if (data.warn) {
                             const severity = Object.keys(data)[0];
                             this.flash({ severity, content: data.warn, expiry: 5000 });
@@ -361,7 +364,7 @@ export default {
             if (action.confirm && confirmed !== true) {
                 this.confirm(action, () => this.batch(true));
             } else {
-                this.api(action.uri, action.method, {selected});
+                this.api(action.uri, action.method, {selected}, () => this.selected = []);
             }
         },
 
