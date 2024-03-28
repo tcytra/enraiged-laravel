@@ -8,7 +8,7 @@
             filter-display="menu"
             paginator-template="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink"
             :current-page-report-template="pageReportTemplate"
-            :data-key="selectable.id"
+            :data-key="selectableId"
             :first="first"
             :lazy="true"
             :loading="loading"
@@ -240,6 +240,11 @@ export default {
             return Object.keys(this.template.columns)
                 .filter((name) => columns[name].searchable)
                 .length > 0;
+        },
+        selectableId() {
+            return this.selectable
+                ? this.selectable.id
+                : null;
         },
         table() {
             return this.ready
