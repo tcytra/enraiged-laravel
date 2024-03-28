@@ -47,7 +47,7 @@
                                 @click="download()"/>
                         </div>
                     </div>
-                    <div class="table-multiple width-160 ml-2" v-if="selectable">
+                    <div class="table-multiple width-160 ml-2" v-if="isSelectable">
                         <div class="p-inputgroup">
                             <primevue-dropdown class="w-full" optionLabel="name" v-model="selectable.action"
                                 :disabled="!selected.length"
@@ -86,7 +86,7 @@
             <template #empty>
                 {{ i18n(template.empty || 'No records found') }}
             </template>
-            <primevue-column selectionMode="multiple" headerStyle="width:2rem" v-if="selectable"></primevue-column>
+            <primevue-column selectionMode="multiple" headerStyle="width:2rem" v-if="isSelectable"></primevue-column>
             <primevue-column v-for="(column, name) in columns"
                 :class="column.class"
                 :field="name"
@@ -232,6 +232,9 @@ export default {
                 ? (this.pagination.page * this.pagination.rows) - this.pagination.rows
                 : 0;
         },
+        isSelectable() {
+            return this.selectable && this.batchActionOptions.length;
+        },
         rowActions() {
             return this.actions('row');
         },
@@ -242,7 +245,7 @@ export default {
                 .length > 0;
         },
         selectableId() {
-            return this.selectable
+            return this.isSelectable
                 ? this.selectable.id
                 : null;
         },

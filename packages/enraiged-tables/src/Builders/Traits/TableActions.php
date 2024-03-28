@@ -91,18 +91,6 @@ trait TableActions
                         ->toArray();
                 }
             }
-            /*if (key_exists('type', $parameters)) {
-                if ((gettype($parameters['type']) === 'string' && $parameters['type'] === 'row')
-                    || (gettype($parameters['type']) === 'string' && in_array('row', $parameters['type']))) {
-                    $parameters = $this->actionForRow($model, $index, $parameters);
-
-                    if ($parameters['permission']) {
-                        $actions[$index] = collect($parameters)
-                            ->except(['permission', 'route', 'secure', 'secureAll', 'secureAny'])
-                            ->toArray();
-                    }
-                }
-            }*/
         }
 
         return $actions;
@@ -144,8 +132,6 @@ trait TableActions
                 $parameters['type'] = 'table';
             }
 
-            $actions[$index] = $parameters;
-
             if (!collect($parameters['type'])->contains(fn ($value) => $value === 'row')) {
                 $action = key_exists('action', $parameters)
                     ? $parameters['action']
@@ -181,9 +167,14 @@ trait TableActions
                     $parameters['disabled'] = $this->assertDisabledAction($parameters['disabled'], $model);
                 }
             }
+
+            $actions[$index] = $parameters;
         }
 
-        return $actions;
+        return collect($actions)
+            ->filter(fn ($each)
+                => !key_exists('permission', $each) || $each['permission'] === true)
+            ->toArray();
     }
 
     /**
