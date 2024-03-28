@@ -82,7 +82,7 @@ trait TableActions
         $actions = [];
 
         foreach ($this->actions as $index => $parameters) {
-            if (key_exists('type', $parameters) && $parameters['type'] === 'row') {
+            if ($this->isRowAction($parameters)) {
                 $parameters = $this->actionForRow($model, $index, $parameters);
 
                 if ($parameters['permission']) {
@@ -91,6 +91,18 @@ trait TableActions
                         ->toArray();
                 }
             }
+            /*if (key_exists('type', $parameters)) {
+                if ((gettype($parameters['type']) === 'string' && $parameters['type'] === 'row')
+                    || (gettype($parameters['type']) === 'string' && in_array('row', $parameters['type']))) {
+                    $parameters = $this->actionForRow($model, $index, $parameters);
+
+                    if ($parameters['permission']) {
+                        $actions[$index] = collect($parameters)
+                            ->except(['permission', 'route', 'secure', 'secureAll', 'secureAny'])
+                            ->toArray();
+                    }
+                }
+            }*/
         }
 
         return $actions;
@@ -132,11 +144,9 @@ trait TableActions
                 $parameters['type'] = 'table';
             }
 
-            if ($parameters['type'] === 'row') {
-                $actions[$index] = $parameters;
-            }
+            $actions[$index] = $parameters;
 
-            if ($parameters['type'] === 'table') {
+            if (!collect($parameters['type'])->contains(fn ($value) => $value === 'row')) {
                 $action = key_exists('action', $parameters)
                     ? $parameters['action']
                     : $index;
@@ -185,11 +195,30 @@ trait TableActions
     {
         return gettype($this->actions) === 'array'
             && collect($this->actions)
-                ->filter(function ($action) {
-                    return key_exists('type', $action)
-                        && strtolower($action['type']) === 'row';
-                })
-                ->count() > 0;
+                ->filter(fn ($action) => $this->isRowAction($action))
+                ->count()
+            > 0;
+    }
+
+    /**
+     *  Determine whether an action is required per row.
+     *
+     *  @param  $action
+     *  @return bool
+     */
+    private function isRowAction($action): bool
+    {
+        if (key_exists('type', $action)) {
+            if ((gettype($action['type']) === 'string' && $action['type'] === 'row')) {
+                return true;
+            }
+
+            if (gettype($action['type']) === 'array' && in_array('row', $action['type'])) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

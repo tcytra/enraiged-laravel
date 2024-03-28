@@ -51,6 +51,8 @@ return [
             'rows' => 10,
         ],
 
+        'selectable' => false,
+
         'state' => false,
 
     ],

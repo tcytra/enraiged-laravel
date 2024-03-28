@@ -30,6 +30,9 @@ trait BuilderConstructor
     /** @var  string  The route prefix. */
     protected string $prefix;
 
+    /** @var  mixed  Configuration for selectable rows. */
+    protected $selectable;
+
     /** @var  string  The table configuration source. */
     protected $source = 'file';
 

@@ -4,10 +4,11 @@
             :filter="filter"
             :filters="template.filters"
             :form="filters"/>
-        <primevue-datatable class="p-datatable-sm" ref="datatable"
+        <primevue-datatable class="p-datatable-sm" ref="datatable" v-model:selection="selected"
             filter-display="menu"
             paginator-template="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink"
             :current-page-report-template="pageReportTemplate"
+            :data-key="selectable.id"
             :first="first"
             :lazy="true"
             :loading="loading"
@@ -46,6 +47,18 @@
                                 @click="download()"/>
                         </div>
                     </div>
+                    <div class="table-multiple width-160 ml-2" v-if="selectable">
+                        <div class="p-inputgroup">
+                            <primevue-dropdown class="w-full" optionLabel="name" v-model="selectable.action"
+                                :disabled="!selected.length"
+                                :options="batchActionOptions"
+                                :placeholder="i18n('Select rows')"/>
+                            <primevue-button class="p-button-secondary" icon="pi pi-database"
+                                v-tooltip.top="i18n('Execute batch action')"
+                                :disabled="!selected.length && !selectable.action"
+                                @click="batch()"/>
+                        </div>
+                    </div>
                     <span v-for="(button, name, index) in tableActions" :key="index">
                         <primevue-button
                             v-tooltip.top="i18n(button.tooltip)"
@@ -73,6 +86,7 @@
             <template #empty>
                 {{ i18n(template.empty || 'No records found') }}
             </template>
+            <primevue-column selectionMode="multiple" headerStyle="width:2rem" v-if="selectable"></primevue-column>
             <primevue-column v-for="(column, name) in columns"
                 :class="column.class"
                 :field="name"
@@ -151,6 +165,10 @@ export default {
             type: String,
             default: 'stack',
         },
+        selectableConfig: {
+            type: [Boolean, String],
+            default: null,
+        },
         showControls: {
             type: Boolean,
             default: true,
@@ -179,10 +197,23 @@ export default {
         ready: false,
         records: null,
         search: null,
+        selectable: null,
+        selected: [],
         timer: null,
     }),
 
     computed: {
+        batchActions() {
+            return this.actions('multiple');
+        },
+        batchActionOptions() {
+            let actions = [];
+            Object.keys(this.batchActions)
+                .forEach((action) => {
+                    actions.push({id: action, name: this.template.actions[action].label});
+                });
+            return actions;
+        },
         columns() {
             let columns = {};
             Object.keys(this.template.columns)
@@ -216,12 +247,24 @@ export default {
                 : null;
         },
         tableActions() {
-            return this.actions('table');
+            return this.actions('table', 'multiple');
         },
     },
 
-    mounted() {
+    created() {
         this.exportable = this.template.exportable ? this.template.exportable.default : null;
+        const selectable = this.selectableConfig || this.template.selectable;
+        if (selectable) {
+            this.selectable = {
+                action: this.batchActionOptions[0],
+                key: typeof selectable === 'string'
+                    ? selectable
+                    : 'id',
+            };
+        }
+    },
+
+    mounted() {
         this.ready = true;
         if (this.template.state && this.template.id && localStorage[this.template.id]) {
             const state = JSON.parse(localStorage[this.template.id]);
@@ -258,46 +301,40 @@ export default {
                 .catch(error => this.errorHandler(error));
         },
 
-        action(name, button, props, confirmed) {
-            if (button.confirm && confirmed !== true) {
-                this.$confirm.require({
-                    message: typeof button.confirm === 'string'
-                        ? this.i18n(button.confirm)
-                        : this.i18n('Are you sure you want to proceed?'),
-                    header: this.i18n('Please confirm'),
-                    icon: 'pi pi-exclamation-triangle',
-                    acceptClass: 'p-button-danger',
-                    acceptLabel: this.i18n('Yes'),
-                    rejectLabel: this.i18n('No'),
-                    accept: () => this.action(name, button, props, true),
-                });
+        action(name, action, props, confirmed) {
+            if (action.confirm && confirmed !== true) {
+                this.confirm(action, () => this.action(name, action, props, true));
             } else {
-                const method = button.method || 'get';
+                const method = action.method || 'get';
                 if (method === 'emit') {
                     props
                         ? this.$emit(name, props.data)
                         : this.$emit(name);
                 } else
-                if (button.uri && button.uri.match(/\/api/)) {
-                    this.api(button.uri, method.toLowerCase());
+                if (action.uri && action.uri.match(/\/api/)) {
+                    this.api(action.uri, method.toLowerCase());
                 } else {
-                    this.actionHandler(button, name);
+                    this.actionHandler(action, name);
                 }
             }
         },
 
-        actions(type) {
+        actions(search, not) {
             let actions = {};
-            Object.keys(this.template.actions).forEach((action) => {
-                if (this.template.actions[action].type === type) {
-                    actions[action] = this.template.actions[action];
-                }
-            });
+            Object.keys(this.template.actions)
+                .forEach((action) => {
+                    const template = this.template.actions[action].type;
+                    if (typeof template === 'string' && template === search
+                        || (Array.isArray(template) && template.includes(search)
+                            && (typeof not === 'undefined' || !template.includes(not)))) {
+                        actions[action] = this.template.actions[action];
+                    }
+                });
             return actions;
         },
 
-        api(uri, method) {
-            this.axios.request({ method, url: uri })
+        api(uri, method, data) {
+            this.axios.request({ method, url: uri, data })
                 .then((response) => {
                     const { data, status } = response;
                     if (this.isSuccess(status)) {
@@ -311,6 +348,30 @@ export default {
                     }
                 })
                 .catch(error => this.errorHandler(error));
+        },
+
+        batch(confirmed) {
+            const action = this.template.actions[this.selectable.action.id];
+            const selected = this.selected.map((row) => row.id);
+            if (action.confirm && confirmed !== true) {
+                this.confirm(action, () => this.batch(true));
+            } else {
+                this.api(action.uri, action.method, {selected});
+            }
+        },
+
+        confirm(action, accept) {
+            this.$confirm.require({
+                message: typeof action.confirm === 'string'
+                    ? this.i18n(action.confirm)
+                    : this.i18n('Are you sure you want to proceed?'),
+                header: this.i18n('Please confirm'),
+                icon: 'pi pi-exclamation-triangle',
+                acceptClass: 'p-button-danger',
+                acceptLabel: this.i18n('Yes'),
+                rejectLabel: this.i18n('No'),
+                accept,
+            });
         },
 
         defaultFilters() {

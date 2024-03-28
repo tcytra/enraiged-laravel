@@ -155,9 +155,10 @@
 
                     .p-dropdown-label {
                       align-items:      center;
+                      align-self:       center;
                       display:          flex;
                       height:           inherit;
-                      justify-content:  center;
+                      justify-content:  left;
                       padding:          0;
                     }
 
@@ -193,13 +194,13 @@
                     }
 
                     .p-button.p-button-icon-only {
+                      min-width:        2rem;
                       width:            2rem;
                     }
 
                     .p-dropdown {
                         .p-dropdown-label {
-                          padding-bottom:   .25rem;
-                          padding-left:     .25rem;
+                          text-indent:      .5rem;
                         }
 
                         .p-dropdown-trigger .p-dropdown-trigger-icon {

@@ -78,6 +78,7 @@ class TableBuilder
             'key' => $this->get('key'),
             'model' => Str::snake(class_basename($this->model)),
             'pagination' => $this->get('pagination'),
+            'selectable' => $this->selectable,
             'state' => $this->get('state'),
             'uri' => UriBuilder::from($this->uri, $this->request->get('route'))->uri(),
         ];
