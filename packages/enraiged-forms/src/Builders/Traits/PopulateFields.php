@@ -11,12 +11,15 @@ trait PopulateFields
     /** @var  object  The templated form fields. */
     protected $fields;
 
+    /** @var  bool  Whether or not the form has been populated. */
+    protected $populated = false;
+
     /**
      *  Populate the form fields with the model data.
      *
      *  @return $this
      */
-    protected function populate()
+    public function populate()
     {
         (object) $this
             ->prepareActions($this->actions)
@@ -168,7 +171,17 @@ trait PopulateFields
             $value = $field->value ?? false;
         }
 
-        $this->field($name, ['value' => $value]);
+        if (gettype($value) === 'string') {
+            $wrap = substr($value, 0, 1).substr($value, -1, 1);
+
+            if ($wrap === '[]' || $wrap === '{}') {
+                $value = json_decode($value);
+            }
+        }
+
+        if (!property_exists($field, 'populated') || $field->populated === false) {
+            $this->field($name, ['value' => $value]);
+        }
 
         return $this;
     }

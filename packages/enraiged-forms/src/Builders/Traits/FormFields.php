@@ -343,11 +343,16 @@ trait FormFields
      *
      *  @param  string  $name
      *  @param  mixed   $data
+     *  @param  bool    $defer = true
      *  @return self
      */
-    public function value($name, $data): self
+    public function value($name, $data, $defer = true): self
     {
         $populate = ['value' => $data];
+
+        if ($defer) {
+            $populate['populated'] = true;
+        }
 
         $this->field($name, $populate);
 

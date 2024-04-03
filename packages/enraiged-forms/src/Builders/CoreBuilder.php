@@ -79,7 +79,9 @@ class CoreBuilder
      */
     public function template(): array
     {
-        $this->populate();
+        if (!$this->populated) {
+            $this->populate();
+        }
 
         $template = [
             'actions' => $this->actions,
