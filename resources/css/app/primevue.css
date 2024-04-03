@@ -30,6 +30,13 @@
     }
 }
 
+//  in some cases this background is blocking out the bottom border, can't figure why
+.p-tabview .p-tabview-nav li.p-highlight .p-tabview-nav-link,
+.p-tabview .p-tabview-nav li .p-tabview-nav-link,
+.p-tabview .p-tabview-nav li:not(.p-highlight):not(.p-disabled):hover .p-tabview-nav-link {
+  background:       inherit;
+}
+
 .justify-self-baseline {
   justify-self:     baseline;
 }
