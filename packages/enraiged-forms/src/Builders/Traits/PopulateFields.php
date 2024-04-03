@@ -3,7 +3,6 @@
 namespace Enraiged\Forms\Builders\Traits;
 
 use Enraiged\Forms\Traits\SelectOptions;
-use Illuminate\Database\Eloquent\Model;
 
 trait PopulateFields
 {
@@ -12,21 +11,14 @@ trait PopulateFields
     /** @var  object  The templated form fields. */
     protected $fields;
 
-    /** @var  Model  The form resource model. */
-    protected $model;
-
     /**
      *  Populate the form fields with the model data.
      *
-     *  @param  \Illuminate\Database\Eloquent\Model  $model
-     *  @param  array   $resource
      *  @return $this
      */
-    protected function populate($model, $resource)
+    protected function populate()
     {
         (object) $this
-            ->model($model)
-            ->resource($resource)
             ->prepareActions($this->actions)
             ->populateFieldGroup($this->fields);
 

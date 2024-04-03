@@ -13,8 +13,8 @@ trait FormModel
     /**
      *  Get or set the form builder model.
      *
-     *  @param  Model   $model = null
-     *  @return Model|self
+     *  @param  \Illuminate\Database\Eloquent\Model   $model = null
+     *  @return \Illuminate\Database\Eloquent\Model|self
      */
     protected function model($model = null)
     {

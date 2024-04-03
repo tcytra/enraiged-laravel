@@ -38,7 +38,9 @@ class CoreBuilder
             $resource['params'] = $params;
         }
 
-        return $this->populate(new $model, $resource);
+        return $this
+            ->model(new $model)
+            ->resource($resource);
     }
 
     /**
@@ -65,7 +67,9 @@ class CoreBuilder
             $resource['params'] = $params;
         }
 
-        return $this->populate($model, $resource);
+        return $this
+            ->model($model)
+            ->resource($resource);
     }
 
     /**
@@ -75,6 +79,8 @@ class CoreBuilder
      */
     public function template(): array
     {
+        $this->populate();
+
         $template = [
             'actions' => $this->actions,
             'class' => $this->class,
