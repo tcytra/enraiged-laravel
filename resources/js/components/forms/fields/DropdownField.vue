@@ -196,8 +196,10 @@ export default {
                 .catch(error => this.errorHandler(error));
         },
         filter(payload) {
-            this.field.options.values = [];
-            this.search = payload.value;
+            if (this.field.options.source) {
+                this.field.options.values = [];
+                this.search = payload.value;
+            }
         },
     },
 
