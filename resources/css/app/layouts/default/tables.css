@@ -210,6 +210,14 @@
                 }
             }
         }
+
+        .p-tabview {
+            .p-datatable {
+                tbody.p-datatable-tbody > tr.p-datatable-emptymessage {
+                  background-color:     $white;
+                }
+            }
+        }
     }
 
     @media screen and (min-width: $break-large) {
