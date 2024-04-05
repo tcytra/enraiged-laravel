@@ -36,6 +36,10 @@
         .section {
           margin-bottom:    1rem;
 
+            &.table-data .p-card-body {
+              padding:          0;
+            }
+
             .section-error {
               margin-top:       -1rem;
             }
@@ -112,7 +116,7 @@
                   margin-right:     .5rem;
                 }
                 .p-inputswitch {
-                  margin-right:     2.5rem;
+                  margin-right:     1rem;
                 }
             }
         }
