@@ -3,6 +3,7 @@ $black:                 var(--black);
 $white:                 var(--white);
 
 $background-danger:     var(--background-danger);
+$background-disabled:   var(--bluegray-200);
 $background-help:       var(--background-help);
 $background-info:       var(--background-info);
 $background-primary:    var(--background-primary);      // --bluegray-200
@@ -11,6 +12,7 @@ $background-success:    var(--background-success);
 $background-warning:    var(--background-warning);
 
 $color-danger:          var(--color-danger);
+$color-disabled:        var(--bluegray-500);
 $color-help:            var(--color-help);
 $color-info:            var(--color-info);
 $color-primary:         var(--color-primary);           // --bluegray-600
@@ -50,6 +52,7 @@ $menu-hover:            var(--menu-hover);
 $table-header:          var(--table-header);
 $table-header-color:    var(--enraiged-color);
 $table-row-danger:      var(--table-row-danger);        // --background-danger lighten 5%
+$table-row-disabled:    var(--bluegray-100);
 $table-row-help:        var(--table-row-help);
 $table-row-info:        var(--table-row-info);          // --background-info lighten 5%
 $table-row-primary:     var(--table-row-primary);       // --background-primary lighten 5%

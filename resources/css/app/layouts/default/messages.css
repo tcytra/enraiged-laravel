@@ -1,8 +1,24 @@
 
 .p-message {
+    &.p-message-disabled {
+      background-color: $table-row-disabled;
+      border-left:      .375rem solid $color-disabled;
+      color:            $color-disabled;
+    }
+}
+
+.p-message {
     &.p-message-help {
       background-color: $table-row-help;
       border-left:      .375rem solid $color-help;
       color:            #60009d;
+    }
+}
+
+.p-message {
+    &.p-message-secondary {
+      background-color: $table-row-secondary;
+      border-left:      .375rem solid $color-secondary;
+      color:            $color-secondary;
     }
 }
