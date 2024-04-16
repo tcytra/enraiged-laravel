@@ -163,6 +163,12 @@ export default {
                 : null;
             this.form[this.id] = value;
         },
+        clearAll() {
+            this.clear();
+            this.options = [];
+            this.search = null;
+            this.timer = null;
+        },
         data() {
             let params = {};
             if (typeof this.field.options.params !== 'undefined') {
@@ -192,6 +198,7 @@ export default {
                 .then(({ data }) => {
                     this.options = data;
                     this.loading = false;
+                    this.$emit('options:fetched', data.length);
                 })
                 .catch(error => this.errorHandler(error));
         },
