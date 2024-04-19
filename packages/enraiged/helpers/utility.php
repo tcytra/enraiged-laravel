@@ -1,7 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Str;
-use Symfony\Component\Debug\Exception\FatalThrowableError; // todo: deprecated?
 
 /**
  *  todo: remove this? laravel documents the ability to do this now
@@ -16,26 +16,7 @@ if (!function_exists('blade')) {
      */
     function blade($template, $parameters = [])
     {
-        $ob = ob_get_level();
-        ob_start();
-
-        extract($parameters, EXTR_SKIP);
-
-        try {
-            eval('?' . '>' . $template);
-        } catch (Exception $e) {
-            while (ob_get_level() > $ob) {
-                ob_end_clean();
-            }
-            throw $e;
-        } catch (Throwable $e) {
-            while (ob_get_level() > $ob) {
-                ob_end_clean();
-            }
-            throw new FatalThrowableError($e);
-        }
-
-        return ob_get_clean();
+        return Blade::render($template, $parameters);
     }
 }
 
