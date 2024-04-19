@@ -40,18 +40,17 @@ trait Attachable
      */
     public function seed(File $file)
     {
-        Storage::delete($this->file->path);
+        if ($this->file->path) {
+            Storage::delete($this->file->path);
+        }
 
-        $storage_path = $this->folder;
-        $storage_file = "{$storage_path}/".Str::random(40).'.'.$file->getExtension();
+        $file_name = $file->getBasename();
+        $storage_name = sha1(Str::random(20)).'.'.$file->getExtension();
+        $storage_path = "{$this->folder}/{$storage_name}";
 
-        copy($file->getPathName(), storage_path("app/{$storage_file}"));
+        $file->move(storage_path("app/{$this->folder}"), $storage_name);
 
-        $original_name = strtolower((new \ReflectionClass($this->{$this->morphable}))->getShortName())
-            ."-{$this->table}-".$this->{$this->morphable}->id
-            .'.'.$file->getExtension();
-
-        $this->file->attach($storage_file, $original_name);
+        $this->file->attach($file_name, $storage_path);
 
         return $this;
     }
