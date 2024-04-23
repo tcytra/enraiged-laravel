@@ -62,6 +62,54 @@ abstract class JsonResource extends IlluminateResource
     }
 
     /**
+     *  Toggle the model created output on.
+     *
+     *  @return $this
+     */
+    public function withCreated()
+    {
+        $this->with_created = true;
+
+        return $this;
+    }
+
+    /**
+     *  Toggle the model created output off.
+     *
+     *  @return $this
+     */
+    public function withoutCreated()
+    {
+        $this->with_created = false;
+
+        return $this;
+    }
+
+    /**
+     *  Toggle the model deleted output on.
+     *
+     *  @return $this
+     */
+    public function withDeleted()
+    {
+        $this->with_deleted = true;
+
+        return $this;
+    }
+
+    /**
+     *  Toggle the model deleted output off.
+     *
+     *  @return $this
+     */
+    public function withoutDeleted()
+    {
+        $this->with_deleted = false;
+
+        return $this;
+    }
+
+    /**
      *  Toggle the severity output on.
      *
      *  @return $this
@@ -69,6 +117,66 @@ abstract class JsonResource extends IlluminateResource
     public function withSeverity()
     {
         $this->with_severity = true;
+
+        return $this;
+    }
+
+    /**
+     *  Toggle the severity output off.
+     *
+     *  @return $this
+     */
+    public function withoutSeverity()
+    {
+        $this->with_severity = false;
+
+        return $this;
+    }
+
+    /**
+     *  Toggle all model tracking output on.
+     *
+     *  @return $this
+     */
+    public function withTracking()
+    {
+        $this->with_tracking = true;
+
+        return $this;
+    }
+
+    /**
+     *  Toggle all model tracking output off.
+     *
+     *  @return $this
+     */
+    public function withoutTracking()
+    {
+        $this->with_tracking = false;
+
+        return $this;
+    }
+
+    /**
+     *  Toggle the model updated output on.
+     *
+     *  @return $this
+     */
+    public function withUpdated()
+    {
+        $this->with_updated = true;
+
+        return $this;
+    }
+
+    /**
+     *  Toggle the model updated output off.
+     *
+     *  @return $this
+     */
+    public function withoutUpdated()
+    {
+        $this->with_updated = false;
 
         return $this;
     }
