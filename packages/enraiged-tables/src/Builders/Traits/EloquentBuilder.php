@@ -213,24 +213,31 @@ trait EloquentBuilder
             $sort = $this->request()->get('sort');
 
             if ($this->columnExists($sort) && $this->isSortable($sort)) {
-                $column = $this->column($sort);
-                $sortable = $column['sortable'];
-                $source = key_exists('source', $column) ? $column['source'] : "{$this->table}.{$sort}";
+                $method = Str::camel("order_by_{$sort}");
 
-                if (gettype($source) === 'array') {
-                    foreach ($source as $each) {
-                        if ($sortable === 'count') {
-                            $this->builder->withCount($each)->orderBy("{$each}_count", $dir);
-                        } else {
-                            $this->builder->orderBy($each, $dir);
-                        }
-                    }
-
-                } else if ($sortable === 'count') {
-                    $this->builder->withCount($source)->orderBy("{$source}_count", $dir);
+                if (method_exists($this, $method)) {
+                    $this->{$method}($dir);
 
                 } else {
-                    $this->builder->orderBy($source, $dir);
+                    $column = $this->column($sort);
+                    $sortable = $column['sortable'];
+                    $source = key_exists('source', $column) ? $column['source'] : "{$this->table}.{$sort}";
+
+                    if (gettype($source) === 'array') {
+                        foreach ($source as $each) {
+                            if ($sortable === 'count') {
+                                $this->builder->withCount($each)->orderBy("{$each}_count", $dir);
+                            } else {
+                                $this->builder->orderBy($each, $dir);
+                            }
+                        }
+
+                    } else if ($sortable === 'count') {
+                        $this->builder->withCount($source)->orderBy("{$source}_count", $dir);
+
+                    } else {
+                        $this->builder->orderBy($source, $dir);
+                    }
                 }
             }
 
