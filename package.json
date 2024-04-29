@@ -9,7 +9,7 @@
         "@inertiajs/vue3": "^1.0.14",
         "@vitejs/plugin-vue": "^4.4.1",
         "@vue/server-renderer": "^3.3.4",
-        "axios": "^1.6.5",
+        "axios": "^1.6.8",
         "date-fns": "^2.30.0",
         "laravel-vite-plugin": "^0.7.8",
         "lodash": "^4.17.21",
@@ -19,7 +19,7 @@
         "primeicons": "^6.0.1",
         "primevue": "^3.40.1",
         "uuid": "^9.0.1",
-        "vite": "^4.5.2",
+        "vite": "^4.5.3",
         "vue": "^3.3.4",
         "vue-axios": "^3.5.2",
         "vue-i18n": "^9.6.5"
