@@ -61,6 +61,10 @@ export default {
     inject: ['errorHandler'],
 
     props: {
+        autoSelectSingleOption: {
+            type: Boolean,
+            default: false,
+        },
         clearable: {
             type: Boolean,
             default: false,
@@ -153,10 +157,18 @@ export default {
             this.fetch();
         } else {
             this.options = this.field.options.values;
+            this.autoselect();
         }
     },
 
     methods: {
+        autoselect() {
+            const autoselect = typeof this.field.autoselect !== 'undefined' && this.field.autoselect === true;
+            if (autoselect || this.autoSelectSingleOption && this.options.length === 1) {
+                this.form[this.id] = this.options[0].id;
+                this.$emit('update:modelValue', this.options[0].id)
+            }
+        },
         clear() {
             const value = typeof this.field.default !== 'undefined'
                 ? this.field.default
@@ -199,6 +211,7 @@ export default {
                     this.options = data;
                     this.loading = false;
                     this.$emit('options:fetched', data.length);
+                    this.autoselect();
                 })
                 .catch(error => this.errorHandler(error));
         },
