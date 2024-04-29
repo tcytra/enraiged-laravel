@@ -8,7 +8,6 @@
  • [PrimeIcons v6.0](https://primevue.org/icons/#list)**
 
 
-
 ## Table of Contents
 
 - [Installation](#installation)
@@ -20,7 +19,6 @@
 - [Usage](#usage)
   * []()
 - [Licence](#license)
-
 
 
 ## Install Application

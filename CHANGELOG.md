@@ -1,5 +1,30 @@
 # Release Notes
 
+2024-04-29 : 0.3.7  
+Update: Security update for axios,vite; Various bugfixes,updates
+
+- Added EnraigedForm methods to lock a dropdown to a single option
+- Added logic to allow custom orderby per column in table builder
+- Added middleware and config to handle response header security
+- Added multiple selection and batch actions to enraiged tables
+- Added selectedOption computed property to Dropdown component
+- Corrected issue in UriBuilder where route params are not applied
+- Corrected issue with disabledUnless handling in FormField component
+- Ensure table actions are leveraging the current route params
+- Ensure the template prop is passed to VueForm part components
+- Improved theme primary,secondary colors; Added theme help colors
+- Improvements to the blueprint tracking columns macros
+- Provide ability to autoselect dropdown value if single option
+- Provide ability to argue daterange table filter by date,datetime
+- Provide ability to define css class for formfield break argument
+- Provide ability to define custom table filter sizing classes
+- Provide ability to disable table actions via assertion arguments
+- Provide ability to hide VueTable controls and pagination
+- Provide ability to highlight all section fields as invalid
+- Provide ability to use daterange selection in CalendarField.vue
+
+---
+
 2024-01-21 : 0.3.6  
 Update: Security update for axios,vite; Other minor updates
 
