@@ -73,7 +73,7 @@ class UserSeeder extends Seeder
      *  Create a factory user from the provided parameters.
      *
      *  @param  array   $parameters
-     *  @return \App\GroundTruth\Users\Models\User
+     *  @return \Enraiged\Users\Models\User
      */
     protected function createFactoryUser(array $parameters): User
     {
