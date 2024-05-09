@@ -11,6 +11,13 @@ class Available extends Controller
 {
     use AuthorizesRequests;
 
+    /** @var  array  The columns required for the available options. */
+    protected $columns = [
+        'users.id',
+        'users.profile_id',
+        "concat(profiles.first_name, ' ', profiles.last_name) as name",
+    ];
+
     /**
      *  @param  \App\Http\Requests\Users\AvailabilityRequest  $request
      *  @return \Illuminate\Http\JsonResponse
@@ -19,10 +26,9 @@ class Available extends Controller
     {
         $this->authorize('available', User::class);
 
-        $columns = ['users.id', "concat(profiles.first_name, ' ', profiles.last_name) as name"];
         $validated = collect($request->validated());
 
-        $available = User::selectRaw(collect($columns)->join(','))
+        $available = User::selectRaw(collect($this->columns)->join(','))
             ->join('profiles', 'profiles.id', '=', 'users.profile_id')
             ->join('roles', 'roles.id', '=', 'users.role_id')
             ->where('users.is_active', true)
@@ -52,8 +58,11 @@ class Available extends Controller
 
         $available
             ->orderByRaw("concat(profiles.first_name, ' ', profiles.last_name)")
-            ->limit($limit);
+            ->limit($limit)
+            ->get()
+            ->transform(fn ($user)
+                => $user->dropdownOption());
 
-        return response()->json($available->get());
+        return response()->json($available);
     }
 }

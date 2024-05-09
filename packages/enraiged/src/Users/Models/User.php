@@ -2,13 +2,14 @@
 
 namespace Enraiged\Users\Models;
 
+use Enraiged\Support\Contracts\ProvidesDropdownOption;
 use Enraiged\Support\Database\Traits\UserTracking;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements ProvidesDropdownOption
 {
     use Attributes\AllowImpersonation,
         Attributes\AllowNameChange,
@@ -53,6 +54,24 @@ class User extends Authenticatable
      *  User needs ability to select notification channels (global and/or per notification type or hybrid?).
      */
     public $notification_channels = ['mail'];
+
+    /**
+     *  Return the dropdown option for this user.
+     *
+     *  @param  bool    $wrap = false
+     *  @return array
+     */
+    public function dropdownOption(bool $wrap = false): array
+    {
+        $option = [
+            'id' => $this->id,
+            'name' => $this->profile->name,
+        ];
+
+        return $wrap
+            ? [$option]
+            : $option;
+    }
 
     /**
      *  Get the fillable attributes for the model.
