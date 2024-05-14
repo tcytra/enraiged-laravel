@@ -14,6 +14,7 @@
                     {{ i18n(section.precontent.body || section.precontent) }}
                 </div>
                 <vue-form-fields
+                    :class="section.class"
                     :creating="creating"
                     :fields="section.fields"
                     :form="form"
@@ -77,6 +78,11 @@ export default {
     },
 
     computed: {
+        class() {
+            return typeof section.class !== 'undefined'
+                ? section.class
+                : null;
+        },
         error() {
             return this.form && this.form.errors ? this.form.errors[this.id] : null;
         },

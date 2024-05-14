@@ -1,5 +1,6 @@
 <template>
-    <div class="formgrid grid mb-3">
+    <div class="formgrid grid mb-3"
+        :class="class">
         <template v-for="(item, key) in fields" :key="key">
             <slot v-if="item.custom" v-bind="$props"
                 :field="item"
@@ -56,6 +57,10 @@ export default {
     },
 
     props: {
+        class: {
+            type: String,
+            default: null,
+        },
         creating: {
             type: Boolean,
             default: false,
