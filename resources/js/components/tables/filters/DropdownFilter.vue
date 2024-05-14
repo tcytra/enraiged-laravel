@@ -66,12 +66,20 @@ export default {
     },
 
     methods: {
+        autoselect() {
+            const autoselect = typeof this.field.autoselect !== 'undefined' && this.field.autoselect === true;
+            if (autoselect && this.options.length === 1) {
+                this.form[this.id] = this.options[0].id;
+                this.$emit('update:modelValue', this.options[0].id)
+            }
+        },
         fetch() {
             this.loading = true;
             return this.axios.get(this.field.options.uri, { params: this.params() })
                 .then(({ data }) => {
                     this.options = data;
                     this.loading = false;
+                    this.autoselect();
                 })
                 .catch(error => this.errorHandler(error));
         },
