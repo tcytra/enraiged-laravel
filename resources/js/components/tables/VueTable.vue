@@ -1,6 +1,6 @@
 <template>
     <div :class="template.class">
-        <vue-table-filters class="filter-controls" v-if="template.filters"
+        <vue-table-filters class="filter-controls" ref="tableFilters" v-if="template.filters"
             :filter="filter"
             :filters="template.filters"
             :form="filters"/>
@@ -448,7 +448,8 @@ export default {
                     if (typeof this.template.filters[each].options !== 'undefined'
                      && typeof this.template.filters[each].options.params !== 'undefined'
                      && this.template.filters[each].options.params.includes(field)) {
-                        this.$refs[each][0].fetch(); // not sure why this ref ends up in an array
+                        const filter = this.$refs.tableFilters.filterRefName(each);
+                        this.$refs.tableFilters.$refs[filter][0].fetch();
                     }
                 });
         },
