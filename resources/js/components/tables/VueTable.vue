@@ -10,11 +10,13 @@
             :current-page-report-template="pageReportTemplate"
             :data-key="selectableId"
             :first="first"
+            :group-rows-by="groupRowsBy"
             :lazy="true"
             :loading="loading"
             :paginator="showPaginator && template.pagination !== null"
             :responsive-layout="responsiveLayout"
             :row-class="rowClass"
+            :row-group-mode="groupRowsBy ? rowGroupMode : null"
             :rows="pagination.rows"
             :rows-per-page-options="template.pagination.options"
             :total-records="pagination.total"
@@ -85,6 +87,14 @@
             </template>
             <template #empty>
                 {{ i18n(template.empty || 'No records found') }}
+            </template>
+            <template #groupfooter="props">
+                <slot name="groupfooter" v-bind="props"/>
+            </template>
+            <template #groupheader="props">
+                <slot name="groupheader" v-bind="props">
+                    <strong>{{ props.data[groupRowsBy] }}</strong>
+                </slot>
             </template>
             <primevue-column selectionMode="multiple" headerStyle="width:2rem" v-if="isSelectable"></primevue-column>
             <primevue-column v-for="(column, name) in columns"
@@ -157,6 +167,10 @@ export default {
             type: String,
             default: null,
         },
+        groupRowsBy: {
+            type: String,
+            default: null,
+        },
         pageReportTemplate: {
             type: String,
             default: '{first} - {last} / {totalRecords}',
@@ -164,6 +178,10 @@ export default {
         responsiveLayout: {
             type: String,
             default: 'stack',
+        },
+        rowGroupMode: {
+            type: String,
+            default: 'subheader',
         },
         selectableConfig: {
             type: [Boolean, String],
