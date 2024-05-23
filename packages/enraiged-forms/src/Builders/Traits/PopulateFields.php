@@ -110,7 +110,7 @@ trait PopulateFields
         }
 
         $field = (object) ($object ?? $this->field($name));
-        $value = null;
+        $value = property_exists($field, 'value') ? $field->value : null;
 
         //  populate the calendar field options, if necessary
         if ($this->fieldType($name) === 'calendar') {
@@ -128,11 +128,7 @@ trait PopulateFields
         }
 
         //  populate the model data
-        if ($this->fieldType($name) !== 'password') {
-            if (property_exists($field, 'value')) {
-                $value = $field->value;
-            }
-
+        if ($this->fieldType($name) !== 'password') { // todo: config to supress auto-populate
             if ($this->hasRelativeData($field)) {
                 $attribute = substr($field->data, strrpos($field->data, '.') +1);
                 $relationship = substr($field->data, 0, strrpos($field->data, '.'));
@@ -153,9 +149,9 @@ trait PopulateFields
                     $model = $model->{$relative};
                 }
 
-                $value = $model
-                    ? $model->{$attribute}
-                    : null;
+                if (!is_null($model) && property_exists($model, $attribute)) {
+                    $value = $model->{$attribute};
+                }
 
             } else
             if ($this->model && !is_null($this->model->getAttribute($name))) {
@@ -165,10 +161,10 @@ trait PopulateFields
 
         //  set default values for various field types
         if (is_null($value) && property_exists($field, 'default')) {
-            $value = $field->default;
+            $value = $field->default; // todo: deprecate field default, always use value
         }
         if (is_null($value) && in_array($this->fieldType($name), ['checkbox', 'switch'])) {
-            $value = $field->value ?? false;
+            $value = ($field->value === true || $field->value === false) ? $field->value : false;
         }
 
         if (gettype($value) === 'string') {
