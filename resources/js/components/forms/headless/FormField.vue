@@ -71,7 +71,8 @@ export default {
                 return this.form[field] === argument[field];
             } else
             if (typeof argument === 'string') {
-                return this.form[argument] !== null;
+                return this.form[argument] !== null
+                    && this.form[argument] !== false;
             }
             return value;
         },
@@ -90,7 +91,8 @@ export default {
                 return this.form[field] !== argument[field];
             } else
             if (typeof argument === 'string') {
-                return this.form[argument] === null;
+                return this.form[argument] === null
+                    || this.form[argument] === false;
             }
             return value;
         },
