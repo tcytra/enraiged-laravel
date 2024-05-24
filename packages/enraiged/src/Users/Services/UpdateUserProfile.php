@@ -35,7 +35,7 @@ class UpdateUserProfile
     public function handle()
     {
         DB::transaction(function () {
-            $user_fillable = (!Auth::check() && !app()->environment('production')) || Auth::user()->isAdministrator
+            $user_fillable = (!Auth::check() && !app()->environment('production')) || (Auth::check() && Auth::user()->isAdministrator)
                 ? collect($this->user->getFillable())
                     ->merge(['is_hidden', 'is_protected'])
                     ->toArray()
