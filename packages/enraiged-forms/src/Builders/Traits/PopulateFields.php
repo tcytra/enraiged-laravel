@@ -149,7 +149,7 @@ trait PopulateFields
                     $model = $model->{$relative};
                 }
 
-                if (!is_null($model) && property_exists($model, $attribute)) {
+                if (!is_null($model) && $model->getAttribute($name)) {
                     $value = $model->{$attribute};
                 }
 
