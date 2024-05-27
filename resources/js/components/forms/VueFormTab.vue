@@ -1,53 +1,62 @@
 <template>
     <tab-panel :header="tab.name">
         <slot :name="id" v-if="tab.custom" v-bind="{ creating, tab, form, updating }"/>
+        <vue-form-section v-else-if="Object.keys(sections).length" v-for="(section, key) in sections"
+            :creating="creating"
+            :form="form"
+            :id="key"
+            :key="key"
+            :section="section"
+            :updating="updating">
+            <template v-for="(_, slot) of $slots" v-slot:[slot]="scope">
+                <slot :name="slot" v-bind="scope"/>
+            </template>
+            <template v-if="section.custom" v-slot:[key]="props">
+                <slot :name="key" v-bind="{ creating, section, form, key, updating }"/>
+            </template>
+        </vue-form-section>
         <div v-else>
-            <header class="header mb-3" v-if="tab.heading"
-                :class="[ tab.heading.class ]">
-                <span class="text">{{ i18n(tab.heading.body || tab.heading) }}</span>
-            </header>
-            <div class="precontent mb-3" v-if="tab.precontent"
-                :class="[ tab.precontent.class ]">
-                {{ i18n(tab.precontent.body || tab.precontent) }}
-            </div>
-            <vue-form-section v-if="Object.keys(sections).length" v-for="(section, key) in sections"
-                :creating="creating"
-                :form="form"
-                :id="key"
-                :key="key"
-                :section="section"
-                :updating="updating">
-                <template v-for="(_, slot) of $slots" v-slot:[slot]="scope">
-                    <slot :name="slot" v-bind="scope"/>
+            <primevue-card>
+                <template #header>
+                    <header class="header" v-if="tab.heading"
+                        :class="[ tab.heading.class ]">
+                        <span class="text">{{ i18n(tab.heading.body || tab.heading) }}</span>
+                    </header>
                 </template>
-                <template v-if="section.custom" v-slot:[key]="props">
-                    <slot :name="key" v-bind="{ creating, section, form, key, updating }"/>
+                <template #content>
+                    <div class="precontent mb-3" v-if="tab.precontent"
+                        :class="[ tab.precontent.class ]">
+                        {{ i18n(tab.precontent.body || tab.precontent) }}
+                    </div>
+                    <vue-form-fields v-else-if="Object.keys(fields).length"
+                        :creating="creating"
+                        :fields="fields"
+                        :form="form"
+                        :updating="updating">
+                        <template v-for="(field, key) in custom.fields" v-slot:[key]="props">
+                            <slot :name="key" v-bind="{ creating, field, form, key, updating }"/>
+                        </template>
+                    </vue-form-fields>
+                    <div class="postcontent" v-if="tab.postcontent"
+                        :class="[ tab.postcontent.class ]">
+                        {{ i18n(tab.postcontent.body || tab.postcontent) }}
+                    </div>
                 </template>
-            </vue-form-section>
-            <vue-form-fields v-else-if="Object.keys(fields).length"
-                :creating="creating"
-                :fields="fields"
-                :form="form"
-                :updating="updating">
-                <template v-for="(field, key) in custom.fields" v-slot:[key]="props">
-                    <slot :name="key" v-bind="{ creating, field, form, key, updating }"/>
-                </template>
-            </vue-form-fields>
-            <div class="postcontent" v-if="tab.postcontent"
-                :class="[ tab.postcontent.class ]">
-                {{ i18n(tab.postcontent.body || tab.postcontent) }}
-            </div>
+            </primevue-card>
+
         </div>
     </tab-panel>
 </template>
 
 <script>
+import PrimevueCard from 'primevue/card/Card.vue';
 import TabPanel from 'primevue/tabpanel/TabPanel.vue';
 import VueFormFields from './VueFormFields.vue';
 import VueFormSection from './VueFormSection.vue';
 
 export default {
     components: {
+        PrimevueCard,
         TabPanel,
         VueFormFields,
         VueFormSection,
@@ -69,10 +78,6 @@ export default {
             required: true,
         },
         tab: {
-            type: Object,
-            required: true,
-        },
-        template: {
             type: Object,
             required: true,
         },
