@@ -11,13 +11,6 @@ class Available extends Controller
 {
     use AuthorizesRequests;
 
-    /** @var  array  The columns required for the available options. */
-    protected $columns = [
-        'users.id',
-        'users.profile_id',
-        "concat(profiles.first_name, ' ', profiles.last_name) as name",
-    ];
-
     /**
      *  @param  \App\Http\Requests\Users\AvailabilityRequest  $request
      *  @return \Illuminate\Http\JsonResponse
@@ -26,9 +19,13 @@ class Available extends Controller
     {
         $this->authorize('available', User::class);
 
+        $name_column = "trim(concat(ifnull(profiles.first_name, ''), ' ', ifnull(profiles.last_name, '')))";
+
+        $columns = collect(['users.id', 'users.profile_id', "{$name_column} as name"])->join(',');
+
         $validated = collect($request->validated());
 
-        $available = User::selectRaw(collect($this->columns)->join(','))
+        $available = User::selectRaw($columns)
             ->join('profiles', 'profiles.id', '=', 'users.profile_id')
             ->join('roles', 'roles.id', '=', 'users.role_id')
             ->where('users.is_active', true)
@@ -42,7 +39,7 @@ class Available extends Controller
             $search = filter_var($validated->get('search'));
             $terms = explode(" ", trim($search));
 
-            $available->whereRaw("concat(profiles.first_name, ' ', profiles.last_name) like '{$search}%'");
+            $available->whereRaw("{$name_column} like '{$search}%'");
 
             foreach ($terms as $term) {
                 if (strlen($term) > 1) {
@@ -57,7 +54,7 @@ class Available extends Controller
         $limit = $validated->get('limit') ?? 100;
 
         $available
-            ->orderByRaw("concat(profiles.first_name, ' ', profiles.last_name)")
+            ->orderByRaw($name_column)
             ->limit($limit)
             ->get()
             ->transform(fn ($user)
