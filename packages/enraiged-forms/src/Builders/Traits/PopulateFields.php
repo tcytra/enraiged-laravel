@@ -170,7 +170,11 @@ trait PopulateFields
             $value = $field->default; // todo: deprecate field default, always use value
         }
         if (is_null($value) && in_array($field_type, ['checkbox', 'switch'])) {
-            $value = ($field->value === true || $field->value === false) ? $field->value : false;
+            if (property_exists($field, 'value') && ($field->value === true || $field->value === false)) {
+                $value = $field->value;
+            } else {
+                $value = false;
+            }
         }
 
         //  detect and decode json strings
