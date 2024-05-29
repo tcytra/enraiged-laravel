@@ -3,7 +3,22 @@
         <label v-if="field.label" class="label" :for="id">
             {{ label }}
         </label>
-        <primevue-dropdown class="w-full" optionLabel="name" optionValue="id"
+        <primevue-multi-select class="w-full" optionLabel="name" optionValue="id" v-if="field.multiple"
+            v-model="form[id]"
+            :disabled="field.disabled"
+            :filter="field.searchable"
+            :id="id"
+            :loading="loading"
+            :options="options"
+            :placeholder="field.placeholder"
+            :show-clear="field.clearable"
+            @filter="filter"
+            @update:modelValue="$emit('update:filterValue', $event)">
+            <template #option="props">
+                <span :class="props.option.class">{{ props.option.name }}</span>
+            </template>
+        </primevue-multi-select>
+        <primevue-dropdown class="w-full" optionLabel="name" optionValue="id" v-else
             v-model="form[id]"
             :disabled="field.disabled"
             :filter="field.searchable"
@@ -23,12 +38,14 @@
 
 <script>
 import PrimevueDropdown from 'primevue/dropdown/Dropdown.vue';
+import PrimevueMultiSelect from 'primevue/multiselect/MultiSelect.vue';
 
 export default {
     inheritAttrs: false,
 
     components: {
         PrimevueDropdown,
+        PrimevueMultiSelect,
     },
 
     props: {

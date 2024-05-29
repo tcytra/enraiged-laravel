@@ -1,5 +1,5 @@
 
-.default.layout, .p-dialog {
+.default.layout {
 
     .form {
 
@@ -35,14 +35,6 @@
 
         .section {
           margin-bottom:    1rem;
-
-            &.table-data .p-card-body {
-              padding:          0;
-            }
-
-            .section-error {
-              margin-top:       -1rem;
-            }
         }
 
         &.horizontal .field.control, .horizontal .field.control, .field.control.horizontal, .vertical .horizontal.field.control {
@@ -77,7 +69,8 @@
             }
 
             .p-invalid {
-                .p-dropdown-trigger {
+                .p-dropdown-trigger,
+                .p-multiselect-trigger {
                   display:          none;
                 }
             }
@@ -116,7 +109,7 @@
                   margin-right:     .5rem;
                 }
                 .p-inputswitch {
-                  margin-right:     1rem;
+                  margin-right:     2.5rem;
                 }
             }
         }
@@ -196,7 +189,7 @@
       background-color: $background-info;
     }
 
-    .p-inputtext.p-invalid, .p-inputwrapper.p-invalid, .p-inputwrapper.p-invalid .p-password-input, .p-invalid .p-inputtext {
+    .p-inputtext.p-invalid, .p-inputwrapper.p-invalid, .p-inputwrapper.p-invalid .p-password-input {
       background-color: $form-invalid-ground;
       border-color:     $color-danger;
     }

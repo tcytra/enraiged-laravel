@@ -111,24 +111,33 @@ trait PopulateFields
 
         $field = (object) ($object ?? $this->field($name));
         $value = property_exists($field, 'value') ? $field->value : null;
-
-        //  populate the calendar field options, if necessary
-        if ($this->fieldType($name) === 'calendar') {
-            $this->populateCalendarField($name, $field);
-        }
+        $field_type = $this->fieldType($name);
 
         //  handle the field disabled state, if necessary
         if (property_exists($field, 'disabled') && gettype($field->disabled) !== 'boolean') {
             $this->populateDisabledAttribute($name, $field);
         }
 
+        //  populate the calendar field options, if necessary
+        if ($field_type === 'calendar') {
+            $this->populateCalendarField($name, $field);
+        }
+
+        //  prepare the multiselect field
+        if ($field_type === 'multiselect') {
+            $field->multiple = true;
+            $field_type = 'select';
+            $this->field($name, ['multiple' => true, 'type' => 'select']);
+        }
+
         //  populate the select field options, if necessary
-        if ($this->fieldType($name) === 'select') {
+        if ($field_type === 'select') {
+            $field->multiple = property_exists($field, 'multiple') && $field->multiple === true;
             $this->populateFieldOptions($name, $field);
         }
 
         //  populate the model data
-        if ($this->fieldType($name) !== 'password') { // todo: config to supress auto-populate
+        if ($field_type !== 'password') { // todo: config to supress auto-populate
             if ($this->hasRelativeData($field)) {
                 $attribute = substr($field->data, strrpos($field->data, '.') +1);
                 $relationship = substr($field->data, 0, strrpos($field->data, '.'));
@@ -163,11 +172,12 @@ trait PopulateFields
         if (is_null($value) && property_exists($field, 'default')) {
             $value = $field->default; // todo: deprecate field default, always use value
         }
-        if (is_null($value) && in_array($this->fieldType($name), ['checkbox', 'switch'])) {
+        if (is_null($value) && in_array($field_type, ['checkbox', 'switch'])) {
             $value = ($field->value === true || $field->value === false) ? $field->value : false;
         }
 
-        if (gettype($value) === 'string') {
+        //  detect and decode json strings
+        if (gettype($value) === 'string') { // todo: not on every string, argue for a decode somehow
             $wrap = substr($value, 0, 1).substr($value, -1, 1);
 
             if ($wrap === '[]' || $wrap === '{}') {
@@ -176,6 +186,10 @@ trait PopulateFields
         }
 
         if (!property_exists($field, 'populated') || $field->populated === false) {
+            if ($value && $field_type === 'select' && $field->multiple === true && !is_array($value)) {
+                $value = [$value];
+            }
+
             $this->field($name, ['value' => $value]);
         }
 

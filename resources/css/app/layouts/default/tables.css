@@ -1,5 +1,4 @@
 
-.p-component,.p-dialog,
 .default.layout {
 
     .table.container {
@@ -20,7 +19,10 @@
           padding:          .25rem .5rem;
 
             .filter {
-                .p-button, .p-inputtext {
+                .p-component.p-inputwrapper {
+                  height:           2rem;
+                }
+                .p-button, .p-inputtext, .p-multiselect-label-container .p-multiselect-label {
                   font-size:        .925rem;
                   padding:          .375rem;
                 }
@@ -43,12 +45,9 @@
             }
 
             td.actions {
-              white-space:      nowrap;
+              white-space:          nowrap;
 
                 .p-button {
-                  background-color: $white;
-                  margin-left:      2px;
-
                     &.p-button-sm,
                     &.p-button-sm .pi.p-button-icon {
                       font-size:        .825rem;
@@ -89,9 +88,9 @@
 
                 > td {
                   border-bottom:    0;
-                  color:            var(--surface-600);
+                  color:            $color-secondary;
                   font-style:       italic;
-                  padding:          1rem;
+                  padding:          1.5rem .5rem;
                   text-align:       center;
                 }
             }
@@ -119,9 +118,6 @@
                 }
                 &.background-danger {
                   background-color: $table-row-danger !important;
-                }
-                &.background-help {
-                  background-color: $table-row-help !important;
                 }
                 &.background-info {
                   background-color: $table-row-info !important;
@@ -156,10 +152,9 @@
 
                     .p-dropdown-label {
                       align-items:      center;
-                      align-self:       center;
                       display:          flex;
                       height:           inherit;
-                      justify-content:  left;
+                      justify-content:  center;
                       padding:          0;
                     }
 
@@ -190,18 +185,19 @@
                     .p-button,
                     .p-component,
                     .p-dropdown,
+                    .p-multiselect,
                     .p-inputgroup-addon {
                       height:           2rem;
                     }
 
                     .p-button.p-button-icon-only {
-                      min-width:        2rem;
                       width:            2rem;
                     }
 
                     .p-dropdown {
                         .p-dropdown-label {
-                          text-indent:      .5rem;
+                          padding-bottom:   .25rem;
+                          padding-left:     .25rem;
                         }
 
                         .p-dropdown-trigger .p-dropdown-trigger-icon {
@@ -212,13 +208,6 @@
             }
         }
 
-        .p-tabview {
-            .p-datatable {
-                tbody.p-datatable-tbody > tr.p-datatable-emptymessage {
-                  background-color:     $white;
-                }
-            }
-        }
     }
 
     @media screen and (min-width: $break-large) {

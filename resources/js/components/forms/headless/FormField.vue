@@ -26,7 +26,9 @@ export default {
             return this.form && this.form.errors ? this.form.errors[this.id] : null;
         },
         isDirty() {
-            return this.form.isDirty && this.form[this.id] !== this.field.value;
+            return this.field.type === 'select' && this.field.multiple
+                ? this.form[this.id].join(',') !== this.field.value.join(',')
+                : this.form[this.id] !== this.field.value;
         },
         isDisabled() {
             const disabled = this.field.disabled || this.$props.disabled;

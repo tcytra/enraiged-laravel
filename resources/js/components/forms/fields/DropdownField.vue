@@ -10,7 +10,29 @@
             <label v-if="label" class="label" :for="id">
                 {{ label }}
             </label>
-            <primevue-dropdown class="w-full" optionLabel="name" optionValue="id"
+            <primevue-multi-select class="w-full" optionLabel="name" optionValue="id" v-if="multiple || field.multiple"
+                v-model="form[id]"
+                :class="{
+                    'is-creating': isDirty && creating,
+                    'is-updating': isDirty && updating,
+                    'p-inputtext-lg': isLarge,
+                    'p-inputtext-sm': isSmall,
+                    'p-invalid': invalid || error,
+                }"
+                :disabled="loading || isDisabled || (disableIfNoOptions && !options.length)"
+                :filter="field.searchable || searchable"
+                :id="id"
+                :loading=loading
+                :options="options"
+                :placeholder="placeholder"
+                :show-clear="field.clearable || clearable"
+                @filter="filter"
+                @update:modelValue="update(); $emit('update:modelValue', $event)">
+                <template #option="props">
+                    <span :class="props.option.class">{{ props.option.name }}</span>
+                </template>
+            </primevue-multi-select>
+            <primevue-dropdown class="w-full" optionLabel="name" optionValue="id" v-else
                 v-model="form[id]"
                 :class="{
                     'is-creating': isDirty && creating,
@@ -44,6 +66,7 @@
 <script>
 import HeadlessFormField from '@/components/forms/headless/FormField.vue';
 import PrimevueDropdown from 'primevue/dropdown/Dropdown.vue';
+import PrimevueMultiSelect from 'primevue/multiselect/MultiSelect.vue';
 import PrimevueTooltip from 'primevue/tooltip/tooltip.esm.js';
 
 export default {
@@ -52,6 +75,7 @@ export default {
     components: {
         HeadlessFormField,
         PrimevueDropdown,
+        PrimevueMultiSelect,
     },
 
     directives: {
@@ -110,6 +134,10 @@ export default {
             default: false,
         },
         invalid: {
+            type: Boolean,
+            default: false,
+        },
+        multiple: {
             type: Boolean,
             default: false,
         },
