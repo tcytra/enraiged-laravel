@@ -142,23 +142,20 @@ trait PopulateFields
                 $attribute = substr($field->data, strrpos($field->data, '.') +1);
                 $relationship = substr($field->data, 0, strrpos($field->data, '.'));
 
-                if (!$this->model->{$relationship}) {
-                    try {
-                        $this->model->load($relationship);
-                    }
-                    catch (\Exception $e) {}
-                }
+                $this->model->load($relationship);
 
                 $chain = explode('.', $relationship);
                 $model = $this->model;
 
                 while (count($chain)) {
                     $relative = array_shift($chain);
-                    $model->load($relative);
+                    if (is_null($model)) {
+                        break;
+                    }
                     $model = $model->{$relative};
                 }
 
-                if (!is_null($model) && $model->getAttribute($name)) {
+                if (!is_null($model) && $model->getAttribute($attribute)) {
                     $value = $model->{$attribute};
                 }
 
