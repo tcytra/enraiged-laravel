@@ -3,7 +3,7 @@
         <div class="action" v-for="(action, index) in actions"
             :class="{'current': this.isCurrent(action)}"
             :key="index">
-            <primevue-button class="p-button-text inset-shadow"
+            <primevue-button class="p-button-text inset-shadow" v-if="typeof action === 'object'"
                 :class="[action.class, actionClass(action)]"
                 :icon="action.icon"
                 :label="i18n(action.label)"
