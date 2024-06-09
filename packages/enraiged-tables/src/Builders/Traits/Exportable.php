@@ -3,6 +3,7 @@
 namespace Enraiged\Tables\Builders\Traits;
 
 use Enraiged\Support\Builders\UriBuilder;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 trait Exportable
 {
@@ -13,16 +14,16 @@ trait Exportable
     protected $exportable;
 
      /** @var  string  The exported file location. */
-    protected string $exportpath;
+    protected $exportpath;
 
      /** @var  string  The human readable filename. */
-    protected string $filename;
+    protected $filename;
 
      /** @var  string  The exported file type. */
-    protected string $filetype;
+    protected $filetype;
 
     /** @var  string  The hashed (storage) filename. */
-    protected string $hashname;
+    protected $hashname;
 
     /**
      *  Return the export configuration.
@@ -46,20 +47,20 @@ trait Exportable
      *  Derive the name and location of the exportable data.
      *
      *  @return self
-     */
+     *
     public function exportable()
     {
         $parameters = collect($this->request->get('export'));
         $storage = config('enraiged.tables.storage');
 
         $this->chunksize = $parameters->get('chunk') ?? config('excel.exports.chunk_size');
-        $this->filename = trim_lower($parameters->get('name'));
-        $this->filetype = trim_lower($parameters->get('type'));
+        $this->filename = $this->filename();
+        $this->filetype = strtolower($this->request->get('filetype'));
         $this->hashname = uhash();
         $this->exportpath = "{$storage}/{$this->hashname}.{$this->filetype}";
 
         return $this;
-    }
+    }*/
 
     /**
      *  Return the exporter service object.
@@ -72,13 +73,33 @@ trait Exportable
     }
 
     /**
+     *  Determine if the table export is handled by the queue.
+     *
+     *  @return bool
+     */
+    public function isQueuedExport(): bool
+    {
+        $exporter = $this->exporter;
+
+        return $exporter
+            && $exporter instanceof ShouldQueue
+            && config('queue.default') !== 'sync';
+    }
+
+    /**
      *  Return the human readable filename with filetype.
      *
      *  @return string
      */
     public function filename()
     {
-        return "{$this->filename}.{$this->filetype}";
+        $filename = key_exists('name', $this->exportable)
+            ? $this->exportable['name']
+            : $this->id;
+        $filetype = strtolower($this->request->get('export'));
+        $datetime = datetimezone(now(), 'Y-m-d His');
+
+        return "{$filename} {$datetime}.{$filetype}";
     }
 
     /**
@@ -88,6 +109,11 @@ trait Exportable
      */
     public function exportpath()
     {
-        return $this->exportpath;
+        $storage = config('enraiged.tables.storage');
+        $filetype = strtolower($this->request->get('export'));
+        $hashname = uhash();
+        $exportpath = "{$storage}/{$hashname}.{$filetype}";
+
+        return $exportpath;
     }
 }

@@ -52,11 +52,11 @@ class TableBuilder
     /**
      *  Initiate the table export process.
      *
-     *  @return void
+     *  @return \Enraiged\Exports\Models\Export
      */
     public function export()
     {
-        $this->exporter()->process();
+        return $this->exporter()->process();
     }
 
     /**

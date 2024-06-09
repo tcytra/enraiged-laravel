@@ -87,7 +87,9 @@ trait BuilderConstructor
         }
 
         if ($this->request->has('export')) {
-            $this->exportable();
+            $this->chunksize = key_exists('chunk', $this->exportable)
+                ? $this->exportable['chunk']
+                : config('excel.exports.chunk_size');
         }
     }
 

@@ -2,6 +2,8 @@
 
 namespace Enraiged\Tables\Builders\Traits;
 
+use Illuminate\Support\Collection;
+
 trait TableColumns
 {
     /** @var  array  The table columns. */
@@ -131,7 +133,9 @@ trait TableColumns
     public function exportableColumns(): array
     {
         return collect($this->columns)
-            ->filter(fn ($column) => !key_exists('exportable', $column) || $column['exportable'] !== false)
+            ->filter(fn ($column)
+                => (!key_exists('exportable', $column) || $column['exportable'] !== false)
+                    && $this->assertSecure($column))
             ->transform(fn ($column) => $column['label'])
             ->toArray();
     }

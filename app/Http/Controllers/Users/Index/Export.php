@@ -20,12 +20,17 @@ class Export extends Controller
     {
         $this->authorize('export', User::class);
 
-        UserIndex::from($request)->export();
+        $table = UserIndex::from($request);
+        $export = $table->export();
 
-        $message = config('queue.default') === 'sync'
-            ? 'Export completed.'
-            : 'Export started.';
+        if ($table->isQueuedExport()) {
+            return response()
+                ->json(['success' => 'Export started.']);
+        }
 
-        return response()->json(['success' => $message]);
+        $location = storage_path("app/{$export->file->path}");
+
+        return response()
+            ->download($location, $export->file->name);
     }
 }

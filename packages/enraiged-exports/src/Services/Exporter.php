@@ -6,13 +6,17 @@ use Enraiged\Exports\Jobs\AttachFileToExport;
 use Enraiged\Exports\Models\Export;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\App;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromQuery;
+use Maatwebsite\Excel\Concerns\WithColumnFormatting;
+use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Excel;
 
 //use Enraiged\Exports\Notifications\ExportDone; // todo
 
-class Exporter implements FromQuery
+class Exporter implements FromQuery, ShouldAutoSize, WithColumnFormatting, WithHeadings, WithMapping
 {
     use Exportable;
 
@@ -31,6 +35,39 @@ class Exporter implements FromQuery
     }
 
     /**
+     * @return array
+     */
+    public function columnFormats(): array
+    {
+        $columns = array_keys($this->table->exportableColumns());
+        $formats = [];
+
+        for ($i = 0; $i < count($columns); $i++) {
+            $column = $this->table->column($columns[$i]);
+            $format = null;
+
+            if (key_exists('type', $column)) {
+                switch ($column['type']) {
+                    case 'currency':
+                        $format = \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_NUMBER_00;
+                        break;
+                    case 'date':
+                        $format = \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDD;
+                        break;
+                }
+
+                if ($format) {
+                    $index = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($i + 1);
+
+                    $formats[$index] = $format;
+                }
+            }
+        }
+
+        return $formats;
+    }
+
+    /**
      *  Return the column headings for the export.
      *
      *  @return array
@@ -45,7 +82,7 @@ class Exporter implements FromQuery
     /**
      *  Execute the export process.
      *
-     *  @return void
+     *  @return \Enraiged\Exports\Models\Export
      */
     public function process()
     {
@@ -62,7 +99,7 @@ class Exporter implements FromQuery
 
         $this->export = Export::create($parameters);
 
-        if ($this instanceof ShouldQueue) {
+        if ($this->table->isQueuedExport()) {
             $this->queue($exportable->location, null, $this->writer())
                 ->chain([
                     new AttachFileToExport($this->export, $exportable),

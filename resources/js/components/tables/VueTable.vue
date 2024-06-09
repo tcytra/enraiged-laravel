@@ -414,15 +414,28 @@ export default {
         download() {
             if (this.exportable) {
                 this.loading = true;
-                const headers = { responseType: 'blob' };
-                const params = this.params();
-                params.export = { name: this.template.id.replace(/[^A-Za-z]/g, '-'), type: this.exportable };
-                this.axios.post(this.template.exportable.uri, params, { headers: headers })
+                const params = {
+                    method: 'post',
+                    url: this.template.exportable.uri,
+                    data: {...this.params(), export: this.exportable},
+                    responseType: 'blob',
+                };
+                this.axios.request(params)
                     .then((response) => {
                         this.loading = false;
-                        const { status, data } = response;
-                        if (this.isSuccess(status) && data.success) {
-                            this.flashSuccess(data.success);
+                        const { data, headers, status } = response;
+                        if (this.isSuccess(status)) {
+                            if (headers['content-type'].match(/^application/)) {
+                                const url = window.URL.createObjectURL(new Blob([data]));
+                                const link = document.createElement('a');
+                                const file = headers['content-disposition'].split('=')[1].replace(/"/g, '');
+                                link.href = url;
+                                link.setAttribute('download', file);
+                                document.body.appendChild(link);
+                                link.click();
+                            } else if (data.success) {
+                                this.flashSuccess(data.success);
+                            }
                         }
                     })
                     .catch(error => this.errorHandler(error));
