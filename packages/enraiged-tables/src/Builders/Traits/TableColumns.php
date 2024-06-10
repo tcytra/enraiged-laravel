@@ -66,7 +66,9 @@ trait TableColumns
      */
     public function columnExists(string $index): bool
     {
-        return collect($this->columns)->keys()->contains($index);
+        return $this->columns()
+            ->keys()
+            ->contains($index);
     }
 
     /**
@@ -76,7 +78,9 @@ trait TableColumns
      */
     public function columnKeys(): array
     {
-        return collect($this->columns)->keys()->flatten();
+        return $this->columns()
+            ->keys()
+            ->flatten();
     }
 
     /**
@@ -87,7 +91,7 @@ trait TableColumns
      */
     public function columnLabel($key): ?string
     {
-        $columns = collect($this->columns);
+        $columns = $this->columns();
 
         if ($columns->has($key)) {
             $label = key_exists('label', $columns->get($key))
@@ -108,7 +112,7 @@ trait TableColumns
      */
     public function columnSource($key): ?string
     {
-        $columns = collect($this->columns);
+        $columns = $this->columns();
 
         if ($columns->has($key)) {
             $source = key_exists('source', $columns->get($key))
@@ -123,21 +127,6 @@ trait TableColumns
         }
 
         return null;
-    }
-
-    /**
-     *  Return the data sources for the searchable columns.
-     *
-     *  @return array
-     */
-    public function exportableColumns(): array
-    {
-        return collect($this->columns)
-            ->filter(fn ($column)
-                => (!key_exists('exportable', $column) || $column['exportable'] !== false)
-                    && $this->assertSecure($column))
-            ->transform(fn ($column) => $column['label'])
-            ->toArray();
     }
 
     /**
@@ -167,7 +156,7 @@ trait TableColumns
      */
     public function removeColumn($index)
     {
-        $this->columns = collect($this->columns)
+        $this->columns = $this->columns()
             ->except($index)
             ->toArray();
 

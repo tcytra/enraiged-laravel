@@ -44,23 +44,50 @@ trait Exportable
     }
 
     /**
-     *  Derive the name and location of the exportable data.
+     *  Return the data sources for the searchable columns.
      *
-     *  @return self
-     *
-    public function exportable()
+     *  @return array
+     */
+    public function exportableColumns(): array
     {
-        $parameters = collect($this->request->get('export'));
+        return collect($this->columns)
+            ->filter(fn ($column)
+                => (!key_exists('exportable', $column) || $column['exportable'] !== false)
+                    && $this->assertSecure($column))
+            ->transform(fn ($column) => $column['label'])
+            ->toArray();
+    }
+
+    /**
+     *  Return the human readable filename with filetype.
+     *
+     *  @return string
+     */
+    public function exportableFilename()
+    {
+        $filename = key_exists('name', $this->exportable)
+            ? $this->exportable['name']
+            : $this->id;
+        $filetype = strtolower($this->request->get('export'));
+        $datetime = datetimezone(now(), 'Y-m-d His');
+
+        return "{$filename} {$datetime}.{$filetype}";
+    }
+
+    /**
+     *  Return the exported file destination location.
+     *
+     *  @return string
+     */
+    public function exportableLocation()
+    {
         $storage = config('enraiged.tables.storage');
+        $filetype = strtolower($this->request->get('export'));
+        $hashname = uhash();
+        $exportpath = "{$storage}/{$hashname}.{$filetype}";
 
-        $this->chunksize = $parameters->get('chunk') ?? config('excel.exports.chunk_size');
-        $this->filename = $this->filename();
-        $this->filetype = strtolower($this->request->get('filetype'));
-        $this->hashname = uhash();
-        $this->exportpath = "{$storage}/{$this->hashname}.{$this->filetype}";
-
-        return $this;
-    }*/
+        return $exportpath;
+    }
 
     /**
      *  Return the exporter service object.
@@ -84,36 +111,5 @@ trait Exportable
         return $exporter
             && $exporter instanceof ShouldQueue
             && config('queue.default') !== 'sync';
-    }
-
-    /**
-     *  Return the human readable filename with filetype.
-     *
-     *  @return string
-     */
-    public function filename()
-    {
-        $filename = key_exists('name', $this->exportable)
-            ? $this->exportable['name']
-            : $this->id;
-        $filetype = strtolower($this->request->get('export'));
-        $datetime = datetimezone(now(), 'Y-m-d His');
-
-        return "{$filename} {$datetime}.{$filetype}";
-    }
-
-    /**
-     *  Return the exported file location.
-     *
-     *  @return string
-     */
-    public function exportpath()
-    {
-        $storage = config('enraiged.tables.storage');
-        $filetype = strtolower($this->request->get('export'));
-        $hashname = uhash();
-        $exportpath = "{$storage}/{$hashname}.{$filetype}";
-
-        return $exportpath;
     }
 }

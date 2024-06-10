@@ -3,6 +3,7 @@
 namespace Enraiged\Exports\Services;
 
 use Enraiged\Exports\Jobs\AttachFileToExport;
+use Enraiged\Exports\Jobs\AppendColumnSums;
 use Enraiged\Exports\Models\Export;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\App;
@@ -60,6 +61,31 @@ class Exporter implements FromQuery, ShouldAutoSize, WithColumnFormatting, WithH
     }
 
     /**
+     *  Derive and return the columns that require sums.
+     *
+     *  @return array
+     */
+    public function columnSums(): array
+    {
+        $columns = array_keys($this->table->exportableColumns());
+        $formats = config('enraiged.tables.formats');
+        $include = [];
+
+        for ($i = 0; $i < count($columns); $i++) {
+            $column = $this->table->column($columns[$i]);
+
+            if (key_exists('sum', $column) && $column['sum'] === true) {
+                $index = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($i + 1);
+                $include[$index] = key_exists('format', $column) && key_exists($column['format'], $formats)
+                    ? $column['format']
+                    : null;
+            }
+        }
+
+        return $include;
+    }
+
+    /**
      *  Return the column headings for the export.
      *
      *  @return array
@@ -80,8 +106,8 @@ class Exporter implements FromQuery, ShouldAutoSize, WithColumnFormatting, WithH
     {
         $exportable = (object) [
             'created_by' => $this->table->user()->id,
-            'filename' => $this->table->filename(),
-            'location' => $this->table->exportpath(),
+            'filename' => $this->table->exportableFilename(),
+            'location' => $this->table->exportableLocation(),
         ];
 
         $parameters = [
@@ -95,6 +121,7 @@ class Exporter implements FromQuery, ShouldAutoSize, WithColumnFormatting, WithH
             $this->queue($exportable->location, null, $this->writer())
                 ->chain([
                     new AttachFileToExport($this->export, $exportable),
+                    new AppendColumnSums($this->export, $this->columnSums(), $this->writer()),
                     //new ExportDone($this->export),
                 ]);
 
@@ -102,6 +129,8 @@ class Exporter implements FromQuery, ShouldAutoSize, WithColumnFormatting, WithH
             $this->store($exportable->location, null, $this->writer());
 
             (new AttachFileToExport($this->export, $exportable))->handle();
+
+            (new AppendColumnSums($this->export, $this->columnSums(), $this->writer()))->handle();
 
             //(new ExportDone($this->export))->handle();
         }
