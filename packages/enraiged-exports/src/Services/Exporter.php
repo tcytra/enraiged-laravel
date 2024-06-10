@@ -35,25 +35,28 @@ class Exporter implements FromQuery, ShouldAutoSize, WithColumnFormatting, WithH
     }
 
     /**
-     * @return array
+     *  Derive and return the columns that require formatting.
+     *
+     *  @return array
      */
     public function columnFormats(): array
     {
         $columns = array_keys($this->table->exportableColumns());
-        $formats = array_keys(config('enraiged.tables.formats'));
-        $provide = [];
+        $formats = config('enraiged.tables.formats');
+        $include = [];
 
         for ($i = 0; $i < count($columns); $i++) {
             $column = $this->table->column($columns[$i]);
 
             if (key_exists('format', $column) && key_exists($column['format'], $formats)) {
+                $format = $column['format'];
                 $index = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($i + 1);
 
-                $provide[$index] = config('enraiged.tables.formats')[$column['format']];
+                $include[$index] = $formats[$format];
             }
         }
 
-        return $provide;
+        return $include;
     }
 
     /**
