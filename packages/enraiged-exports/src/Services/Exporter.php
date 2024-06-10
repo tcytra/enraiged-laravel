@@ -40,31 +40,20 @@ class Exporter implements FromQuery, ShouldAutoSize, WithColumnFormatting, WithH
     public function columnFormats(): array
     {
         $columns = array_keys($this->table->exportableColumns());
-        $formats = [];
+        $formats = array_keys(config('enraiged.tables.formats'));
+        $provide = [];
 
         for ($i = 0; $i < count($columns); $i++) {
             $column = $this->table->column($columns[$i]);
-            $format = null;
 
-            if (key_exists('type', $column)) {
-                switch ($column['type']) {
-                    case 'currency':
-                        $format = \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_NUMBER_00;
-                        break;
-                    case 'date':
-                        $format = \PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_DATE_YYYYMMDD;
-                        break;
-                }
+            if (key_exists('format', $column) && key_exists($column['format'], $formats)) {
+                $index = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($i + 1);
 
-                if ($format) {
-                    $index = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::stringFromColumnIndex($i + 1);
-
-                    $formats[$index] = $format;
-                }
+                $provide[$index] = config('enraiged.tables.formats')[$column['format']];
             }
         }
 
-        return $formats;
+        return $provide;
     }
 
     /**
