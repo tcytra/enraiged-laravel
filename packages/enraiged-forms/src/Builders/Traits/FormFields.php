@@ -131,41 +131,43 @@ trait FormFields
             }
         }
 
-        if (key_exists($name, $fields)) {
-            $object = &$fields[$name];
+        if (gettype($fields) === 'array') {
+            if (key_exists($name, $fields)) {
+                $object = &$fields[$name];
 
-            if (!$this->assertSecure($object)) {
-                unset($fields[$name]);
-            }
-
-            if ($params) {
-                $fields[$name] = $rewrite
-                    ? $params
-                    : collect($fields[$name])
-                        ->merge($params)
-                        ->toArray();
-
-                return $this;
-            }
-
-            return $object;
-        }
-
-        $keys = array_keys($fields);
-
-        foreach ($keys as $each) {
-            $object = $fields[$each];
-
-            if ($this->hasSectionFields($object) || $this->hasTabbedFields($object)) {
                 if (!$this->assertSecure($object)) {
-                    unset($fields[$each]);
+                    unset($fields[$name]);
                 }
 
-                $layers = collect($depth)->merge($each)->merge('fields');
-                $search = $this->field($name, $params, $rewrite, $layers->toArray());
+                if ($params) {
+                    $fields[$name] = $rewrite
+                        ? $params
+                        : collect($fields[$name])
+                            ->merge($params)
+                            ->toArray();
 
-                if ($search) {
-                    return $search;
+                    return $this;
+                }
+
+                return $object;
+            }
+
+            $keys = array_keys($fields);
+
+            foreach ($keys as $each) {
+                $object = $fields[$each];
+
+                if ($this->hasSectionFields($object) || $this->hasTabbedFields($object)) {
+                    if (!$this->assertSecure($object)) {
+                        unset($fields[$each]);
+                    }
+
+                    $layers = collect($depth)->merge($each)->merge('fields');
+                    $search = $this->field($name, $params, $rewrite, $layers->toArray());
+
+                    if ($search) {
+                        return $search;
+                    }
                 }
             }
         }
