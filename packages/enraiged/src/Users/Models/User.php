@@ -22,6 +22,8 @@ class User extends Authenticatable implements ProvidesDropdownOption
         Scopes\Active,
         Scopes\Deleted,
         Scopes\Reportable,
+        Traits\DropdownOption,
+        Traits\GetFillable,
         Traits\HasContext,
         Traits\HasFactory,
         Traits\ManagesPassword,
@@ -54,44 +56,4 @@ class User extends Authenticatable implements ProvidesDropdownOption
      *  User needs ability to select notification channels (global and/or per notification type or hybrid?).
      */
     public $notification_channels = ['mail'];
-
-    /**
-     *  Return the dropdown option for this user.
-     *
-     *  @param  bool    $wrap = false
-     *  @return array
-     */
-    public function dropdownOption(bool $wrap = false): array
-    {
-        $option = [
-            'id' => $this->id,
-            'name' => $this->profile->name,
-        ];
-
-        return $wrap
-            ? [$option]
-            : $option;
-    }
-
-    /**
-     *  Get the fillable attributes for the model.
-     *
-     *  @return array
-     */
-    public function getFillable()
-    {
-        return [
-            'created_by',
-            'deleted_by',
-            'email',
-            'is_active',
-            'language',
-            'password',
-            'profile_id',
-            'role_id',
-            'theme',
-            'timezone',
-            'updated_by',
-        ];
-    }
 }
