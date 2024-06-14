@@ -19,9 +19,9 @@ class Available extends Controller
     {
         $this->authorize('available', User::class);
 
-        $name_column = "trim(concat(ifnull(profiles.first_name, ''), ' ', ifnull(profiles.last_name, '')))";
+        $fullname = "trim(concat(ifnull(profiles.first_name, ''), ' ', ifnull(profiles.last_name, '')))";
 
-        $columns = collect(['users.id', 'users.profile_id', "{$name_column} as name"])->join(',');
+        $columns = collect(['users.id', 'users.profile_id', "{$fullname} as name"])->join(',');
 
         $validated = collect($request->validated());
 
@@ -39,7 +39,7 @@ class Available extends Controller
             $search = filter_var($validated->get('search'));
             $terms = explode(" ", trim($search));
 
-            $available->whereRaw("{$name_column} like '{$search}%'");
+            $available->whereRaw("{$fullname} like '{$search}%'");
 
             foreach ($terms as $term) {
                 if (strlen($term) > 1) {
@@ -53,13 +53,14 @@ class Available extends Controller
 
         $limit = $validated->get('limit') ?? 100;
 
-        $available
-            ->orderByRaw($name_column)
+        $users = $available
+            ->orderByRaw($fullname)
             ->limit($limit)
             ->get()
             ->transform(fn ($user)
-                => $user->dropdownOption());
+                => $user->dropdownOption())
+            ->toArray();
 
-        return response()->json($available);
+        return response()->json($users);
     }
 }
