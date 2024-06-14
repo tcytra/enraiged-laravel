@@ -11,17 +11,18 @@
             <div class="flex justify-content-center m-3">
                 <primevue-dropdown class="width-160" id="userTheme" optionLabel="name" optionValue="id"
                     v-model="form"
-                    :options="meta.themes">
+                    :options="meta.themes"
+                    @update:modelValue="preview">
                     <template #option="props">
                         <span :class="props.option.class">{{ props.option.name }}</span>
                     </template>
                 </primevue-dropdown>
                 <primevue-button class="p-button-danger ml-1" icon="pi pi-times"
-                    v-tooltip.top="i18n('Revert!')"
+                    v-tooltip.top="i18n('Reset')"
                     :disabled="!isDirty"
-                    @click="clear"/>
+                    @click="reset"/>
                 <primevue-button class="p-button-success ml-1" icon="pi pi-check"
-                    v-tooltip.top="i18n('Save it!')"
+                    v-tooltip.top="i18n('Save')"
                     :disabled="!isDirty"
                     @click="save"/>
             </div>
@@ -52,6 +53,7 @@ export default {
         'i18n',
         'initState',
         'meta',
+        'setTheme',
     ],
 
     props: {
@@ -82,6 +84,13 @@ export default {
 
     methods: {
         clear() {
+            this.form = this.theme;
+        },
+        preview() {
+            this.$primevue.changeTheme(this.theme, this.form, 'theme-color', () => {});
+        },
+        reset() {
+            this.$primevue.changeTheme(this.form, this.theme, 'theme-color', () => {});
             this.form = this.theme;
         },
         save() {
