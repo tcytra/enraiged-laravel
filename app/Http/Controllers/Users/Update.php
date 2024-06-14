@@ -24,17 +24,20 @@ class Update extends Controller
 
         $this->authorize('update', $user);
 
-        UpdateUserProfile::from($user, $request->validated());
+        $validated = $request->validated($attribute);
+
+        UpdateUserProfile::from($user, $validated);
 
         if ($request->is('api/*')) {
             return response()->json([
-                'redirect' => $request->redirect(),
+                //'redirect' => $request->redirect('users.index'),
+                'redirect' => $this->route('users.index'),
                 'success' => __($request->successMessage()),
             ]);
         }
 
         $request->session()->put('success', __($request->successMessage()));
 
-        return $request->redirect();
+        return $request->redirect('users.index');
     }
 }
