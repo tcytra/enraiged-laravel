@@ -15,7 +15,6 @@
         </section>
         <footer class="footer">
             <form-actions v-if="ready"
-                :actions="template.actions"
                 :form="userForm"
                 :template="template"/>
         </footer>
