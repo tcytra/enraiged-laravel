@@ -1,7 +1,8 @@
 <template>
     <headless-form-field v-slot:default="props" v-bind="$props">
         <div class="col-12 line-break" v-if="field.break">
-            <hr :class="field.break">
+            <hr :class="field.break" v-if="typeof field.break === 'string'">
+            <hr v-else>
         </div>
         <div :class="field.before" v-if="field.before"/>
         <div class="control field checkbox align-items-center" v-show="!props.isHidden"

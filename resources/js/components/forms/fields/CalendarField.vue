@@ -2,7 +2,8 @@
     <headless-form-field v-slot:default="{ error, isDirty, isDisabled, isHidden, label, placeholder, update }"
         v-bind="$props">
         <div class="col-12 line-break" v-if="field.break">
-            <hr :class="field.break">
+            <hr :class="field.break" v-if="typeof field.break === 'string'">
+            <hr v-else>
         </div>
         <div :class="field.before" v-if="field.before"/>
         <div class="control field calendar" v-show="show && !isHidden"
