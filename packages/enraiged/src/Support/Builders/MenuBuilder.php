@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 abstract class MenuBuilder
 {
     use Security\AssertSecure,
+        Security\AuthAssertions,
         Security\RoleAssertions,
         Security\UserAssertions,
         Traits\ConfigurationHandler,

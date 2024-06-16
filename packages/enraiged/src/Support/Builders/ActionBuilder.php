@@ -8,6 +8,7 @@ use Symfony\Component\HttpKernel\Exception\PreconditionRequiredHttpException;
 abstract class ActionBuilder
 {
     use Security\AssertSecure,
+        Security\AuthAssertions,
         Security\RoleAssertions,
         Security\UserAssertions,
         Traits\ConfigurationHandler,

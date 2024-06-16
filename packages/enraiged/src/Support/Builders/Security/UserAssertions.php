@@ -7,55 +7,57 @@ use Illuminate\Support\Facades\Auth;
 trait UserAssertions
 {
     /**
-     *  Assert a user id match.
+     *  Assert a user email match.
      *
-     *  @param  array|object  $user
+     *  @param  array|object  $secure
      *  @return bool
      */
-    protected function assertUserEmail($user): bool
+    protected function assertUserHasPermission($secure, $model): bool
     {
-        $user = (object) $user;
+        $secure = (object) $secure;
 
-        if (!Auth::check()) {
+        if (!Auth::check() || !property_exists($secure, 'permission') || is_null($model)) {
             return false;
         }
 
-        return gettype($user->email) === 'array'
-            ? in_array(Auth::user()->email, $user->email)
-            : Auth::user()->email === $user->email;
+        return Auth::user()->can($secure->permission, $model);
     }
 
     /**
-     *  Assert a user model is myself.
+     *  Assert a user email match.
      *
-     *  @param  User  $user
+     *  @param  array|object  $secure
      *  @return bool
      */
-    protected function assertUserIsMyself($user): bool
+    protected function assertUserEmail($secure): bool
     {
-        if (!Auth::check()) {
+        $secure = (object) $secure;
+
+        if (!Auth::check() || !property_exists($secure, 'email')) {
             return false;
         }
 
-        return Auth::user()->id === (int) $user->id;
+        return gettype($secure->email) === 'array'
+            ? in_array(Auth::user()->email, $secure->email)
+            : Auth::user()->email === (int) $secure->email;
     }
 
     /**
      *  Assert a user id match.
      *
-     *  @param  array|User  $user
+     *  @param  array|object  $secure
      *  @return bool
      */
-    protected function assertUserId($user): bool
+    protected function assertUserId($secure): bool
     {
-        $user = (object) $user;
+        $secure = (object) $secure;
 
-        if (!Auth::check()) {
+        if (!Auth::check() || !property_exists($secure, 'id')) {
             return false;
         }
 
-        return gettype($user->id) === 'array'
-            ? in_array(Auth::user()->id, $user->id)
-            : Auth::user()->id === (int) $user->id;
+        return gettype($secure->id) === 'array'
+            ? in_array(Auth::user()->id, $secure->id)
+            : Auth::user()->id === (int) $secure->id;
     }
 }

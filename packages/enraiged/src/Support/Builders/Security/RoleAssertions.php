@@ -2,10 +2,21 @@
 
 namespace Enraiged\Support\Builders\Security;
 
+use Enraiged\Enums\Roles;
 use Illuminate\Support\Facades\Auth;
 
 trait RoleAssertions
 {
+    /**
+     *  Assert a user is authenticated.
+     *
+     *  @return bool
+     */
+    protected function assertIsAdministrator(): bool
+    {
+        return Auth::check() && Auth::user()->role->is(Roles::Administrator);
+    }
+
     /**
      *  Assert a minimum role match.
      *
@@ -14,10 +25,10 @@ trait RoleAssertions
      */
     protected function assertRoleAtLeast($secure): bool
     {
-        $security = (object) $secure;
+        $secure = (object) $secure;
 
         return Auth::check() && Auth::user()->hasRole()
-            ? Auth::user()->role->atLeast($security->role)
+            ? Auth::user()->role->atLeast($secure->role)
             : false;
     }
 
@@ -29,10 +40,10 @@ trait RoleAssertions
      */
     protected function assertRoleIs($secure): bool
     {
-        $security = (object) $secure;
+        $secure = (object) $secure;
 
         return Auth::check() && Auth::user()->hasRole()
-            ? Auth::user()->role->is($security->role)
+            ? Auth::user()->role->is($secure->role)
             : false;
     }
 
@@ -44,10 +55,10 @@ trait RoleAssertions
      */
     protected function assertRoleIsNot($secure): bool
     {
-        $security = (object) $secure;
+        $secure = (object) $secure;
 
         return Auth::check() && Auth::user()->hasRole()
-            ? Auth::user()->role->isNot($security->role)
+            ? Auth::user()->role->isNot($secure->role)
             : false;
     }
 }

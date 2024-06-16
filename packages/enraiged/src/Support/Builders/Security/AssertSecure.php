@@ -2,47 +2,15 @@
 
 namespace Enraiged\Support\Builders\Security;
 
-use Enraiged\Enums\Roles;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 trait AssertSecure
 {
     /**
-     *  Assert a user is authenticated.
-     *
-     *  @return bool
-     */
-    protected function assertIsAdministrator(): bool
-    {
-        return Auth::check() && Auth::user()->role->is(Roles::Administrator);
-    }
-
-    /**
-     *  Assert a user is authenticated.
-     *
-     *  @return bool
-     */
-    protected function assertIsAuth(): bool
-    {
-        return Auth::check();
-    }
-
-    /**
-     *  Assert a user is not authenticated.
-     *
-     *  @return bool
-     */
-    protected function assertIsGuest(): bool
-    {
-        return !Auth::check();
-    }
-
-    /**
      *  Determine whether or not a provided object is secure.
      *
      *  @param  array|object  $object
-     *  @param  \Illuminate\Database\Eloquent\Model  $model = null
+     *  @param  \Illuminate\Database\Eloquent\Model|null  $model = null
      *  @return bool
      */
     protected function assertSecure($object, $model = null): bool
@@ -91,7 +59,7 @@ trait AssertSecure
         }
 
         if (gettype($object->secure) === 'string' && preg_match('/^[a-z][a-z-_]+$/', $object->secure)) {
-            return !property_exists($object, $object->secure)|| $object->{$object->secure} === true;
+            return !property_exists($object, $object->secure) || $object->{$object->secure} === true;
         }
 
         $assertion = (object) $object->secure;
