@@ -10,16 +10,21 @@
   width:            inherit;
 }
 
-.p-dropdown, .p-multiselect {
-    &.w-full {
-      overflow:         hidden;
-        .p-inputtext {
-          padding:          calc(.5rem - 1px) .5rem;
-        }
+.p-dropdown.w-full,
+.p-multiselect.w-full {
+    overflow:         hidden;
+}
+.p-dropdown {
+    .p-inputtext {
+      padding:          calc(.5rem - 1px) .5rem;
     }
-    .p-dropdown-clear-icon,
-    .p-multiselect-clear-icon {
+    .p-dropdown-clear-icon {
       z-index:          9;
+    }
+}
+.p-multiselect {
+    .p-multiselect-label {
+      padding:          calc(.5rem - 1px) .5rem;
     }
 }
 
@@ -37,6 +42,16 @@
 .p-inputtextarea,
 .p-inputtext {
   font-family:      $font-family-primary;
+}
+
+.p-inputtextarea,
+.p-inputtext {
+  padding:          0.425rem;
+}
+
+.p-input-filled .p-inputtext,
+.p-input-filled .p-inputtext:enabled:hover:not(.is-creating):not(.is-updating), {
+  background:       transparent;
 }
 
 /*.p-inputtextarea,
