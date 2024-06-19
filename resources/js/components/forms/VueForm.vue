@@ -50,7 +50,10 @@
             </vue-form-fields>
             <vue-form-actions v-if="!customActions"
                 :actions="template.actions"
+                :clear="clear"
                 :form="form"
+                :reset="reset"
+                :submit="submit"
                 :template="template"
                 @clear="clear"
                 @reset="reset"

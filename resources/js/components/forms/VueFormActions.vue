@@ -9,15 +9,15 @@
             <primevue-button class="p-button-success submit-button" v-if="actions.submit"
                 :disabled="!form.isDirty"
                 :label="i18n(actions.submit.label)"
-                @click="form.submit()"/>
+                @click="(submit || form.submit)()"/>
             <primevue-button class="p-button-warning reset-button" v-if="actions.reset && form.isDirty"
                 :class="{'fadein': form.isDirty}"
                 :label="i18n(actions.reset.label)"
-                @click="form.reset()"/>
+                @click="(reset || form.reset)()"/>
             <primevue-button class="p-button-danger error-button" v-if="actions.clear && form.hasErrors"
                 :class="{'fadein': form.hasErrors}"
                 :label="i18n(actions.clear.label)"
-                @click="form.clear()"/>
+                @click="(clear || form.clear)()"/>
         </div>
     </div>
 </template>
@@ -36,9 +36,21 @@ export default {
     ],
 
     props: {
+        clear: {
+            type: Function,
+            default: null,
+        },
         form: {
             type: Object,
             required: true,
+        },
+        reset: {
+            type: Function,
+            default: null,
+        },
+        submit: {
+            type: Function,
+            default: null,
         },
         template: {
             type: Object,

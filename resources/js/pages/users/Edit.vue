@@ -13,7 +13,7 @@
                 </div>
             </div>
         </section>
-        <footer class="footer">
+        <footer class="footer" v-if="template.actions && Object.keys(template.actions).length">
             <form-actions v-if="ready"
                 :form="userForm"
                 :template="template"/>
