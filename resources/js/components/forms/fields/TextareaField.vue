@@ -11,8 +11,9 @@
             <label v-if="label" class="label" :for="id">
                 {{ label }}
             </label>
-            <primevue-textarea class="w-full" ref="field" auto-resize
+            <primevue-textarea class="w-full" ref="field"
                 v-model="form[id]"
+                :auto-resize="enableAutoResizable"
                 :class="{
                     'is-creating': isDirty && creating,
                     'is-updating': isDirty && updating,
@@ -21,7 +22,7 @@
                 :disabled="isDisabled"
                 :id="id"
                 :placeholder="placeholder"
-                :rows="field.rows || rows"
+                :rows="usingRows"
                 @update:modelValue="update(); $emit('update:modelValue', $event)"/>
             <div class="error p-error" v-if="error">
                 <i class="pi pi-exclamation-circle" v-tooltip.top="error"></i>
@@ -92,7 +93,7 @@ export default {
         },
         rows: {
             type: Number,
-            default: 5,
+            required: false,
         },
         show: {
             type: Boolean,
@@ -101,6 +102,18 @@ export default {
         updating: {
             type: Boolean,
             default: false,
+        },
+    },
+
+    computed: {
+        enableAutoResizable() {
+            return this.autoresizable === true
+                || this.field.autoresizable === true;
+        },
+        usingRows() {
+            return this.field.rows
+                || this.rows
+                || 5;
         },
     },
 };

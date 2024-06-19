@@ -20,15 +20,15 @@
                     'p-inputtext-sm': isSmall,
                     'p-invalid': invalid || error,
                 }"
-                :date-format="field.format || 'yy-mm-dd'"
+                :date-format="usingDateFormat"
                 :disabled="isDisabled"
-                :disabled-dates="disabledDates || field.disabledDates"
-                :disabled-days="disabledDays || field.disabledDays"
-                :hideOnRangeSelection="hideOnRangeSelection || field.hideOnRangeSelection"
+                :disabled-dates="usingDisabledDates"
+                :disabled-days="usingDisabledDays"
+                :hide-on-range-selection="enableHideOnRangeSelection"
                 :id="id"
                 :placeholder="placeholder"
-                :max-date="maxDate"
-                :min-date="minDate"
+                :max-date="usingMaximumDate"
+                :min-date="usingMinimumDate"
                 :number-of-months="numberOfMonths || field.numberOfMonths"
                 :selection-mode="selectionMode || field.selectionMode"
                 :touchUI="touchUI || field.touchUI || (isMobile || isTablet)"
@@ -138,14 +138,34 @@ export default {
             const form = this.form[this.id] ? this.form[this.id].toString() : null;
             return field !== form;
         },
-        maxDate() {
-            return this.field.maximum
-                ? this.newDate(this.field.maximum)
+        enableHideOnRangeSelection() {
+            return this.hideOnRangeSelection === true
+                || this.field.hideOnRangeSelection === true;
+        },
+        usingDateFormat() {
+            return this.field.format || this.field.dateFormat || 'yy-mm-dd';
+        },
+        usingDisabledDates() {
+            const disabled = this.disabledDates.length
+                ? this.disabledDates
+                : this.field.disabledDates || [];
+            return disabled.map((date) => this.newDate(date));
+        },
+        usingDisabledDays() {
+            return this.disabledDays.length
+                ? this.disabledDays
+                : this.field.disabledDays || [];
+        },
+        usingMaximumDate() {
+            const maxDate = this.maxDate || this.field.maxDate;
+            return typeof maxDate === 'string'
+                ? this.newDate(maxDate)
                 : null;
         },
-        minDate() {
-            return this.field.minimum
-                ? this.newDate(this.field.minimum)
+        usingMinimumDate() {
+            const minDate = this.minDate || this.field.minDate;
+            return typeof minDate === 'string'
+                ? this.newDate(minDate)
                 : null;
         },
     },

@@ -11,7 +11,7 @@
             <label v-if="label" class="label" :for="id">
                 {{ label }}
             </label>
-            <primevue-multi-select class="w-full" optionLabel="name" optionValue="id" v-if="multiple || field.multiple"
+            <primevue-multi-select class="w-full" v-if="enableMultiple"
                 v-model="form[id]"
                 :class="{
                     'is-creating': isDirty && creating,
@@ -21,19 +21,21 @@
                     'p-invalid': invalid || error,
                 }"
                 :disabled="loading || isDisabled || (disableIfNoOptions && !options.length)"
-                :filter="field.searchable || searchable"
+                :filter="enableFilter"
                 :id="id"
                 :loading=loading
                 :options="options"
+                :option-label="usingOptionLabel"
+                :option-value="usingOptionValue"
                 :placeholder="placeholder"
-                :show-clear="field.clearable || clearable"
+                :show-clear="enableShowClear"
                 @filter="filter"
                 @update:modelValue="update(); $emit('update:modelValue', $event)">
                 <template #option="props">
                     <span :class="props.option.class">{{ props.option.name }}</span>
                 </template>
             </primevue-multi-select>
-            <primevue-dropdown class="w-full" optionLabel="name" optionValue="id" v-else
+            <primevue-dropdown class="w-full" v-else
                 v-model="form[id]"
                 :class="{
                     'is-creating': isDirty && creating,
@@ -43,12 +45,14 @@
                     'p-invalid': invalid || error,
                 }"
                 :disabled="loading || isDisabled || (disableIfNoOptions && !options.length)"
-                :filter="field.searchable || searchable"
+                :filter="enableFilter"
                 :id="id"
                 :loading=loading
                 :options="options"
+                :option-label="usingOptionLabel"
+                :option-value="usingOptionValue"
                 :placeholder="placeholder"
-                :show-clear="field.clearable || clearable"
+                :show-clear="enableShowClear"
                 @filter="filter"
                 @update:modelValue="update(); $emit('update:modelValue', $event)">
                 <template #option="props">
@@ -86,7 +90,7 @@ export default {
     inject: ['errorHandler'],
 
     props: {
-        autoSelectSingleOption: {
+        autoselectable: {
             type: Boolean,
             default: false,
         },
@@ -109,10 +113,6 @@ export default {
         field: {
             type: Object,
             required: true,
-        },
-        filterable: {
-            type: Boolean,
-            default: false,
         },
         focus: {
             type: Boolean,
@@ -142,6 +142,14 @@ export default {
             type: Boolean,
             default: false,
         },
+        optionLabel: {
+            type: String,
+            default: null,
+        },
+        optionValue: {
+            type: String,
+            default: null,
+        },
         searchable: {
             type: Boolean,
             default: false,
@@ -165,6 +173,22 @@ export default {
     }),
 
     computed: {
+        enableAutoSelectable() {
+            return this.autoselectable === true
+                || this.field.autoselectable === true;
+        },
+        enableFilter() {
+            return this.searchable === true
+                || this.field.searchable === true;
+        },
+        enableMultiple() {
+            return this.multiple === true
+                || this.field.multiple === true;
+        },
+        enableShowClear() {
+            return this.clearable === true
+                || this.field.clearable === true;
+        },
         selectedOption() {
             if (Object.keys(this.form.data()).includes(this.id)) {
                 const option = this.options
@@ -175,6 +199,16 @@ export default {
             }
 
             return null;
+        },
+        usingOptionLabel() {
+            return this.optionLabel
+                || this.field.options.label
+                || 'name';
+        },
+        usingOptionValue() {
+            return this.optionValue
+                || this.field.options.value
+                || 'id';
         },
     },
 
@@ -192,8 +226,7 @@ export default {
 
     methods: {
         autoselect() {
-            const autoselect = typeof this.field.autoselect !== 'undefined' && this.field.autoselect === true;
-            if (autoselect || this.autoSelectSingleOption && this.options.length === 1) {
+            if (this.enableAutoSelectable && this.options.length === 1) {
                 this.form[this.id] = this.options[0].id;
                 this.$emit('update:modelValue', this.options[0].id)
             }

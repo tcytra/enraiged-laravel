@@ -12,7 +12,7 @@
             </label>
             <primevue-checkbox :id="id" ref="field"
                 v-model="props.form[id]"
-                :binary="field.binary || binary"
+                :binary="true"
                 :disabled="props.isDisabled"
                 @update:modelValue="props.update(); $emit('update:modelValue', $event)"/>
             <div class="error p-error" v-if="props.error">
@@ -42,10 +42,6 @@ export default {
     },
 
     props: {
-        binary: {
-            type: Boolean,
-            default: true,
-        },
         creating: {
             type: Boolean,
             default: false,

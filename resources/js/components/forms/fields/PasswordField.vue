@@ -18,10 +18,10 @@
                     'p-invalid': invalid || error,
                 }"
                 :disabled="isDisabled"
-                :feedback="field.feedback || feedback"
+                :feedback="enableFeedback"
                 :id="id"
-                :placeholder="field.placeholder || placeholder"
-                :toggle-mask="field.unmask || unmask"
+                :placeholder="placeholder || field.placeholder"
+                :toggle-mask="enableUnmask"
                 @update:modelValue="update(); $emit('update:modelValue', $event)"/>
             <div class="error p-error" v-if="error">
                 <i class="pi pi-exclamation-circle" v-tooltip.top="error"></i>
@@ -60,7 +60,7 @@ export default {
         },
         feedback: {
             type: Boolean,
-            default: false,
+            required: false,
         },
         field: {
             type: Object,
@@ -96,7 +96,19 @@ export default {
         },
         unmask: {
             type: Boolean,
-            default: false,
+            required: false,
+        },
+    },
+
+    computed: {
+        enableFeedback() {
+            return this.feedback === true
+                || this.field.feedback === true;
+        },
+        enableUnmask() {
+            return this.unmask === true
+                || this.field.unmask === true
+                || this.field.toggleMask === true;
         },
     },
 };
