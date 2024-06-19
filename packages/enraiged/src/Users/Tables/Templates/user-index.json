@@ -92,6 +92,7 @@
     "exportable": {
         "chunk": 100,
         "default": "XLSX",
+        "name": "User Index",
         "options": ["CSV", "XLSX"],
         "uri": "users.index.export"
     },
