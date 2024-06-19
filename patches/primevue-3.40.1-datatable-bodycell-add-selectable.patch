@@ -1,0 +1,40 @@
+--- node_modules/primevue/datatable/BodyCell.vue	2024-05-20 15:11:46.278845200 -0700
++++ node_modules/primevue/datatable/BodyCell.vue	2024-05-20 15:12:02.862649000 -0700
+@@ -32,15 +32,25 @@
+         />
+         <component v-else-if="column.children && column.children.body && !column.children.editor && d_editing" :is="column.children.body" :data="editingRowData" :column="column" :field="field" :index="rowIndex" :frozenRow="frozenRow" />
+         <template v-else-if="columnProp('selectionMode')">
+-            <DTRadioButton v-if="columnProp('selectionMode') === 'single'" :value="rowData" :name="name" :checked="selected" @change="toggleRowWithRadio($event, rowIndex)" :column="column" :index="index" :unstyled="unstyled" :pt="pt" />
++            <DTRadioButton
++                v-if="columnProp('selectionMode') === 'single'"
++                :value="rowData" :name="name"
++                :checked="selectable && selected"
++                @change="toggleRowWithRadio($event, rowIndex)"
++                :column="column"
++                :disabled="!selectable"
++                :index="index"
++                :unstyled="unstyled"
++                :pt="pt"/>
+             <DTCheckbox
+                 v-else-if="columnProp('selectionMode') === 'multiple'"
+                 :value="rowData"
+-                :checked="selected"
++                :checked="selectable && selected"
+                 :rowCheckboxIconTemplate="column.children && column.children.rowcheckboxicon"
+                 :aria-selected="selected ? true : undefined"
+                 @change="toggleRowWithCheckbox($event, rowIndex)"
+                 :column="column"
++                :disabled="!selectable"
+                 :index="index"
+                 :unstyled="unstyled"
+                 :pt="pt"
+@@ -475,6 +485,9 @@
+         }
+     },
+     computed: {
++        selectable() {
++            return typeof this.rowData.disable_row_select === 'undefined' || this.rowData.disable_row_select === false;
++        },
+         editingRowData() {
+             return this.editingMeta[this.rowIndex] ? this.editingMeta[this.rowIndex].data : this.rowData;
+         },
