@@ -17,7 +17,7 @@
   * [Build Client](#build-client)
   * [Serve Application](#serve-application)
 - [Usage](#usage)
-  * []()
+  * [Enraiged Forms](#enraiged-forms)
 - [Licence](#license)
 
 
@@ -101,20 +101,28 @@ When complete, build the app for service:
 npm run build
 ```
 
-#### Known Issue
+#### Patches
 
 I encountered an issue with Primevue Datatables handling of rowgroup colspan. In the vendor files, they are actively
 subtracting the calculated column count and I don't understand why. I've included a patch to prevent this subtraction.
 
 Apply the patch (optional):
 
-> Revert these changes by using `-Rp0` instead of `-p0`
-
 ```bash
 patch -Nr - --version-control none -p0 < patches/primevue-3.40.1-datatable-correct-rowgroup-colspan.patch
 ```
 
-> **Note:** The `npm run build` command will need to be reexecuted after applying this patch.
+I also created a patch that modifies the primevue DataCell component to allow disabling row checkbox,radio selectors:
+
+Apply the patch (optional):
+
+```bash
+patch -Nr - --version-control none -p0 < patches/primevue-3.40.1-datatable-bodycell-add-selectable.patch
+```
+
+> Revert these changes by using `-Rp0` instead of `-p0`
+
+> **Note:** The `npm run build` command will need to be reexecuted after applying these patches.
 
 ### Serve Application
 
@@ -173,11 +181,11 @@ patch -Nr - --version-control none -p0 < patches/primevue-3.40.1-ssr-ready-corre
 > **Note:** The `npm run build` command will need to be reexecuted after applying this patch.
 
 
-
 ## Usage
 
-...
+### Enraiged Forms
 
+Documentation for using the Enraiged Forms package can be found in the enraiged-forms/README.md.
 
 
 ## License

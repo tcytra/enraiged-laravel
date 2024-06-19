@@ -1,5 +1,50 @@
 # Release Notes
 
+**Upcoming Changes**
+
+The enraiged-laravel starter framework will be moving into v0.4.x soon with a full reconstruction of this framework:
+
+- Considering rebuilding on top of Laravel Breeze
+- Replace all Enums with Laravel style Enum classes
+- Rewrite FormBuilder create,edit as static functions
+- Rewrite FormBuilder From() method to detect and call Create,Edit as required
+- Rewrite enraiged-{forms,tables} template metadata parameters
+- Split enraiged-{forms,support,tables} into separate packages (maybe)
+- Upgrade to newest version of all packages, especially:
+  - Laravel to v11.x
+  - Primevue to v4.x
+
+---
+
+2024-06-19 : 0.3.8  
+Update: Major round of corrections,improvements to enraiged-{forms,tables}
+
+> Enraiged Forms is now documented in the enraiged-forms package README
+
+- Added ```dateformat_primevue_to_php()``` helper function
+- Added 'config' type options.values source for the select field
+- Added ability to argue for grouped table rows in VueTable.vue
+- Added ability to define custom dropdown label,value
+- Added dropdown option format method to users available system
+- Added multiselect as enraiged form field,table filter
+- Added patch to apply selectable/disabled arg to table rows
+- Corrected issue preventing table filters with params specified
+- Corrected issue with {Create,Update}UserProfile user services
+- Corrected issue with bool form field disabled,hidden if,unless
+- Corrected issue loading form field relative model attribute
+- Correct,reorganize assertions, added assetUserHasPermission()
+- Improved section(s) handling of templated vue form tabs
+- Improvements to the enraiged-tables,exports system
+  - Ability to argue for formatted column sums in the export
+  - Automatic download for 'sync' (non-queued) export requests
+  - Define column export formatting via enraiged.tables.formats
+  - Ensure security assertions are executed on exportable columns
+  - Improved export filename handling
+- Renamed form field 'data' config attribute to 'source'
+- Security fix for high severity issue in 'braces' package
+
+---
+
 2024-04-29 : 0.3.7  
 Update: Security update for axios,vite; Various bugfixes,updates
 
