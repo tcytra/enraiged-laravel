@@ -1,19 +1,4 @@
 {
-    "actions": {
-        "back": {
-            "label": "Back"
-        },
-        "clear": {
-            "label": "Clear"
-        },
-        "reset": {
-            "label": "Reset"
-        },
-        "submit": {
-            "label": "Submit",
-            "method": "emit"
-        }
-    },
     "class": "vertical shadow-1",
     "fields": {
         "administration_section": {
@@ -22,8 +7,7 @@
                 "class": "text-center text-lg"
             },
             "secure": {
-                "method": "roleIs",
-                "role": "Administrator"
+                "method": "isAdministrator"
             },
             "type": "section",
             "fields": {
@@ -31,29 +15,30 @@
                     "class": "col-12 md:col-6",
                     "label": "Role",
                     "options": {
-                        "source": "api",
-                        "uri": "roles.available"
+                        "select": ["id", "name", "rank"],
+                        "source": "\\Enraiged\\Roles\\Models\\Role",
+                        "type": "model"
                     },
                     "placeholder": "Required",
                     "type": "select"
                 },
                 "is_active": {
                     "class": "col-4 md:col-2",
-                    "default": true,
                     "label": "Active",
-                    "type": "switch"
+                    "type": "switch",
+                    "value": false
                 },
                 "is_hidden": {
                     "class": "col-4 md:col-2",
-                    "default": false,
                     "label": "Hidden",
-                    "type": "switch"
+                    "type": "switch",
+                    "value": false
                 },
                 "is_protected": {
                     "class": "col-4 md:col-2",
-                    "default": false,
                     "label": "Protected",
-                    "type": "switch"
+                    "type": "switch",
+                    "value": false
                 }
             }
         },
@@ -67,34 +52,34 @@
                 "salut": {
                     "after": "col-6 md:col-9",
                     "class": "col-6 md:col-3",
-                    "data": "profile.salut",
                     "label": "Salut",
                     "options": {
                         "source": "Enraiged\\Profiles\\Enums\\Saluts",
                         "type": "enum"
                     },
                     "placeholder": "Optional",
+                    "source": "profile.salut",
                     "type": "select"
                 },
                 "first_name": {
                     "class": "col-12 md:col-6",
-                    "data": "profile.first_name",
                     "disabled": {
                         "attribute": "user.disable_name_change"
                     },
                     "label": "First Name",
                     "placeholder": "Required",
-                    "required": true
+                    "required": true,
+                    "source": "profile.first_name"
                 },
                 "last_name": {
                     "class": "col-12 md:col-6",
-                    "data": "profile.last_name",
                     "disabled": {
                         "attribute": "user.disable_name_change"
                     },
                     "label": "Last Name",
                     "placeholder": "Required",
-                    "required": true
+                    "required": true,
+                    "source": "profile.last_name"
                 },
                 "email": {
                     "class": "col-12 md:col-6",
@@ -105,16 +90,17 @@
                 },
                 "alias": {
                     "class": "col-12 md:col-6",
-                    "data": "profile.alias",
                     "label": "Alias",
-                    "placeholder": "Optional"
+                    "placeholder": "Optional",
+                    "source": "profile.alias"
                 },
                 "birthdate": {
                     "after": "col-6 md:col-9",
                     "class": "col-6 md:col-3",
-                    "data": "profile.birthdate",
+                    "format": "yy-mm-dd",
                     "label": "Birthday",
                     "placeholder": "Optional",
+                    "source": "profile.birthdate",
                     "type": "calendar"
                 }
             }
@@ -131,14 +117,12 @@
                     "feedback": true,
                     "label": "Password",
                     "placeholder": "Leave blank to keep password",
-                    "type": "password",
-                    "value": false
+                    "type": "password"
                 },
                 "password_confirmation": {
                     "class": "col-12 md:col-6",
                     "label": "Confirm Password",
-                    "type": "password",
-                    "value": false
+                    "type": "password"
                 }
             }
         }

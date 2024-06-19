@@ -1,19 +1,4 @@
 {
-    "actions": {
-        "back": {
-            "label": "Back"
-        },
-        "clear": {
-            "label": "Clear"
-        },
-        "reset": {
-            "label": "Reset"
-        },
-        "submit": {
-            "label": "Submit",
-            "method": "emit"
-        }
-    },
     "class": "horizontal shadow-1",
     "fields": {
         "role_id": {
@@ -21,8 +6,9 @@
             "class": "col-6",
             "label": "Role",
             "options": {
-                "source": "api",
-                "uri": "roles.available"
+                "select": ["id", "name", "rank"],
+                "source": "\\Enraiged\\Roles\\Models\\Role",
+                "type": "model"
             },
             "placeholder": "Required",
             "secure": {
