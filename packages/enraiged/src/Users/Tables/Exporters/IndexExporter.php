@@ -5,6 +5,8 @@ namespace Enraiged\Users\Tables\Exporters;
 use Enraiged\Exports\Services\Exporter;
 use Enraiged\Exports\Contracts\ExportFrom;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\WithMapping;
 
 class IndexExporter extends Exporter implements ExportFrom, ShouldQueue, WithHeadings, WithMapping
 {
