@@ -5,12 +5,11 @@ namespace Enraiged\Addresses\Models;
 use Enraiged\Support\Database\Traits\Created;
 use Enraiged\Support\Database\Traits\Updated;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Address extends Model
 {
-    use Relations\BelongsToCountry,
-        Relations\BelongsToRegion,
-        Created, Updated;
+    use Created, Updated;
 
     /** @var  string  The morphable name. */
     protected $morphable = 'addressable';
@@ -43,5 +42,21 @@ class Address extends Model
     public function addressable()
     {
         return $this->morphTo();
+    }
+
+    /**
+     *  @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function country(): BelongsTo
+    {
+        return $this->belongsTo(Country::class, 'country_id', 'id');
+    }
+
+    /**
+     *  @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function region(): BelongsTo
+    {
+        return $this->belongsTo(Region::class, 'region_id', 'id');
     }
 }

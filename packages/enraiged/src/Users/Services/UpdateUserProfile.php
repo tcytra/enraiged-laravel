@@ -2,6 +2,7 @@
 
 namespace Enraiged\Users\Services;
 
+use Enraiged\Addresses\Models\Address;
 use Enraiged\Users\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -52,6 +53,18 @@ class UpdateUserProfile
                 ->toArray();
 
             $this->user->profile->update($profile_attributes);
+
+            $address_attributes = collect($this->attributes)
+                ->only((new Address)->getFillable())
+                ->toArray();
+
+            if (count($address_attributes)) {
+                if ($this->user->profile->address) {
+                    $this->user->profile->address->update($address_attributes);
+                } else {
+                    $this->user->profile->address->create($address_attributes);
+                }
+            }
         });
 
         return $this;

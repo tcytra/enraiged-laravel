@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
         Artisan::call('storage:clear');
 
         $this->call([
+            Geo\CountriesSeeder::class,
+            Geo\RegionsSeeder::class,
             AgreementSeeder::class,
             RoleSeeder::class,
             UserSeeder::class,
