@@ -4,6 +4,9 @@ namespace Enraiged\Forms\Builders\Traits;
 
 trait FormFields
 {
+    /** @var  object  The templated form fields. */
+    protected $fields;
+
     /**
      *  Add a definition to the form fields template.
      *
@@ -135,16 +138,22 @@ trait FormFields
             if (key_exists($name, $fields)) {
                 $object = &$fields[$name];
 
-                if (!$this->assertSecure($object)) {
+                if (!$this->assertSecure($object, $this->model)) {
                     unset($fields[$name]);
                 }
 
                 if ($params) {
-                    $fields[$name] = $rewrite
-                        ? $params
-                        : collect($fields[$name])
-                            ->merge($params)
-                            ->toArray();
+                    //  if rewriting the field, the field is returned
+                    if ($rewrite) {
+                        $fields[$name] = $params;
+
+                        return $fields[$name];
+                    }
+
+                    //  otherwise the builder instance is returned
+                    $fields[$name] = collect($fields[$name])
+                        ->merge($params)
+                        ->toArray();
 
                     return $this;
                 }
@@ -158,7 +167,7 @@ trait FormFields
                 $object = $fields[$each];
 
                 if ($this->hasSectionFields($object) || $this->hasTabbedFields($object)) {
-                    if (!$this->assertSecure($object)) {
+                    if (!$this->assertSecure($object, $this->model)) {
                         unset($fields[$each]);
                     }
 

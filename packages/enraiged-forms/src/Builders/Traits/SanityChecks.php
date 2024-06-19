@@ -24,13 +24,26 @@ trait SanityChecks
      *  @param  array|object  $field
      *  @return bool
      */
-    protected function hasRelativeData($field): bool
+    protected function hasRelativeSource($field): bool
     {
-        $object = (object) $field;
+        $field = (object) $field;
         $regex = '/[a-z][a-z_]+(\.[a-z][a-z_]+){1,}/';
 
-        return property_exists($object, 'data')
-            && preg_match($regex, $object->data);
+        if (property_exists($field, 'source')) {
+            if (gettype($field->source) === 'array') {
+                foreach ($field->source as $source) {
+                    if (!preg_match($regex, $source)) {
+                        return false;
+                    }
+
+                    return true;
+                }
+            }
+
+            return preg_match($regex, $field->source);
+        }
+
+        return false;
     }
 
     /**

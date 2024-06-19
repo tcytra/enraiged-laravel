@@ -12,6 +12,7 @@ class FormBuilder implements ProvidesRefererRedirect
         Traits\FormModel,
         Traits\FormResource,
         Traits\HttpRequest,
+        Traits\PrepareFields,
         Traits\PopulateFields,
         Traits\SanityChecks,
         Traits\SecurityAssertions;
@@ -79,9 +80,7 @@ class FormBuilder implements ProvidesRefererRedirect
      */
     public function template(): array
     {
-        if (!$this->populated) {
-            $this->populate();
-        }
+        $this->prepare();
 
         $template = [
             'actions' => $this->actions,
