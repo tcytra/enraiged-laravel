@@ -5,7 +5,7 @@ namespace Enraiged\Support\Contracts;
 interface ProvidesDropdownOption
 {
     /**
-     *  FOrmat and return the dropdown option for this model.
+     *  Format and return the dropdown option for this model.
      *
      *  @param  bool    $wrap = false
      *  @return array

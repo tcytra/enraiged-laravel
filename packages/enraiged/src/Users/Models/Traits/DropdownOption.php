@@ -5,7 +5,7 @@ namespace Enraiged\Users\Models\Traits;
 trait DropdownOption
 {
     /**
-     *  Return the dropdown option for this user.
+     *  Return the dropdown option for this model.
      *
      *  @param  bool    $wrap = false
      *  @return array
