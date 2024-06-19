@@ -21,46 +21,6 @@ class UserPolicy
 
     /**
      *  @param  \Enraiged\Users\Models\User  $auth
-     *  @param  \Enraiged\Users\Models\User  $user
-     *  @return bool
-     */
-    public function avatarEdit(User $auth, User $user)
-    {
-        return $user->isMyself;
-    }
-
-    /**
-     *  @param  \Enraiged\Users\Models\User  $auth
-     *  @param  \Enraiged\Users\Models\User  $user
-     *  @return bool
-     */
-    public function loginEdit(User $auth, User $user)
-    {
-        return $user->isMyself;
-    }
-
-    /**
-     *  @param  \Enraiged\Users\Models\User  $auth
-     *  @param  \Enraiged\Users\Models\User  $user
-     *  @return bool
-     */
-    public function settingsEdit(User $auth, User $user)
-    {
-        return $user->isMyself;
-    }
-
-    /**
-     *  @param  \Enraiged\Users\Models\User  $auth
-     *  @param  \Enraiged\Users\Models\User  $user
-     *  @return bool
-     */
-    public function filesShow(User $auth, User $user)
-    {
-        return $user->isMyself;
-    }
-
-    /**
-     *  @param  \Enraiged\Users\Models\User  $auth
      *  @return bool
      */
     public function create(User $auth)
