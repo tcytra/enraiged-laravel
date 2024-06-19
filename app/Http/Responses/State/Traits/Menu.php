@@ -2,7 +2,7 @@
 
 namespace App\Http\Responses\State\Traits;
 
-use App\Menus\Builders\MainMenu;
+use App\Support\MenuBuilder;
 use Illuminate\Http\Request;
 
 trait Menu
@@ -15,6 +15,6 @@ trait Menu
      */
     private function menu(Request $request)
     {
-        return MainMenu::From($request)->menu();
+        return MenuBuilder::From($request)->menu();
     }
 }

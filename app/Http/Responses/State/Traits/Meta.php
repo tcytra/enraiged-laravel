@@ -2,7 +2,7 @@
 
 namespace App\Http\Responses\State\Traits;
 
-use App\Builders\MetaBuilder;
+use App\Support\MetaBuilder;
 use Illuminate\Http\Request;
 
 trait Meta
