@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
 use Enraiged\Roles\Models\Role;
-use Enraiged\Users\Forms\Builders\CreateForm;
+use Enraiged\Users\Forms\Builders\CreateUser;
 use Enraiged\Users\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
@@ -21,7 +21,7 @@ class Create extends Controller
     {
         $this->authorize('create', User::class);
 
-        $form = CreateForm::from($request)
+        $form = CreateUser::from($request)
             ->create(User::class, 'users.store')
             ->value('role_id', Role::lowest()->id);
 

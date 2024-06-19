@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Users;
 use App\Http\Controllers\Controller;
 use Enraiged\Avatars\Resources\AvatarEditResource;
 use Enraiged\Users\Actions\Builders\UserActions;
-use Enraiged\Users\Forms\Builders\UpdateUserForm;
+use Enraiged\Users\Forms\Builders\UpdateUser;
 use Enraiged\Users\Models\User;
 use Enraiged\Users\Resources\UserResource;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -26,7 +26,7 @@ class Edit extends Controller
 
         $this->authorize('edit', $user);
 
-        $form = UpdateUserForm::from($request)
+        $form = UpdateUser::from($request)
             ->edit($user, 'users.update')
             ->disabledIf(['is_active', 'is_hidden', 'is_protected', 'role_id'], $user->id === 1);
 
