@@ -101,6 +101,7 @@ trait EloquentBuilder
 
                             if ($match && key_exists('scope', $match)) {
                                 $scope = $match['scope'];
+
                                 if (method_exists($this->model, "scope{$scope}")) {
                                     $this->builder->{$scope}();
                                 }
@@ -195,7 +196,8 @@ trait EloquentBuilder
             $where = implode(' AND ', $conditions);
             $query = "({$where})";
 
-            $this->builder()->whereRaw("({$query})");
+            $this->builder()
+                ->whereRaw("({$query})");
         }
 
         return $this;
@@ -226,17 +228,23 @@ trait EloquentBuilder
                     if (gettype($source) === 'array') {
                         foreach ($source as $each) {
                             if ($sortable === 'count') {
-                                $this->builder->withCount($each)->orderBy("{$each}_count", $dir);
+                                $this->builder
+                                    ->withCount($each)
+                                    ->orderBy("{$each}_count", $dir);
                             } else {
-                                $this->builder->orderBy($each, $dir);
+                                $this->builder
+                                    ->orderBy($each, $dir);
                             }
                         }
 
                     } else if ($sortable === 'count') {
-                        $this->builder->withCount($source)->orderBy("{$source}_count", $dir);
+                        $this->builder
+                            ->withCount($source)
+                            ->orderBy("{$source}_count", $dir);
 
                     } else {
-                        $this->builder->orderBy($source, $dir);
+                        $this->builder
+                            ->orderBy($source, $dir);
                     }
                 }
             }
@@ -245,7 +253,8 @@ trait EloquentBuilder
             $this->defaultSort();
 
         } else if ($this->defaultSort) {
-            $this->builder->orderBy($this->defaultSort, $this->defaultSortDir ?? 'asc');
+            $this->builder
+                ->orderBy($this->defaultSort, $this->defaultSortDir ?? 'asc');
         }
 
         return $this;
