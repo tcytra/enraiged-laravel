@@ -21,6 +21,35 @@ function avoid_holiday($country, $datetime, $defer = '+1 weekday')
 }
 
 /**
+ *  Convert a primevue calendar format to php.
+ *
+ *  @param  string  $format
+ *  @return string
+ */
+function dateformat_primevue_to_php(string $format)
+{
+    $format_to_php = [
+        'DD' => 'l',
+        'MM' => 'F',
+        'd' => 'j',
+        //'dd' => 'd',// <-- this will never exist due to the previous translation..
+        'jj' => 'd',  // <-- + so we correct with this
+        'm' => 'N',
+        //'mm' => 'm',// <-- this will never exist due to the previous translation..
+        'NN' => 'm',  // <-- + so we correct with this
+        'oo' => 'z',  // no php equivilent
+        'o' => 'z',
+        'yy' => 'Y',
+    ];
+
+    foreach ($format_to_php as $search => $replace) {
+        $format = str_replace($search, $replace, $format);
+    }
+
+    return $format;
+}
+
+/**
  *  Return a simple preg_replace formatted date string.
  *
  *  @param  string  $datetime
