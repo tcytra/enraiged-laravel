@@ -24,19 +24,17 @@ trait SelectOptions
             return ['values' => $values];
         }
 
-        //if (property_exists($config)) {
-        //    $config->type
-        //}
-
         if ($source === 'api') { // todo: should api be the 'type' and not the 'source'? add a 'method' type?
             $uri = preg_match('/\./', $config->uri)
                 ? $this->route($config->uri)
                 : $config->uri;
 
-            return [
-                'uri' => $uri,
-                'values' => [],
-            ];
+            return collect($config)
+                ->merge([
+                    'uri' => $uri,
+                    'values' => [],
+                ])
+                ->toArray();
         }
 
         if ($select === true) {
