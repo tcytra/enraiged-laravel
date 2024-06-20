@@ -3,6 +3,7 @@
 namespace Enraiged\Tables\Builders\Traits;
 
 use Enraiged\Forms\Traits\SelectOptions;
+use Illuminate\Support\Collection;
 
 trait TableFilters
 {
