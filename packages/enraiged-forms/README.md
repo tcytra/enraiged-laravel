@@ -421,7 +421,7 @@ Sourcing the data from an **enum**:
         ...
         "options": {
             "source": "\\App\\MyProject\\Products\\Enums\\Categories",
-            "type": "model"
+            "type": "enum"
         },
         ...
 ```
