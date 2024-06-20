@@ -38,6 +38,10 @@ trait SelectOptions
         }
 
         if ($select === true) {
+            if (!property_exists($config, 'type')) {
+                $config->type = null;
+            }
+
             if ($config->type === 'config') {
                 if ($source) {
                     $values = config($source);
