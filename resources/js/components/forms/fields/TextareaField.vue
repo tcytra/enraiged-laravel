@@ -51,7 +51,7 @@ export default {
     },
 
     props: {
-        autoResize: {
+        autoresizable: {
             type: Boolean,
             default: false,
         },
