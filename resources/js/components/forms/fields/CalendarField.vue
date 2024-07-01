@@ -110,6 +110,14 @@ export default {
             type: Boolean,
             default: false,
         },
+        maxDate: {
+            type: String,
+            required: false,
+        },
+        minDate: {
+            type: String,
+            required: false,
+        },
         numberOfMonths: {
             type: Number,
             required: false,
