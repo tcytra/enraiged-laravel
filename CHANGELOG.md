@@ -16,6 +16,21 @@ The enraiged-laravel starter framework will be moving into v0.4.x soon with a fu
 
 ---
 
+2024-07-09 : 0.3.8.1  
+Update: Critical bugfixes to v0.3.8
+
+- Correct autoresizable property in the TextareaField.vue
+- Correct issue causing select config params to be dropped
+- Correct issue deleting user in the UserObserver
+- Correct issue in SelectOptions if $config->type not set
+- Correct issues preventing saving single-attribute requests
+- Correct missing maxDate,MinDate properties in CalendarField.vue
+- Correct missing template property in VueFormSection.vue
+- Correct missing use statement in the TableFilters trait
+- Ensure forms,tables styles apply to non-default.layout elements
+
+---
+
 2024-06-19 : 0.3.8  
 Update: Major round of corrections,improvements to enraiged-{forms,tables}
 
