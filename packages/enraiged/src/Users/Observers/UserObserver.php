@@ -63,7 +63,7 @@ class UserObserver
      */
     public function deleting(User $user)
     {
-        if ($model->is_protected) {
+        if ($user->is_protected) {
             throw new ConflictHttpException(__('exceptions.user.protected'));
         }
     }
