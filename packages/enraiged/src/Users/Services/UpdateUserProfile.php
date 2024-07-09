@@ -46,13 +46,19 @@ class UpdateUserProfile
                 ->only($user_fillable)
                 ->toArray();
 
-            $this->user->update($user_attributes);
+            if (count($user_attributes)) {
+                $this->user
+                    ->update($user_attributes);
+            }
 
             $profile_attributes = collect($this->attributes)
                 ->only($this->user->profile->getFillable())
                 ->toArray();
 
-            $this->user->profile->update($profile_attributes);
+            if (count($profile_attributes)) {
+                $this->user->profile
+                    ->update($profile_attributes);
+            }
 
             $address_attributes = collect($this->attributes)
                 ->only((new Address)->getFillable())
