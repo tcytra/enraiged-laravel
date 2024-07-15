@@ -57,12 +57,9 @@ Route::namespace('\App\Http\Controllers\Auth')
                             ->name('verification.send');
                     });
 
-                Route::namespace('Verify')
-                    ->group(function(){
-                        Route::get('verify-email/{id}/{hash}', 'Email')
-                            ->middleware(['signed', 'throttle:6,1'])
-                            ->name('verification.verify');
-                    });
+                Route::get('verify-email/{id}/{hash}', 'Verify\Email')
+                    ->middleware(['signed', 'throttle:6,1'])
+                    ->name('verification.verify');
 
                 Route::post('logout', 'Login\Destroy')->name('logout');
             });

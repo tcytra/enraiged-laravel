@@ -138,7 +138,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Allow Secondary Credential
+    | Allow Username Login
     |--------------------------------------------------------------------------
     | 
     | You may allow or disallow the use of a unique username or another email
