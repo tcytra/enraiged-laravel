@@ -2,7 +2,7 @@
 
 namespace Database\Seeders\Geo;
 
-use App\Project\Addresses\Models\Country;
+use Enraiged\Addresses\Models\Country;
 use Illuminate\Database\Seeder;
 
 class CountriesSeeder extends Seeder

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Project\Addresses\Models;
+namespace Enraiged\Addresses\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;

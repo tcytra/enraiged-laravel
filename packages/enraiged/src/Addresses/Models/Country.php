@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Project\Addresses\Models;
+namespace Enraiged\Addresses\Models;
 
-use App\Project\Profiles\Models\Profile;
+use Enraiged\Profiles\Models\Profile;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;

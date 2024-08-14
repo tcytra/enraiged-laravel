@@ -2,8 +2,8 @@
 
 namespace Database\Seeders\Geo;
 
-use App\Project\Addresses\Models\Country;
-use App\Project\Addresses\Models\Region;
+use Enraiged\Addresses\Models\Country;
+use Enraiged\Addresses\Models\Region;
 use Illuminate\Database\Seeder;
 
 class RegionsSeeder extends Seeder
