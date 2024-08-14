@@ -16,6 +16,15 @@ The enraiged-laravel starter framework will be moving into v0.4.x soon with a fu
 
 ---
 
+2024-08-14 : 0.3.9  
+Update: Correct high-severity alert for axios; Upgrade to php8.3
+
+- Corrected namespace issues with Country,Region models
+- Upgraded client-side to correct high-severity alert for axios
+- Upgraded server-side to use php8.3; Updated other packages
+
+---
+
 2024-07-09 : 0.3.8.1  
 Update: Critical bugfixes to v0.3.8
 
