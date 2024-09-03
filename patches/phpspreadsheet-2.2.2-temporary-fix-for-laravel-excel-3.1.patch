@@ -1,0 +1,5 @@
+--- vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Worksheet/Worksheet.php
++++ vendor/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Worksheet/Worksheet.php
+@@ -3690 +3690 @@
+-            $spreadsheet->setActiveSheetIndex($activeSheetIndex);
++            //$spreadsheet->setActiveSheetIndex($activeSheetIndex);
