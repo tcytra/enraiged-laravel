@@ -16,6 +16,14 @@ The enraiged-laravel starter framework will be moving into v0.4.x soon with a fu
 
 ---
 
+2024-09-04 : 0.3.11  
+Update: Configure permanent solution to previous security issue
+
+- Updated composer to install updated packages
+- Removed phpspreadsheet patch
+
+---
+
 2024-09-03 : 0.3.10  
 Update: Correct security vulnerability in phpoffice/phpspreadsheet
 

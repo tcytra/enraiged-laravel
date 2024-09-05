@@ -46,22 +46,6 @@ Install the vendor packages:
 composer install
 ```
 
-**Please Note:** This build currently requires a temporary fix as a workaround for a security vulnerability with 
-phpoffice/phpspreadsheet <2.2.1. The composer.json is requiring mwikberg-virta/Laravel-Excel as a substitute for 
-maatwebsite/excel in order to satisfy roave/security-advisories. Further, a patch is required in order to prevent 
-errors from phpoffice/phpspreadsheet when triggering table exports.
-
-Apply the patch:
-
-```
-patch -Nr - --version-control none -p0 < patches/phpspreadsheet-2.2.2-temporary-fix-for-laravel-excel-3.1.patch
-```
-
-Reverse this change (if necessary) by using -Rp0 in the above command instead of -p0.
-
-This workaround will be removed when a permanent, secure solution is available with maatwebsite/excel and 
-phpoffice/phpspreadsheet.
-
 
 ### Init Environment
 
