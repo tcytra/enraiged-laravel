@@ -16,6 +16,13 @@ The enraiged-laravel starter framework will be moving into v0.4.x soon with a fu
 
 ---
 
+2024-09-04 : 0.3.11.1  
+Secure: Updated vite to v4.5.4
+
+- Updated package{,-lock}.json for moderate security vulnerabilities
+
+---
+
 2024-09-04 : 0.3.11  
 Update: Configure permanent solution to previous security issue
 
