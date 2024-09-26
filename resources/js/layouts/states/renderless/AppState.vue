@@ -1,5 +1,6 @@
 <script>
-import { computed } from 'vue';
+import { computed, createApp } from 'vue';
+import { i18nVue } from 'laravel-vue-i18n';
 
 export default {
     emits: ['close:all', 'close:auth', 'close:menu'],
@@ -87,6 +88,7 @@ export default {
             if (this.isSuccess(status)) {
                 const { menu, meta, user } = data;
                 if (user) {
+                    this.setLanguage(user.language);
                     this.setTheme(user);
                     this.setUser(user);
                 }
@@ -94,6 +96,13 @@ export default {
                 this.setMeta(meta);
                 this.ready = true;
             }
+        },
+
+        setLanguage(language) {
+            const app = createApp({});
+            app.use(i18nVue, {
+                lang: language,
+            });
         },
 
         setMenu(menu) {
@@ -159,6 +168,7 @@ export default {
             initState: this.initState,
             menu: computed(() => this.menu),
             meta: computed(() => this.meta),
+            setLanguage: this.setLanguage,
             setTheme: this.setTheme,
             stopImpersonating: this.stopImpersonating,
             toggleAuthPanel: this.toggleAuth,

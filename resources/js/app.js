@@ -16,7 +16,7 @@ createInertiaApp({
     setup({ el, App, props, plugin }) {
         createSSRApp({ render: () => h(App, props) })
             .use(i18nVue, {
-                fallbackLang: 'fr',
+                fallbackLang: 'en',
                 resolve: async lang => {
                     const langs = import.meta.glob('../../lang/*.json');
                     return await langs[`../../lang/${lang}.json`]();

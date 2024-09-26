@@ -30,8 +30,8 @@
 </template>
 
 <script>
-import { createApp } from "vue";
-import { i18nVue } from "laravel-vue-i18n";
+import { createApp } from 'vue';
+import { i18nVue } from 'laravel-vue-i18n';
 import PrimevueButton from 'primevue/button/Button.vue';
 import PrimevueCard from 'primevue/card/Card.vue';
 import PrimevueDropdown from 'primevue/dropdown/Dropdown.vue';
@@ -95,10 +95,7 @@ export default {
                     if (data.success) {
                         this.user.language = this.language = this.form;
                         if (this.user.is_myself) {
-                            const app = createApp({});
-                            app.use(i18nVue, {
-                                lang: this.form,
-                            });
+                            //this.setLanguage(this.form);
                             this.initState();
                         }
                         this.flashSuccess(data.success);
