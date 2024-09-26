@@ -16,6 +16,19 @@ The enraiged-laravel starter framework will be moving into v0.4.x soon with a fu
 
 ---
 
+2024-09-26 : 0.3.12  
+Secure: Various security updates as per enlightn report 
+
+- Corrected high severity vulnerability in rollup <3.29.5
+- Ensure composer packages running most recent stable versions
+- Improved content security policy configuration
+- Locked primevue to v3.40.1 to allow current patches to work
+- Replaced vue-i18n with laravel-vue-i18n
+  - Readded ability to switch user locale
+- Updated bcrypt rounds from 10 to 12 in the hashing config
+
+---
+
 2024-09-04 : 0.3.11.1  
 Secure: Updated vite to v4.5.4
 
