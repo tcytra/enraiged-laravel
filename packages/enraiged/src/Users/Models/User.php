@@ -19,6 +19,7 @@ class User extends Authenticatable implements ProvidesDropdownOption
         Relations\BelongsToManyAgreements,
         Relations\HasManyFiles,
         Relations\HasManyInternetAddresses,
+        Relations\HasManyPasswordHistory,
         Scopes\Active,
         Scopes\Deleted,
         Scopes\Reportable,
@@ -26,7 +27,6 @@ class User extends Authenticatable implements ProvidesDropdownOption
         Traits\GetFillable,
         Traits\HasContext,
         Traits\HasFactory,
-        Traits\ManagesPassword,
         HasApiTokens, Notifiable, SoftDeletes, UserTracking;
 
     /** @var  string  The database table name. */

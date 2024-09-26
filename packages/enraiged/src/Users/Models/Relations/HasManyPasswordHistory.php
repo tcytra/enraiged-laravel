@@ -1,18 +1,19 @@
 <?php
 
-namespace Enraiged\Users\Models\Traits;
+namespace Enraiged\Users\Models\Relations;
 
 use Enraiged\Users\Models\PasswordHistory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Hash;
 
-trait ManagesPassword
+trait HasManyPasswordHistory
 {
     /**
      *  @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function passwordHistory()
+    public function passwordHistory(): HasMany
     {
-        return $this->hasMany(PasswordHistory::class);
+        return $this->hasMany(PasswordHistory::class, 'user_id');
     }
 
     /**

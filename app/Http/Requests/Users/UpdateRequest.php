@@ -14,8 +14,7 @@ class UpdateRequest extends FormRequest
     use Messages, Passwords, Rules;
 
     /**
-     * 
-     * @return string|null Return the requested attribute parameter, if exists.
+     *  Return the requested attribute parameter, if exists.
      *
      *  @return string|null
      */
@@ -43,25 +42,45 @@ class UpdateRequest extends FormRequest
     }
 
     /**
-     *  Validate that the user has agreed to required terms.
+     *  Validate the requested attribute exists in the model fillables.
+     *
+     *  @param  \Illuminate\Support\Facades\Validator  $validator
+     *  @return void
+     */
+    private function validateAttributeIsFillable($validator)
+    {
+        $attribute = $this->requestedAttribute();
+
+        $fillable = collect((new User)->getFillable())
+            ->merge((new Profile)->getFillable())
+            ->except(['created_by', 'deleted_by', 'updated_by']);
+
+        if (!$fillable->contains($attribute)) {
+            $validator->errors()->add($attribute, 'This request cannot be processed.');
+        }
+    }
+
+    /**
+     *  Perform additional validation checks.
      *
      *  @param  \Illuminate\Support\Facades\Validator  $validator
      *  @return void
      */
     public function withValidator($validator)
-	{
-        if ($this->route()->hasParameter('attribute')) {
-            $validator->after(function ($validator) {
-                $attribute = $this->requestedAttribute();
+    {
+        $validator->after(function ($validator) {
+            if ($this->route()->hasParameter('attribute')) {
+                $this->validateAttributeIsFillable($validator);
+            }
 
-                $fillable = collect((new User)->getFillable())
-                    ->merge((new Profile)->getFillable())
-                    ->except(['created_by', 'deleted_by', 'updated_by']);
-
-                if (!$fillable->contains($attribute)) {
-                    $validator->errors()->add($attribute, 'This request cannot be processed.');
-                }
-            });
-        }
-	}
+            if ($this->filled('password')) {
+                (object) $this
+                    ->validatePasswordHistory($validator)
+                    ->validatePasswordCase($validator)
+                    ->validatePasswordLength($validator)
+                    ->validatePasswordNumeric($validator)
+                    ->validatePasswordSpecial($validator);
+            }
+        });
+    }
 }

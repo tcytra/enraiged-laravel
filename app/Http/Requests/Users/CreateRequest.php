@@ -33,4 +33,21 @@ class CreateRequest extends FormRequest
     {
         return 'User Created';
     }
+
+    /**
+     *  Perform additional validation checks.
+     *
+     *  @param  \Illuminate\Support\Facades\Validator  $validator
+     *  @return void
+     */
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            (object) $this
+                ->validatePasswordCase($validator)
+                ->validatePasswordLength($validator)
+                ->validatePasswordNumeric($validator)
+                ->validatePasswordSpecial($validator);
+        });
+    }
 }

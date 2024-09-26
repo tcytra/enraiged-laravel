@@ -110,4 +110,20 @@ class UserObserver
             $user->notify(new UserLoginChange());
         }
     }
+
+    /**
+     *  Handle the User updating event.
+     *
+     *  @param  \Enraiged\Users\Models\User  $user
+     *  @return void
+     */
+    public function updating(User $user)
+    {
+        if ($user->isDirty('password')) {
+            $user->passwordHistory()
+                ->create([
+                    'password' => $user->getOriginal('password'),
+                ]);
+        }
+    }
 }

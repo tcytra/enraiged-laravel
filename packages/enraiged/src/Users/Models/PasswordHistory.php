@@ -8,6 +8,9 @@ class PasswordHistory extends Model
 {
     use Relations\BelongsToUser;
 
+    /** @var  string|null  The name of the "updated at" column.*/
+    const UPDATED_AT = null;
+
     /** @var  string  The database table name. */
     protected $table = 'password_history';
 
