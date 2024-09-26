@@ -115,7 +115,7 @@ export default {
 
     render() {
         return this.$slots.default({
-            error: this.error,
+            error: this.error ? this.i18n(this.error) : null,
             isDirty: this.isDirty,
             isDisabled: this.isDisabled,
             isHidden: this.isHidden,

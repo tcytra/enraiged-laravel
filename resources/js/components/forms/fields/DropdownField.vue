@@ -32,7 +32,7 @@
                 @filter="filter"
                 @update:modelValue="update(); $emit('update:modelValue', $event)">
                 <template #option="props">
-                    <span :class="props.option.class">{{ props.option.name }}</span>
+                    <span :class="props.option.class">{{ i18n(props.option.name) }}</span>
                 </template>
             </primevue-multi-select>
             <primevue-dropdown class="w-full" v-else
@@ -56,7 +56,7 @@
                 @filter="filter"
                 @update:modelValue="update(); $emit('update:modelValue', $event)">
                 <template #option="props">
-                    <span :class="props.option.class">{{ props.option.name }}</span>
+                    <span :class="props.option.class">{{ i18n(props.option.name) }}</span>
                 </template>
             </primevue-dropdown>
             <div class="error p-error" v-if="error">
@@ -87,7 +87,7 @@ export default {
         tooltip: PrimevueTooltip,
     },
 
-    inject: ['errorHandler'],
+    inject: ['errorHandler', 'i18n'],
 
     props: {
         autoselectable: {

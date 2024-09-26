@@ -3,24 +3,23 @@
         <template #header>
             <header class="header text-center text-lg">
                 <span class="text">
-                    {{ i18n('Update Theme') }}
+                    {{ i18n('Update Language') }}
                 </span>
             </header>
         </template>
         <template #content>
             <div class="flex col-8 auto-margin">
-                <primevue-dropdown class="w-full" id="userTheme" optionLabel="name" optionValue="id"
+                <primevue-dropdown class="w-full" id="userLocale" optionLabel="name" optionValue="id"
                     v-model="form"
-                    :options="meta.themes"
-                    @update:modelValue="preview">
+                    :options="meta.languages">
                     <template #option="props">
                         <span :class="props.option.class">{{ props.option.name }}</span>
                     </template>
                 </primevue-dropdown>
-                <primevue-button class="p-button-danger ml-1" icon="pi pi-times" style="min-width:36px; width:36px;"
+                <!--<primevue-button class="p-button-danger ml-1" icon="pi pi-times" style="min-width:36px; width:36px;"
                     v-tooltip.top="i18n('Reset')"
                     :disabled="!isDirty"
-                    @click="reset"/>
+                    @click="reset"/>-->
                 <primevue-button class="p-button-success ml-1" icon="pi pi-check" style="min-width:36px; width:36px;"
                     v-tooltip.top="i18n('Save')"
                     :disabled="!isDirty"
@@ -31,6 +30,8 @@
 </template>
 
 <script>
+import { createApp } from "vue";
+import { i18nVue } from "laravel-vue-i18n";
 import PrimevueButton from 'primevue/button/Button.vue';
 import PrimevueCard from 'primevue/card/Card.vue';
 import PrimevueDropdown from 'primevue/dropdown/Dropdown.vue';
@@ -53,7 +54,6 @@ export default {
         'i18n',
         'initState',
         'meta',
-        'setTheme',
     ],
 
     props: {
@@ -69,42 +69,39 @@ export default {
 
     data: () => ({
         form: null,
-        theme: null,
+        language: null,
     }),
 
     computed: {
         isDirty() {
-            return this.form !== this.theme;
+            return this.form !== this.language;
         },
     },
 
     created() {
-        this.theme = this.form = this.user.theme;
+        this.language = this.form = this.user.language;
     },
 
     methods: {
-        clear() {
-            this.form = this.theme;
-        },
-        preview() {
-            this.$primevue.changeTheme(this.theme, this.form, 'theme-color', () => {});
-        },
         reset() {
-            this.$primevue.changeTheme(this.form, this.theme, 'theme-color', () => {});
-            this.form = this.theme;
+            this.form = this.user.language;
         },
         save() {
-            const data = { theme: this.form };
+            const data = { language: this.form };
             const method = this.resource.method || 'get';
-            const url = `${this.resource.uri}/theme`;
+            const url = `${this.resource.uri}/language`;
             this.axios({ method, url, data })
                 .then(({ data }) => {
-                    this.theme = this.form;
                     if (data.success) {
+                        this.user.language = this.language = this.form;
+                        if (this.user.is_myself) {
+                            const app = createApp({});
+                            app.use(i18nVue, {
+                                lang: this.form,
+                            });
+                            this.initState();
+                        }
                         this.flashSuccess(data.success);
-                    }
-                    if (this.user.is_myself) {
-                        this.initState();
                     }
                 })
                 .catch(error => this.errorHandler(error));

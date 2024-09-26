@@ -1,7 +1,7 @@
 <template>
     <div class="control filter dropdown">
         <label v-if="field.label" class="label" :for="id">
-            {{ label }}
+            {{ i18n(label) }}
         </label>
         <primevue-multi-select class="w-full" optionLabel="name" optionValue="id" v-if="field.multiple"
             v-model="form[id]"
@@ -10,12 +10,12 @@
             :id="id"
             :loading="loading"
             :options="options"
-            :placeholder="field.placeholder"
+            :placeholder="i18n(field.placeholder)"
             :show-clear="field.clearable"
             @filter="filter"
             @update:modelValue="$emit('update:filterValue', $event)">
             <template #option="props">
-                <span :class="props.option.class">{{ props.option.name }}</span>
+                <span :class="props.option.class">{{ i18n(props.option.name) }}</span>
             </template>
         </primevue-multi-select>
         <primevue-dropdown class="w-full" optionLabel="name" optionValue="id" v-else
@@ -25,12 +25,12 @@
             :id="id"
             :loading="loading"
             :options="options"
-            :placeholder="field.placeholder"
+            :placeholder="i18n(field.placeholder)"
             :show-clear="field.clearable"
             @filter="filter"
             @update:modelValue="$emit('update:filterValue', $event)">
             <template #option="props">
-                <span :class="props.option.class">{{ props.option.name }}</span>
+                <span :class="props.option.class">{{ i18n(props.option.name) }}</span>
             </template>
         </primevue-dropdown>
     </div>
@@ -47,6 +47,8 @@ export default {
         PrimevueDropdown,
         PrimevueMultiSelect,
     },
+
+    inject: ['i18n'],
 
     props: {
         field: {

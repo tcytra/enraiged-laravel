@@ -8,7 +8,6 @@ class AppState implements Responsable
 {
     use Traits\Menu,
         Traits\Meta,
-        Traits\Translations,
         Traits\Users;
 
     /**
@@ -20,7 +19,6 @@ class AppState implements Responsable
     public function toResponse($request)
     {
         return [
-            'i18n' => $this->translations($request),
             'menu' => $this->menu($request),
             'meta' => $this->meta($request),
             'user' => $this->user($request),

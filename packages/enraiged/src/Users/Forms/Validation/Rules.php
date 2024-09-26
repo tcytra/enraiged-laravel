@@ -11,7 +11,7 @@ trait Rules
     protected $rules = [
         'alias' => 'nullable|sometimes',
         'birthdate' => 'nullable|date',
-        'dateformat' => 'nullable|string',
+        //'dateformat' => 'nullable|string', // todo
         'email' => 'required|email|unique:users,email|unique:users,username',
         'first_name' => 'required',
         'gender' => 'nullable',
@@ -22,8 +22,8 @@ trait Rules
         'role_id' => 'nullable|exists:roles,id',
         'salut' => 'nullable',
         'theme' => 'nullable|string|max:32',
-        'timeformat' => 'nullable|string',
-        'timezone' => 'nullable',
+        'timezone' => 'nullable|string',
+        //'timeformat' => 'nullable|string', // todo
         'title' => 'nullable',
         'username' => 'sometimes|nullable|unique:users,username|unique:users,email',
     ];

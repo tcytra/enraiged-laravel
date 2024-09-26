@@ -44,7 +44,6 @@ class HandleInertiaRequests extends Middleware
         $response = [
             'auth' => Auth::check(),
             'flash' => (new FlashableBuilder)->handle($request),
-            'language' => Auth::check() ? Auth::user()->language : config('app.locale'),
         ];
 
         return [

@@ -1,7 +1,7 @@
 <template>
     <div class="control filter daterange">
         <label v-if="field.label" class="label" :for="id">
-            {{ label }}
+            {{ i18n(label) }}
         </label>
         <div class="p-inputgroup">
             <primevue-calendar class="w-full" selectionMode="range" ref="calendar"
@@ -13,7 +13,7 @@
                 :maxDate="maxDate"
                 :minDate="minDate"
                 :numberOfMonths="2"
-                :placeholder="field.placeholder"
+                :placeholder="i18n(field.placeholder)"
                 :showIcon="showIcon"
                 :touchUI="isMobile || isTablet"
                 @update:modelValue="update"/>
@@ -37,7 +37,7 @@ export default {
         PrimevueCalendar,
     },
 
-    inject: ['isMobile', 'isTablet'],
+    inject: ['i18n', 'isMobile', 'isTablet'],
 
     props: {
         field: {

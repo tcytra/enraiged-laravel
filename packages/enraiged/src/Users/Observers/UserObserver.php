@@ -69,6 +69,27 @@ class UserObserver
     }
 
     /**
+     *  Handle the User saving event.
+     *
+     *  @param  \Enraiged\Users\Models\User  $user
+     *  @return void
+     */
+    public function saving(User $user)
+    {
+        if (is_null($user->language)) {
+            $user->language = config('app.locale');
+        }
+
+        if (is_null($user->theme)) {
+            $user->theme = config('enraiged.theme.color');
+        }
+
+        if (is_null($user->timezone)) {
+            $user->timezone = config('enraiged.app.timezone');
+        }
+    }
+
+    /**
      *  Handle the User updated event.
      *
      *  @param  \Enraiged\Users\Models\User  $user

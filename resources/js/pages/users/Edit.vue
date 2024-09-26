@@ -7,6 +7,8 @@
                 <div class="col-12 xl:col-5">
                     <avatar-editor :avatar="avatar"/>
                     <theme-editor :resource="template.resource" :user="user"/>
+                    <locale-editor :resource="template.resource" :user="user"/>
+                    <timezone-editor :resource="template.resource" :user="user"/>
                 </div>
                 <div class="col-12 xl:col-7">
                     <update-form ref="updateUser" custom-actions updating :template="template"/>
@@ -25,9 +27,11 @@
 import App from '@/layouts/App.vue';
 import AvatarEditor from '@/components/users/cards/AvatarEditor.vue';
 import FormActions from '@/components/forms/VueFormActions.vue';
+import LocaleEditor from '@/components/users/cards/LocaleEditor.vue';
 import PageHeader from '@/components/ui/pages/PageHeader.vue';
 import PageMessages from '@/components/ui/pages/PageMessages.vue';
 import ThemeEditor from '@/components/users/cards/ThemeEditor.vue';
+import TimezoneEditor from '@/components/users/cards/TimezoneEditor.vue';
 import UpdateForm from '@/components/users/forms/UpdateForm.vue';
 
 export default {
@@ -36,9 +40,11 @@ export default {
     components: {
         AvatarEditor,
         FormActions,
+        LocaleEditor,
         PageHeader,
         PageMessages,
         ThemeEditor,
+        TimezoneEditor,
         UpdateForm,
     },
 

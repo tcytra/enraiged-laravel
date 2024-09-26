@@ -85,15 +85,11 @@ export default {
         fetched(response) {
             const { status, data } = response;
             if (this.isSuccess(status)) {
-                const { i18n, menu, meta, user } = data;
-                let lang = meta.language;
+                const { menu, meta, user } = data;
                 if (user) {
-                    lang = user.language;
                     this.setTheme(user);
                     this.setUser(user);
                 }
-                this.$root.$i18n.locale = lang;
-                this.$root.$i18n.setLocaleMessage(lang, i18n[lang]);
                 this.setMenu(menu);
                 this.setMeta(meta);
                 this.ready = true;
@@ -163,6 +159,7 @@ export default {
             initState: this.initState,
             menu: computed(() => this.menu),
             meta: computed(() => this.meta),
+            setTheme: this.setTheme,
             stopImpersonating: this.stopImpersonating,
             toggleAuthPanel: this.toggleAuth,
             toggleMainPanel: this.toggleMenu,

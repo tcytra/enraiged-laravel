@@ -22,8 +22,11 @@ class MetaBuilder extends Builder
             ->authParameters();
 
         return $this->meta
-            ->merge(['language' => config('app.locale')])
-            ->merge(['themes' => \App\Support\Enums\Themes::select()])
+            ->merge([
+                'languages' => \App\Support\Enums\Languages::select(),
+                'themes' => \App\Support\Enums\Themes::select(),
+                'timezones' => \App\Support\Enums\Timezones::select(),
+            ])
             ->toArray();
     }
 }
