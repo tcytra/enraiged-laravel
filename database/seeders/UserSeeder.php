@@ -25,7 +25,9 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        if ($email = env('ADMIN_EMAIL')) {
+        if (app()->environment('local') && env('ADMIN_EMAIL')) {
+            $email = env('ADMIN_EMAIL');
+
             $parameters = [
                 'email' => $email,
                 'is_hidden' => true,
