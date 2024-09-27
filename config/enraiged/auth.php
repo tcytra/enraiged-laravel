@@ -4,6 +4,29 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Administrator Login
+    |--------------------------------------------------------------------------
+    |
+    | You may provide an initial administrator login here by defining the
+    | 'administrator_email', 'administrator_name', and 'administrator_password'
+    | values. It is recommended to set these values in the .env file.
+    |
+    | This user will only be created in a 'local' environment and will be the
+    | first user created by the UserSeeder.
+    | 
+    | At a mimimum, the 'administrator_email' must be defined to cause this
+    | user to be created.
+    |
+    */
+
+    'administrator_email' => env('ADMIN_EMAIL'),
+    'administrator_name' => env('ADMIN_NAME', 'Application Administrator'),
+    'administrator_password' => env('ADMIN_PASSWORD'),
+    'administrator_username' => env('ADMIN_USERNAME'),
+    'insecure_password' => env('INSECURE_PASSWORD', 'changeme'),
+
+    /*
+    |--------------------------------------------------------------------------
     | Allow Impersonation
     |--------------------------------------------------------------------------
     |

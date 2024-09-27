@@ -13,10 +13,10 @@ class UserSeeder extends Seeder
     use WithoutModelEvents;
 
     /** @var  int  Create a predetermined number of factory users to seed. */
-    protected $create_users = 9;
+    protected $create_local_users = 9;
 
     /** @var  string  Set this login password for the created users. */
-    protected $insecure_password = 'changeme';
+    protected $insecure_password;
 
     /**
      *  Seed the administrator account.
@@ -25,18 +25,18 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        if (app()->environment('local') && env('ADMIN_EMAIL')) {
-            $email = env('ADMIN_EMAIL');
+        $this->insecure_password = config('enraiged.auth.insecure_password', 'changeme');
 
+        if (app()->environment('local') && config('enraiged.auth.administrator_email')) {
             $parameters = [
-                'email' => $email,
+                'email' => config('enraiged.auth.administrator_email'),
                 'is_hidden' => true,
                 'is_protected' => true,
-                'name' => env('ADMIN_NAME', 'Application Administrator'),
-                'password' => env('ADMIN_PASSWORD', $this->insecure_password),
+                'name' => config('enraiged.auth.administrator_name'),
+                'password' => config('enraiged.auth.administrator_password', $this->insecure_password),
                 'role' => 'Administrator',
                 'timezone' => config('enraiged.app.timezone'),
-                'username' => env('ADMIN_USERNAME', 'administrator'),
+                'username' => config('enraiged.auth.administrator_username'),
             ];
 
             $user = CreateUserProfile::from($parameters);
@@ -57,7 +57,7 @@ class UserSeeder extends Seeder
      */
     protected function createFactoryUsers()
     {
-        for ($i = 0; $i < $this->create_users; $i++) {
+        for ($i = 0; $i < $this->create_local_users; $i++) {
             $password = $this->insecure_password;
             $user = $this->createFactoryUser(['password' => $password]);
 

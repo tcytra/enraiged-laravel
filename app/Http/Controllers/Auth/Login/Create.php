@@ -15,8 +15,8 @@ class Create extends Controller
     {
         $form = [
             'fields' => [
-                'email' => app()->environment('local') ? env('ADMIN_EMAIL') : null,
-                'password' => app()->environment('local') ? env('ADMIN_PASSWORD') : null,
+                'email' => app()->environment('local') ? config('enraiged.auth.administrator_email') : null,
+                'password' => app()->environment('local') ? config('enraiged.auth.administrator_password') : null,
                 'remember' => false,
             ],
             'uri' => route('login.store'),
