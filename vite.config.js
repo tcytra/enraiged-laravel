@@ -37,6 +37,6 @@ export default defineConfig({
         i18n(),
     ],
     build: {
-        chunkSizeWarningLimit: 1024,
+        chunkSizeWarningLimit: 1280,
     },
 });

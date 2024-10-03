@@ -9,7 +9,7 @@
         "@inertiajs/vue3": "^1.0.14",
         "@vitejs/plugin-vue": "^4.4.1",
         "@vue/server-renderer": "^3.3.4",
-        "axios": "^1.7.4",
+        "axios": "^1.7.7",
         "date-fns": "^2.30.0",
         "laravel-vite-plugin": "^0.7.8",
         "laravel-vue-i18n": "^2.7.7",

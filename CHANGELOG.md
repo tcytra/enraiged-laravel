@@ -16,6 +16,16 @@ The enraiged-laravel starter framework will be moving into v0.4.x soon with a fu
 
 ---
 
+2024-10-03 : 0.3.12.1  
+Minor: Corrections to previous release i18n use, password management
+
+- Adjusted initial local administrator account config,creation
+- Ensure user language is set when logged in
+- Readded password history logic; Cleanup in the validations
+- Updated axios to v1.7.7
+
+---
+
 2024-09-26 : 0.3.12  
 Secure: Various security updates as per enlightn report 
 

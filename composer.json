@@ -2,7 +2,7 @@
     "name": "tcytra/enraiged-laravel",
     "type": "project",
     "description": "The Enraiged Laravel Framework.",
-    "keywords": ["enraiged", "framework", "inertiajs", "laravel", "primevue"],
+    "keywords": ["enraiged", "framework", "inertiajs", "laravel", "primevue", "ssr"],
     "license": "MIT",
     "require": {
         "php": "^8.3",
