@@ -16,6 +16,11 @@ The enraiged-laravel starter framework will be moving into v0.4.x soon with a fu
 
 ---
 
+2024-10-08 : 0.3.12.2  
+Secure: Updated phpoffice/phpspreadsheet to v1.29.2; High severity
+
+---
+
 2024-10-03 : 0.3.12.1  
 Minor: Corrections to previous release i18n use, password management
 
