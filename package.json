@@ -1,28 +1,27 @@
 {
     "private": true,
+    "type": "module",
     "scripts": {
-        "dev": "vite",
         "build": "vite build && vite build --ssr",
-        "preview": "vite preview"
+        "dev": "vite"
     },
     "dependencies": {
         "@inertiajs/vue3": "^1.0.14",
-        "@vitejs/plugin-vue": "^4.4.1",
-        "@vue/server-renderer": "^3.3.4",
+        "@vitejs/plugin-vue": "^5.0.0",
+        "@vue/server-renderer": "^3.3.13",
         "axios": "^1.7.7",
         "date-fns": "^2.30.0",
-        "laravel-vite-plugin": "^0.7.8",
+        "laravel-vite-plugin": "^1.0",
         "laravel-vue-i18n": "^2.7.7",
         "lodash": "^4.17.21",
-        "postcss": "^8.4.31",
+        "postcss": "^8.4.32",
         "postcss-scss": "^4.0.9",
         "primeflex": "3.3.1",
         "primeicons": "6.0.1",
         "primevue": "3.40.1",
         "uuid": "^9.0.1",
-        "vite": "^4.5.4",
-        "vue": "^3.3.4",
-        "vue-axios": "^3.5.2"
+        "vite": "^5.0",
+        "vue": "^3.3.4"
     },
     "devDependencies": {
         "@hail2u/css-mqpacker": "github:hail2u/node-css-mqpacker#v9.0.1",
