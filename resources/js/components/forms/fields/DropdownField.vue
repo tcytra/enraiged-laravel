@@ -268,7 +268,7 @@ export default {
                 ? { params: this.data() }
                 : this.data();
             const url = this.field.options.uri + (this.field.options.strict ? '/strict' : '');
-            this.axios[method](url, data)
+            axios[method](url, data)
                 .then(({ data }) => {
                     this.options = data;
                     this.loading = false;

@@ -78,7 +78,7 @@ export default {
 
         initState() {
             if (typeof document !== 'undefined') {
-                this.axios.get(this.api)
+                axios.get(this.api)
                     .then(response => this.fetched(response));
             }
         },

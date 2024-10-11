@@ -97,7 +97,7 @@ export default {
             const data = { theme: this.form };
             const method = this.resource.method || 'get';
             const url = `${this.resource.uri}/theme`;
-            this.axios({ method, url, data })
+            axios({ method, url, data })
                 .then(({ data }) => {
                     this.theme = this.form;
                     if (data.success) {

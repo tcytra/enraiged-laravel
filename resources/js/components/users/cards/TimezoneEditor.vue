@@ -90,7 +90,7 @@ export default {
             const data = { timezone: this.form };
             const method = this.resource.method || 'get';
             const url = `${this.resource.uri}/timezone`;
-            this.axios({ method, url, data })
+            axios({ method, url, data })
                 .then(({ data }) => {
                     if (data.success) {
                         this.flashSuccess(data.success);

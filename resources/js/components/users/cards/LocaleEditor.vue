@@ -90,7 +90,7 @@ export default {
             const data = { language: this.form };
             const method = this.resource.method || 'get';
             const url = `${this.resource.uri}/language`;
-            this.axios({ method, url, data })
+            axios({ method, url, data })
                 .then(({ data }) => {
                     if (data.success) {
                         this.user.language = this.language = this.form;

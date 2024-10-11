@@ -99,7 +99,7 @@ export default {
         destroy() {
             const method = this.avatar.actions.delete.method;
             const url = this.avatar.actions.delete.uri;
-            this.axios({ method, url })
+            axios({ method, url })
                 .then(({ data }) => {
                     if (data.success) {
                         this.avatar.file = null;
@@ -128,7 +128,7 @@ export default {
             const data = { color: this.color };
             const method = this.avatar.actions.update.method;
             const url = this.avatar.actions.update.uri;
-            this.axios({ method, url, data })
+            axios({ method, url, data })
                 .then(({ data }) => {
                     if (data.success) {
                         this.avatar.color = `#${data.color}`;
@@ -144,7 +144,7 @@ export default {
             const headers = {'Content-Type': 'multipart/form-data'};
             const method = this.avatar.actions.upload.method;
             const url = this.avatar.actions.upload.uri;
-            this.axios({ method, url, data, headers })
+            axios({ method, url, data, headers })
                 .then(({ data }) => {
                     if (data.success) {
                         this.avatar.file = data.file;

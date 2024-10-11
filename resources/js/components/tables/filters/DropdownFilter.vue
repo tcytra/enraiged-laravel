@@ -94,7 +94,7 @@ export default {
         },
         fetch() {
             this.loading = true;
-            return this.axios.get(this.field.options.uri, { params: this.params() })
+            return axios.get(this.field.options.uri, { params: this.params() })
                 .then(({ data }) => {
                     this.options = data;
                     this.loading = false;

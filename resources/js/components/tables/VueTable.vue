@@ -322,7 +322,7 @@ export default {
     methods: {
         async fetch() {
             this.loading = true;
-            return this.axios.get(this.template.uri, { params: this.params() })
+            return axios.get(this.template.uri, { params: this.params() })
                 .then(response => this.fetched(response))
                 .catch(error => this.errorHandler(error));
         },
@@ -360,7 +360,7 @@ export default {
         },
 
         api(uri, method, data, success) {
-            this.axios.request({ method, url: uri, data })
+            axios.request({ method, url: uri, data })
                 .then((response) => {
                     const { data, status } = response;
                     if (this.isSuccess(status)) {
@@ -420,7 +420,7 @@ export default {
                     data: {...this.params(), export: this.exportable},
                     responseType: 'blob',
                 };
-                this.axios.request(params)
+                axios.request(params)
                     .then((response) => {
                         this.loading = false;
                         const { data, headers, status } = response;

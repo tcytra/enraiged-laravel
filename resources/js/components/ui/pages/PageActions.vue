@@ -90,7 +90,7 @@ export default {
                     });
 
                 } else if (typeof action.uri.api !== 'undefined' && action.uri.api === true) {
-                    this.axios[method](action.uri.route)
+                    axios[method](action.uri.route)
                         .then(({ data, status }) => {
                             if (this.isSuccess(status)) {
                                 if (action.emit) {
