@@ -2,9 +2,9 @@
 
 //  the base vendor resources
 @import 'app/primevue/themes/saga.css';
-@import '~/primevue/resources/primevue.min.css';
-@import '~/primeflex/primeflex.min.css';
-@import '~/primeicons/primeicons.css';
+@import '../../node_modules/primevue/resources/primevue.min.css';
+@import '../../node_modules/primeflex/primeflex.min.css';
+@import '../../node_modules/primeicons/primeicons.css';
 
 
 //  the local app resources
