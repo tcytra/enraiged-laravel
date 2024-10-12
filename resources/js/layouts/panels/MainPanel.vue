@@ -26,6 +26,10 @@ export default {
         MainMenu,
     },
 
+    props: {
+        appName: String,
+    },
+
     emits: ['menu:toggle'],
 
     inject: ['meta'],

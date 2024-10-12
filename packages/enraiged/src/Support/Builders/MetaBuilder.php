@@ -12,6 +12,9 @@ class MetaBuilder
     /** @var  object  The metadata collection. */
     protected $meta;
 
+    /** @var  array  The additional user provided parameters. */
+    protected $parameters;
+
     /** @var  object  The request object. */
     protected $request;
 
@@ -27,23 +30,34 @@ class MetaBuilder
     }
 
     /**
+     *  Return the meta array.
+     *
+     *  @return array
+     */
+    public function get(): array
+    {
+        return $this->meta
+            ->merge($this->parameters)
+            ->toArray();
+    }
+
+    /**
      *  Create and return the application metadata against the provided request.
      *
      *  @param  \Illuminate\Http\Request  $request
-     *  @return array
+     *  @param  array   $parameters = []
+     *  @return self
      */
-    public function handle(Request $request): array
+    public function handle(Request $request, $parameters = []): self
     {
+        $this->parameters = $parameters;
         $this->request = $request;
 
         (object) $this
             ->appParameters()
             ->authParameters();
 
-        return $this->meta
-            ->merge(['language' => config('app.locale')])
-            ->merge(['themes' => \Enraiged\Enums\Themes::select()])
-            ->toArray();
+        return $this;
     }
 
     /**
@@ -51,7 +65,7 @@ class MetaBuilder
      *
      *  @return self
      */
-    protected function appParameters()
+    protected function appParameters(): self
     {
         $this->meta = $this->meta
             ->merge([
@@ -66,11 +80,11 @@ class MetaBuilder
     }
 
     /**
-     *  Append the app name to the metadata collection.
+     *  Append the app date to the meta collection.
      *
      *  @return self
      */
-    protected function authParameters()
+    protected function authParameters(): self
     {
         $this->meta = $this->meta
             ->merge([
@@ -92,5 +106,21 @@ class MetaBuilder
         }
 
         return $this;
+    }
+
+    /**
+     *  Create and return a configuration from the provided request and parameters.
+     *
+     *  @param  \Illuminate\Http\Request  $request
+     *  @param  array   $parameters = []
+     *  @return self
+     *  @static
+     */
+    public static function From(Request $request, array $parameters = []): self
+    {
+        $called = get_called_class();
+
+        return (new $called)
+            ->handle($request, $parameters);
     }
 }

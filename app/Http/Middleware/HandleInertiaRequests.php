@@ -2,9 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use Enraiged\Support\Builders\AppStateBuilder;
 use Enraiged\Support\Builders\FlashableBuilder;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -41,14 +41,23 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        $response = [
-            'auth' => Auth::check(),
-            'flash' => (new FlashableBuilder)->handle($request),
-        ];
-
         return [
             ...parent::share($request),
-            ...$response,
+            ...$this->state($request),
+        ];
+    }
+
+    /**
+     *  Assemble and return the app state response.
+     *
+     *  @param  \Illuminate\Http\Request  $request
+     *  @return array
+     */
+    private function state(Request $request): array
+    {
+        return [
+            'flash' => (new FlashableBuilder)->handle($request),
+            ...(new AppStateBuilder)->handle($request)->get(),
         ];
     }
 }

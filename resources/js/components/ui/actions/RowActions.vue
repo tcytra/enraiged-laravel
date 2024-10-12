@@ -100,9 +100,6 @@ export default {
                                     if (action.uri.redirect === 'default') {
                                         this.actionHandler(this.default);
                                     }
-                                    //if (action.uri.redirect.match(/[a-z]+/)) {
-                                    //    
-                                    //}
                                 }
                             }
                         })

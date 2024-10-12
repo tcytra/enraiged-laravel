@@ -11,7 +11,7 @@
             <div class="flex col-8 auto-margin">
                 <primevue-dropdown class="w-full" id="userTheme" optionLabel="name" optionValue="id"
                     v-model="form"
-                    :options="meta.themes"
+                    :options="themes"
                     @update:modelValue="preview">
                     <template #option="props">
                         <span :class="props.option.class">{{ props.option.name }}</span>
@@ -51,14 +51,16 @@ export default {
         'errorHandler',
         'flashSuccess',
         'i18n',
-        'initState',
-        'meta',
         'setTheme',
     ],
 
     props: {
         resource: {
             type: Object,
+            required: true,
+        },
+        themes: {
+            type: Array,
             required: true,
         },
         user: {
@@ -87,10 +89,14 @@ export default {
             this.form = this.theme;
         },
         preview() {
-            this.$primevue.changeTheme(this.theme, this.form, 'theme-color', () => {});
+            if (this.user.is_myself) {
+                this.$primevue.changeTheme(this.theme, this.form, 'theme-color', () => {});
+            }
         },
         reset() {
-            this.$primevue.changeTheme(this.form, this.theme, 'theme-color', () => {});
+            if (this.user.is_myself) {
+                this.$primevue.changeTheme(this.form, this.theme, 'theme-color', () => {});
+            }
             this.form = this.theme;
         },
         save() {
@@ -102,9 +108,6 @@ export default {
                     this.theme = this.form;
                     if (data.success) {
                         this.flashSuccess(data.success);
-                    }
-                    if (this.user.is_myself) {
-                        this.initState();
                     }
                 })
                 .catch(error => this.errorHandler(error));

@@ -10,7 +10,7 @@
                 </template>
                 <template #content>
                     <p class="mb-3">
-                        {{ user.profile.name }}
+                        {{ auth.profile.name }}
                     </p>
                     <p class="mb-3">
                         clientSize: {{ clientSize.toUpperCase() }} clientWidth: {{ clientWidth }}px
@@ -40,6 +40,6 @@ export default {
         PrimevueCard,
     },
 
-    inject: ['clientSize', 'clientWidth', 'i18n', 'isMobile', 'isTablet', 'meta', 'user'],
+    inject: ['auth', 'clientSize', 'clientWidth', 'i18n', 'isMobile', 'isTablet', 'meta'],
 };
 </script>

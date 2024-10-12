@@ -11,7 +11,7 @@
             <div class="flex col-8 auto-margin">
                 <primevue-dropdown class="w-full" id="userLocale" optionLabel="name" optionValue="id"
                     v-model="form"
-                    :options="meta.timezones">
+                    :options="timezones">
                     <template #option="props">
                         <span :class="props.option.class">{{ props.option.name }}</span>
                     </template>
@@ -52,13 +52,15 @@ export default {
         'errorHandler',
         'flashSuccess',
         'i18n',
-        'initState',
-        'meta',
     ],
 
     props: {
         resource: {
             type: Object,
+            required: true,
+        },
+        timezones: {
+            type: Array,
             required: true,
         },
         user: {

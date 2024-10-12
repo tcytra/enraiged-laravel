@@ -6,9 +6,10 @@
             <div class="grid">
                 <div class="col-12 xl:col-5">
                     <avatar-editor :avatar="avatar"/>
-                    <theme-editor :resource="template.resource" :user="user"/>
-                    <locale-editor :resource="template.resource" :user="user"/>
-                    <timezone-editor :resource="template.resource" :user="user"/>
+                    <theme-editor :resource="template.resource" :themes="enums.themes" :user="user"/>
+                    <locale-editor :resource="template.resource" :languages="enums.languages" :user="user"
+                        @success="reloadEnums"/>
+                    <timezone-editor :resource="template.resource" :timezones="enums.timezones" :user="user"/>
                 </div>
                 <div class="col-12 xl:col-7">
                     <update-form ref="updateUser" custom-actions updating :template="template"/>
@@ -24,6 +25,7 @@
 </template>
 
 <script>
+import { router } from '@inertiajs/vue3';
 import App from '@/layouts/App.vue';
 import AvatarEditor from '@/components/users/cards/AvatarEditor.vue';
 import FormActions from '@/components/forms/VueFormActions.vue';
@@ -56,6 +58,10 @@ export default {
             required: true,
         },
         avatar: {
+            type: Object,
+            required: true,
+        },
+        enums: {
             type: Object,
             required: true,
         },
@@ -93,6 +99,12 @@ export default {
 
     mounted() {
         this.ready = true;
+    },
+
+    methods: {
+        reloadEnums() {
+            router.reload({ only: ['enums'] })
+        },
     },
 };
 </script>

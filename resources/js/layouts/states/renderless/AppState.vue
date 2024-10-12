@@ -15,27 +15,14 @@ export default {
     },
 
     data: () => ({
-        menu: null,
-        meta: null,
-        ready: false,
-        user: null,
+        auth: null,
         authMenuOpen: false,
         mainMenuOpen: false,
+        menu: null,
+        meta: null,
     }),
 
     computed: {
-        getMenu() {
-            return this.menu;
-        },
-
-        getMeta() {
-            return this.meta;
-        },
-
-        getUser() {
-            return this.user;
-        },
-
         menuClass() {
             const state = {
                 'auth-open': this.authMenuOpen,
@@ -51,7 +38,13 @@ export default {
 
     created() {
         this.mainMenuOpen = (this.isMobile !== true);
-        this.initState();
+        this.setAuth(this.$page.props.auth);
+        this.setMenu(this.$page.props.menu);
+        this.setMeta(this.$page.props.meta);
+        if (this.auth !== null) {
+            this.setLanguage(this.auth.language);
+            this.setTheme(this.auth.thema);
+        }
     },
 
     methods: {
@@ -86,16 +79,19 @@ export default {
         fetched(response) {
             const { status, data } = response;
             if (this.isSuccess(status)) {
-                const { menu, meta, user } = data;
-                if (user) {
-                    this.setLanguage(user.language);
-                    this.setTheme(user);
-                    this.setUser(user);
+                const { auth, menu, meta } = data;
+                if (auth) {
+                    this.setLanguage(auth.language);
+                    this.setTheme(auth.theme);
                 }
+                this.setAuth(auth);
                 this.setMenu(menu);
                 this.setMeta(meta);
-                this.ready = true;
             }
+        },
+
+        setAuth(auth) {
+            this.auth = auth;
         },
 
         setLanguage(language) {
@@ -131,14 +127,10 @@ export default {
             this.meta = meta;
         },
 
-        setTheme(user) {
-            if (user.theme) {
-                this.$primevue.changeTheme(this.currentTheme(), user.theme, 'theme-color', () => {});
+        setTheme(theme) {
+            if (theme) {
+                this.$primevue.changeTheme(this.currentTheme(), theme, 'theme-color', () => {});
             }
-        },
-
-        setUser(user) {
-            this.user = user;
         },
 
         stopImpersonating() {
@@ -161,6 +153,7 @@ export default {
 
     provide() {
         return {
+            auth: computed(() => this.auth),
             closeAllPanels: this.closeAll,
             closeAuthPanel: this.closeAuth,
             closeMainPanel: this.closeMenu,
@@ -173,7 +166,6 @@ export default {
             stopImpersonating: this.stopImpersonating,
             toggleAuthPanel: this.toggleAuth,
             toggleMainPanel: this.toggleMenu,
-            user: computed(() => this.user),
         };
     },
 
@@ -181,12 +173,9 @@ export default {
         return this.$slots.default({
             closeAuth: this.closeAuth,
             closeMenu: this.closeMenu,
-            menu: this.menu,
             menuClasses: this.menuClass,
-            ready: this.ready,
             toggleAuth: this.toggleAuth,
             toggleMenu: this.toggleMenu,
-            user: this.user,
         });
     },
 

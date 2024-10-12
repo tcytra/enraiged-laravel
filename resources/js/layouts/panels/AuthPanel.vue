@@ -1,9 +1,9 @@
 <template>
     <nav class="text-50" refs="nav">
         <header class="header profile">
-            <avatar size="xx" :avatar="user.avatar"/>
-            <h4 class="name">{{ user.profile.name }}</h4>
-            <h5 class="email">{{ user.email }}</h5>
+            <avatar size="xx" :avatar="auth.avatar"/>
+            <h4 class="name">{{ auth.profile.name }}</h4>
+            <h5 class="email">{{ auth.email }}</h5>
         </header>
         <ul class="options">
             <li class="action item" @click="get('/my/account')">
@@ -62,7 +62,7 @@ export default {
 
     emits: ['auth:close', 'auth:toggle'],
 
-    inject: ['currentTheme', 'i18n', 'meta', 'user'],
+    inject: ['auth', 'currentTheme', 'i18n', 'meta'],
 
     methods: {
         close() {

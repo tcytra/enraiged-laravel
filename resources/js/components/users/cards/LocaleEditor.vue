@@ -11,7 +11,7 @@
             <div class="flex col-8 auto-margin">
                 <primevue-dropdown class="w-full" id="userLocale" optionLabel="name" optionValue="id"
                     v-model="form"
-                    :options="meta.languages">
+                    :options="languages">
                     <template #option="props">
                         <span :class="props.option.class">{{ props.option.name }}</span>
                     </template>
@@ -53,12 +53,16 @@ export default {
         'flashSuccess',
         'i18n',
         'initState',
-        'meta',
+        //'setLanguage',
     ],
 
     props: {
         resource: {
             type: Object,
+            required: true,
+        },
+        languages: {
+            type: Array,
             required: true,
         },
         user: {
@@ -93,9 +97,9 @@ export default {
             axios({ method, url, data })
                 .then(({ data }) => {
                     if (data.success) {
+                        this.$emit('success');
                         this.user.language = this.language = this.form;
                         if (this.user.is_myself) {
-                            //this.setLanguage(this.form);
                             this.initState();
                         }
                         this.flashSuccess(data.success);

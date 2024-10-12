@@ -1,14 +1,11 @@
 <template>
     <app-state :api="uri">
-        <template v-slot:default="{ ready }">
+        <template v-slot:default="{}">
             <transition enter-active-class="fadein" leave-active-class="fadeout">
-                <div id="page" class="guest layout" v-if="ready">
+                <div id="page" class="guest layout">
                     <div class="container">
                         <slot/>
                     </div>
-                </div>
-                <div class="default overlay" key="overlay" v-else>
-                    <vue-progress-spinner/>
                 </div>
             </transition>
         </template>

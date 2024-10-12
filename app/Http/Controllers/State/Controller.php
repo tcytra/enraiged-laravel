@@ -3,15 +3,21 @@
 namespace App\Http\Controllers\State;
 
 use App\Http\Controllers\Controller as AppController;
-use App\Http\Responses\State\AppState as AppStateResponse;
+use Enraiged\Support\Builders\AppStateBuilder;
+use Illuminate\Http\Request;
 
 class Controller extends AppController
 {
     /**
-     *  @return \Symfony\Component\HttpFoundation\Response
+     *  @param  \Illuminate\Http\Request  $request
+     *  @return \Illuminate\Http\JsonResponse
      */
-    public function __invoke()
+    public function __invoke(Request $request)
     {
-        return new AppStateResponse();
+        $builder = (new AppStateBuilder)
+            ->handle($request);
+
+        return response()
+            ->json($builder->get());
     }
 }

@@ -8,7 +8,7 @@ import { i18nVue } from "laravel-vue-i18n";
 import ConfirmationService from 'primevue/confirmationservice';
 import PrimeVue from 'primevue/config';
 
-const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+const appName = import.meta.env.VITE_APP_NAME || 'Enraiged';
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,

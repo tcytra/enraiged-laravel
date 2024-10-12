@@ -1,10 +1,10 @@
 <template>
     <app-state :api="uri">
         <template v-slot:default="{
-                menuClasses, menu, ready, closeAuth, closeMenu, toggleAuth, toggleMenu, user,
+                menuClasses, closeAuth, closeMenu, toggleAuth, toggleMenu,
             }">
             <transition enter-active-class="fadein" leave-active-class="fadeout">
-                <div id="layout" class="default layout" key="layout" v-if="ready"
+                <div id="layout" class="default layout" key="layout"
                     :class="[menuClasses, clientSize]">
                     <main-panel class="main panel" ref="mainPanel"
                         @menu:toggle="toggleMenu"/>
@@ -17,9 +17,6 @@
                     <auth-panel class="auth panel" ref="authPanel"
                         @auth:close="closeAuth"
                         @auth:toggle="toggleAuth"/>
-                </div>
-                <div class="default overlay" key="overlay" v-else>
-                    <vue-progress-spinner/>
                 </div>
             </transition>
         </template>

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Support\Enums;
+namespace App\Enums;
 
 use Enraiged\Enums\FileTypes as Enum;
 

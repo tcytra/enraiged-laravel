@@ -69,8 +69,6 @@ export default {
         'errorHandler',
         'flashSuccess',
         'i18n',
-        'initState',
-        'user',
     ],
 
     props: {
@@ -119,9 +117,6 @@ export default {
             delete this.model.actions;
             if (typeof data !== 'undefined') {
                 this.flashSuccess(data.success);
-                if (this.avatar.id === this.user.avatar.id) {
-                    this.initState();
-                }
             }
         },
         update() {

@@ -46,7 +46,7 @@ export default {
                 .join('');
         },
         isAuthenticated(){
-            return this.$page.props.auth;
+            return this.$page.props.auth !== null;
         },
         isDesktop() {
             return !['md', 'sm', 'xs'].includes(this.clientSize);

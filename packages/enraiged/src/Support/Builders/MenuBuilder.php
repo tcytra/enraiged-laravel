@@ -4,7 +4,7 @@ namespace Enraiged\Support\Builders;
 
 use Illuminate\Http\Request;
 
-abstract class MenuBuilder
+class MenuBuilder
 {
     use Security\AssertSecure,
         Security\AuthAssertions,
@@ -18,27 +18,17 @@ abstract class MenuBuilder
     protected $clean = ['secure', 'secureAll', 'secureAny'];
 
     /**
-     *  Create an instance of the TableBuilder.
+     *  Create and return the configuration against the provided request.
      *
      *  @param  \Illuminate\Http\Request  $request
      *  @param  array   $parameters = []
-     *  @return void
+     *  @return self
      */
-    public function __construct(Request $request, array $parameters = [])
+    public function handle(Request $request, array $parameters = []): self
     {
         (object) $this
             ->setRequest($request)
-            ->setParameters($parameters);
-    }
-
-    /**
-     *  Create and return the configuration against the provided request.
-     *
-     *  @return MenuBuilder
-     */
-    public function handle()
-    {
-        (object) $this
+            ->setParameters($parameters)
             ->fetch()
             ->process()
             ->clean();
@@ -61,7 +51,7 @@ abstract class MenuBuilder
      *
      *  @return self
      */
-    protected function process()
+    protected function process(): self
     {
         $configuration = collect($this->configuration);
 
@@ -91,7 +81,7 @@ abstract class MenuBuilder
      *  @param  array|object  $items
      *  @return array
      */
-    protected function secure($items)
+    protected function secure($items): array
     {
         $configuration = collect($items)
             ->transform(function ($item) {
@@ -132,7 +122,7 @@ abstract class MenuBuilder
     {
         $called = get_called_class();
 
-        return (new $called($request, $parameters))
-            ->handle();
+        return (new $called)
+            ->handle($request, $parameters);
     }
 }
