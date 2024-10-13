@@ -35,7 +35,8 @@ class InternetAddressLogin extends Notification implements ShouldQueue
     public function shouldSend($notifiable, $channel)
     {
         return in_array($channel, $notifiable->notification_channels)
-            && $notifiable->ipAddresses->count() > 1;
+            && $notifiable->ipAddresses->count() > 1
+            && !app()->environment('testing');
     }
 
     /**

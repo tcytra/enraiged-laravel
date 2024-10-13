@@ -18,7 +18,8 @@ class UserWelcome extends Notification implements ShouldQueue
      */
     public function shouldSend(object $notifiable, string $channel): bool
     {
-        return config('enraiged.auth.send_welcome_notification') === true;
+        return config('enraiged.auth.send_welcome_notification') === true
+            && !app()->environment('testing');
     }
 
     /**
