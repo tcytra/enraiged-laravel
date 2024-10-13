@@ -16,6 +16,42 @@ The enraiged-laravel starter framework will be moving into v0.4.x soon with a fu
 
 ---
 
+2024-10-13 : 0.3.13  
+Summary: Corrected issues preventing SSR; Various other improvements
+
+- Added basic phpunit tests: Feature\Auth\{Login,Register}Test
+- Upgraded various packages
+  - Updated @vitejs/plugin-vue from ^4.4.1 to ^5.0.0
+  - Updated laravel-vite-plugin from ^0.7.8 to ^1.0.0
+  - Updated vite from ^4.5.4 to ^5.0.0
+  - Removed vue-axios package, added axios to window object
+- Updated app state handling, preload state data for SSR
+  - Added `Enraiged\Support\Builders\AppStateBuilder` class
+  - Modified state builders for consistency in handling
+  - Moved App\Support\Enums back into into the App namespace
+  - Provide state data via HandleInertiaRequests::share
+  - Removed the App\Http\Responses directory,contents
+  - Renamed the state 'user' prop to 'auth' to avoid conflicts
+- Updated {postcss,vite}.config.js; Corrections, improvements
+- Updated resources/js/{app,ssr}.js; Corrections, improvements
+- Various corrections,improvements to the enraiged.auth config options
+  - Added 'enraiged.auth.force_guest_login' configuration option
+  - Completed email verification systems
+  - Ensure Welcome email is sent when email address verified
+  - Ensure email verification pages displayed when necessary
+  - Ensure automated_login,must_verify_email working together
+
+> Important: Upgrading from 0.3.12.x to 0.3.13
+
+- Add VITE_APP_NAME to the .env (see env.example)
+- All instances of `this.axios` must be changed to just `axios`
+- All instances of `App\Support\Enums` must be changed to `App\Enums`
+- The `main-menu.json` file has been moved to `resources\seeds\appmenu.json`
+- The path aliases [~,!] have been removed from vite.config
+- The state 'user' prop is now 'auth', provided by inertia share
+
+---
+
 2024-10-08 : 0.3.12.2  
 Secure: Updated phpoffice/phpspreadsheet to v1.29.2; High severity
 
