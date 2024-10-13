@@ -28,7 +28,6 @@ import AppState from './renderless/AppState.vue';
 import AuthPanel from '../panels/AuthPanel.vue';
 import MainPanel from '../panels/MainPanel.vue';
 import TopNav from '../menus/TopNav.vue';
-import VueProgressSpinner from 'primevue/progressspinner/ProgressSpinner.vue';
 
 export default {
     components: {
@@ -36,7 +35,6 @@ export default {
         AuthPanel,
         MainPanel,
         TopNav,
-        VueProgressSpinner,
     },
 
     inject: [

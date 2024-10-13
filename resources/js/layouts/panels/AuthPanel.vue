@@ -52,7 +52,6 @@
 </template>
 
 <script>
-import { router } from '@inertiajs/vue3';
 import Avatar from '@/components/ui/avatars/Avatar.vue';
 
 export default {
@@ -62,7 +61,7 @@ export default {
 
     emits: ['auth:close', 'auth:toggle'],
 
-    inject: ['auth', 'currentTheme', 'i18n', 'meta'],
+    inject: ['auth', 'currentTheme', 'i18n', 'logout', 'meta'],
 
     methods: {
         close() {
@@ -72,13 +71,7 @@ export default {
             this.close();
             this.$inertia.get(url);
         },
-        logout() {
-            const app_theme = this.currentTheme();
-            if (app_theme !== this.meta.app_theme) {
-                this.$primevue.changeTheme(app_theme, this.meta.app_theme, 'theme-color', () => {});
-            }
-            router.post('/logout');
-        },
+        
         match(...urls) {
             let currentUrl = this.$page.url.substr(1)
             if (urls[0] === '') {

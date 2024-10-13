@@ -14,10 +14,12 @@
 
 <script>
 import AppState from './renderless/AppState.vue';
+import TopNav from '../menus/TopNav.vue';
 
 export default {
     components: {
         AppState,
+        TopNav,
     },
 
     data: () => ({

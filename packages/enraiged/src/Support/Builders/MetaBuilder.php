@@ -102,6 +102,7 @@ class MetaBuilder
                 ->merge([
                     'has_agreed_to_terms' => null,
                     'has_completed_account' => null,
+                    'has_verified_email' => $this->request->user()->hasVerifiedEmail(),
                 ]);
         }
 

@@ -1,6 +1,7 @@
 <script>
 import { computed, createApp } from 'vue';
 import { i18nVue } from 'laravel-vue-i18n';
+import { router } from '@inertiajs/vue3';
 
 export default {
     emits: ['close:all', 'close:auth', 'close:menu'],
@@ -90,6 +91,14 @@ export default {
             }
         },
 
+        logout() {
+            const app_theme = this.currentTheme();
+            if (app_theme !== this.meta.app_theme) {
+                this.$primevue.changeTheme(app_theme, this.meta.app_theme, 'theme-color', () => {});
+            }
+            router.post('/logout');
+        },
+
         setAuth(auth) {
             this.auth = auth;
         },
@@ -159,6 +168,7 @@ export default {
             closeMainPanel: this.closeMenu,
             currentTheme: this.currentTheme,
             initState: this.initState,
+            logout: this.logout,
             menu: computed(() => this.menu),
             meta: computed(() => this.meta),
             setLanguage: this.setLanguage,

@@ -1,10 +1,13 @@
 <template>
-    <auth-state v-if="isAuthenticated">
-        <slot/>
-    </auth-state>
-    <guest-state v-else>
+    <guest-state v-if="!isAuthenticated">
         <slot/>
     </guest-state>
+    <verify-state v-else-if="!isVerified">
+        <slot/>
+    </verify-state>
+    <auth-state v-else>
+        <slot/>
+    </auth-state>
     <confirm-dialog/>
     <flash-messages :messages="flashMessages" @unflash="unflash"/>
 </template>
@@ -13,6 +16,7 @@
 import { computed } from 'vue';
 import AuthState from './states/AuthState.vue';
 import GuestState from './states/GuestState.vue';
+import VerifyState from './states/VerifyState.vue';
 import ConfirmDialog from 'primevue/confirmdialog/ConfirmDialog.vue';
 import FlashMessages from './notifications/FlashMessages.vue';
 
@@ -22,6 +26,7 @@ export default {
         ConfirmDialog,
         GuestState,
         FlashMessages,
+        VerifyState,
     },
 
     data: () => ({
@@ -47,6 +52,10 @@ export default {
         },
         isAuthenticated(){
             return this.$page.props.auth !== null;
+        },
+        isVerified(){
+            return this.$page.props.meta.must_verify_email === false
+                || this.$page.props.meta.has_verified_email === true;
         },
         isDesktop() {
             return !['md', 'sm', 'xs'].includes(this.clientSize);

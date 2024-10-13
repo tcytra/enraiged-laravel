@@ -95,7 +95,7 @@
             >.header .container {
               display:          flex;
               margin:           1rem;
-              max-width:        calc($break-x-small + 1px);
+              
               width:            calc(100% - (1rem * 2));
             }
 

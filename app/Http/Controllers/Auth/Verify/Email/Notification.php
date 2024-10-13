@@ -20,6 +20,12 @@ class Notification extends Controller
 
         $request->user()->sendEmailVerificationNotification();
 
+        if ($request->is('api/*')) {
+            return response()->json([
+                'success' => __('A new verification email has been sent.'),
+            ]);
+        }
+
         return back()->with('status', 'verification-link-sent');
     }
 }
