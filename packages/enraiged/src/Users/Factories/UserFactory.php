@@ -2,6 +2,7 @@
 
 namespace Enraiged\Users\Factories;
 
+use Enraiged\Profiles\Models\Profile;
 use Enraiged\Roles\Models\Role;
 use Enraiged\Users\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -26,12 +27,15 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $profile = Profile::factory()->create();
+
         return [
             'email' => $this->faker->unique()->safeEmail(),
             'is_active' => true,
             'is_hidden' => false,
             'is_protected' => false,
             'password' => static::$password ??= Hash::make('password'),
+            'profile_id' => fn () => $profile->id,
             'remember_token' => Str::random(10),
             'role_id' => Role::whereNot('name', 'Administrator')->inRandomOrder()->first()->id,
             'verified_at' => now(),
