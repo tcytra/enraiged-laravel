@@ -322,11 +322,19 @@ return [
     | verify their email address before being permitted authenticated access to
     | their account.
     |
-    | The default value is false.
+    | Important: In the default Enraiged setup the 'auth.providers.users.model'
+    | will identify the \Enraiged\Users\Model\VerifiedUser class as the default
+    | Authenticatable model if the .env file argues MUST_VERIFY_EMAIL=true.
     |
-    | Set this value in the .env file to force the auth.providers.users.model
-    | config to identify the \Enraiged\Users\Model\VerifiedUser class as the
-    | default Authenticatable model, which implements MustVerifyEmail.
+    | This is an attempt to 'automate' the switch between User and VerifiedUser
+    | models based on the environment setup, but might not be an ideal way to
+    | implement this. This does work but you may consider this unreliable.
+    |
+    | The better solution is to set the value here and remove the conditional
+    | 'auth.providers.users.model' setting in config/auth.php to point to the
+    | Authenticatable model appropriare for your project, as per Laravel docs.
+    |
+    | The default value is false.
     |
     */
 
