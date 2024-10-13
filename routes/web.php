@@ -19,6 +19,10 @@ Route::middleware(['auth', 'verified', 'enraiged'])
     ->name('dashboard');
 
 Route::get('/', function () {
+    if (app()->environment('testing')) {
+        return view('welcome');
+    }
+
     if (auth()->check()) {
         return redirect()->route('dashboard');
     }

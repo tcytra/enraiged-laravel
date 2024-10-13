@@ -10,19 +10,34 @@
         </testsuite>
         <testsuite name="Feature">
             <directory>tests/Feature</directory>
+            <directory>tests/Feature/Auth</directory>
         </testsuite>
     </testsuites>
     <source>
         <include>
             <directory>app</directory>
+            <directory suffix=".php">packages</directory>
         </include>
+        <exclude>
+            <directory suffix=".php">./app/Console</directory>
+            <directory suffix=".php">./packages/enraiged/publish</directory>
+            <file>./app/Http/Middleware/Authenticate.php</file>
+            <file>./app/Http/Middleware/RedirectIfAuthenticated.php</file>
+            <file>./app/Http/Middleware/TrustHosts.php</file>
+            <file>./app/Http/Middleware/TrustProxies.php</file>
+            <file>./app/Providers/BroadcastServiceProvider.php</file>
+            <file>./app/Providers/HorizonServiceProvider.php</file>
+            <file>./app/Providers/TelescopeServiceProvider.php</file>
+        </exclude>
     </source>
     <php>
         <env name="APP_ENV" value="testing"/>
         <env name="BCRYPT_ROUNDS" value="4"/>
         <env name="CACHE_DRIVER" value="array"/>
-        <!-- <env name="DB_CONNECTION" value="sqlite"/> -->
-        <!-- <env name="DB_DATABASE" value=":memory:"/> -->
+        <env name="DB_CONNECTION" value="mysql"/>
+        <env name="DB_DATABASE" value="laravel"/>
+        <env name="DB_USERNAME" value="laravel"/>
+        <env name="DB_PASSWORD" value="letmein"/>
         <env name="MAIL_MAILER" value="array"/>
         <env name="QUEUE_CONNECTION" value="sync"/>
         <env name="SESSION_DRIVER" value="array"/>
