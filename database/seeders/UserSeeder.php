@@ -37,6 +37,7 @@ class UserSeeder extends Seeder
                 'role' => 'Administrator',
                 'timezone' => config('enraiged.app.timezone'),
                 'username' => config('enraiged.auth.administrator_username'),
+                'verified_at' => now(),
             ];
 
             $user = CreateUserProfile::from($parameters);

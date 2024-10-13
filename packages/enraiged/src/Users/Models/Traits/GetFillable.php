@@ -23,6 +23,7 @@ trait GetFillable
             'theme',
             'timezone',
             'updated_by',
+            'verified_at',
         ];
     }
 }
