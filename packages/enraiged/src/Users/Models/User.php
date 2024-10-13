@@ -4,6 +4,7 @@ namespace Enraiged\Users\Models;
 
 use Enraiged\Support\Contracts\ProvidesDropdownOption;
 use Enraiged\Support\Database\Traits\UserTracking;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -26,8 +27,7 @@ class User extends Authenticatable implements ProvidesDropdownOption
         Traits\DropdownOption,
         Traits\GetFillable,
         Traits\HasContext,
-        Traits\HasFactory,
-        HasApiTokens, Notifiable, SoftDeletes, UserTracking;
+        HasApiTokens, HasFactory, Notifiable, SoftDeletes, UserTracking;
 
     /** @var  string  The database table name. */
     protected $table = 'users';
@@ -56,4 +56,15 @@ class User extends Authenticatable implements ProvidesDropdownOption
      *  User needs ability to select notification channels (global and/or per notification type or hybrid?).
      */
     public $notification_channels = ['mail'];
+
+    /**
+     *  Create a new factory instance for the model.
+     *
+     *  @return \Illuminate\Database\Eloquent\Factories\Factory
+     *  @static
+     */
+    protected static function newFactory()
+    {
+        return new \Enraiged\Users\Factories\UserFactory;
+    }
 }
