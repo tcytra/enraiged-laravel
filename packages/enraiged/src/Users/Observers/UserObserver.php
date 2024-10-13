@@ -53,6 +53,10 @@ class UserObserver
                 $user->role_id = Role::lowest()->id;
             }
         }
+
+        if ($user->role->is(Roles::Administrator)) {
+            $user->verified_at = now();
+        }
     }
 
     /**
