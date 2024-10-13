@@ -1,6 +1,6 @@
 <template>
     <div class="verify panel">
-        <page-header title="Email Verification Required"/>
+        <page-header :title="title"/>
         <div class="body">
             <div>
                 <p class="text-lg my-3">
@@ -36,12 +36,20 @@ export default {
         PrimevueButton,
     },
 
+    props: {
+        flash: Object,
+    },
+
     inject: ['i18n', 'logout'],
 
     computed: {
-        linkSent() {
-            return typeof this.$page.props.flash.status !== 'undefined'
-                && this.$page.props.flash.status === 'verification-link-sent';
+        success() {
+            return this.flash && this.flash.status === 201;
+        },
+        title() {
+            return this.success
+                ? 'Verification Email Sent'
+                : 'Email Verification Required';
         },
     },
 

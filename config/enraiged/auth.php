@@ -182,15 +182,14 @@ return [
     |--------------------------------------------------------------------------
     | 
     | You may allow or disallow automatic post-registration login by providing
-    | a boolean true or false for 'automated_logins'.
+    | a boolean true or false for 'automated_login'.
     |
-    | Please note:
+    | Setting this value to true will redirect the user to their dashboard
+    | immediately following a successful registration.
     |
-    | If 'must_verify_email' is enabled, this setting will be ignored.
-    |
-    | If 'must_verify_email' or 'must_complete_profile' are enabled, the login
-    | will complete but the user may be redirected to the systems that enforce
-    | these policies.
+    | If 'must_verify_email' is enabled, the user will be automatically logged
+    | in after a successful registration but will be directed to a verification
+    | page instead of their dashboard.
     |
     | The default value is false.
     |
@@ -216,6 +215,22 @@ return [
     */
 
     'force_default_role' => (string) env('FORCE_DEFAULT_ROLE', 'Member'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Force Guest Login
+    |--------------------------------------------------------------------------
+    |
+    | The application may be configured to redirect all requests to '/' to the
+    | login page.
+    | 
+    | The default value is false.
+    |
+    | Remember to run `php artisan route:clear` if you change this value.
+    |
+    */
+
+    'force_guest_login' => (bool) env('FORCE_GUEST_LOGIN', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -310,8 +325,8 @@ return [
     | The default value is false.
     |
     | Set this value in the .env file to force the auth.providers.users.model
-    | config to identify the \Enraiged\Auth\VerifiedUser class as the default
-    | User model, which implements the MustVerifyEmail contract.
+    | config to identify the \Enraiged\Users\Model\VerifiedUser class as the
+    | default Authenticatable model, which implements MustVerifyEmail.
     |
     */
 
@@ -324,7 +339,11 @@ return [
     |
     | The application may be configured to send a welcome notification to a
     | user when their account is created.
-    | 
+    |
+    | If the 'must_verify_email' option is set to true, the welcome email will
+    | be sent when the email address has been successfully verified, otherwise
+    | it will be sent when the account is created.
+    |
     | The default value is false.
     |
     */

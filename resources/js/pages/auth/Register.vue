@@ -1,10 +1,14 @@
 <template>
     <div class="login panel">
-        <page-header title="Register Account"/>
+        <page-header :title="title"/>
         <div class="body" v-if="success">
             <div class="container flex-column">
-                <p class="text text-center text-xl">Your email address must be verified.</p>
-                <p class="text text-center text-xl">Please check your inbox for an email.</p>
+                <p class="text-lg my-3">
+                    {{ i18n('Your account details have been successfully registered!') }}
+                </p>
+                <p class="text-lg my-3">
+                    {{ i18n('Please check your inbox for a verification email and follow the provided instructions.') }}
+                </p>
             </div>
         </div>
         <div class="body" v-else>
@@ -65,9 +69,16 @@ export default {
         form: Object,
     },
 
+    inject: ['i18n'],
+
     computed: {
         success() {
             return this.flash && this.flash.status === 201;
+        },
+        title() {
+            return this.success
+                ? 'Registration Successful'
+                : 'Register Account';
         },
     },
 

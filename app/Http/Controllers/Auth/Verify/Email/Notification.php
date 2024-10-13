@@ -26,6 +26,6 @@ class Notification extends Controller
             ]);
         }
 
-        return back()->with('status', 'verification-link-sent');
+        return back()->with('status', 201);
     }
 }

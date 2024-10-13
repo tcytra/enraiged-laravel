@@ -19,19 +19,22 @@ class Store extends Controller
         $user = $request->handle();
 
         if ($user instanceof MustVerifyEmail) {
-            $request->session()->put('success', 'Email sent');
+            $user->sendEmailVerificationNotification();
 
-            return redirect()
-                ->back()
-                ->with(['status' => 201]);
+            $request->session()->put('success', 'Verification email sent');
+
+        } else {
+            $request->session()->put('success', 'Registration successful');
         }
 
-        $request->session()->put('success', 'Registration successful');
-
-        if (config('enraiged.auth.automated_login') === true && !config('enraiged.auth.must_verify_email')) {
+        if (config('enraiged.auth.automated_login') === true) {
             Auth::login($user);
+
+            return redirect(RouteServiceProvider::HOME);
         }
 
-        return redirect(RouteServiceProvider::HOME);
+        return $user instanceof MustVerifyEmail
+            ? back()->with('status', 201)
+            : redirect($this->route('login'));
     }
 }

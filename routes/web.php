@@ -23,5 +23,7 @@ Route::get('/', function () {
         return redirect()->route('dashboard');
     }
 
-    return inertia('Welcome');
+    return config('enraiged.auth.force_guest_login') === true
+        ? redirect()->route('login')
+        : inertia('Welcome');
 });
