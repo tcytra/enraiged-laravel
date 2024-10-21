@@ -48,7 +48,7 @@ trait Attachable
         $storage_name = sha1(Str::random(20)).'.'.$file->getExtension();
         $storage_path = "{$this->folder}/{$storage_name}";
 
-        $file->move(storage_path("app/{$this->folder}"), $storage_name);
+        copy($file->getPathName(), storage_path("app/{$storage_path}"));
 
         $this->file->attach($file_name, $storage_path);
 
