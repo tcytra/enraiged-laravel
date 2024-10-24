@@ -9,6 +9,8 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Intervention\Image\ImageManager;
+use Spatie\LaravelImageOptimizer\Facades\ImageOptimizer;
 
 trait Attachable
 {
@@ -33,12 +35,78 @@ trait Attachable
     }
 
     /**
+     *  @return string
+     */
+    public function folder(): string
+    {
+        return $this->folder ?: 'files';
+    }
+
+    /**
+     *  Optimize an image file, if possible.
+     *
+     *  @return self
+     */
+    public function optimize()
+    {
+        if (preg_match('/^image/', $this->file->mime)) {
+            ImageOptimizer::optimize($this->path());
+        }
+
+        return $this;
+    }
+
+    /**
+     *  Return the full filesystem path to the stored file.
+     *
+     *  @return string
+     */
+    public function path(): string
+    {
+        return storage_path("app/{$this->file->path}");
+    }
+
+    /**
+     *  Resize an image file to the provided dimensions, if possible.
+     *
+     *  @return self
+     */
+    public function resize(): self
+    {
+        if (preg_match('/^image/', $this->file->mime) && $this->resize) {
+            $resize = (object) $this->resize;
+
+            if (property_exists($resize, 'width') || property_exists($resize, 'height')) {
+                $path = $this->path();
+
+                $image = ImageManager::imagick()->read($path);
+                $height = $image->height();
+                $width = $image->width();
+
+                if ($height > $width) {
+                    $image->scaleDown(width: $resize->width);
+                } else {
+                    $image->scaleDown(height: $resize->height);
+                }
+
+                if (property_exists($resize, 'strict') && $resize->strict === true) {
+                    $image->cover($resize->width, $resize->height);
+                }
+
+                $image->save($path);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      *  Attach a file from a local seed.
      *
      *  @param  \Illuminate\Http\File $file
      *  @return self
      */
-    public function seed(File $file)
+    public function seed(File $file): self
     {
         if ($this->file->path) {
             Storage::delete($this->file->path);
@@ -52,7 +120,9 @@ trait Attachable
 
         $this->file->attach($file_name, $storage_path);
 
-        return $this;
+        return $this
+            ->optimize()
+            ->resize();
     }
 
     /**
@@ -68,6 +138,8 @@ trait Attachable
             $this->file->upload($file);
         });
 
-        return $this;
+        return $this
+            ->optimize()
+            ->resize();
     }
 }

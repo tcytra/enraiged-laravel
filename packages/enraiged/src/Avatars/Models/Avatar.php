@@ -11,17 +11,26 @@ class Avatar extends Model
 {
     use Attributes\AvatarColor,
         Attributes\AvatarFile,
-        Attributes\Folder,
         Attachable, Created, Updated;
 
     /** @var  string  The morphable name. */
     protected $morphable = 'avatarable';
+
+    /** @var  string  The avatars storage folder. */
+    protected $folder = 'avatars';
 
     /** @var  string  The database table name. */
     protected $table = 'avatars';
 
     /** @var  array  The attributes that aren't mass assignable. */
     protected $guarded = ['id'];
+
+    /** @var  array  The image resizable parameters. */
+    protected $resize = [
+        'width' => 250,
+        'height' => 250,
+        'strict' => true,
+    ];
 
     /**
      *  Get the parent avatarable model.

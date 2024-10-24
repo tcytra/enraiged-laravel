@@ -7,6 +7,7 @@ use Enraiged\Users\Models\User;
 use Enraiged\Users\Services\CreateUserProfile;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Http\File;
 
 class UserSeeder extends Seeder
 {
@@ -29,6 +30,7 @@ class UserSeeder extends Seeder
 
         if (app()->environment('local') && config('enraiged.auth.administrator_email')) {
             $parameters = [
+                'avatar' => 'avatar-admin.jpg',
                 'email' => config('enraiged.auth.administrator_email'),
                 'is_hidden' => true,
                 'is_protected' => true,
@@ -40,8 +42,7 @@ class UserSeeder extends Seeder
                 'verified_at' => now(),
             ];
 
-            $user = CreateUserProfile::from($parameters);
-            $user->profile->generateAvatar();
+            $this->createUserProfile($parameters);
         }
 
         $this->loadJsonData(resource_path('seeds/users.json'));
@@ -83,13 +84,37 @@ class UserSeeder extends Seeder
         $profile = Profile::factory()->create();
         $profile->generateAvatar();
 
-        $user = User::factory()->create(
+        $model = auth_model();
+
+        $user = $model::factory()->create(
             collect($parameters)
                 ->merge(['profile_id' => $profile->id, 'timezone' => config('enraiged.app.timezone')])
                 ->toArray()
         );
 
         $user->load('profile');
+
+        return $user;
+    }
+
+    /**
+     *  Create a user profile from the provided parameters.
+     *
+     *  @param  array   $parameters
+     *  @return User
+     */
+    protected function createUserProfile(array $parameters)
+    {
+        $user = CreateUserProfile::from($parameters);
+        $user->profile->generateAvatar();
+
+        $avatar_exists = key_exists('avatar', $parameters)
+            && file_exists(resource_path("seeds/avatars/{$parameters['avatar']}"));
+
+        if ($avatar_exists) {
+            $avatar_file = new File(resource_path("seeds/avatars/{$parameters['avatar']}"));
+            $user->profile->avatar->seed($avatar_file);
+        }
 
         return $user;
     }
@@ -105,11 +130,11 @@ class UserSeeder extends Seeder
         $users = json_decode(file_get_contents($seeds), true);
 
         foreach ($users as $parameters) {
-            if (key_exists('email', $parameters) && key_exists('name', $parameters)) {
-                if (!User::where('email', $parameters['email'])->exists()) {
-                    $user = CreateUserProfile::from($parameters);
-                    $user->profile->generateAvatar();
-                }
+            $email_exists = key_exists('email', $parameters);
+            $name_exists = key_exists('name', $parameters);
+
+            if ($email_exists && $name_exists && !User::where('email', $parameters['email'])->exists()) {
+                $this->createUserProfile($parameters);
             }
         }
     }

@@ -1,5 +1,6 @@
 [
     {
+        "avatar": "avatar-admin.jpg",
         "email": "administrator@enraiged.dev",
         "is_hidden": true,
         "is_protected": true,

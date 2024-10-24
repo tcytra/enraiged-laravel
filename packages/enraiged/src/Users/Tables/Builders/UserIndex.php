@@ -2,6 +2,7 @@
 
 namespace Enraiged\Users\Tables\Builders;
 
+// use Enraiged\Avatars\Models\Avatar;
 use Enraiged\Tables\Builders\TableBuilder;
 use Enraiged\Tables\Contracts\ProvidesDefaultSort;
 use Enraiged\Tables\Contracts\ProvidesTableQuery;
@@ -47,7 +48,7 @@ class UserIndex extends TableBuilder implements ProvidesDefaultSort, ProvidesTab
      */
     public function query(): Builder
     {
-        //return $this->nonResourceBuild();
+        // return $this->nonResourceBuild();
 
         $builder = User::reportable();
 
@@ -65,7 +66,7 @@ class UserIndex extends TableBuilder implements ProvidesDefaultSort, ProvidesTab
      *
     private function nonResourceBuild($columns): Builder
     {
-        $avatars = url(config('enraiged.avatars.storage'));
+        $avatars = (new Avatar)->folder();
         $columns = [
             'avatars.id as avatar',
             'avatars.color as avatar_color',
@@ -90,7 +91,7 @@ class UserIndex extends TableBuilder implements ProvidesDefaultSort, ProvidesTab
             ->join('profiles', 'profiles.id', '=', 'users.profile_id')
             ->join('roles', 'roles.id', '=', 'users.role_id')
             ->leftJoin('files', fn ($join) => $join->on('files.attachable_id', '=', 'avatars.id'))
-                ->where('files.attachable_type', '=', config('enraiged.avatars.model'))
+                ->where('files.attachable_type', '=', 'avatar')
                 ->orWhereNull('files.attachable_type')
             ->where('is_hidden', false);
     }*/

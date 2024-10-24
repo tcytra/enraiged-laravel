@@ -105,7 +105,7 @@ class File extends Model
     public function upload(UploadedFile $file): self
     {
         DB::transaction(function () use ($file) {
-            $folder = $this->attachable->folder;
+            $folder = $this->attachable->folder();
 
             if (!Storage::has($folder)) {
                 Storage::makeDirectory($folder);

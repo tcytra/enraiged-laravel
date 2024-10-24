@@ -17,6 +17,7 @@
   * [Build Client](#build-client)
   * [Serve Application](#serve-application)
 - [Usage](#usage)
+  * [Seed Data](#seed-data)
   * [Enraiged Forms](#enraiged-forms)
 - [Licence](#license)
 
@@ -182,6 +183,23 @@ patch -Nr - --version-control none -p0 < patches/primevue-3.40.1-ssr-ready-corre
 
 
 ## Usage
+
+### Seed Data
+
+All initial seed data can be found in the ~/resources/seeds directory.
+
+**appmenu.json** Contains the main menu structure (currently read from the filesystem at runtime, not seeded to the db).
+
+**countries.json** Contains the list of countries seeded into the database.
+
+**regions.json** Contains the list of regions (states, provinces, etc) seeded into the database.
+
+**roles.json** Contains the list of initial roles seeded into the database.
+
+> **Important!** The `App\Enums\Roles` needs to be kept in sync with this data (for now).
+
+**users.json** Contains the list of initial users seeded into the database.
+
 
 ### Enraiged Forms
 

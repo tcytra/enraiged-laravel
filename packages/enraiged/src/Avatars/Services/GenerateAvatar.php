@@ -23,17 +23,10 @@ class GenerateAvatar
      */
     public function generate(): Avatar
     {
-        $color_index = config('enraiged.avatars.color.default') === 'random'
-            ? mt_rand(
-                config('enraiged.avatars.color.minimum'),
-                config('enraiged.avatars.color.maximum')
-            )
-            : hexdec(config('enraiged.avatars.color.default'));
-
         return $this->model
             ->avatar()
             ->firstOrCreate([
-                'color' => $color_index,
+                'color' => mt_rand(0, 0xABCDEF),
             ]);
     }
 

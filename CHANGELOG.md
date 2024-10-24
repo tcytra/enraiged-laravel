@@ -16,6 +16,15 @@ The enraiged-laravel starter framework will be moving into v0.4.x soon with a fu
 
 ---
 
+2024-10-24 : 0.3.14  
+Update: Improvements to the avatars system
+
+- Added avatar image optimization and resizing
+- Altered Attachable trait to copy (rather than move) a seeded file
+- Removed the enraiged.avatars config
+
+---
+
 2024-10-13 : 0.3.13  
 Summary: Corrected issues preventing SSR; Various other improvements
 

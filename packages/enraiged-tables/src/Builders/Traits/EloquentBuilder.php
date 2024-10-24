@@ -177,10 +177,9 @@ trait EloquentBuilder
         $conditions = [];
 
         if ($this->request()->has('search') && $this->request()->filled('search')) {
-            $search = $this->request()->get('search');
+            $search = preg_replace('/[^\w\s]/', '', $this->request()->get('search'));
 
             foreach (explode(" ", trim($search)) as $term) {
-                $term = filter_var($term);
                 $searchable = collect($this->searchableColumns())
                     ->values()
                     ->transform(function ($column) use ($term) {

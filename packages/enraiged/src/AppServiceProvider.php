@@ -38,9 +38,8 @@ class AppServiceProvider extends ServiceProvider
         ]);
 
         Relation::morphMap([
-            //'avatar' => 'Enraiged\Avatars\Models\Avatar',
-            //'person' => 'Enraiged\Persons\Models\Person',
-            //'user' => auth_model(),
+            'avatar' => Enraiged\Avatars\Models\Avatar::class,
+            'profile' => Enraiged\Profiles\Models\Profile::class,
         ]);
     }
 
