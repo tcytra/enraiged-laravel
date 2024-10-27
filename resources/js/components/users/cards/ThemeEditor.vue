@@ -31,10 +31,10 @@
 </template>
 
 <script>
-import PrimevueButton from 'primevue/button/Button.vue';
-import PrimevueCard from 'primevue/card/Card.vue';
-import PrimevueDropdown from 'primevue/dropdown/Dropdown.vue';
-import PrimevueTooltip from 'primevue/tooltip/tooltip.esm.js';
+import PrimevueButton from 'primevue/button';
+import PrimevueCard from 'primevue/card';
+import PrimevueDropdown from 'primevue/dropdown';
+import PrimevueTooltip from 'primevue/tooltip';
 
 export default {
     components: {

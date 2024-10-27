@@ -102,28 +102,6 @@ When complete, build the app for service:
 npm run build
 ```
 
-#### Patches
-
-I encountered an issue with Primevue Datatables handling of rowgroup colspan. In the vendor files, they are actively
-subtracting the calculated column count and I don't understand why. I've included a patch to prevent this subtraction.
-
-Apply the patch (optional):
-
-```bash
-patch -Nr - --version-control none -p0 < patches/primevue-3.40.1-datatable-correct-rowgroup-colspan.patch
-```
-
-I also created a patch that modifies the primevue DataCell component to allow disabling row checkbox,radio selectors:
-
-Apply the patch (optional):
-
-```bash
-patch -Nr - --version-control none -p0 < patches/primevue-3.40.1-datatable-bodycell-add-selectable.patch
-```
-
-> Revert these changes by using `-Rp0` instead of `-p0`
-
-> **Note:** The `npm run build` command will need to be reexecuted after applying these patches.
 
 ### Serve Application
 
@@ -149,37 +127,6 @@ Stop the SSR server:
 ```bash
 php artisan inertia:stop-ssr
 ```
-
-#### Known Issue
-
-Primevue does not seem to be ssr-ready, so I spent some time providing a quick means of correcting the vendor files. 
-There are two options for applying these corrections. While option 2 is quicker, option 1 is more likely to work for
-future versions of the vendor packages.
-
-> **Note:** Verify whether this fix is working for you by inspecting the viewing the html source with the SSR service
-running. If SSR is working, the html body will be populated (or hydrated) with the html structure of the page.
-
-**Option 1: Artisan Command**
-
-The primevue packages can be fixed with an artisan command:
-
-> Add the --revert flag to reverse these changes.
-
-```bash
-php artisan enraiged:fix-ssr
-```
-
-**Option 2: Apply Patch**
-
-Or, the quicker option is to apply the provided patch:
-
-> Reverse these changes by using `-Rp0` instead of `-p0`
-
-```bash
-patch -Nr - --version-control none -p0 < patches/primevue-3.40.1-ssr-ready-corrections.patch
-```
-
-> **Note:** The `npm run build` command will need to be reexecuted after applying this patch.
 
 
 ## Usage

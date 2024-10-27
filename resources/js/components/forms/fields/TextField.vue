@@ -35,8 +35,8 @@
 
 <script>
 import HeadlessFormField from '@/components/forms/headless/FormField.vue';
-import PrimevueInputText from 'primevue/inputtext/InputText.vue';
-import PrimevueTooltip from 'primevue/tooltip/tooltip.esm.js';
+import PrimevueInputText from 'primevue/inputtext';
+import PrimevueTooltip from 'primevue/tooltip';
 
 export default {
     inheritAttrs: false,

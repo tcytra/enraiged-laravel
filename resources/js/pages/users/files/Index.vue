@@ -87,11 +87,11 @@
 <script>
 import App from '@/layouts/App.vue';
 import PageHeader from '@/components/ui/pages/PageHeader.vue';
-import PrimevueButton from 'primevue/button/Button.vue';
-import PrimevueCard from 'primevue/card/Card.vue';
-import PrimevueDataview from 'primevue/dataview/DataView.vue';
-import PrimevueDataviewLayoutOptions from 'primevue/dataviewlayoutoptions/DataViewLayoutOptions.vue';
-import PrimevueTooltip from 'primevue/tooltip/tooltip.esm.js';
+import PrimevueButton from 'primevue/button';
+import PrimevueCard from 'primevue/card';
+import PrimevueDataview from 'primevue/dataview';
+import PrimevueDataviewLayoutOptions from 'primevue/dataviewlayoutoptions';
+import PrimevueTooltip from 'primevue/tooltip';
 
 export default {
     layout: App,

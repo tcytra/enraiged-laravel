@@ -34,8 +34,8 @@
 import { useForm } from '@inertiajs/vue3'
 import AppLayout from '@/layouts/App.vue';
 import PageHeader from '@/components/ui/pages/PageHeader.vue';
-import PrimevueButton from 'primevue/button/Button.vue';
-import PrimevuePanel from 'primevue/panel/Panel.vue';
+import PrimevueButton from 'primevue/button';
+import PrimevuePanel from 'primevue/panel';
 import VuePasswordField from '@/components/forms/fields/PasswordField.vue';
 
 export default {

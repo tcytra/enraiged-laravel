@@ -13,7 +13,7 @@ import AppLayout from '@/layouts/App.vue';
 import UserSummary from '@/components/users/cards/UserSummary.vue';
 import PageHeader from '@/components/ui/pages/PageHeader.vue';
 import PageMessages from '@/components/ui/pages/PageMessages.vue';
-import PrimevueCard from 'primevue/card/Card.vue';
+import PrimevueCard from 'primevue/card';
 
 export default {
     layout: AppLayout,

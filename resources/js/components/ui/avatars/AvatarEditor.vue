@@ -46,11 +46,11 @@
 <script>
 import { useForm } from '@inertiajs/vue3'
 import Avatar from '@/components/ui/avatars/Avatar.vue';
-import PrimevueButton from 'primevue/button/Button.vue';
-import PrimevueColorpicker from 'primevue/colorpicker/ColorPicker.vue';
-import PrimevueFileupload from 'primevue/fileupload/FileUpload.vue';
-import PrimevueInputtext from 'primevue/inputtext/InputText.vue';
-import PrimevueTooltip from 'primevue/tooltip/tooltip.esm.js';
+import PrimevueButton from 'primevue/button';
+import PrimevueColorpicker from 'primevue/colorpicker';
+import PrimevueFileupload from 'primevue/fileupload';
+import PrimevueInputtext from 'primevue/inputtext';
+import PrimevueTooltip from 'primevue/tooltip';
 
 export default {
     components: {

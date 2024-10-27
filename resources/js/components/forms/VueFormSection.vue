@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import PrimevueCard from 'primevue/card/Card.vue';
+import PrimevueCard from 'primevue/card';
 import VueFormFields from './VueFormFields.vue';
 
 export default {

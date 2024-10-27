@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import PrimevueButton from 'primevue/button/Button.vue';
+import PrimevueButton from 'primevue/button';
 
 export default {
     components: {
@@ -47,13 +47,13 @@ export default {
     },
 
     computed: {
-        current() {
+        /* current() {
             const actions = Object.keys(this.actions)
                 .filter((action) => this.isCurrent(this.actions[action]));
             return actions.length
                 ? this.actions[actions[0]]
                 : null;
-        },
+        }, */
         default() {
             const actions = Object.keys(this.actions)
                 .filter((action) => this.actions[action].default);
@@ -135,7 +135,7 @@ export default {
         },
 
         isCurrent(action) {
-            if (typeof action.uri !== 'undefined') {
+            if (action && typeof action.uri !== 'undefined') {
                 const route = typeof action.uri.route !== 'undefined'
                     ? action.uri.route
                     : action.uri;

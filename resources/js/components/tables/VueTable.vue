@@ -4,7 +4,7 @@
             :filter="filter"
             :filters="template.filters"
             :form="filters"/>
-        <primevue-datatable class="p-datatable-sm" ref="datatable" v-model:selection="selected"
+        <primevue-datatable :class="template.class" ref="datatable" v-model:selection="selected"
             filter-display="menu"
             paginator-template="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink"
             :current-page-report-template="pageReportTemplate"
@@ -130,12 +130,12 @@
 </template>
 
 <script>
-import PrimevueButton from 'primevue/button/Button.vue';
-import PrimevueColumn from 'primevue/column/Column.vue';
-import PrimevueDatatable from 'primevue/datatable/DataTable.vue';
-import PrimevueDropdown from 'primevue/dropdown/Dropdown.vue';
-import PrimevueInputtext from 'primevue/inputtext/InputText.vue';
-import PrimevueTooltip from 'primevue/tooltip/tooltip.esm.js';
+import PrimevueButton from 'primevue/button';
+import PrimevueColumn from 'primevue/column';
+import PrimevueDatatable from 'primevue/datatable';
+import PrimevueDropdown from 'primevue/dropdown';
+import PrimevueInputtext from 'primevue/inputtext';
+import PrimevueTooltip from 'primevue/tooltip';
 import VueTableFilters from './VueTableFilters.vue';
 
 export default {

@@ -14,7 +14,7 @@
 
 <script>
 import { Head } from '@inertiajs/vue3';
-import PrimevueButton from 'primevue/button/Button.vue';
+import PrimevueButton from 'primevue/button';
 
 export default {
     components: {

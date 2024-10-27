@@ -1,4 +1,11 @@
 {
+    "impersonate": {
+        "class": "background-warning",
+        "icon": "pi pi-sync",
+        "label": "Assume",
+        "secure": {"method": "isNotDeleted"},
+        "uri": {"route": "users.impersonate", "param": "user"}
+    },
     "show": {
         "icon": "pi pi-user",
         "label": "Show",
@@ -19,13 +26,6 @@
             "uri": {"route": "my.account.details"}
         },
         "uriElse": {"route": "users.edit", "param": "user"}
-    },
-    "impersonate": {
-        "class": "background-warning",
-        "icon": "pi pi-sync",
-        "label": "Assume",
-        "secure": {"method": "isNotDeleted"},
-        "uri": {"route": "users.impersonate", "param": "user"}
     },
     "delete": {
         "class": "background-danger",

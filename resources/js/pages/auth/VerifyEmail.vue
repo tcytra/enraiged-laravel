@@ -26,7 +26,7 @@
 import { router } from '@inertiajs/vue3';
 import AppLayout from '@/layouts/App.vue';
 import PageHeader from '@/components/ui/pages/PageHeader.vue';
-import PrimevueButton from 'primevue/button/Button.vue';
+import PrimevueButton from 'primevue/button';
 
 export default {
     layout: AppLayout,

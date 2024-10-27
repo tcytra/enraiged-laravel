@@ -30,7 +30,7 @@
 <script>
 import App from '@/layouts/App.vue';
 import PageHeader from '@/components/ui/pages/PageHeader.vue';
-import PrimevueCard from 'primevue/card/Card.vue';
+import PrimevueCard from 'primevue/card';
 
 export default {
     layout: App,

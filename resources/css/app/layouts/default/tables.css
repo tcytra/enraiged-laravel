@@ -170,7 +170,7 @@
             }
         }
 
-        .p-datatable.p-datatable-sm {
+        .p-datatable {
             .p-datatable-header {
               display:          flex;
               flex-wrap:        wrap;
@@ -211,7 +211,7 @@
     }
 
     @media screen and (min-width: $break-large) {
-        .table.container .p-datatable.p-datatable-sm {
+        .table.container .p-datatable {
             .p-datatable-header {
               flex-wrap:        nowrap;
             }

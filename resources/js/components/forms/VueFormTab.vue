@@ -49,8 +49,8 @@
 </template>
 
 <script>
-import PrimevueCard from 'primevue/card/Card.vue';
-import TabPanel from 'primevue/tabpanel/TabPanel.vue';
+import PrimevueCard from 'primevue/card';
+import TabPanel from 'primevue/tabpanel';
 import VueFormFields from './VueFormFields.vue';
 import VueFormSection from './VueFormSection.vue';
 

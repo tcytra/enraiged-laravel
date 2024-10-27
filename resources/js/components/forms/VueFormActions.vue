@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import PrimevueButton from 'primevue/button/Button.vue';
+import PrimevueButton from 'primevue/button';
 
 export default {
     components: {

@@ -24,7 +24,7 @@
 
 <script>
 import AvatarEditor from '@/components/ui/avatars/AvatarEditor.vue';
-import PrimevueCard from 'primevue/card/Card.vue';
+import PrimevueCard from 'primevue/card';
 
 export default {
     components: {

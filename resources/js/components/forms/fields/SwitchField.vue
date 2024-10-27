@@ -37,8 +37,8 @@
 
 <script>
 import HeadlessFormField from '@/components/forms/headless/FormField.vue';
-import PrimevueSwitch from 'primevue/inputswitch/InputSwitch.vue';
-import PrimevueTooltip from 'primevue/tooltip/tooltip.esm.js';
+import PrimevueSwitch from 'primevue/inputswitch';
+import PrimevueTooltip from 'primevue/tooltip';
 
 export default {
     inheritAttrs: false,

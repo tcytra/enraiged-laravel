@@ -43,7 +43,7 @@
 
 <script>
 import Avatar from '@/components/ui/avatars/Avatar.vue';
-import PrimevueCard from 'primevue/card/Card.vue';
+import PrimevueCard from 'primevue/card';
 
 export default {
     components: {

@@ -26,8 +26,8 @@
 
 <script>
 import HeadlessFormField from '@/components/forms/headless/FormField.vue';
-import PrimevueCheckbox from 'primevue/checkbox/Checkbox.vue';
-import PrimevueTooltip from 'primevue/tooltip/tooltip.esm.js';
+import PrimevueCheckbox from 'primevue/checkbox';
+import PrimevueTooltip from 'primevue/tooltip';
 
 export default {
     inheritAttrs: false,

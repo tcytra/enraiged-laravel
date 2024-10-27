@@ -42,7 +42,7 @@
 import { Link, useForm } from '@inertiajs/vue3';
 import AppLayout from '@/layouts/App.vue';
 import PageHeader from '@/components/ui/pages/PageHeader.vue';
-import PrimevueButton from 'primevue/button/Button.vue';
+import PrimevueButton from 'primevue/button';
 import VuePasswordField from '@/components/forms/fields/PasswordField.vue';
 import VueTextField from '@/components/forms/fields/TextField.vue';
 

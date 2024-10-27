@@ -1,20 +1,22 @@
 @charset 'UTF-8';
 
-//  the base vendor resources
-@import 'app/primevue/themes/saga.css';
-@import '../../node_modules/primevue/resources/primevue.min.css';
-@import '../../node_modules/primeflex/primeflex.min.css';
-@import '../../node_modules/primeicons/primeicons.css';
+/** import the local base theme */
+@import 'app/primevue/themes/saga-blue.css';
+
+/** the base vendor resources */
+@import 'primevue/resources/primevue.min.css';
+@import 'primeflex/primeflex.min.css';
+@import 'primeicons/primeicons.css';
 
 
-//  the local app resources
+/** the local app resources */
 @import 'app/colors.css';
 @import 'app/variables.css';
-@import "fonts/helveticaneue";  // 'Helvetica Neue',
-@import "fonts/roboto";         // 'Roboto','
+@import "fonts/helveticaneue";
+@import "fonts/roboto";
 
 
-//  the default layout
+/** the default layout */
 @import 'app/layouts/default.css';
 @import 'app/layouts/default/actions.css';
 @import 'app/layouts/default/avatars.css';
@@ -32,7 +34,7 @@
 @import 'app/layouts/guest.css';
 
 
-//  the app style definitions
+/** the app style definitions */
 @import 'app/branding.css';
 @import 'app/dashboard.css';
 @import 'app/indicators.css';
@@ -40,7 +42,7 @@
 @import 'app/sizing.css';
 
 
-//  the app primevue adjustments
+/** the app primevue adjustments */
 @import 'app/primevue.css';
 @import 'app/primevue/avatars.css';
 @import 'app/primevue/buttons.css';
@@ -52,7 +54,7 @@
 @import 'app/primevue/tables.css';
 
 
-//  the core html elements
+/** the core html elements */
 html {
   scrollbar-width:  thin;
 }

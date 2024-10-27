@@ -44,8 +44,8 @@
 
 <script>
 import HeadlessFormField from '@/components/forms/headless/FormField.vue';
-import PrimevueCalendar from 'primevue/calendar/Calendar.vue';
-import PrimevueTooltip from 'primevue/tooltip/tooltip.esm.js';
+import PrimevueCalendar from 'primevue/calendar';
+import PrimevueTooltip from 'primevue/tooltip';
 
 export default {
     inheritAttrs: false,

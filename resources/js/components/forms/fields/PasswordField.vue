@@ -34,8 +34,8 @@
 
 <script>
 import HeadlessFormField from '@/components/forms/headless/FormField.vue';
-import PrimevuePassword from 'primevue/password/Password.vue';
-import PrimevueTooltip from 'primevue/tooltip/tooltip.esm.js';
+import PrimevuePassword from 'primevue/password';
+import PrimevueTooltip from 'primevue/tooltip';
 
 export default {
     inheritAttrs: false,

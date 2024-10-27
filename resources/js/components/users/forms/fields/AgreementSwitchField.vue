@@ -37,7 +37,7 @@
 <script>
 import { Link } from '@inertiajs/vue3';
 import HeadlessFormField from '@/components/forms/headless/FormField.vue';
-import PrimevueSwitch from 'primevue/inputswitch/InputSwitch.vue';
+import PrimevueSwitch from 'primevue/inputswitch';
 
 export default {
     inheritAttrs: false,

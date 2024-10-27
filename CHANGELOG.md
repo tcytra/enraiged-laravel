@@ -16,6 +16,20 @@ The enraiged-laravel starter framework will be moving into v0.4.x soon with a fu
 
 ---
 
+2024-10-27 : 0.3.14.1  
+Update: Upgraded to latest primevue component library
+
+- Updated primevue from ^3.40.1 to ^3.53.0
+
+> Important: Upgrading from 0.3.14 to 0.3.14.1
+
+- All primevue components now imported without name.extention
+- No longer applying patches
+
+Known Issue: DataTable selectionMode "multiple" checkboxes aren't checkable
+
+---
+
 2024-10-24 : 0.3.14  
 Update: Improvements to the avatars system
 

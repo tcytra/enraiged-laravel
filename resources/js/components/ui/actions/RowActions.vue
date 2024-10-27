@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import PrimevueButton from 'primevue/button/Button.vue';
-import PrimevueTooltip from 'primevue/tooltip/tooltip.esm.js';
+import PrimevueButton from 'primevue/button';
+import PrimevueTooltip from 'primevue/tooltip';
 
 export default {
     components: {

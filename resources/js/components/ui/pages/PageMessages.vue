@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import PrimevueMessage from 'primevue/message/Message.vue';
+import PrimevueMessage from 'primevue/message';
 
 export default {
     components: {

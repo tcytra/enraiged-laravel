@@ -26,8 +26,8 @@
 
 <script>
 import { format as dateFnsFormat } from 'date-fns';
-import PrimevueButton from 'primevue/button/Button.vue';
-import PrimevueCalendar from 'primevue/calendar/Calendar.vue';
+import PrimevueButton from 'primevue/button';
+import PrimevueCalendar from 'primevue/calendar';
 
 export default {
     inheritAttrs: false,

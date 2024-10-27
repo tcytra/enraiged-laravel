@@ -66,8 +66,8 @@
 import axios from 'axios';
 import { inject } from 'vue';
 import { router, useForm } from '@inertiajs/vue3';
-import TabPanel from 'primevue/tabpanel/TabPanel.vue';
-import TabView from 'primevue/tabview/TabView.vue';
+import TabPanel from 'primevue/tabpanel';
+import TabView from 'primevue/tabview';
 import VueFormActions from './VueFormActions.vue';
 import VueFormFields from './VueFormFields.vue';
 import VueFormSection from './VueFormSection.vue';

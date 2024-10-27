@@ -17,7 +17,7 @@ import { computed } from 'vue';
 import AuthState from './states/AuthState.vue';
 import GuestState from './states/GuestState.vue';
 import VerifyState from './states/VerifyState.vue';
-import ConfirmDialog from 'primevue/confirmdialog/ConfirmDialog.vue';
+import ConfirmDialog from 'primevue/confirmdialog';
 import FlashMessages from './notifications/FlashMessages.vue';
 
 export default {

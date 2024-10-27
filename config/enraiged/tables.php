@@ -35,6 +35,8 @@ return [
             ],
         ],
 
+        'class' => 'p-datatable-sm shadow-1',
+
         'columns' => [
             'id' => [
                 'label' => 'ID',

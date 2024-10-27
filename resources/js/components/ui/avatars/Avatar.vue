@@ -23,9 +23,9 @@
 
 <script>
 // import Active from '@/components/ui/indicators/Active.vue';
-import PrimevueAvatar from 'primevue/avatar/Avatar.vue';
-import PrimevueButton from 'primevue/button/Button.vue';
-import PrimevueTooltip from 'primevue/tooltip/tooltip.esm.js';
+import PrimevueAvatar from 'primevue/avatar';
+import PrimevueButton from 'primevue/button';
+import PrimevueTooltip from 'primevue/tooltip';
 
 export default {
     components: {

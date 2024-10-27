@@ -1,6 +1,6 @@
 {
     "id": "usersIndex",
-    "class": "users-index shadow-1",
+    "class": "p-datatable-sm shadow-1 users-index",
     "empty": "There are no users to display",
     "prefix": "users.",
     "table": "users",

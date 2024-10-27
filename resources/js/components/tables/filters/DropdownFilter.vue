@@ -37,8 +37,8 @@
 </template>
 
 <script>
-import PrimevueDropdown from 'primevue/dropdown/Dropdown.vue';
-import PrimevueMultiSelect from 'primevue/multiselect/MultiSelect.vue';
+import PrimevueDropdown from 'primevue/dropdown';
+import PrimevueMultiSelect from 'primevue/multiselect';
 
 export default {
     inheritAttrs: false,

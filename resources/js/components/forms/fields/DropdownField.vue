@@ -70,9 +70,9 @@
 
 <script>
 import HeadlessFormField from '@/components/forms/headless/FormField.vue';
-import PrimevueDropdown from 'primevue/dropdown/Dropdown.vue';
-import PrimevueMultiSelect from 'primevue/multiselect/MultiSelect.vue';
-import PrimevueTooltip from 'primevue/tooltip/tooltip.esm.js';
+import PrimevueDropdown from 'primevue/dropdown';
+import PrimevueMultiSelect from 'primevue/multiselect';
+import PrimevueTooltip from 'primevue/tooltip';
 
 export default {
     inheritAttrs: false,

@@ -23,7 +23,7 @@
 <script>
 import App from '@/layouts/App.vue';
 import PageHeader from '@/components/ui/pages/PageHeader.vue';
-import PrimevueCard from 'primevue/card/Card.vue';
+import PrimevueCard from 'primevue/card';
 import VueForm from '@/components/forms/VueForm.vue';
 
 export default {
