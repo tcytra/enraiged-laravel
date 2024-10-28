@@ -70,6 +70,7 @@ class UserIndex extends TableBuilder implements ProvidesDefaultSort, ProvidesTab
         $columns = [
             'avatars.id as avatar',
             'avatars.color as avatar_color',
+            'countries.code',
             'files.name as avatar_file_name',
             'profiles.first_name',
             'profiles.last_name',
@@ -89,6 +90,9 @@ class UserIndex extends TableBuilder implements ProvidesDefaultSort, ProvidesTab
             ->join('avatars', fn ($join) => $join->on('avatars.avatarable_id', '=', 'users.profile_id')
                 ->where('avatars.avatarable_type', '=', config('enraiged.profiles.model')))
             ->join('profiles', 'profiles.id', '=', 'users.profile_id')
+            ->leftJoin('addresses', fn ($join) => $join->on('addresses.addressable_id', 'profiles.id')
+                ->where('addresses.addressable_type', '=', Enraiged\Profiles\Models\Profile::class))
+            ->leftJoin('countries', 'countries.id', '=', 'addresses.country_id');
             ->join('roles', 'roles.id', '=', 'users.role_id')
             ->leftJoin('files', fn ($join) => $join->on('files.attachable_id', '=', 'avatars.id'))
                 ->where('files.attachable_type', '=', 'avatar')

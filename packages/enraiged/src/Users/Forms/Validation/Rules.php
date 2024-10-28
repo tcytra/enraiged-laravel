@@ -11,6 +11,7 @@ trait Rules
     protected $rules = [
         'alias' => 'nullable|sometimes',
         'birthdate' => 'nullable|date',
+        'country_id' => 'required|exists:countries,id',
         //'dateformat' => 'nullable|string', // todo
         'email' => 'required|email|unique:users,email|unique:users,username',
         'first_name' => 'required',
@@ -35,21 +36,21 @@ trait Rules
      */
     public function rules()
     {
+        $rules = collect($this->uniqueUserRules());
+
         if (!$this->user()->role->atLeast(Roles::Administrator)) {
-            $this->rules = collect($this->rules)
+            $this->rules = $rules
                 ->except(['role_id'])
                 ->toArray();
         }
 
         if ($this->route()->hasParameter('attribute')) {
-            return $this
-                ->uniqueUserRules()
+            return $rules
                 ->only($this->route()->parameter('attribute'))
                 ->toArray();
         }
 
-        return $this
-            ->uniqueUserRules()
+        return $rules
             ->toArray();
     }
 

@@ -2,8 +2,10 @@
 
 namespace Enraiged\Users\Services\Support;
 
+use Enraiged\Addresses\Models\Country;
 use Enraiged\Roles\Models\Role;
 use Enraiged\Support\Services\AttributeHandler;
+use Illuminate\Support\Str;
 
 class UserProfileAttributes extends AttributeHandler
 {
@@ -34,14 +36,27 @@ class UserProfileAttributes extends AttributeHandler
             unset($this->attributes['password']);
         }
 
-        //  ensure a default password does exist, if none provided
-        if (!key_exists('password', $this->attributes)) {
-            $this->attributes['password'] = config('enraiged.auth.insecure_password');
-        }
+        if ($this->creating) {
+            //  ensure a default password is provided, if none exists
+            if (!key_exists('password', $this->attributes)) {
+                $this->attributes['password'] = config('enraiged.auth.insecure_password') === 'random'
+                    ? Str::random(8)
+                    : config('enraiged.auth.insecure_password');
+            }
 
-        //  attempt to set a role name if none exists
-        if (!key_exists('role_id', $this->attributes) && !key_exists('role', $this->attributes)) {
-            $this->attributes['role'] = config('enraiged.auth.force_default_role');
+            //  attempt to set a role name, if none exists
+            if (!is_null(config('enraiged.auth.force_default_role'))
+                && !key_exists('role_id', $this->attributes)
+                && !key_exists('role', $this->attributes)) {
+                $this->attributes['role'] = config('enraiged.auth.force_default_role');
+            }
+
+            //  ensure a country id is provided, if none exists
+            if (!key_exists('country_id', $this->attributes)) {
+                $country = Country::where('code', config('enraiged.app.country_code'))->first();
+
+                $this->attributes['country_id'] = $country->id;
+            }
         }
 
         //  determine the id of a role identified by its name

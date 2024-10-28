@@ -16,6 +16,15 @@ The enraiged-laravel starter framework will be moving into v0.4.x soon with a fu
 
 ---
 
+2024-10-28 : 0.3.14.2  
+Update: Improvements to UserProfile services,handling
+
+- Cleanup,improvements in CreateUserProfile,UpdateUserProfile services
+- Corrected default value issue with single-attribute updates
+- Creating initial user profile address with country when user created
+
+---
+
 2024-10-27 : 0.3.14.1  
 Update: Upgraded to latest primevue component library
 

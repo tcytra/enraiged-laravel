@@ -2,7 +2,6 @@
     "class": "horizontal shadow-1",
     "fields": {
         "role_id": {
-            "after": "col-6",
             "class": "col-6",
             "label": "Role",
             "options": {
@@ -11,10 +10,16 @@
                 "type": "model"
             },
             "placeholder": "Required",
-            "secure": {
-                "method": "roleIs",
-                "role": "Administrator"
+            "type": "select"
+        },
+        "country_id": {
+            "class": "col-6",
+            "label": "Country",
+            "options": {
+                "source": "\\Enraiged\\Addresses\\Models\\Country",
+                "type": "model"
             },
+            "placeholder": "Required",
             "type": "select"
         },
         "name": {

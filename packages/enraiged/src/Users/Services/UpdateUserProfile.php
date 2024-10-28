@@ -2,15 +2,20 @@
 
 namespace Enraiged\Users\Services;
 
-use Enraiged\Addresses\Models\Address;
 use Enraiged\Users\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class UpdateUserProfile
 {
+    use Traits\HandlesAddress,
+        Traits\HandlesProfile,
+        Traits\HandlesUser;
+
     /** @var  object  The User model. */
     protected User $user;
+
+    /** @var  string|null  The single requested attribute key. */
+    protected $attribute;
 
     /** @var  array  The array of attributes. */
     protected $attributes;
@@ -20,58 +25,56 @@ class UpdateUserProfile
      *
      *  @param  \Enraiged\Users\Models\User  $user
      *  @param  array   $attributes
+     *  @param  string|null  $attribute
      *  @return void
      */
-    public function __construct(User $user, array $attributes)
+    public function __construct(User $user, array $attributes, ?string $attribute = null)
     {
         $this->user = $user;
-        $this->attributes = Support\UserProfileAttributes::from($attributes)->toArray();
+        $this->attribute = $attribute;
+        $this->attributes = $attribute
+            ? collect($attributes)
+                ->only($attribute)
+                ->toArray()
+            : Support\UserProfileAttributes::from($attributes, $attribute)
+                ->toArray();
     }
 
     /**
-     *  Update the users,profiles records and return the associated user.
+     *  Handle the request to update the user and profile.
      *
      *  @return self
      */
-    public function handle()
+    public function handle(): self
     {
-        DB::transaction(function () {
-            $user_fillable = (!Auth::check() && !app()->environment('production')) || (Auth::check() && Auth::user()->isAdministrator)
-                ? collect($this->user->getFillable())
-                    ->merge(['is_hidden', 'is_protected'])
-                    ->toArray()
-                : $this->user->getFillable();
+        if ($this->attribute && count($this->attributes) === 1) {
+            return $this->singleHandle();
+        }
 
-            $user_attributes = collect($this->attributes)
-                ->only($user_fillable)
-                ->toArray();
+        $transaction = DB::transaction(fn ()
+            => $this
+                ->handleUser()
+                ->handleProfile()
+                ->handleAddress());
 
-            if (count($user_attributes)) {
-                $this->user
-                    ->update($user_attributes);
-            }
+        //if (!$transaction instanceof self) {} // todo?
 
-            $profile_attributes = collect($this->attributes)
-                ->only($this->user->profile->getFillable())
-                ->toArray();
+        return $this;
+    }
 
-            if (count($profile_attributes)) {
-                $this->user->profile
-                    ->update($profile_attributes);
-            }
-
-            $address_attributes = collect($this->attributes)
-                ->only((new Address)->getFillable())
-                ->toArray();
-
-            if (count($address_attributes)) {
-                if ($this->user->profile->address) {
-                    $this->user->profile->address->update($address_attributes);
-                } else {
-                    $this->user->profile->address->create($address_attributes);
-                }
-            }
-        });
+    /**
+     *  Handle a single attribute User/Profile update.
+     *
+     *  @return $this
+     */
+    public function singleHandle(): self
+    {
+        if ($this->getUserFillable($this->attribute)) {
+            $this->user->update($this->attributes);
+        } else
+        if ($this->getProfileFillable($this->attribute)) {
+            $this->user->profile->update($this->attributes);
+        }
 
         return $this;
     }
@@ -81,11 +84,12 @@ class UpdateUserProfile
      *
      *  @param  \Enraiged\Users\Models\User  $user
      *  @param  array   $attributes
+     *  @param  string|null  $attribute
      *  @return \Enraiged\Users\Models\User
      */
-    public static function From(User $user, array $attributes): User
+    public static function From(User $user, array $attributes, ?string $attribute = null): User
     {
-        $handler = (new self($user, $attributes))->handle();
+        $handler = (new self($user, $attributes, $attribute))->handle();
 
         return $handler->user;
     }

@@ -30,6 +30,9 @@ class IndexResource extends UserResource
                 'active' => $this->is_active && is_null($this->deleted_at),
                 'actions' => $this->resource->actions,
                 'created_at' => $this->resource->created->at->short,
+                'country' => $this->resource->profile->address
+                    ? $this->resource->profile->address->country->code
+                    : null,
                 'role' => !is_null($this->role_id) ? $this->role->name : null,
             ])
             ->toArray();

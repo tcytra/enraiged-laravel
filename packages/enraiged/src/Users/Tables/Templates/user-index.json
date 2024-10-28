@@ -75,6 +75,12 @@
             "searchable": true,
             "source": "roles.name"
         },
+        "country": {
+            "class": "width-160",
+            "label": "Country",
+            "searchable": true,
+            "source": "countries.code"
+        },
         "created_at": {
             "class": "width-160",
             "label": "Created",

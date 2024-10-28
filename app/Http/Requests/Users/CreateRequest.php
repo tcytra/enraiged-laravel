@@ -19,7 +19,7 @@ class CreateRequest extends FormRequest
     public function rules()
     {
         return collect($this->rules)
-            ->only(['email', 'password', 'role_id'])
+            ->only(['country_id', 'email', 'password', 'role_id'])
             ->merge(['name' => 'required|string'])
             ->toArray();
     }

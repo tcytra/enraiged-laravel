@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Enraiged\Addresses\Models\Country;
 use Enraiged\Profiles\Models\Profile;
 use Enraiged\Users\Models\User;
 use Enraiged\Users\Services\CreateUserProfile;
@@ -60,8 +61,14 @@ class UserSeeder extends Seeder
     protected function createFactoryUsers()
     {
         for ($i = 0; $i < $this->create_local_users; $i++) {
+            $country = Country::where('code', config('enraiged.app.country_code'))->first();
             $password = $this->insecure_password;
+
             $user = $this->createFactoryUser(['password' => $password]);
+
+            $user->profile
+                ->address()
+                ->create(['country_id' => $country->id]);
 
             if (false) {
                 $this->command
@@ -106,7 +113,6 @@ class UserSeeder extends Seeder
     protected function createUserProfile(array $parameters)
     {
         $user = CreateUserProfile::from($parameters);
-        $user->profile->generateAvatar();
 
         $avatar_exists = key_exists('avatar', $parameters)
             && file_exists(resource_path("seeds/avatars/{$parameters['avatar']}"));

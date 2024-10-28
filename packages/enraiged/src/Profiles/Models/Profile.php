@@ -2,6 +2,7 @@
 
 namespace Enraiged\Profiles\Models;
 
+use Enraiged\Addresses\Traits\Addressable;
 use Enraiged\Avatars\Contracts\AvatarableContract;
 use Enraiged\Avatars\Traits\Avatarable;
 use Enraiged\Support\Database\Traits\UserTracking;
@@ -14,7 +15,7 @@ class Profile extends Model implements AvatarableContract
         Attributes\Name,
         Relations\HasOneUser,
         Traits\HasFactory,
-        Avatarable, SoftDeletes, UserTracking;
+        Addressable, Avatarable, SoftDeletes, UserTracking;
 
     /** @var  string  The database table name. */
     protected $table = 'profiles';

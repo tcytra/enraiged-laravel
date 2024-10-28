@@ -2,13 +2,15 @@
 
 namespace Enraiged\Users\Services;
 
-use Enraiged\Profiles\Models\Profile;
 use Enraiged\Users\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class CreateUserProfile
 {
+    use Traits\HandlesAddress,
+        Traits\HandlesProfile,
+        Traits\HandlesUser;
+
     /** @var  User  The User model. */
     protected User $user;
 
@@ -23,7 +25,8 @@ class CreateUserProfile
      */
     public function __construct(array $attributes)
     {
-        $this->attributes = Support\UserProfileAttributes::from($attributes)->toArray();
+        $this->attributes = Support\UserProfileAttributes::creating($attributes)
+            ->toArray();
     }
 
     /**
@@ -37,28 +40,11 @@ class CreateUserProfile
 
         $this->user = new $model;
 
-        DB::transaction(function () {
-            $profile_attributes = collect($this->attributes)
-                ->only((new Profile)->getFillable())
-                ->toArray();
-
-            $profile = Profile::create($profile_attributes);
-
-            $user_fillable = (!Auth::check() && !app()->environment('production')) || (Auth::check() && Auth::user()->isAdministrator)
-                ? collect($this->user->getFillable())
-                    ->merge(['is_hidden', 'is_protected'])
-                    ->toArray()
-                : $this->user->getFillable();
-
-            $user_attributes = collect($this->attributes)
-                ->only($user_fillable)
-                ->merge(['profile_id' => $profile->id])
-                ->toArray();
-
-            $this->user
-                ->fill($user_attributes)
-                ->save();
-        });
+        DB::transaction(fn ()
+            => $this
+                ->handleUser()
+                ->handleProfile()
+                ->handleAddress());
 
         return $this;
     }

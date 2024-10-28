@@ -28,7 +28,7 @@ class Update extends Controller
             ? [$attribute => $request->validated($attribute)]
             : $request->validated($attribute);
 
-        UpdateUserProfile::from($user, $validated);
+        UpdateUserProfile::from($user, $validated, $attribute);
 
         if ($request->is('api/*')) {
             return response()->json([

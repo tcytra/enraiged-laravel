@@ -95,13 +95,24 @@
                     "source": "profile.alias"
                 },
                 "birthdate": {
-                    "after": "col-6 md:col-9",
+                    "after": "md:col-3",
                     "class": "col-6 md:col-3",
                     "format": "yy-mm-dd",
                     "label": "Birthday",
                     "placeholder": "Optional",
                     "source": "profile.birthdate",
                     "type": "calendar"
+                },
+                "country_id": {
+                    "class": "col-6",
+                    "label": "Country",
+                    "options": {
+                        "source": "\\Enraiged\\Addresses\\Models\\Country",
+                        "type": "model"
+                    },
+                    "placeholder": "Required",
+                    "source": "profile.address.country.id",
+                    "type": "select"
                 }
             }
         },

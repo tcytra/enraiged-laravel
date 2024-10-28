@@ -7,14 +7,27 @@ abstract class AttributeHandler
     /** @var  array  The array of attributes. */
     protected $attributes;
 
+    /** @var  bool  Whether this is handling a create. */
+    protected $creating = false;
+
+    /** @var  bool  Whether this is handling an update. */
+    protected $updating = false;
+
     /**
      *  Create an instance of the AttributeHandler.
      *
-     *  @param  array   $attributes
+     *  @param  array   $attributes = []
+     *  @param  bool    $creating = false
      *  @return void
      */
-    public function __construct(array $attributes = [])
+    public function __construct(array $attributes = [], bool $creating = false)
     {
+        if ($creating) {
+            $this->creating = true;
+        } else {
+            $this->updating = true;
+        }
+
         $this->attributes = $attributes;
     }
 
@@ -45,12 +58,12 @@ abstract class AttributeHandler
      *
      *  @param  string  $index
      *  @return bool
-     */
+     *
     public function isTrue($index)
     {
         return $this->has($index)
             && $this->get($index) === true;
-    }
+    }*/
 
     /**
      *  Set the value for a named attribute.
@@ -77,15 +90,43 @@ abstract class AttributeHandler
     }
 
     /**
-     *  Create and return an instance of PivotAttributes.
+     *  Handle the attributes for creating a new model.
      *
      *  @param  array   $attributes
-     *  @return self
+     *  @return void
+     */
+    public static function Creating(array $attributes = [])
+    {
+        $called = get_called_class();
+        $class = new $called($attributes, true);
+
+        return $class
+            ->handle();
+    }
+
+    /**
+     *  Handle the attributes for updating a model.
+     *
+     *  @param  array   $attributes
+     *  @return void
      */
     public static function From(array $attributes = [])
     {
-        $class = get_called_class();
+        $called = get_called_class();
+        $class = new $called($attributes);
 
-        return (new $class($attributes))->handle();
+        return $class
+            ->handle();
+    }
+
+    /**
+     *  Handle the attributes for updating a model (alias of ::from).
+     *
+     *  @param  array   $attributes
+     *  @return void
+     */
+    public static function Updating(array $attributes = [])
+    {
+        return self::From($attributes);
     }
 }
