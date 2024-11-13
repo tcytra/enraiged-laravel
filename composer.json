@@ -17,11 +17,11 @@
         "spatie/laravel-image-optimizer": "^1.8"
     },
     "require-dev": {
-        "fakerphp/faker": "^1.23",
+        "fakerphp/faker": "^1.24",
         "laravel/pint": "^1.18",
-        "laravel/sail": "^1.33",
+        "laravel/sail": "^1.38",
         "mockery/mockery": "^1.6",
-        "nunomaduro/collision": "^7.10",
+        "nunomaduro/collision": "^7.11",
         "phpunit/phpunit": "^10.5",
         "roave/security-advisories": "dev-latest",
         "spatie/laravel-ignition": "^2.8"
