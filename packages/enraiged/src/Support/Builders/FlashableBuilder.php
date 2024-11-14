@@ -8,7 +8,7 @@ class FlashableBuilder
 {
     /** @var  array  The flashable session indexes. */
     protected $flashable = [
-        'data', 'message', 'status', 'success',
+        'data', 'message', 'status', 'success', 'warning',
     ];
 
     /**

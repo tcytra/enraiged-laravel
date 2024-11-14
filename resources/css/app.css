@@ -38,7 +38,6 @@
 @import 'app/branding.css';
 @import 'app/dashboard.css';
 @import 'app/indicators.css';
-@import 'app/notifications.css';
 @import 'app/sizing.css';
 
 
@@ -52,6 +51,7 @@
 @import 'app/primevue/forms.css';
 @import 'app/primevue/panels.css';
 @import 'app/primevue/tables.css';
+@import 'app/primevue/toast.css';
 
 
 /** the core html elements */

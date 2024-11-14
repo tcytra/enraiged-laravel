@@ -1,0 +1,15 @@
+
+.p-toast-bottom-right {
+    .p-toast-message-icon {
+      display:          none;
+    }
+    .p-toast-message-content {
+      align-items:      center;
+        .p-toast-message-text {
+          margin-left:      0;
+            .p-toast-detail {
+              margin-top:       0;
+            }
+        }
+    }
+}

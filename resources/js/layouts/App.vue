@@ -9,7 +9,7 @@
         <slot/>
     </auth-state>
     <confirm-dialog/>
-    <flash-messages :messages="flashMessages" @unflash="unflash"/>
+    <primevue-toast position="bottom-right" group="br"/>
 </template>
 
 <script>
@@ -18,14 +18,14 @@ import AuthState from './states/AuthState.vue';
 import GuestState from './states/GuestState.vue';
 import VerifyState from './states/VerifyState.vue';
 import ConfirmDialog from 'primevue/confirmdialog';
-import FlashMessages from './notifications/FlashMessages.vue';
+import PrimevueToast from 'primevue/toast';
 
 export default {
     components: {
         AuthState,
         ConfirmDialog,
         GuestState,
-        FlashMessages,
+        PrimevueToast,
         VerifyState,
     },
 
@@ -33,7 +33,6 @@ export default {
         clientWidth: typeof document !== 'undefined'
             ? document.documentElement.clientWidth
             : 0,
-        flashMessages: [],
     }),
 
     computed: {
@@ -74,6 +73,7 @@ export default {
 
     mounted() {
         this.eventsAttach();
+        this.handleFlash();
     },
 
     unmounted() {
@@ -133,26 +133,39 @@ export default {
 
         flash(message) {
             if (typeof message === 'object') {
-                this.flashMessages.push(message);
+                this.$toast.add(message);
             } else {
-                this.flashSuccess(message);
+                this.flashInfo(message);
             }
         },
 
         flashError(message) {
-            this.flashMessages.push({ severity: 'error', content: message, expiry: 3000 });
+            this.flash({ detail: message, group: 'br', life: 3000, severity: 'error' });
         },
 
         flashInfo(message) {
-            this.flashMessages.push({ severity: 'info', content: message, expiry: 3000 });
+            this.flash({ detail: message, group: 'br', life: 3000, severity: 'info' });
         },
 
         flashSuccess(message) {
-            this.flashMessages.push({ severity: 'success', content: message, expiry: 3000 });
+            this.flash({ detail: message, group: 'br', life: 3000, severity: 'success' });
         },
 
         flashWarning(message) {
-            this.flashMessages.push({ severity: 'warn', content: message, expiry: 3000 });
+            this.flash({ detail: message, group: 'br', life: 3000, severity: 'warn' });
+        },
+
+        handleFlash() {
+            const flash = this.$page.props.flash;
+            if (flash.message) {
+                this.flash(flash.message);
+            }
+            if (flash.success) {
+                this.flashSuccess(flash.success);
+            }
+            if (flash.warning) {
+                this.flashWarning(flash.warning);
+            }
         },
 
         isSuccess(status) {
@@ -162,10 +175,6 @@ export default {
         padNumber(value) {
             const number = parseInt(value, 10);
             return (number < 10 ? `0${number}` : number).toString();
-        },
-
-        unflash(index) {
-            this.flashMessages.splice(index, 1);
         },
     },
 
@@ -192,13 +201,7 @@ export default {
     watch: {
         '$page.props.flash': {
             handler() {
-                const flash = this.$page.props.flash;
-                if (flash.message) {
-                    this.flash(flash.message);
-                }
-                if (flash.success) {
-                    this.flash(flash.success);
-                }
+                this.handleFlash();
             },
             deep: true,
         },

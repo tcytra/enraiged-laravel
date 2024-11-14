@@ -22,7 +22,7 @@ class Start extends Controller
 
         $request->session()->put('impersonate', $user->id);
         $request->session()->put('status', 205);
-        $request->session()->put('success', __('Impersonating :name.', [
+        $request->session()->put('warning', __('Impersonating :name.', [
             'name' => $user->profile->name,
         ]));
 

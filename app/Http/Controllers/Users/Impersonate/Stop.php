@@ -17,7 +17,7 @@ class Stop extends Controller
         $request->session()->forget('impersonate');
 
         $request->session()->put('status', 205);
-        $request->session()->put('success', __('Stopped impersonating.'));
+        $request->session()->put('message', __('Stopped impersonating.'));
 
         return redirect(RouteServiceProvider::HOME);
     }

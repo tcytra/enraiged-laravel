@@ -108,7 +108,7 @@ if (!function_exists('message')) {
      *  Construct and return a message object from the provided parameters.
      *
      *  @param  string  $body
-     *  @param  string  $severity = 'info'  Can be 'danger', 'info', or 'warn'.
+     *  @param  string  $severity = 'info'  Can be 'danger', 'info', 'success', or 'warn'.
      *  @param  bool    $closable
      *  @return object
      */

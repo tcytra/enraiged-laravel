@@ -16,6 +16,11 @@ The enraiged-laravel starter framework will be moving into v0.4.x soon with a fu
 
 ---
 
+2024-11-14 : 0.3.14.4  
+Update: Implemented primevue toast for flash notifications
+
+---
+
 2024-11-13 : 0.3.14.3  
 Secure: Updated vendor packages as per security advisories
 

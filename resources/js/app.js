@@ -6,6 +6,7 @@ import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { i18nVue } from "laravel-vue-i18n";
 import ConfirmationService from 'primevue/confirmationservice';
+import ToastService from 'primevue/toastservice';
 import PrimeVue from 'primevue/config';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Enraiged';
@@ -25,6 +26,7 @@ createInertiaApp({
             .use(plugin)
             .use(PrimeVue, { inputStyle: 'filled', ripple: true })
             .use(ConfirmationService)
+            .use(ToastService)
             .mount(el);
     },
 });
