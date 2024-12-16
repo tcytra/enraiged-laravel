@@ -16,6 +16,14 @@ The enraiged-laravel starter framework will be moving into v0.4.x soon with a fu
 
 ---
 
+2024-12-16 : 0.3.14.6  
+Secure: Updated vendor packages, node modules to correct vulnerabilities
+
+- Upgraded league/commonmark to v2.6.0
+- Upgraded nanoid to v3.3.8
+
+---
+
 2024-11-14 : 0.3.14.5  
 Secure: Updated phpoffice/phpspreadsheet to v1.29.4; High severity
 

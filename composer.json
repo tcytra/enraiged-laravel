@@ -12,6 +12,7 @@
         "laravel/framework": "^10.48",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.10",
+        "league/commonmark": "2.6.0",
         "maatwebsite/excel": "^3.1",
         "phpoffice/phpspreadsheet": "1.29.4",
         "spatie/laravel-image-optimizer": "^1.8"
