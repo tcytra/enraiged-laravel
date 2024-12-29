@@ -1,6 +1,6 @@
 <?php
 
-Route::middleware(['auth', 'verified', 'enraiged'])
+Route::middleware(['auth', 'verified'])
     ->namespace('\App\Http\Controllers\Roles')
     ->group(function(){
 

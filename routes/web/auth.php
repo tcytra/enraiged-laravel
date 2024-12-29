@@ -41,7 +41,7 @@ Route::namespace('\App\Http\Controllers\Auth')
                     });
             });
 
-        Route::middleware(['auth', 'enraiged'])
+        Route::middleware(['auth'])
             ->group(function(){
                 Route::namespace('Password\Confirm')
                     ->group(function(){

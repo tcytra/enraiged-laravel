@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth', 'verified', 'enraiged'])
+Route::middleware(['auth', 'verified'])
     ->namespace('\App\Http\Controllers\Users')
     ->group(function(){
 
@@ -42,7 +42,7 @@ Route::middleware(['auth', 'verified', 'enraiged'])
 
     });
 
-Route::middleware(['auth', 'verified', 'password.confirm', 'enraiged'])
+Route::middleware(['auth', 'verified', 'password.confirm'])
     ->namespace('\App\Http\Controllers\Users')
     ->prefix('my')
     ->as('my.')

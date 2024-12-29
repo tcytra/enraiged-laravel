@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['auth', 'verified', 'enraiged'])
+Route::middleware(['auth', 'verified'])
     ->namespace('\App\Http\Controllers\Avatars')
     ->prefix('api/avatars')
     ->as('avatars.')

@@ -32,11 +32,6 @@ class AppServiceProvider extends ServiceProvider
 
         // $this->enraigedPublishing();
 
-        $this->app['router']->middlewareGroup('enraiged', [
-            \Enraiged\Support\Middleware\Impersonate::class,
-            \Enraiged\Support\Middleware\SetLanguage::class,
-        ]);
-
         Relation::morphMap([
             'avatar' => Enraiged\Avatars\Models\Avatar::class,
             'profile' => Enraiged\Profiles\Models\Profile::class,
