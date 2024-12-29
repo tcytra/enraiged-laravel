@@ -225,7 +225,7 @@ export default {
     },
 
     mounted() {
-        this.$emit('mounted');
+        this.$emit('form.mounted');
     },
 };
 </script>
