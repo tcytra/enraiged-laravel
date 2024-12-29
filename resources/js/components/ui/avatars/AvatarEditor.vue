@@ -126,6 +126,9 @@ export default {
             axios({ method, url, data })
                 .then(({ data }) => {
                     if (data.success) {
+                        if (this.avatar.id === this.auth.avatar.id) {
+                            this.auth.avatar.color = `#${data.color}`;
+                        }
                         this.avatar.color = `#${data.color}`;
                         this.reset(data);
                     }
@@ -142,6 +145,9 @@ export default {
             axios({ method, url, data, headers })
                 .then(({ data }) => {
                     if (data.success) {
+                        if (this.avatar.id === this.auth.avatar.id) {
+                            this.auth.avatar.file = data.file;
+                        }
                         this.avatar.file = data.file;
                         this.reset(data);
                     }
