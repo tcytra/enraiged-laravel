@@ -7,7 +7,7 @@
                 <i :class="item.icon"></i>
             </dt>
             <dl class="text">
-                {{ i18n(name) }}
+                {{ i18n(item.name || name) }}
             </dl>
             <dt class="icon open-indicator" v-if="item.menu">
                 <i class="pi pi-angle-down" v-if="item.open"></i>

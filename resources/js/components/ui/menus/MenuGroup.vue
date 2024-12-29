@@ -1,9 +1,9 @@
 <template>
     <ul class="options sub-menu"
         :class="{ 'is-open': open }">
-        <menu-item v-for="(item, name) in menu" :key="name"
+        <menu-item v-for="(item, index) in menu" :key="index"
             :item="{ ...item, prefix }"
-            :name="name"
+            :name="index"
             @menu:navigate="$emit('menu:navigate')"/>
     </ul>
 </template>
