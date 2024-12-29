@@ -11,11 +11,12 @@
   background-color: rgba(255, 255, 255, 0.4)
 }
 
+*::placeholder, .p-placeholder {
+  color:            #bababa;
+}
+
 .p-input-disabled {
   opacity:        .6;
-    &::placeholder {
-      color:            #6c757d;
-    }
 }
 
 .p-input-filled .p-dropdown {

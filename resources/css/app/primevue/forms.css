@@ -33,11 +33,6 @@
 }
 
 .p-dropdown-label.p-placeholder,
-.p-multiselect-label.p-placeholder {
-  opacity:          .5;
-}
-
-.p-dropdown-label.p-placeholder,
 .p-multiselect-label.p-placeholder,
 .p-inputtextarea,
 .p-inputtext {
