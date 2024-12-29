@@ -40,7 +40,7 @@ class Edit extends Controller
                 ->actions(),
             'avatar' => AvatarEditResource::from($user->profile->avatar),
             'enums' => $this->enums(),
-            'messages' => $this->messages($user),
+            'messages' => $this->messages($request, $user),
             'template' => $form->template(),
             'user' => UserResource::from($user)->withoutAvatar(),
         ]);
@@ -63,10 +63,11 @@ class Edit extends Controller
     /**
      *  Construct and return an array of the available page messages.
      *
+     *  @param  \Illuminate\Http\Request  $request
      *  @param  \Enraiged\Users\Models\User  $user
      *  @return array
      */
-    private function messages(User $user)
+    private function messages(Request $request, User $user)
     {
         $messages = [];
 
@@ -78,7 +79,7 @@ class Edit extends Controller
             array_push($messages, message($message, 'error'));
         }
 
-        if ($user->isAdministrator && !$user->isMyself) {
+        if ($request->user()->isAdministrator && !$user->isMyself) {
             array_push($messages, message('You are updating these user details as an administrator.', 'warn'));
         }
 
