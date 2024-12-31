@@ -16,6 +16,17 @@ The enraiged-laravel starter framework will be moving into v0.4.x soon with a fu
 
 ---
 
+2024-12-31 : 0.3.15  
+Update: Various bugfixes, improvements, upgrades
+
+- Corrected issues preventing ssr service
+- Implemented primevue toast for flash notifications
+- Improvements to UserProfile services,handling
+- Upgraded to latest primevue component library
+- Removed 'enraiged' middleware group; Moved to Authenticate class
+
+---
+
 2024-12-16 : 0.3.14.6  
 Secure: Updated vendor packages, node modules to correct vulnerabilities
 

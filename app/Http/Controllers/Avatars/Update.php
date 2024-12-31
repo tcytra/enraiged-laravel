@@ -28,7 +28,12 @@ class Update extends Controller
             ->save();
 
         if ($request->is('api/*')) {
-            return response()->json(['color' => $request->get('color'), 'success' => __('Avatar color updated')]);
+            $data = [
+                'color' => $request->get('color'),
+                'success' => __('Avatar color updated'),
+            ];
+
+            return response()->json($data);
         }
 
         $request->session()->put('status', 205);
