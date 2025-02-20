@@ -16,6 +16,19 @@ The enraiged-laravel starter framework will be moving into v0.4.x soon with a fu
 
 ---
 
+2025-02-20 : 0.3.16  
+Update: Various improvements to vue forms,tables
+
+- Added UploadField.vue form component for file uploads
+- Enable configuring form templates for multipart/form-data
+- Upgraded phpoffice/phpspreadsheet to v1.29.9
+- Various vue table improvements:
+  - Added DatepickerFilter.vue component for single-date filtering
+  - Enabled scrollable table, fixed/selectable columns, auto-download
+  - Table filters now inherit from HeadlessFormField.vue component
+
+---
+
 2024-12-31 : 0.3.15  
 Update: Various bugfixes, improvements, upgrades
 
