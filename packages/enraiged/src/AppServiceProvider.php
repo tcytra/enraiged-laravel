@@ -33,7 +33,6 @@ class AppServiceProvider extends ServiceProvider
         // $this->enraigedPublishing();
 
         Relation::morphMap([
-            'avatar' => Enraiged\Avatars\Models\Avatar::class,
             'profile' => Enraiged\Profiles\Models\Profile::class,
         ]);
     }

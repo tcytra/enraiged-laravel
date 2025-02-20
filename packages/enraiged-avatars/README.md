@@ -1,15 +1,16 @@
 
-# Exports
+# Avatars
 
-This package provides support for exporting table data.
+This package provides support for avatarable models.
 
 ## Dependants:
 
-- enraiged-tables
+- enraiged-companies
+- enraiged-users
 
 ## Dependencies:
 
-- enraiged-support
+- enraiged-files
 
 ## License
 

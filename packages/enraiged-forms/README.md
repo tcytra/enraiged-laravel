@@ -1,8 +1,7 @@
 
 # Enraiged Forms
 
-**Enraiged Forms are configured and driven through a simple but powerful json template and builder class system.**
-
+This package provides support for managing forms with a templating system.
 
 ## Table Of Contents
 

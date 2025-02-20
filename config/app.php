@@ -191,6 +191,8 @@ return [
         Enraiged\AppServiceProvider::class,
         Enraiged\AuthServiceProvider::class,
         Enraiged\EventServiceProvider::class,
+        Enraiged\Avatars\AppServiceProvider::class,
+        Enraiged\Avatars\AuthServiceProvider::class,
 
     ])->toArray(),
 

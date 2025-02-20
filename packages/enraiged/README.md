@@ -1,4 +1,8 @@
 
+# Enraiged
+
+This package contains various systems for user authentication and management.
+
 ### Publish Assets
 
 Enraiged requires certain assets be published into the local framework for proper application operation.
