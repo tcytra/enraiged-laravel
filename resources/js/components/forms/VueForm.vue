@@ -96,6 +96,10 @@ export default {
             type: Boolean,
             default: false,
         },
+        multipart: {
+            type: Boolean,
+            default: false,
+        },
         template: {
             type: Object,
             required: true,
@@ -169,7 +173,10 @@ export default {
             form.clearErrors();
             const { method, uri } = props.template.resource;
             if (props.template.resource.api === true) {
-                axios[method](uri, form.data())
+                const headers = props.multipart || props.template.multipart
+                    ? {'Content-Type': 'multipart/form-data'}
+                    : {};
+                axios[method](uri, form.data(), {headers})
                     .then((response) => {
                         const { status, data } = response;
                         if (isSuccess(status) && data.success) {
@@ -225,7 +232,7 @@ export default {
     },
 
     mounted() {
-        this.$emit('form.mounted');
+        this.$emit('form:mounted');
     },
 };
 </script>

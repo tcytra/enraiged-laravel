@@ -6,6 +6,8 @@ return [
 
     'labels' => 'vertical',
 
+    'multipart' => false,
+
     'template' => [
 
         'actions' => [
