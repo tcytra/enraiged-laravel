@@ -1,20 +1,17 @@
 <template>
     <headless-form-field v-slot:default="{ error, isDirty, isDisabled, isHidden, label, placeholder }"
         v-bind="$props">
-        <div class="control filter daterange" v-if="!isHidden">
+        <div class="control filter datepicker" v-if="!isHidden">
             <label v-if="field.label" class="label" :for="id">
                 {{ i18n(label) }}
             </label>
             <div class="p-inputgroup">
-                <primevue-calendar class="w-full" selectionMode="range" ref="daterange"
+                <primevue-calendar class="w-full" ref="datepicker"
                     v-model="model"
                     :date-format="field.format || 'yy-mm-dd'"
                     :disabled="isDisabled"
                     :id="id"
                     :manualInput="false"
-                    :maxDate="maxDate"
-                    :minDate="minDate"
-                    :numberOfMonths="2"
                     :placeholder="i18n(placeholder)"
                     :showIcon="showIcon"
                     :touchUI="isMobile || isTablet"
@@ -64,16 +61,6 @@ export default {
     }),
 
     computed: {
-        maxDate() {
-            return this.field.maximum
-                ? this.newDate(this.field.maximum)
-                : null;
-        },
-        minDate() {
-            return this.field.minimum
-                ? this.newDate(this.field.minimum)
-                : null;
-        },
         showIcon() {
             return this.field.showIcon || false;
         },
@@ -82,7 +69,7 @@ export default {
     beforeMount() {
         const form = this.form[this.id];
         if (typeof form !== 'undefined' && form !== null) {
-            this.model = [this.newDate(form[0]), this.newDate(form[1])];
+            this.model = this.newDate(form);
         }
     },
 
@@ -99,11 +86,11 @@ export default {
             return new Date(`${date} 00:00:00`);
         },
         update() {
-            this.form[this.id] = this.model[1] !== null
-                ? [this.formatDate(this.model[0]), this.formatDate(this.model[1])]
+            this.form[this.id] = this.model
+                ? this.formatDate(this.model)
                 : null;
-            if (this.model[1] !== null) {
-                this.$refs.daterange.overlayVisible = false;
+            if (this.model !== null) {
+                this.$refs.datepicker.overlayVisible = false;
                 this.$emit('update:filterValue', this.form[this.id]);
             }
         },

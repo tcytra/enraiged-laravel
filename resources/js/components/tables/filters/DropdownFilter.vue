@@ -1,42 +1,46 @@
 <template>
-    <div class="control filter dropdown">
-        <label v-if="field.label" class="label" :for="id">
-            {{ i18n(label) }}
-        </label>
-        <primevue-multi-select class="w-full" optionLabel="name" optionValue="id" v-if="field.multiple"
-            v-model="form[id]"
-            :disabled="field.disabled"
-            :filter="field.searchable"
-            :id="id"
-            :loading="loading"
-            :options="options"
-            :placeholder="i18n(field.placeholder)"
-            :show-clear="field.clearable"
-            @filter="filter"
-            @update:modelValue="$emit('update:filterValue', $event)">
-            <template #option="props">
-                <span :class="props.option.class">{{ i18n(props.option.name) }}</span>
-            </template>
-        </primevue-multi-select>
-        <primevue-dropdown class="w-full" optionLabel="name" optionValue="id" v-else
-            v-model="form[id]"
-            :disabled="field.disabled"
-            :filter="field.searchable"
-            :id="id"
-            :loading="loading"
-            :options="options"
-            :placeholder="i18n(field.placeholder)"
-            :show-clear="field.clearable"
-            @filter="filter"
-            @update:modelValue="$emit('update:filterValue', $event)">
-            <template #option="props">
-                <span :class="props.option.class">{{ i18n(props.option.name) }}</span>
-            </template>
-        </primevue-dropdown>
-    </div>
+    <headless-form-field v-slot:default="{ error, isDirty, isDisabled, isHidden, label, placeholder }"
+        v-bind="$props">
+        <div class="control filter dropdown" v-if="!isHidden">
+            <label v-if="field.label" class="label" :for="id">
+                {{ i18n(label) }}
+            </label>
+            <primevue-multi-select class="w-full" optionLabel="name" optionValue="id" v-if="field.multiple"
+                v-model="form[id]"
+                :disabled="isDisabled"
+                :filter="field.searchable"
+                :id="id"
+                :loading="loading"
+                :options="options"
+                :placeholder="i18n(placeholder)"
+                :show-clear="field.clearable"
+                @filter="filter"
+                @update:modelValue="$emit('update:filterValue', $event)">
+                <template #option="props">
+                    <span :class="props.option.class">{{ i18n(props.option.name) }}</span>
+                </template>
+            </primevue-multi-select>
+            <primevue-dropdown class="w-full" optionLabel="name" optionValue="id" v-else
+                v-model="form[id]"
+                :disabled="isDisabled"
+                :filter="field.searchable"
+                :id="id"
+                :loading="loading"
+                :options="options"
+                :placeholder="i18n(placeholder)"
+                :show-clear="field.clearable"
+                @filter="filter"
+                @update:modelValue="$emit('update:filterValue', $event)">
+                <template #option="props">
+                    <span :class="props.option.class">{{ i18n(props.option.name) }}</span>
+                </template>
+            </primevue-dropdown>
+        </div>
+    </headless-form-field>
 </template>
 
 <script>
+import HeadlessFormField from '@/components/forms/headless/FormField.vue';
 import PrimevueDropdown from 'primevue/dropdown';
 import PrimevueMultiSelect from 'primevue/multiselect';
 
@@ -44,6 +48,7 @@ export default {
     inheritAttrs: false,
 
     components: {
+        HeadlessFormField,
         PrimevueDropdown,
         PrimevueMultiSelect,
     },

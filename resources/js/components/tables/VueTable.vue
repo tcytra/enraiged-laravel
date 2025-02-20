@@ -4,11 +4,11 @@
             :filter="filter"
             :filters="template.filters"
             :form="filters"/>
-        <primevue-datatable :class="template.class" ref="datatable" v-model:selection="selected"
+        <primevue-datatable :class="template.class" ref="datatable" v-model:selection="selection"
             filter-display="menu"
             paginator-template="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink"
             :current-page-report-template="pageReportTemplate"
-            :data-key="selectableId"
+            :data-key="selectableKey"
             :first="first"
             :group-rows-by="groupRowsBy"
             :lazy="true"
@@ -19,6 +19,7 @@
             :row-group-mode="groupRowsBy ? rowGroupMode : null"
             :rows="pagination.rows"
             :rows-per-page-options="template.pagination.options"
+            :scrollable="enableScrollable"
             :total-records="pagination.total"
             :value="records"
             @page="page($event)"
@@ -39,25 +40,25 @@
                 </div>
                 <div class="col controls-bar flex-order-2 justify-content-end"
                     :class="['lg:flex-order-3']">
-                    <div class="table-export width-112 ml-2" v-if="template.exportable">
+                    <div class="table-export width-112 ml-2" v-if="isExportable">
                         <div class="p-inputgroup">
-                            <primevue-dropdown v-model="exportable"
+                            <primevue-dropdown v-model="exporttype"
                                 :options="template.exportable.options"/>
                             <primevue-button class="p-button-secondary" icon="pi pi-cloud-download"
                                 v-tooltip.top="i18n('Export this data')"
-                                :disabled="!records || !records.length"
-                                @click="download()"/>
+                                :disabled="!records.length"
+                                @click="exporter()"/>
                         </div>
                     </div>
                     <div class="table-multiple width-160 ml-2" v-if="isSelectable">
                         <div class="p-inputgroup">
-                            <primevue-dropdown class="w-full" optionLabel="name" v-model="selectable.action"
-                                :disabled="!selected.length"
+                            <primevue-dropdown class="w-full" optionLabel="name" v-model="selected"
+                                :disabled="!selection.length"
                                 :options="batchActionOptions"
                                 :placeholder="i18n('Select rows')"/>
                             <primevue-button class="p-button-secondary" icon="pi pi-database"
                                 v-tooltip.top="i18n('Execute batch action')"
-                                :disabled="!selected.length && !selectable.action"
+                                :disabled="!selection.length && !selected"
                                 @click="batch()"/>
                         </div>
                     </div>
@@ -88,9 +89,9 @@
             <template #empty>
                 {{ i18n(template.empty || 'No records found') }}
             </template>
-            <template #groupfooter="props">
+            <!--<template #groupfooter="props">
                 <slot name="groupfooter" v-bind="props"/>
-            </template>
+            </template>-->
             <template #groupheader="props">
                 <slot name="groupheader" v-bind="props">
                     <strong>{{ props.data[groupRowsBy] }}</strong>
@@ -98,8 +99,10 @@
             </template>
             <primevue-column selectionMode="multiple" headerStyle="width:2rem" v-if="isSelectable"></primevue-column>
             <primevue-column v-for="(column, name) in columns"
+                :alignFrozen="columnFrozenAlign(column)"
                 :class="column.class"
                 :field="name"
+                :frozen="columnFrozen(column)"
                 :header="column.label"
                 :key="name"
                 :sortable="column.sortable && column.sortable !== false">
@@ -167,6 +170,10 @@ export default {
             type: String,
             default: null,
         },
+        autoDownload: {
+            type: Boolean,
+            default: false,
+        },
         groupRowsBy: {
             type: String,
             default: null,
@@ -183,7 +190,11 @@ export default {
             type: String,
             default: 'subheader',
         },
-        selectableConfig: {
+        scrollable: {
+            type: Boolean,
+            default: false,
+        },
+        selectable: {
             type: [Boolean, String],
             default: null,
         },
@@ -202,7 +213,7 @@ export default {
     },
 
     data: () => ({
-        exportable: null,
+        exporttype: null,
         filters: {},
         loading: false,
         pagination: {
@@ -213,10 +224,10 @@ export default {
             total: 0,
         },
         ready: false,
-        records: null,
+        records: [],
         search: null,
-        selectable: null,
-        selected: [],
+        selected: null,
+        selection: [],
         timer: null,
     }),
 
@@ -245,13 +256,26 @@ export default {
                 || (this.pagination.rows != this.template.pagination.rows)
                 || (Object.keys(this.filters).length || this.search);
         },
+        enableAutoDownload() {
+            return this.autoDownload
+                || this.template.autodownload;
+        },
+        enableScrollable() {
+            return this.scrollable === true
+                || this.template.scrollable === true;
+        },
         first() {
             return this.pagination.page && this.pagination.rows
                 ? (this.pagination.page * this.pagination.rows) - this.pagination.rows
                 : 0;
         },
+        isExportable() {
+            return typeof this.template.exportable !== 'undefined'
+                && this.template.exportable !== null;
+        },
         isSelectable() {
-            return this.selectable && this.batchActionOptions.length;
+            return (this.selectable || this.template.selectable)
+                && Object.keys(this.batchActions).length;
         },
         rowActions() {
             return this.actions('row');
@@ -262,10 +286,13 @@ export default {
                 .filter((name) => columns[name].searchable)
                 .length > 0;
         },
-        selectableId() {
-            return this.isSelectable
-                ? this.selectable.id
-                : null;
+        selectableKey() {
+            if (this.isSelectable) {
+                return typeof this.selectable === 'string'
+                    ? this.selectable
+                    : 'id';
+            }
+            return null;
         },
         table() {
             return this.ready
@@ -278,15 +305,11 @@ export default {
     },
 
     created() {
-        this.exportable = this.template.exportable ? this.template.exportable.default : null;
-        const selectable = this.selectableConfig || this.template.selectable;
-        if (selectable) {
-            this.selectable = {
-                action: this.batchActionOptions[0],
-                key: typeof selectable === 'string'
-                    ? selectable
-                    : 'id',
-            };
+        if (this.isExportable && typeof this.template.exportable.default !== 'undefined') {
+            this.exporttype = this.template.exportable.default;
+        }
+        if (this.isSelectable) {
+            this.selected = this.batchActionOptions[0];
         }
     },
 
@@ -306,6 +329,10 @@ export default {
             this.fresh();
         }
         localStorage.removeItem(this.template.id);
+    },
+
+    beforeMount() {
+        this.defaultFilters();
     },
 
     beforeUnmount() {
@@ -338,7 +365,11 @@ export default {
                         : this.$emit(name);
                 } else
                 if (action.uri && action.uri.match(/\/api/)) {
-                    this.api(action.uri, method.toLowerCase());
+                    if (action.download) {
+                        this.download(action);
+                    } else {
+                        this.api(action.uri, method.toLowerCase());
+                    }
                 } else {
                     this.actionHandler(action, name);
                 }
@@ -380,13 +411,23 @@ export default {
         },
 
         batch(confirmed) {
-            const action = this.template.actions[this.selectable.action.id];
-            const selected = this.selected.map((row) => row.id);
+            const action = this.template.actions[this.selected.id];
+            const selection = this.selection.map((row) => row.id);
             if (action.confirm && confirmed !== true) {
                 this.confirm(action, () => this.batch(true));
             } else {
-                this.api(action.uri, action.method, {selected}, () => this.selected = []);
+                this.api(action.uri, action.method, {selection}, () => this.selection = []);
             }
+        },
+
+        columnFrozen(column) {
+            return typeof column.frozen !== 'undefined' && column.frozen !== false;
+        },
+
+        columnFrozenAlign(column) {
+            return typeof column.frozen !== 'undefined' && typeof column.frozen === 'string'
+                ? column.frozen
+                : null;
         },
 
         confirm(action, accept) {
@@ -411,34 +452,40 @@ export default {
             }
         },
 
-        download() {
-            if (this.exportable) {
-                this.loading = true;
-                const params = {
-                    method: 'post',
-                    url: this.template.exportable.uri,
-                    data: {...this.params(), export: this.exportable},
-                    responseType: 'blob',
-                };
-                axios.request(params)
-                    .then((response) => {
-                        this.loading = false;
-                        const { data, headers, status } = response;
-                        if (this.isSuccess(status)) {
-                            if (headers['content-type'].match(/^application/)) {
-                                const url = window.URL.createObjectURL(new Blob([data]));
-                                const link = document.createElement('a');
-                                const file = headers['content-disposition'].split('=')[1].replace(/"/g, '');
-                                link.href = url;
-                                link.setAttribute('download', file);
-                                document.body.appendChild(link);
-                                link.click();
-                            } else if (data.success) {
-                                this.flashSuccess(data.success);
-                            }
+        download(downloadable, parameters) {
+            this.loading = true;
+            const params = {
+                method: 'post',
+                url: downloadable.uri,
+                data: {...this.params(), parameters},
+                responseType: 'blob',
+            };
+            axios.request(params)
+                .then((response) => {
+                    this.loading = false;
+                    const { data, headers, status } = response;
+                    if (this.isSuccess(status)) {
+                        if (headers['content-type'].match(/^application/)) {
+                            const url = window.URL.createObjectURL(new Blob([data]));
+                            const link = document.createElement('a');
+                            const file = headers['content-disposition'].split('=')[1].replace(/"/g, '');
+                            link.href = url;
+                            link.setAttribute('download', file);
+                            document.body.appendChild(link);
+                            link.click();
+                        } else if (data.success) {
+                            this.flashSuccess(data.success);
                         }
-                    })
-                    .catch(error => this.errorHandler(error));
+                    }
+                })
+                .catch(error => this.errorHandler(error));
+        },
+
+        exporter() {
+            if (this.enableAutoDownload || params.autodownload) {
+                this.download(this.template.exportable, {export: this.exportable});
+            } else {
+                //  add code to store the export to 'my files'
             }
         },
 
@@ -473,16 +520,28 @@ export default {
         },
 
         filter(field) {
+            Object.keys(this.template.filters)
+                .forEach((each) => {
+                    //  we need to clear any dependant filter values
+                    if (this.filterDependant(field, each)) {
+                        this.filters[each] = null;
+                    }
+                });
             this.fetch();
             Object.keys(this.template.filters)
                 .forEach((each) => {
-                    if (typeof this.template.filters[each].options !== 'undefined'
-                     && typeof this.template.filters[each].options.params !== 'undefined'
-                     && this.template.filters[each].options.params.includes(field)) {
+                    //  we need to refetch any dependant filter values
+                    if (this.filterDependant(field, each)) {
                         const filter = this.$refs.tableFilters.filterRefName(each);
                         this.$refs.tableFilters.$refs[filter][0].fetch();
                     }
                 });
+        },
+
+        filterDependant(field, filter) {
+            return typeof this.template.filters[filter].options !== 'undefined'
+                && typeof this.template.filters[filter].options.params !== 'undefined'
+                && this.template.filters[filter].options.params.includes(field);
         },
 
         page(event) {

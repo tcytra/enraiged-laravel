@@ -3,6 +3,11 @@
         <div class="filter" v-for="(field, name) in filters"
             :class="filterClassName(field)"
             :key="name">
+            <datepicker-filter v-if="field.type === 'datepicker'" :ref="filterRefName(name)"
+                :field="field"
+                :form="form"
+                :id="name"
+                @update:filterValue="filter(name)"/>
             <daterange-filter v-if="field.type === 'daterange'" :ref="filterRefName(name)"
                 :field="field"
                 :form="form"
@@ -18,11 +23,13 @@
 </template>
 
 <script>
+import DatepickerFilter from './filters/DatepickerFilter.vue';
 import DaterangeFilter from './filters/DaterangeFilter.vue';
 import DropdownFilter from './filters/DropdownFilter.vue';
 
 export default {
     components: {
+        DatepickerFilter,
         DaterangeFilter,
         DropdownFilter,
     },
