@@ -104,6 +104,20 @@ trait Exportable
      *
      *  @return bool
      */
+    public function isAutoDownload(): bool
+    {
+        $exportable = (object) $this->get('exportable');
+
+        return $exportable
+            && property_exists($exportable, 'autodownload')
+            && $exportable->autodownload === true;
+    }
+
+    /**
+     *  Determine if the table export is handled by the queue.
+     *
+     *  @return bool
+     */
     public function isQueuedExport(): bool
     {
         $exporter = $this->exporter;

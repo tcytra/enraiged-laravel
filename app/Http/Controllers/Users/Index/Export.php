@@ -28,9 +28,14 @@ class Export extends Controller
                 ->json(['success' => 'Export started.']);
         }
 
-        $location = storage_path("app/{$export->file->path}");
+        if ($table->isAutoDownload()) {
+            $location = storage_path("app/{$export->file->path}");
+
+            return response()
+                ->download($location, $export->file->name);
+        }
 
         return response()
-            ->download($location, $export->file->name);
+            ->json(['success' => 'Export added to My Files.']);
     }
 }

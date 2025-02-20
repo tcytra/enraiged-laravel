@@ -390,8 +390,8 @@ export default {
             return actions;
         },
 
-        api(uri, method, data, success) {
-            axios.request({ method, url: uri, data })
+        api(url, method, params, success) {
+            axios.request({ method, url, params })
                 .then((response) => {
                     const { data, status } = response;
                     if (this.isSuccess(status)) {
@@ -457,7 +457,7 @@ export default {
             const params = {
                 method: 'post',
                 url: downloadable.uri,
-                data: {...this.params(), parameters},
+                data: {...this.params(), ...parameters},
                 responseType: 'blob',
             };
             axios.request(params)
@@ -482,10 +482,12 @@ export default {
         },
 
         exporter() {
-            if (this.enableAutoDownload || params.autodownload) {
-                this.download(this.template.exportable, {export: this.exportable});
-            } else {
-                //  add code to store the export to 'my files'
+            if (this.exporttype && this.template.exportable) {
+                if (this.enableAutoDownload || this.template.exportable.autodownload) {
+                    this.download(this.template.exportable, {export: this.exporttype});
+                } else {
+                    this.api(this.template.exportable.uri, 'post', {...this.params(), export: this.exporttype});
+                }
             }
         },
 

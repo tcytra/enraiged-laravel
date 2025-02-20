@@ -96,6 +96,7 @@
         }
     },
     "exportable": {
+        "autodownload": true,
         "chunk": 100,
         "default": "XLSX",
         "name": "User Index",
