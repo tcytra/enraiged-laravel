@@ -86,19 +86,6 @@ strong {
   font-weight:      600;
 }
 
-a, a:visited {
-  text-decoration:  none;
-  transition:       color .25s ease;
-    &:not(.p-button) {
-      color:            var(--blue-700);
-    }
-}
-a:active, a:hover {
-    &:not(.p-button) {
-      color:            var(--blue-800);
-    }
-}
-
 .antialiased {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
