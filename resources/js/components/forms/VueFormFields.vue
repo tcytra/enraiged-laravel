@@ -24,6 +24,9 @@
             <textarea-field v-else-if="item.type === 'textarea'" v-bind="$props"
                 :field="item"
                 :id="key"/>
+            <upload-field v-else-if="item.type === 'upload'" v-bind="$props"
+                :field="item"
+                :id="key"/>
             <hidden-field v-else-if="item.type === 'hidden'" v-bind="$props"
                 :field="item"
                 :id="key"/>
@@ -43,6 +46,7 @@ import PasswordField from './fields/PasswordField.vue';
 import SwitchField from './fields/SwitchField.vue';
 import TextField from './fields/TextField.vue';
 import TextareaField from './fields/TextareaField.vue';
+import UploadField from './fields/UploadField.vue';
 
 export default {
     components: {
@@ -54,6 +58,7 @@ export default {
         SwitchField,
         TextField,
         TextareaField,
+        UploadField,
     },
 
     props: {
