@@ -16,6 +16,11 @@ The enraiged-laravel starter framework will be moving into v0.4.x soon with a fu
 
 ---
 
+2025-03-04 : 0.3.16.1  
+Secure: Updated vite,esbuild packages to correct vulnerabilities
+
+---
+
 2025-02-20 : 0.3.16  
 Update: Various improvements to vue forms,tables
 
