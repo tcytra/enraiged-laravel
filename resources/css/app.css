@@ -1,92 +1,12 @@
-@charset 'UTF-8';
+@import 'tailwindcss';
 
-/** import the local base theme */
-@import 'app/primevue/themes/saga-blue.css';
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source "../**/*.blade.php";
+@source "../**/*.js";
+@source "../**/*.vue";
 
-/** the base vendor resources */
-@import 'primevue/resources/primevue.min.css';
-@import 'primeflex/primeflex.min.css';
-@import 'primeicons/primeicons.css';
-
-
-/** the local app resources */
-@import 'app/colors.css';
-@import 'app/variables.css';
-@import "fonts/helveticaneue";
-@import "fonts/roboto";
-
-
-/** the default layout */
-@import 'app/layouts/default.css';
-@import 'app/layouts/default/actions.css';
-@import 'app/layouts/default/avatars.css';
-@import 'app/layouts/default/badges.css';
-@import 'app/layouts/default/forms.css';
-@import 'app/layouts/default/images.css';
-@import 'app/layouts/default/lists.css';
-@import 'app/layouts/default/menus.css';
-@import 'app/layouts/default/menus/auth.css';
-@import 'app/layouts/default/menus/main.css';
-@import 'app/layouts/default/messages.css';
-@import 'app/layouts/default/page.css';
-@import 'app/layouts/default/panels.css';
-@import 'app/layouts/default/tables.css';
-@import 'app/layouts/guest.css';
-
-
-/** the app style definitions */
-@import 'app/branding.css';
-@import 'app/dashboard.css';
-@import 'app/indicators.css';
-@import 'app/sizing.css';
-
-
-/** the app primevue adjustments */
-@import 'app/primevue.css';
-@import 'app/primevue/avatars.css';
-@import 'app/primevue/buttons.css';
-@import 'app/primevue/cards.css';
-@import 'app/primevue/dataviews.css';
-@import 'app/primevue/dialog.css';
-@import 'app/primevue/forms.css';
-@import 'app/primevue/panels.css';
-@import 'app/primevue/tables.css';
-@import 'app/primevue/toast.css';
-
-
-/** the core html elements */
-html {
-  scrollbar-width:  thin;
-}
-
-body {
-  background:       $body-background;
-  color:            $body-color;
-  font-family:      $font-family-primary;
-  font-size:        $app-rem-size;
-  font-weight:      200;
-  margin:           0;
-  padding:          0;
-}
-
-dl,h1,h2,h3,h4,h5,h6,ol,p,ul {
-  margin:           0;
-}
-
-h1,h2,h3,h4 {
-  font-family:      $font-family-secondary;
-}
-h1,h2 {
-  font-weight:      200;
-}
-h3,h4 {
-  font-weight:      400;
-}
-strong {
-  font-weight:      600;
-}
-
-.antialiased {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
 }

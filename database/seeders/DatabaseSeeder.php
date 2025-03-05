@@ -2,29 +2,22 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
+// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Artisan;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
     /**
-     *  Seed the enraiged database.
-     *
-     *  @return void
+     * Seed the application's database.
      */
-    public function run()
+    public function run(): void
     {
-        Artisan::call('storage:clear');
+        // User::factory(10)->create();
 
-        $this->call([
-            Geo\CountriesSeeder::class,
-            Geo\RegionsSeeder::class,
-            AgreementSeeder::class,
-            RoleSeeder::class,
-            UserSeeder::class,
+        User::factory()->create([
+            'name' => 'Test User',
+            'email' => 'test@example.com',
         ]);
     }
 }

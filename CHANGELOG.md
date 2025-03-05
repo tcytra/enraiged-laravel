@@ -1,18 +1,8 @@
 # Release Notes
 
-**Upcoming Changes**
+2024-12-31 : 0.4.x  
 
-The enraiged-laravel starter framework will be moving into v0.4.x soon with a full reconstruction of this framework:
-
-- Considering rebuilding on top of Laravel Breeze
-- Replace all Enums with Laravel style Enum classes
-- Rewrite FormBuilder create,edit as static functions
-- Rewrite FormBuilder From() method to detect and call Create,Edit as required
-- Rewrite enraiged-{forms,tables} template metadata parameters
-- Split enraiged-{forms,support,tables} into separate packages (maybe)
-- Upgrade to newest version of all packages, especially:
-  - Laravel to v11.x
-  - Primevue to v4.x
+-  Initial install of Laravel 12.x
 
 ---
 

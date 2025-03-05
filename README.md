@@ -1,11 +1,6 @@
-# Enraiged Laravel
+# Enraiged Laravel v0.4.x
 
-**[Laravel 10](https://laravel.com/docs/10.x/releases)
- • [Vue v3.3](https://vuejs.org/guide/introduction.html)
- • [Inertia.js v1.0](https://inertiajs.com/)
- • [PrimeVUE v3.40](https://primevue.org/installation/)
- • [PrimeFlex v3.3](https://primeflex.org/installation)
- • [PrimeIcons v6.0](https://primevue.org/icons/#list)**
+**[Laravel 12](https://laravel.com/docs/12.x/releases)**
 
 
 ## Table of Contents
@@ -14,11 +9,7 @@
   * [Retrieve Repository](#retrieve-repository)
   * [Init Environment](#init-environment)
   * [Install Database](#install-database)
-  * [Build Client](#build-client)
   * [Serve Application](#serve-application)
-- [Usage](#usage)
-  * [Seed Data](#seed-data)
-  * [Enraiged Forms](#enraiged-forms)
 - [Licence](#license)
 
 
@@ -30,13 +21,6 @@
 cd /path/to/your/repos/ # traverse into your repositories directory
 git clone https://github.com/tcytra/enraiged-laravel [new-directory]
 cd [new-directory]/
-```
-
-> **Important:** Ensure system state directories exist, these must be writable by the host service user:
-
-```bash
-install -d bootstrap/cache
-install -d storage/{app,logs,framework/{cache,sessions,testing,views}}
 ```
 
 Install the vendor packages:
@@ -63,43 +47,10 @@ parameters will need to be added, and the developer may want to double-check the
 
 ### Build Database
 
-The database build process will use the data found in the seeds resources to add the application roles and the initial 
-users. These assets were published into ~/resources/seeds/:
-
-The developer will need to define their application roles and any initial users, such as a master administrator:
-
-- Define the initial users in ~/resources/seeds/users.json
-- Define the application roles in ~/resources/seeds/roles.json
-- Update the roles enums in ~/app/Enums/Roles.php
-
-
 The migration and seeder assets can now be run:
 
 ```bash
 php artisan migrate --seed
-```
-
-
-### Build Client
-
-Finally, we will install the node packages and build the front-end resources. Start with:
-
-> Add the --no-dev flag when installing on a production host.
-
-```bash
-npm install
-```
-
-Launch the vite development build (during development):
-
-```bash
-npm run dev
-```
-
-When complete, build the app for service:
-
-```bash
-npm run build
 ```
 
 
@@ -111,46 +62,9 @@ The simplest way to launch and preview this application is with `artisan serve`:
 php artisan serve
 ```
 
-Run the SSR server:
-
-```bash
-php artisan inertia:start-ssr
-```
-
 Now, navigate to (http://127.0.0.1:8000/), et voilà.
 
 Serving this application by other means is beyond the scope of this README.
-
-
-Stop the SSR server:
-
-```bash
-php artisan inertia:stop-ssr
-```
-
-
-## Usage
-
-### Seed Data
-
-All initial seed data can be found in the ~/resources/seeds directory.
-
-**appmenu.json** Contains the main menu structure (currently read from the filesystem at runtime, not seeded to the db).
-
-**countries.json** Contains the list of countries seeded into the database.
-
-**regions.json** Contains the list of regions (states, provinces, etc) seeded into the database.
-
-**roles.json** Contains the list of initial roles seeded into the database.
-
-> **Important!** The `App\Enums\Roles` needs to be kept in sync with this data (for now).
-
-**users.json** Contains the list of initial users seeded into the database.
-
-
-### Enraiged Forms
-
-Documentation for using the Enraiged Forms package can be found in the enraiged-forms/README.md.
 
 
 ## License
