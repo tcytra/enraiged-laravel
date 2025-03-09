@@ -1,27 +1,32 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
+
+require 'web/auth.php';
+require 'web/users.php';
+
+Route::middleware(['auth', 'verified'])
+    ->get('/dashboard', '\App\Http\Controllers\Dashboard\Show')
+    ->name('dashboard');
 
 Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
+    // if (app()->environment('testing')) {
+    //     return view('welcome');
+    // }
+
+    if (auth()->check()) {
+        return redirect()->route('dashboard');
+    }
+
+    if (config('enraiged.auth.force_guest_login') === true) {
+        return redirect()->route('login');
+    }
+
+    return inertia('Welcome', [
+        'canLogin' => config('enraiged.auth.allow_login') === true,
+        'canRegister' => config('enraiged.auth.allow_registration') === true,
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
 });
-
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
-require __DIR__.'/auth.php';

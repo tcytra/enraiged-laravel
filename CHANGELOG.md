@@ -1,8 +1,23 @@
 # Release Notes
 
-2024-12-31 : 0.4.x  
+2025-03-08 : 0.4.x  
+Update: Completed porting the Laravel Breeze auth scaffolding
 
--  Initial install of Laravel 12.x
+- Added App\System\{Passwords,Users} namespaces
+- Added configuration documentation to the README
+- Added locale toggles to the Breeze auth components (temp)
+- Improved notification handling (user notifications)
+- Ported Enraiged Laravel SecureHttpHeaders
+- Ported Enraiged Laravel i18n (en,es,fr) 
+- Ported,improved Enraiged Laravel app,auth,password config
+- Ported,improved Enraiged Laravel BlueprintServiceProvider
+- Ported,improved Enraiged Laravel PasswordRules
+- Removed Laravel Breeze package
+
+---
+
+2025-03-05 : 0.4.x  
+Install: Initial install of Laravel 12.x
 
 ---
 

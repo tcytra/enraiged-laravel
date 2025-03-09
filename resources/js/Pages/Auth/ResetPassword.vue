@@ -5,6 +5,7 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, useForm } from '@inertiajs/vue3';
+import { trans as i18n } from 'laravel-vue-i18n';
 
 const props = defineProps({
     email: {
@@ -33,11 +34,11 @@ const submit = () => {
 
 <template>
     <GuestLayout>
-        <Head title="Reset Password" />
+        <Head :title="i18n('Reset Password')" />
 
         <form @submit.prevent="submit">
             <div>
-                <InputLabel for="email" value="Email" />
+                <InputLabel for="email" :value="i18n('Email')" />
 
                 <TextInput
                     id="email"
@@ -46,14 +47,13 @@ const submit = () => {
                     v-model="form.email"
                     required
                     autofocus
-                    autocomplete="username"
-                />
+                    autocomplete="username" />
 
-                <InputError class="mt-2" :message="form.errors.email" />
+                <InputError class="mt-2" :message="i18n(form.errors.email)" v-if="form.errors.email" />
             </div>
 
             <div class="mt-4">
-                <InputLabel for="password" value="Password" />
+                <InputLabel for="password" :value="i18n('Password')" />
 
                 <TextInput
                     id="password"
@@ -61,17 +61,15 @@ const submit = () => {
                     class="mt-1 block w-full"
                     v-model="form.password"
                     required
-                    autocomplete="new-password"
-                />
+                    autocomplete="new-password" />
 
-                <InputError class="mt-2" :message="form.errors.password" />
+                <InputError class="mt-2" :message="i18n(form.errors.password)" v-if="form.errors.password" />
             </div>
 
             <div class="mt-4">
                 <InputLabel
                     for="password_confirmation"
-                    value="Confirm Password"
-                />
+                    :value="i18n('Confirm Password')" />
 
                 <TextInput
                     id="password_confirmation"
@@ -79,21 +77,16 @@ const submit = () => {
                     class="mt-1 block w-full"
                     v-model="form.password_confirmation"
                     required
-                    autocomplete="new-password"
-                />
+                    autocomplete="new-password" />
 
-                <InputError
-                    class="mt-2"
-                    :message="form.errors.password_confirmation"
-                />
+                <InputError class="mt-2" :message="form.errors.password_confirmation" v-if="form.errors.password_confirmation" />
             </div>
 
             <div class="mt-4 flex items-center justify-end">
                 <PrimaryButton
                     :class="{ 'opacity-25': form.processing }"
-                    :disabled="form.processing"
-                >
-                    Reset Password
+                    :disabled="form.processing">
+                    {{ i18n('Reset Password') }}
                 </PrimaryButton>
             </div>
         </form>

@@ -5,6 +5,13 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
+import { trans as i18n, getActiveLanguage } from 'laravel-vue-i18n';
+
+defineProps({
+    canLogin: {
+        type: Boolean,
+    },
+});
 
 const form = useForm({
     name: '',
@@ -14,19 +21,26 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post(route('register'), {
-        onFinish: () => form.reset('password', 'password_confirmation'),
-    });
+    form.locale = getActiveLanguage();
+    form
+        .transform((data) => ({
+            ...data,
+            locale: getActiveLanguage(),
+        }))
+        .post(route('register'), {
+            onFinish: () => form.reset('password', 'password_confirmation'),
+        });
 };
 </script>
 
 <template>
     <GuestLayout>
-        <Head title="Register" />
+        <Head :title="i18n('Register')" />
 
         <form @submit.prevent="submit">
+            <input type="hidden" v-model="form.locale" />
             <div>
-                <InputLabel for="name" value="Name" />
+                <InputLabel for="name" :value="i18n('Full Name')" />
 
                 <TextInput
                     id="name"
@@ -35,14 +49,13 @@ const submit = () => {
                     v-model="form.name"
                     required
                     autofocus
-                    autocomplete="name"
-                />
+                    autocomplete="name" />
 
-                <InputError class="mt-2" :message="form.errors.name" />
+                <InputError class="mt-2" :message="i18n(form.errors.name)" v-if="form.errors.name" />
             </div>
 
             <div class="mt-4">
-                <InputLabel for="email" value="Email" />
+                <InputLabel for="email" :value="i18n('Email')" />
 
                 <TextInput
                     id="email"
@@ -50,14 +63,13 @@ const submit = () => {
                     class="mt-1 block w-full"
                     v-model="form.email"
                     required
-                    autocomplete="username"
-                />
+                    autocomplete="username" />
 
-                <InputError class="mt-2" :message="form.errors.email" />
+                <InputError class="mt-2" :message="form.errors.email" v-if="form.errors.email" />
             </div>
 
             <div class="mt-4">
-                <InputLabel for="password" value="Password" />
+                <InputLabel for="password" :value="i18n('Password')" />
 
                 <TextInput
                     id="password"
@@ -65,17 +77,15 @@ const submit = () => {
                     class="mt-1 block w-full"
                     v-model="form.password"
                     required
-                    autocomplete="new-password"
-                />
+                    autocomplete="new-password" />
 
-                <InputError class="mt-2" :message="form.errors.password" />
+                <InputError class="mt-2" :message="form.errors.password" v-if="form.errors.password" />
             </div>
 
             <div class="mt-4">
                 <InputLabel
                     for="password_confirmation"
-                    value="Confirm Password"
-                />
+                    :value="i18n('Confirm Password')"/>
 
                 <TextInput
                     id="password_confirmation"
@@ -83,29 +93,24 @@ const submit = () => {
                     class="mt-1 block w-full"
                     v-model="form.password_confirmation"
                     required
-                    autocomplete="new-password"
-                />
+                    autocomplete="new-password" />
 
-                <InputError
-                    class="mt-2"
-                    :message="form.errors.password_confirmation"
-                />
+                <InputError class="mt-2" :message="form.errors.password_confirmation" v-if="form.errors.password_confirmation" />
             </div>
 
             <div class="mt-4 flex items-center justify-end">
                 <Link
+                    v-if="canLogin"
                     :href="route('login')"
-                    class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                >
-                    Already registered?
+                    class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                    {{ i18n('Login') }}
                 </Link>
 
                 <PrimaryButton
                     class="ms-4"
                     :class="{ 'opacity-25': form.processing }"
-                    :disabled="form.processing"
-                >
-                    Register
+                    :disabled="form.processing">
+                    {{ i18n('Register') }}
                 </PrimaryButton>
             </div>
         </form>
