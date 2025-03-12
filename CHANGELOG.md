@@ -2,24 +2,20 @@
 
 **Upcoming Changes**
 
-The enraiged-laravel starter framework will be moving into v0.4.x soon with a full reconstruction of this framework:
+Effort has begun to move enraiged-laravel into v0.4.x with a full reconstruction of the framework. The 0.4.x branch is
+available and is essentially a port of Laravel Breeze with Vue, InertiaJS, some additional configuration options, and
+made internationalisation ready.
 
-- Considering rebuilding on top of Laravel Breeze
-- Replace all Enums with Laravel style Enum classes
-- Rewrite FormBuilder create,edit as static functions
-- Rewrite FormBuilder From() method to detect and call Create,Edit as required
-- Rewrite enraiged-{forms,tables} template metadata parameters
-- Split enraiged-{forms,support,tables} into separate packages (maybe)
-- Upgrade to newest version of all packages, especially:
-  - Laravel to v11.x
-  - Primevue to v4.x
+> The 0.4.x branch is still early in the development process and not ready for a replacement of the 0.3.x system.
 
 ---
 
 2025-03-12 : 0.3.16.2  
-Secure: Updated laravel/framework to correct vulnerabilities
+Secure: Updated various packages to correct vulnerabilities
 
 - Corrected issue in auth.passwords.users.table config
+- Updated axios to 1.8.2
+- Updated babel/runtime to 7.26.10
 - Updated laravel/framework from 10.48.23 to 10.48.29
 
 ---
