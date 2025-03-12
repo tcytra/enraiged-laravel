@@ -16,6 +16,14 @@ The enraiged-laravel starter framework will be moving into v0.4.x soon with a fu
 
 ---
 
+2025-03-12 : 0.3.16.2  
+Secure: Updated laravel/framework to correct vulnerabilities
+
+- Corrected issue in auth.passwords.users.table config
+- Updated laravel/framework from 10.48.23 to 10.48.29
+
+---
+
 2025-03-04 : 0.3.16.1  
 Secure: Updated vite,esbuild,carbon packages to correct vulnerabilities
 
