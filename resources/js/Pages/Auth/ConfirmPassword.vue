@@ -5,16 +5,20 @@ import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
 import { Head, useForm } from '@inertiajs/vue3';
-import { trans as i18n } from 'laravel-vue-i18n';
+import { trans as i18n, getActiveLanguage } from 'laravel-vue-i18n';
 
 const form = useForm({
     password: '',
 });
 
 const submit = () => {
-    form.post(route('password.confirm'), {
-        onFinish: () => form.reset(),
-    });
+    form.transform((data) => ({
+            ...data,
+            locale: getActiveLanguage(),
+        }))
+        .post(route('password.confirm'), {
+            onFinish: () => form.reset(),
+        });
 };
 </script>
 

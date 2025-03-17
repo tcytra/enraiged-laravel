@@ -4,10 +4,13 @@ import InputError from '@/Components/InputError.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import TextInput from '@/Components/TextInput.vue';
-import { Head, useForm } from '@inertiajs/vue3';
-import { trans as i18n } from 'laravel-vue-i18n';
+import { Head, Link, useForm } from '@inertiajs/vue3';
+import { trans as i18n, getActiveLanguage } from 'laravel-vue-i18n';
 
 defineProps({
+    allowLogin: {
+        type: Boolean,
+    },
     status: {
         type: String,
     },
@@ -18,7 +21,11 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.post(route('password.email'));
+    form.transform((data) => ({
+            ...data,
+            locale: getActiveLanguage(),
+        }))
+        .post(route('password.email'));
 };
 </script>
 
@@ -27,7 +34,7 @@ const submit = () => {
         <Head :title="i18n('Forgot Password')" />
 
         <div class="mb-4 text-sm text-gray-600">
-            {{ i18n('Provide your email address and follow the instructions sent to your inbox to reset the password.') }}
+            {{ i18n('Provide your email address and follow the instructions sent to your inbox to reset your password.') }}
         </div>
 
         <div class="mb-4 text-sm font-medium text-green-600" v-if="status">
@@ -51,7 +58,13 @@ const submit = () => {
             </div>
 
             <div class="mt-4 flex items-center justify-end">
-                <PrimaryButton
+                <Link class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    v-if="allowLogin"
+                    :href="route('login')">
+                    {{ i18n('Login') }}
+                </Link>
+
+                <PrimaryButton class="ms-4"
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing">
                     {{ i18n('Send Reset Link') }}

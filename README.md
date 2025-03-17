@@ -90,6 +90,19 @@ npm run build
 ```
 
 
+### Serve Application
+
+The simplest way to launch and preview this application is with `artisan serve`:
+
+```bash
+php artisan serve
+```
+
+Now, navigate to (http://127.0.0.1:8000/), et voilà.
+
+Serving this application by other means is beyond the scope of this README.
+
+
 ## Configuration
 
 Enraiged Laravel provides many additional configuration options on top of the default Laravel setup, as described below.
@@ -142,6 +155,13 @@ administrator.
 
 The .env equivalent is ALLOW_REGISTER=true|false.
 
+**Allow Secondary Credential**
+
+This configuration option is `false` by default and should be set to `true` if the application requires allowing login
+with a second email address.
+
+The .env equivalent is ALLOW_SECONDARY=true|false.
+
 **Allow Self Delete**
 
 This configuration option is `true` by default and should be set to `false` if the application requires denying the
@@ -149,6 +169,13 @@ ability to delete their own accounts. This configuration option does not affect 
 within the application by an administrator.
 
 The .env equivalent is ALLOW_DELETE=true|false.
+
+**Allow Username Login**
+
+This configuration option is `false` by default and should be set to `true` if the application requires allowing login
+with a unique username. The **Allow Secondary Credential** must also be enabled for this option to work.
+
+The .env equivalent is USERNAME=true|false.
 
 **Force Guest Login**
 
@@ -293,19 +320,6 @@ fallbackLang: 'en',
 ```
 
 Please refer to the aforementioned documentation for further information.
-
-
-### Serve Application
-
-The simplest way to launch and preview this application is with `artisan serve`:
-
-```bash
-php artisan serve
-```
-
-Now, navigate to (http://127.0.0.1:8000/), et voilà.
-
-Serving this application by other means is beyond the scope of this README.
 
 
 ## License

@@ -3,7 +3,7 @@ import { computed } from 'vue';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import { Head, Link, useForm } from '@inertiajs/vue3';
-import { trans as i18n } from 'laravel-vue-i18n';
+import { trans as i18n, getActiveLanguage } from 'laravel-vue-i18n';
 
 const props = defineProps({
     status: {
@@ -14,7 +14,11 @@ const props = defineProps({
 const form = useForm({});
 
 const submit = () => {
-    form.post(route('verification.send'));
+    form.transform((data) => ({
+            ...data,
+            locale: getActiveLanguage(),
+        }))
+        .post(route('verification.send'));
 };
 
 const verificationLinkSent = computed(

@@ -2,7 +2,7 @@
 
 namespace App\System\Users\Models\Relations;
 
-use App\System\Passwords\Models\PasswordHistory;
+use App\System\Users\Models\PasswordHistory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Hash;
 

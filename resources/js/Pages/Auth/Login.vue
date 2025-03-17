@@ -9,10 +9,13 @@ import { Head, Link, useForm } from '@inertiajs/vue3';
 import { trans as i18n } from 'laravel-vue-i18n';
 
 defineProps({
-    canRegister: {
+    allowUsernameLogin: {
         type: Boolean,
     },
-    canResetPassword: {
+    allowRegistration: {
+        type: Boolean,
+    },
+    allowPasswordReset: {
         type: Boolean,
     },
     status: {
@@ -43,15 +46,13 @@ const submit = () => {
 
         <form @submit.prevent="submit">
             <div>
-                <InputLabel for="email" :value="i18n('Email')" />
+                <InputLabel for="email" :value="allowUsernameLogin ? i18n('Email or Username') : i18n('Email')" />
 
-                <TextInput
+                <TextInput autofocus required
                     id="email"
-                    type="email"
                     class="mt-1 block w-full"
                     v-model="form.email"
-                    required
-                    autofocus
+                    :type="allowUsernameLogin ? 'text' : 'email'"
                     autocomplete="username"/>
 
                 <InputError class="mt-2" :message="i18n(form.errors.email)" v-if="form.errors.email" />
@@ -60,12 +61,11 @@ const submit = () => {
             <div class="mt-4">
                 <InputLabel for="password" :value="i18n('Password')" />
 
-                <TextInput
+                <TextInput required
                     id="password"
                     type="password"
                     class="mt-1 block w-full"
                     v-model="form.password"
-                    required
                     autocomplete="current-password"/>
 
                 <InputError class="mt-2" :message="form.errors.password" v-if="form.errors.password" />
@@ -82,18 +82,18 @@ const submit = () => {
 
             <div class="mt-4 flex items-center justify-end">
                 <Link
-                    v-if="canRegister"
+                    v-if="allowRegistration"
                     :href="route('register')"
                     class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                     {{ i18n('Register') }}
                 </Link>
 
-                <span class="px-2" v-if="canRegister && canResetPassword">
+                <span class="px-2" v-if="allowRegistration && allowPasswordReset">
                     &bull;
                 </span>
 
                 <Link
-                    v-if="canResetPassword"
+                    v-if="allowPasswordReset"
                     :href="route('password.request')"
                     class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                     {{ i18n('Reset Password') }}

@@ -25,14 +25,13 @@ class Store extends Controller
             'locale' => $request->get('locale'),
             'name' => $request->get('name'),
             'email' => $request->get('email'),
+            'username' => $request->get('username'),
             'password' => Hash::make($request->get('password')),
         ];
 
         $user = config('enraiged.auth.must_verify_email') === true
             ? VerifiedUser::create($parameters)
             : User::create($parameters);
-
-        app()->setLocale($user->locale);
 
         event(new Registered($user));
 

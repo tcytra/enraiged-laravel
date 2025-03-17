@@ -8,7 +8,13 @@ import { Head, Link, useForm } from '@inertiajs/vue3';
 import { trans as i18n, getActiveLanguage } from 'laravel-vue-i18n';
 
 defineProps({
-    canLogin: {
+    allowLogin: {
+        type: Boolean,
+    },
+    allowSecondaryCredential: {
+        type: Boolean,
+    },
+    allowUsernameLogin: {
         type: Boolean,
     },
 });
@@ -16,14 +22,13 @@ defineProps({
 const form = useForm({
     name: '',
     email: '',
+    username: '',
     password: '',
     password_confirmation: '',
 });
 
 const submit = () => {
-    form.locale = getActiveLanguage();
-    form
-        .transform((data) => ({
+    form.transform((data) => ({
             ...data,
             locale: getActiveLanguage(),
         }))
@@ -42,72 +47,65 @@ const submit = () => {
             <div>
                 <InputLabel for="name" :value="i18n('Full Name')" />
 
-                <TextInput
-                    id="name"
-                    type="text"
-                    class="mt-1 block w-full"
-                    v-model="form.name"
-                    required
-                    autofocus
-                    autocomplete="name" />
+                <TextInput autocomplete="name" class="mt-1 block w-full placeholder:text-slate-400" id="name" type="text" autofocus required
+                    :placeholder="i18n('Required')"
+                    v-model="form.name" />
 
                 <InputError class="mt-2" :message="i18n(form.errors.name)" v-if="form.errors.name" />
             </div>
 
             <div class="mt-4">
-                <InputLabel for="email" :value="i18n('Email')" />
+                <InputLabel for="email"
+                    :value="allowSecondaryCredential ? i18n('Primary Email') : i18n('Email')" />
 
-                <TextInput
-                    id="email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    v-model="form.email"
-                    required
-                    autocomplete="username" />
+                <TextInput autocomplete="email" class="mt-1 block w-full placeholder:text-slate-400" id="email" type="email" required
+                    :placeholder="i18n('Required')"
+                    v-model="form.email" />
 
                 <InputError class="mt-2" :message="form.errors.email" v-if="form.errors.email" />
+            </div>
+
+            <div class="mt-4" v-if="allowSecondaryCredential">
+                <InputLabel for="username"
+                    :value="allowUsernameLogin ? i18n('Secondary Email or Username') : i18n('Secondary Email')" />
+
+                <TextInput autocomplete="username" class="mt-1 block w-full placeholder:text-slate-400" id="username"
+                    :type="allowUsernameLogin ? 'text' : 'email'"
+                    :placeholder="i18n('Optional')"
+                    v-model="form.username" />
+
+                <InputError class="mt-2" :message="form.errors.username" v-if="form.errors.username" />
             </div>
 
             <div class="mt-4">
                 <InputLabel for="password" :value="i18n('Password')" />
 
-                <TextInput
-                    id="password"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password"
-                    required
-                    autocomplete="new-password" />
+                <TextInput autocomplete="new-password" class="mt-1 block w-full placeholder:text-slate-400" id="password" type="password" required
+                    :placeholder="i18n('Required')"
+                    v-model="form.password" />
 
                 <InputError class="mt-2" :message="form.errors.password" v-if="form.errors.password" />
             </div>
 
             <div class="mt-4">
-                <InputLabel
-                    for="password_confirmation"
+                <InputLabel for="password_confirmation"
                     :value="i18n('Confirm Password')"/>
 
-                <TextInput
-                    id="password_confirmation"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password_confirmation"
-                    required
-                    autocomplete="new-password" />
+                <TextInput autocomplete="new-password" class="mt-1 block w-full placeholder:text-slate-400" id="password_confirmation" type="password" required
+                    :placeholder="i18n('Required')"
+                    v-model="form.password_confirmation" />
 
                 <InputError class="mt-2" :message="form.errors.password_confirmation" v-if="form.errors.password_confirmation" />
             </div>
 
             <div class="mt-4 flex items-center justify-end">
-                <Link
-                    v-if="canLogin"
-                    :href="route('login')"
-                    class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                <Link class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    v-if="allowLogin"
+                    :href="route('login')">
                     {{ i18n('Login') }}
                 </Link>
 
-                <PrimaryButton
-                    class="ms-4"
+                <PrimaryButton class="ms-4"
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing">
                     {{ i18n('Register') }}

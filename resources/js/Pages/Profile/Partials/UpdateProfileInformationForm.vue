@@ -8,6 +8,12 @@ import { Link, useForm, usePage } from '@inertiajs/vue3';
 import { trans as i18n, loadLanguageAsync as ai18n,  } from 'laravel-vue-i18n';
 
 defineProps({
+    allowSecondaryCredential: {
+        type: Boolean,
+    },
+    allowUsernameLogin: {
+        type: Boolean,
+    },
     mustVerifyEmail: {
         type: Boolean,
     },
@@ -30,6 +36,7 @@ const form = useForm({
     email: user.email,
     locale: user.locale,
     name: user.name,
+    username: user.username,
 });
 </script>
 
@@ -50,15 +57,9 @@ const form = useForm({
             <div>
                 <InputLabel for="name" :value="i18n('Name')" />
 
-                <TextInput
-                    id="name"
-                    type="text"
-                    class="mt-1 block w-full"
+                <TextInput autocomplete="name" class="mt-1 block placeholder:text-slate-400 w-full" id="name" type="text" autofocus required
                     v-model="form.name"
-                    :placeholder="i18n('Required')"
-                    required
-                    autofocus
-                    autocomplete="name" />
+                    :placeholder="i18n('Required')" />
 
                 <InputError class="mt-2" :message="i18n(form.errors.name)" v-if="form.errors.name" />
             </div>
@@ -66,24 +67,31 @@ const form = useForm({
             <div>
                 <InputLabel for="email" :value="i18n('Email')" />
 
-                <TextInput
-                    id="email"
-                    type="email"
-                    class="mt-1 block w-full"
+                <TextInput autocomplete="username" class="mt-1 block placeholder:text-slate-400 w-full" id="email" type="email" required
                     v-model="form.email"
-                    :placeholder="i18n('Required')"
-                    required
-                    autocomplete="username" />
+                    :placeholder="i18n('Required')" />
 
                 <InputError class="mt-2" :message="i18n(form.errors.email)" v-if="form.errors.email" />
             </div>
 
+            <div v-if="allowSecondaryCredential">
+                <InputLabel for="username"
+                    :value="allowUsernameLogin ? i18n('Secondary Email or Username') : i18n('Secondary Email')" />
+
+                <TextInput autocomplete="username" class="mt-1 block w-full placeholder:text-slate-400" id="username"
+                    :type="allowUsernameLogin ? 'text' : 'email'"
+                    :placeholder="i18n('Optional')"
+                    v-model="form.username" />
+
+                <InputError class="mt-2" :message="form.errors.username" v-if="form.errors.username" />
+            </div>
+
             <div>
                 <input type="hidden" v-model="form.locale" />
-                <InputLabel for="locale" :value="i18n('Language')" />
+                <InputLabel class="pb-1" for="locale" :value="i18n('Language')" />
 
                 <div class="flex justify-between">
-                    <SecondaryButton class="px-12" v-for="{locale, name} in locales"
+                    <SecondaryButton class="!px-12" v-for="{locale, name} in locales"
                         :disabled="form.processing || form.locale === locale"
                         :key="locale"
                         @click="form.locale = locale; ai18n(locale)">
@@ -95,18 +103,15 @@ const form = useForm({
             <div v-if="mustVerifyEmail && user.email_verified_at === null">
                 <p class="mt-2 text-sm text-gray-800">
                     {{ i18n('Your email address is unverified.') }}
-                    <Link
+                    <Link as="button" method="post"
                         :href="route('verification.send')"
-                        method="post"
-                        as="button"
                         class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                         {{ i18n('Click here to re-send the verification email.') }}
                     </Link>
                 </p>
 
-                <div
-                    v-show="status === 'verification-link-sent'"
-                    class="mt-2 text-sm font-medium text-green-600">
+                <div class="mt-2 text-sm font-medium text-green-600"
+                    v-show="status === 'verification-link-sent'">
                     {{ i18n('A new verification link has been sent to your email address.') }}
                 </div>
             </div>

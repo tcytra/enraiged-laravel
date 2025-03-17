@@ -2,7 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use App\System\Users\Resources\AuthResource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Middleware;
 
 class HandleInertiaRequests extends Middleware
@@ -31,9 +33,9 @@ class HandleInertiaRequests extends Middleware
     {
         return [
             ...parent::share($request),
-            'auth' => [
-                'user' => $request->user(),
-            ],
+            'auth' => Auth::check()
+                ? new AuthResource($request->user())
+                : $request->user(),
         ];
     }
 }

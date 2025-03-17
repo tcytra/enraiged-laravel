@@ -23,7 +23,9 @@ class Edit extends Controller
             : $model::findOrFail($request->user);
 
         return inertia('Profile/Edit', [
-            'canDeleteAccount' => config('enraiged.auth.allow_self_delete') === true,
+            'allowSecondaryCredential' => config('enraiged.auth.allow_secondary_credential') === true,
+            'allowSelfDelete' => config('enraiged.auth.allow_self_delete') === true,
+            'allowUsernameLogin' => config('enraiged.auth.allow_username_login') === true,
             'mustVerifyEmail' => $user instanceof MustVerifyEmail,
             'status' => session('status'),
         ]);

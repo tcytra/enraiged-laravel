@@ -13,17 +13,6 @@ class PasswordRules implements DataAwareRule, ValidationRule
     /** @var  array  All of the data under validation. */
     protected $data = [];
 
-    /** @var  array  The validation failure message. */
-    protected array $messages = [
-        'password.current' => 'You cannot use the current password.',
-        'password.history' => '{1}You cannot use your previous password.|[2,*]You cannot use a recent previous password.',
-        'password.length' => '{1}The password must be at least 1 character in length.|[2,*]The password must be at least :count characters in length.',
-        'password.lowercase' => '{1}The password must contain at least 1 lowercase character.|[2,*]The password must contain at least :count lowercase characters.',
-        'password.numeric' => '{1}The password must contain at least 1 numeric character.|[2,*]The password must contain at least :count numeric characters.',
-        'password.special' => '{1}The password must contain at least 1 special character.|[2,*]The password must contain at least :count special characters.',
-        'password.uppercase' => '{1}The password must contain at least 1 uppercase character.|[2,*]The password must contain at least :count uppercase characters.',
-    ];
-
     /**
      *  Run the validation rule.
      *
@@ -56,7 +45,7 @@ class PasswordRules implements DataAwareRule, ValidationRule
         $config = config('enraiged.passwords.current') === true;
 
         if ($config && Auth::check() && Auth::user()->currentPasswordIs($value)) {
-            $fail(__($this->messages['password.current']));
+            $fail(__('passwords.current'));
         }
 
         return $this;
@@ -86,7 +75,7 @@ class PasswordRules implements DataAwareRule, ValidationRule
                     => Hash::check($value, $password));
 
             if ($exists) {
-                $fail(trans_choice($this->messages['password.history'], $count));
+                $fail(trans_choice('passwords.history', $count));
             }
         }
 
@@ -105,7 +94,7 @@ class PasswordRules implements DataAwareRule, ValidationRule
         $count = (int) config('enraiged.passwords.length');
 
         if ($count && strlen($value) < $count) {
-            $fail(trans_choice($this->messages['password.length'], $count));
+            $fail(trans_choice('passwords.length', $count));
         }
 
         return $this;
@@ -124,7 +113,7 @@ class PasswordRules implements DataAwareRule, ValidationRule
         $chars = preg_replace('/[^a-z]/', '', $value);
 
         if ($count && strlen($chars) < $count) {
-            $fail(trans_choice($this->messages['password.lowercase'], $count));
+            $fail(trans_choice('passwords.lowercase', $count));
         }
 
         return $this;
@@ -143,7 +132,7 @@ class PasswordRules implements DataAwareRule, ValidationRule
         $chars = preg_replace('/[^0-9]/', '', $value);
 
         if ($count && strlen($chars) < $count) {
-            $fail(trans_choice($this->messages['password.numeric'], $count));
+            $fail(trans_choice('passwords.numeric', $count));
         }
 
         return $this;
@@ -162,7 +151,7 @@ class PasswordRules implements DataAwareRule, ValidationRule
         $chars = preg_replace('/[A-Za-z0-9]/', '', $value);
 
         if ($count && strlen($chars) < $count) {
-            $fail(trans_choice($this->messages['password.special'], $count));
+            $fail(trans_choice('passwords.special', $count));
         }
 
         return $this;
@@ -181,7 +170,7 @@ class PasswordRules implements DataAwareRule, ValidationRule
         $chars = preg_replace('/[^A-Z]/', '', $value);
 
         if ($count && strlen($chars) < $count) {
-            $fail(trans_choice($this->messages['password.uppercase'], $count));
+            $fail(trans_choice('passwords.uppercase', $count));
         }
 
         return $this;

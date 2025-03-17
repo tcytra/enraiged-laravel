@@ -28,10 +28,46 @@ class Request extends FormRequest
      */
     public function rules(): array
     {
+        $allow_username_login = config('enraiged.auth.allow_secondary_credential')
+            && config('enraiged.auth.allow_username_login');
+
         return [
-            'email' => ['required', 'string', 'email'],
-            'password' => ['required', 'string'],
+            'email' => $allow_username_login ? 'required|string' : 'required|string|email',
+            'password' => 'required|string',
         ];
+    }
+
+    /**
+     *  Prepare the credentials form authentication attempts.
+     *
+     *  @return bool
+     */
+    private function attempt(): bool
+    {
+        $primary_credentials = collect($this->only('email', 'password'))
+            ->merge(['is_active' => true])
+            ->toArray();
+
+        $secondary_credentials = collect($primary_credentials)
+            ->merge(['username' => $this->get('email')])
+            ->except('email')
+            ->toArray();
+
+        $allow_secondary_credentials = config('enraiged.auth.allow_secondary_credential') === true;
+
+        return $this->attemptLoginWith($primary_credentials)
+            || ($allow_secondary_credentials && $this->attemptLoginWith($secondary_credentials));
+    }
+
+    /**
+     *  Execute an attempt to authenticate the provided credentials.
+     *
+     *  @param  array   $credentials
+     *  @return bool
+     */
+    private function attemptLoginWith($credentials): bool
+    {
+        return Auth::attempt($credentials, $this->boolean('remember'));
     }
 
     /**
@@ -45,11 +81,11 @@ class Request extends FormRequest
     {
         $this->ensureIsNotRateLimited();
 
-        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+        if (! $this->attempt()) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'email' => __('auth.login.failed'),
+                'email' => trans('auth.failed'),
             ]);
         }
 
@@ -74,7 +110,7 @@ class Request extends FormRequest
         $seconds = RateLimiter::availableIn($this->throttleKey());
 
         throw ValidationException::withMessages([
-            'email' => __('auth.login.throttle', [
+            'email' => __('auth.throttle', [
                 'seconds' => $seconds,
                 'minutes' => ceil($seconds / 60),
             ]),

@@ -15,8 +15,10 @@ class Create extends Controller
     public function __invoke(): InertiaResponse
     {
         $props = [
-            'canRegister' => config('enraiged.auth.allow_registration') === true,
-            'canResetPassword' => config('enraiged.auth.allow_password_reset') === true,
+            'allowUsernameLogin' => config('enraiged.auth.allow_secondary_credential') === true
+                && config('enraiged.auth.allow_username_login') === true,
+            'allowRegistration' => config('enraiged.auth.allow_registration') === true,
+            'allowPasswordReset' => config('enraiged.auth.allow_password_reset') === true,
             'status' => session('status'),
         ];
 

@@ -14,6 +14,7 @@ class User extends Authenticatable
 {
     use Relations\HasPasswordHistory,
         Traits\CanResetPassword,
+        Traits\HasSecondaryCredential,
         Traits\MustVerifyEmail,
         HasFactory, Notifiable, SoftDeletes;//, UserTracking;
 
@@ -78,12 +79,6 @@ class User extends Authenticatable
     public function sendWelcomeNotification()
     {
         if (config('enraiged.auth.send_welcome_notification') === true) {
-            // $this->notify(
-            //     (new \App\System\Users\Notifications\WelcomeNotification)
-            //         ->locale($this->locale)
-            //         ->onQueue('notifications')
-            // );
-
             $this->notify(
                 (new WelcomeNotification)->locale($this->locale)
             );

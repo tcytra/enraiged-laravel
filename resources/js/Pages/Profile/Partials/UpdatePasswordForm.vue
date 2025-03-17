@@ -52,14 +52,10 @@ const updatePassword = () => {
             <div>
                 <InputLabel for="current_password" :value="i18n('Current Password')" />
 
-                <TextInput
-                    id="current_password"
+                <TextInput autocomplete="current-password" class="mt-1 block placeholder:text-slate-400 w-full" id="current_password" type="password"
                     ref="currentPasswordInput"
                     v-model="form.current_password"
-                    :placeholder="i18n('Required')"
-                    type="password"
-                    class="mt-1 block w-full"
-                    autocomplete="current-password" />
+                    :placeholder="i18n('Required')" />
 
                 <InputError class="mt-2" :message="i18n(form.errors.current_password)" v-if="form.errors.current_password" />
             </div>
@@ -67,14 +63,10 @@ const updatePassword = () => {
             <div>
                 <InputLabel for="password" :value="i18n('New Password')" />
 
-                <TextInput
-                    id="password"
+                <TextInput autocomplete="new-password" class="mt-1 block placeholder:text-slate-400 w-full" id="password" type="password"
                     ref="passwordInput"
                     v-model="form.password"
-                    :placeholder="i18n('Required')"
-                    type="password"
-                    class="mt-1 block w-full"
-                    autocomplete="new-password" />
+                    :placeholder="i18n('Required')" />
 
                 <InputError class="mt-2" :message="i18n(form.errors.password)" v-if="form.errors.password" />
             </div>
@@ -82,13 +74,9 @@ const updatePassword = () => {
             <div>
                 <InputLabel for="password_confirmation" :value="i18n('Confirm Password')" />
 
-                <TextInput
-                    id="password_confirmation"
+                <TextInput autocomplete="new-password" class="mt-1 block placeholder:text-slate-400 w-full" id="password_confirmation" type="password"
                     v-model="form.password_confirmation"
-                    :placeholder="i18n('Required')"
-                    type="password"
-                    class="mt-1 block w-full"
-                    autocomplete="new-password" />
+                    :placeholder="i18n('Required')" />
 
                 <InputError class="mt-2" :message="form.errors.password_confirmation" v-if="form.errors.password_confirmation" />
             </div>

@@ -27,7 +27,7 @@ class Store extends Controller
 
         if (! Auth::guard('web')->validate($parameters)) {
             throw ValidationException::withMessages([
-                'password' => __('auth.password.failed'),
+                'password' => __('auth.password'),
             ]);
         }
 

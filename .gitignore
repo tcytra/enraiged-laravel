@@ -14,6 +14,7 @@
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
+lang/php_*.json
 npm-debug.log
 yarn-error.log
 /auth.json

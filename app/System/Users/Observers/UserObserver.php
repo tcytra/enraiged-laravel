@@ -19,7 +19,7 @@ class UserObserver
     public function deleting(User $user): void
     {
         if ($user->is_protected) {
-            throw new ConflictHttpException(__('exceptions.user.protected'));
+            throw new ConflictHttpException(__('auth.protected'));
         }
     }
 
@@ -34,6 +34,14 @@ class UserObserver
         if (is_null($user->locale)) {
             $user->locale = config('app.locale');
         }
+
+        if ($user->isDirty('email')) {
+            $user->email = strtolower($user->email);
+        }
+
+        if ($user->isDirty('username') && $user->usernameIsEmailAddress) {
+            $user->username = strtolower($user->username);
+        }
     }
 
     /**
@@ -47,20 +55,24 @@ class UserObserver
         $changed = collect($user->getChanges())
             ->only(['email', 'username', 'password']);
 
-        $login_change_notification = $changed->count()
-            && config('enraiged.auth.send_login_change_notification');
+        if ($changed->count()) {
+            if (config('enraiged.auth.track_login_changes') === true) {
+                // todo: create timestamp,id record; schedule job to query against thresholds, alert administrator
+            }
 
-        if ($login_change_notification) {
-            $user->notify(
-                (new LoginChangeNotification)->locale($user->locale)
-            );
+            if (config('enraiged.auth.send_login_change_notification') === true) {
+                $user->notify(
+                    (new LoginChangeNotification)
+                        ->locale($user->locale)
+                );
+            }
         }
     }
 
     /**
      *  Handle the User updating event.
      *
-     *  @param  \Enraiged\Users\Models\User  $user
+     *  @param  \App\System\Users\Models\User  $user
      *  @return void
      */
     public function updating(User $user)

@@ -1,5 +1,16 @@
 # Release Notes
 
+2025-03-17 : 0.4.x  
+Update: Added config options for secondary credential login
+
+- Added 'allow_secondary_credential' config option
+- Added 'allow_username_login' config option
+- Added middleware to set locale from request
+- Added roave/security-advisories to composer.json
+- Completed laravel lang:publish translations (en,es,fr)
+
+---
+
 2025-03-08 : 0.4.x  
 Update: Completed porting the Laravel Breeze auth scaffolding
 

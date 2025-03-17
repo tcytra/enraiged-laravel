@@ -15,6 +15,7 @@ class Create extends Controller
     public function __invoke(): InertiaResponse
     {
         $props = [
+            'allowLogin' => config('enraiged.auth.allow_login') === true,
             'status' => session('status'),
         ];
 

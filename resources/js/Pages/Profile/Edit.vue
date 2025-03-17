@@ -7,7 +7,13 @@ import { Head } from '@inertiajs/vue3';
 import { trans as i18n } from 'laravel-vue-i18n';
 
 defineProps({
-    canDeleteAccount: {
+    allowSecondaryCredential: {
+        type: Boolean,
+    },
+    allowSelfDelete: {
+        type: Boolean,
+    },
+    allowUsernameLogin: {
         type: Boolean,
     },
     mustVerifyEmail: {
@@ -33,6 +39,8 @@ defineProps({
             <div class="mx-auto max-w-7xl space-y-6 sm:px-6 lg:px-8">
                 <div class="bg-white p-4 shadow sm:rounded-lg sm:p-8">
                     <UpdateProfileInformationForm
+                        :allow-secondary-credential="allowSecondaryCredential"
+                        :allow-username-login="allowUsernameLogin"
                         :must-verify-email="mustVerifyEmail"
                         :status="status"
                         class="max-w-xl" />
@@ -42,7 +50,7 @@ defineProps({
                     <UpdatePasswordForm class="max-w-xl" />
                 </div>
 
-                <div class="bg-white p-4 shadow sm:rounded-lg sm:p-8" v-if="canDeleteAccount">
+                <div class="bg-white p-4 shadow sm:rounded-lg sm:p-8" v-if="allowSelfDelete">
                     <DeleteUserForm class="max-w-xl" />
                 </div>
             </div>
