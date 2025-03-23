@@ -14,6 +14,6 @@ class Show extends Controller
      */
     public function __invoke(): InertiaResponse
     {
-        return inertia('Auth/ConfirmPassword');
+        return inertia('auth/ConfirmPassword');
     }
 }

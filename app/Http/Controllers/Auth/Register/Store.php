@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Auth\Register;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\Register\Request as RegisterRequest;
-use App\System\Users\Models\User;
-use App\System\Users\Models\VerifiedUser;
+use App\Models\User;
+use App\Models\VerifiedUser;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;

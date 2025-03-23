@@ -63,8 +63,8 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => env('MUST_VERIFY_EMAIL') === true
-                ? App\System\Users\Models\VerifiedUser::class
-                : App\System\Users\Models\User::class,
+                ? App\Models\VerifiedUser::class
+                : App\Models\User::class,
         ],
 
         // 'users' => [

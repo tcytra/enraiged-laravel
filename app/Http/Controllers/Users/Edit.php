@@ -22,7 +22,7 @@ class Edit extends Controller
             ? $request->user()
             : $model::findOrFail($request->user);
 
-        return inertia('Profile/Edit', [
+        return inertia('profile/Edit', [
             'allowSecondaryCredential' => config('enraiged.auth.allow_secondary_credential') === true,
             'allowSelfDelete' => config('enraiged.auth.allow_self_delete') === true,
             'allowUsernameLogin' => config('enraiged.auth.allow_username_login') === true,

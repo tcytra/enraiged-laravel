@@ -2,10 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use App\System\Users\Resources\AuthResource;
+use Enraiged\Users\Resources\AuthResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Middleware;
+use Tighten\Ziggy\Ziggy;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -36,6 +37,10 @@ class HandleInertiaRequests extends Middleware
             'auth' => Auth::check()
                 ? new AuthResource($request->user())
                 : $request->user(),
+            'ziggy' => fn () => [
+                ...(new Ziggy)->toArray(),
+                'location' => $request->url(),
+            ],
         ];
     }
 }

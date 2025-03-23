@@ -22,6 +22,6 @@ class Create extends Controller
             'status' => session('status'),
         ];
 
-        return inertia('Auth/Login', $props);
+        return inertia('auth/Login', $props);
     }
 }

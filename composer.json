@@ -1,9 +1,9 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "laravel/laravel",
+    "name": "tcytra/enraiged-breeze",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
+    "description": "Enraiged Breeze is a starter kit built on Laravel 12 with Breeze +VueJS install and additional auth config options.",
+    "keywords": ["enraiged", "laravel", "breeze", "inertiajs", "vuejs", "tailwindcss"],
     "license": "MIT",
     "require": {
         "php": "^8.2",
@@ -11,6 +11,7 @@
         "laravel/framework": "^12.0",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.10.1",
+        "tcytra/enraiged-core": "^0.4.0",
         "tightenco/ziggy": "^2.0"
     },
     "require-dev": {
@@ -70,6 +71,6 @@
             "php-http/discovery": true
         }
     },
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "prefer-stable": true
 }

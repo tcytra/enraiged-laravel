@@ -100,6 +100,12 @@ php artisan serve
 
 Now, navigate to (http://127.0.0.1:8000/), et voilà.
 
+Run the SSR server:
+
+```bash
+php artisan inertia:start-ssr
+```
+
 Serving this application by other means is beyond the scope of this README.
 
 

@@ -26,6 +26,7 @@ Route::get('/', function () {
     return inertia('Welcome', [
         'allowLogin' => config('enraiged.auth.allow_login') === true,
         'allowRegistration' => config('enraiged.auth.allow_registration') === true,
+        'enraigedVersion' => config('enraiged.version'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);

@@ -19,6 +19,6 @@ class Create extends Controller
             'status' => session('status'),
         ];
 
-        return inertia('Auth/ForgotPassword', $props);
+        return inertia('auth/ForgotPassword', $props);
     }
 }

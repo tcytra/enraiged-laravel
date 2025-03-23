@@ -20,6 +20,6 @@ class Create extends Controller
             'allowUsernameLogin' => config('enraiged.auth.allow_username_login') === true,
         ];
 
-        return inertia('Auth/Register', $props);
+        return inertia('auth/Register', $props);
     }
 }

@@ -24,6 +24,6 @@ class Show extends Controller
         return $request->user()->hasVerifiedEmail()
             ? redirect()
                 ->intended($this->route('dashboard'))
-            : inertia('Auth/VerifyEmail', $props);
+            : inertia('auth/VerifyEmail', $props);
     }
 }

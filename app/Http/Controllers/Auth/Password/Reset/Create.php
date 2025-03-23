@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth\Password\Reset;
 
 use App\Http\Controllers\Controller;
-use App\System\Users\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Response as InertiaResponse;
 
@@ -17,7 +16,8 @@ class Create extends Controller
      */
     public function __invoke(Request $request): InertiaResponse
     {
-        $user = User::where('email', $request->get('email'))->first();
+        $model = config('auth.providers.users.model');
+        $user = $model::where('email', $request->get('email'))->first();
 
         $props = [
             'email' => $request->get('email'),
@@ -26,6 +26,6 @@ class Create extends Controller
 
         app()->setLocale($user->locale);
 
-        return inertia('Auth/ResetPassword', $props);
+        return inertia('auth/ResetPassword', $props);
     }
 }

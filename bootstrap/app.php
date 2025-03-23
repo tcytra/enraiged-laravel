@@ -30,11 +30,12 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->append(SecureHttpHeaders::class);
     })
 
-    ->withEvents(discover: [
-        __DIR__.'/../app/System/*/Listeners',
-    ])
+    //->withEvents(discover: [
+    //    __DIR__.'/../app/System/*/Listeners',
+    //])
 
     ->withExceptions(function (Exceptions $exceptions) {
+        //
     })
 
     ->create();

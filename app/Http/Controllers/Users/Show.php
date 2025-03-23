@@ -14,7 +14,8 @@ class Show extends Controller
      */
     public function __invoke($user): InertiaResponse
     {
-        $model = config('auth.providers.users.model');
-        dd($model);
+        //$model = config('auth.providers.users.model');
+
+        // todo
     }
 }

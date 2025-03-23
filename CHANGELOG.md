@@ -1,6 +1,19 @@
 # Release Notes
 
-2025-03-17 : 0.4.x  
+2025-03-23 : 0.4.x (prerelease)  
+Update: Moved enraiged system structure into enraiged-{core,support}
+
+- Added ssr service capability
+- Added important auth config to .env.example (commented out)
+- Removed App\System structure
+- Renamed resources/js subdirectories to lowercase
+- Reorganized breeze js components into subdirectories
+- Replaced original App\Models\User (added VerifiedUser)
+- Updated composer.json to require enraiged-{core,support}
+
+---
+
+2025-03-17 : 0.4.x (prerelease)  
 Update: Added config options for secondary credential login
 
 - Added 'allow_secondary_credential' config option
@@ -11,7 +24,7 @@ Update: Added config options for secondary credential login
 
 ---
 
-2025-03-08 : 0.4.x  
+2025-03-08 : 0.4.x (prerelease)  
 Update: Completed porting the Laravel Breeze auth scaffolding
 
 - Added App\System\{Passwords,Users} namespaces
@@ -27,7 +40,7 @@ Update: Completed porting the Laravel Breeze auth scaffolding
 
 ---
 
-2025-03-05 : 0.4.x  
+2025-03-05 : 0.4.x (prerelease)  
 Install: Initial install of Laravel 12.x
 
 ---

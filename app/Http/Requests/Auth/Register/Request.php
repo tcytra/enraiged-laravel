@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Auth\Register;
 
-use App\System\Passwords\Rules\PasswordRules;
+use Enraiged\Passwords\Rules\PasswordRules;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Validator;
 
@@ -16,6 +16,22 @@ class Request extends FormRequest
     public function authorize(): bool
     {
         return config('enraiged.auth.allow_registration') === true;
+    }
+
+    /**
+     *  Get custom messages for validator errors.
+     *
+     *  @return array
+     */
+    public function messages()
+    {
+        if (config('enraiged.auth.allow_secondary_credential') === true) {
+            return [
+                'username.different' => 'The primary and secondary email addresses must be different.',
+            ];
+        }
+
+        return [];
     }
 
     /**
@@ -56,7 +72,7 @@ class Request extends FormRequest
      *  @param  string  $table
      *  @return string
      */
-    private function transformEmailRule(string $rule, string $table): string
+    private function transformEmailRule(string $rule, string $table): ?string
     {
         if (config('enraiged.auth.allow_secondary_credential') === true) {
             return "{$rule}|unique:{$table},username";
@@ -69,9 +85,9 @@ class Request extends FormRequest
      *  Add the rules for validating the username, if applicable.
      *
      *  @param  string  $table
-     *  @return array|string
+     *  @return array|string|null
      */
-    private function transformUsernameRule(string $table): array|string
+    private function transformUsernameRule(string $table): array|string|null
     {
         if (config('enraiged.auth.allow_secondary_credential') === true) {
             $rules = 'nullable|string|max:255|different:email';
