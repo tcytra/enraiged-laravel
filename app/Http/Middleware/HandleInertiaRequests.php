@@ -37,6 +37,9 @@ class HandleInertiaRequests extends Middleware
             'auth' => Auth::check()
                 ? new AuthResource($request->user())
                 : $request->user(),
+            'status' => session()->has('status')
+                ? session()->get('status')
+                : null,
             'ziggy' => fn () => [
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),

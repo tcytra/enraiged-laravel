@@ -120,7 +120,7 @@ return [
     | their account.
     |
     | Important: In the default Enraiged setup the 'auth.providers.users.model'
-    | will identify the \App\Models\Users\VerifiedUser class as the default
+    | will identify the \App\Models\VerifiedUser class as the default
     | Authenticatable model if the .env file argues MUST_VERIFY_EMAIL=true.
     |
     | This is an attempt to 'automate' the switch between User and VerifiedUser
@@ -129,13 +129,71 @@ return [
     |
     | The better solution is to set the value here and remove the conditional
     | 'auth.providers.users.model' setting in config/auth.php to point to the
-    | Authenticatable model appropriare for your project, as per Laravel docs.
+    | Authenticatable model appropriate for your project, as per Laravel docs.
     |
     | The default value is false (no email verification required).
     |
     */
 
     'must_verify_email' => (bool) env('MUST_VERIFY_EMAIL', false),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Must Verify Secondary
+    |--------------------------------------------------------------------------
+    |
+    | The application may be configured to enforce a policy of verifying the
+    | secondary email address the same way the primary login email is verified.
+    |
+    | If this setting is enabled a user may provide a secondary email address
+    | for login (if 'allow_secondary_credential' is also enabled) but will be
+    | unable to login with the secondary email address until it is verified.
+    |
+    | Note: An unverified secondary email address does not disallow logins
+    | with the primary email address. Users may trigger a resend of the
+    | verification notification from within their profile.
+    |
+    | It is highly recommended to enable this option if the application is
+    | configured to verify the primary email address.
+    |
+    | The default value is false (no secondary email verification required).
+    |
+    */
+
+    'must_verify_secondary' => (bool) env('MUST_VERIFY_SECONDARY', false),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Reject Unverified Secondary
+    |--------------------------------------------------------------------------
+    |
+    | The application may be configured to behave in one of two ways when a
+    | successful login has been attempted with an unverified secondary email
+    | address.
+    |
+    | Note: This configuration option has no effect unless both the
+    | 'allow_secondary_credential' and 'must_verify_secondary' options are set
+    | to true. It is also required that the secondary credential be a valid
+    | email address (ie: this setting will have no effect on unique usernames).
+    |
+    | In keeping with standard Laravel behavior, the default setting (false)
+    | will allow a login with an unverified secondary email address but will
+    | redirect all authenticated requests to a Verify Secondary Email page.
+    |
+    | Alternatively, enabling this option (true) will reject the login with
+    | an unverified secondary address and display an error on the login page
+    | as though the credentials were invalid. In this case, an email will be
+    | sent to the secondary address so the user understands why the login was
+    | rejected.
+    |
+    | In either case, this setting does not affect the user's ability to log in
+    | with their primary email address.
+    |
+    | The default value is false (do not reject unverified secondary logins).
+    |
+    */
+
+    'reject_unverified_secondary' => (bool) env('REJECT_UNVERIFIED_SECONDARY', false),
 
     /*
     |--------------------------------------------------------------------------

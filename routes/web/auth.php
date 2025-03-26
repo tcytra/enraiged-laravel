@@ -58,6 +58,17 @@ Route::namespace('\App\Http\Controllers\Auth')
                 //     ->group(function () {
                 //     });
 
+                Route::namespace('Verify\Secondary')
+                    ->group(function () {
+                        Route::get('verify-secondary', 'Show')->name('secondary.verification.notice');
+                        Route::post('secondary/verification-notification', 'Store')
+                            ->middleware('throttle:6,1')
+                            ->name('secondary.verification.send');
+                        Route::get('verify-secondary/{id}/{hash}', 'Update')
+                            ->middleware(['signed', 'throttle:6,1'])
+                            ->name('secondary.verification.verify');
+                    });
+
                 Route::post('logout', 'Login\Destroy')->name('logout');
 
             });

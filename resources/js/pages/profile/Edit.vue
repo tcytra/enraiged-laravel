@@ -16,7 +16,13 @@ defineProps({
     allowUsernameLogin: {
         type: Boolean,
     },
+    isProtectedUser: {
+        type: Boolean,
+    },
     mustVerifyEmail: {
+        type: Boolean,
+    },
+    mustVerifySecondary: {
         type: Boolean,
     },
     status: {
@@ -41,16 +47,18 @@ defineProps({
                     <UpdateProfileInformationForm
                         :allow-secondary-credential="allowSecondaryCredential"
                         :allow-username-login="allowUsernameLogin"
+                        :is-protected-user="isProtectedUser"
                         :must-verify-email="mustVerifyEmail"
+                        :must-verify-secondary="mustVerifySecondary"
                         :status="status"
                         class="max-w-xl" />
                 </div>
 
-                <div class="bg-white p-4 shadow sm:rounded-lg sm:p-8">
+                <div class="bg-white p-4 shadow sm:rounded-lg sm:p-8" v-if="!isProtectedUser">
                     <UpdatePasswordForm class="max-w-xl" />
                 </div>
 
-                <div class="bg-white p-4 shadow sm:rounded-lg sm:p-8" v-if="allowSelfDelete">
+                <div class="bg-white p-4 shadow sm:rounded-lg sm:p-8" v-if="allowSelfDelete && !isProtectedUser">
                     <DeleteUserForm class="max-w-xl" />
                 </div>
             </div>

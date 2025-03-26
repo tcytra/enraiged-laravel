@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Auth\Login;
 
+use Illuminate\Auth\Events\Failed;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -24,7 +25,7 @@ class Request extends FormRequest
     /**
      *  Get the validation rules that apply to the request.
      *
-     *  @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     *  @return array
      */
     public function rules(): array
     {
@@ -44,6 +45,8 @@ class Request extends FormRequest
      */
     private function attempt(): bool
     {
+        $this->session()->forget('secondaryEmailLogin');
+
         $primary_credentials = collect($this->only('email', 'password'))
             ->merge(['is_active' => true])
             ->toArray();
@@ -56,28 +59,46 @@ class Request extends FormRequest
         $allow_secondary_credentials = config('enraiged.auth.allow_secondary_credential') === true;
 
         return $this->attemptLoginWith($primary_credentials)
-            || ($allow_secondary_credentials && $this->attemptLoginWith($secondary_credentials));
+            || ($allow_secondary_credentials && $this->attemptLoginWith($secondary_credentials, true));
     }
 
     /**
      *  Execute an attempt to authenticate the provided credentials.
      *
      *  @param  array   $credentials
+     *  @param  bool    $attemptSecondary = false
      *  @return bool
      */
-    private function attemptLoginWith($credentials): bool
+    private function attemptLoginWith($credentials, $attemptSecondary = false): bool
     {
-        return Auth::attempt($credentials, $this->boolean('remember'));
+        $attempt = Auth::attempt($credentials, $this->boolean('remember'));
+
+        if ($attempt && $attemptSecondary && Auth::user()->mustVerifySecondary) {
+            $this->session()->put('secondaryEmailLogin', true); // not particularly happy to do this with the session
+
+            if (config('enraiged.auth.reject_unverified_secondary') === true) {
+                $name = Auth::guard()->name;
+                $user = Auth::user();
+
+                event(new Failed($name, $user, [...$credentials, 'attemptSecondary' => $attemptSecondary]));
+
+                Auth::logout();
+
+                return false;
+            }
+        }
+
+        return $attempt;
     }
 
     /**
-     *  Attempt to authenticate the request's credentials.
+     *  Attempt to authenticate the request credentials.
      *
-     *  @return void
+     *  @return bool
      *
      *  @throws \Illuminate\Validation\ValidationException
      */
-    public function authenticate(): void
+    public function authenticate(): bool
     {
         $this->ensureIsNotRateLimited();
 
@@ -90,6 +111,8 @@ class Request extends FormRequest
         }
 
         RateLimiter::clear($this->throttleKey());
+
+        return true;
     }
 
     /**

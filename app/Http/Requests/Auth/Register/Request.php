@@ -23,6 +23,7 @@ class Request extends FormRequest
      *
      *  @return array
      */
+    #[\Override]
     public function messages()
     {
         if (config('enraiged.auth.allow_secondary_credential') === true) {
@@ -72,7 +73,7 @@ class Request extends FormRequest
      *  @param  string  $table
      *  @return string
      */
-    private function transformEmailRule(string $rule, string $table): ?string
+    private function transformEmailRule(string $rule, string $table): string
     {
         if (config('enraiged.auth.allow_secondary_credential') === true) {
             return "{$rule}|unique:{$table},username";

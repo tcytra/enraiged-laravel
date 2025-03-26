@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\Password\Update\Request as UpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class Update extends Controller
 {
@@ -22,6 +23,12 @@ class Update extends Controller
         $user = $request->is('my/*')
             ? $request->user()
             : $model::findOrFail($request->user);
+
+        if ($user->is_protected) {
+            throw ValidationException::withMessages([
+                'password' => __('auth.password.protected'),
+            ]);
+        }
 
         $user->update([
             'password' => Hash::make($request->get('password')),

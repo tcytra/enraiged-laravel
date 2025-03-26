@@ -1,6 +1,7 @@
 <script setup>
 import InputError from '@/components/forms/fields/InputError.vue';
 import InputLabel from '@/components/forms/fields/InputLabel.vue';
+import InputWarning from '@/components/forms/fields/InputWarning.vue';
 import PrimaryButton from '@/components/ui/buttons/PrimaryButton.vue';
 import SecondaryButton from '@/components/ui/buttons/SecondaryButton.vue';
 import TextInput from '@/components/forms/fields/TextInput.vue';
@@ -14,7 +15,13 @@ defineProps({
     allowUsernameLogin: {
         type: Boolean,
     },
+    isProtectedUser: {
+        type: Boolean,
+    },
     mustVerifyEmail: {
+        type: Boolean,
+    },
+    mustVerifySecondary: {
         type: Boolean,
     },
     status: {
@@ -54,6 +61,7 @@ const form = useForm({
 
         <form class="mt-6 space-y-6"
             @submit.prevent="form.patch(route('users.update', {user: user.id}))">
+            <p>{{ form.isDirty }}</p>
             <div>
                 <InputLabel for="name" :value="i18n('Name')" />
 
@@ -67,11 +75,29 @@ const form = useForm({
             <div>
                 <InputLabel for="email" :value="i18n('Email')" />
 
-                <TextInput autocomplete="username" class="mt-1 block placeholder:text-slate-400 w-full" id="email" type="email" required
+                <TextInput autocomplete="email" class="mt-1 block placeholder:text-slate-400 w-full" id="email" type="email" required
+                    :class="{'bg-amber-100': mustVerifyEmail}"
+                    :disabled="isProtectedUser || (form.isDirty && form.username !== user.username)"
                     v-model="form.email"
                     :placeholder="i18n('Required')" />
 
-                <InputError class="mt-2" :message="i18n(form.errors.email)" v-if="form.errors.email" />
+                <InputWarning class="mt-2" :message="i18n('Your email address is unverified.')" v-if="mustVerifyEmail" />
+                <InputError class="mt-2" :message="i18n(form.errors.email)" v-else-if="form.errors.email" />
+
+                <div v-if="mustVerifyEmail">
+                    <p class="mt-2 text-sm text-gray-800">
+                        <Link as="button" method="post"
+                            :href="route('verification.send')"
+                            class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                            {{ i18n('Click here to re-send the verification email.') }}
+                        </Link>
+                    </p>
+
+                    <div class="mt-2 text-sm font-medium text-green-600"
+                        v-show="status === 'verification-link-sent'">
+                        {{ i18n('A new verification link has been sent to your email address.') }}
+                    </div>
+                </div>
             </div>
 
             <div v-if="allowSecondaryCredential">
@@ -79,11 +105,33 @@ const form = useForm({
                     :value="allowUsernameLogin ? i18n('Secondary Email or Username') : i18n('Secondary Email')" />
 
                 <TextInput autocomplete="username" class="mt-1 block w-full placeholder:text-slate-400" id="username"
+                    :class="{'bg-amber-100': mustVerifySecondary}"
+                    :disabled="form.isDirty && form.email !== user.email"
                     :type="allowUsernameLogin ? 'text' : 'email'"
                     :placeholder="i18n('Optional')"
                     v-model="form.username" />
 
-                <InputError class="mt-2" :message="form.errors.username" v-if="form.errors.username" />
+                <InputWarning class="mt-2" :message="i18n('Your secondary email address is unverified.')" v-if="mustVerifySecondary" />
+                <InputError class="mt-2" :message="form.errors.username" v-else-if="form.errors.username" />
+
+                <div v-if="mustVerifySecondary">
+                    <p class="mt-2 text-sm text-gray-800">
+                        <Link as="button" method="post"
+                            :href="route('secondary.verification.send')"
+                            class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                            {{ i18n('Click here to re-send the verification email.') }}
+                        </Link>
+                    </p>
+
+                    <div class="mt-2 text-sm font-medium text-green-600"
+                        v-show="status === 'secondary-verification-link-sent'">
+                        {{ i18n('A verification link has been sent to your secondary email address.') }}
+                    </div>
+                </div>
+                <div class="mt-2 text-sm font-medium text-green-600"
+                    v-show="status === 'secondary-verification-success'">
+                    {{ i18n('Your secondary email address has been verified.') }}
+                </div>
             </div>
 
             <div>
@@ -100,26 +148,14 @@ const form = useForm({
                 </div>
             </div>
 
-            <div v-if="mustVerifyEmail && user.email_verified_at === null">
-                <p class="mt-2 text-sm text-gray-800">
-                    {{ i18n('Your email address is unverified.') }}
-                    <Link as="button" method="post"
-                        :href="route('verification.send')"
-                        class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                        {{ i18n('Click here to re-send the verification email.') }}
-                    </Link>
-                </p>
-
-                <div class="mt-2 text-sm font-medium text-green-600"
-                    v-show="status === 'verification-link-sent'">
-                    {{ i18n('A new verification link has been sent to your email address.') }}
-                </div>
-            </div>
-
             <div class="flex items-center gap-4">
                 <PrimaryButton :disabled="form.processing">
                     {{ i18n('Save') }}
                 </PrimaryButton>
+
+                <SecondaryButton :disabled="form.processing || !form.isDirty" @click="form.reset()">
+                    {{ i18n('Reset') }}
+                </SecondaryButton>
 
                 <Transition
                     enter-active-class="transition ease-in-out"

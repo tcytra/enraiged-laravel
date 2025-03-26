@@ -1,6 +1,24 @@
 # Release Notes
 
-2025-03-23 : 0.4.x (prerelease)  
+2025-03-26 : 0.4.0-beta.2 (prerelease)  
+Update: Added verification requirement for secondary email address
+
+- Added \App\Http\Controllers\Auth\Verify\Secondary namespace
+- Added 'enraiged.auth.must_verify_secondary' config option
+- Added 'enraiged.auth.reject_unverified_secondary' config option
+  - Added routes to direct the secondary verification process
+  - Updated the Auth\Login\Request to handle config settings
+- Added mail.auth templates for secondary address notifications
+- Aliased 'verify' middleware to local EnsureEmailIsVerified
+- Applied isProtectedUser to controller,components
+- Updated language files as necessary
+- Updated Profile components
+  - Added ability to send secondary verifiation email
+  - Added Profile Information form reset button
+
+---
+
+2025-03-23 : 0.4.0-beta.1 (prerelease)  
 Update: Moved enraiged system structure into enraiged-{core,support}
 
 - Added ssr service capability

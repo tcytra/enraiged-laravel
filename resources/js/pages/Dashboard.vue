@@ -7,6 +7,9 @@ defineProps({
     appName: {
         type: String,
     },
+    status: {
+        type: String,
+    },
 });
 </script>
 
@@ -24,7 +27,10 @@ defineProps({
             <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
-                        {{ i18n('Welcome to :app!').replace(':app', appName) }}
+                        <span>{{ i18n('Welcome to :app!').replace(':app', appName) }}</span>
+                        <span class="px-1" v-show="status === 'email-verification-success'">
+                            {{ i18n('Your email address has been verified!') }}
+                        </span>
                     </div>
                 </div>
             </div>

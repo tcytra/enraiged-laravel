@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\Request;
 use Inertia\Response as InertiaResponse;
 
@@ -26,7 +25,9 @@ class Edit extends Controller
             'allowSecondaryCredential' => config('enraiged.auth.allow_secondary_credential') === true,
             'allowSelfDelete' => config('enraiged.auth.allow_self_delete') === true,
             'allowUsernameLogin' => config('enraiged.auth.allow_username_login') === true,
-            'mustVerifyEmail' => $user instanceof MustVerifyEmail,
+            'isProtectedUser' => $user->is_protected === true,
+            'mustVerifyEmail' => $user->mustVerifyEmail === true,
+            'mustVerifySecondary' => $user->mustVerifySecondary === true,
             'status' => session('status'),
         ]);
     }

@@ -205,6 +205,23 @@ The content of the notification can be updated in `App\System\Users\Notification
 
 The .env equivalent is MUST_VERIFY_EMAIL=true|false.
 
+**Must Verify Secondary**
+
+This configuration option is `false` by default and should be set to `true` if the application requires email
+verification on the secondary email address.
+
+This option should be enabled if the MUST_VERIFY_EMAIL is enabled.
+
+The .env equivalent is MUST_VERIFY_SECONDARY=true|false.
+
+**Reject Unverified Secondary**
+
+This configuration option is `false` by default and should be set to `true` if the application should reject logging in
+with unverified secondary email addresses. The default behavior (false) will redirect the user to a verify email page
+as per Laravel behavior with an unverified primary email address.
+
+The .env equivalent is REJECT_UNVERIFIED_SECONDARY=true|false.
+
 **Send Login Change Notification**
 
 This configuration option is `false` by default and should be set to `true` if the application maintainer wants to send

@@ -3,9 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Auth\Middleware\Authenticate as Middleware;
 
-class SetRequestedLocale extends Middleware
+class SetRequestedLocale
 {
     /**
      *  Handle an incoming request.

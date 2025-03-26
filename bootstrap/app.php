@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Middleware\Authenticate;
+use App\Http\Middleware\EnsureEmailIsVerified;
 use App\Http\Middleware\HandleInertiaRequests;
 use App\Http\Middleware\SecureHttpHeaders;
 use App\Http\Middleware\SetRequestedLocale;
@@ -19,6 +20,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
             'auth' => Authenticate::class,
+            'verified' => EnsureEmailIsVerified::class,
         ]);
 
         $middleware->web(append: [
@@ -30,9 +32,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->append(SecureHttpHeaders::class);
     })
 
-    //->withEvents(discover: [
-    //    __DIR__.'/../app/System/*/Listeners',
-    //])
+    ->withEvents(discover: [
+        //
+    ])
 
     ->withExceptions(function (Exceptions $exceptions) {
         //
