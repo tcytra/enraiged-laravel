@@ -10,6 +10,11 @@ made internationalisation ready.
 
 ---
 
+2025-03-26 : 0.3.16.3  
+Secure: Updated vite package to correct vulnerabilities
+
+---
+
 2025-03-12 : 0.3.16.2  
 Secure: Updated various packages to correct vulnerabilities
 
