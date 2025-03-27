@@ -1,5 +1,17 @@
 # Release Notes
 
+2025-03-27 : 0.4.0-beta.3 (prerelease)  
+Update: Added login ip address tracking and new address notification
+
+- Added 'enraiged.auth.send_login_address_notification' config option
+- Added 'enraiged.auth.track_ip_addresses' config option
+- Added mail.auth.login-address template for user notification
+- Added migration to create `ip_addresses` table
+- Updated Auth\Login\Request; call to User::trackIpAddress
+- Updated language files as necessary
+
+---
+
 2025-03-26 : 0.4.0-beta.2 (prerelease)  
 Update: Added verification requirement for secondary email address
 

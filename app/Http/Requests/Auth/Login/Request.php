@@ -45,7 +45,7 @@ class Request extends FormRequest
      */
     private function attempt(): bool
     {
-        $this->session()->forget('secondaryEmailLogin');
+        $this->session()->forget('secondaryLogin');
 
         $primary_credentials = collect($this->only('email', 'password'))
             ->merge(['is_active' => true])
@@ -73,14 +73,27 @@ class Request extends FormRequest
     {
         $attempt = Auth::attempt($credentials, $this->boolean('remember'));
 
+        //  This session value is read by the EnsureEmailIsVerified middleware
+        //  in order to identify the correct email verification route to
+        //  redirect the unverified user.
+        //
+        //  It is also referenced by the ip address tracking (if enabled) to
+        //  store the login credential to the database.
+        $this->session()->put('secondaryLogin', $attemptSecondary);
+
         if ($attempt && $attemptSecondary && Auth::user()->mustVerifySecondary) {
-            $this->session()->put('secondaryEmailLogin', true); // not particularly happy to do this with the session
-
+            //  Rejecting an unverified secondary will fail the login attempt
+            //  even if the credentials are correct. The user will see a normal
+            //  auth.failed error.
             if (config('enraiged.auth.reject_unverified_secondary') === true) {
-                $name = Auth::guard()->name;
-                $user = Auth::user();
-
-                event(new Failed($name, $user, [...$credentials, 'attemptSecondary' => $attemptSecondary]));
+                //  This event is used to trigger an email to the user to help
+                //  them understand why the login failed.
+                event(
+                    new Failed(Auth::guard()->name, $this->user(), [
+                        ...$credentials,
+                        'attemptSecondary' => $attemptSecondary,
+                    ])
+                );
 
                 Auth::logout();
 
@@ -111,6 +124,10 @@ class Request extends FormRequest
         }
 
         RateLimiter::clear($this->throttleKey());
+
+        if (config('enraiged.auth.track_ip_addresses') === true) {
+            $this->user()->trackIpAddress($this->ip());
+        }
 
         return true;
     }

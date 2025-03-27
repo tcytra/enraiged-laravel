@@ -26,7 +26,7 @@ class EnsureEmailIsVerified extends Middleware
         }
 
         if ($request->user()->mustVerifySecondary
-            && $request->session()->get('secondaryEmailLogin')) {
+            && $request->session()->get('secondaryLogin') === true) {
             return $request->expectsJson()
                 ? abort(403, __('Your secondary email address is unverified.'))
                 : Redirect::guest(URL::route($redirectToRoute ?: 'secondary.verification.notice'));

@@ -156,7 +156,7 @@ The .env equivalent is ALLOW_PASSWORD_RESET=true|false.
 **Allow User Registration**
 
 This configuration option is `false` by default and should be set to `true` if the application requires allowing guest 
-registration. This configuration option does not affect whether or not a use can be created within the application by an
+registration. This configuration option does not affect whether or not a user can be created within the application by an
 administrator.
 
 The .env equivalent is ALLOW_REGISTER=true|false.
@@ -171,7 +171,7 @@ The .env equivalent is ALLOW_SECONDARY=true|false.
 **Allow Self Delete**
 
 This configuration option is `true` by default and should be set to `false` if the application requires denying the
-ability to delete their own accounts. This configuration option does not affect whether or not a use can be deleted 
+ability to delete their own accounts. This configuration option does not affect whether or not a user can be deleted 
 within the application by an administrator.
 
 The .env equivalent is ALLOW_DELETE=true|false.
@@ -225,10 +225,18 @@ The .env equivalent is REJECT_UNVERIFIED_SECONDARY=true|false.
 **Send Login Change Notification**
 
 This configuration option is `false` by default and should be set to `true` if the application maintainer wants to send
-a notification to user when any changes are made to their login credentials.
+a notification to the user when any changes are made to their login credentials.
 
 The .env equivalent is SEND_LOGIN_CHANGE=true|false.
 
+**Send Login Address Notification**
+
+This configuration option is `false` by default and should be set to `true` if the application maintainer wants to send
+a notification to the user when a login is detected from a new ip address.
+
+This configuration option requires 'track_ip_addresses' is enabled.
+
+The .env equivalent is SEND_LOGIN_ADDRESS=true|false.
 
 **Send Welcome Notification**
 
@@ -242,6 +250,13 @@ user account has been created.
 The content of the notification can be updated in `App\System\Users\Notifications\WelcomeNotification`.
 
 The .env equivalent is SEND_WELCOME=true|false.
+
+**Track Ip Addresses**
+
+This configuration option is `false` by default and should be set to `true` if the application maintainer wants to track
+ip addresses that users are logging in from.
+
+The .env equivalent is TRACK_IP_ADDRESSES=true|false.
 
 
 ### Password Config

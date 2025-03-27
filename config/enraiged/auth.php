@@ -211,6 +211,23 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Send Login Address Notification
+    |--------------------------------------------------------------------------
+    |
+    | The application may be configured to send a notification to a user when a
+    | log in is detected from a new ip address/credential.
+    |
+    | The 'track_ip_addresses' configuration option must be enabled in order
+    | for this option to work.
+    |
+    | The default value is false (no login address message is sent).
+    |
+    */
+
+    'send_login_address_notification' => (bool) env('SEND_LOGIN_ADDRESS', false),
+
+    /*
+    |--------------------------------------------------------------------------
     | Send Welcome Notification
     |--------------------------------------------------------------------------
     |
@@ -226,5 +243,20 @@ return [
     */
 
     'send_welcome_notification' => (bool) env('SEND_WELCOME', false),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Track Ip Addresses
+    |--------------------------------------------------------------------------
+    |
+    | You may choose to store internet protocol addresses that users perform a
+    | login from, which in turn will trigger an event you may leverage for your
+    | application, such as sending a notification to the end user.
+    |
+    | The default value is false.
+    |
+    */
+
+    'track_ip_addresses' => (bool) env('TRACK_IP_ADDRESSES', false),
 
 ];
