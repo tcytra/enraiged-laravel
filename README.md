@@ -1,9 +1,9 @@
 # Enraiged Laravel
 
 **[Laravel 10](https://laravel.com/docs/10.x/releases)
- • [Vue v3.3](https://vuejs.org/guide/introduction.html)
- • [Inertia.js v1.0](https://inertiajs.com/)
- • [PrimeVUE v3.40](https://primevue.org/installation/)
+ • [Vue v3.5](https://vuejs.org/guide/introduction.html)
+ • [Inertia.js v1.3](https://inertiajs.com/)
+ • [PrimeVUE v3.53](https://primevue.org/installation/)
  • [PrimeFlex v3.3](https://primeflex.org/installation)
  • [PrimeIcons v6.0](https://primevue.org/icons/#list)**
 

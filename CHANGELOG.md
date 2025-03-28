@@ -10,6 +10,19 @@ made internationalisation ready.
 
 ---
 
+2025-03-28 : 0.3.17  
+Update: Updated nodejs packages; Minor bugfixes
+
+- Added missing 'template' declarations in VueFormTab component
+- Argue nodirty in table filter fields; multiple select broken
+- Prevent FormBuilder double-interpreting a route
+- Updated @inertiajs/vue3 to v2.0.5
+- Updated @vitejs/plugin-vue to v5.2.3
+- Updated vite to v6.2.3
+- Updated vue to v3.5.0
+
+---
+
 2025-03-26 : 0.3.16.3  
 Secure: Updated vite package to correct vulnerabilities
 
