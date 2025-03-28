@@ -32,6 +32,7 @@
                         :creating="creating"
                         :fields="fields"
                         :form="form"
+                        :template="template"
                         :updating="updating">
                         <template v-for="(field, key) in custom.fields" v-slot:[key]="props">
                             <slot :name="key" v-bind="{ creating, field, form, key, updating }"/>
@@ -78,6 +79,10 @@ export default {
             required: true,
         },
         tab: {
+            type: Object,
+            required: true,
+        },
+        template: {
             type: Object,
             required: true,
         },
