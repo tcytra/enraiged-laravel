@@ -4,17 +4,17 @@
             :class="filterClassName(field)"
             :key="name">
             <datepicker-filter v-if="field.type === 'datepicker'" :ref="filterRefName(name)"
-                :field="field"
+                :field="{...field, nodirty}"
                 :form="form"
                 :id="name"
                 @update:filterValue="filter(name)"/>
             <daterange-filter v-if="field.type === 'daterange'" :ref="filterRefName(name)"
-                :field="field"
+                :field="{...field, nodirty}"
                 :form="form"
                 :id="name"
                 @update:filterValue="filter(name)"/>
             <dropdown-filter v-if="field.type === 'select'" :ref="filterRefName(name)"
-                :field="field"
+                :field="{...field, nodirty}"
                 :form="form"
                 :id="name"
                 @update:filterValue="filter(name)"/>
@@ -48,6 +48,10 @@ export default {
             required: true,
         },
     },
+
+    data: () => ({
+        nodirty: true,
+    }),
 
     methods: {
         filterClassName(filter) {
