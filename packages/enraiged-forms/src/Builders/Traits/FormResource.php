@@ -38,7 +38,9 @@ trait FormResource
      */
     protected function route($name, $params = []): string
     {
-        return route($name, $params, config('enraiged.tables.absolute_uris'));
+        return preg_match('/\//', $name)
+            ? $name
+            : route($name, $params, config('enraiged.tables.absolute_uris'));
     }
 
     /**
