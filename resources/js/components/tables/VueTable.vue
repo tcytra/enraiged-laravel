@@ -128,6 +128,18 @@
                     </span>
                 </template>
             </primevue-column>
+            <primevue-column-group type="footer" v-if="enableSums && false">
+                <primevue-row>
+                    <primevue-column v-if="isSelectable"/>
+                    <primevue-column v-for="(column, name) in columns"
+                        :alignFrozen="columnFrozenAlign(column)"
+                        :frozen="columnFrozen(column)"
+                        :key="name">
+                        <primevue-column :footer="sums[column]" footerStyle="text-align:right"/>
+                    </primevue-column>
+                    <primevue-column v-if="Object.keys(rowActions).length"/>
+                </primevue-row>
+            </primevue-column-group>
         </primevue-datatable>
     </div>
 </template>
@@ -135,9 +147,11 @@
 <script>
 import PrimevueButton from 'primevue/button';
 import PrimevueColumn from 'primevue/column';
+import PrimevueColumnGroup from 'primevue/columngroup';
 import PrimevueDatatable from 'primevue/datatable';
 import PrimevueDropdown from 'primevue/dropdown';
 import PrimevueInputtext from 'primevue/inputtext';
+import PrimevueRow from 'primevue/row';
 import PrimevueTooltip from 'primevue/tooltip';
 import VueTableFilters from './VueTableFilters.vue';
 
@@ -145,9 +159,11 @@ export default {
     components: {
         PrimevueButton,
         PrimevueColumn,
+        PrimevueColumnGroup,
         PrimevueDatatable,
         PrimevueDropdown,
         PrimevueInputtext,
+        PrimevueRow,
         VueTableFilters,
     },
 
@@ -228,6 +244,7 @@ export default {
         search: null,
         selected: null,
         selection: [],
+        sums: [],
         timer: null,
     }),
 
@@ -247,6 +264,8 @@ export default {
             let columns = {};
             Object.keys(this.template.columns)
                 .filter((name) => name !== 'actions')
+                .filter((name) => typeof this.template.columns[name].hidden === 'undefined'
+                    || this.template.columns[name].hidden !== true)
                 .forEach((name) => columns[name] = this.template.columns[name]);
             return columns;
         },
@@ -263,6 +282,12 @@ export default {
         enableScrollable() {
             return this.scrollable === true
                 || this.template.scrollable === true;
+        },
+        enableSums() {
+            const columns = this.template.columns;
+            return Object.keys(this.template.columns)
+                .filter((name) => columns[name].sum)
+                .length > 0;
         },
         first() {
             return this.pagination.page && this.pagination.rows
@@ -333,6 +358,9 @@ export default {
 
     beforeMount() {
         this.defaultFilters();
+        if (this.enableSums && this.records.length) {
+            this.calculateSums();
+        }
     },
 
     beforeUnmount() {
@@ -349,6 +377,7 @@ export default {
     methods: {
         async fetch() {
             this.loading = true;
+            this.selection = [];
             return axios.get(this.template.uri, { params: this.params() })
                 .then(response => this.fetched(response))
                 .catch(error => this.errorHandler(error));
@@ -412,11 +441,39 @@ export default {
 
         batch(confirmed) {
             const action = this.template.actions[this.selected.id];
-            const selection = this.selection.map((row) => row.id);
+            const selected = this.selection.map((row) => row.id);
             if (action.confirm && confirmed !== true) {
                 this.confirm(action, () => this.batch(true));
+            } else if (action.method === 'emit') {
+                this.$emit(`batch:${this.selected.id}`, action, selected);
             } else {
-                this.api(action.uri, action.method, {selection}, () => this.selection = []);
+                this.api(action.uri, action.method, {selected}, () => this.selection = []);
+            }
+        },
+
+        calculateSums(index) {
+            if (typeof index !== 'undefined') {
+                let total = 0;
+                if (this.records.length) {
+                    this.records.forEach((row) => {
+                        if (row[index]) {
+                            const amount = row[index].replace(/[^\d\.]/g, '');
+                            total = total + (amount * 1);
+                        }
+                    });
+                }
+                this.sums[index] = total
+                    ? total.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+                    : null;
+            } else {
+                this.sums = [];
+                Object.keys(this.template.columns)
+                    .forEach((index) => {
+                        if (this.template.columns[index].sum !== 'undefined'
+                         && this.template.columns[index].sum === true) {
+                            this.calculateSums(index);
+                        }
+                    });
             }
         },
 
@@ -500,6 +557,9 @@ export default {
                 this.pagination = pagination;
                 if (typeof document !== 'undefined') {
                     document.getElementById('page').scrollIntoView({ behavior: 'smooth' });
+                }
+                if (this.enableSums) {
+                    this.calculateSums();
                 }
             } else {
                 this.errorHandler(response);

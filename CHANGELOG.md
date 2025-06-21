@@ -8,6 +8,12 @@ made internationalisation ready.
 
 > The 0.4.x branch is still early in the development process and not ready for a replacement of the 0.3.x system.
 
+
+2025-06-21 : 0.3.18  
+Update: 
+
+- Added ability for VueTable.vue to show a row of calculated sums
+
 ---
 
 2025-03-28 : 0.3.17  
