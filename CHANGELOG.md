@@ -10,9 +10,12 @@ made internationalisation ready.
 
 
 2025-06-21 : 0.3.18  
-Update: 
+Update: Updated various vendor packages; Improvement to VueTable
 
 - Added ability for VueTable.vue to show a row of calculated sums
+- Updated intervention/image to 3.11.3
+- Updated league/commonmark to 2.7.0
+- Updated vite to v6.3.5
 
 ---
 
