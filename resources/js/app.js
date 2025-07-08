@@ -3,11 +3,17 @@ import './bootstrap';
 
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
+import { definePreset } from '@primeuix/themes';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { i18nVue } from "laravel-vue-i18n";
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
+import ConfirmationService from 'primevue/confirmationservice';
+import PrimeVue from 'primevue/config';
+import ToastService from 'primevue/toastservice';
+import Tooltip from 'primevue/tooltip';
+import defaultTheme from './themes/default';
 
-const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+const appName = import.meta.env.VITE_APP_NAME || 'Enraiged Laravel';
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
@@ -18,6 +24,7 @@ createInertiaApp({
         ),
     setup({ el, App, props, plugin }) {
         return createApp({ render: () => h(App, props) })
+            .directive('tooltip', Tooltip)
             .use(i18nVue, {
                 fallbackLang: 'en',
                 resolve: async lang => {
@@ -26,6 +33,12 @@ createInertiaApp({
                 },
             })
             .use(plugin)
+            .use(ConfirmationService)
+            .use(ToastService)
+            .use(PrimeVue, {
+                // unstyled: true,
+                theme: defaultTheme,
+            })
             .use(ZiggyVue)
             .mount(el);
     },

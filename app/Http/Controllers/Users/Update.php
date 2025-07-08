@@ -22,16 +22,10 @@ class Update extends Controller
             ? $request->user()
             : $model::findOrFail($request->user);
 
-        $user->fill($request->validated());
-
-        if ($user->isDirty('email')) {
-            $user->email_verified_at = null;
-        }
-
-        $user->save();
+        $user->update($request->validated());
 
         return $request->is('my/*')
-            ? redirect()->route('my.profile.edit')
+            ? redirect()->route('my.profile.edit')->with('status', 'verification-link-sent')
             : redirect()->route('users.edit', ['user' => $user->id]);
     }
 }

@@ -26,13 +26,15 @@ class Request extends FormRequest
     #[\Override]
     public function messages()
     {
+        $messages = [
+            'agreed.accepted' => 'You must agree to check the little box.',
+        ];
+
         if (config('enraiged.auth.allow_secondary_credential') === true) {
-            return [
-                'username.different' => 'The primary and secondary email addresses must be different.',
-            ];
+            $messages['username.different'] = 'The primary and secondary email addresses must be different.';
         }
 
-        return [];
+        return $messages;
     }
 
     /**
@@ -51,6 +53,7 @@ class Request extends FormRequest
                 'email' => "required|string|email|max:255|unique:{$user_table},email",
                 'username' => null,
                 'password' => ['required', 'confirmed', new PasswordRules],
+                'agreed' => 'required|accepted',
             ])
             ->transform(fn ($rule, $key) => 
                 $key === 'email'

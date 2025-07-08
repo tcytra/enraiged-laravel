@@ -1,9 +1,10 @@
 # Enraiged Laravel v0.4.x
 
 **[Laravel 12](https://laravel.com/docs/12.x/releases)
- • [Vue v3.4](https://vuejs.org/guide/introduction.html)
+ • [Vue v3.5](https://vuejs.org/guide/introduction.html)
  • [Inertia.js v2.0](https://inertiajs.com/)
- • [TailwindCSS v3.2](https://inertiajs.com/)
+ • [Primevue v4.3](https://primevue.org/laravel)
+ • [TailwindCSS v4.0](https://tailwindcss.com/docs/installation/framework-guides/laravel/vite)
 **
 
 > **Please Note:** The **0.4.x** branch is currently a work in progress and not yet ready for production use.
@@ -357,7 +358,11 @@ fallbackLang value in the `~/resource/js/app.js` file, and the locale validation
 fallbackLang: 'en',
 ```
 
-Please refer to the aforementioned documentation for further information.
+The locales configuration is defined in the `~/config/enraiged/locales.php` file. This configuration defined the values
+that are provided as language options throughout the application. **Please be sure to update this list to suit the needs
+of your build**.
+
+Please refer to the Laravel documentation for further information.
 
 
 ## License

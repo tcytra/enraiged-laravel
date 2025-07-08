@@ -1,3 +1,74 @@
+@charset 'UTF-8';
+
+@import 'tailwindcss';
+@import 'tailwindcss-primeui';
+@import 'primeicons/primeicons.css';
+@custom-variant dark (&:where(.switch-dark-mode, .switch-dark-mode *));
+@source '../views';
+
+/*
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+*/
+
+@layer enraiged {
+    @import './app/layouts.css';
+    @import './app/forms.css';
+
+    input:autofill {
+      background: unset !important;
+      transition:
+        background-color calc(infinity * 1s) step-end,
+        background-image calc(infinity * 1s) step-end allow-discrete,
+        color calc(infinity * 1s) step-end;
+    }
+
+    .p-button-warning {
+      background:       var(--p-button-warn-background);
+      border:           1px solid var(--p-button-warn-border-color);
+      color:            var(--p-button-warn-color);
+    }
+
+    .p-card-header {
+      border-radius:    var(--p-card-border-radius) var(--p-card-border-radius) 0 0;
+      padding:          var(--p-card-body-padding) var(--p-card-body-padding) 0;
+    }
+
+    .p-checkbox.p-invalid:focus > .p-checkbox-box,
+    .p-checkbox.p-invalid:hover > .p-checkbox-box {
+      border-color:     var(--p-checkbox-invalid-border-color);
+    }
+    .p-inputtext.p-invalid:focus,
+    .p-inputtext.p-invalid:hover {
+      border-color:     var(--p-inputtext-invalid-border-color);
+    }
+    .p-password.input-error .p-password-toggle-mask-icon {
+      color:            var(--p-form-field-icon-color);
+    }
+
+    *::placeholder,
+    .p-placeholder {
+      opacity:          .625;
+    }
+
+    .text-link {
+        @apply rounded-md text-gray-500 hover:text-gray-400 focus:outline-none focus:ring-gray-400 focus:ring-1 focus:ring-offset-2;
+    }
+
+    .text-danger {
+        @apply mt-2 text-sm font-medium text-red-600;
+    }
+    .text-info {
+        @apply mt-2 text-sm font-medium text-sky-600;
+    }
+    .text-neutral {
+        @apply mt-2 text-sm text-gray-800;
+    }
+    .text-success {
+        @apply mt-2 text-sm font-medium text-green-600;
+    }
+    .text-warning {
+        @apply mt-2 text-sm font-medium text-amber-600;
+    }
+}

@@ -1,111 +1,110 @@
-<script setup>
-import Checkbox from '@/components/forms/fields/Checkbox.vue';
-import GuestLayout from '@/layouts/GuestLayout.vue';
-import InputError from '@/components/forms/fields/InputError.vue';
-import InputLabel from '@/components/forms/fields/InputLabel.vue';
-import PrimaryButton from '@/components/ui/buttons/PrimaryButton.vue';
-import TextInput from '@/components/forms/fields/TextInput.vue';
-import { Head, Link, useForm } from '@inertiajs/vue3';
-import { trans as i18n } from 'laravel-vue-i18n';
+<template>
+    <div>
+        <html-head :title="i18n('Login')" />
 
-defineProps({
+        <primevue-card class="md:w-md w-sm">
+            <template #header>
+                <h1 class="text-lg">{{ i18n('Login') }}</h1>
+            </template>
+            <template #content>
+                <div v-if="status" class="mb-4 text-sm font-medium">
+                    {{ status }}
+                </div>
+                <form class="form" @submit.prevent="submit">
+                    <text-field autofocus autocomplete="email" id="email"
+                        :field="{
+                            label: allowUsernameLogin ? 'Email or Username' : 'Email',
+                            type: allowUsernameLogin ? 'text' : 'email',
+                        }"
+                        :form="form" />
+                    <password-field autocomplete="current-password" id="password"
+                        :field="{
+                            label: 'Password',
+                            type: 'password',
+                        }"
+                        :form="form" />
+                    <checkbox-field class="horizontal checkbox-first" id="remember"
+                        :field="{
+                            label: 'Remember me',
+                            type: 'checkbox',
+                        }"
+                        :form="form" />
+
+                    <div class="mt-4 flex flex-row-reverse items-center justify-start">
+                        <primary-button class="ms-4"
+                            :class="{ 'opacity-25': form.processing }"
+                            :disabled="form.processing"
+                            @click="submit()">
+                            {{ i18n('Login') }}
+                        </primary-button>
+                        <html-link class="text-link text-sm"
+                            v-if="allowPasswordReset"
+                            :href="route('password.request')">
+                            {{ i18n('Forgot Password') }}
+                        </html-link>
+                        <span class="px-2" v-if="allowRegistration && allowPasswordReset">
+                            &bull;
+                        </span>
+                        <html-link class="text-link text-sm"
+                            v-if="allowRegistration"
+                            :href="route('register')">
+                            {{ i18n('Register') }}
+                        </html-link>
+                    </div>
+                </form>
+            </template>
+        </primevue-card>
+    </div>
+</template>
+
+<script setup>
+import { Head as HtmlHead, Link as HtmlLink, useForm } from '@inertiajs/vue3';
+import { inject } from 'vue';
+import { trans as i18n } from 'laravel-vue-i18n';
+import CheckboxField from '@/components/forms/fields/CheckboxField.vue';
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
+import PasswordField from '@/components/forms/fields/PasswordField.vue';
+import PrimaryButton from '@/components/ui/buttons/PrimaryButton.vue';
+import PrimevueCard from 'primevue/card';
+import TextField from '@/components/forms/fields/TextField.vue';
+
+defineOptions({
+    layout: DefaultLayout,
+});
+
+const props = defineProps({
     allowUsernameLogin: {
         type: Boolean,
+        default: false,
     },
     allowRegistration: {
         type: Boolean,
+        default: false,
     },
     allowPasswordReset: {
         type: Boolean,
+        default: true,
     },
     status: {
         type: String,
+        default: null,
     },
 });
 
 const form = useForm({
-    email: '',
-    password: '',
+    email: null,
+    password: null,
     remember: false,
 });
 
+const reset = inject('reset');
+
 const submit = () => {
     form.post(route('login'), {
-        onFinish: () => form.reset('password'),
+        onFinish: () => {
+            form.reset('password');
+            reset();
+        },
     });
 };
 </script>
-
-<template>
-    <GuestLayout>
-        <Head :title="i18n('Login')" />
-
-        <div v-if="status" class="mb-4 text-sm font-medium text-green-600">
-            {{ status }}
-        </div>
-
-        <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="email" :value="allowUsernameLogin ? i18n('Email or Username') : i18n('Email')" />
-
-                <TextInput autofocus required
-                    id="email"
-                    class="mt-1 block w-full"
-                    v-model="form.email"
-                    :type="allowUsernameLogin ? 'text' : 'email'"
-                    autocomplete="username"/>
-
-                <InputError class="mt-2" :message="i18n(form.errors.email)" v-if="form.errors.email" />
-            </div>
-
-            <div class="mt-4">
-                <InputLabel for="password" :value="i18n('Password')" />
-
-                <TextInput required
-                    id="password"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password"
-                    autocomplete="current-password"/>
-
-                <InputError class="mt-2" :message="form.errors.password" v-if="form.errors.password" />
-            </div>
-
-            <div class="mt-4 block">
-                <label class="flex items-center">
-                    <Checkbox name="remember" v-model:checked="form.remember" />
-                    <span class="ms-2 text-sm text-gray-600">
-                        {{ i18n('Remember me') }}
-                    </span>
-                </label>
-            </div>
-
-            <div class="mt-4 flex items-center justify-end">
-                <Link
-                    v-if="allowRegistration"
-                    :href="route('register')"
-                    class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                    {{ i18n('Register') }}
-                </Link>
-
-                <span class="px-2" v-if="allowRegistration && allowPasswordReset">
-                    &bull;
-                </span>
-
-                <Link
-                    v-if="allowPasswordReset"
-                    :href="route('password.request')"
-                    class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                    {{ i18n('Reset Password') }}
-                </Link>
-
-                <PrimaryButton
-                    class="ms-4"
-                    :class="{ 'opacity-25': form.processing }"
-                    :disabled="form.processing">
-                    {{ i18n('Login') }}
-                </PrimaryButton>
-            </div>
-        </form>
-    </GuestLayout>
-</template>

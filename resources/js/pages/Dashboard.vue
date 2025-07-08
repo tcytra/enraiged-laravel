@@ -1,7 +1,38 @@
+<template>
+    <div class="container page">
+        <html-head :title="i18n('Dashboard')" />
+
+        <header>
+            <div class="mx-auto max-w-7xl py-6">
+                <h2 class="text-xl font-semibold leading-tight">
+                    {{ i18n('Dashboard') }}
+                </h2>
+            </div>
+        </header>
+
+        <primevue-card class="mx-auto max-w-7xl px-4 py-6">
+            <template #content>
+                <span>{{ i18n('Welcome to :app!').replace(':app', appName) }}</span>
+                <span class="px-1 text-success" v-show="status === 'email-verification-success'">
+                    {{ i18n('Your email address has been verified!') }}
+                </span>
+                <span class="px-1 text-success" v-show="status === 'secondary-verification-success'">
+                    {{ i18n('Your secondary email address has been verified.') }}
+                </span>
+            </template>
+        </primevue-card>
+    </div>
+</template>
+
 <script setup>
-import AuthenticatedLayout from '@/layouts/AuthenticatedLayout.vue';
-import { Head } from '@inertiajs/vue3';
+import { Head as HtmlHead } from '@inertiajs/vue3';
 import { trans as i18n } from 'laravel-vue-i18n';
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
+import PrimevueCard from 'primevue/card';
+
+defineOptions({
+    layout: DefaultLayout,
+});
 
 defineProps({
     appName: {
@@ -12,28 +43,3 @@ defineProps({
     },
 });
 </script>
-
-<template>
-    <Head :title="i18n('Dashboard')" />
-
-    <AuthenticatedLayout>
-        <template #header>
-            <h2 class="text-xl font-semibold leading-tight text-gray-800">
-                {{ i18n('Dashboard') }}
-            </h2>
-        </template>
-
-        <div class="py-12">
-            <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
-                    <div class="p-6 text-gray-900">
-                        <span>{{ i18n('Welcome to :app!').replace(':app', appName) }}</span>
-                        <span class="px-1" v-show="status === 'email-verification-success'">
-                            {{ i18n('Your email address has been verified!') }}
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </AuthenticatedLayout>
-</template>

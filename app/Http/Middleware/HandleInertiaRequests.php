@@ -2,23 +2,23 @@
 
 namespace App\Http\Middleware;
 
-use Enraiged\Users\Resources\AuthResource;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Middleware;
 use Tighten\Ziggy\Ziggy;
 
 class HandleInertiaRequests extends Middleware
 {
     /**
-     * The root template that is loaded on the first page visit.
+     *  The root template that is loaded on the first page visit.
      *
-     * @var string
+     *  @var string
      */
     protected $rootView = 'app';
 
     /**
-     * Determine the current asset version.
+     *  Determine the current asset version.
+     *
+     *  @return string|null
      */
     public function version(Request $request): ?string
     {
@@ -26,17 +26,15 @@ class HandleInertiaRequests extends Middleware
     }
 
     /**
-     * Define the props that are shared by default.
+     *  Define the props that are shared by default.
      *
-     * @return array<string, mixed>
+     *  @param  \Illuminate\Http\Request  $request
+     *  @return array<string, mixed>
      */
     public function share(Request $request): array
     {
         return [
             ...parent::share($request),
-            'auth' => Auth::check()
-                ? new AuthResource($request->user())
-                : $request->user(),
             'status' => session()->has('status')
                 ? session()->get('status')
                 : null,

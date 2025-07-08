@@ -1,57 +1,59 @@
+<template>
+    <div class="card container">
+        <html-head :title="i18n('Confirm Password')" />
+
+        <primevue-card class="md:w-md w-sm">
+            <template #header>
+                <h1 class="text-lg">{{ i18n('Confirm Password') }}</h1>
+            </template>
+            <template #content>
+                <div class="mb-4 text-sm text-gray-600">
+                    {{ i18n('This is a secure area of the application. '
+                        + 'Please confirm your password before continuing.') }}
+                </div>
+
+                <form class="form" @submit.prevent="submit">
+                    <password-field autocomplete="new-password" id="password" umask
+                        :field="{
+                            label: 'Password',
+                            placeholder: 'Required',
+                        }"
+                        :form="form" />
+
+                    <div class="mt-4 flex flex-row-reverse items-center justify-start">
+                        <primary-button class="ms-4"
+                            :class="{ 'opacity-25': form.processing }"
+                            :disabled="form.processing"
+                            @click="submit()">
+                            {{ i18n('Confirm') }}
+                        </primary-button>
+                    </div>
+                </form>
+            </template>
+        </primevue-card>
+
+    </div>
+</template>
+
 <script setup>
-import GuestLayout from '@/layouts/GuestLayout.vue';
-import InputError from '@/components/forms/fields/InputError.vue';
-import InputLabel from '@/components/forms/fields/InputLabel.vue';
+import { Head as HtmlHead, useForm } from '@inertiajs/vue3';
+import { trans as i18n } from 'laravel-vue-i18n';
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
+import PasswordField from '@/components/forms/fields/PasswordField.vue';
 import PrimaryButton from '@/components/ui/buttons/PrimaryButton.vue';
-import TextInput from '@/components/forms/fields/TextInput.vue';
-import { Head, useForm } from '@inertiajs/vue3';
-import { trans as i18n, getActiveLanguage } from 'laravel-vue-i18n';
+import PrimevueCard from 'primevue/card';
+
+defineOptions({
+    layout: DefaultLayout,
+});
 
 const form = useForm({
-    password: '',
+    password: null,
 });
 
 const submit = () => {
-    form.transform((data) => ({
-            ...data,
-            locale: getActiveLanguage(),
-        }))
-        .post(route('password.confirm'), {
-            onFinish: () => form.reset(),
-        });
+    form.post(route('password.confirm'), {
+        onFinish: () => form.reset(),
+    });
 };
 </script>
-
-<template>
-    <GuestLayout>
-        <Head :title="i18n('Confirm Password')" />
-
-        <div class="mb-4 text-sm text-gray-600">
-            {{ i18n('This is a secure area of the application. Please confirm your password before continuing.') }}
-        </div>
-
-        <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="password" :value="i18n('Password')" />
-                <TextInput
-                    id="password"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password"
-                    required
-                    autocomplete="current-password"
-                    autofocus />
-                <InputError class="mt-2" :message="i18n(form.errors.password)" v-if="form.errors.password" />
-            </div>
-
-            <div class="mt-4 flex justify-end">
-                <PrimaryButton
-                    class="ms-4"
-                    :class="{ 'opacity-25': form.processing }"
-                    :disabled="form.processing">
-                    {{ i18n('Confirm') }}
-                </PrimaryButton>
-            </div>
-        </form>
-    </GuestLayout>
-</template>

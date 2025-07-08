@@ -1,0 +1,133 @@
+form, .form {
+
+    >.p-card:not(:last-child) {
+      margin-bottom:    1rem;
+    }
+
+    .field.control {
+      display:          flex;
+      margin-bottom:    .5rem;
+      min-height:       2.5rem;
+
+        .error {
+          color:            var(--p-form-field-invalid-placeholder-color);
+          font-size:        .75rem;
+          font-weight:      600;
+        }
+
+        &.checkbox,
+        &.switch {
+            .error {
+              flex-wrap:        wrap;
+              order:            3;
+                .message {
+                  display:          block;
+                }
+            }
+            .placeholder {
+              margin-left:      .25rem;
+              margin-right:     .25rem;
+              white-space:      nowrap;
+            }
+        }
+
+        .input {
+            &:focus, &:focus-within {
+                --input-color: color-mix(in oklab, var(--color-base-content) 20%, #0000);
+            }
+            >input {
+              width:            inherit;
+            }
+            >svg {
+              cursor:           pointer;
+            }
+        }
+    }
+
+    .line-break {
+      margin:           0 0 .5rem;
+        hr {
+          border:           0;
+          height:           1px;
+        }
+    }
+
+    .section {
+      margin-bottom:    1rem;
+    }
+
+    &.horizontal .field.control, .horizontal .field.control, .field.control.horizontal, .vertical .horizontal.field.control {
+      align-items:      center;
+      flex-direction:   row;
+
+        .label {
+          margin-bottom:    0;
+          margin-right:     .5rem;
+          max-width:        5rem;
+          min-width:        5rem;
+        }
+
+        .p-invalid {
+            .p-dropdown-trigger,
+            .p-multiselect-trigger {
+              display:          none;
+            }
+        }
+
+        &.checkbox.checkbox-first,
+        &.switch.switch-first {
+          flex-wrap:        wrap;
+            .label {
+              flex-grow:        1;
+              margin-bottom:    0;
+              margin-right:     0;
+              max-width:        unset;
+              min-width:        unset;
+              order:            2;
+              width:            auto;
+            }
+            
+            .p-checkbox,
+            .p-toggleswitch {
+              margin-right:     .5rem;
+              order:            1;
+            }
+        }
+    }
+
+    &:not(.horizontal) .field.control,
+    &.vertical .field.control, .vertical .field.control, .field.control.vertical, .horizontal .field.control.vertical {
+      align-items:      flex-start !important;
+      flex-direction:   column;
+
+        .label {
+          margin-bottom:    .5rem;
+          margin-right:     0;
+          max-width:        unset;
+          min-width:        unset;
+        }
+
+        &.checkbox .p-checkbox,
+        &.switch .p-toggleswitch {
+          margin-bottom:    .25rem;
+          margin-top:       .25rem;
+        }
+    }
+
+    .horizontal.field.control {
+      align-items:      center;
+      flex-direction:   row !important;
+
+        .label {
+          margin-bottom:    0;
+        }
+    }
+
+    .vertical.field.control {
+      flex-direction:   column !important;
+
+        .label {
+          margin-bottom:    .5rem;
+        }
+    }
+}

@@ -14,23 +14,35 @@ class Request extends FormRequest
      */
     public function rules(): array
     {
+        $locales = collect(config('enraiged.locales'))
+            ->keys()
+            ->join(',');
+
         $model = config('auth.providers.users.model');
 
         $user = $this->is('my/*')
             ? $this->user()
             : $model::findOrFail($this->user);
 
-        return [
+        $rules = [
             'email' => [
                 'required',
                 'string',
                 'lowercase',
                 'email',
                 'max:255',
-                Rule::unique($model)->ignore($user->id),
+                Rule::unique($model, 'email')->ignore($user->id),
             ],
-            'locale' => ['required', 'string', 'min:2', 'max:2', 'in:en,es,fr'],
+            'locale' => ['required', 'string', 'min:2', 'max:2', "in:{$locales}"],
             'name' => ['required', 'string', 'max:255'],
         ];
+
+        if (config('enraiged.auth.allow_secondary_credential') === true) {
+            $rules['username'] = config('enraiged.auth.allow_username_login') === true
+                ? ['nullable', 'string', 'max:255', Rule::unique($model, 'username')->ignore($user->id)]
+                : ['nullable', 'string', 'email', 'max:255', Rule::unique($model, 'username')->ignore($user->id)];
+        }
+
+        return $rules;
     }
 }

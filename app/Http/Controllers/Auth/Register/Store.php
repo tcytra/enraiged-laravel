@@ -21,13 +21,19 @@ class Store extends Controller
      */
     public function __invoke(RegisterRequest $request): RedirectResponse
     {
-        $parameters = [
+        /*$parameters = [
             'locale' => $request->get('locale'),
             'name' => $request->get('name'),
             'email' => $request->get('email'),
-            'username' => $request->get('username'),
             'password' => Hash::make($request->get('password')),
-        ];
+        ];*/
+
+        $parameters = collect($request->validated())
+            ->transform(fn ($value, $index)
+                => $index === 'password'
+                    ? Hash::make($request->get('password'))
+                    : $value)
+            ->toArray();
 
         $user = config('enraiged.auth.must_verify_email') === true
             ? VerifiedUser::create($parameters)

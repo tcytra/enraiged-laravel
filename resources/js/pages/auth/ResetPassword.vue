@@ -1,11 +1,58 @@
+<template>
+    <div>
+        <html-head :title="i18n('Reset Password')" />
+
+        <primevue-card class="md:w-md w-sm">
+            <template #header>
+                <h1 class="text-lg">{{ i18n('Reset Password') }}</h1>
+            </template>
+            <template #content>
+                <form class="form" @submit.prevent="submit">
+                    <text-field autocomplete="email" id="email" disabled
+                        :field="{
+                            label: 'Email',
+                            type: 'email',
+                        }"
+                        :form="form" />
+                    <password-field autocomplete="new-password" id="password" umask
+                        :field="{
+                            label: 'Password',
+                            placeholder: 'Required',
+                        }"
+                        :form="form" />
+                    <password-field autocomplete="new-password" id="password_confirmation" feedback
+                        :field="{
+                            label: 'Confirm Password',
+                            placeholder: 'Required',
+                        }"
+                        :form="form" />
+
+                    <div class="mt-4 flex flex-row-reverse items-center justify-start">
+                        <primary-button
+                            :class="{ 'opacity-25': form.processing }"
+                            :disabled="form.processing"
+                            @click="submit()">
+                            {{ i18n('Reset Password') }}
+                        </primary-button>
+                    </div>
+                </form>
+            </template>
+        </primevue-card>
+    </div>
+</template>
+
 <script setup>
-import GuestLayout from '@/layouts/GuestLayout.vue';
-import InputError from '@/components/forms/fields/InputError.vue';
-import InputLabel from '@/components/forms/fields/InputLabel.vue';
-import PrimaryButton from '@/components/ui/buttons/PrimaryButton.vue';
-import TextInput from '@/components/forms/fields/TextInput.vue';
-import { Head, useForm } from '@inertiajs/vue3';
+import { Head as HtmlHead, useForm } from '@inertiajs/vue3';
 import { trans as i18n, getActiveLanguage } from 'laravel-vue-i18n';
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
+import PasswordField from '@/components/forms/fields/PasswordField.vue';
+import PrimaryButton from '@/components/ui/buttons/PrimaryButton.vue';
+import PrimevueCard from 'primevue/card';
+import TextField from '@/components/forms/fields/TextField.vue';
+
+defineOptions({
+    layout: DefaultLayout,
+});
 
 const props = defineProps({
     email: {
@@ -21,78 +68,13 @@ const props = defineProps({
 const form = useForm({
     token: props.token,
     email: props.email,
-    password: '',
-    password_confirmation: '',
+    password: null,
+    password_confirmation: null,
 });
 
 const submit = () => {
-    form.transform((data) => ({
-            ...data,
-            locale: getActiveLanguage(),
-        }))
-        .post(route('password.store'), {
-            onFinish: () => form.reset('password', 'password_confirmation'),
-        });
+    form.post(route('password.store'), {
+        onFinish: () => form.reset('password', 'password_confirmation'),
+    });
 };
 </script>
-
-<template>
-    <GuestLayout>
-        <Head :title="i18n('Reset Password')" />
-
-        <form @submit.prevent="submit">
-            <div>
-                <InputLabel for="email" :value="i18n('Email')" />
-
-                <TextInput
-                    id="email"
-                    type="email"
-                    class="mt-1 block w-full"
-                    v-model="form.email"
-                    required
-                    autofocus
-                    autocomplete="username" />
-
-                <InputError class="mt-2" :message="i18n(form.errors.email)" v-if="form.errors.email" />
-            </div>
-
-            <div class="mt-4">
-                <InputLabel for="password" :value="i18n('Password')" />
-
-                <TextInput
-                    id="password"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password"
-                    required
-                    autocomplete="new-password" />
-
-                <InputError class="mt-2" :message="i18n(form.errors.password)" v-if="form.errors.password" />
-            </div>
-
-            <div class="mt-4">
-                <InputLabel
-                    for="password_confirmation"
-                    :value="i18n('Confirm Password')" />
-
-                <TextInput
-                    id="password_confirmation"
-                    type="password"
-                    class="mt-1 block w-full"
-                    v-model="form.password_confirmation"
-                    required
-                    autocomplete="new-password" />
-
-                <InputError class="mt-2" :message="form.errors.password_confirmation" v-if="form.errors.password_confirmation" />
-            </div>
-
-            <div class="mt-4 flex items-center justify-end">
-                <PrimaryButton
-                    :class="{ 'opacity-25': form.processing }"
-                    :disabled="form.processing">
-                    {{ i18n('Reset Password') }}
-                </PrimaryButton>
-            </div>
-        </form>
-    </GuestLayout>
-</template>

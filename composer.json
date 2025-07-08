@@ -1,9 +1,9 @@
 {
     "$schema": "https://getcomposer.org/schema.json",
-    "name": "tcytra/enraiged-breeze",
+    "name": "tcytra/enraiged-laravel",
     "type": "project",
-    "description": "Enraiged Breeze is a starter kit built on Laravel 12 with Breeze +VueJS install and additional auth config options.",
-    "keywords": ["enraiged", "laravel", "breeze", "inertiajs", "vuejs", "tailwindcss"],
+    "description": "Enraiged Laravel is a starter kit built on Laravel 12, Vite, VueJS, InertiaJS, Primevue, and TailwindCSS.",
+    "keywords": ["enraiged", "laravel", "breeze", "inertiajs", "vuejs", "tailwindcss", "primevue", "primeui"],
     "license": "MIT",
     "require": {
         "php": "^8.2",

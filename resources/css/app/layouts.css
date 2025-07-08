@@ -1,0 +1,39 @@
+
+.auth.layout,
+.guest.layout {
+  min-height:       100vh;
+  position:         relative;
+  width:            100vw;
+
+    > header {
+      background-color: var(--p-card-background);
+      height:           64px;
+      position:         fixed;
+      width:            100vw;
+      z-index:          99;
+    }
+
+    > main {
+      min-height:       calc(100vh - 64px);
+      position:         relative;
+      top:              64px;
+      width:            100vw;
+      z-index:          9;
+
+        >.container {
+          max-width:        100vw;
+          min-height:       calc(100vh - 64px);
+          width:            100vw;
+
+            &.card {
+              align-items:      center;
+              display:          flex;
+              justify-content:  center;
+
+                >.p-card {
+                  margin-bottom:    8rem;
+                }
+            }
+        }
+    }
+}

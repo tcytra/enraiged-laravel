@@ -1,5 +1,24 @@
 # Release Notes
 
+2025-07-08 : 0.4.0-beta.4 (prerelease)  
+Update: Begin rebuilding front-end with state handling and primevue
+
+- Added initial collection of ui/forms/fields components
+- Added initial collection of ui/{buttons,dialogs,links} components
+- Added initial enraiged/locales config
+- Added initial theming system with dark/light mode toggle
+- Added primvue, primeui{,-tailwindcss} to the nodejs packages
+- Added username rule to the user update request
+- Improved the guest state locale toggle
+- Moved the Inertia::share auth,meta,menu data to state handler system
+- Removed the 'user' wrapper in the HandleInertiaRequests::share response
+- Replaced all laravel-breeze form fields with enraiged (primevue) fields
+- Reworked all guest state auth forms with enraiged fields
+- Reworked all user profile forms with enraiged fields
+- Updated language files as necessary
+
+---
+
 2025-03-27 : 0.4.0-beta.3 (prerelease)  
 Update: Added login ip address tracking and new address notification
 
