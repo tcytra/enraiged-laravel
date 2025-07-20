@@ -60,7 +60,6 @@
 <script setup>
 import { Head as HtmlHead, Link as HtmlLink, useForm } from '@inertiajs/vue3';
 import { inject } from 'vue';
-import { trans as i18n } from 'laravel-vue-i18n';
 import CheckboxField from '@/components/forms/fields/CheckboxField.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import PasswordField from '@/components/forms/fields/PasswordField.vue';
@@ -97,13 +96,14 @@ const form = useForm({
     remember: false,
 });
 
-const reset = inject('reset');
+const { auth, state } = inject('app');
+const { i18n } = inject('intl');
 
 const submit = () => {
     form.post(route('login'), {
         onFinish: () => {
             form.reset('password');
-            reset();
+            state();
         },
     });
 };

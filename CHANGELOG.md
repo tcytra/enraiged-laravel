@@ -1,5 +1,16 @@
 # Release Notes
 
+2025-07-20 : 0.4.0-beta.5 (prerelease)  
+Update: Completed initial theme handling; Other minor changes
+
+- Added custom primary,surface palette selection in Auth,Guest states
+- Added means of providing available locales from the backend state
+- Added primevue locale handling for internal component translations
+- Reorganized the js/themes system for easier management
+- Split the auth state provides into distinct objects
+
+---
+
 2025-07-08 : 0.4.0-beta.4 (prerelease)  
 Update: Begin rebuilding front-end with state handling and primevue
 

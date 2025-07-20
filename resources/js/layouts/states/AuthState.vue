@@ -2,7 +2,7 @@
     <div id="layout" class="auth layout">
         <header class="border-b">
             <!-- Primary Navigation Menu -->
-            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="mx-auto max-w-7xl">
                 <div class="flex h-16 justify-between">
                     <div class="flex">
                         <!-- Logo -->
@@ -24,7 +24,10 @@
 
                     <div class="hidden sm:ms-6 sm:flex sm:items-center">
                         <!-- Toggle Dark Mode -->
-                        <toggle-dark-mode class="mx-5" />
+                        <toggle-dark-mode class="mr-3" />
+
+                        <!-- Toggle Dark Mode -->
+                        <toggle-palette class="mr-3" />
 
                         <!-- Settings Dropdown -->
                         <div class="relative ms-3">
@@ -153,21 +156,23 @@
 <script setup>
 import { Link } from '@inertiajs/vue3';
 import { inject, ref } from 'vue';
-import { trans as i18n } from 'laravel-vue-i18n';
 import ApplicationLogo from '@/components/ui/ApplicationLogo.vue';
-//import Dropdown from '@/components/forms/originalfields/Dropdown.vue';
 import DropdownLink from '@/components/ui/links/DropdownLink.vue';
 import NavLink from '@/components/ui/links/NavLink.vue';
 import PrimevuePopover from 'primevue/popover';
 import ResponsiveNavLink from '@/components/ui/links/ResponsiveNavLink.vue';
 import SecondaryButton from '@/components/ui/buttons/SecondaryButton.vue';
 import ToggleDarkMode from '@/components/ui/ToggleDarkMode.vue';
+import TogglePalette from '@/components/ui/TogglePalette.vue';
 
-const auth = inject('auth').value;
-const meta = inject('meta').value;
+const { auth, meta } = inject('app');
+const { i18n } = inject('intl');
+
 const op = ref();
+
 const toggle = (event) => {
     op.value.toggle(event);
 };
+
 const showingNavigationDropdown = ref(false);
 </script>

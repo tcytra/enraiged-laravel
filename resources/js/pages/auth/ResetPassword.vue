@@ -43,7 +43,6 @@
 
 <script setup>
 import { Head as HtmlHead, useForm } from '@inertiajs/vue3';
-import { trans as i18n, getActiveLanguage } from 'laravel-vue-i18n';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import PasswordField from '@/components/forms/fields/PasswordField.vue';
 import PrimaryButton from '@/components/ui/buttons/PrimaryButton.vue';

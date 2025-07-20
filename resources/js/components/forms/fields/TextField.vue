@@ -36,7 +36,6 @@
 
 <script setup>
 import { onMounted, useTemplateRef } from 'vue';
-import { trans as i18n } from 'laravel-vue-i18n';
 import FormField from './renderless/FormField.vue';
 import PrimevueInputtext from 'primevue/inputtext';
 

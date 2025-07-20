@@ -41,7 +41,7 @@
 
 <script setup>
 import { Head as HtmlHead } from '@inertiajs/vue3';
-import { trans as i18n } from 'laravel-vue-i18n';
+import { inject } from 'vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import ProfileCard from '@/components/users/cards/ProfileCard.vue';
 import UpdateInformationForm from '@/components/users/forms/UpdateInformationForm.vue';
@@ -82,4 +82,6 @@ const props = defineProps({
         default: null,
     },
 });
+
+const { i18n } = inject('intl');
 </script>

@@ -1,0 +1,26 @@
+
+.layout {
+    > header {
+      background-color: var(--p-surface-200);
+    }
+    > main {
+      background-color: var(--p-surface-50);
+    }
+    .p-editor .p-editor-content .ql-editor {
+      background-color: var(--p-surface-0)
+    }
+}
+
+.dark-mode {
+    .layout {
+        > header {
+          background-color: var(--p-surface-950);
+        }
+        > main {
+          background-color: var(--p-surface-950);
+        }
+        .p-editor .p-editor-content .ql-editor {
+          background-color: var(--p-surface-950)
+        }
+    }
+}

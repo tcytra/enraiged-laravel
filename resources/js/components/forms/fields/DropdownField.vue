@@ -127,7 +127,6 @@
 
 <script setup>
 import { computed, onMounted, reactive, ref, useTemplateRef, watch } from 'vue';
-import { trans as i18n } from 'laravel-vue-i18n';
 import FormField from './renderless/FormField.vue';
 import PrimevueMultiselect from 'primevue/multiselect';
 import PrimevueSelect from 'primevue/select';

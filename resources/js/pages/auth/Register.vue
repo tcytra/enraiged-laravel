@@ -73,7 +73,7 @@
 
 <script setup>
 import { Head as HtmlHead, Link as HtmlLink, useForm } from '@inertiajs/vue3';
-import { trans as i18n, getActiveLanguage } from 'laravel-vue-i18n';
+import { inject } from 'vue';
 import CheckboxField from '@/components/forms/fields/CheckboxField.vue';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import PasswordField from '@/components/forms/fields/PasswordField.vue';
@@ -97,6 +97,8 @@ defineProps({
     },
 });
 
+const { i18n, lang } = inject('intl');
+
 const form = useForm({
     name: null,
     email: null,
@@ -109,7 +111,7 @@ const form = useForm({
 const submit = () => {
     form.transform((data) => ({
             ...data,
-            locale: getActiveLanguage(),
+            locale: lang(),
         }))
         .post(route('register'), {
             onFinish: () => form.reset('password', 'password_confirmation'),

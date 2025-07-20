@@ -52,7 +52,7 @@
 <script setup>
 import { Link as HtmlLink, useForm } from '@inertiajs/vue3';
 import { inject } from 'vue';
-import { trans as i18n, loadLanguageAsync as ai18n,  } from 'laravel-vue-i18n';
+import { loadLanguageAsync as ai18n } from 'laravel-vue-i18n';
 import PasswordField from '@/components/forms/fields/PasswordField.vue';
 import PrimaryButton from '@/components/ui/buttons/PrimaryButton.vue';
 import SecondaryButton from '@/components/ui/buttons/SecondaryButton.vue';
@@ -63,7 +63,8 @@ defineProps({
     },
 });
 
-const auth = inject('auth').value;
+const { auth } = inject('app');
+const { i18n } = inject('intl');
 
 const form = useForm({
     current_password: null,

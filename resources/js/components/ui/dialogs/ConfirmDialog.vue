@@ -29,7 +29,6 @@
 
 <script setup>
 import { ref } from 'vue';
-import { trans as i18n } from 'laravel-vue-i18n';
 import { useConfirm } from "primevue/useconfirm";
 import PrimaryButton from '@/components/ui/buttons/PrimaryButton.vue';
 import OutlinedButton from '@/components/ui/buttons/OutlinedButton.vue';

@@ -6,7 +6,6 @@
   width:            100vw;
 
     > header {
-      background-color: var(--p-card-background);
       height:           64px;
       position:         fixed;
       width:            100vw;

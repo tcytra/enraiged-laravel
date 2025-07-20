@@ -1,6 +1,6 @@
 <script>
 import { computed } from 'vue';
-import { trans as i18n } from 'laravel-vue-i18n';
+import { trans, getActiveLanguage, loadLanguageAsync } from 'laravel-vue-i18n';
 
 export default {
     data: () => ({
@@ -9,28 +9,36 @@ export default {
         meta: null,
         ready: false,
     }),
-    async created() {
-        const ready = await this.fetchState();
+    // async created() {
+    //     await this.fetchState();
+    // },
+    created() {
+        this.fetchState();
     },
     methods: {
-        fetchState() {
-            axios.get(route('app.state'))
+        async fetchState() {
+            await axios.get(route('app.state'))
                 .then((response) => {
                     const { data } = response;
                     this.auth = data.auth;
                     this.menu = data.menu;
                     this.meta = data.meta;
                     this.ready = true;
-                    return true;
                 });
         },
     },
     provide() {
         return {
-            auth: computed(() => this.auth),
-            i18n: computed(() => this.i18n),
-            meta: computed(() => this.meta),
-            reset: this.fetchState,
+            app: {
+                auth: computed(() => this.auth),
+                meta: computed(() => this.meta),
+                state: this.fetchState,
+            },
+            intl: {
+                ai18n: loadLanguageAsync,
+                i18n: trans,
+                lang: getActiveLanguage,
+            },
         };
     },
     render() {

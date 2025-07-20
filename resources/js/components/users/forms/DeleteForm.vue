@@ -51,7 +51,6 @@
 <script setup>
 import { Link as HtmlLink, useForm } from '@inertiajs/vue3';
 import { inject, ref } from 'vue';
-import { trans as i18n } from 'laravel-vue-i18n';
 import ConfirmDialog from '@/components/ui/dialogs/ConfirmDialog.vue';
 import DangerButton from '@/components/ui/buttons/DangerButton.vue';
 import PasswordField from '@/components/forms/fields/PasswordField.vue';
@@ -64,7 +63,8 @@ defineProps({
     },
 });
 
-const auth = inject('auth').value;
+const { auth } = inject('app');
+const { i18n } = inject('intl');
 const confirm = ref('confirm');
 
 const form = useForm({
