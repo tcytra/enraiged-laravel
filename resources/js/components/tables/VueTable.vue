@@ -50,7 +50,7 @@
                                 @click="exporter()"/>
                         </div>
                     </div>
-                    <div class="table-multiple width-160 ml-2" v-if="isSelectable">
+                    <div class="table-multiple width-160 ml-2" v-if="hasBatchActions">
                         <div class="p-inputgroup">
                             <primevue-dropdown class="w-full" optionLabel="name" v-model="selected"
                                 :disabled="!selection.length"
@@ -294,13 +294,15 @@ export default {
                 ? (this.pagination.page * this.pagination.rows) - this.pagination.rows
                 : 0;
         },
+        hasBatchActions() {
+            return this.batchActionOptions.length > 0;
+        },
         isExportable() {
             return typeof this.template.exportable !== 'undefined'
                 && this.template.exportable !== null;
         },
         isSelectable() {
-            return (this.selectable || this.template.selectable)
-                && Object.keys(this.batchActions).length;
+            return (this.selectable || this.template.selectable);;
         },
         rowActions() {
             return this.actions('row');
@@ -617,6 +619,9 @@ export default {
                 filters: this.filters,
                 ...this.pagination,
                 search: this.search,
+                selection: this.isSelectable && this.selection.length
+                    ? this.selection.map((row) => row.id)
+                    : null,
             };
         },
 
