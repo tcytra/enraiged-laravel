@@ -134,10 +134,11 @@ export default {
 
         setMeta(meta) {
             this.meta = meta;
+            this.setTheme(meta.app_theme);
         },
 
         setTheme(theme) {
-            if (theme) {
+            if (typeof theme !== 'undefined') {
                 this.$primevue.changeTheme(this.currentTheme(), theme, 'theme-color', () => {});
             }
         },
