@@ -49,10 +49,6 @@ class UserResource extends JsonResource
             $resource['role'] = $this->role();
         }
 
-        if ($request->session()->has('impersonate')) {
-            $resource['is_impersonating'] = true;
-        }
-
         if ($this->with_severity) {
             $resource['__'] = $this->modelDeletedBackground() ?? $this->modelInactiveBackground();
         }
