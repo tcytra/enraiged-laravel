@@ -5,6 +5,7 @@ import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { i18nVue } from "laravel-vue-i18n";
+import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 import ConfirmationService from 'primevue/confirmationservice';
 import ToastService from 'primevue/toastservice';
 import PrimeVue from 'primevue/config';
@@ -27,6 +28,7 @@ createInertiaApp({
             .use(PrimeVue, { inputStyle: 'filled', ripple: true })
             .use(ConfirmationService)
             .use(ToastService)
+            .use(ZiggyVue)
             .mount(el);
     },
 });

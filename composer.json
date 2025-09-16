@@ -16,7 +16,8 @@
         "maatwebsite/excel": "^3.1",
         "nesbot/carbon": "^2.73",
         "phpoffice/phpspreadsheet": "^1.30",
-        "spatie/laravel-image-optimizer": "^1.8"
+        "spatie/laravel-image-optimizer": "^1.8",
+        "tightenco/ziggy": "^2.5"
     },
     "require-dev": {
         "fakerphp/faker": "^1.24",
