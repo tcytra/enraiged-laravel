@@ -10,6 +10,7 @@
         "inertiajs/inertia-laravel": "^2.0",
         "intervention/image": "^3.11",
         "laravel/framework": "^10.48",
+        "laravel/horizon": "^5.34",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.10",
         "league/commonmark": "^2.7",

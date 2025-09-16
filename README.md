@@ -2,10 +2,11 @@
 
 **[Laravel 10](https://laravel.com/docs/10.x/releases)
  • [Vue v3.5](https://vuejs.org/guide/introduction.html)
- • [Inertia.js v1.3](https://inertiajs.com/)
- • [PrimeVUE v3.53](https://primevue.org/installation/)
+ • [Inertia.js v2.0](https://inertiajs.com/)
+ • [PrimeVUE v3.53](https://v3.primevue.org/setup/)
  • [PrimeFlex v3.3](https://primeflex.org/installation)
- • [PrimeIcons v6.0](https://primevue.org/icons/#list)**
+ • [PrimeIcons v6.0](https://v3.primevue.org/icons/)**
+ • [Ziggy v2.5](https://github.com/tighten/ziggy#readme)
 
 
 ## Table of Contents
@@ -130,6 +131,24 @@ php artisan inertia:stop-ssr
 
 
 ## Usage
+
+### Laravel Horizon
+
+The option exists for the developer to use Laravel Horizon for various queued tasks such as sending notifications and
+exporting table data.
+
+The documenation for Laravel Horizon includes running the following command to publish the assets
+to the project filesystem (These assets already exist in the default Enraiged Laravel project files):
+
+```bash
+php artisan horizon:install
+```
+
+It remains for the developer to tailor the horizon setup for their project, which include setting up the supervisors in
+the config file, setting up the driver database, and installing the supervisor daemon on the host.
+
+Please refer to the [Laravel Horizon documentation](https://laravel.com/docs/10.x/horizon) for more information.
+
 
 ### Seed Data
 
