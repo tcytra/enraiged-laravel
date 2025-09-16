@@ -37,13 +37,13 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Password Lowercase Characater Requirement
+    | Password Lowercase Character Requirement
     |--------------------------------------------------------------------------
     |
     | This will enforce a minimum number of lowercase characters for user
     | passwords.
     | 
-    | The default value is 6.
+    | The default value is 0 (off).
     |
     */
 
@@ -51,7 +51,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Password Numeric Characater Requirement
+    | Password Numeric Character Requirement
     |--------------------------------------------------------------------------
     |
     | This will enforce a minimum number of numeric characters for user
@@ -65,7 +65,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Password Special Characater Requirement
+    | Password Special Character Requirement
     |--------------------------------------------------------------------------
     |
     | This will enforce a minimum number of special (non-alphanumerical)
@@ -79,7 +79,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Password Uppercase Characater Requirement
+    | Password Uppercase Character Requirement
     |--------------------------------------------------------------------------
     |
     | This will enforce a minimum number of lowercase characters for user
