@@ -96,7 +96,11 @@ trait Exportable
      */
     public function exporter()
     {
-        return $this->exporter::from($this);
+        if (gettype($this->exporter === 'string')) {
+            $this->exporter = $this->exporter::from($this);
+        }
+
+        return $this->exporter;
     }
 
     /**
@@ -122,7 +126,7 @@ trait Exportable
     {
         $exporter = $this->exporter;
 
-        return $exporter
+        return gettype($exporter) === 'object' && !$this->isAutoDownload()
             && $exporter instanceof ShouldQueue
             && config('queue.default') !== 'sync';
     }

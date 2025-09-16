@@ -37,11 +37,24 @@ class AppStateBuilder
         ];
 
         $this->state = [
-            'auth' => Auth::check() ? UserResource::from($request->user()) : null,
+            'auth' => Auth::check() ? $this->user($request) : null,
             'menu' => (new MenuBuilder)->handle($request, $menu_parameters)->get(),
             'meta' => (new MetaBuilder)->handle($request)->get(),
         ];
 
         return $this;
+    }
+
+    /**
+     *  
+     *
+     *  @param  \Illuminate\Http\Request  $request
+     *  @return array
+     */
+    public function user(Request $request)
+    {
+        return collect(UserResource::from($request->user())->toArray($request))
+            ->merge(['is_impersonating' => $request->session()->has('impersonate')])
+            ->toArray();
     }
 }

@@ -2,6 +2,10 @@
 
 return [
 
+    'export_completed' => [
+        'channels' => ['mail'],
+    ],
+
     'internet_address_login' => [
         'channels' => ['mail'],
     ],

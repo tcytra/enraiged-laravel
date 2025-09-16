@@ -56,7 +56,9 @@ class TableBuilder
      */
     public function export()
     {
-        return $this->exporter()->process();
+        $exporter = $this->exporter();
+
+        return $exporter->process();
     }
 
     /**

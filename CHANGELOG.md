@@ -9,6 +9,18 @@ made internationalisation ready.
 > The 0.4.x branch is still early in the development process and not ready for a replacement of the 0.3.x system.
 
 
+2025-08-29 : 0.3.19  
+Update: Updated composer,nodejs packages; Corrected enraiged exporting
+
+- Added laravel/horizon to the framework for notifications,exports
+- Added tightenco/ziggy to the framework for client-side laravel routes
+- Corrected issue when choosing app theme from profile
+- Corrected issues when exporting data tables via queue
+- Improved VueTable handling of selectable rows; Export selected rows
+- Upgraded composer,nodejs packages to best applicable version
+
+---
+
 2025-06-21 : 0.3.18  
 Update: Updated various vendor packages; Improvement to VueTable
 

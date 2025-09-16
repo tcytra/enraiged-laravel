@@ -103,6 +103,7 @@
     "The :attribute must contain at least one number.": "The :attribute must contain at least one number.",
     "The :attribute must contain at least one symbol.": "The :attribute must contain at least one symbol.",
     "The :attribute must contain at least one uppercase and one lowercase letter.": "The :attribute must contain at least one uppercase and one lowercase letter.",
+    "The file is available for download from your Files page.": "The file is available for download from your Files page.",
     "The given :attribute has appeared in a data leak. Please choose a different :attribute.": "The given :attribute has appeared in a data leak. Please choose a different :attribute.",
     "There are no users to display": "There are no users to display",
     "These are your default profile details.": "These are your default profile details.",
@@ -139,5 +140,6 @@
     "You are viewing this user profile as an administrator.": "You are viewing this user profile as an administrator.",
     "You do not have any files.": "You do not have any files.",
     "Your account details have been successfully registered!": "Your account details have been successfully registered!",
+    "Your requested export has completed processing.": "Your requested export has completed processing.",
     "password": "password"
 }

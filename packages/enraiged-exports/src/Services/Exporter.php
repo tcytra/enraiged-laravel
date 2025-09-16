@@ -4,6 +4,7 @@ namespace Enraiged\Exports\Services;
 
 use Enraiged\Exports\Jobs\AttachFileToExport;
 use Enraiged\Exports\Jobs\AppendColumnSums;
+use Enraiged\Exports\Jobs\ExportComplete;
 use Enraiged\Exports\Models\Export;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\App;
@@ -14,8 +15,6 @@ use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Excel;
-
-//use Enraiged\Exports\Notifications\ExportDone; // todo
 
 class Exporter implements FromQuery, ShouldAutoSize, WithColumnFormatting, WithHeadings, WithMapping
 {
@@ -122,7 +121,7 @@ class Exporter implements FromQuery, ShouldAutoSize, WithColumnFormatting, WithH
                 ->chain([
                     new AttachFileToExport($this->export, $exportable),
                     new AppendColumnSums($this->export, $this->columnSums(), $this->writer()),
-                    //new ExportDone($this->export),
+                    new ExportComplete($this->export),
                 ]);
 
         } else {
@@ -132,7 +131,9 @@ class Exporter implements FromQuery, ShouldAutoSize, WithColumnFormatting, WithH
 
             (new AppendColumnSums($this->export, $this->columnSums(), $this->writer()))->handle();
 
-            //(new ExportDone($this->export))->handle();
+            if (!$this->table->isAutoDownload()) {
+                (new ExportComplete($this->export))->handle();
+            }
         }
 
         return $this->export;

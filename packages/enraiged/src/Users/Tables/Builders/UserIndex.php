@@ -17,7 +17,7 @@ class UserIndex extends TableBuilder implements ProvidesDefaultSort, ProvidesTab
 {
     use AssertIsDeleted, AssertIsNotDeleted;
 
-    /** @var  string  The exporter service. */
+    /** @var  string|object  The exporter service. */
     protected $exporter = IndexExporter::class;
 
     /** @var  string  The data model. */
