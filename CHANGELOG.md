@@ -9,6 +9,14 @@ made internationalisation ready.
 > The 0.4.x branch is still early in the development process and not ready for a replacement of the 0.3.x system.
 
 
+2025-08-29 : 0.3.19.1  
+Secure: Updated vite package to correct vulnerabilities
+
+- Correction in the AppendColumnSums export class
+- Upgraded vite from v7.1.3 to v7.1.5
+
+---
+
 2025-08-29 : 0.3.19  
 Update: Updated composer,nodejs packages; Corrected enraiged exporting
 
