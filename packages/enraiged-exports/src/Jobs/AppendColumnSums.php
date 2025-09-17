@@ -26,10 +26,11 @@ class AppendColumnSums implements ShouldQueue
      *  Create an instance of this job.
      *
      *  @param  \Enraiged\Exports\Models\Export  $export
-     *  @param  array  $columns
+     *  @param  array   $columns
+     *  @param  string  $writer
      *  @return void
      */
-    public function __construct(Export $export, array $columns, string $writer)
+    public function __construct(Export $export, array $columns, string $writer = 'Xlsx')
     {
         $this->columns = $columns;
         $this->export = $export;
