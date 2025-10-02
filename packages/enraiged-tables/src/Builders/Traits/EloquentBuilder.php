@@ -47,15 +47,16 @@ trait EloquentBuilder
     /**
      *  Apply the filtering to the query builder, if provided.
      *
+     *  @param  array  
      *  @return self
      */
-    public function filter()
+    public function filter(?array $filters = null)
     {
-        if ($this->request()->has('filters')) {
-            $filters = (array) $this->request()->get('filters');
+        if ($filters || $this->request()->has('filters')) {
+            $filters = (array) $filters ?: $this->request()->get('filters');
 
             foreach ($this->filters as $index => $filter) {
-                if (!$this->assertSecure($filter)) {
+                if (!$this->isQueued() && !$this->assertSecure($filter)) {
                     continue;
                 }
 

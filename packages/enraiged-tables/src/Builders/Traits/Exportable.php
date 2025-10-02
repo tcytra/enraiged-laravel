@@ -130,4 +130,14 @@ trait Exportable
             && $exporter instanceof ShouldQueue
             && config('queue.default') !== 'sync';
     }
+
+    /**
+     *  Determine if the current process is running from within the queue.
+     *
+     *  @return bool
+     */
+    private function isQueued(): bool
+    {
+        return app()->resolved(\Illuminate\Queue\CallQueuedHandler::class) == 1;
+    }
 }

@@ -20,6 +20,9 @@ class Exporter implements FromQuery, ShouldAutoSize, WithColumnFormatting, WithH
 {
     use Exportable;
 
+    /** @var  array  The requested data filters. */
+    protected $filters;
+
     /** @var  object  The table template builder. */
     protected $table;
 
@@ -32,6 +35,7 @@ class Exporter implements FromQuery, ShouldAutoSize, WithColumnFormatting, WithH
     public function __construct($table)
     {
         $this->table = $table;
+        $this->filters = $table->request()->get('filters');
     }
 
     /**
@@ -97,6 +101,25 @@ class Exporter implements FromQuery, ShouldAutoSize, WithColumnFormatting, WithH
     }
 
     /**
+     *  Map the model to the export row.
+     *
+     *  @param  \Illuminate\Database\Eloquent\Model  $model
+     *  @return array
+     */
+    public function map($model): array
+    {
+        $data = (object) $this->table
+            ->resource($model)
+            ->toArray(request());
+
+        return collect($this->table->exportableColumns())
+            ->keys()
+            ->transform(fn ($key) => [$key => $data->{$key}])
+            ->flatten()
+            ->toArray();
+    }
+
+    /**
      *  Execute the export process.
      *
      *  @return \Enraiged\Exports\Models\Export
@@ -140,25 +163,6 @@ class Exporter implements FromQuery, ShouldAutoSize, WithColumnFormatting, WithH
     }
 
     /**
-     *  Map the model to the export row.
-     *
-     *  @param  \Illuminate\Database\Eloquent\Model  $model
-     *  @return array
-     */
-    public function map($model): array
-    {
-        $data = (object) $this->table
-            ->resource($model)
-            ->toArray(request());
-
-        return collect($this->table->exportableColumns())
-            ->keys()
-            ->transform(fn ($key) => [$key => $data->{$key}])
-            ->flatten()
-            ->toArray();
-    }
-
-    /**
      *  Return the exportable query.
      *
      *  @return Builder|EloquentBuilder|Relation
@@ -174,7 +178,7 @@ class Exporter implements FromQuery, ShouldAutoSize, WithColumnFormatting, WithH
         (object) $table
             ->builder($query)
             ->sort()
-            ->filter()
+            ->filter($this->filters)
             ->search();
 
         return $this instanceof ShouldQueue
