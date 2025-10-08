@@ -9,7 +9,15 @@ made internationalisation ready.
 > The 0.4.x branch is still early in the development process and not ready for a replacement of the 0.3.x system.
 
 
-2025-08-29 : 0.3.19.1  
+2025-10-08 : 0.3.19.2  
+Patch: Corrections to enraiged-tables search, enraiged-export filters
+
+- Correct improper filter sanitizing in the enraiged-tables search
+- Correct incomplete application of queued exports custom filters
+
+---
+
+2025-09-17 : 0.3.19.1  
 Secure: Updated vite package to correct vulnerabilities
 
 - Correction in the AppendColumnSums export class
