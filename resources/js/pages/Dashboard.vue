@@ -1,25 +1,3 @@
-<script setup>
-import { Head as HtmlHead } from '@inertiajs/vue3';
-import { inject } from 'vue';
-import DefaultLayout from '@/layouts/DefaultLayout.vue';
-import PrimevueCard from 'primevue/card';
-
-defineOptions({
-    layout: DefaultLayout,
-});
-
-defineProps({
-    appName: {
-        type: String,
-    },
-    status: {
-        type: String,
-    },
-});
-
-const { i18n } = inject('intl');
-</script>
-
 <template>
     <div class="container page">
         <html-head :title="i18n('Dashboard')" />
@@ -45,3 +23,20 @@ const { i18n } = inject('intl');
         </primevue-card>
     </div>
 </template>
+
+<script setup>
+import { Head as HtmlHead } from '@inertiajs/vue3';
+import { inject } from 'vue';
+import PrimevueCard from 'primevue/card';
+
+defineProps({
+    appName: {
+        type: String,
+    },
+    status: {
+        type: String,
+    },
+});
+
+const { i18n } = inject('intl');
+</script>

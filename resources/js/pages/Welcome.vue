@@ -249,6 +249,10 @@
 <script setup>
 import { Head as HtmlHead, Link as HtmlLink } from '@inertiajs/vue3';
 
+defineOptions({
+    layout: null,
+});
+
 defineProps({
     allowLogin: {
         type: Boolean,

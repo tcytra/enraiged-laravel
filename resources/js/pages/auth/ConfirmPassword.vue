@@ -38,14 +38,9 @@
 <script setup>
 import { Head as HtmlHead, useForm } from '@inertiajs/vue3';
 import { inject } from 'vue';
-import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import PasswordField from '@/components/forms/fields/PasswordField.vue';
 import PrimaryButton from '@/components/ui/buttons/PrimaryButton.vue';
 import PrimevueCard from 'primevue/card';
-
-defineOptions({
-    layout: DefaultLayout,
-});
 
 const { i18n } = inject('intl');
 

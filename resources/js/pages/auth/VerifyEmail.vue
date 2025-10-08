@@ -38,13 +38,8 @@
 <script setup>
 import { Head as HtmlHead, Link as HtmlLink, useForm } from '@inertiajs/vue3';
 import { computed, inject } from 'vue';
-import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import PrimaryButton from '@/components/ui/buttons/PrimaryButton.vue';
 import PrimevueCard from 'primevue/card';
-
-defineOptions({
-    layout: DefaultLayout,
-});
 
 const props = defineProps({
     status: {

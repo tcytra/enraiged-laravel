@@ -7,6 +7,7 @@ import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { i18nVue } from "laravel-vue-i18n";
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 import ConfirmationService from 'primevue/confirmationservice';
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import PrimeVue from 'primevue/config';
 import ToastService from 'primevue/toastservice';
 import Tooltip from 'primevue/tooltip';
@@ -16,11 +17,16 @@ const appName = import.meta.env.VITE_APP_NAME || 'Enraiged Laravel';
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
-    resolve: (name) =>
-        resolvePageComponent(
+    resolve: async (name) => {
+        const page = await resolvePageComponent(
             `./pages/${name}.vue`,
             import.meta.glob('./pages/**/*.vue'),
-        ),
+        );
+        page.default.layout = typeof page.default.layout !== 'undefined'
+            ? page.default.layout
+            : DefaultLayout;
+        return page;
+    },
     setup({ el, App, props, plugin }) {
         return createApp({ render: () => h(App, props) })
             .directive('tooltip', Tooltip)

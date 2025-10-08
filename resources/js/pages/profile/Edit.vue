@@ -42,14 +42,14 @@
 <script setup>
 import { Head as HtmlHead } from '@inertiajs/vue3';
 import { inject } from 'vue';
-import DefaultLayout from '@/layouts/DefaultLayout.vue';
+import BreezeLayout from '@/layouts/BreezeLayout.vue';
 import ProfileCard from '@/components/users/cards/ProfileCard.vue';
 import UpdateInformationForm from '@/components/users/forms/UpdateInformationForm.vue';
 import UpdatePasswordForm from '@/components/users/forms/UpdatePasswordForm.vue';
 import DeleteForm from '@/components/users/forms/DeleteForm.vue';
 
 defineOptions({
-    layout: DefaultLayout,
+    layout: BreezeLayout,
 });
 
 const props = defineProps({

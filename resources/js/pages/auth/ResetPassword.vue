@@ -43,15 +43,10 @@
 
 <script setup>
 import { Head as HtmlHead, useForm } from '@inertiajs/vue3';
-import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import PasswordField from '@/components/forms/fields/PasswordField.vue';
 import PrimaryButton from '@/components/ui/buttons/PrimaryButton.vue';
 import PrimevueCard from 'primevue/card';
 import TextField from '@/components/forms/fields/TextField.vue';
-
-defineOptions({
-    layout: DefaultLayout,
-});
 
 const props = defineProps({
     email: {

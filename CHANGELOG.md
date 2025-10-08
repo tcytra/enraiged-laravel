@@ -1,5 +1,12 @@
 # Release Notes
 
+2025-07-20 : 0.4.0-beta.6 (prerelease)  
+Update: 
+
+- Set the DefaultTemplate in the app.js
+
+---
+
 2025-07-20 : 0.4.0-beta.5 (prerelease)  
 Update: Completed initial theme handling; Other minor changes
 
