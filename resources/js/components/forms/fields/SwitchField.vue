@@ -25,7 +25,7 @@
                 </primevue-switch>
             </slot>
             <div class="placeholder p-placeholder" v-if="field.placeholder && !field.error">
-                {{ i18n(field.placeholder) }}
+                {{ field.placeholder }}
             </div>
             <div class="error" v-if="field.error"
                 :class="{'mx-2': !checkboxFirst}">

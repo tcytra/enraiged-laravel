@@ -126,11 +126,12 @@
 </template>
 
 <script setup>
-import { computed, onMounted, reactive, ref, useTemplateRef, watch } from 'vue';
+import { computed, inject, onMounted, reactive, ref, useTemplateRef, watch } from 'vue';
 import FormField from './renderless/FormField.vue';
 import PrimevueMultiselect from 'primevue/multiselect';
 import PrimevueSelect from 'primevue/select';
 
+const { i18n } = inject('intl');
 const emit = defineEmits(['options:fetched', 'update:modelValue']);
 const input = useTemplateRef('input');
 const options = reactive([]);
