@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('username')->nullable();
             $table->rememberToken();
+            $table->string('theme')->default(json_encode(config('enraiged.theme')));
             $table->trackAll();
         });
 
