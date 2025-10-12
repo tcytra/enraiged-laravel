@@ -2,35 +2,38 @@
     <div class="card container">
         <html-head :title="i18n('Confirm Password')" />
 
-        <primevue-card class="md:w-md w-sm">
-            <template #header>
-                <h1 class="text-lg">{{ i18n('Confirm Password') }}</h1>
-            </template>
-            <template #content>
-                <div class="mb-4 text-sm text-gray-600">
-                    {{ i18n('This is a secure area of the application. '
-                        + 'Please confirm your password before continuing.') }}
-                </div>
-
-                <form class="form" @submit.prevent="submit">
-                    <password-field autocomplete="new-password" id="password" umask
-                        :field="{
-                            label: 'Password',
-                            placeholder: 'Required',
-                        }"
-                        :form="form" />
-
-                    <div class="mt-4 flex flex-row-reverse items-center justify-start">
-                        <primary-button class="ms-4"
-                            :class="{ 'opacity-25': form.processing }"
-                            :disabled="form.processing"
-                            @click="submit()">
-                            {{ i18n('Confirm') }}
-                        </primary-button>
+        <div id="teleport" class="flex-centered">
+            <div class="mask"></div>
+            <primevue-card class="md:w-md w-sm">
+                <template #header>
+                    <h1 class="text-lg">{{ i18n('Confirm Password') }}</h1>
+                </template>
+                <template #content>
+                    <div class="mb-4 text-sm text-neutral">
+                        {{ i18n('This is a secure area of the application. '
+                            + 'Please confirm your password before continuing.') }}
                     </div>
-                </form>
-            </template>
-        </primevue-card>
+
+                    <form class="form" @submit.prevent="submit">
+                        <password-field autocomplete="new-password" id="password" umask
+                            :field="{
+                                label: 'Password',
+                                placeholder: 'Required',
+                            }"
+                            :form="form" />
+
+                        <div class="mt-4 flex flex-row-reverse items-center justify-start">
+                            <primary-button class="ms-4"
+                                :class="{ 'opacity-25': form.processing }"
+                                :disabled="form.processing"
+                                @click="submit()">
+                                {{ i18n('Confirm') }}
+                            </primary-button>
+                        </div>
+                    </form>
+                </template>
+            </primevue-card>
+        </div>
 
     </div>
 </template>
