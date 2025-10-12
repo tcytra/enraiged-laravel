@@ -91,7 +91,7 @@ const form = useForm({
     remember: false,
 });
 
-const { auth, state } = inject('app');
+const { state } = inject('app');
 const { i18n } = inject('intl');
 
 const submit = () => {

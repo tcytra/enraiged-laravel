@@ -92,6 +92,7 @@ defineProps({
     },
 });
 
+const { state } = inject('app');
 const { i18n, lang } = inject('intl');
 
 const form = useForm({
@@ -109,7 +110,10 @@ const submit = () => {
             locale: lang(),
         }))
         .post(route('register'), {
-            onFinish: () => form.reset('password', 'password_confirmation'),
+            onFinish: () => {
+                form.reset('password', 'password_confirmation');
+                state();
+            },
         });
 };
 </script>
