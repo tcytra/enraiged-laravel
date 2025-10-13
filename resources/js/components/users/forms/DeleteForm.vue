@@ -1,9 +1,9 @@
 <template>
     <header>
-        <h2 class="text-lg font-medium text-gray-900">
+        <h2 class="text-lg font-medium text-strong">
             {{ i18n('Delete Account') }}
         </h2>
-        <p class="mt-1 text-sm text-gray-600">
+        <p class="mt-1 text-sm text-neutral">
             <span class="font-bold">
                 {{ i18n('Warning!') }}
             </span> <span class="font-normal">
@@ -19,11 +19,11 @@
 
     <confirm-dialog ref="confirm" @accepted="submit">
         <template #container="{ message, acceptCallback, rejectCallback }">
-            <div class="flex flex-col items-center p-8 bg-surface-0 dark:bg-surface-900 rounded">
-                <span class="font-bold text-2xl block mb-2 mt-6">
+            <div class="container flex flex-col items-center p-8 rounded">
+                <span class="header font-bold text-2xl block mb-2 mt-6">
                     {{ i18n('Please Confirm') }}
                 </span>
-                <p class="mb-0">
+                <p class="message mb-0">
                     {{ i18n('Are you sure you want to delete your account?') }}
                 </p>
                 <form class="form my-6 w-full" @submit.prevent="submit">
@@ -35,11 +35,11 @@
                         }"
                         :form="form" />
                 </form>
-                <div class="flex items-center gap-2 mt-6">
+                <div class="actions flex items-center gap-2 mt-6">
                     <primary-button class="w-32"
                         :label="i18n('Yes')"
                         @click="submit" />
-                    <outlined-button  class="w-32"
+                    <secondary-button class="w-32"
                         :label="i18n('No')"
                         @click="rejectCallback" />
                 </div>
@@ -55,7 +55,7 @@ import ConfirmDialog from '@/components/ui/dialogs/ConfirmDialog.vue';
 import DangerButton from '@/components/ui/buttons/DangerButton.vue';
 import PasswordField from '@/components/forms/fields/PasswordField.vue';
 import PrimaryButton from '@/components/ui/buttons/PrimaryButton.vue';
-import OutlinedButton from '@/components/ui/buttons/OutlinedButton.vue';
+import SecondaryButton from '@/components/ui/buttons/SecondaryButton.vue';
 
 defineProps({
     status: {
@@ -66,14 +66,13 @@ defineProps({
 const { auth } = inject('app');
 const { i18n } = inject('intl');
 const confirm = ref('confirm');
+const user = auth.value;
 
 const form = useForm({
     password: null,
 });
 
 const submit = () => {
-    //const url = route('users.destroy', {user: auth.id});
-    //router.delete(url);
-    form.delete(route('users.destroy', {user: auth.id}));
+    form.delete(route('users.destroy', {user: user.id}));
 };
 </script>

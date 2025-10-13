@@ -2,22 +2,22 @@
     <primevue-confirm id="confirm">
         <template #container="{ message, acceptCallback, rejectCallback }">
             <slot name="container" v-bind="{ message, acceptCallback, rejectCallback }">
-                <div class="flex flex-col items-center p-8 bg-surface-0 dark:bg-surface-900 rounded">
-                    <div class="rounded-full bg-primary text-primary-contrast inline-flex justify-center items-center h-16 w-16 -mt-16"
+                <div class="container flex flex-col items-center p-8 rounded">
+                    <div class="icon rounded-full bg-primary text-primary-contrast inline-flex justify-center items-center h-16 w-16 -mt-16"
                         v-if="showIcon">
                         <i class="pi pi-question !text-4xl"></i>
                     </div>
-                    <span class="font-bold text-2xl block mb-2 mt-6">
+                    <span class="header font-bold text-2xl block mb-2 mt-6">
                         {{ message.header }}
                     </span>
-                    <p class="mb-0">
+                    <p class="message mb-0">
                         {{ message.message }}
                     </p>
-                    <div class="flex items-center gap-2 mt-6">
+                    <div class="actions flex items-center gap-2 mt-6">
                         <primary-button class="w-32"
                             :label="confirmText"
                             @click="accepted(); acceptCallback()" />
-                        <outlined-button  class="w-32" outlined
+                        <secondary-button class="w-32"
                             :label="cancelText"
                             @click="rejected(); rejectCallback()" />
                     </div>
@@ -28,11 +28,11 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { inject, ref } from 'vue';
 import { useConfirm } from "primevue/useconfirm";
 import PrimaryButton from '@/components/ui/buttons/PrimaryButton.vue';
-import OutlinedButton from '@/components/ui/buttons/OutlinedButton.vue';
 import PrimevueConfirm from 'primevue/confirmdialog';
+import SecondaryButton from '@/components/ui/buttons/SecondaryButton.vue';
 
 const props = defineProps({
     cancelText: {
@@ -57,6 +57,7 @@ const props = defineProps({
     },
 });
 
+const { i18n } = inject('intl');
 const emit = defineEmits(['accepted', 'rejected']);
 const confirm = useConfirm();
 const confirming = ref(false);

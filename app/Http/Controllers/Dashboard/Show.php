@@ -14,9 +14,7 @@ class Show extends Controller
      */
     public function __invoke(): InertiaResponse
     {
-        $props = [
-            'appName' => config('app.name'),
-        ];
+        $props = [];
 
         return inertia('Dashboard', $props);
     }

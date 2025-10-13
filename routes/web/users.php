@@ -12,8 +12,13 @@ Route::middleware(['auth', 'verified'])
 
                 // Route::get('{user}/profile', 'Show')->name('profile');
                 Route::get('{user}/edit', 'Edit')->name('edit');
-                Route::patch('{user}', 'Update')->name('update');
+                //Route::patch('{user}', 'Update')->name('update');
                 Route::delete('{user}', 'Destroy')->name('destroy');
+            });
+        Route::prefix('api/users')
+            ->as('users.')
+            ->group(function () {
+                Route::patch('{user}/{attribute?}', 'Update')->name('update')->where(['attribute' => '^[a-z]{2,}(_[a-z]+)?$']);
             });
     });
 

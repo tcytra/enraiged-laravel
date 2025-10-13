@@ -1,7 +1,7 @@
 <template>
     <div class="">
-        <label for="togglePalette" class="cursor-pointer mr-3">
-            <i class="pi pi-palette" @click="togglePalette"></i>
+        <label for="openPalette" class="cursor-pointer label">
+            <i class="pi pi-palette" @click="openPalette"></i>
         </label>
         <primevue-popover ref="selectPalette">
             <div class="flex flex-col gap-4 w-[16rem]">
@@ -14,7 +14,7 @@
                         :key="name"
                         :style="primaryButtonStyle(name, range)"
                         :title="name"
-                        @click="updatePrimary(name)" />
+                        @click="togglePrimary(name)" />
                 </div>
                 <span class="text-sm text-surface font-semibold">
                     {{ i18n('Surface Color') }} | {{ currentSurface }}
@@ -25,7 +25,7 @@
                         :key="name"
                         :style="surfaceButtonStyle(name, range)"
                         :title="name"
-                        @click="updateSurface(name)" />
+                        @click="toggleSurface(name)" />
                 </div>
             </div>
         </primevue-popover>
@@ -33,13 +33,22 @@
 </template>
 
 <script setup>
-import { computed, inject, ref } from 'vue';
+import { computed, inject, ref, watch } from 'vue';
 import { palette } from '@/themes/palette';
 import PrimevuePopover from 'primevue/popover';
 import SelectButton from 'primevue/selectbutton';
 
+const { theme } = defineProps({
+    theme: {
+        type: Object,
+        default: null,
+    },
+});
+
 const { i18n } = inject('intl');
-const { currentPrimary, currentSurface, enableDarkMode, primaryColors, surfaceColors, updatePrimary, updateSurface } = palette();
+const {
+    currentPrimary, currentSurface, enableDarkMode, primaryColors, surfaceColors, updatePrimary, updateSurface,
+} = palette();
 const selectPalette = ref();
 
 const primaryButtonStyle = (name, range) => {
@@ -58,7 +67,28 @@ const surfaceButtonStyle = (name, range) => {
         : { backgroundColor: defaultBackground }
 };
 
-const togglePalette = (event) => {
+const openPalette = (event) => {
     selectPalette.value.toggle(event);
 };
+
+const togglePrimary = (value) => {
+    if (theme && theme.config.primary !== value) {
+        console.log('set theme from toggle primary');
+        theme.set({ primary: value });
+    }
+    updatePrimary(value);
+};
+
+const toggleSurface = (value) => {
+    if (theme && theme.config.surface !== value) {
+        console.log('set theme from toggle surface');
+        theme.set({ surface: value });
+    }
+    updateSurface(value);
+};
+
+if (theme) {
+    togglePrimary(theme.config.primary);
+    toggleSurface(theme.config.surface);
+}
 </script>

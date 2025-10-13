@@ -6,78 +6,59 @@
 @custom-variant dark (&:where(.switch-dark-mode, .switch-dark-mode *));
 
 @layer enraiged {
+    @import './app/branding.css';
     @import './app/forms.css';
     @import './app/layouts.css';
+    @import './app/menus.css';
     @import './app/theme.css';
+    @import './app/_testing.css';
+}
 
-    input:autofill {
-      background: unset !important;
-      transition:
-        background-color calc(infinity * 1s) step-end,
-        background-image calc(infinity * 1s) step-end allow-discrete,
-        color calc(infinity * 1s) step-end;
-    }
+html {
+  scrollbar-width:  thin;
+}
 
-    .p-button-warning {
-      background:       var(--p-button-warn-background);
-      border:           1px solid var(--p-button-warn-border-color);
-      color:            var(--p-button-warn-color);
-    }
+body {
+  font-size:        16px;
+  font-weight:      400;
+  margin:           0;
+  padding:          0;
+}
 
-    .p-card-header {
-      border-radius:    var(--p-card-border-radius) var(--p-card-border-radius) 0 0;
-      padding:          var(--p-card-body-padding) var(--p-card-body-padding) 0;
-    }
+#teleport {
+  display:          flex;
+  height:           100vh;
+  left:             0;
+  position:         fixed;
+  top:              0;
+  width:            100vw;
+  z-index:          11;
 
-    .p-checkbox.p-invalid:focus > .p-checkbox-box,
-    .p-checkbox.p-invalid:hover > .p-checkbox-box {
-      border-color:     var(--p-checkbox-invalid-border-color);
-    }
-    .p-inputtext.p-invalid:focus,
-    .p-inputtext.p-invalid:hover {
-      border-color:     var(--p-inputtext-invalid-border-color);
-    }
-    .p-password.input-error .p-password-toggle-mask-icon {
-      color:            var(--p-form-field-icon-color);
-    }
-
-    *::placeholder,
-    .p-placeholder {
-      opacity:          .625;
+    >.mask {
+      background:       var(--p-surface-200);
+      content:          "";
+      height:           inherit;
+      left:             inherit;
+      opacity:          .5;
+      top:              inherit;
+      position:         fixed;
+      width:            inherit;
+      z-index:          12;
     }
 
-    .text-link {
-        @apply rounded-md text-primary-500 hover:text-primary-400 focus:outline-none focus:ring-primary-400 focus:ring-1 focus:ring-offset-2;
-    }
-    .text-surface {
-        @apply text-surface-600 dark:text-surface-400;
+    &.flex-centered {
+      align-items:      center;
+      justify-content:  center;
     }
 
-    .text-danger {
-        @apply text-red-600 dark:text-red-400;
+    >* {
+      opacity:          1;
+      z-index:          13;
     }
-    .text-help {
-        @apply text-purple-600 dark:text-purple-400;
-    }
-    .text-info {
-        @apply text-sky-600 dark:text-sky-400;
-    }
-    .text-neutral {
-        @apply text-gray-800 dark:text-surface-200;
-    }
-    .text-success {
-        @apply text-green-600 dark:text-green-400;
-    }
-    .text-warning {
-        @apply text-amber-600 dark:text-amber-400;
-    }
+}
 
-    .p-editor .p-editor-content .ql-editor {
-      background-color: var(--p-surface-0)
-    }
-    .dark-mode {
-        .p-editor .p-editor-content .ql-editor {
-          background-color: var(--p-surface-950);
-        }
+.dark-mode {
+    #teleport > .mask {
+      background:       var(--p-surface-900);
     }
 }

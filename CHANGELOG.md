@@ -1,9 +1,28 @@
 # Release Notes
 
-2025-07-20 : 0.4.0-beta.6 (prerelease)  
-Update: 
+2025-10-12 : 0.4.0-beta.6 (prerelease)  
+Update: Implemented client-side default layout ui/ux; Improved app state
 
+- Added enraiged.layout. configuration options for client-side layout
+  - set main menu over or under the utility bar
+  - set visibility of theme,layout toggles
+- Added enraiged.theme. configuration options for client-side theming
+  - select primary color
+  - select surface color
+  - toggle dark mode
+- Corrected issue with Registration not resetting the state
+- Ported the enraiged-v0.3.x client-side to enraiged-0.4.x
+  - Updated DefaultLayout to handle panel states,toggling
 - Set the DefaultTemplate in the app.js
+
+Todo:
+
+- \App\Http\Requests\State\Request
+  - agent() : browscap.ini or some variant?
+- resources/js/layouts/state/renderless/AppState.vue
+  - logout() : reset theme?
+  - flash messages
+  - responseHandler
 
 ---
 

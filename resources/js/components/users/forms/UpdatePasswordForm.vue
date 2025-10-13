@@ -1,9 +1,9 @@
 <template>
     <header>
-        <h2 class="text-lg font-medium text-gray-900">
+        <h2 class="text-lg font-medium text-strong">
             {{ i18n('Update Password') }}
         </h2>
-        <p class="mt-1 text-sm text-gray-600">
+        <p class="mt-1 text-sm text-neutral">
             {{ i18n('Ensure your account is using a long, random password to stay secure.') }}
         </p>
     </header>
@@ -65,6 +65,7 @@ defineProps({
 
 const { auth } = inject('app');
 const { i18n } = inject('intl');
+const user = auth.value;
 
 const form = useForm({
     current_password: null,
@@ -73,7 +74,7 @@ const form = useForm({
 });
 
 const submit = () => {
-    form.put(route('users.password.update', {user: auth.id}), {
+    form.put(route('users.password.update', {user: user.id}), {
         onSuccess: () => form.reset(),
     });
 };

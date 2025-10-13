@@ -4,12 +4,313 @@
   min-height:       100vh;
   position:         relative;
   width:            100vw;
+}
 
-    > header {
+.auth.layout {
+  position:         relative;
+
+    >.panel,
+    >.panel >.panel{
+      display:          flex;
+      flex-direction:   column;
+      overflow:         hidden;
+      position:         fixed;
+    }
+
+    &.nav-over {
+        >.panel {
+          padding-bottom:   calc(1rm * 4);
+          top:              0;
+        }
+
+        .auth.panel,
+        .menu.panel,
+        .page.panel {
+          min-height:       100vh;
+        }
+    }
+
+    &.nav-under {
+        .auth.panel,
+        .menu.panel {
+          padding-bottom:   calc(1rem * 4);
+          top:              calc(1rem * 4);
+        }
+
+        .auth.panel,
+        .menu.panel,
+        .main-content {
+          min-height:       calc(100vh - 4rem);
+        }
+    }
+
+    .auth.panel {
+      right:            0;
+    }
+    .menu.panel {
+      left:             0;
+    }
+
+    .auth.panel,
+    .menu.panel {
+      z-index:          2;
+    }
+    .page.panel {
+      z-index:          1;
+    }
+
+    .auth.panel,
+    .menu.panel,
+    .page.panel,
+    .page.panel > .bar,
+    .page.panel > .content {
+      transition:       all .35s ease;
+    }
+
+    .auth.panel,
+    .menu.panel {
+      width:            0;
+    }
+
+    .page.panel {
+      margin-left:      0;
+      margin-right:     0;
+      overflow:         hidden;
+      position:         relative;
+      width:            calc(100vw - (100vw - 100%)); /* this! handy little trick to account for scrollbar width */
+
+        >.main.content {
+          margin-top:       calc(1rem * 4);
+          min-height:       calc(100vh - (1rem * 4));
+          position:         relative;
+          width:            100%;
+          z-index:          1;
+
+            >.fixed.header {
+              position:         fixed;
+              transition:       all .35s ease;
+              width:            inherit;
+              z-index:          4;
+
+                +.section {
+                  padding-top:      calc(2rem + (1rem * 4));
+
+                    +.footer {
+                        >.actions {
+                          position:         relative;
+                        }
+                    }
+                }
+            }
+
+            >.footer {
+              bottom:           0;
+              display:          flex;
+              height:           calc(1rem * 4);
+              position:         fixed;
+              width:            100%;
+              z-index:          2;
+
+                &::before {
+                  content:          "";
+                  height:           calc(1rem * 4);
+                  opacity:          .825;
+                  position:         fixed;
+                  width:            100%;
+                }
+            }
+
+            >.header {
+              align-items:      center;
+              display:          flex;
+              height:           calc(1rem * 4);
+              position:         relative;
+
+                h1 {
+                  flex-grow:        1;
+                  font-size:        1.5rem;
+                  margin-left:      1rem;
+                  margin-right:     1rem;
+                }
+            }
+
+            >.header:not(.fixed) +.container {
+              min-height:       calc(100vh - ((1rem * 4) + (1rem * 4)));
+            }
+            >.header.fixed +.container {
+              min-height:       calc(100vh - (1rem * 4));
+            }
+        }
+    }
+
+    .default.overlay {
+      align-items:      center;
+      display:          flex;
+      height:           100vh;
+      justify-content:  center;
+      width:            100vw;
+    }
+
+    .utility.bar {
+      align-items:      center;
+      display:          flex;
+      flex-direction:   row;
+      height:           calc(1rem * 4);
+      position:         fixed;
+      width:            inherit;
+      z-index:          5;
+
+        > .action,
+        > .group {
+          align-items:      center;
+          display:          flex;
+          height:           calc(1rem * 4);
+          transition:       background-color .125s linear, color .125s linear;
+
+            &:last-child {
+              border-right:     0;
+            }
+
+            >.p-button {
+              background-color: transparent;
+              border-color:     transparent;
+              border-radius:    0;
+              height:           calc(1rem * 4);
+              width:            calc(1rem * 4);
+            }
+
+            >.label >.pi,
+            >.p-button >.pi,
+            >.pi {
+              font-size:        1.25rem;
+              line-height:      unset !important;
+            }
+        }
+
+        .action {
+          justify-content:  center;
+          width:            calc(1rem * 4);
+        }
+
+        .group {
+          flex-grow:        1;
+          justify-content:  flex-start;
+        }
+    }
+
+    &.menu-open .menu.panel {
+        width:            calc(1rem * 4 * 4);
+    }
+
+    &.auth-open,
+    &.auth-open.menu-closed,
+    &.auth-open.menu-open {
+        .auth.panel {
+          width:            calc(1rem * 4 * 4);
+        }
+    }
+
+    &.auth-open,
+    &.menu-open {
+        .panel >.footer,
+        .panel >.header {
+          display:          flex;
+        }
+    }
+
+    &.auth-open .auth.panel >.options {
+      display:          flex;
+    }
+
+    &.menu-open .menu.panel >.options {
+      display:          block;
+    }
+
+    @media screen and (max-width: calc(768px - 1px)) {
+        &.auth-open:not(menu-closed),
+        &.auth-open.menu-open {
+            .menu.panel {
+              width:            0;
+            }
+        }
+    }
+
+    @media screen and (min-width: 768px) {
+        &.menu-closed {
+            .page.panel {
+              margin-left:      calc(1rem * 4);
+              width:            calc((100vw - (100vw - 100%)) - (1rem * 4));
+                main >.fixed.header {
+                  width:            calc((100vw - (100vw - 100%)) - (1rem * 4));
+                }
+                .utility.bar {
+                  width:            inherit;
+                }
+            }
+            .menu.panel {
+              width:            calc(1rem * 4);
+            }
+        }
+
+        &.menu-open, &:not(.menu-closed) {
+            .page.panel {
+              margin-left:      calc(1rem * 4 * 4);
+              width:            calc((100vw - (100vw - 100%)) - (1rem * 4 * 4));
+                main >.fixed.header {
+                  width:            calc((100vw - (100vw - 100%)) - (1rem * 4 * 4));
+                }
+                .utility.bar {
+                  width:            inherit;
+                }
+            }
+            .menu.panel  {
+              width:            calc(1rem * 4 * 4);
+            }
+        }
+
+        &.auth-open,
+        &.auth-open.menu-closed,
+        &.auth-open.menu-open {
+            .page.panel {
+              margin-left:      calc(1rem * 4);
+              margin-right:     calc(1rem * 4 * 4);
+              width:            calc((100vw - (100vw - 100%)) - ((1rem * 4) + (1rem * 4 * 4)));
+                main >.fixed.header {
+                  width:            calc((100vw - (100vw - 100%)) - ((1rem * 4) + (1rem * 4 * 4)));
+                }
+                .utility.bar {
+                  width:            calc(100% - ((1rem * 4) + (1rem * 4 * 4)));
+                }
+            }
+            .menu.panel {
+              width:            calc(1rem * 4);
+            }
+        }
+    }
+}
+
+.guest.layout {
+    > .header {
+      align-items:      center;
+      display:          flex;
       height:           64px;
+      justify-content:  space-between;
       position:         fixed;
       width:            100vw;
       z-index:          99;
+
+        .locale.action,
+        .theme.group {
+          margin-left:      .5rem;
+          margin-right:     .5rem;
+            >.icon.toggle {
+              align-items:      center;
+              display:          flex;
+              height:           40px;
+              justify-content:  center;
+              width:            40px;
+            }
+        }
     }
 
     > main {

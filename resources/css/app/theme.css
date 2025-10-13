@@ -1,26 +1,114 @@
 
-.layout {
+.auth.layout {
+  background-color: var(--p-surface-50);
+  color:            var(--p-surface-800);
+
+    .auth.panel,
+    .menu.panel {
+      background-color: var(--p-surface-300);
+    }
+
+    .auth.panel {
+      /*border-left:     1px solid var(--p-surface-300);*/
+    }
+
+    .menu.panel {
+      /*border-right:     1px solid var(--p-surface-300);*/
+    }
+
+    .page.panel > .main.content > .footer,
+    .page.panel > .main.content > .header {
+      background-color: var(--p-surface-100);
+    }
+
+    .page.panel > .main.content > .footer {
+      /*border-top:       1px solid var(--p-surface-200);*/
+    }
+
+    .page.panel > .main.content > .header {
+      /*border-bottom:    1px solid var(--p-surface-200);*/
+    }
+
+    .utility.bar {
+      background-color: var(--p-surface-200);
+
+        >.action,
+        >.group {
+          /*border-bottom:    1px solid var(--p-surface-300);*/
+          /*border-right:     1px solid var(--p-surface-300);*/
+        }
+
+        .action.cursor-pointer:hover {
+          background-color:     var(--p-surface-50);
+          color:                var(--p-surface-600);
+        }
+    }
+}
+
+.guest.layout {
     > header {
       background-color: var(--p-surface-200);
     }
     > main {
       background-color: var(--p-surface-50);
     }
-    .p-editor .p-editor-content .ql-editor {
-      background-color: var(--p-surface-0)
-    }
 }
 
 .dark-mode {
-    .layout {
+    .auth.default.layout {
+      background-color: var(--p-surface-950);
+      color:            var(--p-surface-300);
+
+        .auth.panel,
+        .menu.panel {
+          background-color: var(--p-surface-900);
+        }
+
+        .auth.panel {
+          /*border-left:     1px solid var(--p-surface-900);*/
+        }
+
+        .menu.panel {
+          /*border-right:     1px solid var(--p-surface-900);*/
+        }
+
+        .page.panel > .main.content > .footer,
+        .page.panel > .main.content > .header {
+          background-color: var(--p-surface-800);
+        }
+
+        .page.panel > .main.content > .footer {
+          /*border-top:       1px solid var(--p-surface-700);*/
+        }
+
+        .page.panel > .main.content > .header {
+          /*border-bottom:    1px solid var(--p-surface-700);*/
+        }
+
+        .utility.bar {
+          background-color: var(--p-surface-900);
+
+            >.action,
+            >.group {
+              /*border-bottom:    1px solid var(--p-surface-700);*/
+              /*border-right:     1px solid var(--p-surface-700);*/
+            }
+
+            .action.cursor-pointer:hover {
+              background-color:     var(--p-surface-700);
+              color:                var(--p-surface-100);
+            }
+        }
+    }
+
+    .guest.default.layout {
+      background-color: var(--p-surface-900);
+
         > header {
           background-color: var(--p-surface-950);
         }
         > main {
-          background-color: var(--p-surface-950);
-        }
-        .p-editor .p-editor-content .ql-editor {
-          background-color: var(--p-surface-950)
+          background-color: var(--p-surface-900);
         }
     }
 }

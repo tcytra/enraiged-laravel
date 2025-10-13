@@ -1,12 +1,12 @@
 <template>
     <app-state ref="app" v-slot:default="app">
         <transition name="fade">
-            <auth-state v-if="app.ready && app.auth">
+            <auth-state :app="app" class="default" v-if="app.ready && app.auth.user">
                 <slot />
             </auth-state>
         </transition>
         <transition name="fade">
-            <guest-state v-if="app.ready && !app.auth">
+            <guest-state class="default" v-if="app.ready && !app.auth.user">
                 <slot />
             </guest-state>
         </transition>
@@ -14,8 +14,8 @@
             <load-state v-if="!app.ready"></load-state>
         </transition>
         <primevue-toast v-if="app.ready"
-            :group="app.meta.toast.group"
-            :position="app.meta.toast.position" />
+            :group="app.toast.group"
+            :position="app.toast.position" />
     </app-state>
 </template>
 

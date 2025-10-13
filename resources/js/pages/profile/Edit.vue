@@ -1,58 +1,50 @@
 <template>
-    <div class="container page">
-        <html-head :title="i18n('My Profile')" />
+    <main class="content main">
+        <page-header fixed title="My Profile" />
 
-        <header>
-            <div class="mx-auto max-w-7xl py-6">
-                <h2 class="text-xl font-semibold leading-tight">
-                    {{ i18n('My Profile') }}
-                </h2>
-            </div>
-        </header>
-
-        <profile-card class="mb-6">
-            <template #content>
-                <div class="flex flex-col lg:flex-row">
-                    <div class="w-full lg:w-1/2 mb-6 lg:mr-6">
-                        <update-information-form
-                            :allow-secondary-credential="allowSecondaryCredential"
-                            :allow-username-login="allowUsernameLogin"
-                            :is-protected-user="isProtectedUser"
-                            :must-verify-email="mustVerifyEmail"
-                            :must-verify-secondary="mustVerifySecondary"
-                            :status="status" />
+        <section class="section card">
+            <profile-card class="mb-6">
+                <template #content>
+                    <div class="flex flex-col lg:flex-row">
+                        <div class="w-full lg:w-1/2 mb-6 lg:mr-6">
+                            <update-information-form
+                                :allow-secondary-credential="allowSecondaryCredential"
+                                :allow-username-login="allowUsernameLogin"
+                                :is-protected-user="isProtectedUser"
+                                :must-verify-email="mustVerifyEmail"
+                                :must-verify-secondary="mustVerifySecondary"
+                                :status="status" />
+                        </div>
+                        <div class="w-full lg:w-1/2 mb-6 lg:ml-6">
+                            <update-password-form
+                                :status="status" />
+                        </div>
                     </div>
-                    <div class="w-full lg:w-1/2 mb-6 lg:ml-6">
-                        <update-password-form
-                            :status="status" />
-                    </div>
-                </div>
-            </template>
-        </profile-card>
+                </template>
+            </profile-card>
+        </section>
 
-        <profile-card class="mb-6">
-            <template #content>
-                <delete-form
-                    :status="status" />
-            </template>
-        </profile-card>
-    </div>
+        <section class="section card">
+            <profile-card class="mb-6">
+                <template #content>
+                    <delete-form
+                        :status="status" />
+                </template>
+            </profile-card>
+        </section>
+    </main>
 </template>
 
 <script setup>
 import { Head as HtmlHead } from '@inertiajs/vue3';
 import { inject } from 'vue';
-import BreezeLayout from '@/layouts/BreezeLayout.vue';
+import PageHeader from '@/components/ui/PageHeader.vue';
 import ProfileCard from '@/components/users/cards/ProfileCard.vue';
 import UpdateInformationForm from '@/components/users/forms/UpdateInformationForm.vue';
 import UpdatePasswordForm from '@/components/users/forms/UpdatePasswordForm.vue';
 import DeleteForm from '@/components/users/forms/DeleteForm.vue';
 
-defineOptions({
-    layout: BreezeLayout,
-});
-
-const props = defineProps({
+defineProps({
     allowSecondaryCredential: {
         type: Boolean,
         default: false,
