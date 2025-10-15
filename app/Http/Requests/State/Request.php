@@ -33,10 +33,7 @@ class Request extends HttpRequest
             ],
             'menu' => $this->menu(),
             'theme' => $this->theme(),
-            'toast' => [
-                'group' => 'br',
-                'position' => 'bottom-right',
-            ],
+            'toast' => $this->toast(),
         ];
 
         return $only
@@ -99,7 +96,7 @@ class Request extends HttpRequest
             'items' => [
                 'dashboard' => [
                     'icon' => 'pi pi-home',
-                    'name' => 'Dashboard',
+                    'label' => 'Dashboard',
                     'route' => [
                         'method' => 'get',
                         'name' => 'dashboard',
@@ -109,17 +106,30 @@ class Request extends HttpRequest
                     'items' => [
                         'users' => [
                             'icon' => 'pi pi-users',
-                            'name' => 'Manage Users',
+                            'label' => 'Manage Users',
                             'route' => [
                                 'method' => 'get',
                                 'name' => 'users.index',
                             ],
                         ],
                     ],
-                    'name' => 'Administration',
+                    'label' => 'Administration',
                     'type' => 'group',
                 ],
             ],
+        ];
+    }
+
+    /**
+     *  Return the toast configuration.
+     *
+     *  @return array
+     */
+    protected function toast(): array
+    {
+        return [
+            'group' => 'br',
+            'position' => 'bottom-right',
         ];
     }
 
