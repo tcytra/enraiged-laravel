@@ -110,19 +110,6 @@ export default {
         });
     },
     watch: {
-        /*'theme': {
-            handler() {
-                if (this.ready && this.auth) {
-                    axios.patch(route('users.update', {user: this.auth.id}) + '/theme', { theme: this.theme })
-                        .then((response) => {
-                            const { data, status } = response;
-                            if (data.success) {
-                                // todo: toastr success
-                            }
-                        });
-                }
-            }
-        },*/
         /*'$page.props.status': {
             handler(value) {
                 

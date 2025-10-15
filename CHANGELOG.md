@@ -1,5 +1,12 @@
 # Release Notes
 
+2025-00-00 : 0.4.0-beta.7 (prerelease)  
+Update: 
+
+- Completed 'select' option for auth controls display
+
+---
+
 2025-10-12 : 0.4.0-beta.6 (prerelease)  
 Update: Implemented client-side default layout ui/ux; Improved app state
 
