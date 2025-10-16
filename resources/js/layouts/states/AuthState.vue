@@ -36,9 +36,9 @@
 
 <script setup>
 import { computed } from 'vue';
-import AuthPanel from '@/layouts/panels/AuthPanel.vue';
-import MenuPanel from '@/layouts/panels/MenuPanel.vue';
-import UtilityBar from '@/layouts/panels/UtilityBar.vue';
+import AuthPanel from '@/layouts/structures/AuthPanel.vue';
+import MenuPanel from '@/layouts/structures/MenuPanel.vue';
+import UtilityBar from '@/layouts/structures/UtilityBar.vue';
 
 const props = defineProps({
     app: {

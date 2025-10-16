@@ -16,9 +16,11 @@ export default {
             menu: false,
         },
     }),
+
     created() {
         this.fetchState();
     },
+
     methods: {
         async fetchState() {
             await axios.get(route('app.state'))
@@ -36,7 +38,6 @@ export default {
                 });
         },
         logout() {
-            //  todo: reset theme to app default..?
             router.post(route('logout'));
         },
         setTheme(theme) {
@@ -54,7 +55,7 @@ export default {
             }
         },
         stopImpersonating() {
-            console.log('stop impersonating');
+            // console.log('stop impersonating');
         },
         toggleAuth(value) {
             this.toggled.auth = typeof value !== 'undefined'
@@ -72,6 +73,7 @@ export default {
             }
         },
     },
+
     provide() {
         return {
             app: {
@@ -84,8 +86,10 @@ export default {
                 i18n: trans,
                 lang: getActiveLanguage,
             },
+            logout: this.logout,
         };
     },
+
     render() {
         return this.$slots.default({
             auth: {
@@ -96,7 +100,7 @@ export default {
                 user: this.auth,
             },
             menu: {
-                items: this.menu,
+                ...this.menu,
                 open: this.toggled.menu === true,
                 toggle: this.toggleMenu,
             },
@@ -109,6 +113,7 @@ export default {
             },
         });
     },
+
     watch: {
         /*'$page.props.status': {
             handler(value) {

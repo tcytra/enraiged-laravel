@@ -3,7 +3,8 @@
 2025-00-00 : 0.4.0-beta.7 (prerelease)  
 Update: 
 
-- Completed 'select' option for auth controls display
+- Added initial main menu configuration,handling; Applied style,theme
+- Completed unfinished 'select' option for auth controls display
 
 ---
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\State;
 
+use Enraiged\Builders\Menu as MenuBuilder;
 use Enraiged\Users\Resources\AuthResource;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request as HttpRequest;
@@ -31,7 +32,9 @@ class Request extends HttpRequest
                 'name' => config('app.name'),
                 'version' => $this->version(),
             ],
-            'menu' => $this->menu(),
+            'menu' => Auth::check()
+                ? (new MenuBuilder(config('enraiged.menus.main')))->get()
+                : null,
             'theme' => $this->theme(),
             'toast' => $this->toast(),
         ];
@@ -83,41 +86,6 @@ class Request extends HttpRequest
         return collect(config('enraiged.locales'))
             ->transform(fn ($array, $key) => __($array['name'], [], $key))
             ->toArray();
-    }
-
-    /**
-     *  Return the application menu configuration.
-     *
-     *  @return array
-     */
-    protected function menu(): array
-    {
-        return [
-            'items' => [
-                'dashboard' => [
-                    'icon' => 'pi pi-home',
-                    'label' => 'Dashboard',
-                    'route' => [
-                        'method' => 'get',
-                        'name' => 'dashboard',
-                    ],
-                ],
-                'administration' => [
-                    'items' => [
-                        'users' => [
-                            'icon' => 'pi pi-users',
-                            'label' => 'Manage Users',
-                            'route' => [
-                                'method' => 'get',
-                                'name' => 'users.index',
-                            ],
-                        ],
-                    ],
-                    'label' => 'Administration',
-                    'type' => 'group',
-                ],
-            ],
-        ];
     }
 
     /**

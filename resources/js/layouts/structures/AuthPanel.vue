@@ -6,7 +6,8 @@
             <h5 class="email">{{ auth.user.email }}</h5>
         </header>
         <ul class="navigation options">
-            <li class="action item" @click="get('/my/profile/edit');auth.toggle()">
+            <li class="action item" @click="handle(item, auth, auth.open)"
+                :class="{ 'current': active(item) }">
                 <dl class="option">
                     <dt class="icon">
                         <i class="pi pi-user"></i>
@@ -32,11 +33,11 @@
 </template>
 
 <script setup>
-import { inject } from 'vue';
-import { router } from '@inertiajs/vue3';
+import { inject, ref } from 'vue';
+import { menu } from '@/composables/menu';
 import Avatar from '@/components/ui/avatars/Avatar.vue';
 
-defineProps({
+const props = defineProps({
     auth: {
         type: Object,
         required: true,
@@ -49,7 +50,9 @@ defineProps({
 
 const { i18n } = inject('intl');
 
-const get = (url) => {
-    router.get(url);
-};
+const { active, handle } = menu();
+
+const item = ref({ route: { name: 'my.profile.edit' } });
+
+const mobile = ref(props.meta.agent === 'mobile');
 </script>

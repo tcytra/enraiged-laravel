@@ -5,6 +5,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 
 require 'web/auth.php';
+require 'web/roles.php';
 require 'web/test.php';
 require 'web/users.php';
 

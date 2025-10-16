@@ -25,13 +25,13 @@ return [
     |
     | The available options are 'slate', 'noir', 'emerald', 'green', 'lime',
     | 'orange', 'amber', 'yellow', 'teal', 'cyan', 'sky', 'blue', 'indigo',
-    | 'violet', 'purple', 'fuchsia', 'pink', and 'rose'
+    | 'violet', 'purple', 'fuchsia', 'pink', and 'rose'.
     |
     | The default value is 'slate'.
     |
     */
     'primary' => env('PRIMARY_COLOR', 'slate'),
-    
+
     /*
     |--------------------------------------------------------------------------
     | Set Palette Color

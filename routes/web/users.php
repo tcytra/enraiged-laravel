@@ -8,6 +8,8 @@ Route::middleware(['auth', 'verified'])
         Route::prefix('users')
             ->as('users.')
             ->group(function () {
+                Route::get('index', 'Index')->name('index');
+
                 Route::put('{user}/password', 'Password\Update')->name('password.update');
 
                 // Route::get('{user}/profile', 'Show')->name('profile');
