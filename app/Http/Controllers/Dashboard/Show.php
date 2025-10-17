@@ -14,8 +14,6 @@ class Show extends Controller
      */
     public function __invoke(): InertiaResponse
     {
-        $props = [];
-
-        return inertia('Dashboard', $props);
+        return inertia('Dashboard');
     }
 }

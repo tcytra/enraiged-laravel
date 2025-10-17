@@ -5,8 +5,8 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 
 require 'web/auth.php';
-require 'web/roles.php';
-require 'web/test.php';
+require 'web/permissions.php';
+//require 'web/test.php';
 require 'web/users.php';
 
 //  Handle a request to display the dashboard.

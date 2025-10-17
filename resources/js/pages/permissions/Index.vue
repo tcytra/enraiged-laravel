@@ -1,6 +1,6 @@
 <template>
     <main class="content main">
-        <page-header fixed title="Roles" />
+        <page-header fixed title="Permissions" />
 
         <section class="card section px-6">
             ...

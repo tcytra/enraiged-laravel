@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Roles;
+namespace App\Http\Controllers\Permissions;
 
 use App\Http\Controllers\Controller;
 use Inertia\Response as InertiaResponse;
@@ -14,6 +14,6 @@ class Index extends Controller
     {
         $props = [];
 
-        return inertia('roles/Index', $props);
+        return inertia('permissions/Index', $props);
     }
 }

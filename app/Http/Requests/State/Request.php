@@ -33,7 +33,7 @@ class Request extends HttpRequest
                 'version' => $this->version(),
             ],
             'menu' => Auth::check()
-                ? (new MenuBuilder(config('enraiged.menus.main')))->get()
+                ? (new MenuBuilder(config('enraiged.menu')))->get()
                 : null,
             'theme' => $this->theme(),
             'toast' => $this->toast(),
