@@ -3,7 +3,9 @@
 namespace App\Http\Requests\Auth\Register;
 
 use Enraiged\Passwords\Rules\PasswordRules;
+use Enraiged\Profiles\Models\Profile;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class Request extends FormRequest
@@ -38,9 +40,45 @@ class Request extends FormRequest
     }
 
     /**
+     *  Create and return the registered User from the provided attributes.
+     *
+     *  @param  array   $attributes
+     *  @return \Illuminate\Foundation\Auth\User
+     */
+    public function registerUser()
+    {
+        $validated = $this->validated();
+
+        if (key_exists('name', $validated)) {
+            $names = explode(' ', $validated['name']);
+            $validated['first_name'] = count($names) ? array_shift($names) : null;
+            $validated['last_name'] = count($names) ? implode(' ', $names) : null;
+        }
+
+        $attributes = collect($validated);
+
+        $model = config('auth.providers.users.model');
+
+        $profile = new Profile;
+        $user = new $model;
+
+        $profile
+            ->fill($attributes->only($profile->getFillable())->toArray())
+            ->save();
+
+        $attributes['profile_id'] = $profile->id;
+
+        $user
+            ->fill($attributes->only($user->getFillable())->toArray())
+            ->save();
+
+        return $user;
+    }
+
+    /**
      *  Get the validation rules that apply to the request.
      *
-     *  @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     *  @return array
      */
     public function rules(): array
     {
@@ -49,9 +87,10 @@ class Request extends FormRequest
 
         $rules = collect([
                 'locale' => 'required|string|min:2|max:2|in:en,es,fr',
+                'theme' => 'nullable|array',
                 'name' => 'required|string|max:255',
                 'email' => "required|string|email|max:255|unique:{$user_table},email",
-                'username' => null,
+                'username' => "sometimes|string|max:255|unique:{$user_table},username",
                 'password' => ['required', 'confirmed', new PasswordRules],
                 'agreed' => 'required|accepted',
             ])
@@ -132,5 +171,23 @@ class Request extends FormRequest
         if ($isAlphaDash->fails() && $isEmail->fails()) {
             $fail(__('validation.alpha_dash_or_email'));
         }
+    }
+
+    /**
+     *  Get the validated data from the request.
+     *
+     *  @param  array|int|string|null  $key
+     *  @param  mixed  $default
+     *  @return mixed
+     */
+    #[\Override]
+    public function validated($key = null, $default = null)
+    {
+        return collect(parent::validated($key, $default))
+            ->transform(fn ($value, $index)
+                => $index === 'password'
+                    ? Hash::make($this->get('password'))
+                    : $value)
+            ->toArray();
     }
 }

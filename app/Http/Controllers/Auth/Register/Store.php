@@ -4,12 +4,9 @@ namespace App\Http\Controllers\Auth\Register;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\Register\Request as RegisterRequest;
-use App\Models\User;
-use App\Models\VerifiedUser;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
 class Store extends Controller
 {
@@ -21,23 +18,7 @@ class Store extends Controller
      */
     public function __invoke(RegisterRequest $request): RedirectResponse
     {
-        /*$parameters = [
-            'locale' => $request->get('locale'),
-            'name' => $request->get('name'),
-            'email' => $request->get('email'),
-            'password' => Hash::make($request->get('password')),
-        ];*/
-
-        $parameters = collect($request->validated())
-            ->transform(fn ($value, $index)
-                => $index === 'password'
-                    ? Hash::make($request->get('password'))
-                    : $value)
-            ->toArray();
-
-        $user = config('enraiged.auth.must_verify_email') === true
-            ? VerifiedUser::create($parameters)
-            : User::create($parameters);
+        $user = $request->registerUser();
 
         event(new Registered($user));
 

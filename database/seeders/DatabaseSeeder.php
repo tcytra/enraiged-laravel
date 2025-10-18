@@ -7,8 +7,12 @@ use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
+    // use WithoutModelEvents;
+
     /**
-     * Seed the application's database.
+     *  Seed the application's database.
+     *
+     *  @return void
      */
     public function run(): void
     {
@@ -16,9 +20,6 @@ class DatabaseSeeder extends Seeder
 
         // $model::factory(10)->create();
 
-        $model::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        $model::factory()->create();
     }
 }
