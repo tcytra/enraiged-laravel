@@ -74,6 +74,7 @@
 <script setup>
 import { Head as HtmlHead, Link as HtmlLink, useForm } from '@inertiajs/vue3';
 import { inject } from 'vue';
+import { palette } from '@/themes/palette';
 import CheckboxField from '@/components/forms/fields/CheckboxField.vue';
 import PasswordField from '@/components/forms/fields/PasswordField.vue';
 import PrimaryButton from '@/components/ui/buttons/PrimaryButton.vue';
@@ -92,22 +93,33 @@ defineProps({
     },
 });
 
+const {
+    currentPrimary,
+    currentSurface,
+    enableDarkMode,
+} = palette();
+
 const { state } = inject('app');
 const { i18n, lang } = inject('intl');
 
 const form = useForm({
+    agreed: false,
     name: null,
     email: null,
     username: null,
     password: null,
     password_confirmation: null,
-    agreed: false,
 });
 
 const submit = () => {
     form.transform((data) => ({
             ...data,
             locale: lang(),
+            theme: {
+                mode: enableDarkMode.value === true ? 'dark' : 'light',
+                primary: currentPrimary.value,
+                surface: currentSurface.value,
+            },
         }))
         .post(route('register'), {
             onFinish: () => {

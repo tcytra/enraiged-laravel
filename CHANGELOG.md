@@ -6,6 +6,7 @@ Update:
 - Added initial main menu configuration,handling; Applied style,theme
 - Ported original enraiged-laravel Profiles system into enraiged-core
 - Completed unfinished 'select' option for auth controls display
+- Updated Register.vue to send current theme to the register request
 
 ---
 
