@@ -9,8 +9,8 @@ import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 import ConfirmationService from 'primevue/confirmationservice';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import PrimeVue from 'primevue/config';
+import PrimevueTooltip from 'primevue/tooltip';
 import ToastService from 'primevue/toastservice';
-import Tooltip from 'primevue/tooltip';
 import theme from './themes/default';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Enraiged Laravel';
@@ -29,7 +29,7 @@ createInertiaApp({
     },
     setup({ el, App, props, plugin }) {
         return createApp({ render: () => h(App, props) })
-            .directive('tooltip', Tooltip)
+            .directive('tooltip', PrimevueTooltip)
             .use(i18nVue, {
                 fallbackLang: 'en',
                 resolve: async lang => {

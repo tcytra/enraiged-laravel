@@ -20,7 +20,7 @@ class Update extends Controller
     {
         $model = config('auth.providers.users.model');
 
-        $user = $request->is('my/*')
+        $user = $request->routeIs('my.*')
             ? $request->user()
             : $model::findOrFail($request->user);
 

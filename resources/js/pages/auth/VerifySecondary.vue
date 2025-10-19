@@ -7,10 +7,10 @@
                 <h1 class="text-lg">{{ i18n('Secondary Verification') }}</h1>
             </template>
             <template #content>
-                <div class="mb-4 text-sm font-medium text-green-600" v-if="verificationLinkSent">
+                <div class="mb-4 text-success text-sm font-medium" v-if="verificationLinkSent">
                     {{ i18n('A verification link has been sent to your secondary email address.') }}
                 </div>
-                <div class="mb-4 text-sm text-gray-600" v-else>
+                <div class="mb-4 text-neutral text-sm" v-else>
                     {{ i18n('Please check your inbox for a verification email and follow the provided instructions.') }}
                 </div>
 

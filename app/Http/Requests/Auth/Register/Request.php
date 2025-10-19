@@ -40,7 +40,7 @@ class Request extends FormRequest
     }
 
     /**
-     *  Create and return the registered User from the provided attributes.
+     *  Create and return the registered User from the requested attributes.
      *
      *  @param  array   $attributes
      *  @return \Illuminate\Foundation\Auth\User
@@ -63,13 +63,17 @@ class Request extends FormRequest
         $user = new $model;
 
         $profile
-            ->fill($attributes->only($profile->getFillable())->toArray())
+            ->fill($attributes
+                ->only($profile->getFillable())
+                ->toArray())
             ->save();
 
         $attributes['profile_id'] = $profile->id;
 
         $user
-            ->fill($attributes->only($user->getFillable())->toArray())
+            ->fill($attributes
+                ->only($user->getFillable())
+                ->toArray())
             ->save();
 
         return $user;

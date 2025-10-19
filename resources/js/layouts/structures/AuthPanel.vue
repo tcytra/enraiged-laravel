@@ -1,7 +1,7 @@
 <template>
     <nav class="nav">
         <header class="header profile">
-            <avatar size="xx" :avatar="auth.avatar"/>
+            <avatar size="xx" :avatar="auth.user.avatar" />
             <h4 class="name">{{ auth.user.name }}</h4>
             <h5 class="email">{{ auth.user.email }}</h5>
         </header>
@@ -28,7 +28,7 @@
                 </dl>
             </li>
         </ul>
-        <div class="block flex-grow-1" @click="auth.toggle()"/>
+        <div class="block flex-grow-1" @click="auth.toggle()" />
     </nav>
 </template>
 

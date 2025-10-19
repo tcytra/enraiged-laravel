@@ -3,11 +3,15 @@
 namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
+use Enraiged\Users\Forms\Resources\UserFormResource;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Inertia\Response as InertiaResponse;
 
 class Edit extends Controller
 {
+    use AuthorizesRequests;
+
     /**
      *  Display the user's profile forms.
      *
@@ -17,18 +21,22 @@ class Edit extends Controller
     {
         $model = config('auth.providers.users.model');
 
-        $user = $request->is('my/*')
+        $user = $request->routeIs('my.*')
             ? $request->user()
             : $model::findOrFail($request->user);
 
-        return inertia('profile/Edit', [
-            'allowSecondaryCredential' => config('enraiged.auth.allow_secondary_credential') === true,
-            'allowSelfDelete' => config('enraiged.auth.allow_self_delete') === true,
-            'allowUsernameLogin' => config('enraiged.auth.allow_username_login') === true,
-            'isProtectedUser' => $user->is_protected === true,
-            'mustVerifyEmail' => $user->mustVerifyEmail === true,
-            'mustVerifySecondary' => $user->mustVerifySecondary === true,
+        $this->authorize('edit', $user);
+
+        return inertia('users/Edit', [
+            'allowSecondaryCredential' => $user->allowSecondaryCredential,
+            'allowSelfDelete' => $user->allowSelfDelete,
+            'allowUsernameLogin' => $user->allowUsernameLogin,
+            'isMyProfile' => $user->id === $request->user()->id,
+            'isProtectedUser' => $user->isProtected,
+            'mustVerifyEmail' => $user->mustVerifyEmail,
+            'mustVerifySecondary' => $user->mustVerifySecondary,
             'status' => session('status'),
+            'user' => new UserFormResource($user),
         ]);
     }
 }

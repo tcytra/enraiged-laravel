@@ -9,10 +9,11 @@
                     <h1 class="text-lg">{{ i18n('Confirm Password') }}</h1>
                 </template>
                 <template #content>
-                    <div class="mb-4 text-sm text-neutral">
+                    <div class="mb-4 text-neutral text-sm">
                         {{ i18n('This is a secure area of the application. '
                             + 'Please confirm your password before continuing.') }}
                     </div>
+                    <br>
 
                     <form class="form" @submit.prevent="submit">
                         <password-field autocomplete="new-password" id="password" umask

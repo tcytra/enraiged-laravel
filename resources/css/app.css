@@ -6,6 +6,7 @@
 @custom-variant dark (&:where(.switch-dark-mode, .switch-dark-mode *));
 
 @layer enraiged {
+    @import './app/avatars.css';
     @import './app/branding.css';
     @import './app/forms.css';
     @import './app/layouts.css';

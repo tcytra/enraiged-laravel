@@ -1,30 +1,58 @@
 <template>
     <header>
-        <h2 class="text-lg font-medium text-surface">
-            {{ i18n('Profile Information') }}
-        </h2>
-        <p class="mt-1 text-sm text-neutral">
-            {{ i18n('Update your account\'s profile information and email address.') }}
+        <p class="text-neutral text-sm">
+            {{ i18n("Update your account's profile information and email address.") }}
         </p>
     </header>
-    <form class="form mt-6 max-w-xl" @submit.prevent="submit">
-        <text-field class="mb-3" id="name"
-            :field="{
-                label: 'Full Name',
-                placeholder: 'Required',
-                type: 'text',
-            }"
-            :form="form" />
+    <form class="form" @submit.prevent="submit">
+        <div class="grid grid-cols-1 lg:grid-cols-2 mt-5 gap-4">
+            <dropdown-field class="mb-3" id="salut"
+                :errors="errors"
+                :field="{
+                    label: 'Salutation',
+                    options: {
+                        values: [
+                            {id: 'Dr', 'name': 'Dr'},
+                            {id: 'Hon', 'name': 'Hon'},
+                            {id: 'Miss', 'name': 'Miss'},
+                            {id: 'Mr', 'name': 'Mr'},
+                            {id: 'Mrs', 'name': 'Mrs'},
+                            {id: 'Ms', 'name': 'Ms'},
+                            {id: 'Professor', 'name': 'Professor'},
+                        ],
+                    },
+                    placeholder: 'Optional',
+                    type: 'dropdown',
+                }"
+                :form="form" />
+            <text-field class="mb-3" id="name"
+                :errors="errors"
+                :field="{
+                    label: 'Full Name',
+                    placeholder: 'Required',
+                    type: 'text',
+                }"
+                :form="form" />
+            <text-field id="email"
+                :errors="errors"
+                :field="{
+                    label: allowSecondaryCredential ? 'Primary Email' : 'Email Address',
+                    placeholder: 'Required',
+                    type: 'email',
+                }"
+                :form="form" />
+            <text-field id="username" v-if="allowSecondaryCredential"
+                :errors="errors"
+                :field="{
+                    label: allowUsernameLogin ? 'Secondary Email or Username' : 'Secondary Email',
+                    placeholder: 'Optional',
+                    type: allowUsernameLogin ? 'text' : 'email',
+                }"
+                :form="form" />
+        </div>
 
-        <text-field id="email"
-            :field="{
-                label: allowSecondaryCredential ? 'Primary Email' : 'Email Address',
-                placeholder: 'Required',
-                type: 'email',
-            }"
-            :form="form" />
-
-        <div v-if="mustVerifyEmail">
+        <!--
+        <div class="grid grid-cols-1 lg:grid-cols-2 mt-5 gap-4" v-if="mustVerifyEmail">
             <p class="mt-2 text-sm text-neutral">
                 <html-link as="button" class="text-link" method="post" :href="route('verification.send')">
                     {{ i18n('Click here to re-send the verification email.') }}
@@ -34,15 +62,8 @@
                 {{ i18n('A new verification link has been sent to your email address.') }}
             </div>
         </div>
-
-        <text-field id="username" v-if="allowSecondaryCredential"
-            :field="{
-                label: allowUsernameLogin ? 'Secondary Email or Username' : 'Secondary Email',
-                placeholder: 'Optional',
-                type: allowUsernameLogin ? 'text' : 'email',
-            }"
-            :form="form" />
-
+        -->
+        <!--
         <div v-if="mustVerifySecondary">
             <p class="mt-2 text-sm text-warning" v-show="!status">
                 {{ i18n('This email address must be verified before it can be used to log in.') }}
@@ -56,28 +77,7 @@
                 {{ i18n('A verification link has been sent to your secondary email address.') }}
             </p>
         </div>
-
-        <hidden-field id="locale"
-            :field="{
-                label: 'Language',
-            }"
-            :form="form">
-            <template #content="field">
-                <div class="control field">
-                    <label class="block label">
-                        {{ field.label }}
-                    </label>
-                    <div class="flex justify-between w-full">
-                        <secondary-button class="!px-12" v-for="(name, locale) in locales"
-                            :disabled="form.processing || form.locale === locale"
-                            :key="locale"
-                            @click="form.locale = locale; ai18n(locale)">
-                            {{ name }}
-                        </secondary-button>
-                    </div>
-                </div>
-            </template>
-        </hidden-field>
+        -->
 
         <div class="flex flex-row-reverse items-center gap-4 mt-6">
             <primary-button :disabled="form.processing" @click="submit()">
@@ -105,16 +105,22 @@
 <script setup>
 import { Link as HtmlLink, useForm } from '@inertiajs/vue3';
 import { inject } from 'vue';
-import HiddenField from '@/components/forms/fields/HiddenField.vue';
+import DropdownField from '@/components/forms/fields/DropdownField.vue';
 import PrimaryButton from '@/components/ui/buttons/PrimaryButton.vue';
 import SecondaryButton from '@/components/ui/buttons/SecondaryButton.vue';
 import TextField from '@/components/forms/fields/TextField.vue';
 
-defineProps({
+const props = defineProps({
     allowSecondaryCredential: {
         type: Boolean,
     },
     allowUsernameLogin: {
+        type: Boolean,
+    },
+    errors: {
+        type: Object,
+    },
+    isMyProfile: {
         type: Boolean,
     },
     isProtectedUser: {
@@ -129,21 +135,33 @@ defineProps({
     status: {
         type: String,
     },
+    user: {
+        type: Object,
+    },
 });
 
-const { auth, meta } = inject('app');
-const { ai18n, i18n } = inject('intl');
-const locales = meta.value.locales;
-const user = auth.value;
+const { state } = inject('app');
+const { i18n } = inject('intl');
+
+const user = props.user;
 
 const form = useForm({
+    salut: user.salut,
     email: user.email,
-    locale: user.locale,
     name: user.name,
     username: user.username,
 });
 
 const submit = () => {
-    form.patch(route('users.update', {user: user.id}));
+    const url = props.isMyProfile
+        ? route('my.profile.update')
+        : route('users.update', {user: user.id})
+    form.patch(url, {
+        onSuccess: () => {
+            if (props.isMyProfile) {
+                state();
+            }
+        },
+    });
 };
 </script>

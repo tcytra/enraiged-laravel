@@ -7,6 +7,8 @@
  • [TailwindCSS v4.0](https://tailwindcss.com/docs/installation/framework-guides/laravel/vite)
 **
 
+**Enraiged Laravel is a starter kit implementing Laravel 12, Vite, VueJS, InertiaJS, Primevue, and TailwindCSS.**
+
 > **Please Note:** The **0.4.x** branch is currently a work in progress and not yet ready for production use.
 
 

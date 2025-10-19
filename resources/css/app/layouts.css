@@ -93,7 +93,7 @@
               z-index:          4;
 
                 +.section {
-                  padding-top:      calc(2rem + (1rem * 4));
+                  padding:          calc(2rem + (1rem * 4)) 1rem 1rem 1rem;
 
                     +.footer {
                         >.actions {

@@ -13,7 +13,7 @@
         <toggle-palette :theme="theme" class="action cursor-pointer" />
         <div class="action cursor-pointer" v-if="auth.user && authPanel"
             @click="auth.toggle()">
-            <avatar :avatar="auth.avatar || null" size="md" hover />
+            <avatar :avatar="auth.user.avatar || null" size="md" hover />
         </div>
         <auth-select-utility :auth="auth" v-if="auth.user && authSelect" />
         <div class="action cursor-pointer" v-if="auth.user && meta.layout.logout"

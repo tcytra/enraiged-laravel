@@ -1,11 +1,13 @@
 # Release Notes
 
-2025-00-00 : 0.4.0-beta.7 (prerelease)  
-Update: 
+2025-10-19 : 0.4.0-beta.7 (prerelease)  
+Update: Added Avatars to Users Profiles as attachable Files
 
+- Added Avatars to Users Profiles as attachable Files
 - Added initial main menu configuration,handling; Applied style,theme
-- Ported original enraiged-laravel Profiles system into enraiged-core
 - Completed unfinished 'select' option for auth controls display
+- Ported original enraiged-laravel Profiles system into enraiged-core
+- Improved User Profile Edit,Update system; Cleanup User controllers
 - Updated Register.vue to send current theme to the register request
 
 ---

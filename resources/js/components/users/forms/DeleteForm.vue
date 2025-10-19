@@ -1,8 +1,5 @@
 <template>
     <header>
-        <h2 class="text-lg font-medium text-strong">
-            {{ i18n('Delete Account') }}
-        </h2>
         <p class="mt-1 text-sm text-neutral">
             <span class="font-bold">
                 {{ i18n('Warning!') }}
@@ -57,16 +54,26 @@ import PasswordField from '@/components/forms/fields/PasswordField.vue';
 import PrimaryButton from '@/components/ui/buttons/PrimaryButton.vue';
 import SecondaryButton from '@/components/ui/buttons/SecondaryButton.vue';
 
-defineProps({
+const props = defineProps({
+    errors: {
+        type: Object,
+    },
+    isMyProfile: {
+        type: Boolean,
+    },
     status: {
         type: String,
     },
+    user: {
+        type: Object,
+    },
 });
 
-const { auth } = inject('app');
 const { i18n } = inject('intl');
+
 const confirm = ref('confirm');
-const user = auth.value;
+
+const user = props.user;
 
 const form = useForm({
     password: null,

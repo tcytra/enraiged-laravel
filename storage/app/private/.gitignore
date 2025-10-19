@@ -1,2 +1,5 @@
 *
+!avatars/
+!files/
+!temp/
 !.gitignore

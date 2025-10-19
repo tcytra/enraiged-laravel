@@ -1,34 +1,26 @@
 <template>
     <header>
-        <h2 class="text-lg font-medium text-strong">
-            {{ i18n('Update Password') }}
-        </h2>
-        <p class="mt-1 text-sm text-neutral">
+        <p class="text-neutral text-sm">
             {{ i18n('Ensure your account is using a long, random password to stay secure.') }}
         </p>
     </header>
-    <form class="form mt-6 max-w-xl" @submit.prevent="submit">
-        <password-field id="current_password"
-            :field="{
-                label: 'Current Password',
-                placeholder: 'Required',
-                type: 'password',
-            }"
-            :form="form" />
-        <password-field id="password"
-            :field="{
-                label: 'New Password',
-                placeholder: 'Required',
-                type: 'password',
-            }"
-            :form="form" />
-        <password-field id="password_confirmation"
-            :field="{
-                label: 'Confirm Password',
-                placeholder: 'Required',
-                type: 'password',
-            }"
-            :form="form" />
+    <form class="form" @submit.prevent="submit">
+        <div class="grid grid-cols-1 lg:grid-cols-2 mt-5 gap-4">
+            <password-field id="password"
+                :field="{
+                    label: 'New Password',
+                    placeholder: 'Required',
+                    type: 'password',
+                }"
+                :form="form" />
+            <password-field id="password_confirmation"
+                :field="{
+                    label: 'Confirm Password',
+                    placeholder: 'Required',
+                    type: 'password',
+                }"
+                :form="form" />
+        </div>
 
         <div class="flex flex-row-reverse items-center gap-4 mt-6">
             <primary-button :disabled="form.processing" @click="submit()">
@@ -57,18 +49,25 @@ import PasswordField from '@/components/forms/fields/PasswordField.vue';
 import PrimaryButton from '@/components/ui/buttons/PrimaryButton.vue';
 import SecondaryButton from '@/components/ui/buttons/SecondaryButton.vue';
 
-defineProps({
+const props = defineProps({
+    errors: {
+        type: Object,
+    },
+    isMyProfile: {
+        type: Boolean,
+    },
     status: {
         type: String,
     },
+    user: {
+        type: Object,
+    },
 });
 
-const { auth } = inject('app');
 const { i18n } = inject('intl');
-const user = auth.value;
+const user = props.user;
 
 const form = useForm({
-    current_password: null,
     password: null,
     password_confirmation: null,
 });
