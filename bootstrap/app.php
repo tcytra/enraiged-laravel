@@ -27,6 +27,8 @@ return Application::configure(basePath: dirname(__DIR__))
             SetRequestedLocale::class,
             HandleInertiaRequests::class,
             AddLinkHeadersForPreloadedAssets::class,
+            Enraiged\Middleware\Impersonate::class,
+            Enraiged\Middleware\SetLocale::class,
         ]);
 
         $middleware->append(SecureHttpHeaders::class);
