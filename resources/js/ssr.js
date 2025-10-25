@@ -8,7 +8,7 @@ import ConfirmationService from 'primevue/confirmationservice';
 import PrimeVue from 'primevue/config';
 import ToastService from 'primevue/toastservice';
 import Tooltip from 'primevue/tooltip';
-import defaultTheme from './themes/default';
+//import defaultTheme from './themes/default';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Enraiged';
 
@@ -30,7 +30,7 @@ createServer((page) =>
                 .use(ToastService)
                 .use(PrimeVue, {
                     // unstyled: true,
-                    theme: defaultTheme,
+                    //theme: defaultTheme,
                 })
                 .use(ZiggyVue, {
                     ...page.props.ziggy,
