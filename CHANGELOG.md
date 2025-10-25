@@ -1,5 +1,10 @@
 # Release Notes
 
+2025-xx-xx : 0.4.0-beta.9 (prerelease)  
+Update: 
+
+---
+
 2025-10-25 : 0.4.0-beta.8 (prerelease)  
 Update: Added users table, impersonation; Various other improvements
 
