@@ -1,6 +1,6 @@
 <template>
     <main class="content main">
-        <page-header fixed :title="title" />
+        <page-header back-button fixed :actions="actions" :title="title" />
 
         <section class="section card mx-auto max-w-7xl">
             <div class="grid grid-cols-1 md:grid-cols-5">
@@ -13,9 +13,9 @@
                             </template>
                             <template #content>
                                 <avatar-form
+                                    :alert="alert"
                                     :errors="errors"
                                     :is-my-profile="isMyProfile"
-                                    :status="status"
                                     :user="user" />
                             </template>
                         </primevue-card>
@@ -28,9 +28,9 @@
                             </template>
                             <template #content>
                                 <update-theme-form
+                                    :alert="alert"
                                     :errors="errors"
                                     :is-my-profile="isMyProfile"
-                                    :status="status"
                                     :user="user" />
                             </template>
                         </primevue-card>
@@ -43,13 +43,14 @@
                             </template>
                             <template #content>
                                 <locale-form
+                                    :alert="alert"
                                     :errors="errors"
                                     :is-my-profile="isMyProfile"
-                                    :status="status"
                                     :user="user" />
                             </template>
                         </primevue-card>
                     </div>
+                    <!--
                     <div class="delete utility mb-6">
                         <primevue-card class="">
                             <template #title>
@@ -57,13 +58,14 @@
                             </template>
                             <template #content>
                                 <delete-form
+                                    :alert="alert"
                                     :errors="errors"
                                     :is-my-profile="isMyProfile"
-                                    :status="status"
                                     :user="user" />
                             </template>
                         </primevue-card>
                     </div>
+                    -->
                 </div>
 
                 <div class="forms md:col-span-3 p-3">
@@ -74,6 +76,7 @@
                             </template>
                             <template #content>
                                 <information-form
+                                    :alert="alert"
                                     :allow-secondary-credential="allowSecondaryCredential"
                                     :allow-username-login="allowUsernameLogin"
                                     :errors="errors"
@@ -81,8 +84,9 @@
                                     :is-protected-user="isProtectedUser"
                                     :must-verify-email="mustVerifyEmail"
                                     :must-verify-secondary="mustVerifySecondary"
-                                    :status="status"
-                                    :user="user" />
+                                    :secondary-verification-link-sent="secondaryVerificationLinkSent"
+                                    :user="user"
+                                    :verification-link-sent="verificationLinkSent" />
                             </template>
                         </primevue-card>
                     </div>
@@ -93,9 +97,9 @@
                             </template>
                             <template #content>
                                 <password-form
+                                    :alert="alert"
                                     :errors="errors"
                                     :is-my-profile="isMyProfile"
-                                    :status="status"
                                     :user="user" />
                             </template>
                         </primevue-card>
@@ -110,9 +114,9 @@
 
 <script setup>
 import { Head as HtmlHead } from '@inertiajs/vue3';
-import { computed, inject } from 'vue';
+import { computed, inject, onMounted } from 'vue';
 import AvatarForm from '@/components/ui/avatars/AvatarForm.vue';
-import DeleteForm from '@/components/users/forms/DeleteForm.vue';
+//import DeleteForm from '@/components/users/forms/DeleteForm.vue';
 import InformationForm from '@/components/users/forms/InformationForm.vue';
 import LocaleForm from '@/components/users/forms/LocaleForm.vue';
 import PageHeader from '@/components/ui/PageHeader.vue';
@@ -121,6 +125,14 @@ import PrimevueCard from 'primevue/card';
 import ThemeForm from '@/components/users/forms/ThemeForm.vue';
 
 const props = defineProps({
+    actions: {
+        type: Object,
+        default: {},
+    },
+    alert: {
+        type: String,
+        default: null,
+    },
     allowSecondaryCredential: {
         type: Boolean,
         default: false,
@@ -153,17 +165,20 @@ const props = defineProps({
         type: Boolean,
         default: false,
     },
-    status: {
-        type: String,
-        default: null,
+    secondaryVerificationLinkSent: {
+        type: Boolean,
+        default: false,
     },
     user: {
         type: Object,
-        required: true,
+    },
+    verificationLinkSent: {
+        type: Boolean,
+        default: false,
     },
 });
 
 const { i18n } = inject('intl');
 
-const title = computed(() => props.isMyProfile ? 'Edit My Profile' : 'Edit Profile');
+const title = computed(() => props.isMyProfile ? 'Edit My Profile' : `Edit ${props.user.name}`);
 </script>

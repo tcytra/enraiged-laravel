@@ -3,8 +3,10 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
-class SetRequestedLocale
+class SetLocale
 {
     /**
      *  Handle an incoming request.
@@ -19,9 +21,18 @@ class SetRequestedLocale
      */
     public function handle($request, Closure $next, ...$guards)
     {
-        if ($request->has('locale')) {
-            app()->setLocale($request->get('locale'));
+        $locale = config('app.locale');
+
+        if (Auth::check() && $request->user()->locale) {
+            $locale = $request->user()->locale;
+
+        } else if ($request->has('locale')) {
+            $locale = $request->get('locale');
         }
+
+        app()->setLocale($locale);
+
+        Carbon::setLocale($locale);
 
         return $next($request);
     }

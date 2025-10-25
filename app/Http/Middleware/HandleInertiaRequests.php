@@ -2,12 +2,15 @@
 
 namespace App\Http\Middleware;
 
+use Enraiged\Users\Traits\Requests\RecentFiles;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 use Tighten\Ziggy\Ziggy;
 
 class HandleInertiaRequests extends Middleware
 {
+    use RecentFiles;
+
     /**
      *  The root template that is loaded on the first page visit.
      *
@@ -33,15 +36,17 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
-        return [
+        $props = [
             ...parent::share($request),
-            'status' => session()->has('status')
-                ? session()->get('status')
-                : null,
+            'files' => $this->recentFiles($request),
+            'message' => $request->session()->get('message'),
+            'status' => $request->session()->get('status'),
             'ziggy' => fn () => [
                 ...(new Ziggy)->toArray(),
                 'location' => $request->url(),
             ],
         ];
+
+        return $props;
     }
 }

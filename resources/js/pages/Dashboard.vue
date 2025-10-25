@@ -1,7 +1,7 @@
 <template>
     <main class="content main">
         <page-header fixed title="Dashboard" />
-        <section class="card section px-6">
+        <section class="card section">
             <primevue-card class="">
                 <template #content>
                     <span>{{ i18n('Welcome to :app!').replace(':app', meta.name) }}</span>

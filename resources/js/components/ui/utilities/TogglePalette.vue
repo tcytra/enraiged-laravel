@@ -73,7 +73,7 @@ const openPalette = (event) => {
 
 const togglePrimary = (value) => {
     if (theme && theme.config.primary !== value) {
-        console.log('set theme from toggle primary');
+        //console.log('set theme from toggle primary');
         theme.set({ primary: value });
     }
     updatePrimary(value);
@@ -81,7 +81,7 @@ const togglePrimary = (value) => {
 
 const toggleSurface = (value) => {
     if (theme && theme.config.surface !== value) {
-        console.log('set theme from toggle surface');
+        //console.log('set theme from toggle surface');
         theme.set({ surface: value });
     }
     updateSurface(value);

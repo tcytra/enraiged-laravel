@@ -8,19 +8,31 @@ Route::middleware(['auth', 'verified'])
         Route::prefix('users')
             ->as('users.')
             ->group(function () {
-                Route::get('index', 'Index')->name('index');
-
-                Route::put('{user}/password', 'Password\Update')->name('password.update');
-
-                // Route::get('{user}/profile', 'Show')->name('profile');
+                Route::get('', 'Index')->name('index');
+                Route::get('create', 'Create')->name('create');
                 Route::get('{user}/edit', 'Edit')->name('edit');
-                //Route::patch('{user}', 'Update')->name('update');
-                Route::delete('{user}', 'Destroy')->name('destroy');
+                Route::get('{user}', 'Show')->name('show');
+
+                Route::namespace('Impersonate')
+                    ->prefix('impersonate')
+                    ->group(function () {
+                        Route::get('stop', 'Stop')->name('impersonate.stop');
+                        Route::get('{user}', 'Start')->name('impersonate');
+                    });
+
             });
+
         Route::prefix('api/users')
             ->as('users.')
             ->group(function () {
-                Route::patch('{user}/{attribute?}', 'Update')->name('update')->where(['attribute' => '^[a-z]{2,}(_[a-z]+)?$']);
+                Route::match(['GET', 'POST'], 'data', 'Data')->name('data');
+                Route::match(['GET', 'POST'], 'export', 'Export')->name('export');
+                Route::delete('{user}', 'Destroy')->name('delete');
+                Route::patch('{user}', 'Restore')->name('restore');
+                Route::patch('{user}/update/{attribute?}', 'Update')->name('update')
+                    ->where(['attribute' => '^[a-z]{2,}(_[a-z]+)?$']);
+                Route::post('', 'Store')->name('store');
+                Route::put('password', 'Password\Update')->name('password.update');
             });
     });
 
@@ -31,8 +43,8 @@ Route::middleware(['auth', 'verified', 'password.confirm'])
     ->group(function () {
         Route::put('password', 'Password\Update')->name('password.update');
 
-        // Route::get('profile', 'Show')->name('profile');
+        Route::get('profile', 'Show')->name('profile.show');
         Route::get('profile/edit', 'Edit')->name('profile.edit');
         Route::patch('profile', 'Update')->name('profile.update');
-        Route::delete('profile', 'Destroy')->name('profile.destroy');
+        Route::delete('profile', 'Destroy')->name('profile.delete');
     });

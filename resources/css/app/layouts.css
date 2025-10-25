@@ -86,14 +86,20 @@
           width:            100%;
           z-index:          1;
 
+            .section {
+              margin-bottom:    2rem;
+              margin-top:       2rem;
+              padding-left:     2rem;
+              padding-right:    2rem;
+            }
+
             >.fixed.header {
               position:         fixed;
               transition:       all .35s ease;
-              width:            inherit;
               z-index:          4;
 
                 +.section {
-                  padding:          calc(2rem + (1rem * 4)) 1rem 1rem 1rem;
+                  margin-top:       calc(2rem + (1rem * 4));
 
                     +.footer {
                         >.actions {
@@ -124,13 +130,41 @@
               align-items:      center;
               display:          flex;
               height:           calc(1rem * 4);
+              flex-direction:   row;
+              justify-content:  space-between;
               position:         relative;
 
                 h1 {
-                  flex-grow:        1;
                   font-size:        1.5rem;
                   margin-left:      1rem;
                   margin-right:     1rem;
+                }
+
+                .actions {
+                  display:          flex;
+                  flex-direction:   row;
+
+                    >.action {
+                      height:           4rem;
+                      padding:          .25rem;
+                      width:            4rem;
+
+                        .p-button {
+                          display:          flex;
+                          flex-direction:   column;
+                          height:           3.5rem;
+                          justify-content:  center;
+                          width:            3.5rem;
+
+                            .p-button-icon {
+                              font-size:        1.25rem;
+                            }
+                            .p-button-label {
+                              font-size:        .825rem;
+                              line-height:      .5rem;
+                            }
+                        }
+                    }
                 }
             }
 

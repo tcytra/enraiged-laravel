@@ -28,13 +28,24 @@
                 </dl>
             </li>
         </ul>
+        <!--
+        <div class="m-[2rem]" v-if="files.length">
+            <div class="font-semibold text-sm mb-2">My Recent Files</div>
+            <ul class="files options">
+                <li class="file item" v-for="file in files">
+                    <span class="text-xs">{{ file.name }}</span>
+                </li>
+            </ul>
+        </div>
+        -->
         <div class="block flex-grow-1" @click="auth.toggle()" />
     </nav>
 </template>
 
 <script setup>
-import { inject, ref } from 'vue';
-import { menu } from '@/composables/menu';
+import { computed, inject, ref } from 'vue';
+import { menu } from '@/layouts/composables/menu';
+import { usePage } from '@inertiajs/vue3';
 import Avatar from '@/components/ui/avatars/Avatar.vue';
 
 const props = defineProps({
@@ -55,4 +66,8 @@ const { active, handle } = menu();
 const item = ref({ route: { name: 'my.profile.edit' } });
 
 const mobile = ref(props.meta.agent === 'mobile');
+
+const page = usePage();
+
+const files = computed(() => page.props.files || [])
 </script>

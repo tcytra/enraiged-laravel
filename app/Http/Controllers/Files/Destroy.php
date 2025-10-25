@@ -24,7 +24,15 @@ class Destroy extends Controller
 
         $file->attachable->delete();
 
-        $request->session()->put('success', 'File deleted');
+        $message = __('File deleted.');
+
+        if ($request->expectsJson()) {
+            return response()
+                ->json(['success' => $message]);
+        }
+
+        $request->session()
+            ->flash('success', $message);
 
         return redirect()->back();
     }

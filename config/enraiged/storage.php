@@ -13,6 +13,6 @@ return [
     |
     */
 
-    'clear' => ['avatars', 'exports', 'files', 'images', 'imports', 'private', 'public', 'temp'],
+    'clear' => ['avatars', 'exports', 'files', 'images', 'imports', 'temp'],
 
 ];

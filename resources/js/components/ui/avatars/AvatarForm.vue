@@ -1,6 +1,6 @@
 <template>
     <form class="form flex flex-col lg:flex-row mt-1" @submit.prevent="submit">
-        <avatar class="w-[8rem]" size="xx" :avatar="model" />
+        <avatar class="w-[8rem]" size="xl" :avatar="model" />
         <div class="controls flex items-center flex-grow-1 ml-5" v-if="model.file">
             <primevue-button class="p-button-sm p-button-danger mr-2" icon="pi pi-times"
                 v-tooltip.top="i18n('Remove this avatar')"
@@ -55,14 +55,14 @@ import PrimevueInputtext from 'primevue/inputtext';
 import SecondaryButton from '@/components/ui/buttons/SecondaryButton.vue';
 
 const props = defineProps({
+    alert: {
+        type: String,
+    },
     errors: {
         type: Object,
     },
     isMyProfile: {
         type: Boolean,
-    },
-    status: {
-        type: String,
     },
     user: {
         type: Object,

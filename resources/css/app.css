@@ -3,7 +3,7 @@
 @import 'tailwindcss';
 @import 'tailwindcss-primeui';
 @import 'primeicons/primeicons.css';
-@custom-variant dark (&:where(.switch-dark-mode, .switch-dark-mode *));
+@custom-variant dark (&:where(.dark-mode, .dark-mode *));
 
 @layer enraiged {
     @import './app/avatars.css';
@@ -11,8 +11,8 @@
     @import './app/forms.css';
     @import './app/layouts.css';
     @import './app/menus.css';
+    @import './app/tables.css';
     @import './app/theme.css';
-    @import './app/_testing.css';
 }
 
 html {

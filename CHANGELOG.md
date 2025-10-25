@@ -1,5 +1,15 @@
 # Release Notes
 
+2025-10-25 : 0.4.0-beta.8 (prerelease)  
+Update: Added users table, impersonation; Various other improvements
+
+- Added date-fns to the nodejs packages
+- Added user actions, impersonation, profile page
+- Completed user index table
+- Various updates,improvements to the css,js
+
+---
+
 2025-10-19 : 0.4.0-beta.7 (prerelease)  
 Update: Added Avatars to Users Profiles as attachable Files
 

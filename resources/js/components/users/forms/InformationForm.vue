@@ -58,22 +58,22 @@
                     {{ i18n('Click here to re-send the verification email.') }}
                 </html-link>
             </p>
-            <div class="mt-2 text-sm text-success" v-show="status === 'verification-link-sent'">
+            <div class="mt-2 text-sm text-success" v-show="verificationLinkSent">
                 {{ i18n('A new verification link has been sent to your email address.') }}
             </div>
         </div>
         -->
         <!--
         <div v-if="mustVerifySecondary">
-            <p class="mt-2 text-sm text-warning" v-show="!status">
+            <p class="mt-2 text-sm text-warning" v-show="!alert">
                 {{ i18n('This email address must be verified before it can be used to log in.') }}
             </p>
-            <p class="mt-2 text-sm text-neutral" v-show="!status">
+            <p class="mt-2 text-sm text-neutral" v-show="!alert">
                 <html-link as="button" class="text-link" method="post" :href="route('secondary.verification.send')">
                     {{ i18n('Click here to re-send the verification email.') }}
                 </html-link>
             </p>
-            <p class="mt-2 text-sm text-success" v-show="status === 'secondary-verification-link-sent'">
+            <p class="mt-2 text-sm text-success" v-show="secondaryVerificationLinkSent">
                 {{ i18n('A verification link has been sent to your secondary email address.') }}
             </p>
         </div>
@@ -111,6 +111,9 @@ import SecondaryButton from '@/components/ui/buttons/SecondaryButton.vue';
 import TextField from '@/components/forms/fields/TextField.vue';
 
 const props = defineProps({
+    alert: {
+        type: String,
+    },
     allowSecondaryCredential: {
         type: Boolean,
     },
@@ -132,11 +135,14 @@ const props = defineProps({
     mustVerifySecondary: {
         type: Boolean,
     },
-    status: {
-        type: String,
+    secondaryVerificationLinkSent: {
+        type: Boolean,
     },
     user: {
         type: Object,
+    },
+    verificationLinkSent: {
+        type: Boolean,
     },
 });
 

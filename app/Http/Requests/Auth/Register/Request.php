@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Auth\Register;
 
-use Enraiged\Passwords\Rules\PasswordRules;
+use Enraiged\Passwords\Forms\Validation\PasswordRules;
 use Enraiged\Profiles\Models\Profile;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Hash;

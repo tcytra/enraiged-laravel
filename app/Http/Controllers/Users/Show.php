@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
+use Enraiged\Users\Responses\UserInertiaResponse;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
-use Inertia\Response as InertiaResponse;
 
 class Show extends Controller
 {
@@ -15,7 +15,7 @@ class Show extends Controller
      *  @param  \Illuminate\Http\Request  $request
      *  @return \Inertia\Response
      */
-    public function __invoke(Request $request): InertiaResponse
+    public function __invoke(Request $request)//: InertiaResponse
     {
         $model = config('auth.providers.users.model');
 
@@ -23,10 +23,8 @@ class Show extends Controller
             ? $request->user()
             : $model::findOrFail($request->user);
 
-        $this->authorize('delete', $user);
+        $this->authorize('show', $user);
 
-        return inertia('profile/Show', [
-            'user' => $user,
-        ]);
+        return UserInertiaResponse::render($request, $user, 'users/Show');
     }
 }

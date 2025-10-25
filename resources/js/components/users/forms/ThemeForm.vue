@@ -37,14 +37,14 @@ import { palette } from '@/themes/palette';
 import { useForm } from '@inertiajs/vue3';
 
 const props = defineProps({
+    alert: {
+        type: String,
+    },
     errors: {
         type: Object,
     },
     isMyProfile: {
         type: Boolean,
-    },
-    status: {
-        type: String,
     },
     user: {
         type: Object,

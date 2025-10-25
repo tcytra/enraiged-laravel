@@ -25,15 +25,17 @@ class Destroy extends Controller
 
         $avatar->file->delete();
 
+        $message = __('Avatar file deleted.');
+
         if ($request->expectsJson()) {
             return response()
                 ->json([
                     'avatar' => new AvatarResource($avatar),
-                    'success' => __('Avatar file deleted'),
+                    'success' => $message,
                 ]);
         }
 
-        $request->session()->put('success', 'Avatar file deleted');
+        $request->session()->put('success', $message);
 
         return $request->redirect();
     }

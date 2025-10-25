@@ -25,6 +25,8 @@ const expand = (items) => {
 };
 
 const handle = (item, menu, close) => {
+    const method = item.route.method || 'get';
+    const params = item.route.params || null;
     const url = typeof item.route.url !== 'undefined'
         ? item.route.url
         : route(item.route.name);

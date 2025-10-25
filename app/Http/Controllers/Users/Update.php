@@ -43,7 +43,7 @@ class Update extends Controller
         }
 
         return $request->routeIs('my.*')
-            ? redirect()->route('my.profile.edit')->with('status', 'verification-link-sent')
-            : redirect()->route('users.edit', ['user' => $user->id]);
+            ? to_route('my.profile.edit', ['verification-link-sent', true])
+            : to_route('users.edit', ['user' => $user->id]);
     }
 }

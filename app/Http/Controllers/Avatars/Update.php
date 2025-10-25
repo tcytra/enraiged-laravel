@@ -28,17 +28,22 @@ class Update extends Controller
             ->fill(['color' => $color])
             ->save();
 
+        $message = __('Avatar color updated.');
+
         if ($request->expectsJson()) {
             $data = [
                 'avatar' => new AvatarResource($avatar),
-                'success' => __('Avatar color updated'),
+                'success' => $message,
             ];
 
             return response()->json($data);
         }
 
-        $request->session()->put('status', 205);
-        $request->session()->put('success', 'Avatar color updated');
+        $request->session()
+            ->flash('status', 205);
+
+        $request->session()
+            ->flash('success', $message);
 
         return $request->redirect();
     }

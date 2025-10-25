@@ -2,13 +2,20 @@
     <main class="content main">
         <page-header fixed title="Users" />
 
-        <section class="table section px-6">
-            ...
+        <section class="datatable section">
+            <user-index :template="table" />
         </section>
     </main>
 </template>
 
 <script setup>
 import PageHeader from '@/components/ui/PageHeader.vue';
-import PrimevueCard from 'primevue/card';
+import UserIndex from '@/components/users/tables/UserIndex.vue';
+
+defineProps({
+    table: {
+        type: Object,
+        required: true,
+    }
+});
 </script>

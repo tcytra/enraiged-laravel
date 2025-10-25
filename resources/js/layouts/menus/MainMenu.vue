@@ -1,6 +1,18 @@
 <template>
-    <primevue-panel-menu class="navigation options" :model="items" :expanded-keys="keys" unstyled
-        :class="{ 'static': menu.static }">
+    <!--
+    <div class="navigation options static">
+        <div class="item">
+            <a class="option" @click="router.get(route('my.profile.edit'))">
+                <i class="icon pi pi-user"></i>
+                <span class="text">My Profile</span>
+            </a>
+        </div>
+    </div>
+    -->
+    <primevue-panel-menu class="navigation options" unstyled
+        :class="{ 'static': menu.static }"
+        :expanded-keys="keys"
+        :model="items">
         <template #item="{ item, props }">
             <div class="item" v-if="item.route"
                 :class="{
@@ -26,7 +38,7 @@
 
 <script setup>
 import { computed, inject, ref } from 'vue';
-import { menu } from '@/composables/menu';
+import { menu } from '@/layouts/composables/menu';
 import PrimevuePanelMenu from 'primevue/panelmenu';
 
 const props = defineProps({
@@ -46,5 +58,5 @@ const { active, expand, handle, make } = menu();
 
 const items = computed(() => make(props.menu));
 
-const keys = expand(items); // computed(() => expand(items)); // <-- Maximum recursive updates exceeded
+const keys = expand(items);
 </script>

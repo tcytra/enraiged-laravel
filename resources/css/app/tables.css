@@ -1,0 +1,245 @@
+
+.datatable.section {
+
+    .p-datatable {
+
+        .p-datatable-header {
+          background:       unset;
+          display:          flex;
+          gap:              .5rem;
+          justify-content:  space-between;
+          margin-bottom:    1rem;
+
+            .control.filter {
+                &.togglebutton {
+                    .p-inputgroup {
+                        .p-inputgroupaddon {
+                          height:           2.25rem;
+                          padding:          0;
+                        }
+                        .p-label {
+                          align-items:      center;
+                          background:       var(--p-surface-0);
+                          border:           1px solid var(--p-inputtext-border-color);
+                          border-radius:    0 var(--p-form-field-border-radius) var(--p-form-field-border-radius) 0;
+                          display:          flex;
+                          flex-grow:        1;
+                          font-size:        .875rem;
+                          height:           2.25rem;
+                          padding:          .5rem 1rem .5rem .5rem;
+                        }
+                    }
+                    &.toggled {
+                        .p-inputgroupaddon {
+                          background:       var(--p-surface-100);
+                          color:            var(--p-surface-600);
+                        }
+                    }
+                    &:not(.toggled) {
+                        .p-label {
+                          color:            var(--p-surface-400);
+                        }
+                    }
+                }
+            }
+            .batch.bar,
+            .control.bar,
+            .export.bar,
+            .filter.bar,
+            .search.bar {
+                .p-inputgroup {
+                    .p-inputgroupaddon {
+                      background:       var(--p-surface-100);
+
+                        .p-button {
+                          background:       var(--p-surface-200);
+                          color:            var(--p-surface-500);
+                          border:           0;
+                          width:            100%;
+                            &:hover {
+                              background:       var(--p-surface-300);
+                              color:            var(--p-surface-700);
+                            }
+                        }
+                    }
+                    .p-input-text {
+                    }
+                }
+            }
+        }
+
+        .p-datatable-table-container {
+          border-radius:    var(--p-border-radius-xl);
+
+            .p-datatable-table {
+                .p-datatable-thead {
+                    .p-datatable-header-cell {
+                        &.text-center {
+                            .p-datatable-column-header-content {
+                              justify-content:  center;
+                            }
+                        }
+                        &.text-right {
+                            .p-datatable-column-header-content {
+                              justify-content:  end;
+                            }
+                        }
+                    }
+                }
+                .p-datatable-tbody {
+                    > tr:last-child > td {
+                      border-width:     0;
+                    }
+
+                    > tr.p-datatable-empty-message > td {
+                      padding:          2rem;
+                      text-align:       center;
+                    }
+
+                    .actions {
+                      gap:              .25rem;
+                        .p-button-text:hover {
+                          background-color: var(--p-surface-100);
+                        }
+                    }
+                }
+            }
+        }
+
+        .p-datatable-paginator-bottom {
+          margin-top:       1rem;
+            .p-paginator {
+              background:       unset;
+              border:           0;
+                .p-paginator-content {
+                    .p-paginator-current {
+                    }
+                }
+            }
+        }
+
+        /*
+        .p-datatable-paginator-bottom {
+          bottom:           0;
+          height:           calc(1rem * 4);
+          position:         fixed;
+          width:            100%;
+
+            .p-paginator {
+              background:       unset;
+              border:           0;
+              height:           inherit;
+              width:            inherit;
+
+                .p-paginator-content {
+                  align-items:      center;
+                  height:           inherit;
+                  width:            inherit;
+
+                    .p-paginator-current {
+
+                    }
+                }
+            }
+
+        }
+        */
+
+    }
+
+    /*.p-datatable-mask {
+      background:       var(--p-surface-200);
+      color:            var(--p-surface-500);
+      opacity:          .5;
+      position:         fixed;
+    }*/
+
+}
+
+:root {
+    --p-datatable-header-background: transparent;
+    --p-datatable-header-border-color: transparent;
+    --p-datatable-header-border-width: 0;
+    --p-datatable-header-cell-background: var(--p-surface-200);
+    --p-datatable-header-cell-hover-background: var(--p-surface-300);
+    --p-datatable-header-sm-padding: 0;
+    --p-paginator-nav-button-selected-background: var(--p-surface-100);
+    --p-paginator-nav-button-selected-color: var(--p-surface-800);
+    --p-datatable-paginator-bottom-border-width: 0;
+    --p-mask-background: transparent;
+    --p-mask-color: var(--p-surface-500);
+    --p-paginator-border-radius: 0;
+    --p-paginator-padding: 0;
+}
+
+.dark-mode {
+    --p-datatable-header-cell-background: var(--p-surface-800);
+    --p-datatable-header-cell-hover-background: var(--p-surface-700);
+    --p-paginator-nav-button-selected-background: var(--p-surface-800);
+    --p-paginator-nav-button-selected-color: var(--p-surface-100);
+
+    .datatable.section {
+        .p-datatable {
+
+            .p-datatable-header {
+
+                .batch.bar,
+                .control.bar,
+                .export.bar,
+                .filter.bar,
+                .search.bar {
+                    .p-inputgroup {
+                        .p-inputgroupaddon {
+                          background:       var(--p-surface-900);
+
+                            .p-button {
+                              background:       var(--p-surface-800);
+                              color:            var(--p-surface-200);
+
+                                &:hover {
+                                  background:       var(--p-surface-900);
+                                  color:            var(--p-surface-100);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .control.filter {
+                    &.togglebutton {
+                        .p-inputgroup {
+                            .p-label {
+                              background:       var(--p-surface-950);
+                            }
+                        }
+                        &.toggled {
+                            .p-inputgroupaddon {
+                              background:       var(--p-surface-800);
+                              color:            var(--p-surface-200);
+                            }
+                        }
+                        &:not(.toggled) {
+                            .p-label {
+                              color:            var(--p-surface-500);
+                            }
+                        }
+                    }
+                }
+
+            }
+
+            .p-datatable-table-container {
+                .p-datatable-table {
+                    .p-datatable-tbody {
+                        .actions {
+                            .p-button-text:hover {
+                              background-color: var(--p-surface-800);
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+}

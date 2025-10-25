@@ -55,14 +55,14 @@ import PrimaryButton from '@/components/ui/buttons/PrimaryButton.vue';
 import SecondaryButton from '@/components/ui/buttons/SecondaryButton.vue';
 
 const props = defineProps({
+    alert: {
+        type: String,
+    },
     errors: {
         type: Object,
     },
     isMyProfile: {
         type: Boolean,
-    },
-    status: {
-        type: String,
     },
     user: {
         type: Object,

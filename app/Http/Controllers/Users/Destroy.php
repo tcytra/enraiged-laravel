@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,9 +18,9 @@ class Destroy extends Controller
      *  Delete the user's account.
      *
      *  @param  \Illuminate\Http\Request  $request
-     *  @return \Illuminate\Http\RedirectResponse;
+     *  @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse;
      */
-    public function __invoke(Request $request): RedirectResponse
+    public function __invoke(Request $request): JsonResponse|RedirectResponse
     {
         $model = config('auth.providers.users.model');
 
@@ -29,9 +30,8 @@ class Destroy extends Controller
 
         $this->authorize('delete', $user);
 
-        $request->validate([
-            'password' => ['required', 'current_password'],
-        ]);
+        $message = $user->isMyself ? 'Your account has been deleted.' : 'The user has been deleted.';
+        $status = $user->isMyself ? 205 : 200;
 
         if ($user->is_protected) {
             throw ValidationException::withMessages([
@@ -39,13 +39,25 @@ class Destroy extends Controller
             ]);
         }
 
-        Auth::logout();
+        if ($user->isMyself) {
+            Auth::logout();
 
-        $user->delete();
+            $user->delete();
 
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
 
-        return redirect()->to('/');
+        } else {
+            $user->delete();
+        }
+
+        if ($request->expectsJson()) {
+            return response()
+                ->json(['success' => $message], $status);
+        }
+
+        return $user->isMyself
+            ? redirect()->to('/')
+            : to_route('dashboard', ['success' => $message]);
     }
 }

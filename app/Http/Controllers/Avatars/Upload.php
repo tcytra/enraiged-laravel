@@ -24,19 +24,21 @@ class Upload extends Controller
 
         $avatar->upload($request->file('image'));
 
+        $message = __('Avatar file uploaded.');
+
         if ($request->expectsJson()) {
             return response()
                 ->json([
                     'avatar' => new AvatarResource($avatar),
-                    'success' => __('Avatar file uploaded'),
+                    'success' => $message,
                 ]);
         }
 
         $request->session()
-            ->put('status', 205);
+            ->flash('status', 205);
         
         $request->session()
-            ->put('success', 'Avatar file uploaded');
+            ->flash('success', $message);
 
         return $request->redirect();
     }

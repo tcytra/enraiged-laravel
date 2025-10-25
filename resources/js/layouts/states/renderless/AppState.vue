@@ -54,9 +54,6 @@ export default {
                 }
             }
         },
-        stopImpersonating() {
-            // console.log('stop impersonating');
-        },
         toggleAuth(value) {
             this.toggled.auth = typeof value !== 'undefined'
                 ? value
@@ -79,6 +76,10 @@ export default {
             app: {
                 auth: computed(() => this.auth),
                 meta: computed(() => this.meta),
+                handle: {
+                    action: this.handleAction,
+                    error: this.handleError,
+                },
                 state: this.fetchState,
             },
             intl: {
@@ -96,7 +97,6 @@ export default {
                 logout: this.logout,
                 open: this.toggled.auth === true,
                 toggle: this.toggleAuth,
-                unimpersonate: this.stopImpersonating,
                 user: this.auth,
             },
             menu: {
@@ -115,11 +115,8 @@ export default {
     },
 
     watch: {
-        /*'$page.props.status': {
-            handler(value) {
-                
-                console.log(this.$page.props.status);
-
+        '$page.props.status': {
+            handler() {
                 const status = this.$page.props.status;
                 switch (status) {
                     case 205:
@@ -128,7 +125,7 @@ export default {
                 }
             },
             deep: true,
-        },*/
+        },
     },
 };
 </script>

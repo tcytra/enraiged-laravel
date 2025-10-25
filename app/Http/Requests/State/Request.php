@@ -18,8 +18,6 @@ class Request extends HttpRequest
      */
     public function state($only = null): array
     {
-        //sleep(1); // for testing
-
         $state = [
             'auth' => Auth::check()
                 ? new AuthResource(Auth::user())
@@ -108,7 +106,7 @@ class Request extends HttpRequest
      */
     protected function theme(): array
     {
-        return Auth::check()
+        return Auth::check() && Auth::user()->theme
             ? json_decode(Auth::user()->theme, true)
             : config('enraiged.theme');
     }

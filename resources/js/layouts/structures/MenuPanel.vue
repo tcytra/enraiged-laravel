@@ -10,7 +10,6 @@
 </template>
 
 <script setup>
-import { router } from '@inertiajs/vue3';
 import BrandingHeader from '@/components/ui/BrandingHeader.vue';
 import MainMenu from '@/layouts/menus/MainMenu.vue';
 

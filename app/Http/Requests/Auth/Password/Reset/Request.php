@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Auth\Password\Reset;
 
-use Enraiged\Passwords\Rules\PasswordRules;
+use Enraiged\Passwords\Forms\Validation\PasswordRules;
 use Illuminate\Foundation\Http\FormRequest;
 
 class Request extends FormRequest

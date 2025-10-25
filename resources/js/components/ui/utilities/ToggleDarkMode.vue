@@ -31,7 +31,7 @@ toggleDarkMode(enabled);
 watch(enableDarkMode, (value) => {
     //if (theme && theme.config.mode !== value ? 'dark' : 'light') {
     if (theme) {
-        console.log('set theme from toggle dark mode');
+        //console.log('set theme from toggle dark mode');
         theme.set({ mode: value ? 'dark' : 'light' });
     }
     toggleDarkMode(value);

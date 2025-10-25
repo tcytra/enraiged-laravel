@@ -20,6 +20,6 @@ class DatabaseSeeder extends Seeder
 
         // $model::factory(10)->create();
 
-        $model::factory()->create();
+        $model::factory(env('SEED_USERS', 1))->create();
     }
 }
