@@ -42,8 +42,8 @@ class Update extends Controller
                 ], $status);
         }
 
-        return $request->routeIs('my.*')
-            ? to_route('my.profile.edit', ['verification-link-sent', true])
+        return $user->isMyself
+            ? to_route('my.profile.edit') // ['verification-link-sent' => true]
             : to_route('users.edit', ['user' => $user->id]);
     }
 }
