@@ -8,7 +8,7 @@
                 {'horizontal': template.labels === 'horizontal' },
                 {'vertical': template.labels === 'vertical' },
             ]">
-            <tab-view class="my-3 shadow-1" ref="tabview" v-if="Object.keys(tabs).length">
+            <tab-view class="my-3" ref="tabview" v-if="Object.keys(tabs).length">
                 <tab-panel :header="tab.name" v-for="(tab, key) in tabs" :key="key">
                     <vue-form-tab
                         :creating="creating"
@@ -64,7 +64,7 @@
 
 <script>
 import axios from 'axios';
-import { inject } from 'vue';
+import error from '@/handlers/errors';
 import { router, useForm } from '@inertiajs/vue3';
 import TabPanel from 'primevue/tabpanel';
 import TabView from 'primevue/tabview';
@@ -120,9 +120,8 @@ export default {
     },
 
     setup (props, { emit }) {
-        const errorHandler = inject('errorHandler');
-        const isSuccess = inject('isSuccess');
-        const flashSuccess = inject('flashSuccess');
+        //const isSuccess = inject('isSuccess');
+        //const flashSuccess = inject('flashSuccess');
 
         let fields = props.template.referer
             ? {_referer: props.template.referer}
@@ -193,14 +192,14 @@ export default {
                             form.defaults();
                         }
                     })
-                    .catch((error) => {
-                        const { response } = error;
+                    .catch((e) => {
+                        const { response } = e;
                         const { errors } = response.data;
                         Object.keys(errors).forEach((each) => {
                             errors[each] = errors[each][0];
                         });
                         form.setError(errors);
-                        errorHandler(error);
+                        error(e);
                     });
             } else {
                 form[method](uri, {

@@ -105,6 +105,7 @@
 <script setup>
 import { Link as HtmlLink, useForm } from '@inertiajs/vue3';
 import { inject } from 'vue';
+import { useLocales } from '@/handlers/locales';
 import DropdownField from '@/components/forms/fields/DropdownField.vue';
 import PrimaryButton from '@/components/ui/buttons/PrimaryButton.vue';
 import SecondaryButton from '@/components/ui/buttons/SecondaryButton.vue';
@@ -147,7 +148,7 @@ const props = defineProps({
 });
 
 const { state } = inject('app');
-const { i18n } = inject('intl');
+const { i18n } = useLocales();
 
 const user = props.user;
 

@@ -1,5 +1,5 @@
 <template>
-    <headless-form-field v-slot:default="{ error, isDirty, isDisabled, isHidden, label, placeholder }"
+    <form-field v-slot:default="{ error, isDirty, isDisabled, isHidden, label, placeholder }"
         v-bind="$props">
         <div class="control filter dropdown" v-if="!isHidden">
             <label v-if="field.label" class="label" :for="id">
@@ -36,11 +36,12 @@
                 </template>
             </primevue-select>
         </div>
-    </headless-form-field>
+    </form-field>
 </template>
 
 <script>
-import HeadlessFormField from '@/components/forms/headless/FormField.vue';
+import { trans as i18n } from 'laravel-vue-i18n';
+import FormField from '@/components/forms/fields/renderless/FormField.vue';
 import PrimevueMultiSelect from 'primevue/multiselect';
 import PrimevueSelect from 'primevue/select';
 
@@ -48,12 +49,10 @@ export default {
     inheritAttrs: false,
 
     components: {
-        HeadlessFormField,
+        FormField,
         PrimevueMultiSelect,
         PrimevueSelect,
     },
-
-    inject: ['intl'],
 
     props: {
         field: {
@@ -80,7 +79,7 @@ export default {
 
     computed: {
         i18n() {
-            return this.intl.i18n;
+            return i18n;
         },
     },
 
@@ -111,7 +110,7 @@ export default {
                     this.loading = false;
                     this.autoselect();
                 })
-                .catch(error => this.errorHandler(error));
+                .catch((e) => this.error(e));
         },
         filter(payload) {
             this.field.options.values = [];

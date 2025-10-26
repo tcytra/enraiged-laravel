@@ -114,7 +114,8 @@
 
 <script setup>
 import { Head as HtmlHead } from '@inertiajs/vue3';
-import { computed, inject, onMounted } from 'vue';
+import { computed, onMounted } from 'vue';
+import { useLocales } from '@/handlers/locales';
 import AvatarForm from '@/components/ui/avatars/AvatarForm.vue';
 //import DeleteForm from '@/components/users/forms/DeleteForm.vue';
 import InformationForm from '@/components/users/forms/InformationForm.vue';
@@ -178,7 +179,7 @@ const props = defineProps({
     },
 });
 
-const { i18n } = inject('intl');
+const { i18n } = useLocales();
 
 const title = computed(() => props.isMyProfile ? 'Edit My Profile' : `Edit ${props.user.name}`);
 </script>

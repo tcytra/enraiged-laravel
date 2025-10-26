@@ -1,7 +1,6 @@
 <script>
 import { computed, nextTick } from 'vue';
 import { router } from '@inertiajs/vue3';
-import { trans, getActiveLanguage, loadLanguageAsync } from 'laravel-vue-i18n';
 
 export default {
     data: () => ({
@@ -81,11 +80,6 @@ export default {
                     error: this.handleError,
                 },
                 state: this.fetchState,
-            },
-            intl: {
-                ai18n: loadLanguageAsync,
-                i18n: trans,
-                lang: getActiveLanguage,
             },
             logout: this.logout,
         };

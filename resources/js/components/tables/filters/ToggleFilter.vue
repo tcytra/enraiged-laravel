@@ -1,5 +1,5 @@
 <template>
-    <headless-form-field v-slot:default="{ error, isDirty, isDisabled, isHidden, label, placeholder }"
+    <form-field v-slot:default="{ error, isDirty, isDisabled, isHidden, label, placeholder }"
         v-bind="$props">
         <div class="control filter togglebutton min-w-[128px]" @click="update" v-if="!isHidden"
             :class="{ 'toggled': value }">
@@ -13,12 +13,13 @@
                 </label>
             </primevue-inputgroup>
         </div>
-    </headless-form-field>
+    </form-field>
 </template>
 
 <script>
 import { format as dateFnsFormat } from 'date-fns';
-import HeadlessFormField from '@/components/forms/headless/FormField.vue';
+import { trans as i18n } from 'laravel-vue-i18n';
+import FormField from '@/components/forms/fields/renderless/FormField.vue';
 import PrimevueButton from 'primevue/button';
 import PrimevueCheckbox from 'primevue/checkbox';
 import PrimevueInputgroup from 'primevue/inputgroup';
@@ -28,14 +29,12 @@ export default {
     inheritAttrs: false,
 
     components: {
-        HeadlessFormField,
+        FormField,
         PrimevueButton,
         PrimevueCheckbox,
         PrimevueInputgroup,
         PrimevueInputgroupAddon,
     },
-
-    inject: ['intl'],
 
     props: {
         field: {
@@ -54,7 +53,7 @@ export default {
 
     computed: {
         i18n() {
-            return this.intl.i18n;
+            return i18n;
         },
         value() {
             return this.form[this.id];

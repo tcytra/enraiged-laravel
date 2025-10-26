@@ -35,6 +35,7 @@
 <script setup>
 import { computed, inject, ref, watch } from 'vue';
 import { palette } from '@/themes/palette';
+import { useLocales } from '@/handlers/locales';
 import PrimevuePopover from 'primevue/popover';
 import SelectButton from 'primevue/selectbutton';
 
@@ -45,7 +46,7 @@ const { theme } = defineProps({
     },
 });
 
-const { i18n } = inject('intl');
+const { i18n } = useLocales();
 const {
     currentPrimary, currentSurface, enableDarkMode, primaryColors, surfaceColors, updatePrimary, updateSurface,
 } = palette();

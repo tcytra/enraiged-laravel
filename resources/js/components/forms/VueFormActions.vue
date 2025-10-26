@@ -23,17 +23,13 @@
 </template>
 
 <script>
+import { trans as i18n } from 'laravel-vue-i18n';
 import PrimevueButton from 'primevue/button';
 
 export default {
     components: {
         PrimevueButton,
     },
-
-    inject: [
-        'back',
-        'i18n',
-    ],
 
     props: {
         clear: {
@@ -61,6 +57,12 @@ export default {
     computed: {
         actions() {
             return this.template.actions;
+        },
+    },
+
+    methods: {
+        back() {
+            window.history.back();
         },
     },
 };

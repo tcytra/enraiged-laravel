@@ -165,7 +165,9 @@
 </template>
 
 <script>
+import { error } from '@/handlers/errors';
 import { router } from '@inertiajs/vue3';
+import { trans as i18n } from 'laravel-vue-i18n';
 import PrimevueButton from 'primevue/button';
 import PrimevueColumn from 'primevue/column';
 import PrimevueColumnGroup from 'primevue/columngroup';
@@ -200,7 +202,6 @@ export default {
 
     inject: [
         'app',
-        'intl',
         //'flash',
         //'flashSuccess',
     ],
@@ -317,9 +318,6 @@ export default {
                 .filter((name) => columns[name].sum)
                 .length > 0;
         },
-        i18n() {
-            return this.intl.i18n;
-        },
         first() {
             return this.pagination.page && this.pagination.rows
                 ? (this.pagination.page * this.pagination.rows) - this.pagination.rows
@@ -331,6 +329,9 @@ export default {
         /*hasState() {
             return localStorage.getItem(this.template.id) !== null;
         },*/
+        i18n() {
+            return i18n;
+        },
         isExportable() {
             return typeof this.template.exportable !== 'undefined'
                 && this.template.exportable !== null;
@@ -421,7 +422,7 @@ export default {
 
             return axios.get(url, { params: this.params() })
                 .then(response => this.fetched(response))
-                .catch(error => this.errorHandler(error));
+                .catch((e) => error(e));
         },
 
         actionHandler() {
@@ -485,7 +486,7 @@ export default {
                         router.get('/');
                     }
                 })
-                .catch(error => this.errorHandler(error));
+                .catch((e) => error(e));
         },
 
         batch(confirmed) {
@@ -539,14 +540,14 @@ export default {
         confirm(action, accept) {
             this.$confirm.require({
                 message: typeof action.confirm === 'string'
-                    ? this.i18n(action.confirm)
-                    : this.i18n('Are you sure you want to proceed?'),
-                header: this.i18n('Please confirm'),
+                    ? i18n(action.confirm)
+                    : i18n('Are you sure you want to proceed?'),
+                header: i18n('Please confirm'),
                 icon: 'pi pi-exclamation-triangle',
                 acceptClass: 'p-button-danger',
                 rejectClass: 'p-button-secondary',
-                acceptLabel: this.i18n('Yes'),
-                rejectLabel: this.i18n('No'),
+                acceptLabel: i18n('Yes'),
+                rejectLabel: i18n('No'),
                 accept,
             });
         },
@@ -586,11 +587,7 @@ export default {
                         }
                     }
                 })
-                .catch(error => this.errorHandler(error));
-        },
-
-        errorHandler(error) {
-            //
+                .catch((e) => error(e));
         },
 
         exporter() {
@@ -617,7 +614,7 @@ export default {
                     this.calculateSums();
                 }
             } else {
-                this.errorHandler(response);
+                error(response);
             }
         },
 

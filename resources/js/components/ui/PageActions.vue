@@ -18,9 +18,10 @@
 </template>
 
 <script setup>
-import { computed, inject } from 'vue';
+import { computed } from 'vue';
 import { router } from '@inertiajs/vue3';
 import { useConfirm } from "primevue/useconfirm";
+import { useLocales } from '@/handlers/locales';
 import { useToast } from "primevue/usetoast";
 import PrimevueButton from 'primevue/button';
 
@@ -34,13 +35,14 @@ const props = defineProps({
     },
 });
 
-const { i18n } = inject('intl');
-
 const back = () => {
     window.history.back();
 };
 
+const { i18n } = useLocales();
+
 const confirm = useConfirm();
+
 const toast = useToast();
 
 const current = (action) => {

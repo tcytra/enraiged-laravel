@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import { trans as i18n } from 'laravel-vue-i18n';
 import PrimevueCard from 'primevue/card';
 import VueFormFields from './VueFormFields.vue';
 
@@ -48,8 +49,6 @@ export default {
         PrimevueCard,
         VueFormFields,
     },
-
-    inject: ['i18n'],
 
     props: {
         creating: {

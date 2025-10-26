@@ -1,5 +1,5 @@
 <template>
-    <headless-form-field v-slot:default="{ error, isDirty, isDisabled, isHidden, label, placeholder }"
+    <form-field v-slot:default="{ error, isDirty, isDisabled, isHidden, label, placeholder }"
         v-bind="$props">
         <div class="control filter datepicker" v-if="!isHidden">
             <label v-if="field.label" class="label" :for="id">
@@ -21,12 +21,13 @@
                     @click="clear()"/>
             </div>
         </div>
-    </headless-form-field>
+    </form-field>
 </template>
 
 <script>
 import { format as dateFnsFormat } from 'date-fns';
-import HeadlessFormField from '@/components/forms/headless/FormField.vue';
+import { trans as i18n } from 'laravel-vue-i18n';
+import FormField from '@/components/forms/fields/renderless/FormField.vue';
 import PrimevueButton from 'primevue/button';
 import PrimevueCalendar from 'primevue/calendar';
 
@@ -34,12 +35,12 @@ export default {
     inheritAttrs: false,
 
     components: {
-        HeadlessFormField,
+        FormField,
         PrimevueButton,
         PrimevueCalendar,
     },
 
-    inject: ['i18n', 'app'],
+    inject: ['app'],
 
     props: {
         field: {
@@ -62,7 +63,7 @@ export default {
 
     computed: {
         i18n() {
-            return this.intl.i18n;
+            return i18n;
         },
         isMobile() {
             return app.meta.mobile;

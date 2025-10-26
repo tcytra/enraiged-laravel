@@ -1,7 +1,9 @@
 # Release Notes
 
-2025-xx-xx : 0.4.0-beta.9 (prerelease)  
+2025-10-26 : 0.4.0-beta.9 (prerelease)  
 Update: 
+
+- Reorganized the js composable functions into @/handlers
 
 ---
 

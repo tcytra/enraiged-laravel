@@ -26,6 +26,7 @@
 <script setup>
 import { inject } from 'vue';
 import { useForm } from '@inertiajs/vue3';
+import { useLocales } from '@/handlers/locales';
 import HiddenField from '@/components/forms/fields/HiddenField.vue';
 import SecondaryButton from '@/components/ui/buttons/SecondaryButton.vue';
 
@@ -45,7 +46,7 @@ const props = defineProps({
 });
 
 const { meta } = inject('app');
-const { ai18n, i18n } = inject('intl');
+const { ai18n, i18n } = useLocales();
 const locales = meta.value.locales;
 const user = props.user;
 

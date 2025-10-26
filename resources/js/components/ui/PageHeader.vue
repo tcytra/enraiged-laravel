@@ -8,7 +8,7 @@
 
 <script setup>
 import { Head as HtmlHead } from '@inertiajs/vue3';
-import { inject } from 'vue';
+import { useLocales } from '@/handlers/locales';
 import PageActions from '@/components/ui/PageActions.vue';
 
 defineProps({
@@ -34,5 +34,5 @@ defineProps({
     },
 });
 
-const { i18n } = inject('intl');
+const { i18n } = useLocales();
 </script>

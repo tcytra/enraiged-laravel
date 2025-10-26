@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import { trans as i18n } from 'laravel-vue-i18n';
 import Avatar from '@/components/ui/avatars/Avatar.vue';
 import PrimevueBadge from 'primevue/badge';
 import PrimevueTooltip from 'primevue/tooltip';
@@ -38,13 +39,9 @@ export default {
         },
     },
 
-    inject: [
-        'intl',
-    ],
-
     computed: {
         i18n() {
-            return this.intl.i18n;
+            return i18n;
         },
     },
 

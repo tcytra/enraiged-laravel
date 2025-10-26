@@ -43,8 +43,9 @@
 
 <script setup>
 import { Link as HtmlLink, useForm } from '@inertiajs/vue3';
-import { inject } from 'vue';
-import { loadLanguageAsync as ai18n } from 'laravel-vue-i18n';
+//import { inject } from 'vue';
+//import { loadLanguageAsync as ai18n } from 'laravel-vue-i18n';
+import { useLocales } from '@/handlers/locales';
 import PasswordField from '@/components/forms/fields/PasswordField.vue';
 import PrimaryButton from '@/components/ui/buttons/PrimaryButton.vue';
 import SecondaryButton from '@/components/ui/buttons/SecondaryButton.vue';
@@ -64,7 +65,7 @@ const props = defineProps({
     },
 });
 
-const { i18n } = inject('intl');
+const { ai18n, i18n } = useLocales();
 const user = props.user;
 
 const form = useForm({

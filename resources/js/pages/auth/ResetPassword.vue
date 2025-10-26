@@ -43,6 +43,7 @@
 
 <script setup>
 import { Head as HtmlHead, useForm } from '@inertiajs/vue3';
+import { useLocales } from '@/handlers/locales';
 import PasswordField from '@/components/forms/fields/PasswordField.vue';
 import PrimaryButton from '@/components/ui/buttons/PrimaryButton.vue';
 import PrimevueCard from 'primevue/card';
@@ -58,6 +59,8 @@ const props = defineProps({
         required: true,
     },
 });
+
+const { i18n } = useLocales();
 
 const form = useForm({
     token: props.token,

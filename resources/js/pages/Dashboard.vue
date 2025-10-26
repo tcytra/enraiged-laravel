@@ -13,9 +13,10 @@
 
 <script setup>
 import { inject } from 'vue';
+import { useLocales } from '@/handlers/locales';
 import PageHeader from '@/components/ui/PageHeader.vue';
 import PrimevueCard from 'primevue/card';
 
-const { i18n } = inject('intl');
+const { i18n } = useLocales();
 const { meta } = inject('app');
 </script>

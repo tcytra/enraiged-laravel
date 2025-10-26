@@ -43,8 +43,9 @@
 </template>
 
 <script setup>
-import { computed, inject, ref } from 'vue';
-import { menu } from '@/layouts/composables/menu';
+import { computed, ref } from 'vue';
+import { useLocales } from '@/handlers/locales';
+import { useMenus } from '@/handlers/menus';
 import { usePage } from '@inertiajs/vue3';
 import Avatar from '@/components/ui/avatars/Avatar.vue';
 
@@ -59,9 +60,9 @@ const props = defineProps({
     },
 });
 
-const { i18n } = inject('intl');
+const { i18n } = useLocales();
 
-const { active, handle } = menu();
+const { active, handle } = useMenus();
 
 const item = ref({ route: { name: 'my.profile.edit' } });
 

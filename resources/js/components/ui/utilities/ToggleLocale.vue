@@ -13,10 +13,11 @@ import { en } from "primelocale/js/en.js";
 import { es } from "primelocale/js/es.js";
 import { fr } from "primelocale/js/fr.js";
 import { inject, ref, watch } from 'vue';
+import { useLocales } from '@/handlers/locales';
 import { usePrimeVue } from "primevue/config";
 import SelectButton from 'primevue/selectbutton';
 
-const { ai18n } = inject('intl');
+const { ai18n } = useLocales();
 const { meta } = inject('app');
 const locales = Object.keys(meta.value.locales);
 const primelocales = { en, es, fr };

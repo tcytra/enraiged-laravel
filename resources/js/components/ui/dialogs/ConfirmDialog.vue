@@ -28,8 +28,9 @@
 </template>
 
 <script setup>
-import { inject, ref } from 'vue';
+import { ref } from 'vue';
 import { useConfirm } from "primevue/useconfirm";
+import { useLocales } from '@/handlers/locales';
 import PrimaryButton from '@/components/ui/buttons/PrimaryButton.vue';
 import PrimevueConfirm from 'primevue/confirmdialog';
 import SecondaryButton from '@/components/ui/buttons/SecondaryButton.vue';
@@ -57,7 +58,7 @@ const props = defineProps({
     },
 });
 
-const { i18n } = inject('intl');
+const { i18n } = useLocales();
 const emit = defineEmits(['accepted', 'rejected']);
 const confirm = useConfirm();
 const confirming = ref(false);

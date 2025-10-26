@@ -45,6 +45,7 @@
 <script setup>
 import { Head as HtmlHead, Link as HtmlLink, useForm } from '@inertiajs/vue3';
 import { inject } from 'vue';
+import { useLocales } from '@/handlers/locales';
 import PrimaryButton from '@/components/ui/buttons/PrimaryButton.vue';
 import PrimevueCard from 'primevue/card';
 import TextField from '@/components/forms/fields/TextField.vue';
@@ -58,7 +59,7 @@ defineProps({
     },
 });
 
-const { i18n } = inject('intl');
+const { i18n, lang } = useLocales();
 
 const form = useForm({
     email: null,
@@ -67,7 +68,7 @@ const form = useForm({
 const submit = () => {
     form.transform((data) => ({
             ...data,
-            locale: getActiveLanguage(),
+            locale: lang(),
         }))
         .post(route('password.email'));
 };

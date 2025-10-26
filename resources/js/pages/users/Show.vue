@@ -34,7 +34,8 @@
 </template>
 
 <script setup>
-import { computed, inject } from 'vue';
+import { computed } from 'vue';
+import { useLocales } from '@/handlers/locales';
 import Avatar from '@/components/ui/avatars/Avatar.vue';
 import PageHeader from '@/components/ui/PageHeader.vue';
 import PrimevueCard from 'primevue/card';
@@ -50,7 +51,7 @@ const props = defineProps({
     },
 });
 
-const { i18n } = inject('intl');
+const { i18n } = useLocales();
 
 const title = computed(() => props.user.name);
 </script>

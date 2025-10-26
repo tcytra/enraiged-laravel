@@ -55,7 +55,7 @@ const make = (menu) => {
     return items;
 };
 
-export function menu() {
+export function useMenus() {
     return {
         active,
         expand,

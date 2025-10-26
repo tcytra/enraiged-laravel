@@ -60,6 +60,7 @@
 <script setup>
 import { Head as HtmlHead, Link as HtmlLink, useForm } from '@inertiajs/vue3';
 import { inject } from 'vue';
+import { useLocales } from '@/handlers/locales';
 import CheckboxField from '@/components/forms/fields/CheckboxField.vue';
 import PasswordField from '@/components/forms/fields/PasswordField.vue';
 import PrimaryButton from '@/components/ui/buttons/PrimaryButton.vue';
@@ -92,7 +93,7 @@ const form = useForm({
 });
 
 const { state } = inject('app');
-const { i18n } = inject('intl');
+const { i18n } = useLocales();
 
 const submit = () => {
     form.post(route('login'), {

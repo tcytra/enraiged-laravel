@@ -37,8 +37,9 @@
 </template>
 
 <script setup>
-import { computed, inject, ref } from 'vue';
-import { menu } from '@/layouts/composables/menu';
+import { computed, ref } from 'vue';
+import { useLocales } from '@/handlers/locales';
+import { useMenus } from '@/handlers/menus';
 import PrimevuePanelMenu from 'primevue/panelmenu';
 
 const props = defineProps({
@@ -52,9 +53,9 @@ const props = defineProps({
     },
 });
 
-const { i18n } = inject('intl');
+const { active, expand, handle, make } = useMenus();
 
-const { active, expand, handle, make } = menu();
+const { i18n } = useLocales();
 
 const items = computed(() => make(props.menu));
 

@@ -46,6 +46,7 @@
 <script setup>
 import { inject, onMounted, ref } from 'vue';
 import { useForm } from '@inertiajs/vue3';
+import { useHandlers } from '@/handlers';
 import Avatar from '@/components/ui/avatars/Avatar.vue';
 import HiddenField from '@/components/forms/fields/HiddenField.vue';
 import PrimevueButton from 'primevue/button';
@@ -70,7 +71,8 @@ const props = defineProps({
 });
 
 const { state } = inject('app');
-const { i18n } = inject('intl');
+
+const { error, i18n } = useHandlers();
 
 const user = props.user;
 
@@ -96,9 +98,7 @@ const destroy = () => {
                 reset();
             }
         })
-        .catch((error) => {
-            // console.log(error);
-        });
+        .catch((e) => error(e));
 };
 
 const preview = () => {
