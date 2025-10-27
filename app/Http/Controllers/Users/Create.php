@@ -22,7 +22,14 @@ class Create extends Controller
 
         $this->authorize('create', $model);
 
+        $user = (new $model);
+
         $props = [
+            'form' => $user->form($request)
+                ->fieldIf('email', ['label' => 'Primary Email'], $user->allowSecondaryCredential)
+                ->fieldIf('username', ['label' => 'Secondary Email or Username', 'type' => 'text'], $user->allowUsernameLogin)
+                ->removeIf('username', !$user->allowSecondaryCredential)
+                ->template(),
         ];
 
         return inertia('users/Create', $props);

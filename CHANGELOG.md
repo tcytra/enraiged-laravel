@@ -1,8 +1,11 @@
 # Release Notes
 
-2025-10-26 : 0.4.0-beta.9 (prerelease)  
-Update: 
+2025-10-27 : 0.4.0-beta.9 (prerelease)  
+Update: Added form handling to the Enraiged User system
 
+- Added form handling to the Enraiged User system
+- Added form components to the client-side ui system
+- Applied creating,updating colors to the form fields
 - Reorganized the js composable functions into @/handlers
 
 ---

@@ -3,19 +3,42 @@
 namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Users\CreateRequest;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 
 class Store extends Controller
 {
     use AuthorizesRequests;
 
     /**
-     *  @param  \Illuminate\Http\Request  $request
-     *  @return
+     *  @param  \App\Http\Requests\Users\CreateRequest  $request
+     *  @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function __invoke(Request $request)
+    public function __invoke(CreateRequest $request): JsonResponse|RedirectResponse
     {
-        //
+        $model = config('auth.providers.users.model');
+
+        $user = (new $model);
+
+        $this->authorize('store', $model);
+
+        $request->createUser($user);
+
+        if ($request->expectsJson()) {
+            return response()
+                ->json([
+                    'message' => $request->message(),
+                    'redirect' => $request->has('_referer')
+                        ? $request->get('_referer')
+                        : null,
+                    'success' => true,
+                ]);
+        }
+
+        return $request->has('_referer')
+            ? redirect($request->get('_referer'))
+            : redirect()->route('users.show', ['user' => $user->id], 302);
     }
 }

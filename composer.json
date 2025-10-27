@@ -12,7 +12,6 @@
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.10.1",
         "tcytra/enraiged-core": "^0.4",
-        "tcytra/enraiged-tables": "^0.3",
         "tightenco/ziggy": "^2.0"
     },
     "require-dev": {
