@@ -14,8 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->foreignBigInteger('profile_id', 'profiles')->after('id')->nullable();
-            $table->foreignBigInteger('role_id', 'roles')->after('profile_id')->nullable();
+            $table->foreignBigInteger('profile_id', 'profiles')->nullable()->after('id');
+            // $table->foreignBigInteger('role_id', 'roles')->nullable()->after('profile_id');
+            $table->tinyInteger('role_id')->after('profile_id');
 
             $table->boolean('is_active')->default(true)->after('role_id');
             $table->boolean('is_hidden')->default(false)->after('is_active');

@@ -10,7 +10,7 @@ return new class extends Migration
      *  Run the migrations.
      *
      *  @return void
-     */
+     *
     public function up()
     {
         Schema::create('roles', function (Blueprint $table) {
@@ -19,15 +19,15 @@ return new class extends Migration
             $table->string('name');
             $table->string('text', 1024);
         });
-    }
+    }*/
 
     /**
      *  Reverse the migrations.
      *
      *  @return void
-     */
+     *
     public function down()
     {
         Schema::dropIfExists('roles');
-    }
+    }*/
 };

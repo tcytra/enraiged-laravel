@@ -7,18 +7,11 @@ return [
             'icon' => 'pi pi-home',
             'label' => 'Dashboard',
             'route' => 'dashboard',
+            'secure' => ['method' => 'isAuth'],
         ],
         'administration' => [
             'label' => 'Administration',
             'items' => [
-                'roles' => [
-                    'icon' => 'pi pi-key',
-                    'label' => 'Manage Permissions',
-                    'route' => [
-                        'match' => 'permissions.*',
-                        'name' => 'permissions.index',
-                    ],
-                ],
                 'users' => [
                     'icon' => 'pi pi-users',
                     'label' => 'Manage Users',
@@ -28,6 +21,7 @@ return [
                     ],
                 ],
             ],
+            'secure' => ['method' => 'isAdministrator'],
         ],
 
     ],

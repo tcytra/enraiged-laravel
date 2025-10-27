@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Artisan;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,10 +17,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $model = config('auth.providers.users.model');
+        if (!app()->environment('production')) {
+            // Artisan::call('storage:clear');
 
-        // $model::factory(10)->create();
-
-        $model::factory(env('SEED_USERS', 1))->create();
+            $this->call([
+                UserSeeder::class,
+            ]);
+        }
     }
 }

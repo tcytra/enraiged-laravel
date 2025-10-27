@@ -9,7 +9,7 @@
 
 **Enraiged Laravel is a starter kit implementing Laravel 12, Vite, VueJS, InertiaJS, Primevue, and TailwindCSS.**
 
-> **Please Note:** The **0.4.x** branch is currently a work in progress and not yet ready for production use.
+> **Please Note:** The **0.4.x** branch is currently being tested for production use.
 
 
 ## Table of Contents

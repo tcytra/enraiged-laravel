@@ -3,8 +3,10 @@
 2025-10-27 : 0.4.0-beta.9 (prerelease)  
 Update: Added form handling to the Enraiged User system
 
+- Added database seeding for the initial user account(s)
 - Added form handling to the Enraiged User system
 - Added form components to the client-side ui system
+- Added role handling to the forms,tables,menu systems
 - Applied creating,updating colors to the form fields
 - Reorganized the js composable functions into @/handlers
 

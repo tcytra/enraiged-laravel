@@ -1,0 +1,11 @@
+[
+    {
+        "email": "administrator@enraiged.local",
+        "is_hidden": true,
+        "is_protected": true,
+        "name": "Application Administrator",
+        "password": "changeme",
+        "role_id": 1,
+        "username": "admin"
+    }
+]
