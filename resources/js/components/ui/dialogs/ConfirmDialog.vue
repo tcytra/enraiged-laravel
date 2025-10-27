@@ -29,7 +29,7 @@
 
 <script setup>
 import { ref } from 'vue';
-import { useConfirm } from "primevue/useconfirm";
+import { useConfirm } from 'primevue/useconfirm';
 import { useLocales } from '@/handlers/locales';
 import PrimaryButton from '@/components/ui/buttons/PrimaryButton.vue';
 import PrimevueConfirm from 'primevue/confirmdialog';

@@ -4,7 +4,7 @@ import './bootstrap';
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
-import { i18nVue } from "laravel-vue-i18n";
+import { i18nVue } from 'laravel-vue-i18n';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 import ConfirmationService from 'primevue/confirmationservice';
 import DefaultLayout from '@/layouts/DefaultLayout.vue';

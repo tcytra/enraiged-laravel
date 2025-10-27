@@ -80,6 +80,7 @@ export default {
                     error: this.handleError,
                 },
                 state: this.fetchState,
+                toast: this.toast,
             },
             logout: this.logout,
         };

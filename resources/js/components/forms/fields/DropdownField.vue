@@ -13,7 +13,7 @@
                 </label>
             </slot>
             <slot name="field" v-bind="field">
-                <primevue-multiselect class="dropdown input multi primevue" ref="input" v-if="enableMultiple"
+                <primevue-multiselect class="dropdown input multi primevue w-full" ref="input" v-if="enableMultiple"
                     v-model="field.form[field.id]"
                     :class="[{
                         'has-error': field.error,
@@ -63,7 +63,7 @@
                         <slot name="option" v-bind="props" />
                     </template>
                 </primevue-multiselect>
-                <primevue-select class="dropdown input primevue" ref="input" v-else
+                <primevue-select class="dropdown input primevue w-full" ref="input" v-else
                     v-model="field.form[field.id]"
                     :class="[{
                         'has-error': field.error,

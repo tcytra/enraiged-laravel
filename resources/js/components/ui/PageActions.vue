@@ -20,9 +20,9 @@
 <script setup>
 import { computed } from 'vue';
 import { router } from '@inertiajs/vue3';
-import { useConfirm } from "primevue/useconfirm";
+import { useConfirm } from 'primevue/useconfirm';
 import { useLocales } from '@/handlers/locales';
-import { useToast } from "primevue/usetoast";
+import { useMessages } from '@/handlers/messages';
 import PrimevueButton from 'primevue/button';
 
 const props = defineProps({
@@ -42,8 +42,6 @@ const back = () => {
 const { i18n } = useLocales();
 
 const confirm = useConfirm();
-
-const toast = useToast();
 
 const current = (action) => {
     return route().current(action.route.name, action.route.params);

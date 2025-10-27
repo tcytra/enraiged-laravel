@@ -1,12 +1,14 @@
 <template>
     <main class="content main">
-        <page-header back-button fixed title="Create User" />
+        <page-header back-button fixed :title="i18n('Create User')" />
 
-        <section class="section form mx-auto max-w-7xl">
-            ...
+        <section class="section form mx-auto w-lg">
+            <primevue-card class="">
+                <template #content>
+                    <user-form creating :template="form" />
+                </template>
+            </primevue-card>
         </section>
-
-        <pre>{{ form }}</pre>
     </main>
 </template>
 
@@ -14,6 +16,8 @@
 import { Head as HtmlHead } from '@inertiajs/vue3';
 import { useLocales } from '@/handlers/locales';
 import PageHeader from '@/components/ui/PageHeader.vue';
+import PrimevueCard from 'primevue/card';
+import UserForm from '@/components/users/forms/UserForm.vue';
 
 defineProps({
     form: {

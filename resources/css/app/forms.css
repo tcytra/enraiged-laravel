@@ -4,6 +4,27 @@ form, .form {
       margin-bottom:    1rem;
     }
 
+    .actions.control {
+      display:          flex;
+      flex-direction:   row-reverse;
+      justify-content:  space-between;
+      margin-top:       1.5rem;
+
+        .actions-left {
+          display:          flex;
+        }
+        .actions-right {
+          display:          flex;
+          flex-direction:   row-reverse;
+          gap:              calc(var(--spacing) * 2);
+        }
+
+        .p-button-sm {
+          margin-bottom:    .125rem;
+          margin-top:       .125rem;
+        }
+    }
+
     .field.control {
       display:          flex;
       margin-bottom:    .5rem;
@@ -163,5 +184,18 @@ form, .form {
     .p-password.is-updating:not(.p-invalid) .p-inputtext {
       background-color: var(--p-amber-100) !important;
       border-color:     var(--p-amber-800) !important;
+    }
+}
+
+.dark-mode {
+    form, .form {
+        .p-checkbox.is-creating:not(.p-invalid) .p-checkbox-box,
+        .p-calendar.is-creating:not(.p-invalid) .p-inputtext,
+        .p-inputtext.is-creating:not(.p-invalid),
+        .p-inputwrapper.is-creating:not(.p-calendar):not(.p-invalid),
+        .p-password.is-creating:not(.p-invalid) .p-inputtext {
+          background-color: var(--p-sky-800) !important;
+          border-color:     var(--p-sky-400) !important;
+        }
     }
 }

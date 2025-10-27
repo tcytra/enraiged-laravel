@@ -220,12 +220,13 @@ input:autofill {
     color calc(infinity * 1s) step-end;
 }
 */
-
+/*
 .p-button-warning {
   background:       var(--p-button-warn-background);
   border:           1px solid var(--p-button-warn-border-color);
   color:            var(--p-button-warn-color);
 }
+*/
 
 .p-card-header {
   border-radius:    var(--p-card-border-radius) var(--p-card-border-radius) 0 0;

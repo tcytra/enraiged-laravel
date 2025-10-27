@@ -9,12 +9,12 @@
 </template>
 
 <script setup>
-import { en } from "primelocale/js/en.js";
-import { es } from "primelocale/js/es.js";
-import { fr } from "primelocale/js/fr.js";
+import { en } from 'primelocale/js/en.js';
+import { es } from 'primelocale/js/es.js';
+import { fr } from 'primelocale/js/fr.js';
 import { inject, ref, watch } from 'vue';
 import { useLocales } from '@/handlers/locales';
-import { usePrimeVue } from "primevue/config";
+import { usePrimeVue } from 'primevue/config';
 import SelectButton from 'primevue/selectbutton';
 
 const { ai18n } = useLocales();

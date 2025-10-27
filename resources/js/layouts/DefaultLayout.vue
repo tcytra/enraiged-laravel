@@ -13,9 +13,9 @@
         <transition name="fade">
             <load-state v-if="!app.ready"></load-state>
         </transition>
-        <primevue-toast v-if="app.ready"
+        <!--<primevue-toast v-if="app.ready"
             :group="app.toast.group"
-            :position="app.toast.position" />
+            :position="app.toast.position" />-->
     </app-state>
 </template>
 
@@ -24,7 +24,7 @@ import AppState from './states/renderless/AppState.vue';
 import AuthState from './states/AuthState.vue';
 import GuestState from './states/GuestState.vue';
 import LoadState from './states/LoadState.vue';
-import PrimevueToast from 'primevue/toast';
+// import PrimevueToast from 'primevue/toast';
 </script>
 
 <style scoped>

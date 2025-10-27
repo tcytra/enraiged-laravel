@@ -4,7 +4,7 @@
             :class="[
                 'form',
                 template.class,
-                {'custom-actions': customActions, 'formgrid grid': formGrid},
+                {'custom-actions': customActions},
                 {'horizontal': template.labels === 'horizontal' },
                 {'vertical': template.labels === 'vertical' },
             ]">
@@ -64,8 +64,9 @@
 
 <script>
 import axios from 'axios';
-import error from '@/handlers/errors';
+import { error } from '@/handlers/errors';
 import { router, useForm } from '@inertiajs/vue3';
+import { useMessages } from '@/handlers/messages';
 import TabPanel from 'primevue/tabpanel';
 import TabView from 'primevue/tabview';
 import VueFormActions from './VueFormActions.vue';
@@ -89,10 +90,6 @@ export default {
             default: false,
         },
         customActions: {
-            type: Boolean,
-            default: false,
-        },
-        formGrid: {
             type: Boolean,
             default: false,
         },
@@ -120,8 +117,7 @@ export default {
     },
 
     setup (props, { emit }) {
-        //const isSuccess = inject('isSuccess');
-        //const flashSuccess = inject('flashSuccess');
+        const { flashSuccess } = useMessages();
 
         let fields = props.template.referer
             ? {_referer: props.template.referer}
@@ -162,6 +158,10 @@ export default {
             return fields;
         }
 
+        function isSuccess(status) {
+            return status >= 200 && status < 300;
+        }
+
         function reset() {
             form.clearErrors();
             form.reset();
@@ -170,12 +170,12 @@ export default {
 
         function submit() {
             form.clearErrors();
-            const { method, uri } = props.template.resource;
+            const { method, url } = props.template.resource;
             if (props.template.resource.api === true) {
                 const headers = props.multipart || props.template.multipart
                     ? {'Content-Type': 'multipart/form-data'}
                     : {};
-                axios[method](uri, form.data(), {headers})
+                axios[method](url, form.data(), {headers})
                     .then((response) => {
                         const { status, data } = response;
                         if (isSuccess(status) && data.success) {
@@ -193,13 +193,20 @@ export default {
                         }
                     })
                     .catch((e) => {
-                        const { response } = e;
-                        const { errors } = response.data;
-                        Object.keys(errors).forEach((each) => {
-                            errors[each] = errors[each][0];
-                        });
-                        form.setError(errors);
-                        error(e);
+                        if (e.response) {
+                            const { response, status } = e;
+                            if (status === 422) {
+                                const { errors } = response.data;
+                                Object.keys(errors).forEach((each) => {
+                                    errors[each] = errors[each][0];
+                                });
+                                form.setError(errors);
+                            } else {
+                                error(e);
+                            }
+                        } else {
+                            error(e);
+                        }
                     });
             } else {
                 form[method](uri, {
