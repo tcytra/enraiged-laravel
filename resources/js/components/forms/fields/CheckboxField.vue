@@ -13,11 +13,11 @@
                 </label>
             </slot>
             <slot name="field" v-bind="field">
-                <primevue-checkbox class="input primevue" ref="input" v-model="field.form[field.id]" binary
+                <primevue-checkbox class="checkbox input primevue" ref="input" v-model="field.form[field.id]" binary
                     :class="{
-                        'input-success': field.isCreating,
-                        'input-warning': field.isUpdating,
-                        'input-error': field.error,
+                        'has-error': field.error,
+                        'is-creating': field.isCreating,
+                        'is-updating': field.isUpdating,
                     }"
                     :disabled="field.isDisabled"
                     :input-id="field.id"

@@ -13,12 +13,12 @@
                 </label>
             </slot>
             <slot name="field" v-bind="field">
-                <primevue-textarea class="input primevue" ref="input" v-model="field.form[field.id]"
+                <primevue-textarea class="textarea input primevue" ref="input" v-model="field.form[field.id]"
                     :auto-resize="enableAutoResize"
                     :class="[{
-                        'input-success': field.isCreating,
-                        'input-warning': field.isUpdating,
-                        'input-error': field.error,
+                        'has-error': field.error,
+                        'is-creating': field.isCreating,
+                        'is-updating': field.isUpdating,
                     }, !enableTextareaCols ? field.width : '']"
                     :cols="enableTextareaCols"
                     :input-id="field.id"

@@ -13,11 +13,11 @@
                 </label>
             </slot>
             <slot name="field" v-bind="field">
-                <primevue-datepicker class="input primevue" ref="input" v-model="field.form[field.id]" fluid
+                <primevue-datepicker class="datepicker input primevue" ref="input" v-model="field.form[field.id]" fluid
                     :class="[{
-                        'input-success': field.isCreating,
-                        'input-warning': field.isUpdating,
-                        'input-error': field.error,
+                        'has-error': field.error,
+                        'is-creating': field.isCreating,
+                        'is-updating': field.isUpdating,
                     }, field.width]"
                     :date-format="enableDateFormat"
                     :disabled="field.isDisabled"

@@ -13,12 +13,12 @@
                 </label>
             </slot>
             <slot name="field" v-bind="field">
-                <primevue-multiselect class="input primevue" ref="input" v-if="enableMultiple"
+                <primevue-multiselect class="dropdown input multi primevue" ref="input" v-if="enableMultiple"
                     v-model="field.form[field.id]"
                     :class="[{
-                        'input-success': field.isCreating,
-                        'input-warning': field.isUpdating,
-                        'input-error': field.error,
+                        'has-error': field.error,
+                        'is-creating': field.isCreating,
+                        'is-updating': field.isUpdating,
                     }, field.width]"
                     :disabled="loading || field.isDisabled || (disableIfNoOptions && !options.length)"
                     :filter="enableSearchable"
@@ -63,12 +63,12 @@
                         <slot name="option" v-bind="props" />
                     </template>
                 </primevue-multiselect>
-                <primevue-select class="input w-full" ref="input" v-else
+                <primevue-select class="dropdown input primevue" ref="input" v-else
                     v-model="field.form[field.id]"
                     :class="[{
-                        'input-success': field.isCreating,
-                        'input-warning': field.isUpdating,
-                        'input-error': field.error,
+                        'has-error': field.error,
+                        'is-creating': field.isCreating,
+                        'is-updating': field.isUpdating,
                     }, field.inputWidth]"
                     :disabled="loading || field.isDisabled || (disableIfNoOptions && !options.length)"
                     :filter="enableSearchable"

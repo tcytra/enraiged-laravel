@@ -13,7 +13,12 @@
                 </label>
             </slot>
             <slot name="field" v-bind="field">
-                <primevue-switch class="input primevue" ref="input" v-model="field.form[field.id]"
+                <primevue-switch class="input primevue switch" ref="input" v-model="field.form[field.id]"
+                    :class="{
+                        'has-error': field.error,
+                        'is-creating': field.isCreating,
+                        'is-updating': field.isUpdating,
+                    }"
                     :disabled="field.isDisabled"
                     :input-id="field.id"
                     :invalid="!!field.error"

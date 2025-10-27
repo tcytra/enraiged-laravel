@@ -13,12 +13,12 @@
                 </label>
             </slot>
             <slot name="field" v-bind="field">
-                <primevue-inputnumber class="input primevue" ref="input" v-model="field.form[field.id]"
+                <primevue-inputnumber class="input primevue number" ref="input" v-model="field.form[field.id]"
                     :button-layout="enableButtonLayout"
                     :class="[{
-                        'input-success': field.isCreating,
-                        'input-warning': field.isUpdating,
-                        'input-error': field.error,
+                        'has-error': field.error,
+                        'is-creating': field.isCreating,
+                        'is-updating': field.isUpdating,
                     }, field.width]"
                     :currency="enableFieldCurrency"
                     :disabled="field.isDisabled"

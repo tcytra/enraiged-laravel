@@ -211,7 +211,7 @@
 }
 
 
-
+/*
 input:autofill {
   background: unset !important;
   transition:
@@ -219,6 +219,7 @@ input:autofill {
     background-image calc(infinity * 1s) step-end allow-discrete,
     color calc(infinity * 1s) step-end;
 }
+*/
 
 .p-button-warning {
   background:       var(--p-button-warn-background);

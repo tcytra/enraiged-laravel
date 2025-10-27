@@ -13,17 +13,18 @@
                 </label>
             </slot>
             <slot name="field" v-bind="field">
-                <primevue-inputtext class="input primevue" ref="input" v-model="field.form[field.id]"
+                <primevue-inputtext class="text input primevue" ref="input" v-model="field.form[field.id]"
                     :class="[{
-                        'input-success': field.isCreating,
-                        'input-warning': field.isUpdating,
-                        'input-error': field.error,
+                        'has-error': field.error,
+                        'is-creating': field.isCreating,
+                        'is-updating': field.isUpdating,
                     }, field.width]"
                     :disabled="field.isDisabled"
                     :input-id="field.id"
                     :invalid="!!field.error"
                     :placeholder="field.placeholder"
                     :size="field.size"
+                    :type="field.type || 'text'"
                     @update:modelValue="field.update($event)" />
             </slot>
             <div class="error" v-if="field.error">

@@ -13,11 +13,11 @@
                 </label>
             </slot>
             <slot name="field" v-bind="field">
-                <primevue-editor class="input primevue" ref="input" v-model="field.form[field.id]"
+                <primevue-editor class="editor input primevue" ref="input" v-model="field.form[field.id]"
                     :class="[{
-                        'input-success': field.isCreating,
-                        'input-warning': field.isUpdating,
-                        'input-error': field.error,
+                        'has-error': field.error,
+                        'is-creating': field.isCreating,
+                        'is-updating': field.isUpdating,
                     }, field.width]"
                     :editor-style="enableEditorStyle"
                     :input-id="field.id"
