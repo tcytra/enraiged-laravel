@@ -74,6 +74,8 @@ const { i18n } = useLocales();
 
 const confirm = ref('confirm');
 
+const route = inject('route');
+
 const user = props.user;
 
 const form = useForm({

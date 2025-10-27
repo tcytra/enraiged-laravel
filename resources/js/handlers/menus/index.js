@@ -1,6 +1,6 @@
 import { router } from '@inertiajs/vue3';
 
-const active = (item) => {
+const active = (route, item) => {
     return item.route.current
         ? route().current(item.route.current)
         : route().current(item.route.name);
@@ -24,7 +24,7 @@ const expand = (items) => {
     return {...keys};
 };
 
-const handle = (item, menu, close) => {
+const handle = (route, item, menu, close) => {
     const method = item.route.method || 'get';
     const params = item.route.params || null;
     const url = typeof item.route.url !== 'undefined'
@@ -36,12 +36,12 @@ const handle = (item, menu, close) => {
     }
 };
 
-const make = (menu) => {
+const make = (route, menu) => {
     const items = [];
     Object.values(menu.items, items)
         .forEach((item) => {
             if (item.items) {
-                item.items = make(item);
+                item.items = make(route, item);
             }
             if (item.route) {
                 if (typeof item.route === 'string') {

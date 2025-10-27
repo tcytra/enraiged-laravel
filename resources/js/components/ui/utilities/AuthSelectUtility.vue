@@ -18,7 +18,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { inject, ref } from 'vue';
 import { router } from '@inertiajs/vue3';
 import Avatar from '@/components/ui/avatars/Avatar.vue';
 import PrimevueMenu from 'primevue/menu';
@@ -29,6 +29,8 @@ const props = defineProps({
         required: true,
     },
 });
+
+const route = inject('route');
 
 const items = ref([
     {

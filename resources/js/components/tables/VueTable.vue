@@ -204,6 +204,7 @@ export default {
         'app',
         //'flash',
         //'flashSuccess',
+        'route',
     ],
 
     props: {
@@ -416,7 +417,7 @@ export default {
 
     methods: {
         async fetch() {
-            const url = route(this.template.fetch);
+            const url = this.route(this.template.fetch);
             this.loading = true;
             this.selection = [];
 

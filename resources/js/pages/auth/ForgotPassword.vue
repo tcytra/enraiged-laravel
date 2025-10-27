@@ -61,6 +61,8 @@ defineProps({
 
 const { i18n, lang } = useLocales();
 
+const route = inject('route');
+
 const form = useForm({
     email: null,
 });

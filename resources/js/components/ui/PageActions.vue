@@ -7,7 +7,7 @@
                 :class="action.class"
                 :icon="action.icon"
                 :label="i18n(action.label)"
-                @click="handle(action)" />
+                @click="handle(route, action)" />
         </div>
         <div class="action go-back" v-if="backButton && history" @click="back()">
             <primevue-button class="p-button-text text-neutral"
@@ -18,7 +18,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed, inject } from 'vue';
 import { router } from '@inertiajs/vue3';
 import { useConfirm } from 'primevue/useconfirm';
 import { useLocales } from '@/handlers/locales';
@@ -34,6 +34,8 @@ const props = defineProps({
         default: false,
     },
 });
+
+const route = inject('route');
 
 const back = () => {
     window.history.back();
@@ -61,7 +63,7 @@ const handle = (action, confirmed) => {
             rejectClass: 'p-button-secondary',
             acceptLabel: i18n('Yes'),
             rejectLabel: i18n('No'),
-            accept: () => handle(action, true),
+            accept: () => handle(route, action, true),
         });
     } else {
         router[route.method](route.url);

@@ -147,8 +147,11 @@ const props = defineProps({
     },
 });
 
-const { state } = inject('app');
 const { i18n } = useLocales();
+
+const { state } = inject('app');
+
+const route = inject('route');
 
 const user = props.user;
 

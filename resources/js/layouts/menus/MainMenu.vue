@@ -17,9 +17,9 @@
             <div class="item" v-if="item.route"
                 :class="{
                     'child': item.key.match(/\d+_\d+/),
-                    'current': active(item),
+                    'current': active(route, item),
                 }"
-                @click="handle(item, menu, mobile && menu.open)">
+                @click="handle(route, item, menu, mobile && menu.open)">
                 <a class="option" v-bind="props.options">
                     <i class="icon" :class="item.icon"></i>
                     <span class="text">{{ i18n(item.label) }}</span>
@@ -37,7 +37,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
+import { computed, inject, ref } from 'vue';
 import { useLocales } from '@/handlers/locales';
 import { useMenus } from '@/handlers/menus';
 import PrimevuePanelMenu from 'primevue/panelmenu';
@@ -53,11 +53,13 @@ const props = defineProps({
     },
 });
 
+const route = inject('route');
+
 const { active, expand, handle, make } = useMenus();
 
 const { i18n } = useLocales();
 
-const items = computed(() => make(props.menu));
+const items = computed(() => make(route, props.menu));
 
 const keys = expand(items);
 </script>

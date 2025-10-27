@@ -17,7 +17,8 @@
 - [Installation](#installation)
   * [Retrieve Repository](#retrieve-repository)
   * [Init Environment](#init-environment)
-  * [Install Database](#install-database)
+  * [Publish Routes](#publish-routes)
+  * [Build Database](#build-database)
   * [Build Client](#build-client)
   * [Serve Application](#serve-application)
 - [Configuration](#configuration)
@@ -59,6 +60,20 @@ php artisan key:generate # create the application key
 
 The setup from the .env.example will be enough to get you started in a local environment. At minimum, valid DB_ 
 parameters will need to be added, and the developer may want to double-check the basic APP_ config.
+
+
+## Publish Routes
+
+Make the routes available in the client-side by publishing them into the ~/resources/js/ directory:
+
+```bash
+phpa ziggy:generate # will output into ziggy.js
+```
+
+> This file will need to be regenerated when routes are added, removed, or modified.
+
+An alternate means of providing the routes to the client-side is through the @routes directive in the app.blade.php, but
+including the javascript in the html head will trigger Content-Security-Policy 'script-src' 'self' errors.
 
 
 ### Build Database

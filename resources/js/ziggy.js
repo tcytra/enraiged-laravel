@@ -1,0 +1,53 @@
+const Ziggy = {
+    url: "http:\/\/127.0.0.1:8000",
+    port: 8000,
+    defaults: {},
+    routes: {
+        "sanctum.csrf-cookie":{"uri":"sanctum\/csrf-cookie","methods":["GET","HEAD"]},
+        "login":{"uri":"login","methods":["GET","HEAD"]},
+        "password.request":{"uri":"forgot-password","methods":["GET","HEAD"]},
+        "password.email":{"uri":"forgot-password","methods":["POST"]},
+        "password.reset":{"uri":"reset-password\/{token}","methods":["GET","HEAD"],"parameters":["token"]},
+        "password.store":{"uri":"reset-password","methods":["POST"]},
+        "register":{"uri":"register","methods":["GET","HEAD"]},
+        "password.confirm":{"uri":"confirm-password","methods":["GET","HEAD"]},
+        "verification.notice":{"uri":"verify-email","methods":["GET","HEAD"]},
+        "verification.send":{"uri":"email\/verification-notification","methods":["POST"]},
+        "verification.verify":{"uri":"verify-email\/{id}\/{hash}","methods":["GET","HEAD"],"parameters":["id","hash"]},
+        "secondary.verification.notice":{"uri":"verify-secondary","methods":["GET","HEAD"]},
+        "secondary.verification.send":{"uri":"secondary\/verification-notification","methods":["POST"]},
+        "secondary.verification.verify":{"uri":"verify-secondary\/{id}\/{hash}","methods":["GET","HEAD"],"parameters":["id","hash"]},
+        "logout":{"uri":"logout","methods":["POST"]},
+        "avatars.show":{"uri":"api\/avatars\/{avatar}","methods":["GET","HEAD"],"parameters":["avatar"],"bindings":{"avatar":"id"}},
+        "avatars.delete":{"uri":"api\/avatars\/{avatar}","methods":["DELETE"],"parameters":["avatar"],"bindings":{"avatar":"id"}},
+        "avatars.update":{"uri":"api\/avatars\/{avatar}","methods":["PATCH"],"parameters":["avatar"],"bindings":{"avatar":"id"}},
+        "avatars.upload":{"uri":"api\/avatars\/{avatar}","methods":["POST"],"parameters":["avatar"],"bindings":{"avatar":"id"}},
+        "files.download":{"uri":"files\/{file}","methods":["GET","HEAD"],"parameters":["file"],"bindings":{"file":"id"}},
+        "files.destroy":{"uri":"files\/{file}","methods":["DELETE"],"parameters":["file"],"bindings":{"file":"id"}},
+        "permissions.index":{"uri":"permissions\/index","methods":["GET","HEAD"]},"users.index":{"uri":"users","methods":["GET","HEAD"]},
+        "users.create":{"uri":"users\/create","methods":["GET","HEAD"]},
+        "users.edit":{"uri":"users\/{user}\/edit","methods":["GET","HEAD"],"parameters":["user"]},
+        "users.show":{"uri":"users\/{user}","methods":["GET","HEAD"],"parameters":["user"]},
+        "users.impersonate.stop":{"uri":"users\/impersonate\/stop","methods":["GET","HEAD"]},
+        "users.impersonate":{"uri":"users\/impersonate\/{user}","methods":["GET","HEAD"],"parameters":["user"],"bindings":{"user":"id"}},
+        "users.data":{"uri":"api\/users\/data","methods":["GET","POST","HEAD"]},
+        "users.export":{"uri":"api\/users\/export","methods":["GET","POST","HEAD"]},
+        "users.delete":{"uri":"api\/users\/{user}","methods":["DELETE"],"parameters":["user"]},
+        "users.restore":{"uri":"api\/users\/{user}","methods":["PATCH"],"parameters":["user"]},
+        "users.update":{"uri":"api\/users\/{user}\/update\/{attribute?}","methods":["PATCH"],"wheres":{"attribute":"^[a-z]{2,}(_[a-z]+)?$"},"parameters":["user","attribute"]},
+        "users.store":{"uri":"api\/users","methods":["POST"]},
+        "users.password.update":{"uri":"api\/users\/password","methods":["PUT"]},
+        "my.password.update":{"uri":"my\/password","methods":["PUT"]},
+        "my.profile.show":{"uri":"my\/profile","methods":["GET","HEAD"]},
+        "my.profile.edit":{"uri":"my\/profile\/edit","methods":["GET","HEAD"]},
+        "my.profile.update":{"uri":"my\/profile","methods":["PATCH"]},
+        "my.profile.delete":{"uri":"my\/profile","methods":["DELETE"]},
+        "dashboard":{"uri":"dashboard","methods":["GET","HEAD"]},
+        "app.state":{"uri":"app\/state\/{only?}","methods":["GET","HEAD"],"wheres":{"only":"auth|menu|meta"},"parameters":["only"]},
+        "storage.local":{"uri":"storage\/{path}","methods":["GET","HEAD"],"wheres":{"path":".*"},"parameters":["path"]}
+    }
+};
+if (typeof window !== 'undefined' && typeof window.Ziggy !== 'undefined') {
+  Object.assign(Ziggy.routes, window.Ziggy.routes);
+}
+export { Ziggy };

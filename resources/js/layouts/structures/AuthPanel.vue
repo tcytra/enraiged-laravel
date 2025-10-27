@@ -6,8 +6,8 @@
             <h5 class="email">{{ auth.user.email }}</h5>
         </header>
         <ul class="navigation options">
-            <li class="action item" @click="handle(item, auth, auth.open)"
-                :class="{ 'current': active(item) }">
+            <li class="action item" @click="handle(route, item, auth, auth.open)"
+                :class="{ 'current': active(route, item) }">
                 <dl class="option">
                     <dt class="icon">
                         <i class="pi pi-user"></i>
@@ -43,7 +43,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
+import { computed, inject, ref } from 'vue';
 import { useLocales } from '@/handlers/locales';
 import { useMenus } from '@/handlers/menus';
 import { usePage } from '@inertiajs/vue3';
@@ -63,6 +63,8 @@ const props = defineProps({
 const { i18n } = useLocales();
 
 const { active, handle } = useMenus();
+
+const route = inject('route');
 
 const item = ref({ route: { name: 'my.profile.edit' } });
 

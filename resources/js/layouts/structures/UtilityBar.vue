@@ -25,7 +25,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue';
+import { computed, inject } from 'vue';
 import { router } from '@inertiajs/vue3';
 import AuthSelectUtility from '@/components/ui/utilities/AuthSelectUtility.vue';
 import Avatar from '@/components/ui/avatars/Avatar.vue';
@@ -53,8 +53,12 @@ const props = defineProps({
 });
 
 const layout = props.meta.layout;
+
 const authPanel = computed(() => layout.auth === 'panel');
+
 const authSelect = computed(() => layout.auth === 'select');
+
+const route = inject('route');
 
 const unimpersonate = () => {
     router.get(route('users.impersonate.stop'));

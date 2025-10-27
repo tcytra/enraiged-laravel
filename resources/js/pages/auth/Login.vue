@@ -92,8 +92,11 @@ const form = useForm({
     remember: false,
 });
 
-const { state } = inject('app');
 const { i18n } = useLocales();
+
+const { state } = inject('app');
+
+const route = inject('route');
 
 const submit = () => {
     form.post(route('login'), {

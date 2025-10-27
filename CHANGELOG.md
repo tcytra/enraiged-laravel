@@ -1,5 +1,10 @@
 # Release Notes
 
+2025-10-27 : 0.4.0-beta.10 (prerelease)  
+Bugfix: Correct use of ziggy @routes being prevented by csp headers
+
+---
+
 2025-10-27 : 0.4.0-beta.9 (prerelease)  
 Update: Added form handling to the Enraiged User system
 

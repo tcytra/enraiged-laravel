@@ -1,5 +1,5 @@
 <script>
-import { computed, nextTick } from 'vue';
+import { computed, inject, nextTick } from 'vue';
 import { router } from '@inertiajs/vue3';
 
 export default {
@@ -16,13 +16,15 @@ export default {
         },
     }),
 
+    inject: ['route'],
+
     created() {
         this.fetchState();
     },
 
     methods: {
         async fetchState() {
-            await axios.get(route('app.state'))
+            await axios.get(this.route('app.state'))
                 .then((response) => {
                     const { data } = response;
                     this.auth = data.auth;
