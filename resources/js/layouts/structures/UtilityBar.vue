@@ -10,8 +10,8 @@
             @click="unimpersonate()">
             <i class="pi pi-user-minus"></i>
         </div>
-        <toggle-dark-mode :theme="theme" class="action cursor-pointer" />
-        <toggle-palette :theme="theme" class="action cursor-pointer" />
+        <toggle-dark-mode :theme="theme" class="action cursor-pointer" v-if="meta.layout.mode" />
+        <toggle-palette :theme="theme" class="action cursor-pointer" v-if="meta.layout.palette" />
         <div class="action cursor-pointer" v-if="auth.user && authPanel"
             @click="auth.toggle()">
             <avatar :avatar="auth.user.avatar" hover />
