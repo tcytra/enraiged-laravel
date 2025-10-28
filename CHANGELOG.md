@@ -3,6 +3,7 @@
 2025-10-28 : 0.4.0-beta.11 (prerelease)  
 Update: 
 
+- Correct handling of the lowest role when seeding factory users
 - Correct handling of the logout through the action handling
 
 ---

@@ -78,6 +78,19 @@ enum Roles: string
     }
 
     /**
+     *  Return the lowest ranked role.
+     *
+     *  @return self
+     */
+    public static function lowest()
+    {
+        $role = collect(self::options())
+            ->last();
+
+        return self::{$role->name};
+    }
+
+    /**
      *  Return a selectable array of enumerated options.
      *
      *  @return array
