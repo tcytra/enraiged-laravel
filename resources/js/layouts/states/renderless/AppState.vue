@@ -39,13 +39,13 @@ export default {
                 });
         },
         logout() {
-            router.post(route('logout'));
+            router.post(this.route('logout'));
         },
         setTheme(theme) {
             if (typeof theme !== 'undefined') {
                 if (Object.keys(this.theme).join('') !== Object.keys(theme).join('')) {
                     this.theme = {...this.theme, ...theme};
-                    axios.patch(route('users.update', {user: this.auth.id}) + '/theme', { theme: this.theme })
+                    axios.patch(this.route('users.update', {user: this.auth.id}) + '/theme', { theme: this.theme })
                         .then((response) => {
                             const { data, status } = response;
                             if (data.success) {
