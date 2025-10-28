@@ -28,4 +28,15 @@ return [
 
     'mail_markdown' => env('MAIL_MARKDOWN', false),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Timezone
+    |--------------------------------------------------------------------------
+    | 
+    | Define a default timezone by database name or ISO 8601 offset designator.
+    |
+    */
+    
+    'timezone' => env('TIMEZONE', 'America/Vancouver'),
+
 ];
