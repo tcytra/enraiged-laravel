@@ -36,8 +36,8 @@
 
 ```bash
 cd /path/to/your/repos/ # traverse into your repositories directory
-git clone https://github.com/tcytra/enraiged-laravel [new-directory]
-cd [new-directory]/
+git clone --depth 1 --single-branch --branch 0.4.x https://github.com/tcytra/enraiged-laravel
+cd enraiged-laravel/
 ```
 
 Install the vendor packages:
@@ -83,6 +83,10 @@ The migration and seeder assets can now be run:
 ```bash
 php artisan migrate --seed
 ```
+
+> Note: The initial administrator account is defined in ~/resources/seeds/users.json and will be created with the above 
+command. The default email:password for this user is **administrator@enraiged.local:changeme**. Please change this to 
+something suitable for your project.
 
 
 ### Build Client
