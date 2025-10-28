@@ -65,7 +65,7 @@ const props = defineProps({
 });
 
 const { ai18n, i18n } = useLocales();
-const route = route('route');
+const route = inject('route');
 const user = props.user;
 
 const form = useForm({
