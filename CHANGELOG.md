@@ -1,7 +1,10 @@
 # Release Notes
 
-2025-10-27 : 0.4.0-beta.10 (prerelease)  
-Bugfix: Correct use of ziggy @routes being prevented by csp headers
+2025-10-28 : 0.4.0-beta.10 (prerelease)  
+Update: 
+
+- Added app\state in cors config, moved handling to StateController
+- Correct use of ziggy @routes being prevented by csp headers
 
 ---
 

@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Requests\State\Request as StateRequest;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 
@@ -16,10 +15,9 @@ Route::middleware(['auth', 'verified'])
     ->name('dashboard');
 
 //  Handle a request to return the current app state.
-Route::name('app.state')
-    ->get('app/state/{only?}', fn (StateRequest $request, $only = null)
-        => $request->state($only))
-    ->where('only', 'auth|menu|meta');
+Route::get('app/state/{only?}', '\App\Http\Controllers\StateController')
+    ->where('only', 'auth|menu|meta')
+    ->name('app.state');
 
 //  Handle a request to the app root url.
 Route::get('/', function () {
