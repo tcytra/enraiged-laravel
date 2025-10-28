@@ -1,9 +1,11 @@
 # Release Notes
 
 2025-10-28 : 0.4.0-beta.10 (prerelease)  
-Update: 
+Update: Round of corrections, updates; Testing in hosting environment
 
 - Added app\state in cors config, moved handling to StateController
+- Added Role::ids() static method to return array of role ids
+- Correct assmebly of password,role_id rules for users.store
 - Correct use of ziggy @routes being prevented by csp headers
 
 ---

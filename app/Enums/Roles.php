@@ -43,6 +43,19 @@ enum Roles: string
     }
 
     /**
+     *  Return an array of role ids.
+     *
+     *  @return array
+     */
+    public static function ids(): array
+    {
+        return collect(self::options())
+            ->transform(fn ($option) => $option->id)
+            ->values()
+            ->toArray();
+    }
+
+    /**
      *  Determine if this role matches a provided role.
      *
      *  @param  \App\Enums\Roles  $role
@@ -69,7 +82,7 @@ enum Roles: string
      *
      *  @return array
      */
-    static function options(): array
+    public static function options(): array
     {
         return collect(self::cases())
             ->transform(fn ($option)
