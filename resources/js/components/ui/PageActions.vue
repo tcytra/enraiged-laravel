@@ -7,7 +7,7 @@
                 :class="action.class"
                 :icon="action.icon"
                 :label="i18n(action.label)"
-                @click="handle(route, action)" />
+                @click="handle(action)" />
         </div>
         <div class="action go-back" v-if="backButton && history" @click="back()">
             <primevue-button class="p-button-text text-neutral"
@@ -50,11 +50,13 @@ const current = (action) => {
 };
 
 const handle = (action, confirmed) => {
-    const { route } = action;
-    if (action.confirm && confirmed !== true) {
-        //  todo: why is this not working? on the edit page it opens the og dialog, on the show page it does nothing
+    const requireConfirm = typeof action.confirm === 'string';
+    const method = action.route.method || 'get';
+    const name = action.route.name;
+    const url = action.route.url || route(name);
+    if (requireConfirm && confirmed !== true) {
         confirm.require({
-            message: typeof action.confirm === 'string'
+            message: requireConfirm
                 ? i18n(action.confirm)
                 : i18n('Are you sure you want to proceed?'),
             header: i18n('Please confirm'),
@@ -63,10 +65,10 @@ const handle = (action, confirmed) => {
             rejectClass: 'p-button-secondary',
             acceptLabel: i18n('Yes'),
             rejectLabel: i18n('No'),
-            accept: () => handle(route, action, true),
+            accept: () => handle(action, true),
         });
     } else {
-        router[route.method](route.url);
+        router[method](url);
     }
 };
 
