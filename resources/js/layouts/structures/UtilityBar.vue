@@ -16,7 +16,7 @@
             @click="auth.toggle()">
             <avatar :avatar="auth.user.avatar" hover />
         </div>
-        <auth-select-utility :auth="auth" v-if="auth.user && authSelect" />
+        <auth-select-utility :auth="auth" :items="authItems" v-if="auth.user && authSelect" />
         <div class="action cursor-pointer" v-if="auth.user && meta.layout.logout"
             @click="auth.logout()">
             <i class="pi pi-sign-out"></i>
@@ -25,7 +25,7 @@
 </template>
 
 <script setup>
-import { computed, inject } from 'vue';
+import { computed, inject, ref } from 'vue';
 import { router } from '@inertiajs/vue3';
 import AuthSelectUtility from '@/components/ui/utilities/AuthSelectUtility.vue';
 import Avatar from '@/components/ui/avatars/Avatar.vue';
@@ -57,6 +57,19 @@ const layout = props.meta.layout;
 const authPanel = computed(() => layout.auth === 'panel');
 
 const authSelect = computed(() => layout.auth === 'select');
+
+const authItems = ref([
+    {
+        label: 'Profile',
+        icon: 'pi pi-user',
+        route: 'my.profile.show',
+    },
+    {
+        call: () => props.auth.logout(),
+        label: 'Logout',
+        icon: 'pi pi-sign-out',
+    }
+]);
 
 const route = inject('route');
 

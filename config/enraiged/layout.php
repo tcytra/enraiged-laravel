@@ -40,7 +40,7 @@ return [
     | The default value is true (show the selector)
     |
     */
-    'mode' => env('SHOW_MODE_SELECTOR', true),
+    'mode' => env('SHOW_MODE_SELECTOR', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -68,6 +68,6 @@ return [
     | The default value is true (show the selector)
     |
     */
-    'palette' => env('SHOW_PALETTE_SELECTOR', true),
+    'palette' => env('SHOW_PALETTE_SELECTOR', false),
 
 ];

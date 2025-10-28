@@ -72,5 +72,5 @@ const mobile = ref(props.meta.agent === 'mobile');
 
 const page = usePage();
 
-const files = computed(() => page.props.files || [])
+const files = computed(() => page.props.files || []);
 </script>

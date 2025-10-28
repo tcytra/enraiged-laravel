@@ -39,7 +39,13 @@ export default {
                 });
         },
         logout() {
-            router.post(this.route('logout'));
+            router.post(
+                this.route('logout'), {}, {
+                    onFinish: () => {
+                        this.fetchState();
+                    }
+                }
+            );
         },
         setTheme(theme) {
             if (typeof theme !== 'undefined') {

@@ -1,5 +1,12 @@
 # Release Notes
 
+2025-10-28 : 0.4.0-beta.11 (prerelease)  
+Update: 
+
+- Correct handling of the logout through the action handling
+
+---
+
 2025-10-28 : 0.4.0-beta.10 (prerelease)  
 Update: Round of corrections, updates; Testing in hosting environment
 

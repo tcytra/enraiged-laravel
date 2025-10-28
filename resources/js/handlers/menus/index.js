@@ -25,14 +25,18 @@ const expand = (items) => {
 };
 
 const handle = (route, item, menu, close) => {
-    const method = item.route.method || 'get';
-    const params = item.route.params || null;
-    const url = typeof item.route.url !== 'undefined'
-        ? item.route.url
-        : route(item.route.name);
-    router.get(url);
-    if (close) {
-        menu.toggle(false);
+    if (item.call && typeof item.call === 'function') {
+        item.call();
+    } else {
+        const method = item.route.method || 'get';
+        const params = item.route.params || null;
+        const url = typeof item.route.url !== 'undefined'
+            ? item.route.url
+            : route(item.route.name);
+        router[method](url);
+        if (close) {
+            menu.toggle(false);
+        }
     }
 };
 
