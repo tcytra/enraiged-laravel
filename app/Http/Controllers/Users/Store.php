@@ -20,11 +20,9 @@ class Store extends Controller
     {
         $model = config('auth.providers.users.model');
 
-        $user = (new $model);
-
         $this->authorize('store', $model);
 
-        $request->createUser($user);
+        $user = $request->createUser(new $model);
 
         if ($request->expectsJson()) {
             return response()
@@ -32,7 +30,7 @@ class Store extends Controller
                     'message' => $request->message(),
                     'redirect' => $request->has('_referer')
                         ? $request->get('_referer')
-                        : null,
+                        : $this->route('users.show', ['user' => $user->id]),
                     'success' => true,
                 ]);
         }
