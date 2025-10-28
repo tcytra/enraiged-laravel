@@ -66,7 +66,7 @@ const { active, handle } = useMenus();
 
 const route = inject('route');
 
-const item = ref({ route: { name: 'my.profile.edit' } });
+const item = ref({ route: { name: 'my.profile.show' } });
 
 const mobile = ref(props.meta.agent === 'mobile');
 
