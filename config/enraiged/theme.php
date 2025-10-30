@@ -34,7 +34,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Set Palette Color
+    | Set Surface Color
     |--------------------------------------------------------------------------
     |
     | Set the default ui color palette.
@@ -45,6 +45,6 @@ return [
     | The default value is 'slate'.
     |
     */
-    'surface' => env('PALETTE_COLOR', 'slate'),
+    'surface' => env('SURFACE_COLOR', 'slate'),
 
 ];
