@@ -1,20 +1,14 @@
-# Release Notes
+# Enraiged Laravel 0.4.x Release Notes
 
-2025-10-28 : 0.4.0-beta.11 (prerelease)  
-Update: 
-
-- Correct handling of the lowest role when seeding factory users
-- Correct handling of the logout through the action handling
-
----
-
-2025-10-28 : 0.4.0-beta.10 (prerelease)  
+2025-10-30 : 0.4.0-beta.10 (prerelease)  
 Update: Round of corrections, updates; Testing in hosting environment
 
 - Added app\state in cors config, moved handling to StateController
 - Added Role::ids() static method to return array of role ids
 - Correct assmebly of password,role_id rules for users.store
 - Correct use of ziggy @routes being prevented by csp headers
+- Correct handling of the lowest role when seeding factory users
+- Correct handling of the logout through the action handling
 
 ---
 
