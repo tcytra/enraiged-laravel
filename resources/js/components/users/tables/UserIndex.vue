@@ -1,5 +1,5 @@
 <template>
-    <vue-table ref="datatable" hasRowActions
+    <vue-table ref="datatable"
         :page-report-template="'Showing {first} to {last} of {totalRecords} users'"
         :template="template"
         @show="show">

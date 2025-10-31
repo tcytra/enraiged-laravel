@@ -220,10 +220,6 @@ export default {
             type: String,
             default: null,
         },
-        hasRowActions: {
-            type: Boolean,
-            default: false,
-        },
         pageReportTemplate: {
             type: String,
             default: '{first} - {last} / {totalRecords}',
@@ -326,6 +322,9 @@ export default {
         },
         hasBatchActions() {
             return this.batchActionOptions.length > 0;
+        },
+        hasRowActions() {
+            return Object.keys(this.rowActions).length > 0;
         },
         /*hasState() {
             return localStorage.getItem(this.template.id) !== null;

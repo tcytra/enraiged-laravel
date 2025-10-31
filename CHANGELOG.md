@@ -1,6 +1,6 @@
 # Enraiged Laravel 0.4.x Release Notes
 
-2025-10-30 : 0.4.0-beta.10 (prerelease)  
+2025-10-31 : 0.4.0-beta.10 (prerelease)  
 Update: Round of corrections, updates; Testing in hosting environment
 
 - Added app\state in cors config, moved handling to StateController
@@ -9,6 +9,7 @@ Update: Round of corrections, updates; Testing in hosting environment
 - Correct use of ziggy @routes being prevented by csp headers
 - Correct handling of the lowest role when seeding factory users
 - Correct handling of the logout through the action handling
+- Correct handling of the vue table row actions
 
 ---
 
