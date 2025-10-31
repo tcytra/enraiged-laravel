@@ -30,12 +30,17 @@ const handle = (route, item, menu, close) => {
     } else {
         const method = item.route.method || 'get';
         const params = item.route.params || null;
+
         const url = typeof item.route.url !== 'undefined'
             ? item.route.url
-            : route(item.route.name);
-        router[method](url);
-        if (close) {
-            menu.toggle(false);
+            : route(item.route.name || item.route, params);
+
+        if (url) {
+            router[method](url);
+
+            if (close) {
+                menu.toggle(false);
+            }
         }
     }
 };
