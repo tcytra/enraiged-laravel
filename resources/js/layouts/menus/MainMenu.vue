@@ -1,14 +1,4 @@
 <template>
-    <!--
-    <div class="navigation options static">
-        <div class="item">
-            <a class="option" @click="router.get(route('my.profile.edit'))">
-                <i class="icon pi pi-user"></i>
-                <span class="text">My Profile</span>
-            </a>
-        </div>
-    </div>
-    -->
     <primevue-panel-menu class="navigation options" unstyled
         :class="{ 'static': menu.static }"
         :expanded-keys="keys"
