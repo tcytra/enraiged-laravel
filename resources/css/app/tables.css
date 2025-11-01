@@ -41,6 +41,17 @@
                         }
                     }
                 }
+                .p-select {
+                  --p-select-shadow: none;
+                  height:           2.25rem;
+                    .p-select-dropdown {
+                      background-color: var(--p-surface-100);
+                      border-left:      1px solid var(--p-inputgroup-addon-border-color);
+                    }
+                    .p-select-clear-icon {
+                      margin:           .5rem;
+                    }
+                }
             }
             .batch.bar,
             .control.bar,
@@ -222,6 +233,11 @@
                             .p-label {
                               color:            var(--p-surface-500);
                             }
+                        }
+                    }
+                    .p-select {
+                        .p-select-dropdown {
+                          background-color: var(--p-surface-800);
                         }
                     }
                 }
