@@ -166,7 +166,7 @@ form, .form {
     .p-inputwrapper.is-creating:not(.p-calendar):not(.p-invalid),
     .p-password.is-creating:not(.p-invalid) .p-inputtext {
       background-color: var(--p-sky-100) !important;
-      border-color:     var(--p-sky-800) !important;
+      border-color:     var(--p-sky-300) !important;
     }
 
     /*
@@ -183,7 +183,7 @@ form, .form {
     .p-inputwrapper.is-updating:not(.p-calendar):not(.p-invalid),
     .p-password.is-updating:not(.p-invalid) .p-inputtext {
       background-color: var(--p-amber-100) !important;
-      border-color:     var(--p-amber-800) !important;
+      border-color:     var(--p-amber-300) !important;
     }
 }
 
@@ -195,7 +195,16 @@ form, .form {
         .p-inputwrapper.is-creating:not(.p-calendar):not(.p-invalid),
         .p-password.is-creating:not(.p-invalid) .p-inputtext {
           background-color: var(--p-sky-800) !important;
-          border-color:     var(--p-sky-400) !important;
+          border-color:     var(--p-sky-600) !important;
+        }
+
+        .p-checkbox.is-updating:not(.p-invalid) .p-checkbox-box,
+        .p-calendar.is-updating:not(.p-invalid) .p-inputtext,
+        .p-inputtext.is-updating:not(.p-invalid),
+        .p-inputwrapper.is-updating:not(.p-calendar):not(.p-invalid),
+        .p-password.is-updating:not(.p-invalid) .p-inputtext {
+          background-color: var(--p-amber-800) !important;
+          border-color:     var(--p-amber-600) !important;
         }
     }
 }
