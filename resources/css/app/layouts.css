@@ -96,6 +96,7 @@
             >.fixed.header {
               position:         fixed;
               transition:       all .35s ease;
+              width:            inherit;
               z-index:          4;
 
                 +.section {
@@ -379,15 +380,59 @@
     }
 }
 
+.max-w-xs {
+  max-width: var(--breakpoint-xs);
+}
+.max-w-sm {
+  max-width: var(--breakpoint-sm);
+}
+.max-w-md {
+  max-width: var(--breakpoint-md);
+}
+.max-w-lg {
+  max-width: var(--breakpoint-lg);
+}
+.max-w-xl {
+  max-width: var(--breakpoint-xl);
+}
+.max-w-xx {
+  max-width: var(--breakpoint-xz);
+}
+
+.min-w-xs {
+  min-width: var(--breakpoint-xs);
+}
+.min-w-sm {
+  min-width: var(--breakpoint-sm);
+}
+.min-w-md {
+  min-width: var(--breakpoint-md);
+}
+.min-w-lg {
+  min-width: var(--breakpoint-lg);
+}
+.min-w-xl {
+  min-width: var(--breakpoint-xl);
+}
+.min-w-xx {
+  min-width: var(--breakpoint-xz);
+}
+
 .w-xs {
+  width: var(--breakpoint-xs);
 }
 .w-sm {
+  width: var(--breakpoint-sm);
 }
 .w-md {
+  width: var(--breakpoint-md);
 }
 .w-lg {
+  width: var(--breakpoint-lg);
 }
 .w-xl {
+  width: var(--breakpoint-xl);
 }
 .w-xx {
+  width: var(--breakpoint-xz);
 }

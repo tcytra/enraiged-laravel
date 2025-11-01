@@ -6,6 +6,15 @@
 @custom-variant dark (&:where(.dark-mode, .dark-mode *));
 
 @layer enraiged {
+    :root {
+        --breakpoint-xs: 26rem;
+        --breakpoint-sm: 36rem;
+        --breakpoint-md: 48rem;
+        --breakpoint-lg: 62rem;
+        --breakpoint-xl: 74rem;
+        --breakpoint-xx: 90rem;
+    }
+
     @import './app/avatars.css';
     @import './app/branding.css';
     @import './app/forms.css';
