@@ -78,19 +78,19 @@
           /*border-right:     1px solid var(--p-surface-300);*/
         }
 
-        .action.cursor-pointer:hover {
+        .action.cursor-pointer:hover .item {
           background-color:     var(--p-surface-100);
           color:                var(--p-surface-600);
         }
 
-        .action.impersonating {
+        .action.impersonating .item {
           background-color:     var(--p-amber-200);
           color:                var(--p-amber-800);
-          
-            &:hover {
-              background-color:     var(--p-amber-100);
-              color:                var(--p-amber-700);
-            }
+
+        }
+        .action.impersonating:hover .item {
+          background-color:     var(--p-amber-100);
+          color:                var(--p-amber-700);
         }
     }
 }
@@ -181,19 +181,18 @@
               /*border-right:     1px solid var(--p-surface-700);*/
             }
 
-            .action.cursor-pointer:hover {
+            .action.cursor-pointer:hover .item {
               background-color:     var(--p-surface-700);
               color:                var(--p-surface-100);
             }
 
-            .action.impersonating {
+            .action.impersonating .item {
               background-color:     var(--p-amber-800);
               color:                var(--p-amber-200);
-
-                &:hover {
-                  background-color:     var(--p-amber-700);
-                  color:                var(--p-amber-100);
-                }
+            }
+            .action.impersonating:hover .item {
+              background-color:     var(--p-amber-700);
+              color:                var(--p-amber-100);
             }
         }
     }

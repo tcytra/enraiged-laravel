@@ -2,24 +2,32 @@
     <div>
         <div class="action cursor-pointer"
             @click="menu.toggle()">
-            <i class="pi pi-bars"></i>
+            <div class="item">
+                <i class="pi pi-bars"></i>
+            </div>
         </div>
         <div class="group"></div>
         <div class="action cursor-pointer impersonating" v-if="auth.user && auth.user.is_impersonating"
             v-tooltip.left="'Stop impersonating'"
             @click="unimpersonate()">
-            <i class="pi pi-user-minus"></i>
+            <div class="item">
+                <i class="pi pi-user-minus"></i>
+            </div>
         </div>
         <toggle-dark-mode :theme="theme" class="action cursor-pointer" v-if="meta.layout.mode" />
         <toggle-palette :theme="theme" class="action cursor-pointer" v-if="meta.layout.palette" />
         <div class="action cursor-pointer" v-if="auth.user && authPanel"
             @click="auth.toggle()">
-            <avatar :avatar="auth.user.avatar" hover />
+            <div class="item">
+                <avatar :avatar="auth.user.avatar" hover />
+            </div>
         </div>
         <auth-select-utility :auth="auth" :items="authItems" v-if="auth.user && authSelect" />
         <div class="action cursor-pointer" v-if="auth.user && meta.layout.logout"
             @click="auth.logout()">
-            <i class="pi pi-sign-out"></i>
+            <div class="item">
+                <i class="pi pi-sign-out"></i>
+            </div>
         </div>
     </div>
 </template>

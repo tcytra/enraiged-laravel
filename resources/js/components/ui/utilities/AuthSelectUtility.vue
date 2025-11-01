@@ -1,6 +1,8 @@
 <template>
     <div aria-haspopup="true" aria-controls="auth_select" class="action cursor-pointer" @click="toggle">
-        <avatar :avatar="auth.user.avatar" hover />
+        <div class="item">
+            <avatar :avatar="auth.user.avatar" hover />
+        </div>
     </div>
     <primevue-menu ref="menu" id="auth_select"
         :model="items"

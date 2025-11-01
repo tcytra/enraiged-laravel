@@ -196,13 +196,20 @@
 
         > .action,
         > .group {
-          align-items:      center;
-          display:          flex;
           height:           calc(1rem * 4);
-          transition:       background-color .125s linear, color .125s linear;
-
+          
             &:last-child {
               border-right:     0;
+            }
+
+            .item {
+              align-items:      center;
+              border-radius:    var(--p-border-radius-md);
+              display:          flex;
+              height:           calc((1rem * 4) - .5rem);
+              justify-content:  center;
+              margin:           .25rem;
+              transition:       background-color .125s linear, color .125s linear;
             }
 
             >.p-button {
