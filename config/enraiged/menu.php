@@ -16,7 +16,7 @@ return [
                     'icon' => 'pi pi-users',
                     'label' => 'Manage Users',
                     'route' => [
-                        'match' => 'users.*',
+                        'current' => 'users.*',
                         'name' => 'users.index',
                     ],
                 ],

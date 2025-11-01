@@ -1,7 +1,7 @@
 import { router } from '@inertiajs/vue3';
 
 const active = (route, item) => {
-    return item.route.current
+    return typeof item.route.current !== 'undefined'
         ? route().current(item.route.current)
         : route().current(item.route.name);
 };
