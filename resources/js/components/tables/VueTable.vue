@@ -416,7 +416,9 @@ export default {
 
     methods: {
         async fetch() {
-            const url = this.route(this.template.fetch);
+            const url = typeof this.template.fetch.url !== 'undefined'
+                ? this.template.fetch.url
+                : this.route(this.template.fetch);
             this.loading = true;
             this.selection = [];
 
