@@ -3,10 +3,9 @@
         <form @submit.prevent="submit"
             :class="[
                 'form',
-                template.class,
-                {'custom-actions': customActions},
-                {'horizontal': template.labels === 'horizontal' },
-                {'vertical': template.labels === 'vertical' },
+                { 'custom-actions': customActions },
+                { 'horizontal': template.labels === 'horizontal' },
+                { 'vertical': template.labels === 'vertical' },
             ]">
             <tab-view class="my-3" ref="tabview" v-if="Object.keys(tabs).length">
                 <tab-panel :header="tab.name" v-for="(tab, key) in tabs" :key="key">

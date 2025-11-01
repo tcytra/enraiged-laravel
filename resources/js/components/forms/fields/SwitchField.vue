@@ -1,6 +1,6 @@
 <template>
     <form-field :field="field" v-slot:default="field">
-        <div class="col-12 line-break" v-if="field.break">
+        <div class="col-span-full line-break" v-if="field.break">
             <hr :class="field.break" v-if="typeof field.break === 'string'">
             <hr v-else>
         </div>
