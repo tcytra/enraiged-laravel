@@ -1,6 +1,6 @@
 <template>
     <div class="">
-        <label for="openPalette" class="cursor-pointer label">
+        <label for="openPalette" class="cursor-pointer item label">
             <i class="pi pi-palette" @click="openPalette"></i>
         </label>
         <primevue-popover ref="selectPalette">

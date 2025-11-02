@@ -1,6 +1,6 @@
 <template>
     <div class="">
-        <label for="toggleDarkMode" class="cursor-pointer label">
+        <label for="toggleDarkMode" class="cursor-pointer item label">
             <i class="pi pi-sun" v-if="enableDarkMode === false"></i>
             <i class="pi pi-moon" v-if="enableDarkMode === true"></i>
         </label>
