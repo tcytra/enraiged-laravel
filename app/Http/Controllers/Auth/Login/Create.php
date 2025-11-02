@@ -19,7 +19,6 @@ class Create extends Controller
                 && config('enraiged.auth.allow_username_login') === true,
             'allowRegistration' => config('enraiged.auth.allow_registration') === true,
             'allowPasswordReset' => config('enraiged.auth.allow_password_reset') === true,
-            'status' => session('status'),
         ];
 
         return inertia('auth/Login', $props);

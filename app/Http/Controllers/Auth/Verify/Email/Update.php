@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth\Verify\Email;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Auth\Events\Verified;
+//use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\RedirectResponse;
 
@@ -24,7 +24,7 @@ class Update extends Controller
 
         $request->fulfill();
 
-        session()->flash('status', 'email-verification-success');
+        session()->flash('status', 200); // was 'email-verification-success' (unused?)
 
         return redirect()
             ->intended($this->route('dashboard').'?verified=1');

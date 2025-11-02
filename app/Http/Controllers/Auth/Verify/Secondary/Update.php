@@ -23,7 +23,7 @@ class Update extends Controller
 
         $request->fulfill();
 
-        session()->flash('status', 'secondary-verification-success');
+        session()->flash('status', 200);
 
         return redirect()
             ->intended($this->route('dashboard').'?verified=1');

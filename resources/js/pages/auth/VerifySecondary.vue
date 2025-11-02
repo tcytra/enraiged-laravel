@@ -2,7 +2,7 @@
     <div class="card container">
         <html-head :title="i18n('Secondary Verification')" />
 
-        <primevue-card class="md:w-md w-sm">
+        <primevue-card class="w-xs">
             <template #header>
                 <h1 class="text-lg">{{ i18n('Secondary Verification') }}</h1>
             </template>
@@ -59,6 +59,6 @@ const submit = () => {
 };
 
 const verificationLinkSent = computed(
-    () => props.status === 'secondary-verification-link-sent',
+    () => props.status === 201,
 );
 </script>

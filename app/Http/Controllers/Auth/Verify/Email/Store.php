@@ -25,6 +25,6 @@ class Store extends Controller
             ->sendEmailVerificationNotification();
 
         return back()
-            ->with('status', 'verification-link-sent');
+            ->with('status', 201);
     }
 }

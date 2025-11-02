@@ -1,60 +1,55 @@
 <template>
-    <div>
-        <html-head :title="i18n('Login')" />
+    <html-head :title="i18n('Login')" />
 
-        <primevue-card class="md:w-md w-sm">
-            <template #header>
-                <h1 class="text-lg">{{ i18n('Login') }}</h1>
-            </template>
-            <template #content>
-                <div v-if="status" class="mb-4 text-sm font-medium">
-                    {{ status }}
+    <primevue-card class="w-xs">
+        <template #header>
+            <h1 class="text-lg">{{ i18n('Login') }}</h1>
+        </template>
+        <template #content>
+            <form class="form" @submit.prevent="submit">
+                <text-field autofocus autocomplete="email" id="email"
+                    :field="{
+                        label: allowUsernameLogin ? 'Email or Username' : 'Email',
+                        type: allowUsernameLogin ? 'text' : 'email',
+                    }"
+                    :form="form" />
+                <password-field autocomplete="current-password" id="password"
+                    :field="{
+                        label: 'Password',
+                        type: 'password',
+                    }"
+                    :form="form" />
+                <checkbox-field class="horizontal checkbox-first" id="remember"
+                    :field="{
+                        label: 'Remember me',
+                        type: 'checkbox',
+                    }"
+                    :form="form" />
+
+                <div class="mt-4 flex flex-row-reverse items-center justify-start">
+                    <primary-button class="ms-4"
+                        :class="{ 'opacity-25': form.processing }"
+                        :disabled="form.processing"
+                        @click="submit()">
+                        {{ i18n('Login') }}
+                    </primary-button>
+                    <html-link class="text-link text-sm"
+                        v-if="allowPasswordReset"
+                        :href="route('password.request')">
+                        {{ i18n('Forgot Password') }}
+                    </html-link>
+                    <span class="px-2" v-if="allowRegistration && allowPasswordReset">
+                        &bull;
+                    </span>
+                    <html-link class="text-link text-sm"
+                        v-if="allowRegistration"
+                        :href="route('register')">
+                        {{ i18n('Register') }}
+                    </html-link>
                 </div>
-                <form class="form" @submit.prevent="submit">
-                    <text-field autofocus autocomplete="email" id="email"
-                        :field="{
-                            label: allowUsernameLogin ? 'Email or Username' : 'Email',
-                            type: allowUsernameLogin ? 'text' : 'email',
-                        }"
-                        :form="form" />
-                    <password-field autocomplete="current-password" id="password"
-                        :field="{
-                            label: 'Password',
-                            type: 'password',
-                        }"
-                        :form="form" />
-                    <checkbox-field class="horizontal checkbox-first" id="remember"
-                        :field="{
-                            label: 'Remember me',
-                            type: 'checkbox',
-                        }"
-                        :form="form" />
-
-                    <div class="mt-4 flex flex-row-reverse items-center justify-start">
-                        <primary-button class="ms-4"
-                            :class="{ 'opacity-25': form.processing }"
-                            :disabled="form.processing"
-                            @click="submit()">
-                            {{ i18n('Login') }}
-                        </primary-button>
-                        <html-link class="text-link text-sm"
-                            v-if="allowPasswordReset"
-                            :href="route('password.request')">
-                            {{ i18n('Forgot Password') }}
-                        </html-link>
-                        <span class="px-2" v-if="allowRegistration && allowPasswordReset">
-                            &bull;
-                        </span>
-                        <html-link class="text-link text-sm"
-                            v-if="allowRegistration"
-                            :href="route('register')">
-                            {{ i18n('Register') }}
-                        </html-link>
-                    </div>
-                </form>
-            </template>
-        </primevue-card>
-    </div>
+            </form>
+        </template>
+    </primevue-card>
 </template>
 
 <script setup>
@@ -79,10 +74,6 @@ const props = defineProps({
     allowPasswordReset: {
         type: Boolean,
         default: true,
-    },
-    status: {
-        type: String,
-        default: null,
     },
 });
 

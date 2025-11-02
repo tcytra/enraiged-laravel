@@ -18,7 +18,6 @@ class Show extends Controller
     public function __invoke(Request $request): InertiaResponse|RedirectResponse
     {
         $props = [
-            'status' => session('status'),
         ];
 
         return ! $request->user()->mustVerifySecondary || $request->user()->hasVerifiedSecondary()

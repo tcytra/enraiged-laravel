@@ -16,7 +16,6 @@ class Create extends Controller
     {
         $props = [
             'allowLogin' => config('enraiged.auth.allow_login') === true,
-            'status' => session('status'),
         ];
 
         return inertia('auth/ForgotPassword', $props);

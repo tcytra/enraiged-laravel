@@ -2,7 +2,7 @@
     <div>
         <html-head :title="i18n('Reset Password')" />
 
-        <primevue-card class="md:w-md w-sm">
+        <primevue-card class="w-xs">
             <template #header>
                 <h1 class="text-lg">{{ i18n('Reset Password') }}</h1>
             </template>

@@ -4,7 +4,7 @@
 
         <div id="teleport" class="flex-centered">
             <div class="mask"></div>
-            <primevue-card class="md:w-md w-sm">
+            <primevue-card class="w-xs">
                 <template #header>
                     <h1 class="text-lg">{{ i18n('Confirm Password') }}</h1>
                 </template>

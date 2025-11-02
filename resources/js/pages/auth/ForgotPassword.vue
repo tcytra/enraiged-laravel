@@ -2,13 +2,13 @@
     <div>
         <html-head :title="i18n('Forgot Password')" />
 
-        <primevue-card class="md:w-md w-sm">
+        <primevue-card class="w-xs">
             <template #header>
                 <h1 class="text-lg">{{ i18n('Forgot Password') }}</h1>
             </template>
             <template #content>
-                <div class="mb-4 text-sm font-medium text-green-600" v-if="status">
-                    {{ status }}
+                <div class="mb-4 text-sm font-medium text-green-600" v-if="message">
+                    {{ message }}
                 </div>
                 <div class="mb-4 text-sm text-gray-400" v-else>
                     {{ i18n('Provide your email address and follow the instructions '
@@ -54,7 +54,7 @@ defineProps({
     allowLogin: {
         type: Boolean,
     },
-    status: {
+    message: {
         type: String,
     },
 });

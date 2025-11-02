@@ -2,7 +2,7 @@
     <div>
         <html-head :title="i18n('Register')" />
 
-        <primevue-card class="md:w-md w-sm">
+        <primevue-card class="md:w-sm w-xs">
             <template #header>
                 <h1 class="text-lg">{{ i18n('Register') }}</h1>
             </template>

@@ -4,7 +4,7 @@
 
         <div id="teleport" class="flex-centered">
             <div class="mask"></div>
-            <primevue-card class="md:w-md w-sm">
+            <primevue-card class="w-xs">
                 <template #header>
                     <h1 class="text-lg">{{ i18n('Email Verification') }}</h1>
                 </template>
@@ -64,6 +64,6 @@ const submit = () => {
 };
 
 const verificationLinkSent = computed(
-    () => props.status === 'verification-link-sent',
+    () => props.status === 201,
 );
 </script>

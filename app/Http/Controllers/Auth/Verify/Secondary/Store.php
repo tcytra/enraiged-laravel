@@ -25,6 +25,6 @@ class Store extends Controller
             ->sendSecondaryVerificationNotification();
 
         return back()
-            ->with('status', 'secondary-verification-link-sent');
+            ->with('status', 201);
     }
 }
