@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 
 class Authenticate extends Middleware
@@ -22,6 +23,27 @@ class Authenticate extends Middleware
         $this->authenticate($request, $guards);
 
         return $next($request);
+    }
+
+    /**
+     *  Handle an unauthenticated user.
+     *
+     *  @param  \Illuminate\Http\Request  $request
+     *  @param  array  $guards
+     *  @return never
+     *
+     *  @throws \Illuminate\Auth\AuthenticationException
+     */
+    protected function unauthenticated($request, array $guards)
+    {
+        $request->session()
+            ->flash('status', 205);
+
+        throw new AuthenticationException(
+            'Unauthenticated.',
+            $guards,
+            $request->expectsJson() ? null : $this->redirectTo($request),
+        );
     }
 
     /**
