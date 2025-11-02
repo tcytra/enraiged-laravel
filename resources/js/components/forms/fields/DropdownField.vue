@@ -222,11 +222,14 @@ const data = (limit) => {
 const fetch = (limit) => {
     loading.value = true;
     clearOptions();
-    const method = props.field.options.method || 'get';
+    const method = props.field.options.route.method || 'get';
     const params = method === 'get' ? { params: data(limit) } : data(limit);
-    let url = route().has(props.field.options.route)
-        ? route(props.field.options.route, props.form.data())
-        : props.field.options.uri || null;
+    let url = typeof props.field.options.route.url !== 'undefined'
+        ? props.field.options.route.url
+        : (typeof props.field.options.route.name !== 'undefined' && route().has(props.field.options.route.name)
+            ? route(props.field.options.route, props.form.data())
+            : null);
+
     if (url) {
         url = new URL(url);
         url.search = '';
