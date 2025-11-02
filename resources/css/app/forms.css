@@ -166,7 +166,7 @@ form, .form {
     .p-inputwrapper.is-creating:not(.p-calendar):not(.p-invalid),
     .p-password.is-creating:not(.p-invalid) .p-inputtext {
       background-color: var(--p-sky-100) !important;
-      border-color:     var(--p-sky-300) !important;
+      border-color:     var(--p-sky-400) !important;
     }
 
     /*
@@ -183,7 +183,7 @@ form, .form {
     .p-inputwrapper.is-updating:not(.p-calendar):not(.p-invalid),
     .p-password.is-updating:not(.p-invalid) .p-inputtext {
       background-color: var(--p-amber-100) !important;
-      border-color:     var(--p-amber-300) !important;
+      border-color:     var(--p-amber-400) !important;
     }
 }
 
