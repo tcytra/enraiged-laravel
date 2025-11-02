@@ -1,15 +1,20 @@
 # Enraiged Laravel 0.4.x Release Notes
 
-2025-10-31 : 0.4.0-beta.10 (prerelease)  
+2025-11-02 : 0.4.0-beta.10 (prerelease)  
 Update: Round of corrections, updates; Testing in hosting environment
 
+- Added abstract App\Http\Resources\JsonResource
 - Added app\state in cors config, moved handling to StateController
+- Added various width definitions to the css enraiged layer
 - Added Role::ids() static method to return array of role ids
 - Correct assmebly of password,role_id rules for users.store
+- Correct layout handling when authenticated session expires
 - Correct use of ziggy @routes being prevented by csp headers
 - Correct handling of the lowest role when seeding factory users
 - Correct handling of the logout through the action handling
 - Correct handling of the vue table row actions
+- Correct status handling in the auth controllers/components
+- Moved Roles enum into the Enraiged\Users namespace
 
 ---
 

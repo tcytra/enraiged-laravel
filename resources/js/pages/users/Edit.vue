@@ -114,7 +114,7 @@
 
 <script setup>
 import { Head as HtmlHead } from '@inertiajs/vue3';
-import { computed, onMounted } from 'vue';
+import { computed } from 'vue';
 import { useLocales } from '@/handlers/locales';
 import AvatarForm from '@/components/ui/avatars/AvatarForm.vue';
 //import DeleteForm from '@/components/users/forms/DeleteForm.vue';

@@ -2,8 +2,9 @@
 
 namespace App\Http\Middleware;
 
-use Illuminate\Http\Request;
 use Closure;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Vite;
 use Symfony\Component\HttpFoundation\Response;
 
 final class SecureHttpHeaders
@@ -17,6 +18,8 @@ final class SecureHttpHeaders
      */
     public function handle(Request $request, Closure $next): Response
     {
+        Vite::useCspNonce();
+
         $response = $next($request);
 
         if (!app()->environment('local')) {
@@ -65,7 +68,9 @@ final class SecureHttpHeaders
 
             $response->headers->set(
                 key: 'Content-Security-Policy',
-                values: strval(config('enraiged.headers.content-security-policy')),
+                values: strval(
+                    __(config('enraiged.headers.content-security-policy'), ['nonce' => Vite::cspNonce()])
+                ),
             );
 
             $response->headers->set(

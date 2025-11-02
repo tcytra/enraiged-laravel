@@ -18,7 +18,7 @@
 </template>
 
 <script setup>
-import { computed, inject } from 'vue';
+import { computed } from 'vue';
 import { router } from '@inertiajs/vue3';
 import { useConfirm } from 'primevue/useconfirm';
 import { useLocales } from '@/handlers/locales';
@@ -34,8 +34,6 @@ const props = defineProps({
         default: false,
     },
 });
-
-const route = inject('route');
 
 const back = () => {
     window.history.back();

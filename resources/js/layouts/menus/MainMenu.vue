@@ -27,7 +27,7 @@
 </template>
 
 <script setup>
-import { computed, inject, ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useLocales } from '@/handlers/locales';
 import { useMenus } from '@/handlers/menus';
 import PrimevuePanelMenu from 'primevue/panelmenu';
@@ -42,8 +42,6 @@ const props = defineProps({
         default: false,
     },
 });
-
-const route = inject('route');
 
 const { active, expand, handle, make } = useMenus();
 

@@ -23,7 +23,7 @@ return [
     |   object-src 'none'; frame-ancestors 'none'".
     |
     */
-    'content-security-policy' => "default-src 'self'; connect-src *; script-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; child-src 'self'; object-src 'none'; frame-ancestors 'none'",
+    'content-security-policy' => "default-src 'self'; connect-src *; script-src 'self' 'nonce-:nonce'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self'; child-src 'self'; object-src 'none'; frame-ancestors 'none'",
 
     /*
     |--------------------------------------------------------------------------

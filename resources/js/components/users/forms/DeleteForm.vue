@@ -47,7 +47,7 @@
 
 <script setup>
 import { Link as HtmlLink, useForm } from '@inertiajs/vue3';
-import { inject, ref } from 'vue';
+import { ref } from 'vue';
 import { useLocales } from '@/handlers/locales';
 import ConfirmDialog from '@/components/ui/dialogs/ConfirmDialog.vue';
 import DangerButton from '@/components/ui/buttons/DangerButton.vue';
@@ -73,8 +73,6 @@ const props = defineProps({
 const { i18n } = useLocales();
 
 const confirm = ref('confirm');
-
-const route = inject('route');
 
 const user = props.user;
 

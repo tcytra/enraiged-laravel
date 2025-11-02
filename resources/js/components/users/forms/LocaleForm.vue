@@ -47,7 +47,6 @@ const props = defineProps({
 
 const { ai18n, i18n } = useLocales();
 const { meta } = inject('app');
-const route = inject('route');
 const locales = meta.value.locales;
 const user = props.user;
 

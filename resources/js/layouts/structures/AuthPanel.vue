@@ -43,7 +43,7 @@
 </template>
 
 <script setup>
-import { computed, inject, ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useLocales } from '@/handlers/locales';
 import { useMenus } from '@/handlers/menus';
 import { usePage } from '@inertiajs/vue3';
@@ -63,8 +63,6 @@ const props = defineProps({
 const { i18n } = useLocales();
 
 const { active, handle } = useMenus();
-
-const route = inject('route');
 
 const item = ref({ route: { name: 'my.profile.show' } });
 

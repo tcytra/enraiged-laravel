@@ -6,11 +6,12 @@
 
         <title inertia>{{ config('app.name', 'Enraiged') }}</title>
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <!-- Fonts
+        <link rel="preconnect" href="https://fonts.bunny.net" nonce="">
+        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" nonce="" />-->
 
         <!-- Scripts -->
+        @routes(nonce: \Illuminate\Support\Facades\Vite::cspNonce())
         @vite(['resources/js/app.js', "resources/js/pages/{$page['component']}.vue"])
         @inertiaHead
     </head>

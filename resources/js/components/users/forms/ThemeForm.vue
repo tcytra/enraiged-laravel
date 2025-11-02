@@ -32,7 +32,7 @@
 </template>
 
 <script setup>
-import { computed, inject } from 'vue';
+import { computed } from 'vue';
 import { palette } from '@/themes/palette';
 import { useForm } from '@inertiajs/vue3';
 import { useLocales } from '@/handlers/locales';
@@ -57,8 +57,6 @@ const {
 } = palette();
 
 const { i18n } = useLocales();
-
-const route = inject('route');
 
 const user = props.user;
 

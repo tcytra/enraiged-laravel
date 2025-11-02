@@ -87,8 +87,6 @@ const { i18n } = useLocales();
 
 const { state } = inject('app');
 
-const route = inject('route');
-
 const submit = () => {
     form.post(route('login'), {
         onFinish: () => {

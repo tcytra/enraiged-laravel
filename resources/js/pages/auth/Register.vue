@@ -104,8 +104,6 @@ const { i18n, lang } = useLocales();
 
 const { state } = inject('app');
 
-const route = inject('route');
-
 const form = useForm({
     agreed: false,
     name: null,

@@ -74,8 +74,6 @@ const { state } = inject('app');
 
 const { error, i18n } = useHandlers();
 
-const route = inject('route');
-
 const user = props.user;
 
 const changed = ref(false);

@@ -44,7 +44,6 @@
 
 <script setup>
 import { Head as HtmlHead, Link as HtmlLink, useForm } from '@inertiajs/vue3';
-import { inject } from 'vue';
 import { useLocales } from '@/handlers/locales';
 import PrimaryButton from '@/components/ui/buttons/PrimaryButton.vue';
 import PrimevueCard from 'primevue/card';
@@ -60,8 +59,6 @@ defineProps({
 });
 
 const { i18n, lang } = useLocales();
-
-const route = inject('route');
 
 const form = useForm({
     email: null,

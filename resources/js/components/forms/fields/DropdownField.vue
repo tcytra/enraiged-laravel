@@ -126,14 +126,13 @@
 </template>
 
 <script setup>
-import { computed, inject, onMounted, reactive, ref, useTemplateRef, watch } from 'vue';
+import { computed, onMounted, reactive, ref, useTemplateRef, watch } from 'vue';
 import { useHandlers } from '@/handlers';
 import FormField from './renderless/FormField.vue';
 import PrimevueMultiselect from 'primevue/multiselect';
 import PrimevueSelect from 'primevue/select';
 
 const { error, i18n } = useHandlers();
-const route = inject('route');
 const emit = defineEmits(['options:fetched', 'update:modelValue']);
 const input = useTemplateRef('input');
 const options = reactive([]);

@@ -43,7 +43,6 @@
 
 <script setup>
 import { Link as HtmlLink, useForm } from '@inertiajs/vue3';
-import { inject } from 'vue';
 import { useLocales } from '@/handlers/locales';
 import PasswordField from '@/components/forms/fields/PasswordField.vue';
 import PrimaryButton from '@/components/ui/buttons/PrimaryButton.vue';
@@ -65,7 +64,6 @@ const props = defineProps({
 });
 
 const { ai18n, i18n } = useLocales();
-const route = inject('route');
 const user = props.user;
 
 const form = useForm({

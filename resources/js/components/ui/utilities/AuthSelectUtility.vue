@@ -23,7 +23,7 @@
 </template>
 
 <script setup>
-import { inject, ref } from 'vue';
+import { ref } from 'vue';
 import { router } from '@inertiajs/vue3';
 import { useMenus } from '@/handlers/menus';
 import Avatar from '@/components/ui/avatars/Avatar.vue';
@@ -41,8 +41,6 @@ const props = defineProps({
 });
 
 const { handle } = useMenus();
-
-const route = inject('route');
 
 const menu = ref();
 

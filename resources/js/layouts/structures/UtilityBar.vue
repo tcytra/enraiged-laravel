@@ -33,7 +33,7 @@
 </template>
 
 <script setup>
-import { computed, inject, ref } from 'vue';
+import { computed, ref } from 'vue';
 import { router } from '@inertiajs/vue3';
 import AuthSelectUtility from '@/components/ui/utilities/AuthSelectUtility.vue';
 import Avatar from '@/components/ui/avatars/Avatar.vue';
@@ -78,8 +78,6 @@ const authItems = ref([
         icon: 'pi pi-sign-out',
     }
 ]);
-
-const route = inject('route');
 
 const unimpersonate = () => {
     router.get(route('users.impersonate.stop'));

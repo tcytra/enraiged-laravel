@@ -42,7 +42,7 @@
 
 <script setup>
 import { Head as HtmlHead, Link as HtmlLink, useForm } from '@inertiajs/vue3';
-import { computed, inject } from 'vue';
+import { computed } from 'vue';
 import { useLocales } from '@/handlers/locales';
 import PrimaryButton from '@/components/ui/buttons/PrimaryButton.vue';
 import PrimevueCard from 'primevue/card';
@@ -54,8 +54,6 @@ const props = defineProps({
 });
 
 const { i18n } = useLocales();
-
-const route = inject('route');
 
 const form = useForm({});
 

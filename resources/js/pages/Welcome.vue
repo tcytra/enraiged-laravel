@@ -248,7 +248,6 @@
 
 <script setup>
 import { Head as HtmlHead, Link as HtmlLink } from '@inertiajs/vue3';
-import { inject } from 'vue';
 
 defineOptions({
     layout: null,
@@ -274,8 +273,6 @@ defineProps({
         required: true,
     },
 });
-
-const route = inject('route');
 
 function handleImageError() {
     document.getElementById('screenshot-container')?.classList.add('!hidden');
