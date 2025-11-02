@@ -70,11 +70,11 @@ const props = defineProps({
     },
 });
 
-const { route } = inject('route');
-
 const { state } = inject('app');
 
 const { error, i18n } = useHandlers();
+
+const route = inject('route');
 
 const user = props.user;
 
