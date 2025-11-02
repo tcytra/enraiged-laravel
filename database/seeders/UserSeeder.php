@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Enraiged\Profiles\Models\Profile;
+use Enraiged\Users\Enums\Roles;
 use Enraiged\Users\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -34,6 +35,15 @@ class UserSeeder extends Seeder
             $names = explode(' ', $parameters['name']);
             $parameters['first_name'] = count($names) ? array_shift($names) : null;
             $parameters['last_name'] = count($names) ? implode(' ', $names) : null;
+        }
+
+        if (key_exists('role', $parameters)) {
+            $roles = config('auth.providers.roles.enum', Roles::class);
+            $role = $roles::{$parameters['role']};
+
+            $parameters['role_id'] = $role->role()->id;
+
+            unset($parameters['role']);
         }
 
         $attributes = collect($parameters);

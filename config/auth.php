@@ -60,6 +60,11 @@ return [
     */
 
     'providers' => [
+        'roles' => [
+            'driver' => 'enum',
+            'enum' => Enraiged\Users\Enums\Roles::class,
+        ],
+
         'users' => [
             'driver' => 'eloquent',
             'model' => env('MUST_VERIFY_EMAIL') === true
