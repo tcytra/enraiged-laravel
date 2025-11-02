@@ -96,7 +96,7 @@
             >.fixed.header {
               position:         fixed;
               transition:       all .35s ease;
-              width:            inherit;
+              
               z-index:          4;
 
                 +.section {
@@ -273,6 +273,11 @@
         &.auth-open.menu-open {
             .menu.panel {
               width:            0;
+            }
+        }
+        .page.panel {
+            main > .fixed.header {
+              width:            inherit;
             }
         }
     }
