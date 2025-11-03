@@ -130,8 +130,8 @@ form, .form {
 
         &.checkbox .p-checkbox,
         &.switch .p-toggleswitch {
-          margin-bottom:    .25rem;
-          margin-top:       .25rem;
+          margin-bottom:    .5rem;
+          margin-top:       .5rem;
         }
     }
 
