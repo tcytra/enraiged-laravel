@@ -148,14 +148,14 @@
                     >.action {
                       height:           4rem;
                       padding:          .25rem;
-                      width:            4rem;
+                      min-width:        4rem;
 
                         .p-button {
                           display:          flex;
                           flex-direction:   column;
                           height:           3.5rem;
                           justify-content:  center;
-                          width:            3.5rem;
+                          /*width:            3.5rem;*/
 
                             .p-button-icon {
                               font-size:        1.25rem;
