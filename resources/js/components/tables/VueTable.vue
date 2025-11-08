@@ -436,7 +436,7 @@ export default {
                 this.confirm(action, () => this.action(name, action, props, true));
             } else {
                 const method = action.route.method || 'get';
-                if (method === 'emit') {
+                if (action.emit || method === 'emit') {
                     props
                         ? this.$emit(name, props.data)
                         : this.$emit(name);
