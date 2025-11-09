@@ -437,9 +437,12 @@ export default {
             } else {
                 const method = action.route.method || 'get';
                 if (action.emit || method === 'emit') {
+                    const emit = typeof action.emit === 'string'
+                        ? action.emit
+                        : name;
                     props
-                        ? this.$emit(name, props.data)
-                        : this.$emit(name);
+                        ? this.$emit(emit, props.data)
+                        : this.$emit(emit);
                 } else
                 if (action.route) {
                     if (action.route.api || action.route.url.match(/\/api/)) {
