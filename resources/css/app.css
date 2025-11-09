@@ -8,6 +8,7 @@
 @layer enraiged {
     @import './app/avatars.css';
     @import './app/branding.css';
+    @import './app/dialogs.css';
     @import './app/forms.css';
     @import './app/layouts.css';
     @import './app/menus.css';

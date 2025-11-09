@@ -1,0 +1,8 @@
+
+.p-dialog {
+    .p-dialog-header {
+        .p-button:focus-visible {
+          outline-color:    transparent;
+        }
+    }
+}
