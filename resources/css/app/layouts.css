@@ -385,6 +385,24 @@
     }
 }
 
+.p-overlay-mask {
+    &::after {
+      background-color: var(--p-surface-500);
+      content:          "";
+      display:          block;
+      height:           inherit;
+      left:             inherit;
+      opacity:          .2;
+      position:         fixed;
+      top:              inherit;
+      width:            inherit;
+      z-index:          19;
+    }
+    >* {
+      z-index:          1999;
+    }
+}
+
 :root {
     --breakpoint-xs: 26rem;
     --breakpoint-sm: 36rem;
