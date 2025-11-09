@@ -20,8 +20,8 @@
                         .p-label {
                           align-items:      center;
                           background:       var(--p-surface-0);
-                          border:           1px solid var(--p-inputtext-border-color);
-                          border-radius:    0 var(--p-form-field-border-radius) var(--p-form-field-border-radius) 0;
+                          border:           1px solid var(--p-inputgroup-addon-border-color);
+                          border-radius:    0 var(--p-inputgroup-addon-border-radius) var(--p-inputgroup-addon-border-radius) 0;
                           display:          flex;
                           flex-grow:        1;
                           font-size:        .875rem;
@@ -191,6 +191,7 @@
     --p-datatable-header-cell-hover-background: var(--p-surface-700);
     --p-paginator-nav-button-selected-background: var(--p-surface-800);
     --p-paginator-nav-button-selected-color: var(--p-surface-100);
+    /*--p-datatable-row-background: var(--p-surface-900);*/
 
     .datatable.section {
         .p-datatable {
