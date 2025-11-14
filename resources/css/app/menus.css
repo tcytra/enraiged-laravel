@@ -63,7 +63,9 @@
           justify-content:  space-evenly;
 
             .item {
-              border-radius:    var(--p-border-radius-xl);
+                &:not(.heading) {
+                  border-radius:    var(--p-border-radius-md);
+                }
 
                 .option {
                   align-items:      center;
@@ -101,11 +103,14 @@
     .menu.panel {
         .navigation.options {
             .item {
-              border-radius:    var(--p-border-radius-md);
               font-size:        1rem;
               height:           2.25rem;
               margin:           .25rem;
               overflow:         hidden;
+
+                &:not(.heading) {
+                  border-radius:    var(--p-border-radius-md);
+                }
 
                 &.child {
                   /*background-color: var(--p-surface-200);*/
