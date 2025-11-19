@@ -6,7 +6,7 @@
     "keywords": ["enraiged", "laravel", "breeze", "inertiajs", "vuejs", "tailwindcss", "primevue", "primeui"],
     "license": "MIT",
     "require": {
-        "php": "^8.2",
+        "php": "^8.3",
         "inertiajs/inertia-laravel": "^2.0",
         "laravel/framework": "^12.0",
         "laravel/sanctum": "^4.0",
