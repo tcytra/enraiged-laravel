@@ -1,5 +1,10 @@
 # Enraiged Laravel
 
+
+> **Please Note:** The 0.3.x (Laravel 10) branch will be deprecated in 2026. The 0.4.x branch (Laravel 12) is currently 
+in testing and while it will continue to receive updates it may be preferred over the 0.3.x branch.
+
+
 **[Laravel 10](https://laravel.com/docs/10.x/releases)
  • [Vue v3.5](https://vuejs.org/guide/introduction.html)
  • [Inertia.js v2.0](https://inertiajs.com/)

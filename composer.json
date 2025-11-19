@@ -6,11 +6,11 @@
     "license": "MIT",
     "require": {
         "php": "^8.3",
-        "guzzlehttp/guzzle": "^7.9",
+        "guzzlehttp/guzzle": "^7.10",
         "inertiajs/inertia-laravel": "^2.0",
         "intervention/image": "^3.11",
-        "laravel/framework": "^10.48",
-        "laravel/horizon": "^5.34",
+        "laravel/framework": "^10.49",
+        "laravel/horizon": "^5.40",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.10",
         "league/commonmark": "^2.7",
@@ -18,7 +18,7 @@
         "nesbot/carbon": "^2.73",
         "phpoffice/phpspreadsheet": "^1.30",
         "spatie/laravel-image-optimizer": "^1.8",
-        "tightenco/ziggy": "^2.5"
+        "tightenco/ziggy": "^2.6"
     },
     "require-dev": {
         "fakerphp/faker": "^1.24",

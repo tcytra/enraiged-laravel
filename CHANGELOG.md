@@ -2,12 +2,16 @@
 
 **Upcoming Changes**
 
-Effort has begun to move enraiged-laravel into v0.4.x with a full reconstruction of the framework. The 0.4.x branch is
-available and is essentially a port of Laravel Breeze with Vue, InertiaJS, some additional configuration options, and
-made internationalisation ready.
+> The 0.4.x branch is in a beta version in active testing; Updates are ongoing but it is generally stable.
 
-> The 0.4.x branch is still early in the development process and not ready for a replacement of the 0.3.x system.
 
+2025-11-19 : 0.3.19.3  
+Secure: Updated composer,nodejs packages; Corrected enraiged users index
+
+- Corrected issue in the UserIndex; 'active' filter not being applied
+- Updated laravel/framework to ^10.49
+
+---
 
 2025-10-08 : 0.3.19.2  
 Patch: Corrections to enraiged-tables search, enraiged-export filters
