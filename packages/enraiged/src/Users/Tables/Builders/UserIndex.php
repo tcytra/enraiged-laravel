@@ -42,6 +42,18 @@ class UserIndex extends TableBuilder implements ProvidesDefaultSort, ProvidesTab
     }
 
     /**
+     *  Apply the users.is_active filter, if necessary.
+     *
+     *  @param  bool  $value
+     *  @return void
+     */
+    public function filterActive($value)
+    {
+        $this->builder
+            ->where('users.is_active', $value);
+    }
+
+    /**
      *  Provide the initial query builder for this table.
      *
      *  @return \Illuminate\Database\Eloquent\Builder
