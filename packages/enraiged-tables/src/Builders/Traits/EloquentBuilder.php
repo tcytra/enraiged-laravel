@@ -47,7 +47,7 @@ trait EloquentBuilder
     /**
      *  Apply the filtering to the query builder, if provided.
      *
-     *  @param  array  
+     *  @param  array
      *  @return self
      */
     public function filter(?array $filters = null)
@@ -92,7 +92,7 @@ trait EloquentBuilder
                         if ($type === 'select') {
                             $options = key_exists('options', $filter)
                                 ? $this->selectOptions($index, $filter['options'], false)
-                                : [];                    
+                                : [];
 
                             $value = $filters[$index];
 
@@ -176,28 +176,29 @@ trait EloquentBuilder
     public function search()
     {
         $conditions = [];
+        $bindings = [];
 
         if ($this->request()->has('search') && $this->request()->filled('search')) {
-            $search = filter_var($this->request()->get('search'), FILTER_SANITIZE_STRING);
+            $search = $this->request()->get('search');
 
             foreach (explode(" ", trim($search)) as $term) {
-                $searchable = collect($this->searchableColumns())
-                    ->values()
-                    ->transform(function ($column) use ($term) {
-                        return "{$column} LIKE '%{$term}%'";
-                    })
-                    ->join(' OR ');
+                $parts = [];
+                $like = "%{$term}%";
 
-                $conditions[] = "({$searchable})";
+                foreach ($this->searchableColumns() as $column) {
+                    $parts[] = "{$column} LIKE ?";
+                    $bindings[] = $like;
+                }
+
+                $conditions[] = '(' . implode(' OR ', $parts) . ')';
             }
         }
 
-        if (count($conditions)) {
-            $where = implode(' AND ', $conditions);
-            $query = "({$where})";
+        if ($conditions) {
+            $query = '(' . implode(' AND ', $conditions) . ')';
 
             $this->builder()
-                ->whereRaw("({$query})");
+                ->whereRaw($query, $bindings);
         }
 
         return $this;
