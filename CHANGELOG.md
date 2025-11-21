@@ -1,5 +1,11 @@
 # Enraiged Laravel 0.4.x Release Notes
 
+2025-11-20 :
+
+- Updated the nodejs packages to the latest versions
+
+---
+
 2025-11-02 : 0.4.0-beta.10 (prerelease)  
 Update: Round of corrections, updates; Testing in hosting environment
 

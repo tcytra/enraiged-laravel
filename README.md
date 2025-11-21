@@ -78,7 +78,7 @@ something suitable for your project.
 
 Finally, we will install the node packages and build the front-end resources. Start with:
 
-> Add the --no-dev flag when installing on a production host.
+> Add the --omit=dev flag when installing on a production host.
 
 ```bash
 npm install
