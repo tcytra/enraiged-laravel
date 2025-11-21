@@ -2,9 +2,9 @@
 
 **[Laravel 12](https://laravel.com/docs/12.x/releases)
  • [Vue v3.5](https://vuejs.org/guide/introduction.html)
- • [Inertia.js v2.0](https://inertiajs.com/)
- • [Primevue v4.3](https://primevue.org/laravel)
- • [TailwindCSS v4.0](https://tailwindcss.com/docs/installation/framework-guides/laravel/vite)
+ • [Inertia.js v2.2](https://inertiajs.com/)
+ • [Primevue v4.4](https://primevue.org/laravel)
+ • [TailwindCSS v4.1](https://tailwindcss.com/docs/installation/framework-guides/laravel/vite)
 **
 
 **Enraiged Laravel is a starter kit implementing Laravel 12, Vite, VueJS, InertiaJS, Primevue, and TailwindCSS.**
