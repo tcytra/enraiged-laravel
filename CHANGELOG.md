@@ -1,7 +1,8 @@
 # Enraiged Laravel 0.4.x Release Notes
 
-2025-11-20 :
+2025-11-21 :
 
+- Added patch to restore primevue/datatable responsive stack feature
 - Updated the nodejs packages to the latest versions
 
 ---
