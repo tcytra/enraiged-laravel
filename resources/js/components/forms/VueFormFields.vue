@@ -19,6 +19,7 @@
                 :id="key"/>
             <hidden-field v-else-if="item.type === 'hidden'" v-bind="$props"
                 :field="item"
+                :form="form"
                 :id="key"/>
             <listbox-field v-else-if="item.type === 'listbox'" v-bind="$props"
                 :field="item"
