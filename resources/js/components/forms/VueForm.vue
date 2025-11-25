@@ -208,7 +208,7 @@ export default {
                         }
                     });
             } else {
-                form[method](uri, {
+                form[method](url, {
                     onSuccess: () => emit('form:success', form),
                 });
             }
