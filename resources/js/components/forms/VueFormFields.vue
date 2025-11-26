@@ -39,9 +39,10 @@
             <textarea-field v-else-if="item.type === 'textarea'" v-bind="$props"
                 :field="item"
                 :id="key"/>
-            <!--<upload-field v-else-if="item.type === 'upload'" v-bind="$props"
+            <upload-field v-else-if="item.type === 'upload'" v-bind="$props"
                 :field="item"
-                :id="key"/>-->
+                :form="form"
+                :id="key"/>
             <text-field v-else v-bind="$props"
                 :field="item"
                 :id="key"/>
@@ -62,7 +63,7 @@ import SecurityField from './fields/SecurityField.vue';
 import SwitchField from './fields/SwitchField.vue';
 import TextField from './fields/TextField.vue';
 import TextareaField from './fields/TextareaField.vue';
-//import UploadField from './fields/UploadField.vue';
+import UploadField from './fields/UploadField.vue';
 
 export default {
     components: {
@@ -78,7 +79,7 @@ export default {
         SwitchField,
         TextField,
         TextareaField,
-        //UploadField,
+        UploadField,
     },
 
     props: {

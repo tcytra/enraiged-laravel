@@ -157,10 +157,6 @@ export default {
             return fields;
         }
 
-        function isSuccess(status) {
-            return status >= 200 && status < 300;
-        }
-
         function reset() {
             form.clearErrors();
             form.reset();
@@ -177,7 +173,7 @@ export default {
                 axios[method](url, form.data(), {headers})
                     .then((response) => {
                         const { status, data } = response;
-                        if (isSuccess(status) && data.success) {
+                        if (status >= 200 && status < 300 && data.success) {
                             flashSuccess(data.success);
                             emit('form:success');
                         }
@@ -200,11 +196,7 @@ export default {
                                     errors[each] = errors[each][0];
                                 });
                                 form.setError(errors);
-                            } else {
-                                error(e);
                             }
-                        } else {
-                            error(e);
                         }
                     });
             } else {
