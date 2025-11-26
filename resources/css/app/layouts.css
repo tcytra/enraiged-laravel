@@ -139,6 +139,8 @@
                   font-size:        1.5rem;
                   margin-left:      1rem;
                   margin-right:     1rem;
+                  overflow:         hidden;
+                  white-space:      nowrap;
                 }
 
                 .actions {
