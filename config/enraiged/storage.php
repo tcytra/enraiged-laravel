@@ -4,15 +4,15 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Storage Clean
+    | Storage Clear
     |--------------------------------------------------------------------------
     |
     | Here you may configure the housekeeping system parameters.
     | 
-    | 'clear': Array of directories within /storage/app to clean during seeding
+    | 'clear': Directories within /storage/app/private to clean during seeding
     |
     */
 
-    'clear' => ['avatars', 'exports', 'files', 'images', 'imports', 'temp'],
+    'clear' => ['avatars', 'exports', 'files', 'images', 'imports'],
 
 ];
