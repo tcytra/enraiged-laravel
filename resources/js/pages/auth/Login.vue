@@ -63,18 +63,7 @@ import PrimevueCard from 'primevue/card';
 import TextField from '@/components/forms/fields/TextField.vue';
 
 const props = defineProps({
-    allowUsernameLogin: {
-        type: Boolean,
-        default: false,
-    },
-    allowRegistration: {
-        type: Boolean,
-        default: false,
-    },
-    allowPasswordReset: {
-        type: Boolean,
-        default: true,
-    },
+    //
 });
 
 const form = useForm({
@@ -85,7 +74,9 @@ const form = useForm({
 
 const { i18n } = useLocales();
 
-const { state } = inject('app');
+const { meta, state } = inject('app');
+
+const { allowUsernameLogin, allowRegistration, allowPasswordReset } = meta.value.auth;
 
 const submit = () => {
     form.post(route('login'), {

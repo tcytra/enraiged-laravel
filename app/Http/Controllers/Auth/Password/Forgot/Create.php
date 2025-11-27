@@ -8,16 +8,12 @@ use Inertia\Response as InertiaResponse;
 class Create extends Controller
 {
     /**
-     *  Display the password reset link request view.
+     *  Display the password reset link request form.
      *
      *  @return \Inertia\Response
      */
     public function __invoke(): InertiaResponse
     {
-        $props = [
-            'allowLogin' => config('enraiged.auth.allow_login') === true,
-        ];
-
-        return inertia('auth/ForgotPassword', $props);
+        return inertia('auth/ForgotPassword');
     }
 }

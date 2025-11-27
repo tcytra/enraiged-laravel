@@ -11,7 +11,7 @@ Route::namespace('\App\Http\Controllers\Auth')
                 Route::namespace('Login')
                     ->group(function () {
                         Route::get('login', 'Create')->name('login');
-                        Route::post('login', 'Store');
+                        Route::post('login', 'Store')->name('login.store');
                     });
 
                 Route::namespace('Password\Forgot')
@@ -27,9 +27,9 @@ Route::namespace('\App\Http\Controllers\Auth')
                     });
 
                 Route::namespace('Register')
-                    ->group(function(){
+                    ->group(function () {
                         Route::get('register', 'Create')->name('register');
-                        Route::post('register', 'Store');
+                        Route::post('register', 'Store')->name('register.store');
                     });
 
             });
@@ -40,7 +40,7 @@ Route::namespace('\App\Http\Controllers\Auth')
                 Route::namespace('Password\Confirm')
                     ->group(function () {
                         Route::get('confirm-password', 'Show')->name('password.confirm');
-                        Route::post('confirm-password', 'Store');
+                        Route::post('confirm-password', 'Store')->name('password.confirm.store');
                     });
 
                 Route::namespace('Verify\Email')

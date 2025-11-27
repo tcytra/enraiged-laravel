@@ -114,7 +114,7 @@
 
 <script setup>
 import { Head as HtmlHead } from '@inertiajs/vue3';
-import { computed } from 'vue';
+import { computed, inject } from 'vue';
 import { useLocales } from '@/handlers/locales';
 import AvatarForm from '@/components/ui/avatars/AvatarForm.vue';
 //import DeleteForm from '@/components/users/forms/DeleteForm.vue';
@@ -134,15 +134,7 @@ const props = defineProps({
         type: String,
         default: null,
     },
-    allowSecondaryCredential: {
-        type: Boolean,
-        default: false,
-    },
     allowSelfDelete: {
-        type: Boolean,
-        default: false,
-    },
-    allowUsernameLogin: {
         type: Boolean,
         default: false,
     },
@@ -180,6 +172,10 @@ const props = defineProps({
 });
 
 const { i18n } = useLocales();
+
+const { meta } = inject('app');
+
+const { allowSecondaryCredential, allowUsernameLogin } = meta.value.auth;
 
 const title = computed(() => props.isMyProfile ? 'Edit My Profile' : `Edit ${props.user.name}`);
 </script>

@@ -8,18 +8,12 @@ use Inertia\Response as InertiaResponse;
 class Create extends Controller
 {
     /**
-     *  Display the registration view.
+     *  Display the registration form.
      *
      *  @return \Inertia\Response
      */
     public function __invoke(): InertiaResponse
     {
-        $props = [
-            'allowLogin' => config('enraiged.auth.allow_login') === true,
-            'allowSecondaryCredential' => config('enraiged.auth.allow_secondary_credential') === true,
-            'allowUsernameLogin' => config('enraiged.auth.allow_username_login') === true,
-        ];
-
-        return inertia('auth/Register', $props);
+        return inertia('auth/Register');
     }
 }

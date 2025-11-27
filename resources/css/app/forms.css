@@ -107,11 +107,18 @@ form, .form {
               order:            2;
               width:            auto;
             }
-            
+
             .p-checkbox,
             .p-toggleswitch {
               margin-right:     .5rem;
               order:            1;
+            }
+        }
+
+        &.checkbox.checkbox-first {
+            .label {
+              align-self:       center;
+              padding-bottom:   .25rem;
             }
         }
     }

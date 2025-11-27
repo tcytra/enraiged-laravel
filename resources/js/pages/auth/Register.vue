@@ -82,18 +82,6 @@ import PrimaryButton from '@/components/ui/buttons/PrimaryButton.vue';
 import PrimevueCard from 'primevue/card';
 import TextField from '@/components/forms/fields/TextField.vue';
 
-defineProps({
-    allowLogin: {
-        type: Boolean,
-    },
-    allowSecondaryCredential: {
-        type: Boolean,
-    },
-    allowUsernameLogin: {
-        type: Boolean,
-    },
-});
-
 const {
     currentPrimary,
     currentSurface,
@@ -102,7 +90,9 @@ const {
 
 const { i18n, lang } = useLocales();
 
-const { state } = inject('app');
+const { meta, state } = inject('app');
+
+const { allowLogin, allowSecondaryCredential, allowUsernameLogin } = meta.value.auth;
 
 const form = useForm({
     agreed: false,

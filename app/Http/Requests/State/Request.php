@@ -24,6 +24,7 @@ class Request extends HttpRequest
                 : false,
             'meta' => [
                 'agent' => $this->agent(),
+                'auth' => $this->auth(),
                 'initials' => $this->initials(),
                 'layout' => config('enraiged.layout'),
                 'locales' => $this->locales(),
@@ -54,6 +55,23 @@ class Request extends HttpRequest
         return [
             'mobile' => preg_match('/mobile/', $agent) !== 0,
             'tablet' => preg_match('/tablet/', $agent) !== 0,
+        ];
+    }
+
+    /**
+     *  Return the auth meta configuration.
+     *
+     *  @return array
+     */
+    protected function auth()
+    {
+        return [
+            'allowLogin' => config('enraiged.auth.allow_login') === true,
+            'allowPasswordReset' => config('enraiged.auth.allow_password_reset') === true,
+            'allowRegistration' => config('enraiged.auth.allow_registration') === true,
+            'allowSecondaryCredential' => config('enraiged.auth.allow_secondary_credential') === true,
+            'allowUsernameLogin' => config('enraiged.auth.allow_secondary_credential') === true
+                && config('enraiged.auth.allow_username_login') === true,
         ];
     }
 
