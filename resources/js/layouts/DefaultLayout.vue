@@ -14,8 +14,10 @@
             <load-state v-if="!app.ready"></load-state>
         </transition>
         <!--<primevue-toast v-if="app.ready"
-            :group="app.toast.group"
+            :group="app.toast.group" todo? group is causing issues
             :position="app.toast.position" />-->
+        <primevue-toast v-if="app.ready"
+            :position="app.toast.position" />
     </app-state>
 </template>
 
@@ -24,7 +26,7 @@ import AppState from './states/renderless/AppState.vue';
 import AuthState from './states/AuthState.vue';
 import GuestState from './states/GuestState.vue';
 import LoadState from './states/LoadState.vue';
-// import PrimevueToast from 'primevue/toast';
+import PrimevueToast from 'primevue/toast';
 </script>
 
 <style scoped>

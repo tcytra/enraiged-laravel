@@ -47,14 +47,14 @@
 </template>
 
 <script setup>
-import { computed, ref, useTemplateRef } from 'vue';
+import { computed, ref } from 'vue';
 import { useMessages } from '@/handlers/messages';
 import FormField from './renderless/FormField.vue';
 import PrimevueUpload from 'primevue/fileupload';
 
 const { flashSuccess } = useMessages();
 
-const input = useTemplateRef('input');
+const input = ref(null);
 
 const props = defineProps({
     accepts: {
@@ -62,6 +62,10 @@ const props = defineProps({
         default: null,
     },
     autofocus: {
+        type: Boolean,
+        default: false,
+    },
+    autoreset: {
         type: Boolean,
         default: false,
     },
@@ -107,6 +111,7 @@ const hasUrl = (typeof props.url !== 'undefined' && typeof props.field.url !== '
 const isUploading = ref(false);
 
 const enableAcceptFile = computed(() => props.accept || props.accept || null);
+const enableAutoReset = computed(() => props.autoreset === true || props.field.autoreset === true);
 const enableAutoUpload = computed(() => hasUrl
     && (props.mode === 'advanced' || props.field.mode === 'advanced')
     && (props.autoupload === true || props.field.autoupload === true));
@@ -117,6 +122,12 @@ const enableMode = computed(() => props.mode || props.field.mode || 'basic');
 const enableMultiple = computed(() => props.multiple === true || props.field.multiple === true);
 const enableName = computed(() => props.name || props.field.name || props.field.id);
 const enableUrl = computed(() => props.url || props.field.url);
+
+const clearSelectedFiles = () => {
+    input.value.clear();
+    input.value.totalSize.value = 0;
+    input.value.totalSizePercent.value = 0;
+};
 
 const onSelectedFiles = (payload) => {
     props.form[props.id] = enableMultiple.value === true
@@ -134,6 +145,10 @@ const onSelectedFiles = (payload) => {
                 if (data.success) {
                     flashSuccess(data.success);
                 }
+                if (enableAutoReset.value === true) {
+                    props.form.reset();
+                    clearSelectedFiles();
+                }
                 isUploading.value = false;
             })
             .catch((e) => {
@@ -144,7 +159,6 @@ const onSelectedFiles = (payload) => {
                         Object.keys(errors).forEach((each) => {
                             errors[each] = errors[each][0];
                         });
-                        console.log(errors);
                         props.form.setError(errors);
                     }
                 }

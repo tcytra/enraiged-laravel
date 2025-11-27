@@ -6,6 +6,8 @@ Update:
 - Added initial UploadField.vue form component
 - Added patch to restore primevue/datatable responsive stack feature
 - Adjusted config of the storage directories
+- Completed the useMessages flash (toast) handler
+- Correct issues in the LocaleForm.vue component
 - Moved the auth configuration to the state request
 - Updated the nodejs packages to the latest versions
 
@@ -18,7 +20,7 @@ Update: Round of corrections, updates; Testing in hosting environment
 - Added app\state in cors config, moved handling to StateController
 - Added various width definitions to the css enraiged layer
 - Added Role::ids() static method to return array of role ids
-- Correct assmebly of password,role_id rules for users.store
+- Correct assembly of password,role_id rules for users.store
 - Correct layout handling when authenticated session expires
 - Correct use of ziggy @routes being prevented by csp headers
 - Correct handling of the lowest role when seeding factory users

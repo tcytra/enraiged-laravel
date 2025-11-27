@@ -28,16 +28,6 @@
                 </dl>
             </li>
         </ul>
-        <!--
-        <div class="m-[2rem]" v-if="files.length">
-            <div class="font-semibold text-sm mb-2">My Recent Files</div>
-            <ul class="files options">
-                <li class="file item" v-for="file in files">
-                    <span class="text-xs">{{ file.name }}</span>
-                </li>
-            </ul>
-        </div>
-        -->
         <div class="block flex-grow-1" @click="auth.toggle()" />
     </nav>
 </template>
@@ -69,6 +59,4 @@ const item = ref({ route: { name: 'my.profile.show' } });
 const mobile = ref(props.meta.agent === 'mobile');
 
 const page = usePage();
-
-const files = computed(() => page.props.files || []);
 </script>
