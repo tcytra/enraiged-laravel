@@ -56,6 +56,8 @@ const { flashSuccess } = useMessages();
 
 const input = ref(null);
 
+const emit = defineEmits(['upload:complete']);
+
 const props = defineProps({
     accepts: {
         type: String,
@@ -101,6 +103,10 @@ const props = defineProps({
         type: Boolean,
         default: false,
     },
+    uploaded: {
+        type: Function,
+        required: false,
+    },
     url: {
         type: String,
         default: null,
@@ -125,8 +131,8 @@ const enableUrl = computed(() => props.url || props.field.url);
 
 const clearSelectedFiles = () => {
     input.value.clear();
-    input.value.totalSize.value = 0;
-    input.value.totalSizePercent.value = 0;
+    input.value.totalSize = 0;
+    input.value.totalSizePercent = 0;
 };
 
 const onSelectedFiles = (payload) => {
@@ -141,17 +147,22 @@ const onSelectedFiles = (payload) => {
         isUploading.value = true;
         axios.post(url, data, { headers })
             .then((response) => {
+                isUploading.value = false;
                 const { data } = response;
                 if (data.success) {
                     flashSuccess(data.success);
+                }
+                if (typeof props.uploaded === 'function') {
+                    props.uploaded(data);
                 }
                 if (enableAutoReset.value === true) {
                     props.form.reset();
                     clearSelectedFiles();
                 }
-                isUploading.value = false;
+                emit('upload:complete');
             })
             .catch((e) => {
+                console.log(e);
                 if (e.response) {
                     const { response, status } = e;
                     if (status === 422) {
