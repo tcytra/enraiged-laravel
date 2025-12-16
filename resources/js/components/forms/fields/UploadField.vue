@@ -37,6 +37,12 @@
                 <template #empty>
                     <slot name="empty">{{ enableEmptyLabel }}</slot>
                 </template>
+                <template #chooseicon>
+                    <slot name="uploadicon">
+                        <i class="pi pi-spin pi-spinner" v-if="isUploading"></i>
+                        <i class="pi pi-plus" v-else></i>
+                    </slot>
+                </template>
             </primevue-upload>
             <div class="error" v-if="field.error">
                 <span class="message">{{ field.error }}</span>
