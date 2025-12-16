@@ -168,7 +168,6 @@ const onSelectedFiles = (payload) => {
                 emit('upload:complete');
             })
             .catch((e) => {
-                console.log(e);
                 if (e.response) {
                     const { response, status } = e;
                     if (status === 422) {
