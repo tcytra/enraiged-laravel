@@ -91,15 +91,17 @@
                             </div>
                         </div>
                         <div class="bar control">
-                            <span v-for="(button, name, index) in tableActions" :key="index">
-                                <primevue-button size="small"
-                                    v-tooltip.top="i18n(button.tooltip)"
-                                    :class="[button.class, {'p-button-icon-only': !button.label}]"
-                                    :disabled="button.disabled"
-                                    :icon="button.icon"
-                                    :label="i18n(button.label)"
-                                    @click="action(name, button)"/>
-                            </span>
+                            <slot name="tableactions" v-bind="{ action, tableActions }">
+                                <span v-for="(button, name, index) in tableActions" :key="index">
+                                    <primevue-button size="small"
+                                        v-tooltip.top="i18n(button.tooltip)"
+                                        :class="[button.class, {'p-button-icon-only': !button.label}]"
+                                        :disabled="button.disabled"
+                                        :icon="button.icon"
+                                        :label="i18n(button.label)"
+                                        @click="action(name, button)"/>
+                                </span>
+                            </slot>
                         </div>
                     </div>
                 </slot>
