@@ -5,21 +5,19 @@
             <label v-if="field.label" class="label" :for="id">
                 {{ i18n(label) }}
             </label>
-            <div class="p-inputgroup">
-                <primevue-calendar class="w-full" ref="datepicker" size="small"
-                    v-model="model"
-                    :date-format="field.format || 'yy-mm-dd'"
-                    :disabled="isDisabled"
-                    :id="id"
-                    :manualInput="false"
-                    :placeholder="i18n(placeholder)"
-                    :showIcon="showIcon"
-                    :touchUI="isMobile || isTablet"
-                    @update:modelValue="update"/>
-                <primevue-button icon="pi pi-times" class="p-button-secondary"
-                    :disabled="!model"
-                    @click="clear()"/>
-            </div>
+            <primevue-datepicker class="w-full" iconDisplay="input" ref="datepicker" size="small"
+                v-model="model"
+                :date-format="field.format || 'yy-mm-dd'"
+                :disabled="isDisabled"
+                :id="id"
+                :manualInput="false"
+                :maxDate="maxDate"
+                :minDate="minDate"
+                :placeholder="i18n(placeholder)"
+                :showClear="showClear"
+                :showIcon="showIcon"
+                :touchUI="isMobile || isTablet"
+                @update:modelValue="update" />
         </div>
     </form-field>
 </template>
@@ -29,7 +27,7 @@ import { format as dateFnsFormat } from 'date-fns';
 import { trans as i18n } from 'laravel-vue-i18n';
 import FormField from '@/components/forms/fields/renderless/FormField.vue';
 import PrimevueButton from 'primevue/button';
-import PrimevueCalendar from 'primevue/calendar';
+import PrimevueDatepicker from 'primevue/datepicker';
 
 export default {
     inheritAttrs: false,
@@ -37,7 +35,7 @@ export default {
     components: {
         FormField,
         PrimevueButton,
-        PrimevueCalendar,
+        PrimevueDatepicker,
     },
 
     inject: ['app'],
@@ -66,10 +64,23 @@ export default {
             return i18n;
         },
         isMobile() {
-            return app.meta.mobile;
+            return this.app.meta.value.agent.mobile;
         },
         isTablet() {
-            return app.meta.tablet;
+            return this.app.meta.value.agent.tablet;
+        },
+        maxDate() {
+            return this.field.maximum
+                ? this.newDate(this.field.maximum)
+                : null;
+        },
+        minDate() {
+            return this.field.minimum
+                ? this.newDate(this.field.minimum)
+                : null;
+        },
+        showClear() {
+            return this.field.showClear || false;
         },
         showIcon() {
             return this.field.showIcon || false;
