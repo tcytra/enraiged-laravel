@@ -1,12 +1,13 @@
 # Enraiged Laravel 0.4.x Release Notes
 
-2025-11-27 : 0.4.0-beta.11 (prerelease)  
-Update: 
+2026-01-15 : 0.4.0-beta.11 (prerelease)  
+Update: Round of corrections, updates
 
 - Added initial UploadField.vue form component
 - Added patch to restore primevue/datatable responsive stack feature
 - Adjusted config of the storage directories
 - Completed the useMessages flash (toast) handler
+- Correct ability to autodownload in sync,redis queue connection
 - Correct issues in the LocaleForm.vue component
 - Moved the auth configuration to the state request
 - Updated the nodejs packages to the latest versions

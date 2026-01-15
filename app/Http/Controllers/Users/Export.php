@@ -23,16 +23,13 @@ class Export extends Controller
         $table = UserIndex::from($request);
         $export = $table->export();
 
+        if ($table->isAutoDownload()) {
+            return $export->download();
+        }
+
         if ($table->isQueuedExport()) {
             return response()
                 ->json(['success' => 'Export started.']);
-        }
-
-        if ($table->isAutoDownload()) {
-            $location = storage_path("app/private/{$export->file->path}");
-
-            return response()
-                ->download($location, $export->file->name);
         }
 
         return response()
