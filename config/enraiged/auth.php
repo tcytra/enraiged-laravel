@@ -249,9 +249,14 @@ return [
     | Track Ip Addresses
     |--------------------------------------------------------------------------
     |
-    | You may choose to store internet protocol addresses that users perform a
-    | login from, which in turn will trigger an event you may leverage for your
-    | application, such as sending a notification to the end user.
+    | The application may be configured to store internet protocol (IP) 
+    | addresses that users perform a login from.
+    |
+    | When a new user address is created an event is triggered so the system
+    | may send a notification to the end user as a security info message.
+    |
+    | The `ip_addresses` database table also contains a `verified_at` column
+    | for tracking the last date/time a user performed a two-factor login.
     |
     | The default value is false.
     |
