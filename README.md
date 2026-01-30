@@ -104,7 +104,7 @@ Apply the patch by running the following command:
 > **Note:** The `npm run build` command will need to be reexecuted after applying this patch.
 
 ```bash
-patch -p0 < patches/primevue-datatable-4.4.1-restore-responsive-stack.patch
+patch -p0 < patches/primevue-datatable-4.5.4-restore-responsive-stack.patch
 ```
 
 > Revert these changes by using -Rp0 instead of -p0.

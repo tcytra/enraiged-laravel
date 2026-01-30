@@ -4,6 +4,7 @@
 Update: Round of corrections, updates
 
 - Added ability to slot custom actions in the VueTable component
+- Added patch for primevue/datatable responsive stack in v4.5.4
 - Added the `ip_addresses.verified_at` column in the migrations
 - Corrections/improvements to the UploadField.vue component
 - Corrected ability to autodownload in sync,redis queue connection
