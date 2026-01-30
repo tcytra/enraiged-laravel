@@ -1,6 +1,6 @@
 import { definePreset } from '@primeuix/themes';
 import { palette } from '@/themes/palette';
-import Aura from '@primevue/themes/aura'; // options: Aura, Lara, Material, Nora
+import Aura from '@primeuix/themes/aura'; // options: Aura, Lara, Material, Nora
 
 const {
     currentPrimary,

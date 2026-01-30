@@ -26,6 +26,7 @@
 
 ## Install Application
 
+
 ### Retrieve Repository
 
 ```bash
@@ -36,7 +37,7 @@ cd enraiged-laravel/
 
 Install the vendor packages:
 
-> Add the --no-dev flag when installing on a production host.
+> Add the `--no-dev` flag when installing in a production environment.
 
 ```bash
 composer install
@@ -73,7 +74,7 @@ something suitable for your project.
 
 Finally, we will install the node packages and build the front-end resources. Start with:
 
-> Add the --omit=dev flag when installing on a production host.
+> Add the `--omit=dev` flag when installing in a production environment.
 
 ```bash
 npm install

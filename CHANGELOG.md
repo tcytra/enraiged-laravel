@@ -1,5 +1,17 @@
 # Enraiged Laravel 0.4.x Release Notes
 
+2026-01-30 : 0.4.0-beta.12 (prerelease)  
+Update: Round of corrections, updates
+
+- Added ability to slot custom actions in the VueTable component
+- Added the `ip_addresses.verified_at` column in the migrations
+- Corrections/improvements to the UploadField.vue component
+- Corrected ability to autodownload in sync,redis queue connection
+- Corrected datepicker,daterange table filter handling
+- Upgraded various composer,nodejs packages to current stable
+
+---
+
 2026-01-15 : 0.4.0-beta.11 (prerelease)  
 Update: Round of corrections, updates
 
