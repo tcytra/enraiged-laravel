@@ -9,8 +9,13 @@
 </template>
 
 <script setup>
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import PageHeader from '@/components/ui/PageHeader.vue';
 import UserIndex from '@/components/users/tables/UserIndex.vue';
+
+defineOptions({
+    layout: DefaultLayout,
+});
 
 defineProps({
     table: {

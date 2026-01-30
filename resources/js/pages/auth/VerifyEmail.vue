@@ -41,11 +41,16 @@
 </template>
 
 <script setup>
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import { Head as HtmlHead, Link as HtmlLink, useForm } from '@inertiajs/vue3';
 import { computed } from 'vue';
 import { useLocales } from '@/handlers/locales';
 import PrimaryButton from '@/components/ui/buttons/PrimaryButton.vue';
 import PrimevueCard from 'primevue/card';
+
+defineOptions({
+    layout: DefaultLayout,
+});
 
 const props = defineProps({
     status: {

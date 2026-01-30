@@ -14,8 +14,10 @@
                 <i class="pi pi-user-minus"></i>
             </div>
         </div>
+        <!--
         <toggle-dark-mode :theme="theme" class="action cursor-pointer" v-if="meta.layout.mode" />
         <toggle-palette :theme="theme" class="action cursor-pointer" v-if="meta.layout.palette" />
+        -->
         <div class="action cursor-pointer" v-if="auth.user && authPanel"
             @click="auth.toggle()">
             <div class="item">
@@ -38,8 +40,8 @@ import { router } from '@inertiajs/vue3';
 import AuthSelectUtility from '@/components/ui/utilities/AuthSelectUtility.vue';
 import Avatar from '@/components/ui/avatars/Avatar.vue';
 import PrimevueTooltip from 'primevue/tooltip';
-import ToggleDarkMode from '@/components/ui/utilities/ToggleDarkMode.vue';
-import TogglePalette from '@/components/ui/utilities/TogglePalette.vue';
+// import ToggleDarkMode from '@/components/ui/utilities/ToggleDarkMode.vue';
+// import TogglePalette from '@/components/ui/utilities/TogglePalette.vue';
 
 const props = defineProps({
     auth: {

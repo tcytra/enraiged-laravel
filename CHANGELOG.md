@@ -9,6 +9,7 @@ Update: Round of corrections, updates
 - Corrections/improvements to the UploadField.vue component
 - Corrected ability to autodownload in sync,redis queue connection
 - Corrected datepicker,daterange table filter handling
+- Corrected various issues preventing inertia-ssr
 - Upgraded various composer,nodejs packages to current stable
 
 ---

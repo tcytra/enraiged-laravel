@@ -9,6 +9,11 @@
 </template>
 
 <script setup>
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import PageHeader from '@/components/ui/PageHeader.vue';
 import PrimevueCard from 'primevue/card';
+
+defineOptions({
+    layout: DefaultLayout,
+});
 </script>

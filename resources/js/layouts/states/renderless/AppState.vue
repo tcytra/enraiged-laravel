@@ -18,7 +18,7 @@ export default {
 
     inject: ['route'],
 
-    created() {
+    mounted() {
         this.fetchState();
     },
 

@@ -72,9 +72,10 @@
 </template>
 
 <script setup>
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import { Head as HtmlHead, Link as HtmlLink, useForm } from '@inertiajs/vue3';
 import { inject } from 'vue';
-import { palette } from '@/themes/palette';
+// import { palette } from '@/themes/palette';
 import { useLocales } from '@/handlers/locales';
 import CheckboxField from '@/components/forms/fields/CheckboxField.vue';
 import PasswordField from '@/components/forms/fields/PasswordField.vue';
@@ -82,11 +83,15 @@ import PrimaryButton from '@/components/ui/buttons/PrimaryButton.vue';
 import PrimevueCard from 'primevue/card';
 import TextField from '@/components/forms/fields/TextField.vue';
 
-const {
-    currentPrimary,
-    currentSurface,
-    enableDarkMode,
-} = palette();
+// const {
+//     currentPrimary,
+//     currentSurface,
+//     enableDarkMode,
+// } = palette();
+
+defineOptions({
+    layout: DefaultLayout,
+});
 
 const { i18n, lang } = useLocales();
 
@@ -107,11 +112,11 @@ const submit = () => {
     form.transform((data) => ({
             ...data,
             locale: lang(),
-            theme: {
-                mode: enableDarkMode.value === true ? 'dark' : 'light',
-                primary: currentPrimary.value,
-                surface: currentSurface.value,
-            },
+            // theme: {
+            //     mode: enableDarkMode.value === true ? 'dark' : 'light',
+            //     primary: currentPrimary.value,
+            //     surface: currentSurface.value,
+            // },
         }))
         .post(route('register'), {
             onFinish: () => {

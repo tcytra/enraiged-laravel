@@ -113,6 +113,7 @@
 </template>
 
 <script setup>
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import { Head as HtmlHead } from '@inertiajs/vue3';
 import { computed, inject } from 'vue';
 import { useLocales } from '@/handlers/locales';
@@ -124,6 +125,10 @@ import PageHeader from '@/components/ui/PageHeader.vue';
 import PasswordForm from '@/components/users/forms/PasswordForm.vue';
 import PrimevueCard from 'primevue/card';
 import ThemeForm from '@/components/users/forms/ThemeForm.vue';
+
+defineOptions({
+    layout: DefaultLayout,
+});
 
 const props = defineProps({
     actions: {

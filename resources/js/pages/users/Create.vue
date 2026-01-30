@@ -13,11 +13,16 @@
 </template>
 
 <script setup>
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import { Head as HtmlHead } from '@inertiajs/vue3';
 import { useLocales } from '@/handlers/locales';
 import PageHeader from '@/components/ui/PageHeader.vue';
 import PrimevueCard from 'primevue/card';
 import UserForm from '@/components/users/forms/UserForm.vue';
+
+defineOptions({
+    layout: DefaultLayout,
+});
 
 defineProps({
     form: {

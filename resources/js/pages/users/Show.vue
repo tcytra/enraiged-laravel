@@ -34,11 +34,16 @@
 </template>
 
 <script setup>
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import { computed } from 'vue';
 import { useLocales } from '@/handlers/locales';
 import Avatar from '@/components/ui/avatars/Avatar.vue';
 import PageHeader from '@/components/ui/PageHeader.vue';
 import PrimevueCard from 'primevue/card';
+
+defineOptions({
+    layout: DefaultLayout,
+});
 
 const props = defineProps({
     actions: {

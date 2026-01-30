@@ -43,12 +43,17 @@
 </template>
 
 <script setup>
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import { Head as HtmlHead, Link as HtmlLink, useForm } from '@inertiajs/vue3';
 import { inject } from 'vue';
 import { useLocales } from '@/handlers/locales';
 import PrimaryButton from '@/components/ui/buttons/PrimaryButton.vue';
 import PrimevueCard from 'primevue/card';
 import TextField from '@/components/forms/fields/TextField.vue';
+
+defineOptions({
+    layout: DefaultLayout,
+});
 
 defineProps({
     message: {
