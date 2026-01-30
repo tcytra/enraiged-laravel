@@ -5,6 +5,11 @@
 > The 0.4.x branch is in a beta version in active testing; Updates are ongoing but it is generally stable.
 
 
+2026-01-15 : 0.3.19.5  
+Secure: Updated composer,nodejs packages
+
+---
+
 2026-01-15 : 0.3.19.4  
 Secure: Updated composer,nodejs packages
 
