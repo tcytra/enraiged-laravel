@@ -9,7 +9,7 @@
     }
 
     .auth.panel {
-      /*border-left:     1px solid var(--p-surface-300);*/
+      border-left:     2px solid var(--p-surface-50);
         .navigation.options {
             .item {
                 &:hover {
@@ -23,7 +23,7 @@
     }
 
     .menu.panel {
-      /*border-right:     1px solid var(--p-surface-300);*/
+      border-right:     2px solid var(--p-surface-50);
         .navigation.options {
             .item {
                 &.heading {
@@ -115,7 +115,7 @@
         }
 
         .auth.panel {
-          /*border-left:     1px solid var(--p-surface-900);*/
+          border-left:     2px solid var(--p-surface-950);
             .navigation.options {
                 .item {
                     &:hover {
@@ -129,7 +129,7 @@
         }
 
         .menu.panel {
-          /*border-right:     1px solid var(--p-surface-900);*/
+          border-right:     2px solid var(--p-surface-950);
             .navigation.options {
                 .item {
                     &.heading {

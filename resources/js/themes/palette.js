@@ -353,41 +353,41 @@ const surfaceColors = {
     },
 };
 
-const enableDarkMode = localStorage.hasOwnProperty('enraiged.enableDarkMode')
-    ? ref(localStorage.getItem('enraiged.enableDarkMode') === 'true')
-    : ref(false);
+// const enableDarkMode = localStorage.hasOwnProperty('enraiged.enableDarkMode')
+//     ? ref(localStorage.getItem('enraiged.enableDarkMode') === 'true')
+//     : ref(false);
+// const initialPrimary = () => {
+//     return localStorage.hasOwnProperty('enraiged.primaryColor')
+//         ? localStorage.getItem('enraiged.primaryColor')
+//         : import.meta.env.VITE_PRIMARY_COLOR || 'noir';
+// };
+// const initialSurface = () => {
+//     return localStorage.hasOwnProperty('enraiged.surfaceColor')
+//         ? localStorage.getItem('enraiged.surfaceColor')
+//         : import.meta.env.VITE_SURFACE_COLOR || 'neutral';
+// };
 
-const initialPrimary = () => {
-    return localStorage.hasOwnProperty('enraiged.primaryColor')
-        ? localStorage.getItem('enraiged.primaryColor')
-        : import.meta.env.VITE_PRIMARY_COLOR || 'noir';
-};
-
-const initialSurface = () => {
-    return localStorage.hasOwnProperty('enraiged.surfaceColor')
-        ? localStorage.getItem('enraiged.surfaceColor')
-        : import.meta.env.VITE_SURFACE_COLOR || 'neutral';
-};
+const enableDarkMode = ref(false);
 
 const config = ref({
-    primary: initialPrimary(),
-    surface: initialSurface(),
+    primary: import.meta.env.VITE_PRIMARY_COLOR || 'noir',
+    surface: import.meta.env.VITE_SURFACE_COLOR || 'neutral',
 });
 
 const updatePrimary = (primary) => {
-    localStorage.setItem('enraiged.primaryColor', primary);
+    // localStorage.setItem('enraiged.primaryColor', primary);
     config.value.primary = primary;
     updatePrimaryPalette(primaryColors[primary]);
 };
 
 const updateSurface = (surface) => {
-    localStorage.setItem('enraiged.surfaceColor', surface);
+    // localStorage.setItem('enraiged.surfaceColor', surface);
     config.value.surface = surface;
     updateSurfacePalette(surfaceColors[surface]);
 };
 
 const toggleDarkMode = (toggle) => {
-    localStorage.setItem('enraiged.enableDarkMode', toggle);
+    // localStorage.setItem('enraiged.enableDarkMode', toggle);
     document.documentElement.classList.toggle('dark-mode', toggle);
 };
 
