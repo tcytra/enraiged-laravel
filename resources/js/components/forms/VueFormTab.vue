@@ -96,6 +96,9 @@ export default {
         fields() {
             return this.filter(this.tab.fields, 'not:section');
         },
+        i18n() {
+            return i18n;
+        },
         sections() {
             return this.filter(this.tab.fields, 'section');
         },

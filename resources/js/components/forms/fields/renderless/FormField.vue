@@ -78,6 +78,9 @@ export default {
             return this.placeholder !== null
                 || (typeof this.field.placeholder !== 'undefined' && this.field.placeholder !== null);
         },
+        i18n() {
+            return i18n;
+        },
         inputWidth() {
             const width = this.field.width || 'full';
             return `w-${width}`;
