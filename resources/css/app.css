@@ -4,6 +4,7 @@
 @import 'tailwindcss-primeui';
 @import 'primeicons/primeicons.css';
 @custom-variant dark (&:where(.dark-mode, .dark-mode *));
+@source inline('{,md:,lg:,xl:}col-span-{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16}');
 
 @layer enraiged {
     @import './app/avatars.css';
