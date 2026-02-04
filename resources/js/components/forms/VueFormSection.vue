@@ -2,7 +2,7 @@
     <section class="section">
         <slot :name="id" v-bind="{ creating, section, form, updating }">
             <primevue-card>
-                <template #header>
+                <template #title>
                     <header class="header" v-if="section.heading"
                         :class="[ section.heading.class ]">
                         <span class="text">{{ i18n(section.heading.body || section.heading) }}</span>
