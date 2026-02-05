@@ -27,9 +27,11 @@
                 :form="form"
                 :id="key"
                 :key="key"
+                :ref="key"
                 :section="section"
                 :template="template"
-                :updating="updating">
+                :updating="updating"
+                @field:updated="updated">
                 <template v-for="(_, slot) of $slots" v-slot:[slot]="scope">
                     <slot :name="slot" v-bind="scope"/>
                 </template>
@@ -37,12 +39,13 @@
                     <slot :name="key" v-bind="{ creating, section, form, key, updating }"/>
                 </template>
             </vue-form-section>
-            <vue-form-fields v-else-if="Object.keys(fields).length"
+            <vue-form-fields ref="formfields" v-else-if="Object.keys(template.fields).length"
                 :creating="creating"
                 :fields="template.fields"
                 :form="form"
                 :template="template"
-                :updating="updating">
+                :updating="updating"
+                @field:updated="updated">
                 <template v-for="(field, key) in custom.fields" v-slot:[key]="props">
                     <slot :name="key" v-bind="{ creating, field, form, key, updating }"/>
                 </template>
@@ -118,9 +121,8 @@ export default {
     setup (props, { emit }) {
         const { flashSuccess } = useMessages();
 
-        let fields = props.template.referer
-            ? {_referer: props.template.referer}
-            : {};
+        const fields = {};
+        const values = {};
 
         function clear() {
             form.clearErrors();
@@ -144,17 +146,19 @@ export default {
         }
 
         function flatten(template) {
-            Object.keys(template).forEach((item) => {
-                const type = template[item].type || 'text';
-                if (type === 'section' || type === 'tab') {
-                    flatten(template[item].fields);
-                } else {
-                    fields[item] = ['checkbox', 'switch'].includes(template[item].type)
-                        ? template[item].value && template[item].value === true
-                        : template[item].value || null;
-                }
-            });
-            return fields;
+            Object.keys(template)
+                .forEach((item) => {
+                    const type = template[item].type || 'text';
+                    if (type === 'section' || type === 'tab') {
+                        flatten(template[item].fields);
+                    } else {
+                        template[item].value = ['checkbox', 'switch'].includes(template[item].type)
+                            ? template[item].value && template[item].value === true
+                            : template[item].value || null;
+                        fields[item] = template[item];
+                        values[item] = template[item].value;
+                    }
+                });
         }
 
         function reset() {
@@ -208,7 +212,7 @@ export default {
 
         flatten(props.template.fields);
 
-        const form = useForm(fields);
+        const form = useForm(values);
 
         emit('form:ready');
 
@@ -219,7 +223,7 @@ export default {
                 sections: filter(props.template.fields, 'section', true),
                 tabs: filter(props.template.fields, 'tab', true),
             },
-            fields: Object.keys(fields),
+            fields,
             form,
             reset,
             sections: filter(props.template.fields, 'section'),
@@ -230,6 +234,24 @@ export default {
 
     mounted() {
         this.$emit('form:mounted');
+    },
+
+    methods: {
+        updated(fieldid, sectionid) {
+            Object.keys(this.fields)
+                .forEach((index) => {
+                    const field = this.fields[index];
+                    if (field.type === 'select' && index !== fieldid
+                        && typeof field.options.params !== 'undefined'
+                        && field.options.params.includes(fieldid)) {
+                        const reference = typeof sectionid !== 'undefined'
+                            ? this.$refs[sectionid][0].$refs.formfields.$refs[index][0]
+                            : this.$refs.formfields.$refs[index][0];
+                        this.form[index] = null;
+                        reference.fetch();
+                    }
+                });
+        }
     },
 };
 </script>

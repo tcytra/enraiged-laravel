@@ -1,5 +1,5 @@
 <template>
-    <form-field :field="field" :form="form" :id="id" v-slot:default="field">
+    <form-field :field="field" :form="form" :id="id" ref="formfield" v-slot:default="field">
         <div class="col-span-full line-break" v-if="field.break">
             <hr :class="field.break" v-if="typeof field.break === 'string'">
             <hr v-else>
@@ -133,7 +133,8 @@ import PrimevueMultiselect from 'primevue/multiselect';
 import PrimevueSelect from 'primevue/select';
 
 const { error, i18n } = useHandlers();
-const emit = defineEmits(['options:fetched', 'update:modelValue']);
+const emit = defineEmits(['options:fetched']);
+const formfield = useTemplateRef('formfield');
 const input = useTemplateRef('input');
 const options = reactive([]);
 const loading = ref(false);
@@ -184,9 +185,9 @@ const props = defineProps({
 });
 
 const autoselectSingleOption = () => {
-    if (enableAutoSelect && options.length === 1) {
+    if (enableAutoSelect.value === true && options.length === 1) {
         props.form[props.id] = options[0].id;
-        emit('update:modelValue', this.options[0].id);
+        formfield.value.update(options[0].id);
     }
 };
 
@@ -207,9 +208,9 @@ const data = (limit) => {
     if (props.field.options.strict) {
         params.strict = props.field.options.strict;
     }
-    //if (typeof this.params === 'object' && Object.keys(this.params).length) {
-    //    params = { ...params, ...this.params };
-    //}
+    // if (typeof this.params === 'object' && Object.keys(this.params).length) {
+    //     params = { ...params, ...this.params };
+    // }
     return {
         ...props.field.options.filters,
         ...params,

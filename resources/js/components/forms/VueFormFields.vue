@@ -4,48 +4,63 @@
             <slot v-if="item.custom" v-bind="$props"
                 :field="item"
                 :id="key"
-                :name="key"/>
+                :name="key"
+                :ref="key" />
             <checkbox-field v-else-if="item.type === 'checkbox'" v-bind="$props"
                 :field="item"
-                :id="key"/>
+                :id="key"
+                :ref="key" />
             <datepicker-field v-else-if="item.type === 'datepicker'" v-bind="$props"
                 :field="item"
-                :id="key"/>
+                :id="key"
+                :ref="key" />
             <dropdown-field v-else-if="item.type === 'select'" v-bind="$props"
                 :field="item"
-                :id="key"/>
+                :id="key"
+                :ref="key"
+                @field:updated="updated(key)" />
             <editor-field v-else-if="item.type === 'editor'" v-bind="$props"
                 :field="item"
-                :id="key"/>
+                :id="key"
+                :ref="key" />
             <hidden-field v-else-if="item.type === 'hidden'" v-bind="$props"
                 :field="item"
                 :form="form"
-                :id="key"/>
+                :id="key"
+                :ref="key" />
             <listbox-field v-else-if="item.type === 'listbox'" v-bind="$props"
                 :field="item"
-                :id="key"/>
+                :id="key"
+                :ref="key" />
             <number-field v-else-if="item.type === 'number'" v-bind="$props"
                 :field="item"
-                :id="key"/>
+                :id="key"
+                :ref="key" />
             <password-field v-else-if="item.type === 'password'" v-bind="$props"
                 :field="item"
-                :id="key"/>
+                :id="key"
+                :ref="key" />
             <security-field v-else-if="item.type === 'security'" v-bind="$props"
                 :field="item"
-                :id="key"/>
+                :id="key"
+                :ref="key" />
             <switch-field v-else-if="item.type === 'switch'" v-bind="$props"
                 :field="item"
-                :id="key"/>
+                :id="key"
+                :ref="key" />
             <textarea-field v-else-if="item.type === 'textarea'" v-bind="$props"
                 :field="item"
-                :id="key"/>
+                :id="key"
+                :ref="key" />
             <upload-field v-else-if="item.type === 'upload'" v-bind="$props"
                 :field="item"
                 :form="form"
-                :id="key"/>
+                :id="key"
+                :ref="key" />
             <text-field v-else v-bind="$props"
                 :field="item"
-                :id="key"/>
+                :id="key"
+                :ref="key" />
         </template>
     </div>
 </template>
@@ -82,6 +97,8 @@ export default {
         UploadField,
     },
 
+    emits: ['field:updated'],
+
     props: {
         creating: {
             type: Boolean,
@@ -106,6 +123,12 @@ export default {
         updating: {
             type: Boolean,
             default: false,
+        },
+    },
+
+    methods: {
+        updated(fieldid) {
+            this.$emit('field:updated', fieldid);
         },
     },
 };    

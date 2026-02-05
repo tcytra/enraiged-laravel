@@ -1,5 +1,12 @@
 # Enraiged Laravel 0.4.x Release Notes
 
+2026-02-05 : 0.4.0-beta.13 (prerelease)  
+Update: 
+
+- Improved VueForm system to auto-fetch dependant DropdownFields
+
+---
+
 2026-01-30 : 0.4.0-beta.12 (prerelease)  
 Update: Round of corrections, updates
 

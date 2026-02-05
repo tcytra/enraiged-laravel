@@ -13,14 +13,15 @@
                         :class="[ section.precontent.class ]">
                         {{ i18n(section.precontent.body || section.precontent) }}
                     </div>
-                    <vue-form-fields
+                    <vue-form-fields ref="formfields"
                         :class="section.class"
                         :creating="creating"
                         :fields="section.fields"
                         :form="form"
                         :invalid="error"
                         :template="template"
-                        :updating="updating">
+                        :updating="updating"
+                        @field:updated="updated">
                         <template v-for="(_, slot) of $slots" v-slot:[slot]="scope">
                             <slot :name="slot" v-bind="scope" />
                         </template>
@@ -50,6 +51,8 @@ export default {
         PrimevueCard,
         VueFormFields,
     },
+
+    emits: ['field:updated'],
 
     props: {
         creating: {
@@ -89,6 +92,12 @@ export default {
         },
         i18n() {
             return i18n;
+        },
+    },
+
+    methods: {
+        updated(fieldid) {
+            this.$emit('field:updated', fieldid, this.id);
         },
     },
 };    

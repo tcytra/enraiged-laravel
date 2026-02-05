@@ -60,7 +60,7 @@ export default {
         },
     },
 
-    emits: ['update:modelValue'],
+    emits: ['field:updated'],
 
     computed: {
         error() {
@@ -206,10 +206,10 @@ export default {
                     this.form.hasErrors = false;
                 }
             }
-            if (typeof closure !== 'undefined') {
-                // closure(); // todo: provide a means of realtime input processing
-            }
-            this.$emit('update:modelValue', payload);
+            // if (typeof closure !== 'undefined') {
+            //     closure(); // todo: provide a means of realtime input processing
+            // }
+            this.$emit('field:updated', payload);
         },
     },
 
