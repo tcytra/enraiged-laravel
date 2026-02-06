@@ -1,5 +1,6 @@
 <script>
 import { computed, inject, nextTick } from 'vue';
+import { getActiveLanguage, loadLanguageAsync } from 'laravel-vue-i18n';
 import { router } from '@inertiajs/vue3';
 
 export default {
@@ -33,6 +34,7 @@ export default {
                     this.theme = data.theme;
                     this.toast = data.toast;
                     this.toggled.menu = data.meta.agent !== 'mobile';
+                    this.setLocale();
                     nextTick(() => {
                         this.ready = true;
                     });
@@ -47,6 +49,13 @@ export default {
                 }
             );
         },
+        setLocale() {
+            const locale = getActiveLanguage();
+            if (this.auth.locale !== locale) {
+                loadLanguageAsync(this.auth.locale);
+            }
+        },
+        /*
         setTheme(theme) {
             if (typeof theme !== 'undefined') {
                 if (Object.keys(this.theme).join('') !== Object.keys(theme).join('')) {
@@ -61,6 +70,7 @@ export default {
                 }
             }
         },
+        */
         toggleAuth(value) {
             this.toggled.auth = typeof value !== 'undefined'
                 ? value
@@ -110,10 +120,10 @@ export default {
             meta: this.meta,
             ready: this.ready,
             toast: this.toast,
-            theme: {
-                config: this.theme,
-                set: this.setTheme,
-            },
+            // theme: {
+            //     config: this.theme,
+            //     set: this.setTheme,
+            // },
         });
     },
 

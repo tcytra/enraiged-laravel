@@ -31,7 +31,7 @@ const toggleLocale = (locale) => {
     localStorage.setItem('enraiged.enableLocale', locale);
     primevue.config.locale = primelocales[locale];
     ai18n(locale);
-}
+};
 
 toggleLocale(enableLocale.value);
 
