@@ -1,16 +1,11 @@
 <template>
     <form-field :field="field" v-slot:default="field">
-        <div class="col-span-full line-break" v-if="field.break">
-            <hr :class="field.break" v-if="typeof field.break === 'string'">
-            <hr v-else>
-        </div>
+        <line-break :field="field" v-if="field.break" />
         <div :class="field.before" v-if="field.before" />
         <div class="control field" ref="control" v-show="!field.isHidden"
             :class="[$attrs.class, field.class, field.type]">
             <slot name="label" v-bind="field">
-                <label class="label" ref="label" :for="field.id" v-if="field.label">
-                    {{ field.label }}
-                </label>
+                <field-label :field="field" v-if="field.label" />
             </slot>
             <slot name="field" v-bind="field">
                 <primevue-checkbox class="checkbox input primevue" ref="input" v-model="field.form[field.id]" binary
@@ -25,13 +20,14 @@
                     :size="field.size"
                     @update:modelValue="field.update($event); $emit('update:modelValue', $event)" />
             </slot>
-            <div class="placeholder p-placeholder" v-if="field.placeholder && !field.error">
-                {{ field.placeholder }}
-            </div>
-            <div class="error" v-if="field.error"
-                :class="{'mx-2': !checkboxFirst}">
-                <span class="message">{{ field.error }}</span>
-            </div>
+            <slot name="placeholder" v-bind="field">
+                <div class="placeholder p-placeholder" v-if="field.placeholder && !field.error">
+                    {{ field.placeholder }}
+                </div>
+            </slot>
+            <slot name="error" v-bind="field">
+                <error-message :class="{'mx-2': !checkboxFirst}" :field="field" v-if="field.error" />
+            </slot>
         </div>
         <div :class="field.after" v-if="field.after" />
     </form-field>
@@ -39,7 +35,10 @@
 
 <script setup>
 import { computed, onMounted, useTemplateRef } from 'vue';
+import ErrorMessage from '../parts/ErrorMessage.vue';
+import FieldLabel from '../parts/FieldLabel.vue';
 import FormField from './renderless/FormField.vue';
+import LineBreak from '../parts/LineBreak.vue';
 import PrimevueCheckbox from 'primevue/checkbox';
 
 const control = useTemplateRef('control');

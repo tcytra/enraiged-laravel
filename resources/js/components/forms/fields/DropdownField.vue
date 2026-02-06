@@ -1,16 +1,11 @@
 <template>
     <form-field :field="field" :form="form" :id="id" ref="formfield" v-slot:default="field">
-        <div class="col-span-full line-break" v-if="field.break">
-            <hr :class="field.break" v-if="typeof field.break === 'string'">
-            <hr v-else>
-        </div>
+        <line-break :field="field" v-if="field.break" />
         <div :class="field.before" v-if="field.before" />
         <div class="control field" v-show="!field.isHidden"
             :class="[$attrs.class, field.class, field.type]">
             <slot name="label" v-bind="field">
-                <label class="label" ref="label" :for="field.id" v-if="field.label" @click="focus">
-                    {{ field.label }}
-                </label>
+                <field-label :field="field" v-if="field.label" />
             </slot>
             <slot name="field" v-bind="field">
                 <primevue-multiselect class="dropdown input multi primevue w-full" ref="input" v-if="enableMultiple"
@@ -117,9 +112,9 @@
                     </template>
                 </primevue-select>
             </slot>
-            <div class="error" v-if="field.error">
-                <span class="message">{{ field.error }}</span>
-            </div>
+            <slot name="error" v-bind="field">
+                <error-message :field="field" v-if="field.error" />
+            </slot>
         </div>
         <div :class="field.after" v-if="field.after" />
     </form-field>
@@ -128,7 +123,10 @@
 <script setup>
 import { computed, onMounted, reactive, ref, useTemplateRef, watch } from 'vue';
 import { useHandlers } from '@/handlers';
+import ErrorMessage from '../parts/ErrorMessage.vue';
+import FieldLabel from '../parts/FieldLabel.vue';
 import FormField from './renderless/FormField.vue';
+import LineBreak from '../parts/LineBreak.vue';
 import PrimevueMultiselect from 'primevue/multiselect';
 import PrimevueSelect from 'primevue/select';
 
