@@ -26,7 +26,7 @@
         <section class="card section">
             <primevue-card class="">
                 <template #content>
-                    <span>{{ `${props.user.name}'s Profile` }}</span>
+                    <span>{{ i18n(':name Profile').replace(':name', props.user.name) }}</span>
                 </template>
             </primevue-card>
         </section>

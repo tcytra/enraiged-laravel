@@ -2,7 +2,7 @@
     <vue-form ref="updateForm"
         :creating="creating"
         :template="template"
-        :updating="updating"/>
+        :updating="updating" />
 </template>
 
 <script setup>

@@ -72,7 +72,7 @@
                     <div class="details form mb-6">
                         <primevue-card class="mx-auto max-w-7xl space-y-6">
                             <template #title>
-                                {{ i18n('Update Profile') }}
+                                {{ i18n('Update Details') }}
                             </template>
                             <template #content>
                                 <information-form

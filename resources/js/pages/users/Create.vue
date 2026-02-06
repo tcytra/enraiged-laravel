@@ -2,12 +2,8 @@
     <main class="content main">
         <page-header back-button fixed :title="i18n('Create User')" />
 
-        <section class="section form mx-auto w-lg">
-            <primevue-card class="">
-                <template #content>
-                    <user-form creating :template="form" />
-                </template>
-            </primevue-card>
+        <section class="section form mx-auto max-w-lg">
+            <user-form creating :template="form" />
         </section>
     </main>
 </template>
