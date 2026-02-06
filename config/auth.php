@@ -61,6 +61,7 @@ return [
 
     'providers' => [
         'roles' => [
+            'admin' => 'Administrator',
             'driver' => 'enum',
             'enum' => Enraiged\Users\Enums\Roles::class,
         ],
