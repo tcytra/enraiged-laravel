@@ -30,7 +30,7 @@ class Update extends Controller
 
         $request->updateUser($user);
 
-        $status = $request->user()->id === $user->id
+        $status = $user->isMyself
             ? 205
             : 200;
 
@@ -43,7 +43,7 @@ class Update extends Controller
         }
 
         return $user->isMyself
-            ? to_route('my.profile.edit') // ['verification-link-sent' => true]
+            ? to_route('my.profile.edit')
             : to_route('users.edit', ['user' => $user->id]);
     }
 }

@@ -69,7 +69,41 @@
                 </div>
 
                 <div class="forms md:col-span-3 p-3">
-                    <user-form updating :template="form" />
+                    <div class="details form mb-6">
+                        <primevue-card class="mx-auto max-w-7xl space-y-6">
+                            <template #title>
+                                {{ i18n('Update Details') }}
+                            </template>
+                            <template #content>
+                                <information-form
+                                    :alert="alert"
+                                    :allow-secondary-credential="allowSecondaryCredential"
+                                    :allow-username-login="allowUsernameLogin"
+                                    :errors="errors"
+                                    :is-my-profile="isMyProfile"
+                                    :is-protected-user="isProtectedUser"
+                                    :must-verify-email="mustVerifyEmail"
+                                    :must-verify-secondary="mustVerifySecondary"
+                                    :secondary-verification-link-sent="secondaryVerificationLinkSent"
+                                    :user="user"
+                                    :verification-link-sent="verificationLinkSent" />
+                            </template>
+                        </primevue-card>
+                    </div>
+                    <div class="password form mb-6">
+                        <primevue-card class="mx-auto max-w-7xl space-y-6">
+                            <template #title>
+                                {{ i18n('Update Password') }}
+                            </template>
+                            <template #content>
+                                <password-form
+                                    :alert="alert"
+                                    :errors="errors"
+                                    :is-my-profile="isMyProfile"
+                                    :user="user" />
+                            </template>
+                        </primevue-card>
+                    </div>
                 </div>
 
             </div>
@@ -84,11 +118,13 @@ import { Head as HtmlHead } from '@inertiajs/vue3';
 import { computed, inject } from 'vue';
 import { useLocales } from '@/handlers/locales';
 import AvatarForm from '@/components/ui/avatars/AvatarForm.vue';
+//import DeleteForm from '@/components/users/forms/DeleteForm.vue';
+import InformationForm from '@/components/users/forms/InformationForm.vue';
 import LocaleForm from '@/components/users/forms/LocaleForm.vue';
 import PageHeader from '@/components/ui/PageHeader.vue';
+import PasswordForm from '@/components/users/forms/PasswordForm.vue';
 import PrimevueCard from 'primevue/card';
-import UserForm from '@/components/users/forms/UserForm.vue';
-//import ThemeForm from '@/components/users/forms/ThemeForm.vue';
+import ThemeForm from '@/components/users/forms/ThemeForm.vue';
 
 defineOptions({
     layout: DefaultLayout,
@@ -103,50 +139,48 @@ const props = defineProps({
         type: String,
         default: null,
     },
-    //allowSelfDelete: {
-    //    type: Boolean,
-    //    default: false,
-    //},
+    allowSelfDelete: {
+        type: Boolean,
+        default: false,
+    },
     errors: {
         type: Object,
         default: null,
-    },
-    form: {
-        type: Object,
-        required: true,
     },
     isMyProfile: {
         type: Boolean,
         default: false,
     },
-    //isProtectedUser: {
-    //    type: Boolean,
-    //    default: false,
-    //},
-    //mustVerifyEmail: {
-    //    type: Boolean,
-    //    default: false,
-    //},
-    //mustVerifySecondary: {
-    //    type: Boolean,
-    //    default: false,
-    //},
-    //secondaryVerificationLinkSent: {
-    //    type: Boolean,
-    //    default: false,
-    //},
+    isProtectedUser: {
+        type: Boolean,
+        default: false,
+    },
+    mustVerifyEmail: {
+        type: Boolean,
+        default: false,
+    },
+    mustVerifySecondary: {
+        type: Boolean,
+        default: false,
+    },
+    secondaryVerificationLinkSent: {
+        type: Boolean,
+        default: false,
+    },
     user: {
         type: Object,
     },
-    //verificationLinkSent: {
-    //    type: Boolean,
-    //    default: false,
-    //},
+    verificationLinkSent: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 const { i18n } = useLocales();
 
 const { meta } = inject('app');
+
+const { allowSecondaryCredential, allowUsernameLogin } = meta.value.auth;
 
 const title = computed(() => props.isMyProfile ? 'Edit My Profile' : `Edit ${props.user.name}`);
 </script>

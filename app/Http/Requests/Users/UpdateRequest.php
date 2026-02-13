@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Users;
 
+use Enraiged\Geo\Models\Address;
 use Enraiged\Users\Forms\Validation\Messages;
 use Enraiged\Users\Forms\Validation\Rules;
 use Illuminate\Foundation\Http\FormRequest;
@@ -39,6 +40,21 @@ class UpdateRequest extends FormRequest
                 ->only($user->profile->getFillable())
                 ->toArray())
             ->save();
+
+        $address_attributes = $attributes
+            ->only((new Address)->getFillable());
+
+        if ($address_attributes->count()) {
+            if ($user->profile->address) {
+                $user->profile->address
+                    ->fill($address_attributes->toArray())
+                    ->save();
+
+            } else {
+                $user->profile->address()
+                    ->create($address_attributes->toArray());
+            }
+        }
 
         return $user;
     }

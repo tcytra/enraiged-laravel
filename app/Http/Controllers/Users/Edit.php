@@ -27,6 +27,11 @@ class Edit extends Controller
 
         $this->authorize('edit', $user);
 
-        return UserInertiaResponse::render($request, $user, 'users/Edit');
+        return UserInertiaResponse::render(
+            $request,
+            $user,
+            'users/Edit',
+            ['form' => $user->form($request)->template()]
+        );
     }
 }

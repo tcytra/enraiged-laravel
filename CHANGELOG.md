@@ -8,6 +8,7 @@ Update:
 - Added controller,database,route handling for the Enraiged\Geo system
 - Improved VueForm fields customization,versatility
 - Improved VueForm system to auto-fetch dependant DropdownFields
+- Various improvements to the user create,update form handling
 
 ---
 

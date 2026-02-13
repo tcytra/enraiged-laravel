@@ -1,5 +1,5 @@
 <template>
-    <vue-form ref="updateForm"
+    <vue-form ref="vueForm"
         :creating="creating"
         :template="template"
         :updating="updating" />
