@@ -1,5 +1,5 @@
 <template>
-    <form-field v-slot:default="field">
+    <form-field ref="field" v-slot:default="field">
         <line-break :field="field" v-if="field.break" />
         <div :class="field.before" v-if="field.before"/>
         <div class="control field" v-show="!field.isHidden"
@@ -32,9 +32,20 @@
 </template>
 
 <script setup>
+import { onMounted, ref } from 'vue';
 import ErrorMessage from '../parts/ErrorMessage.vue';
 import FieldLabel from '../parts/FieldLabel.vue';
 import FormField from './renderless/FormField.vue';
 import LineBreak from '../parts/LineBreak.vue';
 import PrimevuePassword from 'primevue/password';
+
+const field = ref(null);
+const input = ref(null);
+
+onMounted(() => {
+    const autocomplete = field.value.field.autocomplete;
+    if (autocomplete) {
+        input.value.$el.firstChild.setAttribute('autocomplete', autocomplete);
+    }
+});
 </script>
