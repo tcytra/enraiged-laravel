@@ -44,7 +44,7 @@ class UpdateRequest extends FormRequest
         $address_attributes = $attributes
             ->only((new Address)->getFillable());
 
-        if ($address_attributes->count()) {
+        if ($address_attributes->filter(fn ($value) => !is_null($value))->count()) {
             if ($user->profile->address) {
                 $user->profile->address
                     ->fill($address_attributes->toArray())
