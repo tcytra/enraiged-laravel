@@ -170,6 +170,7 @@
 import { error } from '@/handlers/errors';
 import { router } from '@inertiajs/vue3';
 import { trans as i18n } from 'laravel-vue-i18n';
+import { useMessages } from '@/handlers/messages';
 import PrimevueButton from 'primevue/button';
 import PrimevueColumn from 'primevue/column';
 import PrimevueColumnGroup from 'primevue/columngroup';
@@ -182,6 +183,8 @@ import PrimevueRow from 'primevue/row';
 import PrimevueSelect from 'primevue/select';
 import PrimevueTooltip from 'primevue/tooltip';
 import VueTableFilters from './VueTableFilters.vue';
+
+const { flash, flashSuccess } = useMessages();
 
 export default {
     components: {
@@ -204,8 +207,6 @@ export default {
 
     inject: [
         'app',
-        //'flash',
-        //'flashSuccess',
         'route',
     ],
 
@@ -275,6 +276,9 @@ export default {
         sums: [],
         timer: null,
     }),
+
+    setup (props, { emit }) {
+    },
 
     computed: {
         batchActions() {
@@ -480,14 +484,14 @@ export default {
                 .then((response) => {
                     const { data, status } = response;
                     if (data.success) {
-                        // this.flashSuccess(data.success);
+                        flashSuccess(data.success);
                         this.fetch();
                         if (typeof success === 'function') {
                             success();
                         }
                     } else if (data.warn) {
-                        // const severity = Object.keys(data)[0];
-                        // this.flash({ severity, content: data.warn, expiry: 5000 });
+                        const severity = Object.keys(data)[0];
+                        flash({ severity, content: data.warn, expiry: 5000 });
                     }
                     if (status === 205) {
                         router.get('/');
