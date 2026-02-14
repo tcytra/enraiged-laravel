@@ -25,18 +25,19 @@ class Restore extends Controller
         $this->authorize('restore', $user);
 
         $message = __('The user has been restored.');
+        $redirect = $this->route('users.edit', ['user' => $user]);
 
         $user->restore();
 
         if ($request->expectsJson()) {
             return response()
                 ->json([
-                    'redirect' => $this->route('users.edit', ['user' => $user]),
+                    'redirect' => $redirect,
                     'success' => $message,
                 ]);
         }
 
-        return redirect()
+        return redirect($redirect)
             ->with('success', $message);
 
     }
