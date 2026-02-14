@@ -1,9 +1,10 @@
 # Enraiged Laravel 0.4.x Release Notes
 
-2026-02-13 : 0.4.0-beta.13 (prerelease)  
+2026-02-14 : 0.4.0-beta.13 (prerelease)  
 Update: 
 
 - Added ability to provide autocomplete to password fields
+- Added ability to provide navigation action to the Avatar component
 - Added auth.providers.roles.admin config definition for admin role name
 - Added controller,database,route handling for the Enraiged\Geo system
 - Improved VueForm fields customization,versatility
