@@ -3,6 +3,15 @@
         <page-header back-button fixed :actions="actions" :title="title" />
 
         <section class="card profile section">
+            <primevue-message class="mb-3" severity="error" v-if="user.status === 'deleted'">
+                {{ i18n('This user was deleted on :date by :name.')
+                    .replace(':date', user.deleted.at.date)
+                    .replace(':name', user.deleted.by.name) }}
+            </primevue-message>
+            <primevue-message class="mb-3" severity="warn" v-else-if="user.status === 'inactive'">
+                {{ i18n('This user account is currently deactivated.') }}
+            </primevue-message>
+
             <header class="relative h-[16rem]">
                 <div class="relative h-[8rem] flex items-end justify-between bg-surface-300 dark:bg-surface-700"
                     style="border-radius: var(--p-border-radius-xl) var(--p-border-radius-xl) 0 0">
@@ -40,6 +49,7 @@ import { useLocales } from '@/handlers/locales';
 import Avatar from '@/components/ui/avatars/Avatar.vue';
 import PageHeader from '@/components/ui/PageHeader.vue';
 import PrimevueCard from 'primevue/card';
+import PrimevueMessage from 'primevue/message';
 
 defineOptions({
     layout: DefaultLayout,
