@@ -5,6 +5,10 @@
         <section class="datatable section">
             <user-index :template="table" />
         </section>
+
+        <!-- force tailwind to build table templated classes
+        <div class="w-[192px]"></div>
+        -->
     </main>
 </template>
 

@@ -1,7 +1,7 @@
 # Enraiged Laravel 0.4.x Release Notes
 
 2026-02-14 : 0.4.0-beta.13 (prerelease)  
-Update: 
+Update: Various improvements to the default user system
 
 - Added ability to provide autocomplete to password fields
 - Added ability to provide navigation action to the Avatar component
@@ -10,6 +10,7 @@ Update:
 - Improved VueForm fields customization,versatility
 - Improved VueForm system to auto-fetch dependant DropdownFields
 - Various improvements to the user create,update form handling
+- Various improvements to the user index handling
 
 ---
 

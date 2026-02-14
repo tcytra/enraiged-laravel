@@ -4,10 +4,10 @@
         :template="template"
         @show="show">
         <template v-slot:avatar="{ data }">
-            <avatar :avatar="data.avatar" size="md" />
+            <avatar :action="data.actions.show" :avatar="data.avatar" size="md" />
         </template>
-        <template v-slot:is_active="{ data }">
-            <primevue-badge class="p-badge-danger" :value="i18n('Deleted')" v-if="data.deleted || data.deleted_at" />
+        <template v-slot:status="{ data }">
+            <primevue-badge class="p-badge-danger" :value="i18n('Deleted')" v-if="data.is_deleted || data.deleted_at" />
             <primevue-badge class="p-badge-success" :value="i18n('Active')" v-else-if="data.is_active" />
             <primevue-badge class="p-badge-warn" :value="i18n('Inactive')" v-else />
         </template>

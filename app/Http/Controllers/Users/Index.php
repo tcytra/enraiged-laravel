@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
-use Enraiged\Users\Tables\Builders\UserIndex;
+use Enraiged\Users\Tables\UserIndex;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Inertia\Response as InertiaResponse;
@@ -21,10 +21,9 @@ class Index extends Controller
 
         $this->authorize('index', $model);
 
-        $props = [
-            'table' => UserIndex::from($request)->template(),
-        ];
+        $table = UserIndex::from($request)
+            ->template();
 
-        return inertia('users/Index', $props);
+        return inertia('users/Index', ['table' => $table]);
     }
 }
