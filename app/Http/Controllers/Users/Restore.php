@@ -12,10 +12,32 @@ class Restore extends Controller
 
     /**
      *  @param  \Illuminate\Http\Request  $request
+     *  @param  int     $user
      *  @return
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request, int $user)
     {
-        //
+        $model = config('auth.providers.users.model');
+
+        $user = $model::withTrashed()
+            ->findOrFail($user);
+
+        $this->authorize('restore', $user);
+
+        $message = __('The user has been restored.');
+
+        $user->restore();
+
+        if ($request->expectsJson()) {
+            return response()
+                ->json([
+                    'redirect' => $this->route('users.edit', ['user' => $user]),
+                    'success' => $message,
+                ]);
+        }
+
+        return redirect()
+            ->with('success', $message);
+
     }
 }

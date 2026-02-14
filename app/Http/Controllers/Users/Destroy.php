@@ -30,7 +30,7 @@ class Destroy extends Controller
 
         $this->authorize('delete', $user);
 
-        $message = $user->isMyself ? 'Your account has been deleted.' : 'The user has been deleted.';
+        $message = _($user->isMyself ? 'Your account has been deleted.' : 'The user has been deleted.');
         $status = $user->isMyself ? 205 : 200;
 
         if ($user->is_protected) {
@@ -51,13 +51,20 @@ class Destroy extends Controller
             $user->delete();
         }
 
+        $redirect = $user->isMyself
+            ? '/'
+            : $this->route('users.index');
+
         if ($request->expectsJson()) {
             return response()
-                ->json(['success' => $message], $status);
+                ->json([
+                    'redirect' => $redirect,
+                    'success' => $message,
+                ], $status);
         }
 
         return $user->isMyself
             ? redirect()->to('/')
-            : to_route('dashboard', ['success' => $message]);
+            : redirect($redirect)->with('success', $message);
     }
 }
