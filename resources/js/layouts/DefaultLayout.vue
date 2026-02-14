@@ -13,6 +13,7 @@
         <transition name="fade">
             <load-state v-if="!app.ready"></load-state>
         </transition>
+        <primevue-confirm-dialog></primevue-confirm-dialog>
         <!--<primevue-toast v-if="app.ready"
             :group="app.toast.group" todo? group is causing issues
             :position="app.toast.position" />-->
@@ -26,6 +27,7 @@ import AppState from './states/renderless/AppState.vue';
 import AuthState from './states/AuthState.vue';
 import GuestState from './states/GuestState.vue';
 import LoadState from './states/LoadState.vue';
+import PrimevueConfirmDialog from 'primevue/confirmdialog';
 import PrimevueToast from 'primevue/toast';
 </script>
 

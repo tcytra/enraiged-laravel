@@ -162,7 +162,6 @@
                 </primevue-row>
             </primevue-column-group>
         </primevue-datatable>
-        <primevue-confirm-dialog></primevue-confirm-dialog>
     </div>
 </template>
 
@@ -174,7 +173,6 @@ import { useMessages } from '@/handlers/messages';
 import PrimevueButton from 'primevue/button';
 import PrimevueColumn from 'primevue/column';
 import PrimevueColumnGroup from 'primevue/columngroup';
-import PrimevueConfirmDialog from 'primevue/confirmdialog';
 import PrimevueDatatable from 'primevue/datatable';
 import PrimevueInputgroup from 'primevue/inputgroup';
 import PrimevueInputgroupAddon from 'primevue/inputgroupaddon';
@@ -191,7 +189,6 @@ export default {
         PrimevueButton,
         PrimevueColumn,
         PrimevueColumnGroup,
-        PrimevueConfirmDialog,
         PrimevueDatatable,
         PrimevueInputgroup,
         PrimevueInputgroupAddon,

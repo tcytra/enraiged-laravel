@@ -41,6 +41,8 @@ const back = () => {
 
 const { i18n } = useLocales();
 
+const { flashSuccess } = useMessages();
+
 const confirm = useConfirm();
 
 const current = (action) => {
@@ -66,7 +68,23 @@ const handle = (action, confirmed) => {
             accept: () => handle(action, true),
         });
     } else {
-        router[method](url);
+        if (action.route.api) {
+            axios[method](url)
+                .then((response) => {
+                    const { data } = response;
+                    if (data.success) {
+                        flashSuccess(data.success);
+                    }
+                    if (data.redirect) {
+                        router.get(data.redirect);
+                    }
+                })
+                .catch((e) => {
+                    console.log(e);
+                });
+        } else {
+            router[method](url);
+        }
     }
 };
 
