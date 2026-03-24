@@ -1,5 +1,12 @@
 # Enraiged Laravel 0.4.x Release Notes
 
+2026-03-24 : 0.4.0-rc.1 (prerelease)  
+Update: 
+
+- Corrected issue with multiselect table filter value handling
+
+---
+
 2026-02-14 : 0.4.0-beta.13 (prerelease)  
 Update: Various improvements to the default user system
 

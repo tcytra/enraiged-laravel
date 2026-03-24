@@ -42,11 +42,11 @@
                     }
                 }
                 &.dropdown {
-                    .p-select {
+                    .p-select, .p-multiselect {
                       --p-select-shadow: none;
                       height:           2.25rem;
 
-                        .p-select-dropdown {
+                        .p-select-dropdown, .p-multiselect-dropdown {
                           background-color: var(--p-surface-100);
                           border-left:      1px solid var(--p-inputgroup-addon-border-color);
                         }
