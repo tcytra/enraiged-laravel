@@ -564,7 +564,6 @@ export default {
             if (this.template.filters) {
                 Object.keys(this.template.filters).forEach((filter) => {
                     const template = this.template.filters[filter];
-                    console.log(template);
                     this.filters[filter] = template.value
                         || (template.type === 'select' && template.multiple ? [] : null);
                 });

@@ -80,7 +80,7 @@ const handle = (action, confirmed) => {
                     }
                 })
                 .catch((e) => {
-                    console.log(e);
+                    // console.log(e);
                 });
         } else {
             router[method](url);
