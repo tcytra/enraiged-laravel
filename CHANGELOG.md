@@ -1,8 +1,9 @@
 # Enraiged Laravel 0.4.x Release Notes
 
-2026-03-24 : 0.4.0-rc.1 (prerelease)  
+2026-03-26 : 0.4.0-rc.1 (prerelease)  
 Update: 
 
+- Added ability to specify option label,value in table dropdown filter
 - Corrected issue with multiselect table filter value handling
 
 ---

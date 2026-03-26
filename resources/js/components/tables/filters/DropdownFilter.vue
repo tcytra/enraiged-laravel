@@ -5,21 +5,23 @@
             <label v-if="field.label" class="label" :for="id">
                 {{ i18n(label) }}
             </label>
-            <primevue-multi-select class="w-full" optionLabel="name" optionValue="id" size="small" v-if="field.multiple"
+            <primevue-multiselect class="w-full" optionLabel="name" optionValue="id" size="small" v-if="field.multiple"
                 v-model="form[id]"
                 :disabled="isDisabled"
                 :filter="field.searchable"
                 :id="id"
                 :loading="loading"
                 :options="options"
+                :option-label="enableOptionLabel"
+                :option-value="enableOptionValue"
                 :placeholder="i18n(placeholder)"
                 :show-clear="field.clearable"
                 @filter="filter"
                 @update:modelValue="$emit('update:filterValue', $event)">
                 <template #option="props">
-                    <span :class="props.option.class">{{ i18n(props.option.name) }}</span>
+                    <span :class="props.option.class">{{ i18n(props.option[enableOptionLabel]) }}</span>
                 </template>
-            </primevue-multi-select>
+            </primevue-multiselect>
             <primevue-select class="w-full" optionLabel="name" optionValue="id" size="small" v-else
                 v-model="form[id]"
                 :disabled="isDisabled"
@@ -27,12 +29,14 @@
                 :id="id"
                 :loading="loading"
                 :options="options"
+                :option-label="enableOptionLabel"
+                :option-value="enableOptionValue"
                 :placeholder="i18n(placeholder)"
                 :show-clear="field.clearable"
                 @filter="filter"
                 @update:modelValue="$emit('update:filterValue', $event)">
                 <template #option="props">
-                    <span :class="props.option.class">{{ i18n(props.option.name) }}</span>
+                    <span :class="props.option.class">{{ i18n(props.option[enableOptionLabel]) }}</span>
                 </template>
             </primevue-select>
         </div>
@@ -42,7 +46,7 @@
 <script>
 import { trans as i18n } from 'laravel-vue-i18n';
 import FormField from '@/components/forms/fields/renderless/FormField.vue';
-import PrimevueMultiSelect from 'primevue/multiselect';
+import PrimevueMultiselect from 'primevue/multiselect';
 import PrimevueSelect from 'primevue/select';
 
 export default {
@@ -50,7 +54,7 @@ export default {
 
     components: {
         FormField,
-        PrimevueMultiSelect,
+        PrimevueMultiselect,
         PrimevueSelect,
     },
 
@@ -78,6 +82,12 @@ export default {
     }),
 
     computed: {
+        enableOptionLabel() {
+            return this.field.options?.label || 'name';
+        },
+        enableOptionValue() {
+            return this.field.options?.value || 'id';
+        },
         i18n() {
             return i18n;
         },
