@@ -3,7 +3,8 @@
         <page-header back-button fixed :title="i18n('Create User')" />
 
         <section class="section form mx-auto max-w-lg">
-            <user-form creating :template="form" />
+            <user-form creating success="The user account has been created."
+                :template="form" />
         </section>
     </main>
 </template>

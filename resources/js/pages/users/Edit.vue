@@ -69,7 +69,9 @@
                 </div>
 
                 <div class="forms md:col-span-3 p-3">
-                    <user-form updating :template="form" />
+                    <user-form updating
+                        :success="success"
+                        :template="form" />
                 </div>
 
             </div>
@@ -119,34 +121,20 @@ const props = defineProps({
         type: Boolean,
         default: false,
     },
-    //isProtectedUser: {
-    //    type: Boolean,
-    //    default: false,
-    //},
-    //mustVerifyEmail: {
-    //    type: Boolean,
-    //    default: false,
-    //},
-    //mustVerifySecondary: {
-    //    type: Boolean,
-    //    default: false,
-    //},
-    //secondaryVerificationLinkSent: {
-    //    type: Boolean,
-    //    default: false,
-    //},
     user: {
         type: Object,
     },
-    //verificationLinkSent: {
-    //    type: Boolean,
-    //    default: false,
-    //},
 });
 
 const { i18n } = useLocales();
 
 const { meta } = inject('app');
 
-const title = computed(() => props.isMyProfile ? 'Edit My Profile' : `Edit ${props.user.name}`);
+const success = computed(() => props.isMyProfile
+    ? 'Your account details have been updated.'
+    : 'The user details have been updated.');
+
+const title = computed(() => props.isMyProfile
+    ? 'Edit My Profile'
+    : `Edit ${props.user.name}`);
 </script>

@@ -5,6 +5,7 @@ Update:
 
 - Added ability to specify option label,value in table dropdown filter
 - Corrected issue with multiselect table filter value handling
+- Ensure user password fields are nulled on form success response
 - Improved handling of the {User,Vue}Form.vue response
 
 ---

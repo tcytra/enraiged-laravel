@@ -1,5 +1,5 @@
 <template>
-    <vue-form ref="updateForm"
+    <vue-form ref="userForm"
         :creating="creating"
         :template="template"
         :updating="updating"
@@ -7,13 +7,18 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
 import { useMessages } from '@/handlers/messages';
 import VueForm from '@/components/forms/VueForm.vue';
 
-defineProps({
+const props = defineProps({
     creating: {
         type: Boolean,
         default: false,
+    },
+    success: {
+        type: String,
+        required: true,
     },
     template: {
         type: Object,
@@ -27,7 +32,13 @@ defineProps({
 
 const { flashSuccess } = useMessages();
 
+const userForm = ref();
+
 const formSuccess = () => {
-    flashSuccess('These details have been updated.');
+    const form = userForm.value.form;
+    form.password = null;
+    form.password_confirmation = null;
+    form.defaults();
+    flashSuccess(props.success);
 };
 </script>
