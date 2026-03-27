@@ -22,7 +22,7 @@ final class SecureHttpHeaders
 
         $response = $next($request);
 
-        if (!app()->environment('local')) {
+        if (!app()->environment('local') && $request->getPathInfo() !== '/horizon/dashboard') {
             foreach ((array) config('enraiged.headers.remove') as $header) {
                 header_remove($header);
 
