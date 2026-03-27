@@ -67,6 +67,7 @@
 <script>
 import axios from 'axios';
 import { error } from '@/handlers/errors';
+import { inject } from 'vue';
 import { router, useForm } from '@inertiajs/vue3';
 import { useMessages } from '@/handlers/messages';
 import TabPanel from 'primevue/tabpanel';
@@ -123,6 +124,7 @@ export default {
 
         const fields = {};
         const values = {};
+        const { state } = inject('app');
 
         function clear() {
             form.clearErrors();
@@ -131,17 +133,19 @@ export default {
 
         function filter(template, type, custom) {
             let items = {};
-            Object.keys(template).forEach((item) => {
-                const itemType = template[item].type || 'text';
-                const matchCustom = typeof custom === 'undefined' || template[item].custom;
-                const matchType = /^not:/.test(type)
-                    ? !type.replace('not:', '').split(',').includes(template[item].type)
-                    : template[item].type === type;
+            Object.keys(template)
+                .forEach((item) => {
+                    const itemType = template[item].type || 'text';
+                    const matchCustom = typeof custom === 'undefined' || template[item].custom;
+                    const matchType = /^not:/.test(type)
+                        ? !type.replace('not:', '').split(',').includes(template[item].type)
+                        : template[item].type === type;
 
-                if (matchType && matchCustom) {
-                    items[item] = template[item];
-                }
-            });
+                    if (matchType && matchCustom) {
+                        items[item] = template[item];
+                    }
+                });
+
             return items;
         }
 
@@ -174,12 +178,17 @@ export default {
                 const headers = props.multipart || props.template.multipart
                     ? {'Content-Type': 'multipart/form-data'}
                     : {};
-                axios[method](url, form.data(), {headers})
+                axios[method](url, form.data(), { headers })
                     .then((response) => {
                         const { status, data } = response;
-                        if (status >= 200 && status < 300 && data.success) {
-                            flashSuccess(data.success);
+                        if (status >= 200 && status < 300) {
+                            if (data.success) {
+                                flashSuccess(data.success);
+                            }
                             emit('form:success');
+                        }
+                        if (status === 205) {
+                            state();
                         }
                         if (data.redirect) {
                             if (data.redirect === 'back') {
