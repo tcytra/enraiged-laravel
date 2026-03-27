@@ -24,6 +24,6 @@ class Store extends Controller
 
         Auth::login($user);
 
-        return redirect($this->route('dashboard'));
+        return redirect('/');
     }
 }

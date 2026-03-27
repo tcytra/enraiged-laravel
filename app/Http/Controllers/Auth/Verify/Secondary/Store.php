@@ -18,7 +18,7 @@ class Store extends Controller
     {
         if ($request->user()->hasVerifiedSecondary()) {
             return redirect()
-                ->intended($this->route('dashboard'));
+                ->intended('/');
         }
 
         $request->user()

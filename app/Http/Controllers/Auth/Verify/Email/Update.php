@@ -19,7 +19,7 @@ class Update extends Controller
     {
         if ($request->user()->hasVerifiedEmail()) {
             return redirect()
-                ->intended($this->route('dashboard').'?verified=1');
+                ->intended('/');
         }
 
         $request->fulfill();
@@ -27,6 +27,6 @@ class Update extends Controller
         session()->flash('status', 200); // was 'email-verification-success' (unused?)
 
         return redirect()
-            ->intended($this->route('dashboard').'?verified=1');
+            ->intended('/');
     }
 }

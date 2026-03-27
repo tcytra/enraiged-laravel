@@ -22,7 +22,7 @@ class Show extends Controller
 
         return ! $request->user()->mustVerifySecondary || $request->user()->hasVerifiedSecondary()
             ? redirect()
-                ->intended($this->route('dashboard'))
+                ->intended('/')
             : inertia('auth/VerifySecondary', $props);
     }
 }

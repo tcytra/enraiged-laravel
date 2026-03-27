@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Enraiged\Users\Models\User;
 use Enraiged\Users\Tables\UserIndex;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class Data extends Controller
@@ -16,7 +17,7 @@ class Data extends Controller
      *  @param  \Illuminate\Http\Request  $request
      *  @return \Illuminate\Http\JsonResponse
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): JsonResponse
     {
         $this->authorize('index', User::class);
 

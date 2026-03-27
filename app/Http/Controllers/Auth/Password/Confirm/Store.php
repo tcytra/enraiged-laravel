@@ -35,6 +35,6 @@ class Store extends Controller
             ->put('auth.password_confirmed_at', time());
 
         return redirect()
-            ->intended($this->route('dashboard'));
+            ->intended('/');
     }
 }
