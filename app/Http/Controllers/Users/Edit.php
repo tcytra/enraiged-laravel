@@ -20,7 +20,7 @@ class Edit extends Controller
      *  @param  \Enraiged\Users\Models\User  $user = null
      *  @return \Inertia\Response
      */
-    public function __invoke(Request $request, User $user = null)
+    public function __invoke(Request $request, ?User $user = null)
     {
         $user = $request->route()->user ?: $request->user();
 
