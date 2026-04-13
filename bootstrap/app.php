@@ -26,6 +26,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'verified' => EnsureEmailIsVerified::class,
         ]);
 
+        $middleware->preventRequestsDuringMaintenance();
+
         $middleware->web(append: [
             SetLocale::class,
             HandleImpersonation::class,
