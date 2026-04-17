@@ -4,4 +4,5 @@
 !files/
 !images/
 !imports/
+!temp/
 !.gitignore
