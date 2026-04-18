@@ -1,0 +1,107 @@
+{
+    "id": "usersIndex",
+    "empty": "There are no users to display",
+    "fetch": "users.data",
+    "prefix": "users.",
+    "table": "users",
+    "actions": {
+        "create": {
+            "class": "p-button-primary",
+            "label": "User",
+            "tooltip": "Create user"
+        },
+        "impersonate": {
+            "class": "p-button-rounded p-button-text text-help",
+            "type": "row",
+            "variant": "text"
+        },
+        "show": {
+            "class": "p-button-rounded p-button-text text-info",
+            "type": "row",
+            "variant": "text"
+        },
+        "edit": {
+            "class": "p-button-rounded p-button-text text-warning",
+            "type": "row",
+            "variant": "text"
+        },
+        "delete": {
+            "class": "p-button-rounded p-button-text text-danger",
+            "type": "row",
+            "variant": "text"
+        },
+        "restore": {
+            "class": "p-button-rounded p-button-text text-success",
+            "type": "row",
+            "variant": "text"
+        }
+    },
+    "columns": {
+        "name": {
+            "custom": true,
+            "label": "Name",
+            "searchable": true,
+            "sortable": true
+        },
+        "email": {
+            "label": "Email",
+            "searchable": true,
+            "sortable": true
+        },
+        "role": {
+            "label": "Role"
+        },
+        "created_at": {
+            "label": "Created",
+            "sortable": true,
+            "source": "users.created_at"
+        },
+        "status": {
+            "class": "text-center",
+            "custom": true,
+            "label": "Status",
+            "source": "status"
+        }
+    },
+    "exportable": {
+        "autodownload": true,
+        "chunk": 100,
+        "default": "XLSX",
+        "name": "User Index :stamp",
+        "options": ["CSV", "XLSX"],
+        "route": "users.export",
+        "stamp": "Y-m-d "
+    },
+    "filters": {
+        "status": {
+            "class": "w-[192px]",
+            "clearable": true,
+            "options": {
+                "values": [
+                    {"id": "active", "name": "Active Users"},
+                    {"id": "inactive", "name": "Inactive Users"},
+                    {"id": "deleted", "name": "Deleted Users"}
+                ]
+            },
+            "placeholder": "Filter Status",
+            "type": "select",
+            "value": "active"
+        },
+        "role_id": {
+            "class": "w-[192px]",
+            "clearable": true,
+            "options": {
+                "source": "App\\Packages\\Users\\Enums\\Roles",
+                "type": "enum"
+            },
+            "placeholder": "Filter Role",
+            "type": "select"
+        }
+    },
+    "pagination": {
+        "options": [5, 10, 15, 25, 50],
+        "page": 1,
+        "rows": 15
+    },
+    "state": true
+}

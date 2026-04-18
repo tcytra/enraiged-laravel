@@ -1,0 +1,138 @@
+{
+    "class": "horizontal",
+    "heading": "Please provide the following:",
+    "fields": {
+        "administration_section": {
+            "class": "gap-5 grid grid-cols-12",
+            "heading": "Administrative Options",
+            "precontent": {
+                "body": "Configure this user's administrative system options.",
+                "class": "text-neutral text-sm"
+            },
+            "secure": {
+                "method": "roleIs",
+                "role": "Administrator"
+            },
+            "type": "section",
+            "fields": {
+                "role_id": {
+                    "class": "col-span-12 md:col-span-6",
+                    "label": "Role",
+                    "options": {
+                        "source": "App\\Packages\\Users\\Enums\\Roles",
+                        "type": "enum"
+                    },
+                    "placeholder": "Required",
+                    "required": true,
+                    "type": "select"
+                },
+                "is_active": {
+                    "class": "col-span-4 md:col-span-2",
+                    "label": "Active",
+                    "type": "switch",
+                    "value": true
+                },
+                "is_hidden": {
+                    "class": "col-span-4 md:col-span-2",
+                    "hiddenUnless": {
+                        "role_id": 1
+                    },
+                    "label": "Hidden",
+                    "type": "switch",
+                    "value": false
+                },
+                "is_protected": {
+                    "class": "col-span-4 md:col-span-2",
+                    "hiddenUnless": {
+                        "role_id": 1
+                    },
+                    "label": "Protected",
+                    "type": "switch",
+                    "value": false
+                }
+            }
+        },
+
+        "account_section": {
+            "class": "gap-5 grid grid-cols-12",
+            "heading": "Account Details",
+            "precontent": {
+                "body": "Provide the user's profile information and email address.",
+                "class": "text-neutral text-sm"
+            },
+            "type": "section",
+            "fields": {
+                "country_id": {
+                    "source": "profile.address.country.id",
+                    "type": "hidden",
+                    "value": 1
+                },
+                "timezone_region_id": {
+                    "type": "hidden",
+                    "value": 2
+                },
+                "name": {
+                    "class": "col-span-12 md:col-span-6",
+                    "label": "Full Name",
+                    "placeholder": "Required",
+                    "required": true
+                },
+                "phone": {
+                    "class": "col-span-6 md:col-span-3",
+                    "label": "Phone Number",
+                    "placeholder": "Optional",
+                    "source": "profile.phone",
+                    "type": "phone"
+                },
+                "email": {
+                    "class": "col-span-12 md:col-span-6",
+                    "label": "Email Address",
+                    "placeholder": "Required",
+                    "required": true,
+                    "type": "email"
+                },
+                "timezone": {
+                    "class": "col-span-12 lg:col-span-6",
+                    "clearable": true,
+                    "label": "Timezone",
+                    "options": {
+                        "params": ["country_id", "timezone_region_id"],
+                        "route": "geo.timezones.available"
+                    },
+                    "placeholder": "Recommended",
+                    "searchable": true,
+                    "type": "select"
+                }
+            }
+        },
+
+        "password_section": {
+            "class": "gap-5 grid grid-cols-12",
+            "heading": "Account Password",
+            "precontent": {
+                "body": "Provide and confirm the user's account password.",
+                "class": "text-neutral text-sm"
+            },
+            "type": "section",
+            "fields": {
+                "password": {
+                    "class": "col-span-12 lg:col-span-6",
+                    "feedback": true,
+                    "label": "Password",
+                    "placeholder": "Required",
+                    "required": true,
+                    "type": "password",
+                    "unmask": true
+                },
+                "password_confirmation": {
+                    "class": "col-span-12 lg:col-span-6",
+                    "disabledUnless": "password",
+                    "label": "Confirm Password",
+                    "placeholder": "Required",
+                    "required": true,
+                    "type": "password"
+                }
+            }
+        }
+    }
+}
