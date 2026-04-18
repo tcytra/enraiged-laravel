@@ -120,7 +120,7 @@ export default {
     },
 
     setup (props, { emit }) {
-        const { flashSuccess } = useMessages();
+        const { flashSuccess, flashWarning } = useMessages();
 
         const fields = {};
         const values = {};
@@ -182,9 +182,9 @@ export default {
                     .then((response) => {
                         const { status, data } = response;
                         if (status >= 200 && status < 300) {
-                            if (data.success) {
-                                flashSuccess(data.success);
-                            }
+                            //if (data.success && data.message) {
+                            //    flashSuccess(data.message);
+                            //}
                             emit('form:success');
                         }
                         if (status === 205) {

@@ -163,7 +163,6 @@
                 </primevue-row>
             </primevue-column-group>
         </primevue-datatable>
-        <primevue-confirm-dialog></primevue-confirm-dialog>
     </div>
 </template>
 
@@ -171,10 +170,11 @@
 import { error } from '@/handlers/errors';
 import { router } from '@inertiajs/vue3';
 import { trans as i18n } from 'laravel-vue-i18n';
+import { useLocales } from '@/handlers/locales';
+import { useMessages } from '@/handlers/messages';
 import PrimevueButton from 'primevue/button';
 import PrimevueColumn from 'primevue/column';
 import PrimevueColumnGroup from 'primevue/columngroup';
-import PrimevueConfirmDialog from 'primevue/confirmdialog';
 import PrimevueDatatable from 'primevue/datatable';
 import PrimevueInputgroup from 'primevue/inputgroup';
 import PrimevueInputgroupAddon from 'primevue/inputgroupaddon';
@@ -185,11 +185,21 @@ import PrimevueTooltip from 'primevue/tooltip';
 import VueTableFilters from './VueTableFilters.vue';
 
 export default {
+    setup() {
+        const { flashSuccess, flashWarning } = useMessages();
+        const { i18n } = useLocales();
+
+        return {
+            flashSuccess,
+            flashWarning,
+            i18n,
+        };
+    },
+
     components: {
         PrimevueButton,
         PrimevueColumn,
         PrimevueColumnGroup,
-        PrimevueConfirmDialog,
         PrimevueDatatable,
         PrimevueInputgroup,
         PrimevueInputgroupAddon,
@@ -205,8 +215,6 @@ export default {
 
     inject: [
         'app',
-        //'flash',
-        //'flashSuccess',
         'route',
     ],
 
@@ -332,9 +340,6 @@ export default {
         /*hasState() {
             return localStorage.getItem(this.template.id) !== null;
         },*/
-        i18n() {
-            return i18n;
-        },
         isExportable() {
             return typeof this.template.exportable !== 'undefined'
                 && this.template.exportable !== null;
@@ -481,17 +486,21 @@ export default {
                 .then((response) => {
                     const { data, status } = response;
                     if (data.success) {
-                        // this.flashSuccess(data.success);
-                        this.fetch();
+                        if (data.message) {
+                            this.flashSuccess(data.message);
+                        }
+                        if (data.redirect) {
+                            this.$inertia.get(data.redirect);
+                        }
                         if (typeof success === 'function') {
                             success();
                         }
-                    } else if (data.warn) {
-                        // const severity = Object.keys(data)[0];
-                        // this.flash({ severity, content: data.warn, expiry: 5000 });
+                        this.fetch();
+                    } else if (data.warn && data.message) {
+                        this.flashWarning(data.message);
                     }
                     if (status === 205) {
-                        router.get('/');
+                        this.$inertia.get('/');
                     }
                 })
                 .catch((e) => error(e));
