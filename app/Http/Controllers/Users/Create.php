@@ -12,8 +12,7 @@ class Create extends Controller
     use AuthorizesRequests;
 
     /**
-     *  Display the user's profile forms.
-     *
+     *  @param  \Illuminate\Http\Request  $request
      *  @return \Inertia\Response
      */
     public function __invoke(Request $request): InertiaResponse

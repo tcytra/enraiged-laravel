@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
-use Enraiged\Users\Enums\Roles;
+use App\Packages\Users\Enums\Roles;
 use Enraiged\Users\Responses\UserInertiaResponse;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;

@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\Auth\Register;
 
+use App\Packages\Profiles\Models\Profile;
+use App\Packages\Users\Enums\Roles;
 use Enraiged\Passwords\Forms\Validation\PasswordRules;
-use Enraiged\Profiles\Models\Profile;
-use Enraiged\Users\Enums\Roles;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;

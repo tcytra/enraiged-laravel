@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Users\Impersonate;
 
 use App\Http\Controllers\Controller;
-use Enraiged\Users\Models\User;
+use App\Packages\Users\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 

@@ -11,8 +11,6 @@ use Illuminate\Validation\ValidationException;
 class Update extends Controller
 {
     /**
-     *  Update the user's password.
-     *
      *  @param  \App\Http\Requests\Auth\Password\Update  $request
      *  @return \Illuminate\Http\RedirectResponse
      */

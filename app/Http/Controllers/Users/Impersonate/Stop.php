@@ -24,6 +24,6 @@ class Stop extends Controller
         $request->session()
             ->flash('success', __('Stopped impersonating.'));
 
-        return to_route('dashboard');
+        return to_route('users.index');
     }
 }

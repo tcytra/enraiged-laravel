@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
-use Enraiged\Users\Models\User;
-use Enraiged\Users\Tables\UserIndex;
+use App\Packages\Users\Tables\UserIndex;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -19,7 +18,9 @@ class Data extends Controller
      */
     public function __invoke(Request $request): JsonResponse
     {
-        $this->authorize('index', User::class);
+        $model = config('auth.providers.users.model');
+
+        $this->authorize('index', $model);
 
         $table = UserIndex::from($request);
 

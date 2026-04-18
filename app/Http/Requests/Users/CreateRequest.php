@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests\Users;
 
-use Enraiged\Profiles\Models\Profile;
-use Enraiged\Users\Forms\Validation\Messages;
-use Enraiged\Users\Forms\Validation\Rules;
+use App\Packages\Profiles\Models\Profile;
+use App\Packages\Users\Forms\Validation\Messages;
+use App\Packages\Users\Forms\Validation\Rules;
+use App\Packages\Users\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateRequest extends FormRequest
@@ -14,10 +15,10 @@ class CreateRequest extends FormRequest
     /**
      *  Create and return a User with the requested attributes.
      *
-     *  @param  \Enraiged\Users\Models\User
-     *  @return \Enraiged\Users\Models\User
+     *  @param  \App\Packages\Users\Models\User
+     *  @return \App\Packages\Users\Models\User
      */
-    public function createUser($user)
+    public function createUser(User $user): user
     {
         $validated = $this->validated();
 

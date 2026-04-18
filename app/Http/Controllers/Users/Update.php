@@ -13,8 +13,6 @@ class Update extends Controller
     use AuthorizesRequests;
 
     /**
-     *  Update the user's profile information.
-     *
      *  @param  \App\Http\Requests\Users\UpdateRequest  $request
      *  @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
@@ -38,12 +36,15 @@ class Update extends Controller
             return response()
                 ->json([
                     'message' => $request->message(),
+                    'redirect' => $request->has('_referer')
+                        ? $request->get('_referer')
+                        : route('users.index'),
                     'success' => true,
                 ], $status);
         }
 
         return $user->isMyself
-            ? to_route('my.profile.edit')
-            : to_route('users.edit', ['user' => $user->id]);
+            ? redirect()->route('my.profile.edit')
+            : redirect()->route('users.index');
     }
 }

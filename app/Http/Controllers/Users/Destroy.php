@@ -15,8 +15,6 @@ class Destroy extends Controller
     use AuthorizesRequests;
 
     /**
-     *  Delete the user's account.
-     *
      *  @param  \Illuminate\Http\Request  $request
      *  @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse;
      */
@@ -58,13 +56,14 @@ class Destroy extends Controller
         if ($request->expectsJson()) {
             return response()
                 ->json([
+                    'message' => $message,
                     'redirect' => $redirect,
-                    'success' => $message,
+                    'success' => true,
                 ], $status);
         }
 
         return $user->isMyself
             ? redirect()->to('/')
-            : redirect($redirect)->with('success', $message);
+            : redirect($redirect)->with('message', $message);
     }
 }

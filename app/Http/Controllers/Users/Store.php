@@ -37,6 +37,6 @@ class Store extends Controller
 
         return $request->has('_referer')
             ? redirect($request->get('_referer'))
-            : redirect()->route('users.show', ['user' => $user->id], 302);
+            : redirect()->route('users.index');
     }
 }

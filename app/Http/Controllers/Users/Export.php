@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
-use Enraiged\Users\Models\User;
-use Enraiged\Users\Tables\UserIndex;
+use App\Packages\Users\Tables\UserIndex;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class Export extends Controller
 {
@@ -14,11 +15,13 @@ class Export extends Controller
 
     /**
      *  @param  \Illuminate\Http\Request  $request
-     *  @return \Illuminate\Http\JsonResponse
+     *  @return \Illuminate\Http\JsonResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse;
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): JsonResponse|BinaryFileResponse
     {
-        $this->authorize('export', User::class);
+        $model = config('auth.providers.users.model');
+
+        $this->authorize('export', $model);
 
         $table = UserIndex::from($request);
         $export = $table->export();
