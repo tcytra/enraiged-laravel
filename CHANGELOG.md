@@ -1,12 +1,14 @@
 # Enraiged Laravel 0.4.x Release Notes
 
-2026-03-27 : 0.4.0-rc.1 (prerelease)  
-Update: 
+2026-04-18 : 0.4.0-rc.1  
+Update: Testing,preparation in enraiged-laravel for initial release
 
 - Added ability to specify option label,value in table dropdown filter
 - Corrected issue with multiselect table filter value handling
+- Created initial App\Packages\\{Profiles,Users} namespaces
 - Ensure user password fields are nulled on form success response
-- Improved handling of the {User,Vue}Form.vue response
+- Testing,corrections in the {{User,Vue}Form,VueTable components
+- Testing,corrections in the App\Http\\{Controllers,Requests}
 
 ---
 

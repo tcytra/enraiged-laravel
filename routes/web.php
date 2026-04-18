@@ -7,7 +7,6 @@ require 'web/auth.php';
 require 'web/avatars.php';
 require 'web/files.php';
 require 'web/geo.php';
-require 'web/permissions.php';
 require 'web/users.php';
 
 //  Handle a request to display the dashboard.

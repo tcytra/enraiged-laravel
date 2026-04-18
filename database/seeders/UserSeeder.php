@@ -2,9 +2,11 @@
 
 namespace Database\Seeders;
 
-use Enraiged\Profiles\Models\Profile;
-use Enraiged\Users\Enums\Roles;
-use Enraiged\Users\Models\User;
+use App\Packages\Profiles\Models\Profile;
+use App\Packages\Users\Enums\Roles;
+use App\Packages\Users\Models\User;
+use Enraiged\Geo\Models\Address;
+use Enraiged\Geo\Models\Country;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -46,26 +48,45 @@ class UserSeeder extends Seeder
             unset($parameters['role']);
         }
 
-        $attributes = collect($parameters);
+        return DB::transaction(function () use ($parameters) {
+            $attributes = collect($parameters);
 
-        $model = config('auth.providers.users.model');
+            $model = config('auth.providers.users.model');
 
-        $user = (new $model);
+            $user = (new $model);
 
-        $profile = Profile::create(
-            $attributes
-                ->only((new Profile)->getFillable())
-                ->toArray()
-        );
+            $profile = Profile::create(
+                $attributes
+                    ->only((new Profile)->getFillable())
+                    ->toArray()
+            );
 
-        $user
-            ->fill($attributes
-                ->only($user->getFillable())
-                ->merge(['profile_id' => $profile->id])
-                ->toArray())
-            ->save();
+            $country = key_exists('country_code', $parameters)
+                ? Country::where('code', $parameters['country_code'])->first()
+                : Country::where('is_active', true)->first();
 
-        return $user;
+            $attributes['country_id'] = $country->id;
+
+            if (!key_exists('timezone', $parameters)) {
+                $attributes['timezone'] = config('enraiged.app.timezone');
+            }
+
+            $profile->address()
+                ->create(
+                    $attributes
+                        ->only((new Address)->getFillable())
+                        ->toArray()
+                );
+
+            $user
+                ->fill($attributes
+                    ->only($user->getFillable())
+                    ->merge(['profile_id' => $profile->id])
+                    ->toArray())
+                ->save();
+
+            return $user;
+        });
     }
 
     /**
