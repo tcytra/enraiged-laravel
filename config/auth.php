@@ -63,14 +63,14 @@ return [
         'roles' => [
             'admin' => 'Administrator',
             'driver' => 'enum',
-            'enum' => Enraiged\Users\Enums\Roles::class,
+            'enum' => App\Packages\Users\Enums\Roles::class,
         ],
 
         'users' => [
             'driver' => 'eloquent',
             'model' => env('MUST_VERIFY_EMAIL') === true
-                ? App\Models\VerifiedUser::class
-                : App\Models\User::class,
+                ? App\Packages\Users\Models\VerifiedUser::class
+                : App\Packages\Users\Models\User::class,
         ],
 
         // 'users' => [
