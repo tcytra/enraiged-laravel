@@ -6,7 +6,7 @@
         <primevue-popover ref="selectPalette">
             <div class="flex flex-col gap-4 w-[16rem]">
                 <span class="text-sm text-surface font-semibold">
-                    {{ i18n('Primary Color') }} | {{ currentPrimary }}
+                    {{ i18n('Primary Color') }} | {{ currentPrimaryColor }}
                 </span>
                 <div class="flex flex-wrap justify-start gap-2">
                     <button class="border-none w-5 h-5 rounded-full p-0 cursor-pointer focus:outline-none" type="button"
@@ -17,7 +17,7 @@
                         @click="togglePrimary(name)" />
                 </div>
                 <span class="text-sm text-surface font-semibold">
-                    {{ i18n('Surface Color') }} | {{ currentSurface }}
+                    {{ i18n('Surface Color') }} | {{ currentSurfaceColor }}
                 </span>
                 <div class="flex flex-wrap justify-start gap-2">
                     <button class="border-none w-5 h-5 rounded-full p-0 cursor-pointer focus:outline-none" type="button"
@@ -39,33 +39,36 @@ import { useLocales } from '@/handlers/locales';
 import PrimevuePopover from 'primevue/popover';
 import SelectButton from 'primevue/selectbutton';
 
-const { theme } = defineProps({
-    theme: {
-        type: Object,
-        default: null,
-    },
-});
+const { theme } = inject('app');
 
 const { i18n } = useLocales();
+
 const {
-    currentPrimary, currentSurface, enableDarkMode, primaryColors, surfaceColors, updatePrimary, updateSurface,
+    currentPrimaryColor,
+    currentSurfaceColor,
+    darkModeEnabled,
+    primaryColors,
+    surfaceColors,
+    updatePrimaryColor,
+    updateSurfaceColor,
 } = palette();
+
 const selectPalette = ref();
 
 const primaryButtonStyle = (name, range) => {
-    const currentBackground = enableDarkMode.value ? range['800'] : range['700']
-    const defaultBackground = enableDarkMode.value ? range['500'] : range['400'];
-    return name === currentPrimary.value
+    const currentBackground = darkModeEnabled.value ? range['800'] : range['700']
+    const defaultBackground = darkModeEnabled.value ? range['500'] : range['400'];
+    return name === currentPrimaryColor.value
         ? { backgroundColor: currentBackground }
-        : { backgroundColor: defaultBackground }
+        : { backgroundColor: defaultBackground };
 };
 
 const surfaceButtonStyle = (name, range) => {
-    const currentBackground = enableDarkMode.value ? range['800'] : range['300']
-    const defaultBackground = enableDarkMode.value ? range['500'] : range['600'];
-    return name === currentSurface.value
+    const currentBackground = darkModeEnabled.value ? range['800'] : range['300']
+    const defaultBackground = darkModeEnabled.value ? range['500'] : range['600'];
+    return name === currentSurfaceColor.value
         ? { backgroundColor: currentBackground }
-        : { backgroundColor: defaultBackground }
+        : { backgroundColor: defaultBackground };
 };
 
 const openPalette = (event) => {
@@ -73,23 +76,12 @@ const openPalette = (event) => {
 };
 
 const togglePrimary = (value) => {
-    if (theme && theme.config.primary !== value) {
-        //console.log('set theme from toggle primary');
-        theme.set({ primary: value });
-    }
-    updatePrimary(value);
+    theme({ primary: value });
+    updatePrimaryColor(value);
 };
 
 const toggleSurface = (value) => {
-    if (theme && theme.config.surface !== value) {
-        //console.log('set theme from toggle surface');
-        theme.set({ surface: value });
-    }
-    updateSurface(value);
+    theme({ surface: value });
+    updateSurfaceColor(value);
 };
-
-if (theme) {
-    togglePrimary(theme.config.primary);
-    toggleSurface(theme.config.surface);
-}
 </script>

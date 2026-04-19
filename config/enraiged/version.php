@@ -1,3 +1,3 @@
 <?php
 
-return '0.4.0-rc.1';
+return '0.4.0-rc.1.1';

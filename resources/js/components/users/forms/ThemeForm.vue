@@ -1,6 +1,5 @@
 <template>
     <form class="form" @submit.prevent="submit">
-
         <!--
         <div class="flex flex-col gap-4 w-[16rem]">
             <span class="text-sm text-surface font-semibold">
@@ -27,7 +26,6 @@
             </div>
         </div>
         -->
-
     </form>
 </template>
 
@@ -53,7 +51,13 @@ const props = defineProps({
 });
 
 const {
-    currentPrimary, currentSurface, enableDarkMode, primaryColors, surfaceColors, updatePrimary, updateSurface,
+    currentPrimaryColor,
+    currentSurfaceColor,
+    darkModeEnabled,
+    primaryColors,
+    surfaceColors,
+    updatePrimaryColor,
+    updateSurfaceColor,
 } = palette();
 
 const { i18n } = useLocales();

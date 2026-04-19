@@ -6,7 +6,7 @@
             </auth-state>
         </transition>
         <transition name="fade">
-            <guest-state class="default" v-if="app.ready && !app.auth.user">
+            <guest-state :app="app" class="default" v-if="app.ready && !app.auth.user">
                 <slot />
             </guest-state>
         </transition>

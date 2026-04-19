@@ -3,8 +3,8 @@ import { palette } from '@/themes/palette';
 import Aura from '@primeuix/themes/aura'; // options: Aura, Lara, Material, Nora
 
 const {
-    currentPrimary,
-    currentSurface,
+    currentPrimaryColor,
+    currentSurfaceColor,
     darkModeSelector,
     primaryColors,
     surfaceColors,
@@ -12,30 +12,33 @@ const {
 
 const defaultPreset = definePreset(Aura, {
     semantic: {
-        primary: primaryColors[currentPrimary.value],
+        primary: primaryColors[currentPrimaryColor.value],
         colorScheme: {
             dark: {
-                surface: surfaceColors[currentSurface.value],
+                surface: surfaceColors[currentSurfaceColor.value],
             },
             light: {
-                surface: surfaceColors[currentSurface.value],
+                surface: surfaceColors[currentSurfaceColor.value],
             },
         },
+        /* example custom primevue semantic tokens
         formField: {
-            //paddingX: '0.75rem',
-            //paddingY: '0.25rem',
-            //etc
+            paddingX: '0.75rem',
+            paddingY: '0.25rem',
         },
+        */
     },
+    /* example custom primevue component tokens
     components: {
         button: {
         },
     },
+    */
 });
 
 export default {
     pt: {
-        /*
+        /* example primevue component passthrough (pt)
         card: {
             header: {
                 class: 'card-header-test',

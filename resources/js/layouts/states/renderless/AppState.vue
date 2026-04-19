@@ -1,6 +1,7 @@
 <script>
 import { computed, inject, nextTick } from 'vue';
 import { getActiveLanguage, loadLanguageAsync } from 'laravel-vue-i18n';
+import { palette } from '@/themes/palette';
 import { router } from '@inertiajs/vue3';
 
 export default {
@@ -19,6 +20,28 @@ export default {
 
     inject: ['route'],
 
+    setup() {
+        const {
+            currentPrimaryColor,
+            currentSurfaceColor,
+            darkModeEnabled,
+            toggleDarkMode,
+            updatePrimaryColor,
+            updateSurfaceColor,
+        } = palette();
+
+        toggleDarkMode();
+
+        return {
+            currentPrimaryColor,
+            currentSurfaceColor,
+            darkModeEnabled,
+            toggleDarkMode,
+            updatePrimaryColor,
+            updateSurfaceColor,
+        };
+    },
+
     mounted() {
         this.fetchState();
     },
@@ -31,10 +54,14 @@ export default {
                     this.auth = data.auth;
                     this.menu = data.menu;
                     this.meta = data.meta;
-                    this.theme = data.theme;
                     this.toast = data.toast;
                     this.toggled.menu = data.meta.agent !== 'mobile';
                     this.setLocale();
+                    if (data.auth && data.theme) {
+                        this.toggleDarkMode(data.theme.darkmode);
+                        this.updatePrimaryColor(data.theme.primary);
+                        this.updateSurfaceColor(data.theme.surface);
+                    }
                     nextTick(() => {
                         this.ready = true;
                     });
@@ -55,22 +82,26 @@ export default {
                 loadLanguageAsync(this.auth.locale);
             }
         },
-        /*
-        setTheme(theme) {
-            if (typeof theme !== 'undefined') {
-                if (Object.keys(this.theme).join('') !== Object.keys(theme).join('')) {
-                    this.theme = {...this.theme, ...theme};
-                    axios.patch(this.route('users.update', {user: this.auth.id}) + '/theme', { theme: this.theme })
-                        .then((response) => {
-                            const { data, status } = response;
-                            if (data.success) {
-                                // todo: toastr success
-                            }
-                        });
-                }
+        setTheme(update) {
+            if (this.auth) {
+                const theme = {
+                    darkmode: this.darkModeEnabled,
+                    primary: this.currentPrimaryColor,
+                    surface: this.currentSurfaceColor,
+                    ...update,
+                };
+                axios.patch(this.route('users.update', {user: this.auth.id}) + '/theme', { theme })
+                    .then((response) => {
+                        const { data, status } = response;
+                        if (data.success) {
+                            // todo: toastr success
+                        }
+                    })
+                    .catch((e) => {
+                        //errorHandler
+                    });
             }
         },
-        */
         toggleAuth(value) {
             this.toggled.auth = typeof value !== 'undefined'
                 ? value
@@ -98,6 +129,7 @@ export default {
                     error: this.handleError,
                 },
                 state: this.fetchState,
+                theme: this.setTheme,
                 toast: this.toast,
             },
             logout: this.logout,
@@ -120,10 +152,6 @@ export default {
             meta: this.meta,
             ready: this.ready,
             toast: this.toast,
-            // theme: {
-            //     config: this.theme,
-            //     set: this.setTheme,
-            // },
         });
     },
 

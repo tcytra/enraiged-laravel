@@ -13,8 +13,10 @@ return [
     |
     | The default value is 'light'.
     |
+    | This has been removed in favor of defaulting to the browser setting.
+    *
+    'mode' => env('DARK_MODE', 'light'),
     */
-    'mode' => env('VISUAL_MODE', 'light'),
 
     /*
     |--------------------------------------------------------------------------

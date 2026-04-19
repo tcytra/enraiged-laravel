@@ -120,13 +120,13 @@ class Request extends HttpRequest
     /**
      *  Return the useable app theme.
      *
-     *  @return array
+     *  @return array|null
      */
-    protected function theme(): array
+    protected function theme(): ?array
     {
         return Auth::check() && Auth::user()->theme
             ? json_decode(Auth::user()->theme, true)
-            : config('enraiged.theme');
+            : null;
     }
 
     /**

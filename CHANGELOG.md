@@ -1,5 +1,10 @@
 # Enraiged Laravel 0.4.x Release Notes
 
+2026-04-19 : 0.4.0-rc.1.1  
+Update: Reworked and reenabled the darkmode,theming systems
+
+---
+
 2026-04-18 : 0.4.0-rc.1  
 Update: Testing,preparation in enraiged-laravel for initial release
 
