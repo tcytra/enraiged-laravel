@@ -14,6 +14,13 @@ Route::namespace('\App\Http\Controllers\Geo')
                 Route::match(['get', 'post'], 'available', 'Available')->name('available');
             });
 
+        Route::namespace('Currencies')
+            ->prefix('currencies')
+            ->as('currencies.')
+            ->group(function () {
+                Route::match(['get', 'post'], 'available', 'Available')->name('available');
+            });
+
         Route::namespace('Regions')
             ->prefix('regions')
             ->as('regions.')

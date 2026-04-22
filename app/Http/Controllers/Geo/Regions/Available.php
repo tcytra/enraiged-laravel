@@ -19,10 +19,13 @@ class Available extends Controller
             return response()->json([]);
         }
 
-        $regions = Region::where('country_id', $request->get('country_id'))
+        $regions = Region::query()
+            ->where('country_id', $request->get('country_id'))
+            ->where('is_active', true)
             ->get()
             ->transform(fn ($region) => [
                 'id' => $region->id,
+                'code' => $region->code,
                 'name' => $region->name,
             ])
             ->toArray();

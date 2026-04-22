@@ -1,0 +1,12 @@
+[
+    {
+        "code": "CAD",
+        "name": "Canadian Dollar",
+        "symbol": "$"
+    },
+    {
+        "code": "USD",
+        "name": "American Dollar",
+        "symbol": "$"
+    }
+]

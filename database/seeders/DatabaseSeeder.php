@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
 
             $this->call([
                 Geo\CountriesSeeder::class,
+                Geo\CurrenciesSeeder::class,
                 Geo\RegionsSeeder::class,
                 UserSeeder::class,
             ]);
