@@ -13,6 +13,7 @@ trait Rules
 {
     /** @var  array  the validation rules that apply to the request. */
     protected $rules = [
+        'country_id' => 'required|exists:countries,id',
         'is_active' => 'boolean',
         'name' => 'required|string|max:255',
         'phone' => 'nullable|string|max:16',

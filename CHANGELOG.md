@@ -5,6 +5,7 @@
 2026-04-22 : 0.4.0-rc.2  
 Update: Testing,preparation in enraiged-laravel for initial release
 
+- Corrected issue with missing country_id when creating user
 - Updated AvatarForm.vue to work from any avatarable model
 
 ---
