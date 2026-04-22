@@ -1,5 +1,14 @@
 # Enraiged Laravel 0.4.x Release Notes
 
+---
+
+2026-04-22 : 0.4.0-rc.2  
+Update: Testing,preparation in enraiged-laravel for initial release
+
+- Updated AvatarForm.vue to work from any avatarable model
+
+---
+
 2026-04-19 : 0.4.0-rc.1.1  
 Update: Reworked and reenabled the darkmode,theming systems
 

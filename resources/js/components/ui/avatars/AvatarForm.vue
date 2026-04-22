@@ -1,11 +1,11 @@
 <template>
     <form class="form flex flex-col lg:flex-row mt-1" @submit.prevent="submit">
-        <avatar class="w-[8rem]" size="xl" :avatar="model" />
-        <div class="controls flex items-center flex-grow-1 ml-5" v-if="model.file">
+        <avatar class="w-[8rem]" size="xl" :avatar="form" />
+        <div class="controls flex items-center flex-grow-1 ml-5" v-if="form.file">
             <primevue-button class="p-button-sm p-button-danger mr-2" icon="pi pi-times"
                 v-tooltip.top="i18n('Remove this avatar')"
                 @click="destroy"/>
-            {{ user.avatar.file.name }}
+            {{ model.avatar.file.name }}
         </div>
         <div class="controls flex-grow-1 ml-6" v-else>
             <div class="flex items-center my-2">
@@ -14,7 +14,7 @@
                 <primevue-button class="ml-1" icon="pi pi-eye"
                     v-if="!changed"
                     v-tooltip.top="i18n('Preview this color')"
-                    :disabled="`#${color}` === model.color"
+                    :disabled="`#${color}` === form.color"
                     @click="preview"/>
                 <primevue-button class="p-button-danger ml-1" icon="pi pi-times"
                     v-if="changed"
@@ -65,7 +65,7 @@ const props = defineProps({
     isMyProfile: {
         type: Boolean,
     },
-    user: {
+    model: {
         type: Object,
     },
 });
@@ -74,19 +74,19 @@ const { state } = inject('app');
 
 const { error, i18n } = useHandlers();
 
-const user = props.user;
+const { model } = props;
 
 const changed = ref(false);
 
-const color = ref(user.avatar.color);
+const color = ref(model.avatar.color);
 
 const file = ref(null);
 
-const model = ref({});
+const form = ref({});
 
 const destroy = () => {
     const method = 'delete';
-    const url = route('avatars.delete', { avatar: user.avatar.id });
+    const url = route('avatars.delete', { avatar: model.avatar.id });
 
     axios({ method, url })
         .then(({ data }) => {
@@ -94,7 +94,7 @@ const destroy = () => {
                 if (props.isMyProfile) {
                     state('auth');
                 }
-                user.avatar = data.avatar;
+                model.avatar = data.avatar;
                 reset();
             }
         })
@@ -102,20 +102,20 @@ const destroy = () => {
 };
 
 const preview = () => {
-    model.value.color = `#${color.value}`;
+    form.value.color = `#${color.value}`;
     changed.value = true;
 };
 
 const reset = () => {
-    model.value = { ...user.avatar };
-    color.value = model.value.color.replace('#', '');
+    form.value = { ...model.avatar };
+    color.value = form.value.color.replace('#', '');
     changed.value = false;
 };
 
 const update = () => {
     const data = { color: color.value };
     const method = 'patch';
-    const url = route('avatars.update', { avatar: user.avatar.id });
+    const url = route('avatars.update', { avatar: model.avatar.id });
 
     axios({ method, url, data })
         .then(({ data }) => {
@@ -123,7 +123,7 @@ const update = () => {
                 if (props.isMyProfile) {
                     state('auth');
                 }
-                user.avatar = data.avatar;
+                model.avatar = data.avatar;
                 reset();
             }
         })
@@ -139,7 +139,7 @@ const upload = (payload) => {
     const data = form.data();
     const headers = {'Content-Type': 'multipart/form-data'};
     const method = 'post';
-    const url = route('avatars.upload', { avatar: user.avatar.id });
+    const url = route('avatars.upload', { avatar: model.avatar.id });
 
     axios({ method, url, data, headers })
         .then(({ data }) => {
@@ -147,7 +147,7 @@ const upload = (payload) => {
                 if (props.isMyProfile) {
                     state('auth');
                 }
-                user.avatar = data.avatar;
+                model.avatar = data.avatar;
                 reset();
             }
         })

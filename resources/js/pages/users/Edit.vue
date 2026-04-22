@@ -3,9 +3,9 @@
         <page-header back-button fixed :actions="actions" :title="title" />
 
         <section class="section card mx-auto max-w-7xl">
-            <div class="grid grid-cols-1 md:grid-cols-5">
+            <div class="grid grid-cols-1 lg:grid-cols-5">
 
-                <div class="utitilies md:col-span-2 p-3">
+                <div class="utitilies order-2 lg:order-1 lg:col-span-2 p-3">
                     <div class="avatar utility mb-6">
                         <primevue-card class="mx-auto max-w-7xl space-y-6">
                             <template #title>
@@ -16,7 +16,7 @@
                                     :alert="alert"
                                     :errors="errors"
                                     :is-my-profile="isMyProfile"
-                                    :user="user" />
+                                    :model="user" />
                             </template>
                         </primevue-card>
                     </div>
@@ -68,7 +68,7 @@
                     -->
                 </div>
 
-                <div class="forms md:col-span-3 p-3">
+                <div class="forms order-1 lg:order-2 lg:col-span-3 p-3">
                     <user-form updating
                         :success="success"
                         :template="form" />
