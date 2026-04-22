@@ -20,12 +20,6 @@ import HiddenField from '@/components/forms/fields/HiddenField.vue';
 import PrimaryButton from '@/components/ui/buttons/SecondaryButton.vue';
 
 const props = defineProps({
-    alert: {
-        type: String,
-    },
-    errors: {
-        type: Object,
-    },
     isMyProfile: {
         type: Boolean,
     },

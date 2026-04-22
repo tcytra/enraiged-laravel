@@ -36,12 +36,6 @@ import { useForm } from '@inertiajs/vue3';
 import { useLocales } from '@/handlers/locales';
 
 const props = defineProps({
-    alert: {
-        type: String,
-    },
-    errors: {
-        type: Object,
-    },
     isMyProfile: {
         type: Boolean,
     },
