@@ -23,7 +23,9 @@ return new class extends Migration
             $table->string('street', 64)->nullable();
             $table->string('suite', 16)->nullable();
             $table->text('notes')->nullable();
+            $table->boolean('is_billable')->default(false);
             $table->boolean('is_default')->default(false);
+            $table->boolean('is_deliverable')->default(false);
             $table->trackAll();
         });
     }
