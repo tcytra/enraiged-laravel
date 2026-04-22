@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import { trans as i18n } from 'laravel-vue-i18n';
+import { useLocales } from '@/handlers/locales';
 import PrimevueButton from 'primevue/button';
 
 export default {
@@ -58,12 +58,17 @@ export default {
         },
     },
 
+    setup() {
+        const { i18n } = useLocales();
+
+        return {
+            i18n,
+        };
+    },
+
     computed: {
         actions() {
             return this.template.actions;
-        },
-        i18n() {
-            return i18n;
         },
     },
 

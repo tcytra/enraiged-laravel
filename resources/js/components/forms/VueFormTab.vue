@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import { trans as i18n } from 'laravel-vue-i18n';
+import { useLocales } from '@/handlers/locales';
 import PrimevueCard from 'primevue/card';
 import TabPanel from 'primevue/tabpanel';
 import VueFormFields from './VueFormFields.vue';
@@ -86,6 +86,14 @@ export default {
         },
     },
 
+    setup() {
+        const { i18n } = useLocales();
+
+        return {
+            i18n,
+        };
+    },
+
     computed: {
         custom() {
             return {
@@ -95,9 +103,6 @@ export default {
         },
         fields() {
             return this.filter(this.tab.fields, 'not:section');
-        },
-        i18n() {
-            return i18n;
         },
         sections() {
             return this.filter(this.tab.fields, 'section');

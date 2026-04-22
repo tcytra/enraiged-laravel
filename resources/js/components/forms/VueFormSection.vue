@@ -55,7 +55,7 @@
 </template>
 
 <script>
-import { trans as i18n } from 'laravel-vue-i18n';
+import { useLocales } from '@/handlers/locales';
 import PrimevueCard from 'primevue/card';
 import PrimevueMessage from 'primevue/message';
 import VueFormFields from './VueFormFields.vue';
@@ -96,6 +96,14 @@ export default {
         },
     },
 
+    setup() {
+        const { i18n } = useLocales();
+
+        return {
+            i18n,
+        };
+    },
+
     computed: {
         class() {
             return typeof section.class !== 'undefined'
@@ -104,9 +112,6 @@ export default {
         },
         error() {
             return this.form && this.form.errors ? this.form.errors[this.id] : null;
-        },
-        i18n() {
-            return i18n;
         },
     },
 
