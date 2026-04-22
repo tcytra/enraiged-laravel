@@ -24,7 +24,7 @@ class Create extends Controller
         $user = (new $model);
 
         $props = [
-            'form' => $user->form($request)->template(),
+            'template' => $user->form($request)->template(),
         ];
 
         return inertia('users/Create', $props);

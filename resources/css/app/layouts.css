@@ -86,7 +86,7 @@
           width:            100%;
           z-index:          1;
 
-            > .section {
+            >.section {
               margin-bottom:    2rem;
               margin-top:       2rem;
               padding-left:     2rem;
@@ -96,7 +96,6 @@
             >.fixed.header {
               position:         fixed;
               transition:       all .35s ease;
-              
               z-index:          4;
 
                 +.section {
@@ -104,7 +103,27 @@
 
                     +.footer {
                         >.actions {
-                          position:         relative;
+                          align-items:      center;
+                          display:          flex;
+                          flex-direction:   row-reverse;
+                          justify-content:  space-between;
+                          padding-left:     1rem;
+                          padding-right:    1rem;
+                          width:            100%;
+
+                            .actions-left {
+                              display:          flex;
+                            }
+                            .actions-right {
+                              display:          flex;
+                              flex-direction:   row-reverse;
+                              gap:              calc(var(--spacing) * 2);
+                            }
+
+                            .p-button-sm {
+                              margin-bottom:    .125rem;
+                              margin-top:       .125rem;
+                            }
                         }
                     }
                 }
@@ -278,7 +297,7 @@
             }
         }
         .page.panel {
-            main > .fixed.header {
+            .main.content > .fixed.header {
               width:            inherit;
             }
         }
@@ -289,8 +308,11 @@
             .page.panel {
               margin-left:      calc(1rem * 4);
               width:            calc((100vw - (100vw - 100%)) - (1rem * 4));
-                main >.fixed.header {
+                .main.content > .fixed.header {
                   width:            calc((100vw - (100vw - 100%)) - (1rem * 4));
+                    +.section +.footer {
+                      width:            calc((100vw - (100vw - 100%)) - (1rem * 4));
+                    }
                 }
                 .utility.bar {
                   width:            inherit;
@@ -305,8 +327,11 @@
             .page.panel {
               margin-left:      calc(1rem * 4 * 4);
               width:            calc((100vw - (100vw - 100%)) - (1rem * 4 * 4));
-                main >.fixed.header {
+                .main.content >.fixed.header {
                   width:            calc((100vw - (100vw - 100%)) - (1rem * 4 * 4));
+                    +.section +.footer {
+                      width:            calc((100vw - (100vw - 100%)) - (1rem * 4 * 4));
+                    }
                 }
                 .utility.bar {
                   width:            inherit;
@@ -324,8 +349,11 @@
               margin-left:      calc(1rem * 4);
               margin-right:     calc(1rem * 4 * 4);
               width:            calc((100vw - (100vw - 100%)) - ((1rem * 4) + (1rem * 4 * 4)));
-                main >.fixed.header {
+                .main.content >.fixed.header {
                   width:            calc((100vw - (100vw - 100%)) - ((1rem * 4) + (1rem * 4 * 4)));
+                    +.section +.footer {
+                      width:            calc((100vw - (100vw - 100%)) - ((1rem * 4) + (1rem * 4 * 4)));
+                    }
                 }
                 .utility.bar {
                   width:            calc(100% - ((1rem * 4) + (1rem * 4 * 4)));

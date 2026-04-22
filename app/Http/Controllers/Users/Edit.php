@@ -30,7 +30,7 @@ class Edit extends Controller
             $request,
             $user,
             'users/Edit',
-            ['form' => $user->form($request)->template()]
+            ['template' => $user->form($request)->template()]
         );
     }
 }

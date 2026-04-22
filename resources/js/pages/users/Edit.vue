@@ -13,8 +13,6 @@
                             </template>
                             <template #content>
                                 <avatar-form
-                                    :alert="alert"
-                                    :errors="errors"
                                     :is-my-profile="isMyProfile"
                                     :model="user" />
                             </template>
@@ -28,8 +26,6 @@
                             </template>
                             <template #content>
                                 <update-theme-form
-                                    :alert="alert"
-                                    :errors="errors"
                                     :is-my-profile="isMyProfile"
                                     :user="user" />
                             </template>
@@ -43,8 +39,6 @@
                             </template>
                             <template #content>
                                 <locale-form
-                                    :alert="alert"
-                                    :errors="errors"
                                     :is-my-profile="isMyProfile"
                                     :user="user" />
                             </template>
@@ -58,8 +52,6 @@
                             </template>
                             <template #content>
                                 <delete-form
-                                    :alert="alert"
-                                    :errors="errors"
                                     :is-my-profile="isMyProfile"
                                     :user="user" />
                             </template>
@@ -69,23 +61,29 @@
                 </div>
 
                 <div class="forms order-1 lg:order-2 lg:col-span-3 p-3">
-                    <user-form updating
+                    <user-form custom-actions updating ref="form"
                         :success="success"
-                        :template="form" />
+                        :template="template" />
                 </div>
 
             </div>
         </section>
 
+        <footer class="footer">
+            <form-actions v-if="ready"
+                :form="form.$refs.userForm"
+                :template="template" />
+        </footer>
     </main>
 </template>
 
 <script setup>
 import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import { Head as HtmlHead } from '@inertiajs/vue3';
-import { computed, inject } from 'vue';
+import { computed, inject, onMounted, ref } from 'vue';
 import { useLocales } from '@/handlers/locales';
 import AvatarForm from '@/components/ui/avatars/AvatarForm.vue';
+import FormActions from '@/components/forms/VueFormActions.vue';
 import LocaleForm from '@/components/users/forms/LocaleForm.vue';
 import PageHeader from '@/components/ui/PageHeader.vue';
 import PrimevueCard from 'primevue/card';
@@ -101,25 +99,17 @@ const props = defineProps({
         type: Object,
         default: {},
     },
-    alert: {
-        type: String,
-        default: null,
-    },
     //allowSelfDelete: {
     //    type: Boolean,
     //    default: false,
     //},
-    errors: {
-        type: Object,
-        default: null,
-    },
-    form: {
-        type: Object,
-        required: true,
-    },
     isMyProfile: {
         type: Boolean,
         default: false,
+    },
+    template: {
+        type: Object,
+        required: true,
     },
     user: {
         type: Object,
@@ -130,6 +120,8 @@ const { i18n } = useLocales();
 
 const { meta } = inject('app');
 
+const form = ref();
+
 const success = computed(() => props.isMyProfile
     ? 'Your account details have been updated.'
     : 'The user details have been updated.');
@@ -137,4 +129,10 @@ const success = computed(() => props.isMyProfile
 const title = computed(() => props.isMyProfile
     ? 'Edit My Profile'
     : `Edit ${props.user.name}`);
+
+const ready = ref(false);
+
+onMounted(() => {
+    ready.value = true;
+});
 </script>
