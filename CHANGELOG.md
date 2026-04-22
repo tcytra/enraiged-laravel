@@ -5,6 +5,7 @@
 2026-04-22 : 0.4.0-rc.2  
 Update: Testing,preparation in enraiged-laravel for initial release
 
+- Added email column to the profiles table migration
 - Corrected issue with missing country_id when creating user
 - Reimplemented fixed footer form actions for the user forms
 - Updated AvatarForm.vue to work from any avatarable model
