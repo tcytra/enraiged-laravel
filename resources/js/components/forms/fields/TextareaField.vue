@@ -21,7 +21,7 @@
                     :placeholder="field.placeholder"
                     :rows="enableTextareaRows"
                     :size="field.size"
-                    @update:modelValue="update($event); $emit('update:modelValue', $event)" />
+                    @update:modelValue="field.update($event)" />
             </slot>
             <slot name="error" v-bind="field">
                 <error-message :field="field" v-if="field.error" />
