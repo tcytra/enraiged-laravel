@@ -4,6 +4,10 @@ form, .form {
       margin-bottom:    1rem;
     }
 
+    &.custom-actions {
+      margin-bottom:    4rem;
+    }
+
     .actions.control {
       display:          flex;
       flex-direction:   row-reverse;
@@ -172,7 +176,8 @@ form, .form {
     .p-calendar.is-creating:not(.p-invalid) .p-inputtext,
     .p-inputtext.is-creating:not(.p-invalid),
     .p-inputwrapper.is-creating:not(.p-calendar):not(.p-invalid),
-    .p-password.is-creating:not(.p-invalid) .p-inputtext {
+    .p-password.is-creating:not(.p-invalid) .p-inputtext,
+    .p-textarea.is-creating:not(.p-invalid) {
       background-color: var(--p-sky-100) !important;
       border-color:     var(--p-sky-400) !important;
     }
@@ -189,7 +194,9 @@ form, .form {
     .p-calendar.is-updating:not(.p-invalid) .p-inputtext,
     .p-inputtext.is-updating:not(.p-invalid),
     .p-inputwrapper.is-updating:not(.p-calendar):not(.p-invalid),
-    .p-password.is-updating:not(.p-invalid) .p-inputtext {
+    .p-password.is-updating:not(.p-invalid) .p-inputtext,
+    .p-textarea.is-updating:not(.p-invalid),
+    .p-textarea.is-updating:not(.p-invalid) {
       background-color: var(--p-amber-100) !important;
       border-color:     var(--p-amber-400) !important;
     }
@@ -201,7 +208,8 @@ form, .form {
         .p-calendar.is-creating:not(.p-invalid) .p-inputtext,
         .p-inputtext.is-creating:not(.p-invalid),
         .p-inputwrapper.is-creating:not(.p-calendar):not(.p-invalid),
-        .p-password.is-creating:not(.p-invalid) .p-inputtext {
+        .p-password.is-creating:not(.p-invalid) .p-inputtext,
+        .p-textarea.is-creating:not(.p-invalid) {
           background-color: var(--p-sky-800) !important;
           border-color:     var(--p-sky-600) !important;
         }
@@ -210,7 +218,8 @@ form, .form {
         .p-calendar.is-updating:not(.p-invalid) .p-inputtext,
         .p-inputtext.is-updating:not(.p-invalid),
         .p-inputwrapper.is-updating:not(.p-calendar):not(.p-invalid),
-        .p-password.is-updating:not(.p-invalid) .p-inputtext {
+        .p-password.is-updating:not(.p-invalid) .p-inputtext,
+        .p-textarea.is-updating:not(.p-invalid) {
           background-color: var(--p-amber-800) !important;
           border-color:     var(--p-amber-600) !important;
         }
