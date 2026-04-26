@@ -17,6 +17,10 @@ trait Messages
 
         return $this->attribute
             ? __('The user :attribute has been updated.', ['attribute' => $this->attribute])
-            : 'The user has been updated.';
+            : __(
+                $this->user()->id === $this->id
+                    ? 'Your account has been updated.'
+                    : 'The user has been updated.'
+            );
     }
 }
