@@ -10,6 +10,11 @@ Update: Testing,preparation in enraiged-laravel for initial release
 - Added is_{billable,deliverable} columns to the addresses
 - Corrected issue with missing country_id when creating user
 - Ensure VueTable redirects to login if session expired
+- Improvements to the VueForm,VueFormActions components
+  - Allow external arguments for custom actions dirty,errors
+  - Ensure VueForm redirects to login if session expired
+  - Expose data,default,setError to external references
+  - Improved handling of the success message delivery
 - Reimplemented fixed footer form actions for the user forms
 - Updated AvatarForm.vue to work from any avatarable model
 

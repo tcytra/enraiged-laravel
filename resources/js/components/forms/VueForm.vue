@@ -50,7 +50,7 @@
                     <slot :name="key" v-bind="{ creating, field, form, key, updating }"/>
                 </template>
             </vue-form-fields>
-            <vue-form-actions v-if="!customActions"
+            <vue-form-actions v-if="template.actions && !customActions"
                 :actions="template.actions"
                 :clear="clear"
                 :form="form"
@@ -100,6 +100,10 @@ export default {
             type: Boolean,
             default: false,
         },
+        success: {
+            type: String,
+            default: null,
+        },
         template: {
             type: Object,
             required: true,
@@ -129,6 +133,14 @@ export default {
         function clear() {
             form.clearErrors();
             emit('form:clear');
+        }
+
+        function data() {
+            return form.data();
+        }
+
+        function defaults() {
+            form.defaults();
         }
 
         function filter(template, type, custom) {
@@ -171,6 +183,10 @@ export default {
             emit('form:reset');
         }
 
+        function setError(errors) {
+            form.setError(errors);
+        }
+
         function submit() {
             form.clearErrors();
             const { method, url } = props.template.resource;
@@ -181,28 +197,35 @@ export default {
                 axios[method](url, form.data(), { headers })
                     .then((response) => {
                         const { status, data } = response;
-                        if (status >= 200 && status < 300) {
-                            //if (data.success && data.message) {
-                            //    flashSuccess(data.message);
-                            //}
-                            emit('form:success');
-                        }
-                        if (status === 205) {
-                            state();
-                        }
-                        if (data.redirect) {
-                            if (data.redirect === 'back') {
-                                window.history.go(-1);
-                            } else {
-                                router.get(data.redirect);
+                        if (data.success) {
+                            if (status >= 200 && status < 300) {
+                                if (props.success) {
+                                    flashSuccess(props.success);
+                                } else if (data.message) {
+                                    flashSuccess(data.message);
+                                }
+                                emit('form:success');
                             }
-                        } else {
-                            form.defaults();
+                            if (status === 205) {
+                                state();
+                            }
+                            if (data.redirect) {
+                                if (data.redirect === 'back') {
+                                    window.history.go(-1);
+                                } else {
+                                    router.get(data.redirect);
+                                }
+                            } else {
+                                form.defaults();
+                            }
                         }
                     })
                     .catch((e) => {
                         if (e.response) {
                             const { response, status } = e;
+                            if (status === 401) {
+                                router.get(route('login'));
+                            }
                             if (status === 422) {
                                 const { errors } = response.data;
                                 Object.keys(errors).forEach((each) => {
@@ -232,10 +255,13 @@ export default {
                 sections: filter(props.template.fields, 'section', true),
                 tabs: filter(props.template.fields, 'tab', true),
             },
+            data,
+            defaults,
             fields,
             form,
             reset,
             sections: filter(props.template.fields, 'section'),
+            setError,
             submit,
             tabs: filter(props.template.fields, 'tab'),
         };
