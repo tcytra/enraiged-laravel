@@ -3,13 +3,13 @@
         <page-header back-button fixed :title="i18n('Create User')" />
 
         <section class="section form mx-auto max-w-lg">
-            <user-form custom-actions creating success="The user account has been created." ref="form"
+            <user-form custom-actions creating ref="userForm"
                 :template="template" />
         </section>
 
         <footer class="footer">
             <form-actions v-if="ready"
-                :form="form.$refs.userForm"
+                :form="userForm.$refs.vueForm"
                 :template="template" />
         </footer>
     </main>
@@ -38,7 +38,7 @@ defineProps({
 
 const { i18n } = useLocales();
 
-const form = ref();
+const userForm = ref();
 
 const ready = ref(false);
 

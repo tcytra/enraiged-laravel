@@ -61,8 +61,7 @@
                 </div>
 
                 <div class="forms order-1 lg:order-2 lg:col-span-3 p-3">
-                    <user-form custom-actions updating ref="form"
-                        :success="success"
+                    <user-form custom-actions updating ref="userForm"
                         :template="template" />
                 </div>
 
@@ -71,7 +70,7 @@
 
         <footer class="footer">
             <form-actions v-if="ready"
-                :form="form.$refs.userForm"
+                :form="userForm.$refs.vueForm"
                 :template="template" />
         </footer>
     </main>
@@ -120,11 +119,7 @@ const { i18n } = useLocales();
 
 const { meta } = inject('app');
 
-const form = ref();
-
-const success = computed(() => props.isMyProfile
-    ? 'Your account details have been updated.'
-    : 'The user details have been updated.');
+const userForm = ref();
 
 const title = computed(() => props.isMyProfile
     ? 'Edit My Profile'

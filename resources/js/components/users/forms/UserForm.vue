@@ -1,5 +1,5 @@
 <template>
-    <vue-form ref="userForm"
+    <vue-form ref="vueForm"
         :creating="creating"
         :template="template"
         :updating="updating"
@@ -16,10 +16,6 @@ const props = defineProps({
         type: Boolean,
         default: false,
     },
-    success: {
-        type: String,
-        required: true,
-    },
     template: {
         type: Object,
         required: true,
@@ -32,13 +28,12 @@ const props = defineProps({
 
 const { flashSuccess } = useMessages();
 
-const userForm = ref();
+const vueForm = ref();
 
 const formSuccess = () => {
-    const form = userForm.value.form;
+    const form = vueForm.value.form;
     form.password = null;
     form.password_confirmation = null;
     form.defaults();
-    flashSuccess(props.success);
 };
 </script>
