@@ -432,7 +432,13 @@ export default {
 
             return axios.get(url, { params: this.params() })
                 .then(response => this.fetched(response))
-                .catch((e) => error(e));
+                .catch((e) => {
+                    if (e.status && e.status === 401) {
+                        router.get(route('login'));
+                    } else {
+                        error(e);
+                    }
+                });
         },
 
         actionHandler() {

@@ -2,13 +2,14 @@
 
 ---
 
-2026-04-22 : 0.4.0-rc.2  
+2026-04-26 : 0.4.0-rc.2  
 Update: Testing,preparation in enraiged-laravel for initial release
 
 - Added currencies migration,seeding to the database
 - Added email column to the profiles table migration
 - Added is_{billable,deliverable} columns to the addresses
 - Corrected issue with missing country_id when creating user
+- Ensure VueTable redirects to login if session expired
 - Reimplemented fixed footer form actions for the user forms
 - Updated AvatarForm.vue to work from any avatarable model
 
