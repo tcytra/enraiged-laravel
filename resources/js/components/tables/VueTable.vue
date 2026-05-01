@@ -107,7 +107,9 @@
                 </slot>
             </template>
             <template #empty>
-                {{ i18n(template.empty || 'No records found') }}
+                <slot name="empty">
+                    {{ i18n(template.empty || 'No records found') }}
+                </slot>
             </template>
             <!--<template #groupfooter="props">
                 <slot name="groupfooter" v-bind="props"/>
