@@ -340,7 +340,7 @@ export default {
             return Object.keys(this.rowActions).length > 0;
         },
         /*hasState() {
-            return localStorage.getItem(`enraiged.table.${this.template.id}`) !== null;
+            return localStorage.getItem(`table.${this.template.id}`) !== null;
         },*/
         isExportable() {
             return typeof this.template.exportable !== 'undefined'
@@ -390,8 +390,8 @@ export default {
 
     mounted() {
         this.ready = true;
-        if (this.template.state && this.template.id && localStorage[`enraiged.table.${this.template.id}`]) {
-            const state = JSON.parse(localStorage[`enraiged.table.${this.template.id}`]);
+        if (this.template.state && this.template.id && localStorage[`table.${this.template.id}`]) {
+            const state = JSON.parse(localStorage[`table.${this.template.id}`]);
             this.filters = state.filters;
             this.pagination = state.pagination;
             this.search = state.search;
@@ -403,7 +403,7 @@ export default {
         } else {
             this.fresh();
         }
-        localStorage.removeItem(`enraiged.table.${this.template.id}`);
+        localStorage.removeItem(`table.${this.template.id}`);
     },
 
     beforeMount() {
@@ -420,7 +420,7 @@ export default {
                 pagination: this.pagination,
                 search: this.search,
             };
-            localStorage[`enraiged.table.${this.template.id}`] = JSON.stringify(state);
+            localStorage[`table.${this.template.id}`] = JSON.stringify(state);
         }
     },
 

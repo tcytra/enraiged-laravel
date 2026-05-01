@@ -23,12 +23,12 @@ const locales = Object.keys(meta.value.locales);
 const primelocales = { en, es, fr };
 const primevue = usePrimeVue();
 
-const enableLocale = localStorage.hasOwnProperty('enraiged.locale')
-    ? ref(localStorage.getItem('enraiged.locale'))
+const enableLocale = localStorage.hasOwnProperty('locale')
+    ? ref(localStorage.getItem('locale'))
     : ref('en');
 
 const toggleLocale = (locale) => {
-    localStorage.setItem('enraiged.locale', locale);
+    localStorage.setItem('locale', locale);
     primevue.config.locale = primelocales[locale];
     ai18n(locale);
 };

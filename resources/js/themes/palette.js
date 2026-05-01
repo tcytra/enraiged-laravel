@@ -10,8 +10,8 @@ const enableDarkMode = () => {
         return false;
     }
 
-    return localStorage.hasOwnProperty('enraiged.theme.enableDarkMode')
-        ? JSON.parse(localStorage.getItem('enraiged.theme.enableDarkMode'))
+    return localStorage.hasOwnProperty('theme.enableDarkMode')
+        ? JSON.parse(localStorage.getItem('theme.enableDarkMode'))
         : window.matchMedia('(prefers-color-scheme: dark)').matches;
 };
 
@@ -21,7 +21,7 @@ const toggleDarkMode = (toggle) => {
     if (typeof toggle === 'undefined') {
         toggle = enableDarkMode();
     } else {
-        localStorage.setItem('enraiged.theme.enableDarkMode', toggle);
+        localStorage.setItem('theme.enableDarkMode', toggle);
     }
 
     document.documentElement.classList.toggle('dark-mode', toggle);
@@ -34,8 +34,8 @@ const getPrimaryColor = () => {
         return defaultPrimaryColor;
     }
 
-    return localStorage.hasOwnProperty('enraiged.theme.primaryColor')
-        ? localStorage.getItem('enraiged.theme.primaryColor')
+    return localStorage.hasOwnProperty('theme.primaryColor')
+        ? localStorage.getItem('theme.primaryColor')
         : defaultPrimaryColor;
 };
 
@@ -46,8 +46,8 @@ const getSurfaceColor = () => {
         return defaultSurfaceColor;
     }
 
-    return localStorage.hasOwnProperty('enraiged.theme.surfaceColor')
-        ? localStorage.getItem('enraiged.theme.surfaceColor')
+    return localStorage.hasOwnProperty('theme.surfaceColor')
+        ? localStorage.getItem('theme.surfaceColor')
         : defaultSurfaceColor;
 };
 
@@ -55,13 +55,13 @@ const currentPrimaryColor = ref(getPrimaryColor());
 const currentSurfaceColor = ref(getSurfaceColor());
 
 const updatePrimaryColor = (primary) => {
-    localStorage.setItem('enraiged.theme.primaryColor', primary);
+    localStorage.setItem('theme.primaryColor', primary);
     updatePrimaryPalette(primaryColors[primary]);
     currentPrimaryColor.value = primary;
 };
 
 const updateSurfaceColor = (surface) => {
-    localStorage.setItem('enraiged.theme.surfaceColor', surface);
+    localStorage.setItem('theme.surfaceColor', surface);
     updateSurfacePalette(surfaceColors[surface]);
     currentSurfaceColor.value = surface;
 };
