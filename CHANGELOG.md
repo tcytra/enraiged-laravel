@@ -1,9 +1,7 @@
 # Enraiged Laravel 0.4.x Release Notes
 
----
-
-2026-04-26 : 0.4.0-rc.2  
-Update: Testing,preparation in enraiged-laravel for initial release
+2026-04-26 : 0.4.0  
+Update: Stable release 0.4.0
 
 - Added currencies migration,seeding to the database
 - Added email column to the profiles table migration
@@ -16,8 +14,9 @@ Update: Testing,preparation in enraiged-laravel for initial release
   - Expose data,default,setError to external references
   - Improved handling of the success message delivery
 - Reimplemented fixed footer form actions for the user forms
+- Temporarily locked primevue to v4.5.4 (for responsive stack) 
 - Updated AvatarForm.vue to work from any avatarable model
-- Upgraded nodejs packages to latest versions
+- Upgraded composer,nodejs packages to latest versions
 
 ---
 

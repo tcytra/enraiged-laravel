@@ -18,7 +18,7 @@
         "laravel-vue-i18n": "^2.8",
         "primeicons": "^7.0",
         "primelocale": "^2.2",
-        "primevue": "^4.5",
+        "primevue": "4.5.4",
         "quill": "^2.0",
         "tailwind-merge": "^3.5",
         "tailwindcss": "^4.2",
