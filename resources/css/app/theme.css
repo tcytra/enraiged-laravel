@@ -342,3 +342,11 @@ input:autofill {
       color:            var(--p-amber-400);
     }
 }
+
+:root {
+    --p-text-muted-color: var(--p-surface-600);
+}
+
+:root.dark-mode {
+    --p-text-muted-color: var(--p-surface-400);
+}
