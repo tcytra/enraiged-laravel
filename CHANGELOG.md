@@ -17,6 +17,7 @@ Update: Testing,preparation in enraiged-laravel for initial release
   - Improved handling of the success message delivery
 - Reimplemented fixed footer form actions for the user forms
 - Updated AvatarForm.vue to work from any avatarable model
+- Upgraded nodejs packages to latest versions
 
 ---
 
