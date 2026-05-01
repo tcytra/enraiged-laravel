@@ -239,10 +239,11 @@
                             }
                         }
                     }
-                    .p-select {
-                        .p-select-dropdown {
-                          background-color: var(--p-surface-800);
-                        }
+                    .p-select .p-select-dropdown {
+                      background-color: var(--p-surface-800);
+                    }
+                    .p-multiselect .p-multiselect-dropdown {
+                      background-color: var(--p-surface-800);
                     }
                 }
 
