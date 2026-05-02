@@ -1,6 +1,13 @@
 # Enraiged Laravel 0.4.x Release Notes
 
-2026-04-26 : 0.4.0  
+2026-05-02 : 0.4.1  
+Update: 
+
+- Correct issue in palette.js preventing server-side rendering
+
+---
+
+2026-05-01 : 0.4.0  
 Update: Stable release 0.4.0
 
 - Added currencies migration,seeding to the database
