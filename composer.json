@@ -2,14 +2,13 @@
     "$schema": "https://getcomposer.org/schema.json",
     "name": "tcytra/enraiged-laravel",
     "type": "project",
-    "description": "Enraiged Laravel is a starter kit implementing Laravel 12, Vite, VueJS, InertiaJS, Primevue, and TailwindCSS.",
+    "description": "Enraiged Laravel is a starter kit implementing Laravel 13, Vite, VueJS, InertiaJS, Primevue, and TailwindCSS.",
     "keywords": ["enraiged", "laravel", "breeze", "inertiajs", "vuejs", "tailwindcss", "primevue", "primeui"],
     "license": "MIT",
     "require": {
         "php": "^8.3",
         "inertiajs/inertia-laravel": "^3.0",
-        "laravel/framework": "^12.58",
-        "laravel/sanctum": "^4.3",
+        "laravel/framework": "^13.7",
         "laravel/tinker": "^3.0",
         "tcytra/enraiged-core": "^0.4",
         "tightenco/ziggy": "^2.6"
@@ -17,8 +16,8 @@
     "require-dev": {
         "fakerphp/faker": "^1.24",
         "laravel/pail": "^1.2",
+        "laravel/pao": "^1.0.6",
         "laravel/pint": "^1.29",
-        "laravel/sail": "^1.58",
         "mockery/mockery": "^1.6",
         "nunomaduro/collision": "^8.9",
         "phpunit/phpunit": "^12.5",
@@ -42,15 +41,15 @@
             "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
             "@php artisan key:generate",
             "@php artisan migrate --force",
-            "npm install",
+            "npm install --ignore-scripts",
             "npm run build"
         ],
         "dev": [
             "Composer\\Config::disableProcessTimeout",
-            "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"php artisan pail --timeout=0\" \"npm run dev\" --names=server,queue,logs,vite --kill-others"
+            "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1 --timeout=0\" \"php artisan pail --timeout=0\" \"npm run dev\" --names=server,queue,logs,vite --kill-others"
         ],
         "test": [
-            "@php artisan config:clear --ansi",
+            "@php artisan config:clear --ansi @no_additional_args",
             "@php artisan test"
         ],
         "post-autoload-dump": [

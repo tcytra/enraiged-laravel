@@ -1,7 +1,12 @@
-# Enraiged Laravel 0.4.x Release Notes
+# Enraiged Laravel 0.5.x Release Notes
 
-2026-04-26 : 0.4.0  
-Update: Stable release 0.4.0
+2026-05-02 : 0.5.0  
+Update: Stable release 0.5.0 (Laravel 13)
+
+---
+
+2026-05-01 : 0.4.0  
+Update: Stable release 0.4.0 (Laravel 12)
 
 - Added currencies migration,seeding to the database
 - Added email column to the profiles table migration

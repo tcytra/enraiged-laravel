@@ -1,13 +1,13 @@
 # Enraiged Laravel v0.4.x
 
-**[Laravel 12](https://laravel.com/docs/12.x/releases)
+**[Laravel 13](https://laravel.com/docs/13.x/)
  • [Vue v3.5](https://vuejs.org/guide/introduction.html)
- • [Inertia.js v2.3](https://inertiajs.com/)
+ • [Inertia.js v3.0](https://inertiajs.com/)
  • [Primevue v4.5](https://primevue.org/laravel)
  • [TailwindCSS v4.2](https://tailwindcss.com/docs/installation/framework-guides/laravel/vite)
 **
 
-**Enraiged Laravel is a starter kit implementing Laravel 12, Vite, VueJS, InertiaJS, Primevue, and TailwindCSS.**
+**Enraiged Laravel is a starter kit implementing Laravel 13, Vite, VueJS, InertiaJS, Primevue, and TailwindCSS.**
 
 ## Table of Contents
 
@@ -26,13 +26,37 @@
 
 ### Retrieve Repository
 
+There are currently 3 variants of Enraiged Laravel:
+
+
+#### Laravel 13
+
+The **0.5.x** branch is Laravel 13 (newest) and can be cloned with the following:
+
 ```bash
 cd /path/to/your/repos/ # traverse into your repositories directory
-git clone --depth 1 --single-branch --branch 0.4.x https://github.com/tcytra/enraiged-laravel
+git clone --depth 1 --single-branch --branch 0.5.x https://github.com/tcytra/enraiged-laravel
 cd enraiged-laravel/
 ```
 
-Install the vendor packages:
+
+#### Laravel 12
+
+The **0.4.x** branch is Laravel 12 (also the master branch) and can be cloned with the following:
+
+```bash
+cd /path/to/your/repos/ # traverse into your repositories directory
+git clone --depth 1 https://github.com/tcytra/enraiged-laravel
+cd enraiged-laravel/
+```
+
+
+#### Laravel 10
+
+The **0.3.x** branch is Laravel 10 and is not recommended for use in new projects.
+
+
+Once the repository is downloaded, install the vendor packages:
 
 > Add the `--no-dev` flag when installing in a production environment.
 
