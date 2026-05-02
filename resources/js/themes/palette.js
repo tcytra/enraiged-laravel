@@ -24,7 +24,9 @@ const toggleDarkMode = (toggle) => {
         localStorage.setItem('theme.enableDarkMode', toggle);
     }
 
-    document.documentElement.classList.toggle('dark-mode', toggle);
+    if (typeof document !== 'undefined') {
+        document.documentElement.classList.toggle('dark-mode', toggle);
+    }
 };
 
 const getPrimaryColor = () => {
