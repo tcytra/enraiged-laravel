@@ -139,17 +139,19 @@
                 :header="i18n('Actions')"
                 v-bind="$props">
                 <template #body="props">
-                    <span v-for="(item, name) in props.data.actions" :key="name">
-                        <primevue-button class="" size="small"
-                            :class="item.class"
-                            :disabled="item.disabled"
-                            :icon="item.icon"
-                            :severity="item.severity"
-                            :variant="item.variant"
-                            v-if="typeof name !== 'undefined'"
-                            v-tooltip.top="i18n(item.tooltip || name)"
-                            @click="action(name, item, props)"/>
-                    </span>
+                    <slot name="rowactions" v-bind="props">
+                        <span v-for="(item, name) in props.data.actions" :key="name">
+                            <primevue-button class="" size="small"
+                                :class="item.class"
+                                :disabled="item.disabled"
+                                :icon="item.icon"
+                                :severity="item.severity"
+                                :variant="item.variant"
+                                v-if="typeof name !== 'undefined'"
+                                v-tooltip.top="i18n(item.tooltip || name)"
+                                @click="action(name, item, props.data)"/>
+                        </span>
+                    </slot>
                 </template>
             </primevue-column>
             <primevue-column-group type="footer" v-if="enableSums && false">
@@ -340,7 +342,7 @@ export default {
             return Object.keys(this.rowActions).length > 0;
         },
         /*hasState() {
-            return localStorage.getItem(`table.${this.template.id}`) !== null;
+            return localStorage.getItem(`enraiged.table.${this.template.id}`) !== null;
         },*/
         isExportable() {
             return typeof this.template.exportable !== 'undefined'
@@ -390,8 +392,8 @@ export default {
 
     mounted() {
         this.ready = true;
-        if (this.template.state && this.template.id && localStorage[`table.${this.template.id}`]) {
-            const state = JSON.parse(localStorage[`table.${this.template.id}`]);
+        if (this.template.state && this.template.id && localStorage[`enraiged.table.${this.template.id}`]) {
+            const state = JSON.parse(localStorage[`enraiged.table.${this.template.id}`]);
             this.filters = state.filters;
             this.pagination = state.pagination;
             this.search = state.search;
@@ -403,7 +405,7 @@ export default {
         } else {
             this.fresh();
         }
-        localStorage.removeItem(`table.${this.template.id}`);
+        localStorage.removeItem(`enraiged.table.${this.template.id}`);
     },
 
     beforeMount() {
@@ -420,7 +422,7 @@ export default {
                 pagination: this.pagination,
                 search: this.search,
             };
-            localStorage[`table.${this.template.id}`] = JSON.stringify(state);
+            localStorage[`enraiged.table.${this.template.id}`] = JSON.stringify(state);
         }
     },
 
@@ -447,17 +449,17 @@ export default {
             //
         },
 
-        action(name, action, props, confirmed) {
+        action(name, action, data, confirmed) {
             if (action.confirm && confirmed !== true) {
-                this.confirm(action, () => this.action(name, action, props, true));
+                this.confirm(action, () => this.action(name, action, data, true));
             } else {
                 const method = action.route.method || 'get';
                 if (action.emit || method === 'emit') {
                     const emit = typeof action.emit === 'string'
                         ? action.emit
                         : name;
-                    props
-                        ? this.$emit(emit, props.data)
+                    typeof data !== 'undefined'
+                        ? this.$emit(emit, data)
                         : this.$emit(emit);
                 } else
                 if (action.route) {
