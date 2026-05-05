@@ -1,8 +1,9 @@
 # Enraiged Laravel 0.4.x Release Notes
 
-2026-05-02 : 0.4.1  
+2026-05-05 : 0.4.1  
 Update: 
 
+- Allow for slot templating of VueTable row actions
 - Correct issue in palette.js preventing server-side rendering
 
 ---
